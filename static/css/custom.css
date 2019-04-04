@@ -1,0 +1,52 @@
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 900px;
+  }
+}
+
+.site-header-name {
+  font-size: 2.5rem;
+}
+
+.site-header-name:hover {
+  text-decoration: none;
+}
+
+.nav-bar {
+  margin-bottom: 2em;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.nav>a {
+  color: #919aa1;
+  text-transform: uppercase;
+}
+
+.nav>a:hover {
+  text-decoration: none;
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+.blog-split {
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+.blog-post-title:hover {
+  text-decoration: none;
+}
+
+.site-pagination {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.site-footer {
+  padding: 2.5rem 0;
+  color: #919aa1;
+  text-align: center;
+  background-color: #f7f7f9;
+}
