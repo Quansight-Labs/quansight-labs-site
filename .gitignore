@@ -1,0 +1,46 @@
+# Editor temporary/working/backup files #
+#########################################
+.#*
+[#]*#
+*~
+*$
+*.bak
+.idea/*
+*.kdev4
+*.org
+.project
+.pydevproject
+*.rej
+.settings/
+.*.sw[nop]
+.sw[nop]
+*.tmp
+*.vim
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+
+# pytest cache #
+################
+.cache/*
+.pytest_cache/*
+
+# Patches #
+###########
+*.patch
+*.diff
+
+# OS generated files #
+######################
+.directory
+.fseventsd
+.DS_Store*
+.gdb_history
+.VolumeIcon.icns
+ehthumbs.db
+Icon?
+Thumbs.db
+*.dSYM
