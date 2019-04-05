@@ -2,4 +2,4 @@
 name = Quansight Labs blog
 
 [servers.ghpages]
-target = ghpages://Quansight-Labs/quansight-labs-site
+target = ghpages+https://Quansight-Labs/quansight-labs-site
