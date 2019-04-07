@@ -5,11 +5,18 @@ branches:
 
 language: python
 python: 3.6
+cache:
+  directories:
+    - $HOME/.cache/pip
+    - $HOME/.cache/lektor/builds
 install: "pip install Lektor"
 script: "lektor build"
 deploy:
   provider: script
-  github-token: $GH_TOKEN  # Set in the settings page of your repository, as a secure variable
+  # Note that the credentials are supplied securely (password should be a
+  # personal token). See https://www.getlektor.com/docs/deployment/travisci/
+  #   $ export LEKTOR_DEPLOY_USERNAME=[secure]
+  #   $ export LEKTOR_DEPLOY_PASSWORD=[secure]
   script: "lektor deploy ghpages"
   on:
     branch: master
