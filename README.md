@@ -27,6 +27,16 @@ $ git submodule update
 $ lektor server  # serves site on localhost:5000
 ```
 
+Lektor is also available on PyPI as `Lektor` and on conda-forge as `lektor`,  so the
+first line above can also be replaced by either of the following lines. This is useful
+if you prefer to separate your environments, or prefer the usual Python package install
+methods:
+
+```
+$ conda install -c conda-forge lektor
+$ pip install Lektor
+```
+
 ## Deployment
 
 `lektor build && lektor deploy` will push the static site to the `gh-pages` branch
