@@ -17,6 +17,16 @@ $ cat `which lektor`
 So to install dependencies that are needed, such as `nbconvert`, use
 `/usr/local/lib/lektor/bin/python -m pip`.
 
+For a local build:
+```
+$ curl -sf https://www.getlektor.com/install.sh | sh
+$ git clone https://github.com/Quansight-Labs/quansight-labs-site.git
+$ cd quansight-labs-site
+$ git submodule init
+$ git submodule update
+$ lektor server  # serves site on localhost:5000
+```
+
 ## Deployment
 
 `lektor build && lektor deploy` will push the static site to the `gh-pages` branch
