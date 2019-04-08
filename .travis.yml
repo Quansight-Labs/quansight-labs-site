@@ -8,7 +8,6 @@ python: 3.6
 cache:
   directories:
     - $HOME/.cache/pip
-    - $HOME/.cache/lektor/builds
 install: "pip install Lektor"
 script: "lektor build"
 deploy:
