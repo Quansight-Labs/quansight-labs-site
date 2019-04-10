@@ -8,7 +8,9 @@ python: 3.6
 cache:
   directories:
     - $HOME/.cache/pip
-install: "pip install Lektor"
+install:
+  - pip install Lektor
+  - lektor plugins add markdown-higlighter
 script: "lektor build"
 deploy:
   provider: script

@@ -3,3 +3,6 @@ name = Quansight Labs blog
 
 [servers.ghpages]
 target = ghpages+https://Quansight-Labs/quansight-labs-site?cname=labs.quansight.org
+
+[packages]
+lektor-markdown-highlighter = 0.3.1
