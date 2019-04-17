@@ -44,3 +44,6 @@ ehthumbs.db
 Icon?
 Thumbs.db
 *.dSYM
+
+# Lektor build output
+_build/
