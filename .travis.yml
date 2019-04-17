@@ -8,7 +8,12 @@ python: 3.6
 cache:
   directories:
     - $HOME/.cache/pip
-install: "pip install Lektor"
+install:
+  - pip install Lektor
+  - lektor plugins add markdown-higlighter
+  # lektor plugins add lektor-atom  # misses a bug fix, so (equal to
+  # nixjdm/lektor-atom now, but pointing to a version we control):
+  - pip install https://github.com/rgommers/lektor-atom/archive/master.zip
 script: "lektor build"
 deploy:
   provider: script

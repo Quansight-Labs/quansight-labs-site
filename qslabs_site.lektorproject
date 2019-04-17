@@ -1,5 +1,10 @@
 [project]
 name = Quansight Labs blog
+url = https://labs.quansight.org
 
 [servers.ghpages]
 target = ghpages+https://Quansight-Labs/quansight-labs-site?cname=labs.quansight.org
+
+[packages]
+lektor-markdown-highlighter = 0.3.1
+lektor-atom = 0.3
