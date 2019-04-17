@@ -11,11 +11,11 @@ jobs:
       - run:
           name: Install Lektor
           command: |
-            pip install Lektor
+            pip install --user Lektor
             lektor plugins add markdown-higlighter
             # lektor plugins add lektor-atom  # misses a bug fix, so (equal to
             # nixjdm/lektor-atom now, but pointing to a version we control):
-            pip install https://github.com/rgommers/lektor-atom/archive/master.zip
+            pip install --user https://github.com/rgommers/lektor-atom/archive/master.zip
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "qslabs_site.lektorproject" }}
           paths:
