@@ -4,7 +4,6 @@ jobs:
   build:
     docker:
       - image: circleci/python:latest
-    working_directory: /tmp
     steps:
       - checkout
       - restore_cache:
