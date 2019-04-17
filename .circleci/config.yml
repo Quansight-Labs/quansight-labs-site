@@ -6,6 +6,11 @@ jobs:
       - image: circleci/python:latest
     steps:
       - checkout
+      - run:
+          name: Clone submodules
+          command: |
+            git submodule sync
+            git submodule update --init
       - restore_cache:
           key: deps1-{{ .Branch }}-{{ checksum "qslabs_site.lektorproject" }}
       - run:
