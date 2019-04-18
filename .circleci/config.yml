@@ -1,0 +1,49 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/python:latest
+    steps:
+      - checkout
+      - run:
+          name: Clone submodules
+          command: |
+            git submodule sync
+            git submodule update --init
+      - restore_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "qslabs_site.lektorproject" }}
+      - run:
+          name: Install Lektor
+          command: |
+            sudo pip install Lektor
+            lektor plugins add markdown-higlighter
+            # lektor plugins add lektor-atom  # misses a bug fix, so (equal to
+            # nixjdm/lektor-atom now, but pointing to a version we control):
+            sudo pip install https://github.com/rgommers/lektor-atom/archive/master.zip
+      - save_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "qslabs_site.lektorproject" }}
+          paths:
+            - "$HOME/.cache/pip"
+      - run:
+          name: Build Lektor Blog
+          command: |
+            lektor build -O ./_build
+      - store_artifacts:
+          path: ./_build/
+      - run:
+          name: Deploy to GitHub Pages
+          # Note that if the correct settings are applied:
+          # https://circleci.com/docs/2.0/contexts/#restricting-a-context
+          # This will only work on authorised commits.
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              lektor deploy --username="$GH_USERNAME" --password="$GH_PASSWORD"
+            fi
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build:
+          context: org-global
