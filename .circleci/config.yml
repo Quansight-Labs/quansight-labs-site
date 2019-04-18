@@ -37,9 +37,9 @@ jobs:
           # https://circleci.com/docs/2.0/contexts/#restricting-a-context
           # This will only work on authorised commits.
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            # if [ "${CIRCLE_BRANCH}" == "master" ]; then
               lektor deploy --key="$GH_PASSWORD"
-            fi
+            # fi
 
 workflows:
   version: 2
