@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title type="text">Quansight Labs</title>
-  <id>urn:uuid:8abb7c39-c4c3-382d-8f54-176bb4397ab2</id>
+  <id>urn:uuid:03df53d4-1ded-3519-928d-06447c79f767</id>
   <updated>2019-04-08T00:00:00Z</updated>
   <link href="https://labs.quansight.org/blog/" />
   <link href="https://labs.quansight.org/blog/feed.xml" rel="self" />
@@ -11,7 +11,7 @@
   <generator uri="https://github.com/ajdavis/lektor-atom" version="0.3">Lektor Atom Plugin</generator>
   <entry xml:base="https://labs.quansight.org/blog/2019/4/joining-labs/">
     <title type="text">Thoughts on joining Quansight Labs</title>
-    <id>urn:uuid:0e1b165c-1d50-3d72-a84a-a3684c37fcfa</id>
+    <id>urn:uuid:2876d732-578f-3f81-80b5-2ef513796163</id>
     <updated>2019-04-08T00:00:00Z</updated>
     <link href="https://labs.quansight.org/blog/2019/4/joining-labs/" />
     <author>
