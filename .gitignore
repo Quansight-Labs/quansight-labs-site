@@ -16,6 +16,7 @@
 .sw[nop]
 *.tmp
 *.vim
+.ipynb_checkpoints/
 
 # Logs and databases #
 ######################
@@ -45,5 +46,9 @@ Icon?
 Thumbs.db
 *.dSYM
 
-# Lektor build output
-_build/
+# Nikola build output
+.doit.db.dat
+.doit.db.dir
+__pycache__/
+cache/
+output/

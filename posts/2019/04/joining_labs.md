@@ -1,13 +1,14 @@
-title: Thoughts on joining Quansight Labs
----
-pub_date: 2019-04-08
----
-author: Ralf Gommers
----
-
-body:
-
-I have now been at Quansight Labs for exactly one week. We have a very talented, motivated and friendly team, which I'm really excited to be working with. There is still much to learn and discover. I have been thinking about and putting energy into the evolution of the SciPy and PyData ecosystems for a decade, and leading Quansight Labs is an opportunity to continue and expand that.
+<!--
+.. title: Thoughts on joining Quansight Labs
+.. slug: joining-labs
+.. date: 2019-04-08
+.. author: Ralf Gommers
+.. tags: community, Labs
+.. category: 
+.. link: 
+.. description: 
+.. type: text
+-->
 
 In his [blog post](https://www.quansight.com/single-post/2019/04/02/Welcoming-Ralf-Gommers-as-Director-of-Quansight-Labs) welcoming me, Travis set out his vision for pushing forward the Python ecosystem for scientific computing and data science, and how to fund it. In this post I'll add my own perspectives to that. Given that Quansight Labs' purpose, it seems fitting to start with how I see things as a community member and organizer.
 
@@ -19,9 +20,11 @@ The SciPy and PyData ecosystems have experienced massive growth over the past ye
 - Participate in a sustainable way. This means for example to contribute in a way that lowers, or at least doesn't increase, the overall effort required for maintenance. Only sending pull requests with new features doesn't achieve that. Solving maintenance pain points or helping with code review does.
 - Operate transparently. Develop in the open, plan in the open, be clear about directions and motivations.
 
+<!-- TEASER_END -->
+
 When I started working on NumPy and SciPy the world was simple: projects with Subversion repositories, mailing lists, and volunteers, and a couple of yearly conferences. Today the landscape looks a lot more complex. This rough sketch attempts to capture a part (all doesn't fit on a 2-D canvas) of how I think it looks from a community or project perspective:
 
-![Ecosystem landscape from project view](community_landscape.png)
+![Ecosystem landscape from project view](/images/community_landscape.png)
 
 Acting effectively within that landscape as a project has become important maintenance work in itself, and working on governance structures or legal agreements is less fun (and thus harder to find volunteers for) than writing code. Quansight Labs will add to this complexity. It also provides an opportunity to help manage that same complexity though, as a home for core developers of many of the projects in the ecosystem. 
 
@@ -43,7 +46,7 @@ Besides working with talented, humble people and being able to spend more time o
 
 This was the view from my window on my first day: a ship with the letters "APL" on it:
 
-![Ship with APL logo](out_of_the_window_APL_ship.jpg)
+![Ship with APL logo](/images/out_of_the_window_APL_ship.jpg)
 
 Given NumPy's heritage and the work on Mathematics of Arrays at Quansight Labs (both connected to [APL]), it felt symbolic.
 

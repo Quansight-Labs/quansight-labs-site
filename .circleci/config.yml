@@ -12,34 +12,30 @@ jobs:
             git submodule sync
             git submodule update --init
       - restore_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "qslabs_site.lektorproject" }}
+          key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
       - run:
-          name: Install Lektor
+          name: Install Nikola
           command: |
-            sudo pip install Lektor
-            lektor plugins add markdown-higlighter
-            # lektor plugins add lektor-atom  # misses a bug fix, so (equal to
-            # nixjdm/lektor-atom now, but pointing to a version we control):
-            sudo pip install https://github.com/rgommers/lektor-atom/archive/master.zip
+            sudo pip install nikola[extras]
       - save_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "qslabs_site.lektorproject" }}
+          key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
           paths:
             - "$HOME/.cache/pip"
       - run:
-          name: Build Lektor Blog
+          name: Build site with Nikola
           command: |
-            lektor build -O ./_build
+            nikola build
       - store_artifacts:
-          path: ./_build/
+          path: ./output/
       - run:
           name: Deploy to GitHub Pages
           # Note that if the correct settings are applied:
           # https://circleci.com/docs/2.0/contexts/#restricting-a-context
           # This will only work on authorised commits.
           command: |
-            # if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              lektor deploy
-            # fi
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              nikola github_deploy
+            fi
 
 workflows:
   version: 2
