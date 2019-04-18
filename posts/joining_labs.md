@@ -20,6 +20,8 @@ The SciPy and PyData ecosystems have experienced massive growth over the past ye
 - Participate in a sustainable way. This means for example to contribute in a way that lowers, or at least doesn't increase, the overall effort required for maintenance. Only sending pull requests with new features doesn't achieve that. Solving maintenance pain points or helping with code review does.
 - Operate transparently. Develop in the open, plan in the open, be clear about directions and motivations.
 
+<!-- TEASER_END -->
+
 When I started working on NumPy and SciPy the world was simple: projects with Subversion repositories, mailing lists, and volunteers, and a couple of yearly conferences. Today the landscape looks a lot more complex. This rough sketch attempts to capture a part (all doesn't fit on a 2-D canvas) of how I think it looks from a community or project perspective:
 
 ![Ecosystem landscape from project view](/images/community_landscape.png)

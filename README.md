@@ -1,5 +1,13 @@
 # Quansight Labs Site
 
+## Creating new posts
+
+Use either reStructuredText, Markdown or Jupyter Notebooks. To create an empty post:
+```
+$ nikola new_post -f markdown  # default is .rst if not specified
+```
+
+
 ## Build information
 
 To set up a development environment: in a new conda env or virtualenv:
