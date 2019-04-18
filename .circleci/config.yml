@@ -12,11 +12,11 @@ jobs:
             git submodule sync
             git submodule update --init
       - restore_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "qslabs_site.lektorproject" }}
+          key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
       - run:
           name: Install Nikola
           command: |
-            pip install nikola[extras]
+            pip install --user nikola[extras]
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
           paths:
