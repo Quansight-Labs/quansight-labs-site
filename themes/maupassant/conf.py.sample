@@ -1,8 +1,0 @@
-NAVIGATION_LINKS = {
-    DEFAULT_LANG: (
-        ("/", "Home"),
-        ("/archive.html", "Archive"),
-        ("/categories/", "Tags"),
-    ),
-}
-
