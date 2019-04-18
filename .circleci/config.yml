@@ -16,7 +16,7 @@ jobs:
       - run:
           name: Install Nikola
           command: |
-            pip install --user nikola[extras]
+            sudo pip install nikola[extras]
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
           paths:
