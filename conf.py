@@ -83,7 +83,7 @@ NAVIGATION_ALT_LINKS = {
 }
 
 # Name of the theme to use.
-THEME = "bootstrap4"
+THEME = "quansightlabs"
 
 # Primary color of your theme. This will be used to customize your theme.
 # Must be a HEX value.
@@ -148,15 +148,15 @@ THEME_CONFIG = {
 
 POSTS = (
     ("posts/*.rst", "blog", "post.tmpl"),
-    ("posts/*.md", "blog", "post.tmpl"),
+    ("posts/*.md", "blog", "post_ipynb.tmpl"),
     ("posts/*.html", "blog", "post.tmpl"),
-    ("posts/*.ipynb", "blog", "post.tmpl"),
+    ("posts/*.ipynb", "blog", "post_ipynb.tmpl"),
 )
 PAGES = (
     ("pages/*.rst", "pages", "page.tmpl"),
     ("pages/*.md", "pages", "page.tmpl"),
     ("pages/*.html", "pages", "page.tmpl"),
-    ("pages/*.ipynb", "pages", "story.tmpl"),
+    ("pages/*.ipynb", "pages", "post_ipynb.tmpl"),
 )
 
 
