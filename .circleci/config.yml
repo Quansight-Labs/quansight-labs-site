@@ -38,7 +38,7 @@ jobs:
           # This will only work on authorised commits.
           command: |
             # if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              lektor deploy --key="$GH_PASSWORD"
+              lektor deploy
             # fi
 
 workflows:
