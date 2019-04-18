@@ -16,6 +16,7 @@
 .sw[nop]
 *.tmp
 *.vim
+.ipynb_checkpoints/
 
 # Logs and databases #
 ######################
