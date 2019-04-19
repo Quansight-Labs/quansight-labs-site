@@ -5,26 +5,24 @@ jobs:
     docker:
       - image: circleci/python:latest
     steps:
-      - checkout
       - run:
           name: Clone submodules
           command: |
+            git clone https://github.com/Quansight-Labs/quansight-labs-site.git .
             git submodule sync
             git submodule update --init
       - restore_cache:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
       - run:
           name: Install Nikola
-          command: |
-            sudo pip install nikola[extras]
+          command: sudo pip install nikola[extras]
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
           paths:
             - "$HOME/.cache/pip"
       - run:
           name: Build site with Nikola
-          command: |
-            nikola build
+          command: nikola build
       - store_artifacts:
           path: ./output/
       - run:
@@ -33,10 +31,11 @@ jobs:
           # https://circleci.com/docs/2.0/contexts/#restricting-a-context
           # This will only work on authorised commits.
           command: |
-            git config --global user.name 'CirclCI'
-            git config --global user.email 'circleci@invalid'
-            git remote add deploy https://${LEKTOR_DEPLOY_PASSWORD}@github.com/Quansight-Labs/quansight-labs-site.git
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              git config --global user.name 'CirclCI'
+              git config --global user.email 'circleci@invalid' 
+              git pull --all
+              git remote add deploy https://${GITHUB_TOKEN}@github.com/Quansight-Labs/quansight-labs-site.git
               nikola github_deploy -m 'Nikola auto deploy [ci skip]'
             fi
 
