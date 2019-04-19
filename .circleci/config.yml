@@ -33,9 +33,9 @@ jobs:
           # https://circleci.com/docs/2.0/contexts/#restricting-a-context
           # This will only work on authorised commits.
           command: |
-            git config --local user.name '$LEKTOR_DEPLOY_USERNAME'
-            git config --local user.email '$LEKTOR_DEPLOY_PASSWORD'
-            git config --local push.default 'simple'
+            git config --global user.name 'CirclCI'
+            git config --global user.email 'circleci@invalid'
+            git remote add deploy https://${LEKTOR_DEPLOY_PASSWORD}@github.com/Quansight-Labs/quansight-labs-site.git
             # if [ "${CIRCLE_BRANCH}" == "master" ]; then
               nikola github_deploy -m 'Nikola auto deploy [ci skip]'
             # fi
