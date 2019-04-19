@@ -1,0 +1,4 @@
+Sitemap: https://labs.quansight.org/sitemapindex.xml
+
+User-Agent: *
+Host: labs.quansight.org

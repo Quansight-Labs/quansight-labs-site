@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thoughts on joining Quansight Labs | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2019/04/joining-labs/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Ralf Gommers">
+<link rel="next" href="../python-moa-tensor-compiler/" title="MOA: a theory for composable and verifiable tensor computations" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="Thoughts on joining Quansight Labs">
+<meta property="og:url" content="https://labs.quansight.org/blog/2019/04/joining-labs/">
+<meta property="og:description" content="In his blog post welcoming me, Travis set out his vision for pushing forward the Python ecosystem for scientific computing and data science, and how to fund it. In this post I'll add my own perspectiv">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2019-04-08T00:00:00-05:00">
+<meta property="article:tag" content="community">
+<meta property="article:tag" content="Labs">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+
+            <span id="blog-title">Quansight Labs</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../archive.html" class="nav-link">Archive</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../categories/" class="nav-link">Tags</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS feed</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right">
+<li class="nav-item">
+    <a href="index.md" id="sourcelink" class="nav-link">Source</a>
+    </li>
+
+
+                
+            </ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Thoughts on joining Quansight Labs</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    <a href="../../../../authors/ralf-gommers/">Ralf Gommers</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2019-04-08T00:00:00-05:00" itemprop="datePublished" title="2019-04-08">2019-04-08</time></a>
+            </p>
+            
+        <p class="sourceline"><a href="index.md" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<p>In his <a href="https://www.quansight.com/single-post/2019/04/02/Welcoming-Ralf-Gommers-as-Director-of-Quansight-Labs">blog post</a> welcoming me, Travis set out his vision for pushing forward the Python ecosystem for scientific computing and data science, and how to fund it. In this post I'll add my own perspectives to that. Given that Quansight Labs' purpose, it seems fitting to start with how I see things as a community member and organizer.</p>
+<h4>A community perspective</h4>
+<p>The SciPy and PyData ecosystems have experienced massive growth over the past years, and this is likely to continue in the near future. As a maintainer, that feels very gratifying. At the same time it brings up worries. Core projects struggle to keep up with the growth in number of users. Funded development can help with this, if done right. Some of the things I would like to see from companies that participate in the ecosystem:</p>
+<ul>
+<li>Explain innovations they're working on to the community and solicit input, <em>at an early stage</em>. Developing something away from the spotlight and then unveiling it as the "next big thing" once it's done usually leads to either corporate-driven projects (if users adopt it) or a short life span.</li>
+<li>Participate in a sustainable way. This means for example to contribute in a way that lowers, or at least doesn't increase, the overall effort required for maintenance. Only sending pull requests with new features doesn't achieve that. Solving maintenance pain points or helping with code review does.</li>
+<li>Operate transparently. Develop in the open, plan in the open, be clear about directions and motivations.</li>
+</ul>
+<!-- TEASER_END --><p>When I started working on NumPy and SciPy the world was simple: projects with Subversion repositories, mailing lists, and volunteers, and a couple of yearly conferences. Today the landscape looks a lot more complex. This rough sketch attempts to capture a part (all doesn't fit on a 2-D canvas) of how I think it looks from a community or project perspective:</p>
+<p><img alt="Ecosystem landscape from project view" src="../../../../images/community_landscape.png"></p>
+<p>Acting effectively within that landscape as a project has become important maintenance work in itself, and working on governance structures or legal agreements is less fun (and thus harder to find volunteers for) than writing code. Quansight Labs will add to this complexity. It also provides an opportunity to help manage that same complexity though, as a home for core developers of many of the projects in the ecosystem. </p>
+<h4>A Quansight Labs perspective</h4>
+<p>To date, the work at Quansight Labs has mainly focused on innovation and highly experimental prototypes.
+Travis already provided some context on <a href="https://xnd.io/">XND</a> (a clean, modular implementation of generalized NumPy concepts) and <a href="https://github.com/Quansight-Labs/uarray">uarray</a> (a Python array interface). XND is already fairly mature while uarray is still very young; however both are at the stage where we can think about adoption pathways. Experimental prototypes with a lot of potential include <a href="https://github.com/Quansight-Labs/python-moa">python-moa</a> (a Python implementation of Mathematics of Arrays), <a href="https://github.com/Quansight-Labs/metadsl">metadsl</a> (a framework for creating domain specific language libraries in Python), and <a href="https://github.com/Quansight-Labs/mtypes">mtypes</a> ("memory types for Python", bridging the Python type system to and from C).</p>
+<p>The balance of work at Quansight Labs will gradually shift towards sustaining core projects in the PyData ecosystem.
+Which projects we work on will be driven by both availability of funding and personal interests of people. As well as by input from the community - we want to push forward core projects, so we need to act on priorities that core development teams have. Clearly articulating those priorities isn't always simple. Half a year ago at the NumFOCUS Summit I took stock of the roadmaps for all NumFOCUS projects: 50% of the projects didn't have a roadmap, and of the 50% that did again half said that their roadmaps were not up to date. This is also the kind of thing Quansight Labs can help with. For example, Anthony copatz has done a great job in producing roadmap brochures for each of the projects that have been covered in the <a href="https://www.quansight.com/open-source-directions">Open Source Directions</a> webinars: https://www.quansight.com/projects. In that process he helped improve those project roadmaps tremendously.</p>
+<p>Quansight itself is only a year and a bit old; Quansight Labs is still being shaped as a separate entity. We do know though that our landscape picture will look complex as well. We have and will build out close relationships with many projects and ecosystems (PyData, Jupyter, SciPy), with like-minded organizations (NumFOCUS, Ursa Labs, BIDS), with companies interested in open source, and with funders.</p>
+<h4>A personal perspective</h4>
+<p>Why did I start my journey in open source scientific Python in the first place? I was a happy user for a couple of years, and answered a request to the community to help out with documenting NumPy. Then I stayed because I could see that those first contributions had impact. Also because I was learning things and because of the friendly community, but impact was and still is an important driver. I see the potential that Quansight Labs has, and the need for it (and other organizations like it) to be successful.</p>
+<p>Besides working with talented, humble people and being able to spend more time on the projects I care about, what particularly interests me is how to bridge the gap between innovation and maintenance. In just one week I've seen an impressive amount of innovation - now how do we go about making that benefit the whole user community?</p>
+<p>This was the view from my window on my first day: a ship with the letters "APL" on it:</p>
+<p><img alt="Ship with APL logo" src="../../../../images/out_of_the_window_APL_ship.jpg"></p>
+<p>Given NumPy's heritage and the work on Mathematics of Arrays at Quansight Labs (both connected to <a href="https://en.wikipedia.org/wiki/APL_(programming_language)">APL</a>), it felt symbolic.</p>
+<h4>Next steps</h4>
+<p>It's early days, however I do have two things in mind that will be priorities over the next period:</p>
+<ol>
+<li>Together with the people working on XND and uarray, figure out how to engage the community in a constructive way and get a clear user adoption story in place (where the users may well include projects like NumPy and Pandas).</li>
+<li>
+<p>Initiate more contributions from Quansight Labs to core projects. Here are some initial ideas I'm thinking about:</p>
+</li>
+<li>
+<p>In NumPy, help with finalizing and road testing NEP 18 (<code>__array_function__</code>)</p>
+</li>
+<li>In SciPy, fix the use of deprecated NumPy APIs</li>
+<li>Finish the backwards compatibility NumPy Enhancement Proposal</li>
+<li>In SciPy, complete one of the <code>spatial.distance</code> reimplementations.</li>
+</ol>
+<p>They are focused on NumPy and SciPy for a number of reasons: I understand the needs of those projects well; improvements in those projects benefit the whole stack; they need more maintenance; and a lot of the people at Quansight work on things that require in-depth knowledge of the NumPy and Python C APIs. We will quickly branch out though. Last week I have already talked to core developers of Dask, JupyterLab and Spyder. I have also recently co-written a proposal that included significant work on Matplotlib, Pandas and scikit-learn. And I plan, together with others at Quansight, to actively engage with the wider community.</p>
+<p>I strongly believe in a community-governed open source ecosystem, so am very interested in open conversations about project and ecosystem priorities.
+<em>Feedback and ideas for what we should (or should not) be focusing on at Quansight Labs are very much welcome!</em></p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/community/" rel="tag">community</a></li>
+            <li><a class="tag p-category" href="../../../../categories/labs/" rel="tag">Labs</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="next">
+                <a href="../python-moa-tensor-compiler/" rel="next" title="MOA: a theory for composable and verifiable tensor computations">Next post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2019         <a href="mailto:info@quansight.com">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>

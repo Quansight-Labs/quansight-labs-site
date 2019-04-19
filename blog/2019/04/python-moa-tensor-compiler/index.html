@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MOA: a theory for composable and verifiable tensor computations | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2019/04/python-moa-tensor-compiler/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Chris Ostrouchov">
+<link rel="prev" href="../joining-labs/" title="Thoughts on joining Quansight Labs" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="MOA: a theory for composable and verifiable tensor computations">
+<meta property="og:url" content="https://labs.quansight.org/blog/2019/04/python-moa-tensor-compiler/">
+<meta property="og:description" content="Python-moa (mathematics of arrays) is an approach to a high level tensor
+compiler that is based on the work of Lenore
+Mullins and her
+dissertation.
+A high level compiler is necessary because there are">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2019-04-17T00:00:00-05:00">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+
+            <span id="blog-title">Quansight Labs</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../archive.html" class="nav-link">Archive</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../categories/" class="nav-link">Tags</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS feed</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right">
+<li class="nav-item">
+    <a href="index.ipynb" id="sourcelink" class="nav-link">Source</a>
+    </li>
+
+
+                
+            </ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">MOA: a theory for composable and verifiable tensor computations</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    <a href="../../../../authors/chris-ostrouchov/">Chris Ostrouchov</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2019-04-17T00:00:00-05:00" itemprop="datePublished" title="2019-04-17">2019-04-17</time></a>
+            </p>
+            
+        <p class="sourceline"><a href="index.ipynb" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Python-moa (mathematics of arrays) is an approach to a high level tensor
+compiler that is based on the work of <a href="https://www.albany.edu/ceas/lenore-mullin.php">Lenore
+Mullins</a> and her
+<a href="https://www.researchgate.net/publication/308893116_A_Mathematics_of_Arrays">dissertation</a>.
+A high level compiler is necessary because there are many optimizations
+that a low level compiler such as <code>gcc</code> will miss. It is trying to solve
+many of the same problems as other technologies such as the <a href="http://tensor-compiler.org/">taco
+compiler</a> and the <a href="https://www.tensorflow.org/xla">xla
+compiler</a>. However, it takes a much
+different approach than others guided by the following principles.</p>
+<ol>
+<li>What is the shape? Everything has a shape. scalars, vectors, arrays,
+operations, and functions.</li>
+<li>What are the given indicies and operations required to produce a
+given index in the result?</li>
+</ol>
+<p>Having a compiler that is guided upon these principles allows for high
+level reductions that other compilers will miss and allows for
+optimization of algorithms as a whole. Keep in mind that MOA is <strong>NOT</strong>
+a compiler. It is a theory that guides compiler development. Since
+<a href="https://github.com/Quansight-Labs/python-moa">python-moa</a> is based on
+theory we get unique properties that other compilers cannot guarantee:</p>
+<!-- TEASER_END -->
+
+<ul>
+<li>No out of bounds array accesses</li>
+<li>A computation is determined to be either valid or invalid at
+compile time</li>
+<li>The computation will always reduce to a deterministic minimal form
+(dnf) (see
+<a href="https://en.wikipedia.org/wiki/Church%E2%80%93Rosser_theorem">church-rosser</a>
+property)</li>
+<li>All MOA operations are composable (including black box functions
+and
+<a href="https://docs.scipy.org/doc/numpy-1.13.0/reference/c-api.generalized-ufuncs.html">gufuncs</a>)</li>
+<li>Arbitrary high level operations will compile down to a minimal
+backend instruction set. If the shape and indexing of a given
+operation is known it can be added to python-moa.</li>
+</ul>
+<h3 id="Frontend">Frontend<a class="anchor-link" href="#Frontend">¶</a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Lenore Mullins originally developed a <a href="https://github.com/saulshanabrook/psi-compiler/">moa
+compiler</a> in the 90s
+with programs that used a symbolic syntax heavily inspired by
+<a href="https://en.wikipedia.org/wiki/APL_(programming_language">APL</a>)
+(<a href="https://github.com/saulshanabrook/psi-compiler/blob/master/examples/ex1.m">example
+program</a>).
+This work was carried into python-moa initially with a lex/yacc compiler
+with an example program below.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">moa.frontend</span> <span class="k">import</span> <span class="n">parse</span>
+
+<span class="n">context</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="s1">'&lt;0&gt; psi (tran (A ^ &lt;n m&gt; + B ^ &lt;k l&gt;))'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Upon pursuing this approach it became apparent that MOA should not
+require that a new syntax be developed since it is only a theory! So a
+pythonic interface to MOA was developed that expressed the same ideas
+which look much like the current numeric python libraries. Ideally MOA
+is hidden from the user. The python-moa compiler is broken into several
+pieces each which their own responsibilities: shape, DNF, and ONF.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">moa.frontend</span> <span class="k">import</span> <span class="n">LazyArray</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">LazyArray</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="s1">'n'</span><span class="p">,</span> <span class="s1">'m'</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">'A'</span><span class="p">)</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">LazyArray</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="s1">'k'</span><span class="p">,</span> <span class="s1">'l'</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">'B'</span><span class="p">)</span>
+
+<span class="n">expression</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span> <span class="o">+</span> <span class="n">B</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="s1">'+'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">expression</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[2]:</div>
+
+
+
+<div class="output_svg output_subarea output_execute_result">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!-- Generated by graphviz version 2.40.1 (0)
+ --><!-- Title: %3 Pages: 1 --><svg width="248pt" height="381pt" viewbox="0.00 0.00 247.50 381.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 377)"><title>%3</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-377 243.5,-377 243.5,4 -4,4"></polygon><!-- 0 --><g id="node1" class="node"><title>0</title>
+<ellipse fill="none" stroke="#000000" cx="100" cy="-355" rx="34.394" ry="18"></ellipse><text text-anchor="middle" x="100" y="-351.3" font-family="Times-Roman" font-size="14.00" fill="#000000">psi(Ψ)</text></g><!-- 1 --><g id="node2" class="node"><title>1</title>
+<polygon fill="none" stroke="#000000" points="86,-301 0,-301 0,-230 86,-230 86,-301"></polygon><polygon fill="none" stroke="#000000" points="8,-275.5 8,-296.5 78,-296.5 78,-275.5 8,-275.5"></polygon><text text-anchor="start" x="11" y="-282.3" font-family="Times-Roman" font-size="14.00" fill="#000000">Array _a6</text><polygon fill="none" stroke="#000000" points="8,-254.5 8,-275.5 78,-275.5 78,-254.5 8,-254.5"></polygon><text text-anchor="start" x="31.5" y="-261.3" font-family="Times-Roman" font-size="14.00" fill="#000000">&lt;1&gt;</text><polygon fill="none" stroke="#000000" points="8,-233.5 8,-254.5 78,-254.5 78,-233.5 8,-233.5"></polygon><text text-anchor="start" x="33.5" y="-240.3" font-family="Times-Roman" font-size="14.00" fill="#000000">(0)</text></g><!-- 0&#45;&gt;1 --><g id="edge1" class="edge"><title>0-&gt;1</title>
+<path fill="none" stroke="#000000" d="M89.0098,-337.7435C83.9055,-329.7288 77.5777,-319.7931 71.2653,-309.8815"></path><polygon fill="#000000" stroke="#000000" points="74.0771,-307.781 65.7532,-301.2264 68.1729,-311.5413 74.0771,-307.781"></polygon></g><!-- 2 --><g id="node3" class="node"><title>2</title>
+<ellipse fill="none" stroke="#000000" cx="157" cy="-265.5" rx="52.7911" ry="18"></ellipse><text text-anchor="middle" x="157" y="-261.8" font-family="Times-Roman" font-size="14.00" fill="#000000">reduce (+)</text></g><!-- 0&#45;&gt;2 --><g id="edge6" class="edge"><title>0-&gt;2</title>
+<path fill="none" stroke="#000000" d="M110.9902,-337.7435C119.2416,-324.7873 130.6902,-306.811 140.1027,-292.0317"></path><polygon fill="#000000" stroke="#000000" points="143.2337,-293.6309 145.6534,-283.3161 137.3294,-289.8707 143.2337,-293.6309"></polygon></g><!-- 3 --><g id="node4" class="node"><title>3</title>
+<ellipse fill="none" stroke="#000000" cx="157" cy="-176" rx="64.9885" ry="18"></ellipse><text text-anchor="middle" x="157" y="-172.3" font-family="Times-Roman" font-size="14.00" fill="#000000">transpose(Ø)</text></g><!-- 2&#45;&gt;3 --><g id="edge5" class="edge"><title>2-&gt;3</title>
+<path fill="none" stroke="#000000" d="M157,-247.3883C157,-235.0146 157,-218.3686 157,-204.2632"></path><polygon fill="#000000" stroke="#000000" points="160.5001,-204.0847 157,-194.0847 153.5001,-204.0848 160.5001,-204.0847"></polygon></g><!-- 4 --><g id="node5" class="node"><title>4</title>
+<ellipse fill="none" stroke="#000000" cx="157" cy="-104" rx="27" ry="18"></ellipse><text text-anchor="middle" x="157" y="-100.3" font-family="Times-Roman" font-size="14.00" fill="#000000">+</text></g><!-- 3&#45;&gt;4 --><g id="edge4" class="edge"><title>3-&gt;4</title>
+<path fill="none" stroke="#000000" d="M157,-157.8314C157,-150.131 157,-140.9743 157,-132.4166"></path><polygon fill="#000000" stroke="#000000" points="160.5001,-132.4132 157,-122.4133 153.5001,-132.4133 160.5001,-132.4132"></polygon></g><!-- 5 --><g id="node6" class="node"><title>5</title>
+<polygon fill="none" stroke="#000000" points="148,-50 74,-50 74,0 148,0 148,-50"></polygon><polygon fill="none" stroke="#000000" points="82,-25 82,-46 140,-46 140,-25 82,-25"></polygon><text text-anchor="start" x="85" y="-31.8" font-family="Times-Roman" font-size="14.00" fill="#000000">Array A</text><polygon fill="none" stroke="#000000" points="82,-4 82,-25 140,-25 140,-4 82,-4"></polygon><text text-anchor="start" x="91" y="-10.8" font-family="Times-Roman" font-size="14.00" fill="#000000">&lt;n m&gt;</text></g><!-- 4&#45;&gt;5 --><g id="edge2" class="edge"><title>4-&gt;5</title>
+<path fill="none" stroke="#000000" d="M147.0187,-86.8582C142.2442,-78.6586 136.3538,-68.5424 130.7297,-58.8836"></path><polygon fill="#000000" stroke="#000000" points="133.7358,-57.0905 125.6792,-50.2099 127.6865,-60.6129 133.7358,-57.0905"></polygon></g><!-- 6 --><g id="node7" class="node"><title>6</title>
+<polygon fill="none" stroke="#000000" points="239.5,-50 166.5,-50 166.5,0 239.5,0 239.5,-50"></polygon><polygon fill="none" stroke="#000000" points="175,-25 175,-46 232,-46 232,-25 175,-25"></polygon><text text-anchor="start" x="178" y="-31.8" font-family="Times-Roman" font-size="14.00" fill="#000000">Array B</text><polygon fill="none" stroke="#000000" points="175,-4 175,-25 232,-25 232,-4 175,-4"></polygon><text text-anchor="start" x="188" y="-10.8" font-family="Times-Roman" font-size="14.00" fill="#000000">&lt;k l&gt;</text></g><!-- 4&#45;&gt;6 --><g id="edge3" class="edge"><title>4-&gt;6</title>
+<path fill="none" stroke="#000000" d="M166.9813,-86.8582C171.7558,-78.6586 177.6462,-68.5424 183.2703,-58.8836"></path><polygon fill="#000000" stroke="#000000" points="186.3135,-60.6129 188.3208,-50.2099 180.2642,-57.0905 186.3135,-60.6129"></polygon></g></g></svg>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Shape-Calculation">Shape Calculation<a class="anchor-link" href="#Shape-Calculation">¶</a>
+</h3>
+<p>The shape calculation is responsible for calculating the shape at every
+step of the computation. This means that operations have a shape. Note
+that the compiler handles symbolic shapes thus the exact shape does not
+need to be known, only the dimension. After the shape calculation step
+we can guarantee that an algorithm is a valid program and there will be
+no out of bound memory accesses. Making MOA extremely compelling for
+<a href="https://en.wikipedia.org/wiki/Field-programmable_gate_array">FPGAs</a> and
+compute units with a minimal OS. If an algorithm makes it past this
+stage and fails then it is an issue with the compiler not the algorithm.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">expression</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">stage</span><span class="o">=</span><span class="s1">'shape'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[3]:</div>
+
+
+
+<div class="output_svg output_subarea output_execute_result">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!-- Generated by graphviz version 2.40.1 (0)
+ --><!-- Title: %3 Pages: 1 --><svg width="373pt" height="622pt" viewbox="0.00 0.00 372.87 621.54" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 617.5412)"><title>%3</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-617.5412 368.8671,-617.5412 368.8671,4 -4,4"></polygon><!-- 0 --><g id="node1" class="node"><title>0</title>
+<ellipse fill="none" stroke="#000000" cx="182.4335" cy="-563.3366" rx="182.3671" ry="50.41"></ellipse><polygon fill="none" stroke="#000000" points="61.4335,-573.3366 61.4335,-594.3366 303.4335,-594.3366 303.4335,-573.3366 61.4335,-573.3366"></polygon><text text-anchor="start" x="152.9335" y="-580.1366" font-family="Times-Roman" font-size="14.00" fill="#000000">condition</text><polygon fill="none" stroke="#000000" points="61.4335,-552.3366 61.4335,-573.3366 303.4335,-573.3366 303.4335,-552.3366 61.4335,-552.3366"></polygon><text text-anchor="start" x="174.4335" y="-559.1366" font-family="Times-Roman" font-size="14.00" fill="#000000">&lt;&gt;</text><polygon fill="none" stroke="#000000" points="61.4335,-531.3366 61.4335,-552.3366 303.4335,-552.3366 303.4335,-531.3366 61.4335,-531.3366"></polygon><text text-anchor="start" x="64.4335" y="-538.1366" font-family="Times-Roman" font-size="14.00" fill="#000000">((0 &lt;= n) and ((m == l) and (n == k)))</text></g><!-- 1 --><g id="node2" class="node"><title>1</title>
+<ellipse fill="none" stroke="#000000" cx="182.4335" cy="-441.7767" rx="41.9398" ry="35.2113"></ellipse><polygon fill="none" stroke="#000000" points="161.4335,-441.7767 161.4335,-462.7767 204.4335,-462.7767 204.4335,-441.7767 161.4335,-441.7767"></polygon><text text-anchor="start" x="164.4335" y="-448.5767" font-family="Times-Roman" font-size="14.00" fill="#000000">psi(Ψ)</text><polygon fill="none" stroke="#000000" points="161.4335,-420.7767 161.4335,-441.7767 204.4335,-441.7767 204.4335,-420.7767 161.4335,-420.7767"></polygon><text text-anchor="start" x="174.9335" y="-427.5767" font-family="Times-Roman" font-size="14.00" fill="#000000">&lt;&gt;</text></g><!-- 0&#45;&gt;1 --><g id="edge7" class="edge"><title>0-&gt;1</title>
+<path fill="none" stroke="#000000" d="M182.4335,-512.8403C182.4335,-504.4928 182.4335,-495.8786 182.4335,-487.6527"></path><polygon fill="#000000" stroke="#000000" points="185.9336,-487.49 182.4335,-477.49 178.9336,-487.4901 185.9336,-487.49"></polygon></g><!-- 2 --><g id="node3" class="node"><title>2</title>
+<polygon fill="none" stroke="#000000" points="164.4335,-370.4214 78.4335,-370.4214 78.4335,-299.4214 164.4335,-299.4214 164.4335,-370.4214"></polygon><polygon fill="none" stroke="#000000" points="86.4335,-344.9214 86.4335,-365.9214 156.4335,-365.9214 156.4335,-344.9214 86.4335,-344.9214"></polygon><text text-anchor="start" x="89.4335" y="-351.7214" font-family="Times-Roman" font-size="14.00" fill="#000000">Array _a6</text><polygon fill="none" stroke="#000000" points="86.4335,-323.9214 86.4335,-344.9214 156.4335,-344.9214 156.4335,-323.9214 86.4335,-323.9214"></polygon><text text-anchor="start" x="109.9335" y="-330.7214" font-family="Times-Roman" font-size="14.00" fill="#000000">&lt;1&gt;</text><polygon fill="none" stroke="#000000" points="86.4335,-302.9214 86.4335,-323.9214 156.4335,-323.9214 156.4335,-302.9214 86.4335,-302.9214"></polygon><text text-anchor="start" x="111.9335" y="-309.7214" font-family="Times-Roman" font-size="14.00" fill="#000000">(0)</text></g><!-- 1&#45;&gt;2 --><g id="edge1" class="edge"><title>1-&gt;2</title>
+<path fill="none" stroke="#000000" d="M164.1315,-409.7166C158.703,-400.2072 152.6572,-389.6167 146.8627,-379.4662"></path><polygon fill="#000000" stroke="#000000" points="149.8543,-377.647 141.857,-370.6977 143.7752,-381.1174 149.8543,-377.647"></polygon></g><!-- 3 --><g id="node4" class="node"><title>3</title>
+<ellipse fill="none" stroke="#000000" cx="244.4335" cy="-334.9214" rx="61.5366" ry="35.2113"></ellipse><polygon fill="none" stroke="#000000" points="209.4335,-334.9214 209.4335,-355.9214 280.4335,-355.9214 280.4335,-334.9214 209.4335,-334.9214"></polygon><text text-anchor="start" x="212.4335" y="-341.7214" font-family="Times-Roman" font-size="14.00" fill="#000000">reduce (+)</text><polygon fill="none" stroke="#000000" points="209.4335,-313.9214 209.4335,-334.9214 280.4335,-334.9214 280.4335,-313.9214 209.4335,-313.9214"></polygon><text text-anchor="start" x="232.9335" y="-320.7214" font-family="Times-Roman" font-size="14.00" fill="#000000">&lt;n&gt;</text></g><!-- 1&#45;&gt;3 --><g id="edge6" class="edge"><title>1-&gt;3</title>
+<path fill="none" stroke="#000000" d="M200.8677,-410.0059C206.7797,-399.8167 213.4257,-388.3625 219.7121,-377.528"></path><polygon fill="#000000" stroke="#000000" points="222.8928,-379.0202 224.8842,-368.6142 216.8382,-375.5071 222.8928,-379.0202"></polygon></g><!-- 4 --><g id="node5" class="node"><title>4</title>
+<ellipse fill="none" stroke="#000000" cx="244.4335" cy="-228.066" rx="74.9067" ry="35.2113"></ellipse><polygon fill="none" stroke="#000000" points="199.4335,-228.066 199.4335,-249.066 289.4335,-249.066 289.4335,-228.066 199.4335,-228.066"></polygon><text text-anchor="start" x="202.4335" y="-234.866" font-family="Times-Roman" font-size="14.00" fill="#000000">transpose(Ø)</text><polygon fill="none" stroke="#000000" points="199.4335,-207.066 199.4335,-228.066 289.4335,-228.066 289.4335,-207.066 199.4335,-207.066"></polygon><text text-anchor="start" x="224.4335" y="-213.866" font-family="Times-Roman" font-size="14.00" fill="#000000">&lt;m n&gt;</text></g><!-- 3&#45;&gt;4 --><g id="edge5" class="edge"><title>3-&gt;4</title>
+<path fill="none" stroke="#000000" d="M244.4335,-299.3401C244.4335,-291.1393 244.4335,-282.3047 244.4335,-273.7416"></path><polygon fill="#000000" stroke="#000000" points="247.9336,-273.4919 244.4335,-263.4919 240.9336,-273.492 247.9336,-273.4919"></polygon></g><!-- 5 --><g id="node6" class="node"><title>5</title>
+<ellipse fill="none" stroke="#000000" cx="244.4335" cy="-121.3553" rx="43.6818" ry="35.2113"></ellipse><polygon fill="none" stroke="#000000" points="221.4335,-121.3553 221.4335,-142.3553 267.4335,-142.3553 267.4335,-121.3553 221.4335,-121.3553"></polygon><text text-anchor="start" x="240.4335" y="-128.1553" font-family="Times-Roman" font-size="14.00" fill="#000000">+</text><polygon fill="none" stroke="#000000" points="221.4335,-100.3553 221.4335,-121.3553 267.4335,-121.3553 267.4335,-100.3553 221.4335,-100.3553"></polygon><text text-anchor="start" x="224.4335" y="-107.1553" font-family="Times-Roman" font-size="14.00" fill="#000000">&lt;n m&gt;</text></g><!-- 4&#45;&gt;5 --><g id="edge4" class="edge"><title>4-&gt;5</title>
+<path fill="none" stroke="#000000" d="M244.4335,-192.5329C244.4335,-184.3432 244.4335,-175.5206 244.4335,-166.9691"></path><polygon fill="#000000" stroke="#000000" points="247.9336,-166.7332 244.4335,-156.7333 240.9336,-166.7333 247.9336,-166.7332"></polygon></g><!-- 6 --><g id="node7" class="node"><title>6</title>
+<polygon fill="none" stroke="#000000" points="235.4335,-50 161.4335,-50 161.4335,0 235.4335,0 235.4335,-50"></polygon><polygon fill="none" stroke="#000000" points="169.4335,-25 169.4335,-46 227.4335,-46 227.4335,-25 169.4335,-25"></polygon><text text-anchor="start" x="172.4335" y="-31.8" font-family="Times-Roman" font-size="14.00" fill="#000000">Array A</text><polygon fill="none" stroke="#000000" points="169.4335,-4 169.4335,-25 227.4335,-25 227.4335,-4 169.4335,-4"></polygon><text text-anchor="start" x="178.4335" y="-10.8" font-family="Times-Roman" font-size="14.00" fill="#000000">&lt;n m&gt;</text></g><!-- 5&#45;&gt;6 --><g id="edge2" class="edge"><title>5-&gt;6</title>
+<path fill="none" stroke="#000000" d="M228.603,-88.1953C224.1589,-78.8864 219.3181,-68.7464 214.8412,-59.3689"></path><polygon fill="#000000" stroke="#000000" points="217.9807,-57.8209 210.5139,-50.3044 211.6636,-60.8367 217.9807,-57.8209"></polygon></g><!-- 7 --><g id="node8" class="node"><title>7</title>
+<polygon fill="none" stroke="#000000" points="326.9335,-50 253.9335,-50 253.9335,0 326.9335,0 326.9335,-50"></polygon><polygon fill="none" stroke="#000000" points="262.4335,-25 262.4335,-46 319.4335,-46 319.4335,-25 262.4335,-25"></polygon><text text-anchor="start" x="265.4335" y="-31.8" font-family="Times-Roman" font-size="14.00" fill="#000000">Array B</text><polygon fill="none" stroke="#000000" points="262.4335,-4 262.4335,-25 319.4335,-25 319.4335,-4 262.4335,-4"></polygon><text text-anchor="start" x="275.4335" y="-10.8" font-family="Times-Roman" font-size="14.00" fill="#000000">&lt;k l&gt;</text></g><!-- 5&#45;&gt;7 --><g id="edge3" class="edge"><title>5-&gt;7</title>
+<path fill="none" stroke="#000000" d="M260.2641,-88.1953C264.7082,-78.8864 269.549,-68.7464 274.0259,-59.3689"></path><polygon fill="#000000" stroke="#000000" points="277.2035,-60.8367 278.3532,-50.3044 270.8864,-57.8209 277.2035,-60.8367"></polygon></g></g></svg>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Denotational-Normal-Form-(DNF)">Denotational Normal Form (DNF)<a class="anchor-link" href="#Denotational-Normal-Form-(DNF)">¶</a>
+</h3>
+<p>The DNF\'s responsibility is to reduce the high level MOA expression to
+the minimal and optimal machine independent computation. This graph has
+all of the indexing patterns of the computation and resulting shapes.
+Notice that several operations disappear in this stage such a transpose
+because transpose is simply index manipulation.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">expression</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">stage</span><span class="o">=</span><span class="s1">'dnf'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[4]:</div>
+
+
+
+<div class="output_svg output_subarea output_execute_result">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!-- Generated by graphviz version 2.40.1 (0)
+ --><!-- Title: %3 Pages: 1 --><svg width="396pt" height="565pt" viewbox="0.00 0.00 396.00 565.24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 561.2397)"><title>%3</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-561.2397 392,-561.2397 392,4 -4,4"></polygon><!-- 0 --><g id="node1" class="node"><title>0</title>
+<ellipse fill="none" stroke="#000000" cx="199.5" cy="-507.0351" rx="182.3671" ry="50.41"></ellipse><polygon fill="none" stroke="#000000" points="78.5,-517.0351 78.5,-538.0351 320.5,-538.0351 320.5,-517.0351 78.5,-517.0351"></polygon><text text-anchor="start" x="170" y="-523.8351" font-family="Times-Roman" font-size="14.00" fill="#000000">condition</text><polygon fill="none" stroke="#000000" points="78.5,-496.0351 78.5,-517.0351 320.5,-517.0351 320.5,-496.0351 78.5,-496.0351"></polygon><text text-anchor="start" x="191.5" y="-502.8351" font-family="Times-Roman" font-size="14.00" fill="#000000">&lt;&gt;</text><polygon fill="none" stroke="#000000" points="78.5,-475.0351 78.5,-496.0351 320.5,-496.0351 320.5,-475.0351 78.5,-475.0351"></polygon><text text-anchor="start" x="81.5" y="-481.8351" font-family="Times-Roman" font-size="14.00" fill="#000000">((0 &lt;= n) and ((m == l) and (n == k)))</text></g><!-- 1 --><g id="node2" class="node"><title>1</title>
+<ellipse fill="none" stroke="#000000" cx="199.5" cy="-370.6259" rx="61.5366" ry="50.41"></ellipse><polygon fill="none" stroke="#000000" points="164.5,-380.6259 164.5,-401.6259 235.5,-401.6259 235.5,-380.6259 164.5,-380.6259"></polygon><text text-anchor="start" x="167.5" y="-387.4259" font-family="Times-Roman" font-size="14.00" fill="#000000">reduce (+)</text><polygon fill="none" stroke="#000000" points="164.5,-359.6259 164.5,-380.6259 235.5,-380.6259 235.5,-359.6259 164.5,-359.6259"></polygon><text text-anchor="start" x="192" y="-366.4259" font-family="Times-Roman" font-size="14.00" fill="#000000">&lt;&gt;</text><polygon fill="none" stroke="#000000" points="164.5,-338.6259 164.5,-359.6259 235.5,-359.6259 235.5,-338.6259 164.5,-338.6259"></polygon><text text-anchor="start" x="187" y="-345.4259" font-family="Times-Roman" font-size="14.00" fill="#000000">_i10</text></g><!-- 0&#45;&gt;1 --><g id="edge8" class="edge"><title>0-&gt;1</title>
+<path fill="none" stroke="#000000" d="M199.5,-456.6289C199.5,-448.4276 199.5,-439.8571 199.5,-431.4386"></path><polygon fill="#000000" stroke="#000000" points="203.0001,-431.2803 199.5,-421.2803 196.0001,-431.2804 203.0001,-431.2803"></polygon></g><!-- 2 --><g id="node3" class="node"><title>2</title>
+<ellipse fill="none" stroke="#000000" cx="199.5" cy="-249.066" rx="27" ry="35.2113"></ellipse><polygon fill="none" stroke="#000000" points="188.5,-249.066 188.5,-270.066 210.5,-270.066 210.5,-249.066 188.5,-249.066"></polygon><text text-anchor="start" x="195.5" y="-255.866" font-family="Times-Roman" font-size="14.00" fill="#000000">+</text><polygon fill="none" stroke="#000000" points="188.5,-228.066 188.5,-249.066 210.5,-249.066 210.5,-228.066 188.5,-228.066"></polygon><text text-anchor="start" x="191.5" y="-234.866" font-family="Times-Roman" font-size="14.00" fill="#000000">&lt;&gt;</text></g><!-- 1&#45;&gt;2 --><g id="edge7" class="edge"><title>1-&gt;2</title>
+<path fill="none" stroke="#000000" d="M199.5,-320.1296C199.5,-311.7821 199.5,-303.168 199.5,-294.942"></path><polygon fill="#000000" stroke="#000000" points="203.0001,-294.7793 199.5,-284.7794 196.0001,-294.7794 203.0001,-294.7793"></polygon></g><!-- 3 --><g id="node4" class="node"><title>3</title>
+<ellipse fill="none" stroke="#000000" cx="148.5" cy="-142.3553" rx="41.9398" ry="35.2113"></ellipse><polygon fill="none" stroke="#000000" points="127.5,-142.3553 127.5,-163.3553 170.5,-163.3553 170.5,-142.3553 127.5,-142.3553"></polygon><text text-anchor="start" x="130.5" y="-149.1553" font-family="Times-Roman" font-size="14.00" fill="#000000">psi(Ψ)</text><polygon fill="none" stroke="#000000" points="127.5,-121.3553 127.5,-142.3553 170.5,-142.3553 170.5,-121.3553 127.5,-121.3553"></polygon><text text-anchor="start" x="141" y="-128.1553" font-family="Times-Roman" font-size="14.00" fill="#000000">&lt;&gt;</text></g><!-- 2&#45;&gt;3 --><g id="edge3" class="edge"><title>2-&gt;3</title>
+<path fill="none" stroke="#000000" d="M185.1579,-219.0572C179.997,-208.2587 174.0766,-195.8709 168.5204,-184.2453"></path><polygon fill="#000000" stroke="#000000" points="171.6341,-182.6435 164.164,-175.1302 165.3183,-185.662 171.6341,-182.6435"></polygon></g><!-- 6 --><g id="node7" class="node"><title>6</title>
+<ellipse fill="none" stroke="#000000" cx="250.5" cy="-142.3553" rx="41.9398" ry="35.2113"></ellipse><polygon fill="none" stroke="#000000" points="229.5,-142.3553 229.5,-163.3553 272.5,-163.3553 272.5,-142.3553 229.5,-142.3553"></polygon><text text-anchor="start" x="232.5" y="-149.1553" font-family="Times-Roman" font-size="14.00" fill="#000000">psi(Ψ)</text><polygon fill="none" stroke="#000000" points="229.5,-121.3553 229.5,-142.3553 272.5,-142.3553 272.5,-121.3553 229.5,-121.3553"></polygon><text text-anchor="start" x="243" y="-128.1553" font-family="Times-Roman" font-size="14.00" fill="#000000">&lt;&gt;</text></g><!-- 2&#45;&gt;6 --><g id="edge6" class="edge"><title>2-&gt;6</title>
+<path fill="none" stroke="#000000" d="M213.8421,-219.0572C219.003,-208.2587 224.9234,-195.8709 230.4796,-184.2453"></path><polygon fill="#000000" stroke="#000000" points="233.6817,-185.662 234.836,-175.1302 227.3659,-182.6435 233.6817,-185.662"></polygon></g><!-- 4 --><g id="node5" class="node"><title>4</title>
+<polygon fill="none" stroke="#000000" points="93,-71 0,-71 0,0 93,0 93,-71"></polygon><polygon fill="none" stroke="#000000" points="8.5,-45.5 8.5,-66.5 85.5,-66.5 85.5,-45.5 8.5,-45.5"></polygon><text text-anchor="start" x="11.5" y="-52.3" font-family="Times-Roman" font-size="14.00" fill="#000000">Array _a12</text><polygon fill="none" stroke="#000000" points="8.5,-24.5 8.5,-45.5 85.5,-45.5 85.5,-24.5 8.5,-24.5"></polygon><text text-anchor="start" x="35.5" y="-31.3" font-family="Times-Roman" font-size="14.00" fill="#000000">&lt;2&gt;</text><polygon fill="none" stroke="#000000" points="8.5,-3.5 8.5,-24.5 85.5,-24.5 85.5,-3.5 8.5,-3.5"></polygon><text text-anchor="start" x="22.5" y="-10.3" font-family="Times-Roman" font-size="14.00" fill="#000000">(0 _i10)</text></g><!-- 3&#45;&gt;4 --><g id="edge1" class="edge"><title>3-&gt;4</title>
+<path fill="none" stroke="#000000" d="M122.2325,-114.8374C111.7718,-103.8788 99.4794,-91.0013 87.8765,-78.8461"></path><polygon fill="#000000" stroke="#000000" points="90.2004,-76.2116 80.7638,-71.3948 85.1369,-81.045 90.2004,-76.2116"></polygon></g><!-- 5 --><g id="node6" class="node"><title>5</title>
+<polygon fill="none" stroke="#000000" points="185.5,-60.5 111.5,-60.5 111.5,-10.5 185.5,-10.5 185.5,-60.5"></polygon><polygon fill="none" stroke="#000000" points="119.5,-35.5 119.5,-56.5 177.5,-56.5 177.5,-35.5 119.5,-35.5"></polygon><text text-anchor="start" x="122.5" y="-42.3" font-family="Times-Roman" font-size="14.00" fill="#000000">Array A</text><polygon fill="none" stroke="#000000" points="119.5,-14.5 119.5,-35.5 177.5,-35.5 177.5,-14.5 119.5,-14.5"></polygon><text text-anchor="start" x="128.5" y="-21.3" font-family="Times-Roman" font-size="14.00" fill="#000000">&lt;n m&gt;</text></g><!-- 3&#45;&gt;5 --><g id="edge2" class="edge"><title>3-&gt;5</title>
+<path fill="none" stroke="#000000" d="M148.5,-106.7741C148.5,-95.2465 148.5,-82.4666 148.5,-70.9487"></path><polygon fill="#000000" stroke="#000000" points="152.0001,-70.7978 148.5,-60.7978 145.0001,-70.7979 152.0001,-70.7978"></polygon></g><!-- 7 --><g id="node8" class="node"><title>7</title>
+<polygon fill="none" stroke="#000000" points="297,-71 204,-71 204,0 297,0 297,-71"></polygon><polygon fill="none" stroke="#000000" points="212.5,-45.5 212.5,-66.5 289.5,-66.5 289.5,-45.5 212.5,-45.5"></polygon><text text-anchor="start" x="215.5" y="-52.3" font-family="Times-Roman" font-size="14.00" fill="#000000">Array _a12</text><polygon fill="none" stroke="#000000" points="212.5,-24.5 212.5,-45.5 289.5,-45.5 289.5,-24.5 212.5,-24.5"></polygon><text text-anchor="start" x="239.5" y="-31.3" font-family="Times-Roman" font-size="14.00" fill="#000000">&lt;2&gt;</text><polygon fill="none" stroke="#000000" points="212.5,-3.5 212.5,-24.5 289.5,-24.5 289.5,-3.5 212.5,-3.5"></polygon><text text-anchor="start" x="226.5" y="-10.3" font-family="Times-Roman" font-size="14.00" fill="#000000">(0 _i10)</text></g><!-- 6&#45;&gt;7 --><g id="edge4" class="edge"><title>6-&gt;7</title>
+<path fill="none" stroke="#000000" d="M250.5,-106.7741C250.5,-98.6596 250.5,-89.9246 250.5,-81.4461"></path><polygon fill="#000000" stroke="#000000" points="254.0001,-81.2902 250.5,-71.2902 247.0001,-81.2903 254.0001,-81.2902"></polygon></g><!-- 8 --><g id="node9" class="node"><title>8</title>
+<polygon fill="none" stroke="#000000" points="388,-60.5 315,-60.5 315,-10.5 388,-10.5 388,-60.5"></polygon><polygon fill="none" stroke="#000000" points="323.5,-35.5 323.5,-56.5 380.5,-56.5 380.5,-35.5 323.5,-35.5"></polygon><text text-anchor="start" x="326.5" y="-42.3" font-family="Times-Roman" font-size="14.00" fill="#000000">Array B</text><polygon fill="none" stroke="#000000" points="323.5,-14.5 323.5,-35.5 380.5,-35.5 380.5,-14.5 323.5,-14.5"></polygon><text text-anchor="start" x="336.5" y="-21.3" font-family="Times-Roman" font-size="14.00" fill="#000000">&lt;k l&gt;</text></g><!-- 6&#45;&gt;8 --><g id="edge5" class="edge"><title>6-&gt;8</title>
+<path fill="none" stroke="#000000" d="M276.7729,-114.5593C290.2116,-100.3415 306.65,-82.9501 320.684,-68.1025"></path><polygon fill="#000000" stroke="#000000" points="323.4495,-70.2719 327.7751,-60.6003 318.3624,-65.4635 323.4495,-70.2719"></polygon></g></g></svg>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Operational-Normal-Form-(ONF)">Operational Normal Form (ONF)<a class="anchor-link" href="#Operational-Normal-Form-(ONF)">¶</a>
+</h3>
+<p>The ONF is the stage of the compiler that will have to be the most
+flexible. At its current stage the ONF is a naive compiler that does not
+perform many important optimizations such as <a href="https://www.researchgate.net/publication/264758384_Effective_data_parallel_computation_using_the_Psi_calculus">PSI
+reduction</a>
+which reduces the number of loops in the calculation, loop ordering, and
+minimize the number of accumulators. MOA has ideas of dimension lifting
+which make parallization and optimizing for cache sizes much easier.
+Additionally algorithms must be implemented differently for sparse,
+column major, row major. The ONF stage is responsible for any
+\"optimal\" machine dependent implementation. \"optimal\" will vary from
+user to user and thus will have to allow for multiple programs: optimal
+single core, optimal parallel, optimal gpu, optimal low memory, etc.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">expression</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">use_numba</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">include_conditions</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+
+@numba.jit
+def f(A, B):
+    
+    
+    n = A.shape[0]
+    
+    m = A.shape[1]
+    
+    k = B.shape[0]
+    
+    l = B.shape[1]
+    
+    _a21 = numpy.zeros(())
+    
+    _a19 = numpy.zeros(())
+    
+    _a21 = 0
+    
+    for _i10 in range(0, m, 1):
+        
+        _a21 = (_a21 + (A[(0, _i10)] + B[(0, _i10)]))
+    
+    _a19[()] = _a21
+    return _a19
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Performance">Performance<a class="anchor-link" href="#Performance">¶</a>
+</h3>
+<p>MOA excels at performing reductions and reducing the amount of actual
+work done. You will see that the following algorithm only requires the
+first index of the computation. Making the naive implementation <code>1000x</code>
+more expensive for <code>1000x1000</code> shaped array. The following benchmarks
+have been performed on my laptop with an intel i5-4200U. However, more
+benchmarks are always available on the <a href="https://travis-ci.org/Quansight-Labs/python-moa">Travis
+CI</a> (these benchmarks
+test python-moa\'s weaknesses). You will see with the benchmarks that if
+<strong>any</strong> indexing is required MOA will be significantly faster unless you
+hand optimize the numerical computations.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">numba</span>
+
+<span class="n">n</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span>
+
+<span class="n">exec</span><span class="p">(</span><span class="n">expression</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="s1">'python'</span><span class="p">,</span> <span class="n">use_numba</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">include_conditions</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">))</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here we execute the MOA optimized code with the help of
+<a href="https://github.com/numba/numba">numba</a> which is a JIT LLVM compiler for
+python.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>it
+
+<span class="n">f</span><span class="p">(</span><span class="n">A</span><span class="o">=</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>2.14 µs ± 6.76 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The following numpy computation is obviously the worst case expression
+that you could write but this brings up the point that often times the
+algorithm is expressed differently than the implementation. This is one
+of the problems that MOA hopes to solve.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>it
+
+<span class="p">(</span><span class="n">A</span> <span class="o">+</span> <span class="n">B</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>2.74 ms ± 29.2 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We notice that even with the optimized version MOA is faster. This is
+mostly due to the transpose operation the numpy performs that we have no
+way around.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>it
+
+<span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>6.67 µs ± 91.2 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Conclusions">Conclusions<a class="anchor-link" href="#Conclusions">¶</a>
+</h3>
+<p>I hope that this walk through has shown the promising results that the
+MOA theory can bring to tensor computations and the python ecosystem as
+a whole. Please feel free to try out the project at <a href="https://github.com/Quansight-Labs/python-moa">Quansight
+Labs/python-moa</a>. I hope
+that this work can allow for the analysis and optimization of algorithms
+in a mathematically rigorous way which allows users to express their
+algorithms in an implementation independent manner.</p>
+
+</div>
+</div>
+</div>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../joining-labs/" rel="prev" title="Thoughts on joining Quansight Labs">Previous post</a>
+            </li>
+        </ul></nav></aside><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha256-SDRP1VVYu+tgAGKhddBSl5+ezofHKZeI+OzxakbIe/Y=" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$latex ','$'], ['\\(','\\)']]}});
+        </script></article><!--End of body content--><footer id="footer">
+            Contents © 2019         <a href="mailto:info@quansight.com">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>

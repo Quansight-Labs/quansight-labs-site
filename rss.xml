@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Fri, 19 Apr 2019 04:55:59 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>MOA: a theory for composable and verifiable tensor computations</title><link>https://labs.quansight.org/blog/2019/04/python-moa-tensor-compiler/</link><dc:creator>Chris Ostrouchov</dc:creator><description>&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Python-moa (mathematics of arrays) is an approach to a high level tensor
+compiler that is based on the work of &lt;a href="https://www.albany.edu/ceas/lenore-mullin.php"&gt;Lenore
+Mullins&lt;/a&gt; and her
+&lt;a href="https://www.researchgate.net/publication/308893116_A_Mathematics_of_Arrays"&gt;dissertation&lt;/a&gt;.
+A high level compiler is necessary because there are many optimizations
+that a low level compiler such as &lt;code&gt;gcc&lt;/code&gt; will miss. It is trying to solve
+many of the same problems as other technologies such as the &lt;a href="http://tensor-compiler.org/"&gt;taco
+compiler&lt;/a&gt; and the &lt;a href="https://www.tensorflow.org/xla"&gt;xla
+compiler&lt;/a&gt;. However, it takes a much
+different approach than others guided by the following principles.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;What is the shape? Everything has a shape. scalars, vectors, arrays,
+operations, and functions.&lt;/li&gt;
+&lt;li&gt;What are the given indicies and operations required to produce a
+given index in the result?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Having a compiler that is guided upon these principles allows for high
+level reductions that other compilers will miss and allows for
+optimization of algorithms as a whole. Keep in mind that MOA is &lt;strong&gt;NOT&lt;/strong&gt;
+a compiler. It is a theory that guides compiler development. Since
+&lt;a href="https://github.com/Quansight-Labs/python-moa"&gt;python-moa&lt;/a&gt; is based on
+theory we get unique properties that other compilers cannot guarantee:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/04/python-moa-tensor-compiler/"&gt;Read more…&lt;/a&gt; (5 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>https://labs.quansight.org/blog/2019/04/python-moa-tensor-compiler/</guid><pubDate>Wed, 17 Apr 2019 05:00:00 GMT</pubDate></item><item><title>Thoughts on joining Quansight Labs</title><link>https://labs.quansight.org/blog/2019/04/joining-labs/</link><dc:creator>Ralf Gommers</dc:creator><description>&lt;div&gt;&lt;p&gt;In his &lt;a href="https://www.quansight.com/single-post/2019/04/02/Welcoming-Ralf-Gommers-as-Director-of-Quansight-Labs"&gt;blog post&lt;/a&gt; welcoming me, Travis set out his vision for pushing forward the Python ecosystem for scientific computing and data science, and how to fund it. In this post I'll add my own perspectives to that. Given that Quansight Labs' purpose, it seems fitting to start with how I see things as a community member and organizer.&lt;/p&gt;
+&lt;h4&gt;A community perspective&lt;/h4&gt;
+&lt;p&gt;The SciPy and PyData ecosystems have experienced massive growth over the past years, and this is likely to continue in the near future. As a maintainer, that feels very gratifying. At the same time it brings up worries. Core projects struggle to keep up with the growth in number of users. Funded development can help with this, if done right. Some of the things I would like to see from companies that participate in the ecosystem:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Explain innovations they're working on to the community and solicit input, &lt;em&gt;at an early stage&lt;/em&gt;. Developing something away from the spotlight and then unveiling it as the "next big thing" once it's done usually leads to either corporate-driven projects (if users adopt it) or a short life span.&lt;/li&gt;
+&lt;li&gt;Participate in a sustainable way. This means for example to contribute in a way that lowers, or at least doesn't increase, the overall effort required for maintenance. Only sending pull requests with new features doesn't achieve that. Solving maintenance pain points or helping with code review does.&lt;/li&gt;
+&lt;li&gt;Operate transparently. Develop in the open, plan in the open, be clear about directions and motivations.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/04/joining-labs/"&gt;Read more…&lt;/a&gt; (4 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>community</category><category>Labs</category><guid>https://labs.quansight.org/blog/2019/04/joining-labs/</guid><pubDate>Mon, 08 Apr 2019 05:00:00 GMT</pubDate></item></channel></rss>
