@@ -33,12 +33,12 @@ jobs:
           # https://circleci.com/docs/2.0/contexts/#restricting-a-context
           # This will only work on authorised commits.
           command: |
-            git config --global user.name 'CirclCI'
-            git config --global user.email 'circleci@invalid'
-            git config --global push.default 'simple'
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            git config --local user.name '$LEKTOR_DEPLOY_USERNAME'
+            git config --local user.email '$LEKTOR_DEPLOY_PASSWORD'
+            git config --local push.default 'simple'
+            # if [ "${CIRCLE_BRANCH}" == "master" ]; then
               nikola github_deploy -m 'Nikola auto deploy [ci skip]'
-            fi
+            # fi
 
 workflows:
   version: 2
