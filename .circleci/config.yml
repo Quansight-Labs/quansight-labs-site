@@ -36,9 +36,9 @@ jobs:
             git config --global user.name 'CirclCI'
             git config --global user.email 'circleci@invalid'
             git remote add deploy https://${LEKTOR_DEPLOY_PASSWORD}@github.com/Quansight-Labs/quansight-labs-site.git
-            # if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
               nikola github_deploy -m 'Nikola auto deploy [ci skip]'
-            # fi
+            fi
 
 workflows:
   version: 2
