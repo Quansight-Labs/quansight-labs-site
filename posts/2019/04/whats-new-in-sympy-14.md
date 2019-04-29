@@ -71,7 +71,7 @@ so does not render as LaTeX unless `init_printing()` is called:
 
 Simplification of relational and piecewise expressions has been improved:
 
-```py
+```pycon
 >>> x, y, z, w = symbols('x y z w')
 >>> init_printing()
 >>> expr = And(Eq(x,y), x >= y, w < y, y >= z, z < y)
@@ -81,7 +81,7 @@ x = y ∧ x ≥ y ∧ y ≥ z ∧ w < y ∧ z < y
 x = y ∧ y > Max(w, z)
 ```
 
-```py
+```pycon
 >>> expr = Piecewise((x*y, And(x >= y, Eq(y, 0))), (x - 1, Eq(x, 1)), (0, True))
 >>> expr
 ⎧ x⋅y   for y = 0 ∧ x ≥ y
@@ -98,7 +98,7 @@ x = y ∧ y > Max(w, z)
 The MathML presentation printer has been greatly improved, putting it on par
 with the existing Unicode and LaTeX pretty printers.
 
-```py
+```pycon
 >>> mathml(Integral(exp(-x**2), (x, -oo, oo)), 'presentation')
 <mrow><msubsup><mo>&#x222B;</mo><mrow><mo>-</mo><mi>&#x221E;</mi></mrow><mi>&#x221E;</mi></msubsup><msup><mi>&ExponentialE;</mi><mrow><mo>-</mo><msup><mi>x</mi><mn>2</mn></msup></mrow></msup><mo>&dd;</mo><mi>x</mi></mrow>
 ```
@@ -113,7 +113,7 @@ presentation form for `Integral(exp(-x**2), (x, -oo, oo))` below:
 
 Several improvements have been made to the solvers.
 
-```py
+```pycon
 >>> eq = Eq((x**2 - 7*x + 11)**(x**2 - 13*x + 42), 1)
 >>> eq
                 2
@@ -130,7 +130,7 @@ been added.
 `'nth_algebraic'` solves ODEs using `solve` by inverting the derivatives
 algebraically:
 
-```py
+```pycon
 >>> f = Function('f')
 >>> eq = Eq(f(x) * (f(x).diff(x)**2 - 1), 0)
 >>> eq
@@ -145,7 +145,7 @@ algebraically:
 `'nth_order_reducible'` solves ODEs that only involve derivatives of `f(x)`,
 via the substitution $g(x)=f^{(n)}(x)$.
 
-```py
+```pycon
 >>> eq = Eq(Derivative(f(x), (x, 2)) + x*Derivative(f(x), x), x)
 >>> eq
                2
