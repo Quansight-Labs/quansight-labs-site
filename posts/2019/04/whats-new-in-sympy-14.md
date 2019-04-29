@@ -53,18 +53,18 @@ do the release itself.
 Prior to SymPy 1.4, SymPy expressions in the notebook rendered by default with their
  string representation. To get `LaTeX` output, you had to call `init_printing()`:
 
-<img src="../../sympy-1.3-notebook.png" alt="SymPy 1.3 rendering in the Jupyter lab notebook">
+<img src="../../../../images/sympy-1.3-notebook.png" alt="SymPy 1.3 rendering in the Jupyter lab notebook">
 
 In SymPy 1.4, SymPy expressions now automatically render as LaTeX in the notebook:
 
-<img src="../../sympy-1.4-notebook.png" alt="SymPy 1.4 rendering in the Jupyter lab notebook">
+<img src="../../../../images/sympy-1.4-notebook.png" alt="SymPy 1.4 rendering in the Jupyter lab notebook">
 
 However, this only applies automatically if the type of an object is a SymPy
 expression. For built-in types such as lists or ints, `init_printing()` is
 still required to get LaTeX printing. For example, `solve()` returns a list,
 so does not render as LaTeX unless `init_printing()` is called:
 
-<img src="../../sympy-1.4-notebook-2.png" alt="SymPy 1.4 rendering in the Jupyter lab notebook with init_printing()">
+<img src="../../../../images/sympy-1.4-notebook-2.png" alt="SymPy 1.4 rendering in the Jupyter lab notebook with init_printing()">
 
 
 # Improved simplification of relational expressions
