@@ -1,7 +1,7 @@
 <!--
 .. title: What's New in SymPy 1.4
 .. slug: whats-new-in-sympy-14
-.. date: 2019-04-30
+.. date: 2019-04-29
 .. author: Aaron Meurer
 .. tags: sympy, Labs
 .. link:
