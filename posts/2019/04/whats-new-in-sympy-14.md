@@ -3,7 +3,7 @@
 .. slug: whats-new-in-sympy-14
 .. date: 2019-04-29
 .. author: Aaron Meurer
-.. tags: sympy, Labs
+.. tags: sympy, Labs, mathjax
 .. link:
 .. description:
 .. type: text
