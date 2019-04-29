@@ -11,10 +11,13 @@
 -->
 
 As of November, 2018, I have been working at
-[Quansight](https://www.quansight.com/). Quansight is a new startup founded by
-the same people who started Anaconda, which .... I work under the heading of
-[Quansight Labs](https://www.quansight.com/labs), which is .... As a part of
-this, I am able to spend a fraction of my time working on SymPy.
+[Quansight](https://www.quansight.com/), under the heading of [Quansight
+Labs](https://www.quansight.com/labs). Quansight Labs is a public-benefit
+division of Quansight. It provides a home for a "PyData Core Team" which
+consists of developers, community managers, designers, and documentation
+writers who build open-source technology and grow open-source communities
+around all aspects of the AI and Data Science workflow. As a part of this, I
+am able to spend a fraction of my time working on SymPy.
 [SymPy](https://www.sympy.org/en/index.html), for those who do not know, is a
 symbolic mathematics library written in pure Python. I am the lead maintainer
 of SymPy.
