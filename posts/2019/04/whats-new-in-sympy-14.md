@@ -69,6 +69,9 @@ so does not render as LaTeX unless `init_printing()` is called:
 
 ![SymPy 1.4 rendering in the Jupyter lab notebook with init_printing()](/images/sympy-1.4-notebook-2.png)
 
+`init_printing()` is also still needed if you want to change any of the
+printing settings, for instance, passing flags to the `latex()` printer or
+selecting a different printer.
 
 # Improved simplification of relational expressions
 
