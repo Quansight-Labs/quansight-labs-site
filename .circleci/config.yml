@@ -1,48 +1,74 @@
 version: 2
 
+just_build: &just_build
+  - run:
+      name: Clone submodules
+      command: |
+        git clone https://github.com/Quansight-Labs/quansight-labs-site.git .
+        git checkout ${CIRCLE_BRANCH}
+        git submodule sync
+        git submodule update --init
+  - restore_cache:
+      key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
+  - run:
+      name: Install Nikola
+      command: sudo pip install nikola[extras]
+  - save_cache:
+      key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
+      paths:
+        - "$HOME/.cache/pip"
+        - "$HOME/.cache/pip"
+  - run:
+      name: Build site with Nikola
+      command: nikola build
+  - store_artifacts:
+      path: ./output/
+
+just_deploy: &just_deploy
+  - run:
+      name: Deploy to GitHub Pages
+      # Note that if the correct settings are applied:
+      # https://circleci.com/docs/2.0/contexts/#restricting-a-context
+      # This will only work on authorised commits.
+      command: |
+        if [ "${CIRCLE_BRANCH}" == "master" ]; then
+          git config --global user.name 'CirclCI'
+          git config --global user.email 'circleci@invalid' 
+          git pull --all
+          git remote add deploy https://${GITHUB_TOKEN}@github.com/Quansight-Labs/quansight-labs-site.git
+          nikola github_deploy -m 'Nikola auto deploy [ci skip]'
+        fi
+
 jobs:
   build:
     docker:
       - image: circleci/python:latest
     steps:
-      - run:
-          name: Clone submodules
-          command: |
-            git clone https://github.com/Quansight-Labs/quansight-labs-site.git .
-            git checkout ${CIRCLE_BRANCH}
-            git submodule sync
-            git submodule update --init
-      - restore_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
-      - run:
-          name: Install Nikola
-          command: sudo pip install nikola[extras]
-      - save_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
-          paths:
-            - "$HOME/.cache/pip"
-      - run:
-          name: Build site with Nikola
-          command: nikola build
-      - store_artifacts:
-          path: ./output/
-      - run:
-          name: Deploy to GitHub Pages
-          # Note that if the correct settings are applied:
-          # https://circleci.com/docs/2.0/contexts/#restricting-a-context
-          # This will only work on authorised commits.
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              git config --global user.name 'CirclCI'
-              git config --global user.email 'circleci@invalid' 
-              git pull --all
-              git remote add deploy https://${GITHUB_TOKEN}@github.com/Quansight-Labs/quansight-labs-site.git
-              nikola github_deploy -m 'Nikola auto deploy [ci skip]'
-            fi
+      <<: *just_build
+  
+  build_and_deploy:
+    docker:
+      - image: circleci/python:latest
+    steps:
+      <<: *just_build
+      <<: *just_deploy
 
 workflows:
   version: 2
-  build_and_deploy:
+  build:
+    triggers:
+      branches:
+        only:
+          - master
     jobs:
-      - build:
-          context: org-global
+      - build
+  
+  build_and_deploy:
+    triggers:
+      branches:
+        ignore:
+          - master
+    jobs:
+      - build_and_deploy
+    context:
+      - org-global
