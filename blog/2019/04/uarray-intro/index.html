@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>uarray: A Generic Override Framework for Methods | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2019/04/uarray-intro/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Hameer Abbasi">
+<link rel="prev" href="../python-moa-tensor-compiler/" title="MOA: a theory for composable and verifiable tensor computations" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="uarray: A Generic Override Framework for Methods">
+<meta property="og:url" content="https://labs.quansight.org/blog/2019/04/uarray-intro/">
+<meta property="og:description" content="uarray: A Generic Override Framework for Methods¶uarray is an override framework for methods in Python. In the scientific Python ecosystem, and in other similar places, there has been one recurring pr">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2019-04-30T00:04:40-05:00">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+
+            <span id="blog-title">Quansight Labs</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../archive.html" class="nav-link">Archive</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../categories/" class="nav-link">Tags</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS feed</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right">
+<li class="nav-item">
+    <a href="index.ipynb" id="sourcelink" class="nav-link">Source</a>
+    </li>
+
+
+                
+            </ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">uarray: A Generic Override Framework for Methods</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    <a href="../../../../authors/hameer-abbasi/">Hameer Abbasi</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2019-04-30T00:04:40-05:00" itemprop="datePublished" title="2019-04-30">2019-04-30</time></a>
+            </p>
+            
+        <p class="sourceline"><a href="index.ipynb" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="uarray:-A-Generic-Override-Framework-for-Methods">
+<code>uarray</code>: A Generic Override Framework for Methods<a class="anchor-link" href="#uarray:-A-Generic-Override-Framework-for-Methods">¶</a>
+</h2>
+<p><code>uarray</code> is an override framework for methods in Python. In the scientific Python ecosystem, and in other similar places, there has been one recurring problem: That similar tools to do a job have existed, but don't conform to a single, well-defined API. <code>uarray</code> tries to solve this problem in general, but also for the scientific Python ecosystem in particular, by defining APIs independent of their implementations.</p>
+<h3 id="Array-Libraries-in-the-Scientific-Python-Ecosystem">Array Libraries in the Scientific Python Ecosystem<a class="anchor-link" href="#Array-Libraries-in-the-Scientific-Python-Ecosystem">¶</a>
+</h3>
+<p>When SciPy was created, and Numeric and Numarray unified into NumPy, it jump-started Python's data science community. The ecosystem grew quickly: Academics started moving to SciPy, and the Scikits that popped up made the transition all the more smooth.</p>
+<p>However, the scientific Python community also shifted during that time: GPUs and distributed computing emerged. Also, there were old ideas that couldn't really be used with NumPy's API, such as sparse arrays. To solve these problems, various libraries emerged:</p>
+<ul>
+<li>Dask, for distributed NumPy</li>
+<li>CuPy, for NumPy on Nvidia-branded GPUs.</li>
+<li>PyData/Sparse, a project started to make sparse arrays conform to the NumPy API</li>
+<li>Xnd, which extends the type system and the universal function concept found in NumPy</li>
+</ul>
+<!-- TEASER_END --><p>There were yet other libraries that emerged: PyTorch, which mimics NumPy to a certain degree; TensorFlow, which defines its own API; and MXNet, which is another deep learning framework that mimics NumPy.</p>
+<h3 id="The-Problem">The Problem<a class="anchor-link" href="#The-Problem">¶</a>
+</h3>
+<p>The problem is, stated simply: How do we use all of these libraries in tandem, moving seamlessly from one to the other, without actually changing the API, or even the imports? How do we take functions written for one library and allow it to be used by another, without, as Travis Oliphant so eloquently puts it, "re-writing the world"?</p>
+<p>In my mind, the goals are (stated abstractly):</p>
+<ol>
+<li>Methods that are not tied to a specific implementation.<ul>
+<li>For example <code>np.arange</code>
+</li>
+</ul>
+</li>
+<li>Backends that implement these methods.<ul>
+<li>NumPy, Dask, PyTorch are all examples of this.</li>
+</ul>
+</li>
+<li>Coercion of objects to other forms to move between backends.<ul>
+<li>This means converting a NumPy array to a Dask array, and vice versa.</li>
+</ul>
+</li>
+</ol>
+<p>In addition, we wanted to be able to do this for arbitrary objects. So <code>dtype</code>s, <code>ufunc</code>s etc. should also be dispatchable and coercible.</p>
+<h3 id="The-Solution?">The Solution?<a class="anchor-link" href="#The-Solution?">¶</a>
+</h3>
+<p>With that said, let's dive into <code>uarray</code>. If you're not interested in the gory details, you can jump down to <a href="#how-to-use-it">this section</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">uarray</span> <span class="k">as</span> <span class="nn">ua</span>
+
+<span class="c1"># Let's ignore this for now</span>
+<span class="k">def</span> <span class="nf">myfunc_rd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">kw</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span><span class="p">,</span> <span class="n">kw</span>
+
+<span class="c1"># We define a multimethod</span>
+<span class="nd">@ua</span><span class="o">.</span><span class="n">create_multimethod</span><span class="p">(</span><span class="n">myfunc_rd</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">myfunc</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">()</span> <span class="c1"># Let's also ignore this for now</span>
+
+
+<span class="c1"># Now let's define two backends!</span>
+<span class="n">be1</span> <span class="o">=</span> <span class="n">ua</span><span class="o">.</span><span class="n">Backend</span><span class="p">()</span>
+<span class="n">be2</span> <span class="o">=</span> <span class="n">ua</span><span class="o">.</span><span class="n">Backend</span><span class="p">()</span>
+
+<span class="c1"># And register their implementations for the method!</span>
+<span class="nd">@ua</span><span class="o">.</span><span class="n">register_implementation</span><span class="p">(</span><span class="n">myfunc</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="n">be1</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">myfunc_be1</span><span class="p">():</span> <span class="c1"># Note that it has exactly the same signature</span>
+    <span class="k">return</span> <span class="s2">"Potato"</span>
+
+<span class="nd">@ua</span><span class="o">.</span><span class="n">register_implementation</span><span class="p">(</span><span class="n">myfunc</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="n">be2</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">myfunc_be2</span><span class="p">():</span> <span class="c1"># Note that it has exactly the same signature</span>
+    <span class="k">return</span> <span class="s2">"Strawberry"</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">ua</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="n">be1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">myfunc</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Potato
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">ua</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="n">be2</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">myfunc</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Strawberry
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As we can clearly see: We have already provided a way to do (1) and (2) above. But then we run across the problem: How do we decide between these backends? How do we move between them? Let's go ahead and register both of these backends for permanent use. And see what happens when we want to implement both of their methods!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ua</span><span class="o">.</span><span class="n">register_backend</span><span class="p">(</span><span class="n">be1</span><span class="p">)</span>
+<span class="n">ua</span><span class="o">.</span><span class="n">register_backend</span><span class="p">(</span><span class="n">be2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">myfunc</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Potato
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As we see, we get only the first backend's answer. In general, it's indeterminate what backend will be selected. But, this is a special case: We're not passing arguments in! What if we change one of these to return <code>NotImplemented</code>?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># We redefine the multimethod so it's new again</span>
+<span class="nd">@ua</span><span class="o">.</span><span class="n">create_multimethod</span><span class="p">(</span><span class="n">myfunc_rd</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">myfunc</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">()</span>
+
+
+<span class="c1"># Now let's redefine the two backends!</span>
+<span class="n">be1</span> <span class="o">=</span> <span class="n">ua</span><span class="o">.</span><span class="n">Backend</span><span class="p">()</span>
+<span class="n">be2</span> <span class="o">=</span> <span class="n">ua</span><span class="o">.</span><span class="n">Backend</span><span class="p">()</span>
+
+<span class="c1"># And register their implementations for the method!</span>
+<span class="nd">@ua</span><span class="o">.</span><span class="n">register_implementation</span><span class="p">(</span><span class="n">myfunc</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="n">be1</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">myfunc_be1</span><span class="p">():</span> <span class="c1"># Note that it has exactly the same signature</span>
+    <span class="k">return</span> <span class="bp">NotImplemented</span>
+
+<span class="nd">@ua</span><span class="o">.</span><span class="n">register_implementation</span><span class="p">(</span><span class="n">myfunc</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="n">be2</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">myfunc_be2</span><span class="p">():</span> <span class="c1"># Note that it has exactly the same signature</span>
+    <span class="k">return</span> <span class="s2">"Strawberry"</span>
+
+<span class="n">ua</span><span class="o">.</span><span class="n">register_backend</span><span class="p">(</span><span class="n">be1</span><span class="p">)</span>
+<span class="n">ua</span><span class="o">.</span><span class="n">register_backend</span><span class="p">(</span><span class="n">be2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">ua</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="n">be1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">myfunc</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Strawberry
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Wait... What? Didn't we just set the first <code>Backend</code>? Ahh, but, you see... It's signalling that it has <em>no</em> implementation for <code>myfunc</code>. The same would happen if you simply didn't register one. To force a <code>Backend</code>, we must use <code>only=True</code> or <code>coerce=True</code>, the difference will be explained in just a moment.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">ua</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="n">be1</span><span class="p">,</span> <span class="n">only</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">myfunc</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">BackendNotImplementedError</span>                Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-8-ec856cf7c88b&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-green-fg">with</span> ua<span class="ansi-blue-fg">.</span>set_backend<span class="ansi-blue-fg">(</span>be1<span class="ansi-blue-fg">,</span> only<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">True</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg">     </span>print<span class="ansi-blue-fg">(</span>myfunc<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/Quansight/uarray/uarray/backend.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self, *args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    108</span> 
+<span class="ansi-green-intense-fg ansi-bold">    109</span>         <span class="ansi-green-fg">if</span> result <span class="ansi-green-fg">is</span> NotImplemented<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 110</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">raise</span> BackendNotImplementedError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">'No selected backends had an implementation for this method.'</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    111</span> 
+<span class="ansi-green-intense-fg ansi-bold">    112</span>         <span class="ansi-green-fg">return</span> result
+
+<span class="ansi-red-fg">BackendNotImplementedError</span>: No selected backends had an implementation for this method.</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we are told that no backends had an implementation for this function (which is nice, good error messages are nice!)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Coercion-and-passing-between-backends">Coercion and passing between backends<a class="anchor-link" href="#Coercion-and-passing-between-backends">¶</a>
+</h3>
+<p>Let's say we had two <code>Backend</code>s. Let's choose the completely useless example of one storing a number as an <code>int</code> and one as a <code>float</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Number</span><span class="p">(</span><span class="n">ua</span><span class="o">.</span><span class="n">DispatchableInstance</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">myfunc_rd</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">dispatchable_args</span><span class="p">):</span>
+    <span class="c1"># Here, we're "replacing" the dispatchable args with the ones supplied.</span>
+    <span class="c1"># In general, this may be more complex, like inserting them in between</span>
+    <span class="c1"># other args and kwargs.</span>
+    <span class="k">return</span> <span class="n">dispatchable_args</span><span class="p">,</span> <span class="n">kwargs</span>
+
+<span class="nd">@ua</span><span class="o">.</span><span class="n">create_multimethod</span><span class="p">(</span><span class="n">myfunc_rd</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">myfunc</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+    <span class="c1"># Here, we're marking a as a Number, and saying that "we want to dispatch/convert over this"</span>
+    <span class="c1"># We return as a tuple as there may be more dispatchable arguments</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">Number</span><span class="p">(</span><span class="n">a</span><span class="p">),)</span>
+
+
+<span class="n">Number</span><span class="o">.</span><span class="n">register_convertor</span><span class="p">(</span><span class="n">be1</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">Number</span><span class="o">.</span><span class="n">register_convertor</span><span class="p">(</span><span class="n">be2</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's also define a "catch-all" method. This catches all implementations of methods not already registered.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This can be arbitrarily complex</span>
+<span class="k">def</span> <span class="nf">gen_impl1</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">dispatchable_args</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">Number</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">dispatchable_args</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">NotImplemented</span>
+    
+    <span class="k">return</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># This can be arbitrarily complex</span>
+<span class="k">def</span> <span class="nf">gen_impl2</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">dispatchable_args</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">Number</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">dispatchable_args</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">NotImplemented</span>
+    
+    <span class="k">return</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">be1</span><span class="o">.</span><span class="n">register_implementation</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">gen_impl1</span><span class="p">)</span>
+<span class="n">be2</span><span class="o">.</span><span class="n">register_implementation</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">gen_impl2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">myfunc</span><span class="p">(</span><span class="s1">'1'</span><span class="p">)</span> <span class="c1"># This calls the second implementation</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[11]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'1'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">myfunc</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># This calls the first implementation</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[12]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>1</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">myfunc</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span> <span class="c1"># This fails</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">BackendNotImplementedError</span>                Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-13-8431c1275db5&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>myfunc<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">1.0</span><span class="ansi-blue-fg">)</span> <span class="ansi-red-fg"># This fails</span>
+
+<span class="ansi-green-fg">~/Quansight/uarray/uarray/backend.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self, *args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    108</span> 
+<span class="ansi-green-intense-fg ansi-bold">    109</span>         <span class="ansi-green-fg">if</span> result <span class="ansi-green-fg">is</span> NotImplemented<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 110</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">raise</span> BackendNotImplementedError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">'No selected backends had an implementation for this method.'</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    111</span> 
+<span class="ansi-green-intense-fg ansi-bold">    112</span>         <span class="ansi-green-fg">return</span> result
+
+<span class="ansi-red-fg">BackendNotImplementedError</span>: No selected backends had an implementation for this method.</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># But works if we do this:</span>
+
+<span class="k">with</span> <span class="n">ua</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="n">be1</span><span class="p">,</span> <span class="n">coerce</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">myfunc</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)))</span>
+
+<span class="k">with</span> <span class="n">ua</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="n">be2</span><span class="p">,</span> <span class="n">coerce</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">myfunc</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class 'int'&gt;
+&lt;class 'str'&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This may seem like too much work, but remember that it's broken down into a lot of small steps:</p>
+<ol>
+<li>Extract the dispatchable arguments.</li>
+<li>Realise the types of the dispatchable arguments.</li>
+<li>Convert them.</li>
+<li>Place them back into args/kwargs</li>
+<li>Call the right function.</li>
+</ol>
+<p>Note that <code>only=True</code> does not coerce, just enforces the backend strictly.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>With this, we have solved problem (3). Now remains the grunt-work of actually retrofitting the NumPy API into <code>unumpy</code> and extracting the right values from it.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="How-To-Use-It-Today">
+<a name="how-to-use-it">How To Use It Today</a><a class="anchor-link" href="#How-To-Use-It-Today">¶</a>
+</h3>
+<p><code>unumpy</code> is a set of NumPy-related multimethods built on top of <code>uarray</code>. You can use them as follows:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">unumpy</span> <span class="k">as</span> <span class="nn">np</span> <span class="c1"># Note the changed import statement</span>
+<span class="kn">from</span> <span class="nn">unumpy.xnd_backend</span> <span class="k">import</span> <span class="n">XndBackend</span>
+
+<span class="k">with</span> <span class="n">ua</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="n">XndBackend</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class 'xnd.array'&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And, as you can see, we get back an Xnd array when using a NumPy-like API. Currently, there are three back-ends: NumPy, Xnd and PyTorch. The NumPy and Xnd backends have feature parity, while the PyTorch backend is still being worked on.</p>
+<p>We are also working on supporting more of the NumPy API, and dispatching over dtypes.</p>
+<p>Feel free to browse the source and open issues at: <a href="https://github.com/Quansight-Labs/uarray">https://github.com/Quansight-Labs/uarray</a> or shoot me an email at <a href="mailto:habbasi@quansight.com">habbasi@quansight.com</a> if you want to contact me directly. You can also find the full documentation at <a href="https://uarray.readthedocs.io/en/latest/">https://uarray.readthedocs.io/en/latest/</a>.</p>
+
+</div>
+</div>
+</div>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../python-moa-tensor-compiler/" rel="prev" title="MOA: a theory for composable and verifiable tensor computations">Previous post</a>
+            </li>
+        </ul></nav></aside><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha256-SDRP1VVYu+tgAGKhddBSl5+ezofHKZeI+OzxakbIe/Y=" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$latex ','$'], ['\\(','\\)']]}});
+        </script></article><!--End of body content--><footer id="footer">
+            Contents © 2019         <a href="mailto:info@quansight.com">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>
