@@ -49,6 +49,7 @@ Thumbs.db
 # Nikola build output
 .doit.db.dat
 .doit.db.dir
+.doit.db.db
 __pycache__/
 cache/
 output/
