@@ -1,7 +1,7 @@
 <!--
 .. title: What's New in SymPy 1.4
 .. slug: whats-new-in-sympy-14
-.. date: 2019-04-29
+.. date: 2019-05-02
 .. author: Aaron Meurer
 .. tags: sympy, Labs
 .. link:
@@ -50,6 +50,8 @@ this release.
 While I did not personally work on any of the changes listed below (my work
 for this release tended to be more invisible, behind the scenes fixes), I did
 do the release itself.
+
+<!-- TEASER_END -->
 
 # Automatic LaTeX rendering in the Jupyter notebook
 
