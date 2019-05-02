@@ -14,7 +14,18 @@
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml">
 <link rel="canonical" href="https://labs.quansight.org/2019/">
 <link rel="icon" href="../favicon.ico" sizes="16x16">
-<!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]-->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]-->
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -63,6 +74,9 @@ navbar-dark bg-dark
 <article class="listpage"><header><h1>Posts for year 2019</h1>
     </header><ul class="postlist">
 <li>
+<time class="listdate" datetime="2019-05-02T00:00:00-05:00" title="2019-05-02">2019-05-02</time><a href="../blog/2019/04/whats-new-in-sympy-14/" class="listtitle">What's New in SymPy 1.4</a>
+</li>
+        <li>
 <time class="listdate" datetime="2019-04-30T00:04:40-05:00" title="2019-04-30">2019-04-30</time><a href="../blog/2019/04/uarray-intro/" class="listtitle">uarray: A Generic Override Framework for Methods</a>
 </li>
         <li>

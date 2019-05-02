@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What's New in SymPy 1.4 | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2019/04/whats-new-in-sympy-14/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Aaron Meurer">
+<link rel="prev" href="../uarray-intro/" title="uarray: A Generic Override Framework for Methods" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="What's New in SymPy 1.4">
+<meta property="og:url" content="https://labs.quansight.org/blog/2019/04/whats-new-in-sympy-14/">
+<meta property="og:description" content='As of November, 2018, I have been working at
+Quansight, under the heading of Quansight
+Labs. Quansight Labs is a public-benefit
+division of Quansight. It provides a home for a "PyData Core Team" which'>
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2019-05-02T00:00:00-05:00">
+<meta property="article:tag" content="Labs">
+<meta property="article:tag" content="sympy">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+
+            <span id="blog-title">Quansight Labs</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../archive.html" class="nav-link">Archive</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../categories/" class="nav-link">Tags</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS feed</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right">
+<li class="nav-item">
+    <a href="index.md" id="sourcelink" class="nav-link">Source</a>
+    </li>
+
+
+                
+            </ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">What's New in SymPy 1.4</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    <a href="../../../../authors/aaron-meurer/">Aaron Meurer</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2019-05-02T00:00:00-05:00" itemprop="datePublished" title="2019-05-02">2019-05-02</time></a>
+            </p>
+            
+        <p class="sourceline"><a href="index.md" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<p>As of November, 2018, I have been working at
+<a href="https://www.quansight.com/">Quansight</a>, under the heading of <a href="https://www.quansight.com/labs">Quansight
+Labs</a>. Quansight Labs is a public-benefit
+division of Quansight. It provides a home for a "PyData Core Team" which
+consists of developers, community managers, designers, and documentation
+writers who build open-source technology and grow open-source communities
+around all aspects of the AI and Data Science workflow. As a part of this, I
+am able to spend a fraction of my time working on SymPy.
+<a href="https://www.sympy.org/en/index.html">SymPy</a>, for those who do not know, is a
+symbolic mathematics library written in pure Python. I am the lead maintainer
+of SymPy.</p>
+<p>SymPy 1.4 was released on April 9, 2019. In this post, I'd like to go over
+some of the highlights for this release. The full release notes for the
+release can be found on the <a href="https://github.com/sympy/sympy/wiki/Release-Notes-for-1.4">SymPy
+wiki</a>.</p>
+<p>To update to SymPy 1.4, use</p>
+<pre class="code literal-block"><span></span>conda install sympy
+</pre>
+
+
+<p>or if you prefer to use pip</p>
+<pre class="code literal-block"><span></span>pip install -U sympy
+</pre>
+
+
+<p>The SymPy 1.4 release contains over <a href="https://github.com/sympy/sympy/wiki/Release-Notes-for-1.4#authors">500 changes from 38 different
+submodules</a>,
+so I will not be going over every change, but only a few of the main
+highlights. A <a href="https://github.com/sympy/sympy/wiki/Release-Notes-for-1.4#authors">total of 104
+people</a>
+contributed to this release, of whom 66 contributed for the first time for
+this release.</p>
+<p>While I did not personally work on any of the changes listed below (my work
+for this release tended to be more invisible, behind the scenes fixes), I did
+do the release itself.</p>
+<!-- TEASER_END -->
+
+<h2>Automatic LaTeX rendering in the Jupyter notebook</h2>
+<p>Prior to SymPy 1.4, SymPy expressions in the notebook rendered by default with their
+ string representation. To get <code>LaTeX</code> output, you had to call <code>init_printing()</code>:</p>
+<p><img alt="SymPy 1.3 rendering in the Jupyter lab notebook" src="../../../../images/sympy-1.3-notebook.png"></p>
+<p>In SymPy 1.4, SymPy expressions now automatically render as LaTeX in the notebook:</p>
+<p><img alt="SymPy 1.4 rendering in the Jupyter lab notebook" src="../../../../images/sympy-1.4-notebook.png"></p>
+<p>However, this only applies automatically if the type of an object is a SymPy
+expression. For built-in types such as lists or ints, <code>init_printing()</code> is
+still required to get LaTeX printing. For example, <code>solve()</code> returns a list,
+so does not render as LaTeX unless <code>init_printing()</code> is called:</p>
+<p><img alt="SymPy 1.4 rendering in the Jupyter lab notebook with init_printing()" src="../../../../images/sympy-1.4-notebook-2.png"></p>
+<p><code>init_printing()</code> is also still needed if you want to change any of the
+printing settings, for instance, passing flags to the <code>latex()</code> printer or
+selecting a different printer.</p>
+<h2>Improved simplification of relational expressions</h2>
+<p>Simplification of relational and piecewise expressions has been improved:</p>
+<pre class="code literal-block"><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">'x y z w'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">init_printing</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expr</span> <span class="o">=</span> <span class="n">And</span><span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">),</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span> <span class="o">&lt;</span> <span class="n">y</span><span class="p">,</span> <span class="n">y</span> <span class="o">&gt;=</span> <span class="n">z</span><span class="p">,</span> <span class="n">z</span> <span class="o">&lt;</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expr</span>
+<span class="go">x = y ∧ x ≥ y ∧ y ≥ z ∧ w &lt; y ∧ z &lt; y</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">simplify</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+<span class="go">x = y ∧ y &gt; Max(w, z)</span>
+</pre>
+
+
+<pre class="code literal-block"><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">expr</span> <span class="o">=</span> <span class="n">Piecewise</span><span class="p">((</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">,</span> <span class="n">And</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;=</span> <span class="n">y</span><span class="p">,</span> <span class="n">Eq</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">))),</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">Eq</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">True</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expr</span>
+<span class="go">⎧ x⋅y   for y = 0 ∧ x ≥ y</span>
+<span class="go">⎪</span>
+<span class="go">⎨x - 1      for x = 1</span>
+<span class="go">⎪</span>
+<span class="go">⎩  0        otherwise</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">simplify</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+<span class="go">0</span>
+</pre>
+
+
+<h2>Improved MathML printing</h2>
+<p>The MathML presentation printer has been greatly improved, putting it on par
+with the existing Unicode and LaTeX pretty printers.</p>
+<pre class="code literal-block"><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mathml</span><span class="p">(</span><span class="n">Integral</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="n">oo</span><span class="p">,</span> <span class="n">oo</span><span class="p">)),</span> <span class="s1">'presentation'</span><span class="p">)</span>
+<span class="go">&lt;mrow&gt;&lt;msubsup&gt;&lt;mo&gt;&amp;#x222B;&lt;/mo&gt;&lt;mrow&gt;&lt;mo&gt;-&lt;/mo&gt;&lt;mi&gt;&amp;#x221E;&lt;/mi&gt;&lt;/mrow&gt;&lt;mi&gt;&amp;#x221E;&lt;/mi&gt;&lt;/msubsup&gt;&lt;msup&gt;&lt;mi&gt;&amp;ExponentialE;&lt;/mi&gt;&lt;mrow&gt;&lt;mo&gt;-&lt;/mo&gt;&lt;msup&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;/msup&gt;&lt;mo&gt;&amp;dd;&lt;/mo&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;/mrow&gt;</span>
+</pre>
+
+
+<p>If your <a href="https://caniuse.com/#feat=mathml">browser supports MathML</a> (at the
+time of writing, only Firefox and Safari), you should see the above
+presentation form for <code>Integral(exp(-x**2), (x, -oo, oo))</code> below:</p>
+<math style="display: block;"><mrow><msubsup><mo>∫</mo><mrow><mo>-</mo><mi>∞</mi></mrow><mi>∞</mi></msubsup><msup><mi>&amp;ExponentialE;</mi><mrow><mo>-</mo><msup><mi>x</mi><mn>2</mn></msup></mrow></msup><mo>&amp;dd;</mo><mi>x</mi></mrow></math><h2>Improvements to solvers</h2>
+<p>Several improvements have been made to the solvers.</p>
+<pre class="code literal-block"><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">eq</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">((</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">7</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">11</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">13</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">42</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eq</span>
+<span class="go">                2</span>
+<span class="go">               x  - 13⋅x + 42</span>
+<span class="go">⎛ 2           ⎞</span>
+<span class="go">⎝x  - 7⋅x + 11⎠               = 1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">solve</span><span class="p">(</span><span class="n">eq</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="c1"># In SymPy 1.3, this only gave the partial solution [2, 5, 6, 7]</span>
+<span class="go">[2, 3, 4, 5, 6, 7]</span>
+</pre>
+
+
+<p>The ODE solver, <code>dsolve</code>, has also seen some improvements. Two new hints have
+been added.</p>
+<p><code>'nth_algebraic'</code> solves ODEs using <code>solve</code> by inverting the derivatives
+algebraically:</p>
+<pre class="code literal-block"><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s1">'f'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eq</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eq</span>
+<span class="go">⎛          2    ⎞</span>
+<span class="go">⎜⎛d       ⎞     ⎟</span>
+<span class="go">⎜⎜──(f(x))⎟  - 1⎟⋅f(x) = 0</span>
+<span class="go">⎝⎝dx      ⎠     ⎠</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsolve</span><span class="p">(</span><span class="n">eq</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="c1"># In SymPy 1.3, this only gave the solution f(x) = C1 - x</span>
+<span class="go">[f(x) = 0, f(x) = C₁ - x, f(x) = C₁ + x]</span>
+</pre>
+
+
+<p><code>'nth_order_reducible'</code> solves ODEs that only involve derivatives of <code>f(x)</code>,
+via the substitution $g(x)=f^{(n)}(x)$.</p>
+<pre class="code literal-block"><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">eq</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="n">x</span><span class="o">*</span><span class="n">Derivative</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eq</span>
+<span class="go">               2</span>
+<span class="go">  d           d</span>
+<span class="go">x⋅──(f(x)) + ───(f(x)) = x</span>
+<span class="go">  dx           2</span>
+<span class="go">             dx</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dsolve</span><span class="p">(</span><span class="n">eq</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="go">                  ⎛√2⋅x⎞</span>
+<span class="go">f(x) = C₁ + C₂⋅erf⎜────⎟ + x</span>
+<span class="go">                  ⎝ 2  ⎠</span>
+</pre>
+
+
+<h2>Dropping Python 3.4 support</h2>
+<p>This is the last release of SymPy to support Python 3.4. SymPy 1.4 supports
+Python 2.7, 3.4, 3.5, 3.6, 3.7, and PyPy. What's perhaps more exciting is that
+the next release of SymPy, 1.5, which will be released later this year, will
+be the last version to support Python 2.7.</p>
+<p>Our
+<a href="https://github.com/sympy/sympy/wiki/Python-version-support-policy">policy</a> is
+to drop support for major Python versions when they reach their <a href="https://devguide.python.org/#status-of-python-branches">End of
+Life</a>. In other words,
+they receive no further support from the core Python team. Python 3.4 reached
+its end of life on May 19 of this year, and Python 2.7 will reach its end of
+life on January 1, 2020.</p>
+<p>I have <a href="https://www.asmeurer.com/blog/posts/moving-away-from-python-2/">blogged in the
+past</a> on why I
+believe it is important for library authors to be proactive in dropping Python
+2 support, and since then <a href="https://python3statement.org">a large number of Python
+libraries</a> have either dropped support or
+announced their plans to by 2020.</p>
+<p>Having Python 2 support removed will not only allow us to remove a <a href="https://github.com/sympy/sympy/blob/sympy-1.4/sympy/core/compatibility.py">large
+amount of compatibility
+cruft</a>
+from our codebase, it will also allow us to use some Python 3-only features
+that will clean up our API, such as <a href="https://python-3-for-scientists.readthedocs.io/en/latest/python3_advanced.html#keyword-only-arguments">keyword-only
+arguments</a>,
+<a href="https://python-3-for-scientists.readthedocs.io/en/latest/python3_features.html#function-annotations">type
+hints</a>,
+and <a href="https://python-3-for-scientists.readthedocs.io/en/latest/python3_features.html#unicode-variable-names">Unicode variable
+names</a>.
+It will also enable <a href="https://github.com/sympy/sympy/issues?q=is%3Aissue+is%3Aopen+label%3A" title="Dropping+Python+2">several internal
+changes</a>
+that will not be visible to end-users, but which will result in a much cleaner
+and more maintainable codebase.</p>
+<p>If you are still using Python 2, I strongly recommend switching to Python 3,
+as otherwise the entire ecosystem of Python libraries is soon going to stop
+improving for you. Python 3 is already highly recommended for SymPy usage due
+to several key improvements. In particular, in Python 3, division of two
+Python <code>int</code>s like <code>1/2</code> produces the float <code>0.5</code>. In Python 2, it does
+integer division (producing <code>1/2 == 0</code>). The Python 2 integer division
+behavior can lead to very surprising results when using SymPy (imagine writing
+<code>x**2 + 1/2*x + 2</code> and having the <code>x</code> term "disappear"). When using SymPy, we
+<a href="https://docs.sympy.org/latest/tutorial/gotchas.html#two-final-notes-and">recommend</a>
+using rational numbers (like <code>Rational(1, 2)</code>) and avoiding <code>int/int</code>, but the
+Python 3 behavior will at least maintain a mathematically correct result if
+you do not do this. SymPy is also <a href="https://speed.python.org/comparison/?exe=12%2BL%2Bmaster%2C12%2BL%2B3.5%2C12%2BL%2B3.6%2C12%2BL%2B2.7&amp;ben=666%2C667%2C669%2C668&amp;env=1%2C2&amp;hor=false&amp;bas=none&amp;chart=normal+bars">already faster in Python
+3</a>
+due to things like <code>math.gcd</code> and <code>functools.lru_cache</code> being written in C,
+and general performance improvements in the interpreter itself.</p>
+<h2>And much more</h2>
+<p>These are only a few of the highlights of the hundreds of changes in this
+release. The full release notes can be found on <a href="https://github.com/sympy/sympy/wiki/Release-Notes-for-1.4">our
+wiki</a>. The wiki
+also has the in progress changes for our next release, <a href="https://github.com/sympy/sympy/wiki/Release-Notes-for-1.5">SymPy
+1.5</a>, which will be
+released later this year. Our <a href="https://github.com/sympy/sympy-bot">bot</a>
+automatically collects release notes from every pull request, meaning SymPy
+releases have very comprehensive and readable release notes pages. If you see
+any mistakes on either page, feel free to edit the wiki and fix them.</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/labs/" rel="tag">Labs</a></li>
+            <li><a class="tag p-category" href="../../../../categories/sympy/" rel="tag">sympy</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../uarray-intro/" rel="prev" title="uarray: A Generic Override Framework for Methods">Previous post</a>
+            </li>
+        </ul></nav></aside><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha256-SDRP1VVYu+tgAGKhddBSl5+ezofHKZeI+OzxakbIe/Y=" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script></article><!--End of body content--><footer id="footer">
+            Contents © 2019         <a href="mailto:info@quansight.com">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>
