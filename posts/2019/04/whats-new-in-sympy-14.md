@@ -75,6 +75,9 @@ so does not render as LaTeX unless `init_printing()` is called:
 printing settings, for instance, passing flags to the `latex()` printer or
 selecting a different printer.
 
+If you want the string form of an expression for copy-pasting, you can use
+`print`.
+
 # Improved simplification of relational expressions
 
 Simplification of relational and piecewise expressions has been improved:
