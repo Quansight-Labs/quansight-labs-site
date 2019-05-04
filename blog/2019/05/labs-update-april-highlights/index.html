@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Labs update and April highlights | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2019/05/labs-update-april-highlights/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Ralf Gommers">
+<link rel="prev" href="../../04/whats-new-in-sympy-14/" title="What's New in SymPy 1.4" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="Labs update and April highlights">
+<meta property="og:url" content="https://labs.quansight.org/blog/2019/05/labs-update-april-highlights/">
+<meta property="og:description" content="It has been an exciting first month for me at Quansight Labs. It's a good time
+for a summary of what we worked on in April and what is coming next.
+Progress on array computing libraries
+Our first buck">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2019-05-03T00:00:00-05:00">
+<meta property="article:tag" content="Labs">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+
+            <span id="blog-title">Quansight Labs</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../archive.html" class="nav-link">Archive</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../categories/" class="nav-link">Tags</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS feed</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right">
+<li class="nav-item">
+    <a href="index.md" id="sourcelink" class="nav-link">Source</a>
+    </li>
+
+
+                
+            </ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Labs update and April highlights</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    <a href="../../../../authors/ralf-gommers/">Ralf Gommers</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2019-05-03T00:00:00-05:00" itemprop="datePublished" title="2019-05-03">2019-05-03</time></a>
+            </p>
+            
+        <p class="sourceline"><a href="index.md" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<p>It has been an exciting first month for me at Quansight Labs. It's a good time
+for a summary of what we worked on in April and what is coming next.</p>
+<h3>Progress on array computing libraries</h3>
+<p>Our first bucket of activities I'd call "innovation". The most prominent
+projects in this bucket are <a href="https://xnd.io/">XND</a>,
+<a href="https://uarray.readthedocs.io/en/latest/">uarray</a>,
+<a href="https://github.com/Quansight-Labs/metadsl">metadsl</a>,
+<a href="https://github.com/Quansight-Labs/python-moa">python-moa</a>,
+<a href="https://github.com/xnd-project/rbc">Remote Backend Compiler</a> and
+<a href="https://github.com/xnd-project/arrayviews">arrayviews</a>.
+XND is an umbrella name for a set of related array
+computing libraries: <code>xnd</code>, <code>ndtypes</code>, <code>gumath</code>, and <code>xndtools</code>.</p>
+<p>Hameer Abbasi made some major steps forward with <code>uarray</code>: the backend and
+coercion semantics are now largely worked out, there is
+good <a href="https://uarray.readthedocs.io/en/latest/">documentation</a>, and the
+<code>unumpy</code> package (which currently has <code>numpy</code>, <code>XND</code> and <code>PyTorch</code> backends)
+is progressing well. This <a href="https://labs.quansight.org/blog/2019/04/uarray-intro/">blog post</a>
+gives a good overview of the motivation for <code>uarray</code> and its main concepts.</p>
+<p>Saul Shanabrook and Chris Ostrouchov worked out how best to put <code>metadsl</code>
+and <code>python-moa</code> together: <code>metadsl</code> can be used to create the API for
+<code>python-moa</code> to simplify the code base of the latter a lot. Chris 
+also wrote an interesting <a href="https://labs.quansight.org/blog/2019/04/python-moa-tensor-compiler/">blog post</a>
+explaining the MoA principles.</p>
+<!-- TEASER_END -->
+
+<p>The work on XND over the last month consisted mostly of "under the hood"
+improvements and fixes in <code>xnd</code> and <code>ndtypes</code> by Stefan Krah. We did create
+a new <a href="https://github.com/xnd-project/xnd-benchmarks">xnd-benchmarks</a> repository
+and had some interesting discussions on performance. One thing I learned is that
+XND has automatic multithreading and has very similar performance to NumPy + MKL
+for basic arithmetic operations (at least for array sizes above ~1e4 elements, the
+overhead for small arrays is larger). The <code>xnd.array</code> interface, which is a higher
+level interface than <code>xnd.xnd</code> and can be used similarly to <code>numpy</code>, is taking
+shape as well. One user-visible new feature worth mentioning is that xnd containers
+can now be serialized and pickled.</p>
+<h3>Work on PyData core projects</h3>
+<p>Most people in the team are maintainers of or contributors to one or more core
+projects in the PyData or SciPy stacks. Helping maintain and evolve those
+projects is our second bucket of activities.</p>
+<p>Aaron Meurer did a lot of work on <a href="https://www.sympy.org">SymPy</a>, both
+maintenance on the SymPy internals and managing the SymPy 1.4 release. He
+wrote a nice blog post on the highlights in that release
+<a href="http://labs.quansight.org/blog/2019/04/whats-new-in-sympy-14/">here</a>.</p>
+<p>Gonzalo Pena-Castellanos is working full-time on <a href="https://www.spyder-ide.org/">Spyder</a>,
+with guidance from Carlos Cordoba. Together they have been working very hard to get
+the first beta of Spyder 4 ready. Some exciting new features are also in the
+works, however Gonzalo will be blogging about those soon so I won't steal his
+thunder.</p>
+<p>Ivan Ogasawara is spending some time each week on maintenance of
+<a href="https://docs.ibis-project.org/">Ibis</a>. If you're a Pandas or scikit-learn user
+and need to interact with SQL databases or HDFS/Spark, Ibis is worth looking into.</p>
+<p>I myself have enjoyed having a little more bandwidth for NumPy and SciPy.
+On the technical front, this allowed me to contribute to the design discussion
+about an <a href="https://mail.python.org/pipermail/numpy-discussion/2019-April/079317.html">addition</a>
+to NEP 18 (the <code>__array_function__</code> override mechanism),
+do the <a href="https://github.com/numpy/numpydoc">numpydoc</a> 0.9 release, deal
+with several build issues, and review a number of PRs
+(the one
+allowing to specify <a href="https://github.com/numpy/numpy/pull/13132">BLAS and LAPACK link order</a>
+was particularly nice). On the organizational front, I fixed the description
+of how donations are handled on numpy.org, finalized the
+<a href="https://tidelift.com/">Tidelift</a> agreement for NumPy (see the
+<a href="https://mail.python.org/pipermail/numpy-discussion/2019-April/079370.html">announcement</a>
+for details), helped NumPy and SciPy get accepted for the
+<a href="https://developers.google.com/season-of-docs/">Google Season of Docs</a> program,
+and did everything needed to finalize the fiscal sponsorship agreement between
+SciPy and NumFOCUS.</p>
+<h3>Jupyter and JupyterLab improvements</h3>
+<p>Jupyter is a key part of the PyData ecosystem. It extends well beyond that though, so I'm
+giving it its own bucket here. At Quansight we have a number of Jupyter core developers
+and contributors. Ian Rose, Saul Shanabrook, Grant Nestor and others have been very busy
+with both maintenance tasks and adding new features to Jupyter and JupyterLab.</p>
+<p>JupyterLab is about to get support for printing (not inside the notebook, but the old-fashioned
+<code>Ctrl-P</code> variant). <a href="https://github.com/jupyterlab/jupyterlab/pull/5850">This pull request</a>
+by Saul has nice screenshots showing the feature in action for whole notebooks,
+ images, the JSON viewer and the inspector.</p>
+<p>Ian worked on the third alpha release of JupyterLab 1.0, on testing and CI infrastructure,
+and other general maintenance tasks. He also improved PDF preview in JupyterLab, so it
+now <a href="https://github.com/jupyterlab/jupyterlab/pull/6264">works as expected</a> in Firefox
+and Chrome (at least).</p>
+<p>Saul added support for the <a href="https://github.com/nteract/nteract/tree/master/packages/data-explorer">nteract Data Explorer</a> to the JupyterLab data registry as a plugin.
+<a href="https://github.com/jupyterlab/jupyterlab-data-explorer/pull/10">This pull request</a> shows it
+in action on a pandas DataFrame.</p>
+<p>Other interesting features are in progress and will make their way into the main
+repositories soon.</p>
+<h3>Starting to shape Labs</h3>
+<p>There is a lot of work to do to figure out for ourselves exactly what Labs
+will be, and then to communicate that clearly to the outside world. We have
+a rough idea (see <a href="https://labs.quansight.org/blog/2019/04/joining-labs/">my first blog post</a>
+and <a href="https://www.quansight.com/single-post/2019/04/02/Welcoming-Ralf-Gommers-as-Director-of-Quansight-Labs">Travis' blog post</a>), but there's a long way
+to go from there to having an compelling elevator pitch, a website that tells
+our story well, people and projects organized, a funding stream, and more.</p>
+<p>One of the first things we did do is start this blog, to start communicating
+about the technical work we're doing. We're also going through the roadmaps
+published at <a href="https://www.quansight.com/projects">quansight.com/projects</a>,
+to ensure they're up-to-date and to make clear that those are for <em>community
+driven projects</em> that Quansight is aiming to obtain industry support for.</p>
+<h3>Funding</h3>
+<p>We reached about 20% of our funding goal for 2019 so far, primarily with contributions
+from <a href="https://www.deshaw.com/">DE Shaw</a>, <a href="https://www.omnisci.com/">OmniSci</a> and
+<a href="https://www.tdk.com/">TDK</a>.</p>
+<p>Both DE Shaw and OmniSci are supporting a significant amount of work on
+JupyterLab, which highlights how important Jupyter and JupyterLab have become
+in the data science ecosystem. DE Shaw is also supporting work on projects
+like Dask, Numba and XND that is starting at the moment. OmniSci supports work
+on Ibis and Remote Backend Compiler. Finally, Quansight is working with Cal Poly
+(one of the <a href="https://calpolynews.calpoly.edu/news_releases/2018/May/Jupyter">Jupyter lead institutes</a>,
+together with UC Berkeley) to execute on the Project Jupyter roadmap for JupyterLab.</p>
+<p>TDK is sponsoring the Spyder work I talked about above. Supporting both general
+maintenance for the Spyder 4 release and some interesting new features is an
+important contribution that helps the many engineers and scientists that use
+Spyder as their main development and data science interface.</p>
+<p>The above is direct funding from companies for work on open source projects.
+Quansight also offers open-source support and consulting, as well as training
+around the PyData stack. Those activities also yield funds that we then use to
+fund the efforts of Quansight Labs. To learn more about those offerings,
+contact Travis (<code>travis@quansight.com</code>), myself (<code>rgommers@quansight.com</code>) or
+<code>sales@quansight.com</code>.</p>
+<p>Besides funding from companies, we are also applying for grants. So far we have
+submitted two proposals to the NSF and three to NASA, on topics ranging from
+JupyterLab extensions for high performance computing to improving Xarray's array
+backend system. For most of these proposals we expect the verdict in the next
+1-2 months. In April we got a rejection from the NSF for a
+<a href="https://figshare.com/articles/Mid-Scale_Research_Infrastructure_-_The_Scientific_Python_Ecosystem/8009441">proposal</a>
+titled "Accelerated Development of the Scientific Python Ecosystem", which we
+wrote together with NumFOCUS and Columbia, with the latter as lead
+institute (thanks goes especially to Andreas Mueller and Andy Terrel for a lot
+of the hard work on that proposal). The discussions triggered by that
+rejection have been very useful and generated a number of new ideas and
+contacts to follow up on in the coming months.</p>
+<p>One idea that came up more than once is to clearly express the needs of these
+projects in public, ideally in fundable chunks and with an effort estimate attached,
+and then approaching both funding bodies and companies with that. This is likely
+to be more effective than responding to solicitations that may not be a perfect
+match. Quansight Labs is positioned well to either participate in or help lead such
+a process, and to work with companies that rely on the PyData stack in particular.</p>
+<p>However we look for funding, it will be important to be clear in our messaging
+and transparent with the community about the ways we look for funding. I will be
+actively soliciting feedback on this as well, both via blog posts like these
+(please email me at <code>rgommers@quansight.com</code> if you have ideas, questions or
+concerns!) and in person.</p>
+<p>Finally, we are finalizing and signing a preferred partnership with NumFOCUS,
+where 5% of Quansight Labs funds or projects referred from NumFOCUS will be
+provided to NumFOCUS to sustain their efforts. NumFOCUS is an important fundament
+of the PyData ecosystem, and we would like to contribute to keeping it on a sound
+financial footing and growing NumFOCUS further.</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/labs/" rel="tag">Labs</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../../04/whats-new-in-sympy-14/" rel="prev" title="What's New in SymPy 1.4">Previous post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2019         <a href="mailto:info@quansight.com">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>
