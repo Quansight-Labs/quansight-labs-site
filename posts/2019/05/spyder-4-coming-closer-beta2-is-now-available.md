@@ -33,11 +33,9 @@ Spyder development team has been working really hard on its next release,
 4.0 Beta2. The past couple of months we added the long awaited dark theme
 for the entire interface, we switched our entire code completion and linting
 architecture to the
-[Language Server Protocol](https://microsoft.github.io/language-server-protocol/),
-and merged several other goodies!
-
-have included additional tooling that opens the door to support many other
-programming languages via 
+[Language Server Protocol](https://microsoft.github.io/language-server-protocol/)
+which opens the door to support many other
+programming languages, and we merged several other goodies!
 
 ## Dark Theme
 
@@ -63,12 +61,14 @@ A picture is worth a thousand words, so without further ado, here it is:
 
 Pretty, right :-) ?
 
+<!-- TEASER_END -->
+
 ## Language Server Protocol (LSP) implementation
 
-The LSP was created by Microsoft for VSCode to standardize the way in which
-development tools (i.e. editors and IDEs) communicate with servers that
-provide code completion, linting and related facilities for different
-programming languages. With this, as
+The LSP was created by Microsoft for Visual Studio Code to standardize the
+way in which development tools (i.e. editors and IDEs) communicate with
+servers that provide code completion, linting and related facilities for
+different programming languages. With this, as
 [they](https://microsoft.github.io/language-server-protocol/) describe it:
 
 >A single Language Server can be reused in multiple development
@@ -77,7 +77,7 @@ LSP is a win for both language providers and tooling vendors!
 
 Since our 4.0beta2 version, Spyder is now one of such development tools! We
 developed our own client to communicate with any server that implements the
-LSP v3.0 through a transport layer that uses ZMQ sockets. Code completion,
+LSP v3.0 through a transport layer that uses ZeroMQ sockets. Code completion,
 signatures and docstring extraction were rewritten to take advantage of this
 architecture, and mouse hovers were added too (other LSP features, such as
 workspace functionality, will come in future betas).
@@ -116,15 +116,15 @@ months! These include:
 
 1. **Autosave** files in the editor. With this Spyder will recover your
 unsaved files in case it crashes before you save them. 
-2. Dedicated **Sympy**, **Cython** and **Pylab** consoles. This will make very simple
-to quickly explore and create code for these libraries.
-3. OS level **window pane undocking**. This will allow users to easily organize
-panes in different monitors.
+2. Dedicated **Sympy**, **Cython** and **Pylab** consoles. This will make it
+very simple to quickly explore and create code for these libraries.
+3. OS level **window pane undocking**. This will allow users to easily
+organize panes in different monitors.
 4. Support for **[multi-indexes](https://pandas.pydata.org/pandas-docs/stable/user_guide/advanced.html)**
 in our Dataframe viewer.
 
-We will make another blog post to describe all of these additional
-enhancements in greater detail.
+We will describe all of these additional enhancements in greater detail in a
+future blog post.
 
 ## How can you help?
 
