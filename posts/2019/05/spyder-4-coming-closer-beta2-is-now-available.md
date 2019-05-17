@@ -23,8 +23,9 @@ Before we describe the features that will be included in the imminent release
 of Spyder 4.0beta2, I would like to give a warm welcome to
 [Edgar Margffoy](https://github.com/andfoy),
 who recently joined Quansight, and will be working with the Spyder team to
-take its development even further. Edgar is a core Spyder developer and we
-are very excited to have his (almost) full-time commitment to the project.
+take its development even further. Edgar has been a core Spyder developer 
+for more than two years and we are very excited to have his (almost)
+full-time commitment to the project.
 
 # Spyder 4.0 beta2 release!
 
@@ -42,7 +43,7 @@ programming languages, and we merged several other goodies!
 This has been a
 [long awaited feature](https://github.com/spyder-ide/spyder/issues/2350)
 and will be the default theme for this new version. Users can still select the
-traditional OS specific theme by going to the **Appearance** section on our
+traditional OS specific theme by going to the **Appearance** section in our
 **Preferences** dialog.
 
 This enhancement was enabled by the work of
@@ -90,7 +91,14 @@ package. This has allowed us to provide fine-grained configurability for
 betas we’ll also add the ability to use and configure code formatters such
 as yapf and autopep8.
 
+![Code style preferences](/images/spyder-code-prefs.png)
+<small>Code style preferences</small>
+
+![Docstring style preferences](/images/spyder-doc-prefs.png)
+<small>Docstring style preferences</small>
+
 ![Hover hint and calltips](/images/spyder-hover-hint-calltip.png)
+<small>Hover hint and calltips</small>
 
 We offer support to configure LSP servers  for other programming languages
 as well. In the future we hope to include out-of-the-box support for
@@ -104,8 +112,9 @@ Fortran, Julia and C/C++.
 Following the steps and inspiration of RStudio, another well known IDE in the
 Data Science space, Spyder now includes a Plots viewer pane. Since beta2 plots
 generated in every console will be displayed there, and the pane will be
-updated automatically when switching between consoles. Besides, users will
-have the ability to browse the history of all plots generated in a session.
+updated automatically to only show the plots of the current one. Besides,
+users will have the ability to browse the history of all plots generated in a
+session.
 
 ![Other languages](/images/spyder-plots.png)
 
@@ -123,8 +132,8 @@ organize panes in different monitors.
 4. Support for **[multi-indexes](https://pandas.pydata.org/pandas-docs/stable/user_guide/advanced.html)**
 in our Dataframe viewer.
 
-We will describe all of these additional enhancements in greater detail in a
-future blog post.
+We will describe all of these additional enhancements in greater detail in
+future blog posts.
 
 ## How can you help?
 
@@ -135,6 +144,10 @@ can do so by installing it with conda, from our beta releases channel:
 $ conda update qt pyqt
 $ conda install spyder=4.0.0b2 --channel spyder-ide
 ```
+
+This is a safe process because Spyder now uses a different configuration
+directory for its beta versions, so you can easily switch between our stable
+and beta releases without fearing of damage to your current installation.
 
 If you find any issues, you can report them on the
 [issue tracker](https://github.com/spyder-ide/spyder/issues).
