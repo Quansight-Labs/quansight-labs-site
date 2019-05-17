@@ -1,0 +1,112 @@
+<!--
+.. title: Quansight Partners with Quansight to sponsor Spyder
+.. slug: quansight-partners-with-quansight-to-sponsor-spyder
+.. date: 2019-05-16 21:22:58 UTC-05:00
+.. tags: Spyder
+.. category: 
+.. link: 
+.. author: Gonzalo Peña-Castellanos
+.. description: 
+.. type: text
+-->
+
+TDK-Micronas is sponsoring Spyder development efforts through Quansight Labs.
+This will enable the development of some features that have been requested by
+our users, as well as new features that will help TDK develop custom Spyder
+plugins in order to complement their Automatic Test Equipment (ATE’s) in the
+development of their Application Specific Integrated Circuits (ASIC’s).
+
+## Multiple Projects aka Workspaces
+
+In the current state Spyder can only handle one active project at a time.
+Although in the past we had basic support for workspaces, it was never a fully
+functional feature, so to ease development and simplify the user experience,
+we decided to remove it on the 3.x series.
+
+For TDK-Micronas and within its ATE tooling development as well as for a large
+part of the Spyder user base, the use of multiple simultaneous projects is a
+common pattern, so this enhancement will:
+
+* Move from single to multiple active projects concept
+* The name `Project Explorer` would then become `WorkSpace Explorer` and
+copying from one project to another is done in the 'Explorer' by means of
+context menus. 
+
+It is worth mentioning that projects are considered an “Advanced feature”,
+so it will not be forced on users that just want to get some work done.
+Projects usage is, and will remain, and optional feature.
+
+<!-- TEASER_END -->
+
+## Project Types
+
+Since the revamp of Spyder Projects with the 3.x series, the new dialog hinted
+the possibility of creating different types of projects. Currently spyder
+provides an empty project type.
+
+![Project creation](/images/spyder-project-creation.png)
+ 
+This feature will:
+* Expand the (current) Project Explorer API to handle Project Types.
+* Define and implement the minimal aspects that should be extensible by a
+Project Type
+
+### File Associations
+
+Spyder currently supports opening files on the Project and File Explorer
+using the (default) Operating System defined applications. We will enhance
+this by adding **Global** file associations as part of the **Preferences**
+and Project Specific associations as part of the **Project Preferences**.
+This will give users more power to select the tool or set of tools that they
+prefer to use for specific projects and tasks directly on the File and Project
+Explorer pane.
+
+### URL Awareness
+
+Working with projects require access to documentation, located within the
+computer as other files or links located over the internet. We will now
+include integration for URI detection within the editor so users can
+<kbd>Ctrl+Click</kbd> on these items. This will work similarly as module
+inspection works, but generalized to external and internal links, which
+might include:
+
+### Git version control enhancements
+
+The revision system of choice by our user base, including TDK, is Git.
+The purpose of this enhancement is to enable basic Git integration from
+within the File and Project Explorer and to extend the current plugin
+API so context menus can be customized with specific Git features and
+commands.
+ 
+Initial work has already started to display Git relevant information
+on the status bar
+
+![Status bar git](/images/spyder-git-status.png)
+
+## Editor alternative views
+
+There are many circumstances where a user would like to edit a file that might
+be rendered using a parsing tool into another type of view. One example of
+this, is [markdown](), the language on which this blog post is written, which
+can be rendered to HTML. At the moment the only way to achieve this on Spyder
+is via the use of a dedicated plugin that would create a new type of Pane. And
+example of such plugin is [spyder-reports](https://github.com/spyder-ide/spyder-reports)
+(See image below and the Reports pane). The reason why plugins are developed
+this way is because the Editor Plugin on Spyder can only contain Code Editor
+widgets, which prevents us and other developers to use the Editor to hold
+these AlternateViews of a given file.
+
+![Spyder Reports](/images/spyder-reports.png)
+
+The new alternate views feature will remove this limitation and enable the
+inclusion of generic widgets (views) of different types of files and provide
+an API for plugin extension.
+
+## Closing Remarks
+
+I would like to thank TDK-Micronas and Quansight for the opportunity of
+working in open source development on an awesome product such as Spyder.
+I would also like to thank the users,
+[contributors](https://github.com/spyder-ide/spyder/graphs/contributors)
+and [core developers](https://github.com/orgs/spyder-ide/people) for helping
+make Spyder an awesome tool!
