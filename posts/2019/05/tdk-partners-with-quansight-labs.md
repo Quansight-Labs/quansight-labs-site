@@ -1,8 +1,8 @@
 <!--
-.. title: Quansight Partners with Quansight to sponsor Spyder
-.. slug: quansight-partners-with-quansight-to-sponsor-spyder
-.. date: 2019-05-16 21:22:58 UTC-05:00
-.. tags: Spyder
+.. title: TDK-Micronas Partners with Quansight to sponsor Spyder
+.. slug: tdk-partners-with-quansight-labs
+.. date: 2019-05-18 21:22:58 UTC-05:00
+.. tags: Spyder, Labs
 .. category: 
 .. link: 
 .. author: Gonzalo Peña-Castellanos
@@ -16,12 +16,29 @@ our users, as well as new features that will help TDK develop custom Spyder
 plugins in order to complement their Automatic Test Equipment (ATE’s) in the
 development of their Application Specific Integrated Circuits (ASIC’s).
 
+At this point it may be useful to clarify the relationship the role of
+Quansight Labs in Spyder's development and the relationship with TDK. To quote
+Ralf Gommers (director of Quansight Labs):
+
+>"We're an R&D lab for open source development of core technologies around data
+science and scientific computing in Python. And focused on growing communities
+around those technologies. That's how I see it for Spyder as well: Quansight
+Labs enables developers to be employed to work on Spyder, and helps with
+connecting them to developers of other projects in similar situations. Labs
+should be an enabler to let the Spyder project, its community and individual
+developers grow. And Labs provides mechanisms to attract and coordinate
+funding. Of course the project is still independent. If there are other
+funding sources, e.g. donations from individuals to Spyder via OpenCollective,
+all the better."
+
 ## Multiple Projects aka Workspaces
 
 In the current state Spyder can only handle one active project at a time.
 Although in the past we had basic support for workspaces, it was never a fully
 functional feature, so to ease development and simplify the user experience,
-we decided to remove it on the 3.x series.
+we decided to remove it in the 3.x series.
+
+<!-- TEASER_END -->
 
 For TDK-Micronas and within its ATE tooling development as well as for a large
 part of the Spyder user base, the use of multiple simultaneous projects is a
@@ -35,8 +52,6 @@ context menus.
 It is worth mentioning that projects are considered an “Advanced feature”,
 so it will not be forced on users that just want to get some work done.
 Projects usage is, and will remain, and optional feature.
-
-<!-- TEASER_END -->
 
 ## Project Types
 
@@ -90,7 +105,7 @@ be rendered using a parsing tool into another type of view. One example of
 this, is [markdown](), the language on which this blog post is written, which
 can be rendered to HTML. At the moment the only way to achieve this on Spyder
 is via the use of a dedicated plugin that would create a new type of Pane. And
-example of such plugin is [spyder-reports](https://github.com/spyder-ide/spyder-reports)
+example of such a plugin is [spyder-reports](https://github.com/spyder-ide/spyder-reports)
 (See image below and the Reports pane). The reason why plugins are developed
 this way is because the Editor Plugin on Spyder can only contain Code Editor
 widgets, which prevents us and other developers to use the Editor to hold
@@ -98,14 +113,15 @@ these AlternateViews of a given file.
 
 ![Spyder Reports](/images/spyder-reports.png)
 
-The new alternate views feature will remove this limitation and enable the
+The new alternative views feature will remove this limitation and enable the
 inclusion of generic widgets (views) of different types of files and provide
-an API for plugin extension.
+an API for plugin extensions.
 
 ## Closing Remarks
 
-I would like to thank TDK-Micronas and Quansight for the opportunity of
-working in open source development on an awesome product such as Spyder.
+I would like to thank TDK-Micronas and Quansight for the opportunity to
+work in open source development on an awesome product such as Spyder.
+
 I would also like to thank the users,
 [contributors](https://github.com/spyder-ide/spyder/graphs/contributors)
 and [core developers](https://github.com/orgs/spyder-ide/people) for helping
