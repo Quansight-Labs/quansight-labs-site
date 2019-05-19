@@ -19,8 +19,8 @@ This is the first of a series of blog posts we will be writing to showcase
 updates on the development of Spyder, new planned features and news on the 
 road to Spyder 4.0 and beyond.
 
-Before we describe the features that will be included in the imminent release 
-of Spyder 4.0beta2, I would like to give a warm welcome to
+Before we describe the features that will be included in the release of Spyder
+4.0beta2, I would like to give a warm welcome to
 [Edgar Margffoy](https://github.com/andfoy),
 who recently joined Quansight, and will be working with the Spyder team to
 take its development even further. Edgar has been a core Spyder developer 
@@ -149,8 +149,8 @@ This is a safe process because Spyder now uses a different configuration
 directory for its beta versions, so you can easily switch between our stable
 and beta releases without fearing of damage to your current installation.
 
-If you find any issues, you can report them on the
-[issue tracker](https://github.com/spyder-ide/spyder/issues).
+If you find any issues, you can report them on our
+[issues tracker](https://github.com/spyder-ide/spyder/issues).
 
 ## Closing Remarks
 
