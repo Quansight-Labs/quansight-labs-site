@@ -7,38 +7,46 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
   <loc>https://labs.quansight.org/authors/aaron-meurer.xml</loc>
-  <lastmod>2019-05-07T13:36:00Z</lastmod>
+  <lastmod>2019-05-21T20:11:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://labs.quansight.org/authors/chris-ostrouchov.xml</loc>
-  <lastmod>2019-05-07T13:36:00Z</lastmod>
+  <lastmod>2019-05-21T20:11:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://labs.quansight.org/authors/gonzalo-pena-castellanos.xml</loc>
+  <lastmod>2019-05-21T20:11:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://labs.quansight.org/authors/hameer-abbasi.xml</loc>
-  <lastmod>2019-05-07T13:36:00Z</lastmod>
+  <lastmod>2019-05-21T20:11:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://labs.quansight.org/authors/ralf-gommers.xml</loc>
-  <lastmod>2019-05-07T13:36:00Z</lastmod>
+  <lastmod>2019-05-21T20:11:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://labs.quansight.org/categories/community.xml</loc>
-  <lastmod>2019-05-07T13:36:00Z</lastmod>
+  <lastmod>2019-05-21T20:11:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://labs.quansight.org/categories/labs.xml</loc>
-  <lastmod>2019-05-07T13:36:00Z</lastmod>
+  <lastmod>2019-05-21T20:11:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://labs.quansight.org/categories/spyder.xml</loc>
+  <lastmod>2019-05-21T20:11:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://labs.quansight.org/categories/sympy.xml</loc>
-  <lastmod>2019-05-07T13:36:00Z</lastmod>
+  <lastmod>2019-05-21T20:11:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://labs.quansight.org/rss.xml</loc>
-  <lastmod>2019-05-07T13:36:00Z</lastmod>
+  <lastmod>2019-05-21T20:11:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://labs.quansight.org/sitemap.xml</loc>
-  <lastmod>2019-05-07T13:36:00Z</lastmod>
+  <lastmod>2019-05-21T20:11:00Z</lastmod>
  </sitemap>
 </sitemapindex>
