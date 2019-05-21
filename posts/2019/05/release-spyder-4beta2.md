@@ -81,7 +81,7 @@ help generation, calltips, and real-time code/style analysis were rewritten to t
 architecture, and hover hints and docstring style analysis were added.
 Further LSP features, such as workspace functionality and on the fly completion, will come in future betas.
 
-<img src="/images/spyder-hover-hint-calltip.png" height="75%" width="75%" class="center" />
+<img src="/images/spyder-hover-hint-calltip.png" class="center" />
 
 Our current support is geared towards Python, using the great
 [Python-Language-Server](https://github.com/palantir/python-language-server)
