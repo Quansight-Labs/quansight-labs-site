@@ -22,3 +22,10 @@ div.output_subarea {
     /* Widens image-containing divs so that image is full body width */
     max-width: 100%;
 }
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
