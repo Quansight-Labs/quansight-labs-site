@@ -1,7 +1,7 @@
 <!--
 .. title: Spyder 4.0 takes a big step closer with the release of Beta 2!
 .. slug: spyder-4-beta2-release
-.. date: 2019-05-20 16:38:50 UTC-05:00
+.. date: 2019-05-21 15:02:50 UTC-05:00
 .. author: Gonzalo Peña-Castellanos
 .. tags: Spyder, Labs
 .. category: 
