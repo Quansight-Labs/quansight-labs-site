@@ -269,7 +269,7 @@ unsurprising function calls: `numpy.array`, `numpy.zeros`,
 `numpy.dot`. There are
 [plans](https://docs.scipy.org/doc/numpy/reference/generated/numpy.matrix.html#numpy.matrix)
 to depreciate `numpy.matrix` and this seem possible since it
-[`numpy.matrix`](https://github.com/Quansight-Labs/python-api-inspect/blob/master/data/numpy-summary-without-tests.csv#L515)
+[`numpy.matrix`](https://github.com/Quansight-Labs/python-api-inspect/blob/master/data/csv/numpy-summary-without-tests.csv#L515)
 is not in the top 150 functions calls. Numpy testing functions were
 the expected `testing.assert_allclose`, `testing.assert_almost_equal`,
 and `testing.assert_equal`.
