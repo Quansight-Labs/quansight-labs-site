@@ -87,11 +87,17 @@ attributes. It should be noted that dynamically typed languages in
 general [have this
 problem](https://softwareengineering.stackexchange.com/questions/221615/why-do-dynamic-languages-make-it-more-difficult-to-maintain-large-codebases). Now
 that the internals of the tool have been discussed, the usage is quite
-simple. The "tool" `inspect_api.py` has heavy caching of downloaded
-repositories and source files that have been analyzed. Inspecting a
-file the second time is a sqlite3 lookup. Currently, this repository
-inspects 17 libraries/namespaces and around 10,000 repositories (35 GB
-compressed).
+simple. The repository
+[Quansight-Labs/python-api-inspect](https://github.com/Quansight-Labs/python-api-inspect)
+comes with two command line tools/python scripts. The important tool
+`inspect_api.py` has heavy caching of downloaded repositories and
+source files that have been analyzed. Inspecting a file the second
+time is a sqlite3 lookup. Currently, this repository inspects 17
+libraries/namespaces and around 10,000 repositories (35 GB
+compressed). It has been designed to have no other dependencies than
+the Python [stdlib](https://docs.python.org/3/library/) and easily run
+from the command line. Below is the command that is run when
+inspecting all the libraries that depend on numpy.
 
 ```shell
 python inspect_api.py data/numpy-whitelist.ini \
@@ -102,18 +108,30 @@ python inspect_api.py data/numpy-whitelist.ini \
 
 The command comes with several options that can be useful for
 filtering the results. `--exclude-dirs` is used to exclude directories
-from counts (e.g. `tests` directory or `site-packages`
-directory) within a repository. This option reveals the use of a given namespace in tests as opposed to within the
-library. `--extensions` is by default all python files `.py` but can
-also include jupyter notebooks `.ipynb` showing us how users use a
-namespace in an interactive context.
+from counts (e.g. `tests` directory or `site-packages` directory)
+within a repository. This option reveals the use of a given namespace
+in tests as opposed to within the library. `--extensions` is by
+default all python files `*.py` but can also include jupyter notebooks
+`*.ipynb` showing us how users use a namespace in an interactive
+context. Unsurprisingly this work found that many jupyter notebooks in
+repositories have syntax errors.
+
+While not the focus of this post, an additional script is provided in
+the repository `dependant-packages.py`. This script is used to
+populate the `data/numpy-whitelist.ini` file with repositories that
+depend on numpy. This would not be possible without the [libraries.io
+api](https://libraries.io/api). It is a remarkable project which
+deserves more attention.
 
 # Results
 
 The table below summarizes the findings of namespace usage within all
-`.py` files, all `.py` files excluding ones within test directories
-(`tests`, `test`), and only jupyter notebook `.ipynb` files. All of
-the results are provided as `csv` files.
+`*.py` files, all `*.py` files excluding ones within test directories
+(`tests`, `test`), and only jupyter notebook `*.ipynb` files. All of
+the results are provided as `csv` files. It is important to note that
+the `inspect_api.py` script gets much more detail than is included in
+the `csv` files and there is plenty of additional work that could be
+done with this tool for general python ast analysis.
 
 <table>
 <tr>
@@ -243,3 +261,75 @@ the results are provided as `csv` files.
   <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/tensorflow-summary-notebooks.csv">csv</a></td>
 </tr>
 </table>
+
+Since many namespaces were checked we will highlight only some of the
+results. First for [numpy](https://github.com/numpy/numpy) the
+unsurprising function calls: `numpy.array`, `numpy.zeros`,
+`numpy.asarray`, `numpy.arange`, `numpy.sqrt`, `numpy.sum`, and
+`numpy.dot`. There are
+[plans](https://docs.scipy.org/doc/numpy/reference/generated/numpy.matrix.html#numpy.matrix)
+to depreciate `numpy.matrix` and this seem possible since it
+[`numpy.matrix`](https://github.com/Quansight-Labs/python-api-inspect/blob/master/data/numpy-summary-without-tests.csv#L515)
+is not in the top 150 functions calls. Numpy testing functions were
+the expected `testing.assert_allclose`, `testing.assert_almost_equal`,
+and `testing.assert_equal`.
+
+[scipy](https://www.scipy.org/) acts as a glue for many algorithms
+needed for scientific and numerical work. The usage of `scipy` is
+surprising and also possibly the most accurate results of the
+following analysis. This is due to the fact that `scipy` tends to be
+function wrappers over lower level routines and less class instance
+methods which are harder to detect as discussed above. The `sparse`
+methods are heavily used along with several high level wrappers for
+`scipy.interpolate.interp1d` and `scipy.optimize.minimize`. I was
+surprised to find out one of my favorite scipy methods
+`scipy.signal.find_peaks` is rarely used! Only a small fraction of the
+`scipy.signal` functions are used and these include:
+`scipy.signal.lfilter`, `scipy.signal.fftconvolve`,
+`scipy.signal.convolve2d`, `scipy.signal.lti`, and
+`scipy.signal.savgol_filter`.
+
+[scikit-learn](https://scikit-learn.org/stable/) is a popular library
+for data analysis and offers some of the traditional machine learning
+algorithms. Interestingly here we order the most used models.
+
+1. `sklearn.linear_model.LogisticRegression`
+2. `sklearn.decomposition.PCA`
+3. `sklearn.ensemble.RandomForestClassifier`
+4. `sklearn.cluster.KMeans`
+5. `sklearn.svm.SVC`
+
+[pandas](https://pandas.pydata.org/) is another popular data analysis
+library for tabular data that helped drive the popularity of
+python. One of the huge benefits of `pandas` is that it allows reading
+many file formats to a single in memory `pandas.DataFrame`
+object. Unsurprisingly the most popular `pandas` functions are
+`pandas.DataFrame` and `pandas.Series`. Here we rank the most popular
+`pandas.read_*` functions.
+
+1. `pandas.read_csv`
+2. `pandas.read_table`
+3. `pandas.read_sql_query`
+4. `pandas.read_json`
+5. `pandas.read_pickle`
+
+[requests](https://github.com/kennethreitz/requests) makes working
+with HTTP requests easier to work with than the stdlib
+[urllib.request](https://docs.python.org/3/library/urllib.request.html)
+and is one of the [most downloaded
+packages](https://hugovk.github.io/top-pypi-packages/). Looking at the
+data for usage of requests three functions are primarily used
+(everything else is used 3-5x less) `requests.get`, `requests.post`,
+and `requests.Session` with `headers` being the most common argument.
+
+Overall it is clear that libraries are being used differently within
+either a package, tests, or notebooks. Notebooks tend to prefer high
+level routines such as `scipy.optimize.minimize`, `numpy.linspace`,
+`matplotlib.pyplot.plot` which can be used for demos. Additionally
+notebook function usage would be a good metric for material that is
+worthwhile to include in introduction and quick-start
+documentation. The same goes for testing and development documentation
+that is equally informed as to what functions are used in tests and in
+packages. Further work is necessary to generalize this tool as it
+could be useful for the python ecosystem to better understand through
+analytics how the language is being used.
