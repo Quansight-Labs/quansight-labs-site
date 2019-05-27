@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs (Posts by Christopher Ostrouchov)</title><link>https://labs.quansight.org/</link><description></description><atom:link href="https://labs.quansight.org/authors/christopher-ostrouchov.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Mon, 27 May 2019 17:28:26 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Measuring API usage for popular numerical and scientific libraries</title><link>https://labs.quansight.org/blog/2019/05/python-package-function-usage/</link><dc:creator>Christopher Ostrouchov</dc:creator><description>&lt;div&gt;&lt;p&gt;Developers of open source software often have a difficult time
+understanding how others utilize their libraries. Having better data of
+when and how functions are being used has many benefits. Some of these
+are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;better API design&lt;/li&gt;
+&lt;li&gt;determining whether or not a feature can be deprecated or removed.&lt;/li&gt;
+&lt;li&gt;more instructive tutorials&lt;/li&gt;
+&lt;li&gt;understanding the adoption of new features&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Python Namespace Inspection&lt;/h2&gt;
+&lt;p&gt;We wrote a general tool
+&lt;a href="https://github.com/Quansight-Labs/python-api-inspect"&gt;python-api-inspect&lt;/a&gt;
+to analyze any function/attribute call within a given set of
+namespaces in a repository. This work was heavily inspired by a blog
+post on inspecting method usage with
+&lt;a href="https://galeascience.wordpress.com/2016/08/10/top-10-pandas-numpy-and-scipy-functions-on-github/"&gt;Google BigQuery&lt;/a&gt;
+for &lt;a href="https://pandas.pydata.org/"&gt;pandas&lt;/a&gt;,
+&lt;a href="https://www.numpy.org/"&gt;NumPy&lt;/a&gt;, and
+&lt;a href="https://www.scipy.org/"&gt;SciPy&lt;/a&gt;. The previously mentioned work used
+regular expressions to search for method usage. The primary issue with
+this approach is that it cannot handle &lt;code&gt;import numpy.random as rand;
+rand.random(...)&lt;/code&gt; unless additional regular expressions are
+constructed for each case and will result in false
+positives. Additionally,
+&lt;a href="https://cloud.google.com/bigquery/"&gt;BigQuery&lt;/a&gt; is not a free resource.
+Thus, this approach is not general enough and does not scale well with
+the number of libraries that we would like to inspect function and
+attribute usage.&lt;/p&gt;
+&lt;p&gt;A more robust approach is to inspect the Python abstract syntax tree
+(AST). Python comes with a performant method from the &lt;a href="https://docs.python.org/3/library/ast.html"&gt;ast
+module&lt;/a&gt; &lt;code&gt;ast.parse(...)&lt;/code&gt;
+for constructing a Python AST from source code. A &lt;a href="https://docs.python.org/3/library/ast.html#ast.NodeVisitor"&gt;node
+visitor&lt;/a&gt;
+is used to traverse the AST and record &lt;code&gt;import&lt;/code&gt; statements, and
+function/attribute calls. This allows us to catch any absolute
+namespace reference. The following are cases that
+&lt;a href="https://github.com/Quansight-Labs/python-api-inspect"&gt;python-api-inspect&lt;/a&gt;
+catches:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/05/python-package-function-usage/"&gt;Read more…&lt;/a&gt; (4 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Labs</category><guid>https://labs.quansight.org/blog/2019/05/python-package-function-usage/</guid><pubDate>Mon, 27 May 2019 05:00:00 GMT</pubDate></item></channel></rss>

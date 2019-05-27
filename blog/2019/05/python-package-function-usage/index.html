@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Measuring API usage for popular numerical and scientific libraries | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2019/05/python-package-function-usage/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Christopher Ostrouchov">
+<link rel="prev" href="../spyder-4-beta2-release/" title="Spyder 4.0 takes a big step closer with the release of Beta 2!" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="Measuring API usage for popular numerical and scientific libraries">
+<meta property="og:url" content="https://labs.quansight.org/blog/2019/05/python-package-function-usage/">
+<meta property="og:description" content="Developers of open source software often have a difficult time
+understanding how others utilize their libraries. Having better data of
+when and how functions are being used has many benefits. Some of ">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2019-05-27T00:00:00-05:00">
+<meta property="article:tag" content="Labs">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+
+            <span id="blog-title">Quansight Labs</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../archive.html" class="nav-link">Archive</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../categories/" class="nav-link">Tags</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS feed</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right">
+<li class="nav-item">
+    <a href="index.md" id="sourcelink" class="nav-link">Source</a>
+    </li>
+
+
+                
+            </ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Measuring API usage for popular numerical and scientific libraries</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    <a href="../../../../authors/christopher-ostrouchov/">Christopher Ostrouchov</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2019-05-27T00:00:00-05:00" itemprop="datePublished" title="2019-05-27">2019-05-27</time></a>
+            </p>
+            
+        <p class="sourceline"><a href="index.md" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<p>Developers of open source software often have a difficult time
+understanding how others utilize their libraries. Having better data of
+when and how functions are being used has many benefits. Some of these
+are:</p>
+<ul>
+<li>better API design</li>
+<li>determining whether or not a feature can be deprecated or removed.</li>
+<li>more instructive tutorials</li>
+<li>understanding the adoption of new features</li>
+</ul>
+<h2>Python Namespace Inspection</h2>
+<p>We wrote a general tool
+<a href="https://github.com/Quansight-Labs/python-api-inspect">python-api-inspect</a>
+to analyze any function/attribute call within a given set of
+namespaces in a repository. This work was heavily inspired by a blog
+post on inspecting method usage with
+<a href="https://galeascience.wordpress.com/2016/08/10/top-10-pandas-numpy-and-scipy-functions-on-github/">Google BigQuery</a>
+for <a href="https://pandas.pydata.org/">pandas</a>,
+<a href="https://www.numpy.org/">NumPy</a>, and
+<a href="https://www.scipy.org/">SciPy</a>. The previously mentioned work used
+regular expressions to search for method usage. The primary issue with
+this approach is that it cannot handle <code>import numpy.random as rand;
+rand.random(...)</code> unless additional regular expressions are
+constructed for each case and will result in false
+positives. Additionally,
+<a href="https://cloud.google.com/bigquery/">BigQuery</a> is not a free resource.
+Thus, this approach is not general enough and does not scale well with
+the number of libraries that we would like to inspect function and
+attribute usage.</p>
+<p>A more robust approach is to inspect the Python abstract syntax tree
+(AST). Python comes with a performant method from the <a href="https://docs.python.org/3/library/ast.html">ast
+module</a> <code>ast.parse(...)</code>
+for constructing a Python AST from source code. A <a href="https://docs.python.org/3/library/ast.html#ast.NodeVisitor">node
+visitor</a>
+is used to traverse the AST and record <code>import</code> statements, and
+function/attribute calls. This allows us to catch any absolute
+namespace reference. The following are cases that
+<a href="https://github.com/Quansight-Labs/python-api-inspect">python-api-inspect</a>
+catches:</p>
+<!-- TEASER_END -->
+
+<pre class="code literal-block"><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy.random</span> <span class="kn">as</span> <span class="nn">rnd</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">random</span> <span class="k">as</span> <span class="n">rand</span>
+
+<span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">rnd</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">rand</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</pre>
+
+
+<p>There are limitations to this approach since Python is a heavily
+duck-typed language. To understand this see the following two
+examples.</p>
+<pre class="code literal-block"><span></span><span class="k">def</span> <span class="nf">foobar</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">array</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="n">a</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+<span class="n">foobar</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre>
+
+
+<p>How is one supposed to infer that <code>a.transpose()</code> is a numpy
+<code>numpy.ndarray</code> method or <code>foobar</code> is a function that takes a
+<code>numpy.ndarray</code> as input? These are open questions that would allow
+for further inspection of how libraries use given functions and
+attributes. It should be noted that dynamically typed languages in
+general <a href="https://softwareengineering.stackexchange.com/questions/221615/why-do-dynamic-languages-make-it-more-difficult-to-maintain-large-codebases">have this
+problem</a>. Now
+that the internals of the tool have been discussed, the usage is quite
+simple. The repository
+<a href="https://github.com/Quansight-Labs/python-api-inspect">Quansight-Labs/python-api-inspect</a>
+comes with two command line tools (Python scripts). The important tool
+<code>inspect_api.py</code> has heavy caching of downloaded repositories and
+source files that have been analyzed. Inspecting a file the second
+time is a sqlite3 lookup. Currently, this repository inspects 17
+libraries/namespaces and around 10,000 repositories (100 GB
+compressed). It has been designed to have no other dependencies than
+the Python <a href="https://docs.python.org/3/library/">stdlib</a> and easily run
+from the command line. Below is the command that is run when
+inspecting all the libraries that depend on numpy.</p>
+<pre class="code literal-block"><span></span>python inspect_api.py data/numpy-whitelist.ini <span class="se">\</span>
+  --exclude-dirs test,tests,site-packages <span class="se">\</span>
+  --extensions ipynb,py <span class="se">\</span>
+  --output data/inspect.sqlite
+</pre>
+
+
+<p>The command comes with several options that can be useful for
+filtering the results. <code>--exclude-dirs</code> is used to exclude directories
+from counts (e.g. <code>tests</code> directory or <code>site-packages</code> directory)
+within a repository. This option reveals the use of a given namespace
+in tests as opposed to within the library. <code>--extensions</code> is by
+default all Python files <code>*.py</code> but can also include Jupyter notebooks
+<code>*.ipynb</code> showing us how users use a namespace in an interactive
+context. Unsurprisingly this work found that many Jupyter notebooks in
+repositories have syntax errors.</p>
+<p>While not the focus of this post, an additional script is provided in
+the repository <code>dependant-packages.py</code>. This script is used to
+populate the <code>data/numpy-whitelist.ini</code> file with repositories that
+depend on numpy. This would not be possible without the <a href="https://libraries.io/api">libraries.io
+API</a>. It is a remarkable project which
+deserves more attention.</p>
+<h2>Results</h2>
+<p>The table below summarizes the findings of namespace usage within all
+<code>*.py</code> files, all <code>*.py</code> in only test directories, all <code>*.py</code> files
+excluding ones within test directories (<code>tests</code>, <code>test</code>), and only
+Jupyter notebook <code>*.ipynb</code> files. All of the results are provided as
+<code>csv</code> files. It is important to note that the <code>inspect_api.py</code> script
+gets much more detail than is included in the <code>csv</code> files and there is
+plenty of additional work that could be done with this tool for
+general Python ast analysis.</p>
+<table>
+<tr>
+<th>Library</th>
+  <th>Whitelist</th>
+  <th>Summary only `.py`</th>
+  <th>Summary only `.py` tests</th>
+  <th>Summary only `.py` without tests</th>
+  <th>Summary only `.ipynb`</th>
+</tr>
+<tr>
+<td>astropy</td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/whitelist/astropy-whitelist.ini">ini</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/astropy-summary.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/astropy-summary-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/astropy-summary-without-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/astropy-summary-notebooks.csv">csv</a></td>
+</tr>
+<tr>
+<td>dask</td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/whitelist/dask-whitelist.ini">ini</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/dask-summary.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/dask-summary-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/dask-summary-without-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/dask-summary-notebooks.csv">csv</a></td>
+</tr>
+<tr>
+<td>ipython</td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/whitelist/ipython-whitelist.ini">ini</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/ipython-summary.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/ipython-summary-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/ipython-summary-without-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/ipython-summary-notebooks.csv">csv</a></td>
+</tr>
+<tr>
+<td>ipywidgets</td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/whitelist/ipywidgets-whitelist.ini">ini</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/ipywidgets-summary.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/ipywidgets-summary-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/ipywidgets-summary-without-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/ipywidgets-summary-notebooks.csv">csv</a></td>
+</tr>
+<tr>
+<td>matplotlib</td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/whitelist/matplotlib-whitelist.ini">ini</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/matplotlib-summary.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/matplotlib-summary-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/matplotlib-summary-without-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/matplotlib-summary-notebooks.csv">csv</a></td>
+</tr>
+<tr>
+<td>numpy</td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/whitelist/numpy-whitelist.ini">ini</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/numpy-summary.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/numpy-summary-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/numpy-summary-without-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/numpy-summary-notebooks.csv">csv</a></td>
+</tr>
+<tr>
+<td>pandas</td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/whitelist/pandas-whitelist.ini">ini</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/pandas-summary.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/pandas-summary-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/pandas-summary-without-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/pandas-summary-notebooks.csv">csv</a></td>
+</tr>
+<tr>
+<td>pyarrow</td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/whitelist/pyarrow-whitelist.ini">ini</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/pyarrow-summary.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/pyarrow-summary-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/pyarrow-summary-without-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/pyarrow-summary-notebooks.csv">csv</a></td>
+</tr>
+<tr>
+<td>pymapd</td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/whitelist/pymapd-whitelist.ini">ini</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/pymapd-summary.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/pymapd-summary-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/pymapd-summary-without-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/pymapd-summary-notebooks.csv">csv</a></td>
+</tr>
+<tr>
+<td>pymc3</td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/whitelist/pymc3-whitelist.ini">ini</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/pymc3-summary.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/pymc3-summary-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/pymc3-summary-without-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/pymc3-summary-notebooks.csv">csv</a></td>
+</tr>
+<tr>
+<td>pytorch</td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/whitelist/pytorch-whitelist.ini">ini</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/pytorch-summary.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/pytorch-summary-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/pytorch-summary-without-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/pytorch-summary-notebooks.csv">csv</a></td>
+</tr>
+<tr>
+<td>requests</td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/whitelist/requests-whitelist.ini">ini</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/requests-summary.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/requests-summary-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/requests-summary-without-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/requests-summary-notebooks.csv">csv</a></td>
+</tr>
+<tr>
+<td>scikit-image</td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/whitelist/scikit-image-whitelist.ini">ini</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/scikit-image-summary.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/scikit-image-summary-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/scikit-image-summary-without-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/scikit-image-summary-notebooks.csv">csv</a></td>
+</tr>
+<tr>
+<td>scikit-learn</td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/whitelist/scikit-learn-whitelist.ini">ini</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/scikit-learn-summary.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/scikit-learn-summary-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/scikit-learn-summary-without-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/scikit-learn-summary-notebooks.csv">csv</a></td>
+</tr>
+<tr>
+<td>scipy</td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/whitelist/scipy-whitelist.ini">ini</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/scipy-summary.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/scipy-summary-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/scipy-summary-without-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/scipy-summary-notebooks.csv">csv</a></td>
+</tr>
+<tr>
+<td>statsmodels</td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/whitelist/statsmodels-whitelist.ini">ini</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/statsmodels-summary.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/statsmodels-summary-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/statsmodels-summary-without-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/statsmodels-summary-notebooks.csv">csv</a></td>
+</tr>
+<tr>
+<td>sympy</td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/whitelist/sympy-whitelist.ini">ini</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/sympy-summary.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/sympy-summary-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/sympy-summary-without-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/sympy-summary-notebooks.csv">csv</a></td>
+</tr>
+<tr>
+<td>tensorflow</td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/whitelist/tensorflow-whitelist.ini">ini</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/tensorflow-summary.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/tensorflow-summary-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/tensorflow-summary-without-tests.csv">csv</a></td>
+  <td><a href="https://github.com/costrouc/python-api-inspect/blob/master/data/csv/tensorflow-summary-notebooks.csv">csv</a></td>
+</tr>
+</table>
+<p>Since many namespaces were checked we will highlight only some of the
+results. First for <a href="https://github.com/numpy/numpy">NumPy</a> the
+unsurprising function calls: <code>numpy.array</code>, <code>numpy.zeros</code>,
+<code>numpy.asarray</code>, <code>numpy.arange</code>, <code>numpy.sqrt</code>, <code>numpy.sum</code>, and
+<code>numpy.dot</code>. There are
+<a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.matrix.html#numpy.matrix">plans</a>
+to deprecate <code>numpy.matrix</code> and this seem possible since it
+<a href="https://github.com/Quansight-Labs/python-api-inspect/blob/master/data/csv/numpy-summary-without-tests.csv#L515"><code>numpy.matrix</code></a>
+is not in the top 150 functions calls. Numpy testing functions were
+the expected <code>testing.assert_allclose</code>, <code>testing.assert_almost_equal</code>,
+and <code>testing.assert_equal</code>.</p>
+<p><a href="https://www.scipy.org/">SciPy</a> acts as a glue for many algorithms
+needed for scientific and numerical work. The usage of <code>scipy</code> is
+surprising and also possibly the most accurate results of the
+following analysis. This is due to the fact that <code>scipy</code> tends to be
+function wrappers over lower level routines and less class instance
+methods which are harder to detect as discussed above. The <code>sparse</code>
+methods are heavily used along with several high level wrappers for
+<code>scipy.interpolate.interp1d</code> and <code>scipy.optimize.minimize</code>. I was
+surprised to find out one of my favorite SciPy methods,
+<code>scipy.signal.find_peaks</code>, is rarely used! Only a small fraction of the
+<code>scipy.signal</code> functions are used and these include:
+<code>scipy.signal.lfilter</code>, <code>scipy.signal.fftconvolve</code>,
+<code>scipy.signal.convolve2d</code>, <code>scipy.signal.lti</code>, and
+<code>scipy.signal.savgol_filter</code>.</p>
+<p><a href="https://scikit-learn.org/stable/">scikit-learn</a> is a popular library
+for data analysis and offers some of the traditional machine learning
+algorithms. Interestingly here we order the most used models.</p>
+<ol>
+<li><code>sklearn.linear_model.LogisticRegression</code></li>
+<li><code>sklearn.decomposition.PCA</code></li>
+<li><code>sklearn.ensemble.RandomForestClassifier</code></li>
+<li><code>sklearn.cluster.KMeans</code></li>
+<li><code>sklearn.svm.SVC</code></li>
+</ol>
+<p><a href="https://pandas.pydata.org/">pandas</a> is another popular data analysis
+library for tabular data that helped drive the popularity of
+Python. One of the huge benefits of <code>pandas</code> is that it allows reading
+many file formats to a single in memory <code>pandas.DataFrame</code>
+object. Unsurprisingly the most popular <code>pandas</code> functions are
+<code>pandas.DataFrame</code> and <code>pandas.Series</code>. Here we rank the most popular
+<code>pandas.read_*</code> functions.</p>
+<ol>
+<li><code>pandas.read_csv</code></li>
+<li><code>pandas.read_table</code></li>
+<li><code>pandas.read_sql_query</code></li>
+<li><code>pandas.read_json</code></li>
+<li><code>pandas.read_pickle</code></li>
+</ol>
+<p><a href="https://github.com/kennethreitz/requests">requests</a> makes working
+with HTTP requests easier to work with than the stdlib
+<a href="https://docs.python.org/3/library/urllib.request.html">urllib.request</a>
+and is one of the <a href="https://hugovk.github.io/top-pypi-packages/">most downloaded
+packages</a>. Looking at the
+data for usage of <code>requests</code>, three functions are primarily used
+(everything else is used 3-5x less): <code>requests.get</code>, <code>requests.post</code>,
+and <code>requests.Session</code> with <code>headers</code> being the most common argument.</p>
+<p>Overall it is clear that libraries are being used differently within
+either a package, tests, or notebooks. Notebooks tend to prefer high
+level routines such as <code>scipy.optimize.minimize</code>, <code>numpy.linspace</code>,
+<code>matplotlib.pyplot.plot</code> which can be used for demos. Additionally
+notebook function usage would be a good metric for material that is
+worthwhile to include in introduction and quick-start
+documentation. The same goes for testing and development documentation
+that is equally informed as to what functions are used in tests and in
+packages. Further work is necessary to generalize this tool as it
+could be useful for the Python ecosystem to better understand through
+analytics how the language is being used.</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/labs/" rel="tag">Labs</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../spyder-4-beta2-release/" rel="prev" title="Spyder 4.0 takes a big step closer with the release of Beta 2!">Previous post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2019         <a href="mailto:info@quansight.com">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>
