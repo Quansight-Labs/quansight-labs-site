@@ -1,7 +1,7 @@
 <!--
 .. title: Method usage for popular numerical and scientific libraries
 .. slug: python-package-function-usage
-.. date: 2019-06-01
+.. date: 2019-05-27
 .. author: Christopher Ostrouchov
 .. tags: Labs
 .. category: 
@@ -13,7 +13,7 @@
 Developers of open source software often have a difficult time
 understanding how others utilize their libraries. Having better data of
 when and how functions are being used has many benefits. Some of these
-are summarized below:
+are:
 
   - better API design
   - determining whether or not a feature can be deprecated or removed.
@@ -26,25 +26,25 @@ We wrote a general tool
 [python-api-inspect](https://github.com/Quansight-Labs/python-api-inspect)
 to analyze any function/attribute call within a given set of
 namespaces in a repository. This work was heavily inspired by a blog
-post on inspecting method usage with [google big
-query](https://galeascience.wordpress.com/2016/08/10/top-10-pandas-numpy-and-scipy-functions-on-github/)
+post on inspecting method usage with
+[Google BigQuery](https://galeascience.wordpress.com/2016/08/10/top-10-pandas-numpy-and-scipy-functions-on-github/)
 for [pandas](https://pandas.pydata.org/),
-[numpy](https://www.numpy.org/), and
-[scipy](https://www.scipy.org/). The previously mentioned work used
+[NumPy](https://www.numpy.org/), and
+[SciPy](https://www.scipy.org/). The previously mentioned work used
 regular expressions to search for method usage. The primary issue with
 this approach is that it cannot handle `import numpy.random as rand;
 rand.random(...)` unless additional regular expressions are
 constructed for each case and will result in false
 positives. Additionally,
-[bigquery](https://cloud.google.com/bigquery/) is not a free resource.
+[BigQuery](https://cloud.google.com/bigquery/) is not a free resource.
 Thus, this approach is not general enough and does not scale well with
 the number of libraries that we would like to inspect function and
 attribute usage.
 
-A more robust approach is to inspect the python abstract syntax tree
+A more robust approach is to inspect the Python abstract syntax tree
 (AST). Python comes with a performant method from the [ast
 module](https://docs.python.org/3/library/ast.html) `ast.parse(...)`
-for constructing a python AST from source code. A [node
+for constructing a Python AST from source code. A [node
 visitor](https://docs.python.org/3/library/ast.html#ast.NodeVisitor)
 is used to traverse the AST and record `import` statements, and
 function/attribute calls. This allows us to catch any absolute
@@ -89,7 +89,7 @@ problem](https://softwareengineering.stackexchange.com/questions/221615/why-do-d
 that the internals of the tool have been discussed, the usage is quite
 simple. The repository
 [Quansight-Labs/python-api-inspect](https://github.com/Quansight-Labs/python-api-inspect)
-comes with two command line tools/python scripts. The important tool
+comes with two command line tools (Python scripts). The important tool
 `inspect_api.py` has heavy caching of downloaded repositories and
 source files that have been analyzed. Inspecting a file the second
 time is a sqlite3 lookup. Currently, this repository inspects 17
@@ -111,16 +111,16 @@ filtering the results. `--exclude-dirs` is used to exclude directories
 from counts (e.g. `tests` directory or `site-packages` directory)
 within a repository. This option reveals the use of a given namespace
 in tests as opposed to within the library. `--extensions` is by
-default all python files `*.py` but can also include jupyter notebooks
+default all Python files `*.py` but can also include Jupyter notebooks
 `*.ipynb` showing us how users use a namespace in an interactive
-context. Unsurprisingly this work found that many jupyter notebooks in
+context. Unsurprisingly this work found that many Jupyter notebooks in
 repositories have syntax errors.
 
 While not the focus of this post, an additional script is provided in
 the repository `dependant-packages.py`. This script is used to
 populate the `data/numpy-whitelist.ini` file with repositories that
 depend on numpy. This would not be possible without the [libraries.io
-api](https://libraries.io/api). It is a remarkable project which
+API](https://libraries.io/api). It is a remarkable project which
 deserves more attention.
 
 # Results
@@ -128,11 +128,11 @@ deserves more attention.
 The table below summarizes the findings of namespace usage within all
 `*.py` files, all `*.py` in only test directories, all `*.py` files
 excluding ones within test directories (`tests`, `test`), and only
-jupyter notebook `*.ipynb` files. All of the results are provided as
+Jupyter notebook `*.ipynb` files. All of the results are provided as
 `csv` files. It is important to note that the `inspect_api.py` script
 gets much more detail than is included in the `csv` files and there is
 plenty of additional work that could be done with this tool for
-general python ast analysis.
+general Python ast analysis.
 
 <table>
 <tr>
@@ -290,18 +290,18 @@ general python ast analysis.
 </table>
 
 Since many namespaces were checked we will highlight only some of the
-results. First for [numpy](https://github.com/numpy/numpy) the
+results. First for [NumPy](https://github.com/numpy/numpy) the
 unsurprising function calls: `numpy.array`, `numpy.zeros`,
 `numpy.asarray`, `numpy.arange`, `numpy.sqrt`, `numpy.sum`, and
 `numpy.dot`. There are
 [plans](https://docs.scipy.org/doc/numpy/reference/generated/numpy.matrix.html#numpy.matrix)
-to depreciate `numpy.matrix` and this seem possible since it
+to deprecate `numpy.matrix` and this seem possible since it
 [`numpy.matrix`](https://github.com/Quansight-Labs/python-api-inspect/blob/master/data/csv/numpy-summary-without-tests.csv#L515)
 is not in the top 150 functions calls. Numpy testing functions were
 the expected `testing.assert_allclose`, `testing.assert_almost_equal`,
 and `testing.assert_equal`.
 
-[scipy](https://www.scipy.org/) acts as a glue for many algorithms
+[SciPy](https://www.scipy.org/) acts as a glue for many algorithms
 needed for scientific and numerical work. The usage of `scipy` is
 surprising and also possibly the most accurate results of the
 following analysis. This is due to the fact that `scipy` tends to be
@@ -309,8 +309,8 @@ function wrappers over lower level routines and less class instance
 methods which are harder to detect as discussed above. The `sparse`
 methods are heavily used along with several high level wrappers for
 `scipy.interpolate.interp1d` and `scipy.optimize.minimize`. I was
-surprised to find out one of my favorite scipy methods
-`scipy.signal.find_peaks` is rarely used! Only a small fraction of the
+surprised to find out one of my favorite SciPy methods,
+`scipy.signal.find_peaks`, is rarely used! Only a small fraction of the
 `scipy.signal` functions are used and these include:
 `scipy.signal.lfilter`, `scipy.signal.fftconvolve`,
 `scipy.signal.convolve2d`, `scipy.signal.lti`, and
@@ -328,7 +328,7 @@ algorithms. Interestingly here we order the most used models.
 
 [pandas](https://pandas.pydata.org/) is another popular data analysis
 library for tabular data that helped drive the popularity of
-python. One of the huge benefits of `pandas` is that it allows reading
+Python. One of the huge benefits of `pandas` is that it allows reading
 many file formats to a single in memory `pandas.DataFrame`
 object. Unsurprisingly the most popular `pandas` functions are
 `pandas.DataFrame` and `pandas.Series`. Here we rank the most popular
@@ -345,8 +345,8 @@ with HTTP requests easier to work with than the stdlib
 [urllib.request](https://docs.python.org/3/library/urllib.request.html)
 and is one of the [most downloaded
 packages](https://hugovk.github.io/top-pypi-packages/). Looking at the
-data for usage of requests three functions are primarily used
-(everything else is used 3-5x less) `requests.get`, `requests.post`,
+data for usage of `requests`, three functions are primarily used
+(everything else is used 3-5x less): `requests.get`, `requests.post`,
 and `requests.Session` with `headers` being the most common argument.
 
 Overall it is clear that libraries are being used differently within
@@ -358,5 +358,5 @@ worthwhile to include in introduction and quick-start
 documentation. The same goes for testing and development documentation
 that is equally informed as to what functions are used in tests and in
 packages. Further work is necessary to generalize this tool as it
-could be useful for the python ecosystem to better understand through
+could be useful for the Python ecosystem to better understand through
 analytics how the language is being used.
