@@ -1,5 +1,5 @@
 <!--
-.. title: Method usage for popular numerical and scientific libraries
+.. title: Measuring API usage for popular numerical and scientific libraries
 .. slug: python-package-function-usage
 .. date: 2019-05-27
 .. author: Christopher Ostrouchov
@@ -51,6 +51,8 @@ function/attribute calls. This allows us to catch any absolute
 namespace reference. The following are cases that
 [python-api-inspect](https://github.com/Quansight-Labs/python-api-inspect)
 catches:
+
+<!-- TEASER_END -->
 
 ```python
 import numpy
