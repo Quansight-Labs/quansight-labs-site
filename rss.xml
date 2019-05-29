@@ -1,5 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Mon, 27 May 2019 17:28:26 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Measuring API usage for popular numerical and scientific libraries</title><link>https://labs.quansight.org/blog/2019/05/python-package-function-usage/</link><dc:creator>Christopher Ostrouchov</dc:creator><description>&lt;div&gt;&lt;p&gt;Developers of open source software often have a difficult time
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Wed, 29 May 2019 20:52:33 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Community-driven open source and funded development</title><link>https://labs.quansight.org/blog/2019/05/community-driven-opensource-funded-development/</link><dc:creator>Ralf Gommers</dc:creator><description>&lt;div&gt;&lt;p&gt;Quansight Labs is an experiment for us in a way. One of our main aims is to
+channel more resources into community-driven PyData projects, to keep them
+healthy and accelerate their development. &lt;em&gt;And do so in a way that projects
+themselves stay in charge.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;This post explains one method we're starting to use for this. I'm writing it
+to be transparent with projects, the wider community and potential funders
+about what we're starting to do. As well as to explicitly solicit feedback on
+this method.&lt;/p&gt;
+&lt;h3&gt;Community work orders&lt;/h3&gt;
+&lt;p&gt;If you talk to someone about supporting an open source project, in particular a
+well-known one that they rely on (e.g. NumPy, Jupyter, Pandas), they're often
+willing to listen and help. What you quickly learn though is that they want
+to know in some detail what will be done with the funds provided. This is
+true not only for companies, but also for individuals. In addition, companies
+will likely want a written agreement and some form of reporting about the
+progress of the work. To meet this need we came up with &lt;em&gt;community work
+orders&lt;/em&gt; (CWOs) - agreements that outline what work will be done on a project
+(implementing new features, release management, improving documentation,
+etc.) and outlining a reporting mechanism. What makes a CWO different from a
+consulting contract? Key differences are:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;It must be work that is done on the open source project itself (and not e.g.
+   on a plugin for it, or a customization for the client).&lt;/li&gt;
+&lt;li&gt;The developers must have a reasonable amount of freedom to decide what to
+   work on and what the technical approach will be, within the broad scope of
+   the agreement.&lt;/li&gt;
+&lt;li&gt;Deliverables cannot be guaranteed to end up in a project; instead the funder
+   gets the promise of a best effort of implementation and working with the
+   community.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Respecting community processes&lt;/h3&gt;
+&lt;p&gt;Point 3 above is particularly important: &lt;em&gt;we must respect how open source
+projects make decisions&lt;/em&gt;. If the project maintainers decide that they don't
+want to include a particular change or new feature, that's their decision to
+make. Any code change proposed as part of work on a CWO has to go through the
+same review process as any other change, and be accepted on its merits. The
+argument "but someone paid for this" isn't particularly strong, nor is one
+that reviewers should have to care about. Now of course we don't expect it to
+be common for work to be rejected. An important part of the Quansight value
+proposition is that because we understand how open source works and many of
+our developers are maintainers and contributors of the open source projects
+already, we propose work that the community already has interest in and we
+open the discussion about any major code change early to avoid issues.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/05/community-driven-opensource-funded-development/"&gt;Read more…&lt;/a&gt; (6 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>community</category><category>funding</category><category>Labs</category><guid>https://labs.quansight.org/blog/2019/05/community-driven-opensource-funded-development/</guid><pubDate>Wed, 29 May 2019 05:00:00 GMT</pubDate></item><item><title>Measuring API usage for popular numerical and scientific libraries</title><link>https://labs.quansight.org/blog/2019/05/python-package-function-usage/</link><dc:creator>Christopher Ostrouchov</dc:creator><description>&lt;div&gt;&lt;p&gt;Developers of open source software often have a difficult time
 understanding how others utilize their libraries. Having better data of
 when and how functions are being used has many benefits. Some of these
 are:&lt;/p&gt;
