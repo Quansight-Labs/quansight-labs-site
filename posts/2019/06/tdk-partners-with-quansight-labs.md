@@ -1,7 +1,7 @@
 <!--
-.. title: TDK-Micronas Partners with Quansight to sponsor Spyder
+.. title: TDK-Micronas partners with Quansight to sponsor Spyder
 .. slug: tdk-partners-with-quansight-labs
-.. date: 2019-05-18 21:22:58 UTC-05:00
+.. date: 2019-06-02
 .. tags: Spyder, Labs
 .. category: 
 .. link: 
@@ -45,11 +45,11 @@ of multiple simultaneous projects is a common pattern, so this enhancement
 will:
 
 * Move from a single to a multiple active projects concept
-* The name `Project Explorer` would then become `WorkSpace Explorer` and
-copying from one project to another is done in the 'Explorer' by means of
-context menus. 
+* Change the name `Project Explorer` to `WorkSpace Explorer`.
+* Copying from one project to another is done in the 'Explorer' by means of
+  context menus.
 
-It is worth mentioning that projects are considered an “Advanced feature”,
+It is worth mentioning that projects are considered an “advanced feature”,
 so it will not be forced on users that just want to get some work done.
 Projects usage is, and will remain, an optional feature.
 
@@ -57,7 +57,7 @@ Projects usage is, and will remain, an optional feature.
 
 Since the revamp of Spyder Projects with the 3.x series, the new dialog hinted
 at the possibility of creating different types of projects. Currently Spyder
-provides an empty project type.
+provides an "empty project" project type.
 
 ![Project creation](/images/spyder-project-creation.png)
  
@@ -98,14 +98,14 @@ on the status bar
 
 ![Status bar git](/images/spyder-git-status.png)
 
-<small>Git status to the left is now displayed on the status bar</small>
+<small>Git status is now displayed in the status bar (on the left)</small>
 
 ## Editor alternative views
 
 There are many circumstances where a user would like to edit a file that might
 be rendered using a parsing tool into another type of view. One example of
-this is markdown, the language on which this blog post is written, which
-can be rendered to HTML. At the moment the only way to achieve this with
+this is Markdown, the markup language in which this blog post is written and
+that can be rendered to HTML. At the moment the only way to achieve this within
 Spyder is via the use of a dedicated plugin that would create a new type of
 Pane. An example of such a plugin is [spyder-reports](https://github.com/spyder-ide/spyder-reports)
 (See image below and the Reports pane). The reason why plugins are developed
