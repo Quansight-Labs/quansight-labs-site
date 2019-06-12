@@ -14,6 +14,7 @@
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="https://labs.quansight.org/">
 <link rel="icon" href="favicon.ico" sizes="16x16">
+<link rel="next" href="index-1.html" type="text/html">
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
    tex2jax: {
@@ -25,7 +26,7 @@ MathJax.Hub.Config({
        styles: {'.MathJax_Display': {"margin": 0}}
    }
 });
-</script><!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="blog/2019/06/tdk-partners-with-quansight-labs/" type="text/html">
+</script><!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="blog/2019/06/labs-update-may-highlights/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -77,7 +78,44 @@ navbar-dark bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/06/tdk-partners-with-quansight-labs/" class="u-url">TDK-Micronas partners with Quansight to sponsor Spyder</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/06/labs-update-may-highlights/" class="u-url">Labs update and May highlights</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                <a href="authors/ralf-gommers/">Ralf Gommers</a>
+            </span></p>
+            <p class="dateline">
+            <a href="blog/2019/06/labs-update-may-highlights/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-06-12T00:00:00-05:00" itemprop="datePublished" title="2019-06-12">2019-06-12</time></a>
+            </p>
+        </div>
+    </header><div class="p-summary entry-summary">
+    <div>
+<p>Time flies when you're having fun. Here is an update of some of the highlights
+of my second month at Quansight Labs.</p>
+<h3>The making of a black hole image &amp; GitHub Sponsors</h3>
+<p>Both Travis and myself were invited by GitHub to attend GitHub Satellite in
+Berlin. The main reason was that Nat Friedman (GitHub CEO) decided to spend the
+first 20 minutes of his keynote to highlight the <a href="https://eventhorizontelescope.org/">Event Horizon
+Telescope's</a> black hole image and the open
+source software that made that imaging possible. This included the scientific
+Python very prominently - NumPy, Matplotlib, Python, Cython, SciPy, AstroPy and
+other projects were highlighted. At the same time, Nat introduced new GitHub
+features like "used by", a triaging role and new dependency graph features and
+illustrated how those worked for NumPy. These features will be very welcome
+news to maintainers of almost any project.</p>
+<p><img alt="GitHub Satellite'19 keynote, showcasing NumPy and Matplotlib" src="images/githubsatellite_keynote_numpy_matplotlib.png"></p>
+<p>The single most visible feature introduced was <strong>GitHub Sponsors</strong>:</p>
+<p><img alt="GitHub Sponsors enabled on the NumPy repo" src="images/github_sponsors_screenshot.png"></p>
+<p>I really enjoyed meeting <a href="https://devonzuegel.com">Devon Zuegel</a>, Product
+Manager of the Open Source Economy Team at GitHub, in person after previously
+having had the chance to exchange ideas with her about the funding related
+needs of scientific Python projects and their core teams. I'm confident that
+GitHub Sponsors will evolve in a direction that's beneficial to
+community-driven open source projects.</p>
+<p class="more"><a href="blog/2019/06/labs-update-may-highlights/">Read more…</a></p>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/06/tdk-partners-with-quansight-labs/" class="u-url">TDK-Micronas partners with Quansight to sponsor Spyder</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 <a href="authors/gonzalo-pena-castellanos/">Gonzalo Peña-Castellanos</a>
@@ -480,38 +518,13 @@ theory we get unique properties that other compilers cannot guarantee:</p>
 </div>
 </div>
     </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/04/joining-labs/" class="u-url">Thoughts on joining Quansight Labs</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                <a href="authors/ralf-gommers/">Ralf Gommers</a>
-            </span></p>
-            <p class="dateline">
-            <a href="blog/2019/04/joining-labs/" rel="bookmark">
-            <time class="published dt-published" datetime="2019-04-08T00:00:00-05:00" itemprop="datePublished" title="2019-04-08">2019-04-08</time></a>
-            </p>
-        </div>
-    </header><div class="p-summary entry-summary">
-    <div>
-<p>In his <a href="https://www.quansight.com/single-post/2019/04/02/Welcoming-Ralf-Gommers-as-Director-of-Quansight-Labs">blog post</a> welcoming me, Travis set out his vision for pushing forward the Python ecosystem for scientific computing and data science, and how to fund it. In this post I'll add my own perspectives to that. Given that Quansight Labs' purpose, it seems fitting to start with how I see things as a community member and organizer.</p>
-<h4>A community perspective</h4>
-<p>The SciPy and PyData ecosystems have experienced massive growth over the past years, and this is likely to continue in the near future. As a maintainer, that feels very gratifying. At the same time it brings up worries. Core projects struggle to keep up with the growth in number of users. Funded development can help with this, if done right. Some of the things I would like to see from companies that participate in the ecosystem:</p>
-<ul>
-<li>Explain innovations they're working on to the community and solicit input, <em>at an early stage</em>. Developing something away from the spotlight and then unveiling it as the "next big thing" once it's done usually leads to either corporate-driven projects (if users adopt it) or a short life span.</li>
-<li>Participate in a sustainable way. This means for example to contribute in a way that lowers, or at least doesn't increase, the overall effort required for maintenance. Only sending pull requests with new features doesn't achieve that. Solving maintenance pain points or helping with code review does.</li>
-<li>Operate transparently. Develop in the open, plan in the open, be clear about directions and motivations.</li>
-</ul>
-<p class="more"><a href="blog/2019/04/joining-labs/">Read more…</a></p>
-</div>
-    </div>
     </article>
 </div>
 
-
-
-
-
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha256-SDRP1VVYu+tgAGKhddBSl5+ezofHKZeI+OzxakbIe/Y=" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+        <ul class="pager postindexpager clearfix">
+<li class="next"><a href="index-1.html" rel="next">Older posts</a></li>
+        </ul>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha256-SDRP1VVYu+tgAGKhddBSl5+ezofHKZeI+OzxakbIe/Y=" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
 MathJax.Hub.Config({
    tex2jax: {
        inlineMath: [ ['$','$'], ["\\(","\\)"], ],

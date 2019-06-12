@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Sun, 02 Jun 2019 14:46:21 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>TDK-Micronas partners with Quansight to sponsor Spyder</title><link>https://labs.quansight.org/blog/2019/06/tdk-partners-with-quansight-labs/</link><dc:creator>Gonzalo Peña-Castellanos</dc:creator><description>&lt;div&gt;&lt;p&gt;TDK-Micronas is sponsoring Spyder development efforts through Quansight Labs.
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Wed, 12 Jun 2019 12:06:49 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Labs update and May highlights</title><link>https://labs.quansight.org/blog/2019/06/labs-update-may-highlights/</link><dc:creator>Ralf Gommers</dc:creator><description>&lt;div&gt;&lt;p&gt;Time flies when you're having fun. Here is an update of some of the highlights
+of my second month at Quansight Labs.&lt;/p&gt;
+&lt;h3&gt;The making of a black hole image &amp;amp; GitHub Sponsors&lt;/h3&gt;
+&lt;p&gt;Both Travis and myself were invited by GitHub to attend GitHub Satellite in
+Berlin. The main reason was that Nat Friedman (GitHub CEO) decided to spend the
+first 20 minutes of his keynote to highlight the &lt;a href="https://eventhorizontelescope.org/"&gt;Event Horizon
+Telescope's&lt;/a&gt; black hole image and the open
+source software that made that imaging possible. This included the scientific
+Python very prominently - NumPy, Matplotlib, Python, Cython, SciPy, AstroPy and
+other projects were highlighted. At the same time, Nat introduced new GitHub
+features like "used by", a triaging role and new dependency graph features and
+illustrated how those worked for NumPy. These features will be very welcome
+news to maintainers of almost any project.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="GitHub Satellite'19 keynote, showcasing NumPy and Matplotlib" src="https://labs.quansight.org/images/githubsatellite_keynote_numpy_matplotlib.png"&gt;&lt;/p&gt;
+&lt;p&gt;The single most visible feature introduced was &lt;strong&gt;GitHub Sponsors&lt;/strong&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="GitHub Sponsors enabled on the NumPy repo" src="https://labs.quansight.org/images/github_sponsors_screenshot.png"&gt;&lt;/p&gt;
+&lt;p&gt;I really enjoyed meeting &lt;a href="https://devonzuegel.com"&gt;Devon Zuegel&lt;/a&gt;, Product
+Manager of the Open Source Economy Team at GitHub, in person after previously
+having had the chance to exchange ideas with her about the funding related
+needs of scientific Python projects and their core teams. I'm confident that
+GitHub Sponsors will evolve in a direction that's beneficial to
+community-driven open source projects.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/06/labs-update-may-highlights/"&gt;Read more…&lt;/a&gt; (5 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Labs</category><guid>https://labs.quansight.org/blog/2019/06/labs-update-may-highlights/</guid><pubDate>Wed, 12 Jun 2019 05:00:00 GMT</pubDate></item><item><title>TDK-Micronas partners with Quansight to sponsor Spyder</title><link>https://labs.quansight.org/blog/2019/06/tdk-partners-with-quansight-labs/</link><dc:creator>Gonzalo Peña-Castellanos</dc:creator><description>&lt;div&gt;&lt;p&gt;TDK-Micronas is sponsoring Spyder development efforts through Quansight Labs.
 This will enable the development of some features that have been requested by
 our users, as well as new features that will help TDK develop custom Spyder
 plugins in order to complement their Automatic Test Equipment (ATE’s) in the
@@ -244,12 +266,4 @@ optimization of algorithms as a whole. Keep in mind that MOA is &lt;strong&gt;NO
 a compiler. It is a theory that guides compiler development. Since
 &lt;a href="https://github.com/Quansight-Labs/python-moa"&gt;python-moa&lt;/a&gt; is based on
 theory we get unique properties that other compilers cannot guarantee:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/04/python-moa-tensor-compiler/"&gt;Read more…&lt;/a&gt; (5 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>https://labs.quansight.org/blog/2019/04/python-moa-tensor-compiler/</guid><pubDate>Wed, 17 Apr 2019 05:00:00 GMT</pubDate></item><item><title>Thoughts on joining Quansight Labs</title><link>https://labs.quansight.org/blog/2019/04/joining-labs/</link><dc:creator>Ralf Gommers</dc:creator><description>&lt;div&gt;&lt;p&gt;In his &lt;a href="https://www.quansight.com/single-post/2019/04/02/Welcoming-Ralf-Gommers-as-Director-of-Quansight-Labs"&gt;blog post&lt;/a&gt; welcoming me, Travis set out his vision for pushing forward the Python ecosystem for scientific computing and data science, and how to fund it. In this post I'll add my own perspectives to that. Given that Quansight Labs' purpose, it seems fitting to start with how I see things as a community member and organizer.&lt;/p&gt;
-&lt;h4&gt;A community perspective&lt;/h4&gt;
-&lt;p&gt;The SciPy and PyData ecosystems have experienced massive growth over the past years, and this is likely to continue in the near future. As a maintainer, that feels very gratifying. At the same time it brings up worries. Core projects struggle to keep up with the growth in number of users. Funded development can help with this, if done right. Some of the things I would like to see from companies that participate in the ecosystem:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Explain innovations they're working on to the community and solicit input, &lt;em&gt;at an early stage&lt;/em&gt;. Developing something away from the spotlight and then unveiling it as the "next big thing" once it's done usually leads to either corporate-driven projects (if users adopt it) or a short life span.&lt;/li&gt;
-&lt;li&gt;Participate in a sustainable way. This means for example to contribute in a way that lowers, or at least doesn't increase, the overall effort required for maintenance. Only sending pull requests with new features doesn't achieve that. Solving maintenance pain points or helping with code review does.&lt;/li&gt;
-&lt;li&gt;Operate transparently. Develop in the open, plan in the open, be clear about directions and motivations.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/04/joining-labs/"&gt;Read more…&lt;/a&gt; (4 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>community</category><category>Labs</category><guid>https://labs.quansight.org/blog/2019/04/joining-labs/</guid><pubDate>Mon, 08 Apr 2019 05:00:00 GMT</pubDate></item></channel></rss>
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/04/python-moa-tensor-compiler/"&gt;Read more…&lt;/a&gt; (5 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>https://labs.quansight.org/blog/2019/04/python-moa-tensor-compiler/</guid><pubDate>Wed, 17 Apr 2019 05:00:00 GMT</pubDate></item></channel></rss>
