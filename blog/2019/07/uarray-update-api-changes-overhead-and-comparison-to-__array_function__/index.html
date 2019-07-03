@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>uarray update: API changes, overhead and comparison to __array_function__ | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Hameer Abbasi">
+<link rel="prev" href="../../06/labs-update-may-highlights/" title="Labs update and May highlights" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="uarray update: API changes, overhead and comparison to __array_functio">
+<meta property="og:url" content="https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/">
+<meta property="og:description" content="uarray is a generic override framework for objects and methods in Python. Since my last uarray blogpost, there have been plenty of developments, changes to the API and improvements to the overhead of ">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2019-07-03T06:36:54-05:00">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+
+            <span id="blog-title">Quansight Labs</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../archive.html" class="nav-link">Archive</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../categories/" class="nav-link">Tags</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS feed</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right">
+<li class="nav-item">
+    <a href="index.ipynb" id="sourcelink" class="nav-link">Source</a>
+    </li>
+
+
+                
+            </ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">uarray update: API changes, overhead and comparison to __array_function__</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    <a href="../../../../authors/hameer-abbasi/">Hameer Abbasi</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2019-07-03T06:36:54-05:00" itemprop="datePublished" title="2019-07-03">2019-07-03</time></a>
+            </p>
+            
+        <p class="sourceline"><a href="index.ipynb" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>uarray</code> is a generic override framework for objects and methods in Python. Since <a href="https://labs.quansight.org/blog/2019/04/uarray-intro/">my last <code>uarray</code> blogpost</a>, there have been plenty of developments, changes to the API and improvements to the overhead of the protocol. Let’s begin with a walk-through of the current feature set and API, and then move on to current developments and how it compares to <a href="www.numpy.org/neps/nep-0018-array-function-protocol.html"><code>__array_function__</code></a>. For further details on the API and latest developments, please see <a href="https://uarray.readthedocs.io/en/latest/generated/uarray.html">the API page for <code>uarray</code></a>. The examples there are doctested, so they will always be current.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Enable __array_function__ for NumPy &lt; 1.17.0</span>
+<span class="o">!</span><span class="nb">export</span> <span class="nv">NUMPY_EXPERIMENTAL_ARRAY_FUNCTION</span><span class="o">=</span><span class="m">1</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">uarray</span> <span class="k">as</span> <span class="nn">ua</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In <code>uarray</code>, the fundamental building block is a multimethod. Multimethods have a number of nice properties, such as automatic dispatch based on backends. It is important to note here that multimethods will be written by API authors, rather than implementors. Here's how we define a multimethod in <code>uarray</code>:
+<!-- TEASER_END --></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">my_multimethod</span> <span class="o">=</span> <span class="n">ua</span><span class="o">.</span><span class="n">generate_multimethod</span><span class="p">(</span>
+    <span class="c1"># This is the argument extractor, it also defines the signature.</span>
+    <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">None</span><span class="p">:</span> <span class="p">(),</span>
+    <span class="c1"># This is the reverse dispatcher, it is important for conversion/coercion.</span>
+    <span class="c1"># It is optional and can be set to None.</span>
+    <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">kw</span><span class="p">,</span> <span class="n">d</span><span class="p">:</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">kw</span><span class="p">),</span>
+    <span class="c1"># This is the domain, it separates the multimethods into clean parts.</span>
+    <span class="s2">"ql_blogpost"</span><span class="p">,</span>
+    <span class="c1"># This is the default implementation. It is also optional, which means</span>
+    <span class="c1"># "error if no backend is found/set".</span>
+    <span class="n">default</span><span class="o">=</span><span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">None</span><span class="p">:</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We will explore the function of each of the parts of this multimethod later. Let's try calling this multimethod.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">my_multimethod</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[4]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(1, 2)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As we can see, it remains faithful to its purpose. It has a default implementation that it can produce nicely. However, the real power comes when overriding this multimethod. To do this, we must consider the concept of a backend, which is separate. This is different from the view of <code>__array_function__</code>, in which array objects themselves define the backend. Here, we have applied the principle of <a href="https://en.wikipedia.org/wiki/Separation_of_concerns">separation of concerns</a> to separate the multimethod, the objects it operates on, as well as the backend. Note as well that backend authors provide the implementation of a given API.</p>
+<p>Let’s see how one would define a backend in <code>uarray</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Backend</span><span class="p">:</span>
+    <span class="c1"># A backend can only override methods from its own domain</span>
+    <span class="n">__ua_domain__</span> <span class="o">=</span> <span class="s2">"ql_blogpost"</span>
+    
+    <span class="c1"># This is the main protocol a backend must have in order to work.</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__ua_function__</span><span class="p">(</span>
+        <span class="n">func</span><span class="p">,</span>  <span class="c1"># It gets the multimethod being called,</span>
+        <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span>  <span class="c1"># And the arguments the method is called with.</span>
+    <span class="p">):</span>
+        <span class="c1"># Here we have the implementation</span>
+        <span class="k">return</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now, let's go about overriding the function. Note here that <code>set_backend</code> will typically be used by consumers of the API.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">ua</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="n">Backend</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">my_multimethod</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>('&lt;lambda&gt;', (1, 2), {})
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As you can see, the function's return value magically changed. Note that this propagates all the way down the call stack. With that, let's get into some of the more magical features of <code>uarray</code>, starting with the function of the argument extractor, the argument replacer, and the <code>__ua_convert__</code> protocol.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="The-argument-extractor-and-argument-based-dispatch">The argument extractor and argument-based dispatch<a class="anchor-link" href="#The-argument-extractor-and-argument-based-dispatch">¶</a>
+</h3>
+<p>The argument extractor (equivalent to a dispatcher in <code>__array_function__</code>) is more than just a dummy that returns an empty tuple. It can also return the arguments needed for dispatch. Let’s go ahead and see this in action.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numbers</span>
+<span class="n">my_multimethod_with_dispatch</span> <span class="o">=</span> <span class="n">ua</span><span class="o">.</span><span class="n">generate_multimethod</span><span class="p">(</span>
+    <span class="c1"># a is dispatchable, and it's supposed to be some kind of number</span>
+    <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">None</span><span class="p">:</span> <span class="p">(</span><span class="n">ua</span><span class="o">.</span><span class="n">Dispatchable</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Number</span><span class="p">),),</span>
+    <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">kw</span><span class="p">,</span> <span class="n">d</span><span class="p">:</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">kw</span><span class="p">),</span>
+    <span class="s2">"ql_blogpost"</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Just to illustrate what happens when a multimethod doesn't have a default implementation, let’s call this multimethod.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">my_multimethod_with_dispatch</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">BackendNotImplementedError</span>                Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-8-14d7909bfa3d&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>my_multimethod_with_dispatch<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/Quansight/uarray/uarray/_backend.py</span> in <span class="ansi-cyan-fg">inner</span><span class="ansi-blue-fg">(*args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    152</span>         <span class="ansi-green-fg">if</span> result <span class="ansi-green-fg">is</span> NotImplemented<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    153</span>             raise BackendNotImplementedError(
+<span class="ansi-green-fg">--&gt; 154</span><span class="ansi-red-fg">                 </span><span class="ansi-blue-fg">"No selected backends had an implementation for this function."</span><span class="ansi-blue-fg">,</span> errors
+<span class="ansi-green-intense-fg ansi-bold">    155</span>             )
+<span class="ansi-green-intense-fg ansi-bold">    156</span> 
+
+<span class="ansi-red-fg">BackendNotImplementedError</span>: ('No selected backends had an implementation for this function.', [])</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It raises an error, as is expected, with a message explaining the situation. Now, let's explore dispatch.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">DispatchBackendInt</span><span class="p">:</span>
+    <span class="c1"># A backend can only override methods from its own domain</span>
+    <span class="n">__ua_domain__</span> <span class="o">=</span> <span class="s2">"ql_blogpost"</span>
+    
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__ua_function__</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">"int"</span><span class="p">,</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span>
+    
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__ua_convert__</span><span class="p">(</span>
+        <span class="n">dispatchables</span><span class="p">,</span>  <span class="c1"># The list of dispatchables</span>
+        <span class="n">coerce</span> <span class="c1"># Whether or not to forcibly coerce them to the required form, if possible</span>
+    <span class="p">):</span>
+        <span class="n">converted</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dispatchables</span><span class="p">:</span>
+            <span class="c1"># Check if it's a number, we only support ints</span>
+            <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Number</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="n">converted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">NotImplemented</span>
+        
+        <span class="k">return</span> <span class="n">converted</span>
+
+<span class="k">class</span> <span class="nc">DispatchBackendFloat</span><span class="p">:</span>
+    <span class="c1"># A backend can only override methods from its own domain</span>
+    <span class="n">__ua_domain__</span> <span class="o">=</span> <span class="s2">"ql_blogpost"</span>
+    
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__ua_function__</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">"float"</span><span class="p">,</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span>
+    
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__ua_convert__</span><span class="p">(</span><span class="n">dispatchables</span><span class="p">,</span> <span class="n">coerce</span><span class="p">):</span>
+        <span class="n">converted</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dispatchables</span><span class="p">:</span>
+            <span class="c1"># This one only supports floats</span>
+            <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Number</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                <span class="n">converted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">NotImplemented</span>
+        
+        <span class="k">return</span> <span class="n">converted</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">ua</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="n">DispatchBackendInt</span><span class="p">),</span> <span class="n">ua</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="n">DispatchBackendFloat</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">my_multimethod_with_dispatch</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">my_multimethod_with_dispatch</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">my_multimethod_with_dispatch</span><span class="p">(</span><span class="s2">"1"</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>('int', '&lt;lambda&gt;', (1, 2), {})
+('float', '&lt;lambda&gt;', (1.0, 2), {})
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">BackendNotImplementedError</span>                Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-10-cdc811a82346&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span>     print<span class="ansi-blue-fg">(</span>my_multimethod_with_dispatch<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span>     print<span class="ansi-blue-fg">(</span>my_multimethod_with_dispatch<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">1.0</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">----&gt; 4</span><span class="ansi-red-fg">     </span>print<span class="ansi-blue-fg">(</span>my_multimethod_with_dispatch<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">"1"</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/Quansight/uarray/uarray/_backend.py</span> in <span class="ansi-cyan-fg">inner</span><span class="ansi-blue-fg">(*args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    152</span>         <span class="ansi-green-fg">if</span> result <span class="ansi-green-fg">is</span> NotImplemented<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    153</span>             raise BackendNotImplementedError(
+<span class="ansi-green-fg">--&gt; 154</span><span class="ansi-red-fg">                 </span><span class="ansi-blue-fg">"No selected backends had an implementation for this function."</span><span class="ansi-blue-fg">,</span> errors
+<span class="ansi-green-intense-fg ansi-bold">    155</span>             )
+<span class="ansi-green-intense-fg ansi-bold">    156</span> 
+
+<span class="ansi-red-fg">BackendNotImplementedError</span>: ('No selected backends had an implementation for this function.', [])</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As we can see, the method dispatches fine on <code>int</code> and <code>float</code> to the correct implementation but raises an error for strings. Let's make a small modification to make even working with <code>int</code> possible:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># The argument replacer is supposed to replace the args/kwargs</span>
+<span class="c1"># with the right dispatchables</span>
+<span class="k">def</span> <span class="nf">my_ar</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">dispatchables</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">replacer</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">dispatchables</span><span class="p">,</span> <span class="p">{</span><span class="s1">'b'</span><span class="p">:</span> <span class="n">b</span><span class="p">}</span>
+    
+    <span class="k">return</span> <span class="n">replacer</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="n">my_multimethod_with_dispatch</span> <span class="o">=</span> <span class="n">ua</span><span class="o">.</span><span class="n">generate_multimethod</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">None</span><span class="p">:</span> <span class="p">(</span><span class="n">ua</span><span class="o">.</span><span class="n">Dispatchable</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Number</span><span class="p">),),</span>
+    <span class="n">my_ar</span><span class="p">,</span>  <span class="c1"># We put the right thing here.</span>
+    <span class="s2">"ql_blogpost"</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">DispatchBackendInt</span><span class="p">:</span>
+    <span class="c1"># A backend can only override methods from its own domain</span>
+    <span class="n">__ua_domain__</span> <span class="o">=</span> <span class="s2">"ql_blogpost"</span>
+    
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__ua_function__</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">"int"</span><span class="p">,</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span>
+    
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__ua_convert__</span><span class="p">(</span><span class="n">dispatchables</span><span class="p">,</span> <span class="n">coerce</span><span class="p">):</span>
+        <span class="n">converted</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dispatchables</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Number</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                    <span class="n">converted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+                <span class="c1"># If we're allowed to coerce it</span>
+                <span class="k">elif</span> <span class="n">coerce</span> <span class="ow">and</span> <span class="n">d</span><span class="o">.</span><span class="n">coercible</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">converted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+                    <span class="c1"># Make sure unsupported conversions are caught</span>
+                    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="bp">NotImplemented</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="bp">NotImplemented</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Handle the base case</span>
+                <span class="k">return</span> <span class="bp">NotImplemented</span>
+        
+        <span class="k">return</span> <span class="n">converted</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">ua</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="n">DispatchBackendInt</span><span class="p">,</span> <span class="n">coerce</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">my_multimethod_with_dispatch</span><span class="p">(</span><span class="s2">"1"</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>('int', '&lt;lambda&gt;', (1,), {'b': 2})
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Note that we must pass the <code>coerce=True</code> parameter to make this work, otherwise the method will return <code>NotImplemented</code> and fail. Note also that the string has been correctly converted before being passed into the function. I previously mentioned the possibility of adding a reverse dispatcher to <code>__array_function__</code> <a href="https://github.com/numpy/numpy/issues/12974#issuecomment-467197477">[1]</a> <a href="https://github.com/dask/dask/pull/4567#issuecomment-471630100">[2]</a>, but it was rejected. I have added it to <code>uarray</code>, but it is optional.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Meta-backends:-Backends-which-may-rely-on-others">Meta-backends: Backends which may rely on others<a class="anchor-link" href="#Meta-backends:-Backends-which-may-rely-on-others">¶</a>
+</h3>
+<p>One other thing easily possible in <code>uarray</code> not easily possible in other frameworks is the possibility of meta backends. These are backends which could rely on other backends. Suppose, that a backend wraps other objects and needs to get data out, and then call other backends:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">CustomNumber</span><span class="p">(</span><span class="n">numbers</span><span class="o">.</span><span class="n">Number</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">n</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">DispatchBackendCustom</span><span class="p">:</span>
+    <span class="c1"># A backend can only override methods from its own domain</span>
+    <span class="n">__ua_domain__</span> <span class="o">=</span> <span class="s2">"ql_blogpost"</span>
+    
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__ua_function__</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">ua</span><span class="o">.</span><span class="n">skip_backend</span><span class="p">(</span><span class="n">DispatchBackendCustom</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">(</span><span class="s2">"Custom"</span><span class="p">,)</span> <span class="o">+</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__ua_convert__</span><span class="p">(</span><span class="n">dispatchables</span><span class="p">,</span> <span class="n">coerce</span><span class="p">):</span>
+        <span class="n">converted</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dispatchables</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Number</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">CustomNumber</span><span class="p">):</span>
+                <span class="c1"># Access the internal value, no conversion going on</span>
+                <span class="n">converted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Handle the base case</span>
+                <span class="k">return</span> <span class="bp">NotImplemented</span>
+        
+        <span class="k">return</span> <span class="n">converted</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">ua</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="n">DispatchBackendCustom</span><span class="p">),</span> <span class="n">ua</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="n">DispatchBackendInt</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">my_multimethod_with_dispatch</span><span class="p">(</span><span class="n">CustomNumber</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>('Custom', 'int', '&lt;lambda&gt;', (1,), {'b': 2})
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Permanent-registration-of-backend">Permanent registration of backend<a class="anchor-link" href="#Permanent-registration-of-backend">¶</a>
+</h3>
+<p><code>uarray</code> provides permanent registration for backends, after which the backend will be automatically tried every time. This is user-facing code, and we recommend that no libraries register themselves permanently, apart from reference implementations. This can be done via the <a href="https://uarray.readthedocs.io/en/latest/generated/uarray.register_backend.html"><code>register_backend</code></a> method.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Comparison-with-__array_function__">Comparison with <code>__array_function__</code><a class="anchor-link" href="#Comparison-with-__array_function__">¶</a>
+</h3>
+<h4 id="Replacement-and-dispatching-based-on-different-objects">Replacement and dispatching based on different objects<a class="anchor-link" href="#Replacement-and-dispatching-based-on-different-objects">¶</a>
+</h4>
+<p>In this section, let’s define a function with <code>__array_function__</code>, its <code>uarray</code> equivalent and explore the limitations of <code>__array_function__</code> and how <code>uarray</code> attempts to resolve them. Here's a snippet from NumPy showing roughly how <code>np.sum</code> would be defined (<a href="https://github.com/numpy/numpy/blob/02c8e80d5f65c7870f71c989c425d1bad24bd312/numpy/core/fromnumeric.py#L2040-L2182">current code as of writing here</a>):</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_sum_dispatcher</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                    <span class="n">initial</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span>
+
+
+<span class="nd">@array_function_dispatch</span><span class="p">(</span><span class="n">_sum_dispatcher</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">_NoValue</span><span class="p">,</span>
+        <span class="n">initial</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">_NoValue</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">_NoValue</span><span class="p">):</span>
+    <span class="c1"># Default implementation</span>
+</pre></div>
+<p>Here's the equivalent <code>uarray</code> code:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_sum_ar</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">kw</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">replacer</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">],),</span> <span class="p">{</span><span class="s1">'out'</span><span class="p">:</span> <span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">'axis'</span><span class="p">:</span> <span class="n">d</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="s1">'dtype'</span><span class="p">:</span> <span class="n">d</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">}</span>
+
+<span class="n">axis_type</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
+
+<span class="nd">@ua.create_multimethod</span><span class="p">(</span><span class="n">_sum_ar</span><span class="p">,</span> <span class="s2">"numpy"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="o">.</span><span class="n">reduce</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+        <span class="n">initial</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">ua</span><span class="o">.</span><span class="n">Dispatchable</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">),</span>
+        <span class="n">ua</span><span class="o">.</span><span class="n">Dispatchable</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">),</span>
+        <span class="n">ua</span><span class="o">.</span><span class="n">Dispatchable</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span>
+        <span class="n">ua</span><span class="o">.</span><span class="n">Dispatchable</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">axis_type</span><span class="p">),</span>
+    <span class="p">)</span>
+</pre></div>
+<p>This shows the power of <code>uarray</code> in a simple example:</p>
+<ul>
+<li>Not only can you dispatch based on <code>ndarray</code>s, you can convert and replace them too.</li>
+<li>You can dispatch based on <code>dtype</code>, so (for example), <a href="https://github.com/xnd-project/ndtypes"><code>ndtypes</code></a> can be supported.</li>
+<li>You can dispatch based on <code>axis</code>, so XArray could take over when the axes were named.</li>
+<li>It allows you to have a fallback <em>in terms of other multimethods</em>.</li>
+<li>Default keywords are dropped automatically, so one doesn’t need to worry about missing kwargs that will be added later.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Replacement-of-functions-without-any-dispatchables">Replacement of functions without any dispatchables<a class="anchor-link" href="#Replacement-of-functions-without-any-dispatchables">¶</a>
+</h4>
+<p>One of the biggest drawbacks of <code>__array_function__</code> was the need for what I call a "protocol soup". For example, examine <a href="https://github.com/numpy/numpy/issues/13831">this issue</a> which shows the number of extra functions that are required simply because NumPy can only perform dispatch on functions which accept <code>array_like</code> objects.</p>
+<p><code>uarray</code> solves this in two ways: The first is by allowing the use of a context manager which sets the backend. So, for example, you could do the following:</p>
+<div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">ua</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="n">dask</span><span class="o">.</span><span class="n">array</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>  <span class="c1"># x becomes a Dask array</span>
+</pre></div>
+<p>The second is allowing for dispatch on more object types, so more functions can be dispatched on.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="The-overhead-of-uarray">The overhead of <code>uarray</code><a class="anchor-link" href="#The-overhead-of-uarray">¶</a>
+</h3>
+<p>One of the limiting factors in the adoption of <code>uarray</code> has been its overhead. This is currently <a href="https://github.com/Quansight-Labs/uarray/pull/170">being brought down</a> by <a href="https://github.com/peterbell10">Peter Bell</a>, a GSoC student working on <code>uarray</code>, who is working on a C++ implementation of the protocol. As of the last version, the overhead on my machine was about 1.37 μs per call, and this is still being worked on. You can follow the <a href="https://blogs.python-gsoc.org/en/blogs/peterbell10s-blog/">updates on Peter’s work here</a>. It is also being <a href="https://github.com/scipy/scipy/pull/10383">merged into <code>scipy.fft</code></a> as part of his ongoing GSoC work.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">¶</a>
+</h3>
+<p><code>uarray</code> provides a strong contender for a multiple-dispatch solution for array computing, and an alternative to <code>__array_function__</code>. While it is more feature-complete, it also needs a bit more boilerplate and has higher overhead than <code>__array_function__</code>. Here's to hoping for more options in the array computing space, and to separating the API from the implementation, which always opens more pathways to future improvement.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../../06/labs-update-may-highlights/" rel="prev" title="Labs update and May highlights">Previous post</a>
+            </li>
+        </ul></nav></aside><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha256-SDRP1VVYu+tgAGKhddBSl5+ezofHKZeI+OzxakbIe/Y=" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script></article><!--End of body content--><footer id="footer">
+            Contents © 2019         <a href="mailto:info@quansight.com">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>

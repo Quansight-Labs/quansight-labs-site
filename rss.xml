@@ -1,5 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Wed, 12 Jun 2019 12:06:49 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Labs update and May highlights</title><link>https://labs.quansight.org/blog/2019/06/labs-update-may-highlights/</link><dc:creator>Ralf Gommers</dc:creator><description>&lt;div&gt;&lt;p&gt;Time flies when you're having fun. Here is an update of some of the highlights
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Wed, 03 Jul 2019 17:43:50 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>uarray update: API changes, overhead and comparison to __array_function__</title><link>https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/</link><dc:creator>Hameer Abbasi</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;&lt;code&gt;uarray&lt;/code&gt; is a generic override framework for objects and methods in Python. Since &lt;a href="https://labs.quansight.org/blog/2019/04/uarray-intro/"&gt;my last &lt;code&gt;uarray&lt;/code&gt; blogpost&lt;/a&gt;, there have been plenty of developments, changes to the API and improvements to the overhead of the protocol. Let’s begin with a walk-through of the current feature set and API, and then move on to current developments and how it compares to &lt;a href="https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/www.numpy.org/neps/nep-0018-array-function-protocol.html"&gt;&lt;code&gt;__array_function__&lt;/code&gt;&lt;/a&gt;. For further details on the API and latest developments, please see &lt;a href="https://uarray.readthedocs.io/en/latest/generated/uarray.html"&gt;the API page for &lt;code&gt;uarray&lt;/code&gt;&lt;/a&gt;. The examples there are doctested, so they will always be current.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In [1]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Enable __array_function__ for NumPy &amp;lt; 1.17.0&lt;/span&gt;
+&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;NUMPY_EXPERIMENTAL_ARRAY_FUNCTION&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In [2]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;uarray&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;ua&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;numpy&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;np&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;In &lt;code&gt;uarray&lt;/code&gt;, the fundamental building block is a multimethod. Multimethods have a number of nice properties, such as automatic dispatch based on backends. It is important to note here that multimethods will be written by API authors, rather than implementors. Here's how we define a multimethod in &lt;code&gt;uarray&lt;/code&gt;:
+&lt;/p&gt;&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/"&gt;Read more…&lt;/a&gt; (8 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/</guid><pubDate>Wed, 03 Jul 2019 11:36:54 GMT</pubDate></item><item><title>Labs update and May highlights</title><link>https://labs.quansight.org/blog/2019/06/labs-update-may-highlights/</link><dc:creator>Ralf Gommers</dc:creator><description>&lt;div&gt;&lt;p&gt;Time flies when you're having fun. Here is an update of some of the highlights
 of my second month at Quansight Labs.&lt;/p&gt;
 &lt;h3&gt;The making of a black hole image &amp;amp; GitHub Sponsors&lt;/h3&gt;
 &lt;p&gt;Both Travis and myself were invited by GitHub to attend GitHub Satellite in
@@ -241,29 +281,4 @@ do the release itself.&lt;/p&gt;
 &lt;li&gt;PyData/Sparse, a project started to make sparse arrays conform to the NumPy API&lt;/li&gt;
 &lt;li&gt;Xnd, which extends the type system and the universal function concept found in NumPy&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/04/uarray-intro/"&gt;Read more…&lt;/a&gt; (5 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>https://labs.quansight.org/blog/2019/04/uarray-intro/</guid><pubDate>Tue, 30 Apr 2019 05:04:40 GMT</pubDate></item><item><title>MOA: a theory for composable and verifiable tensor computations</title><link>https://labs.quansight.org/blog/2019/04/python-moa-tensor-compiler/</link><dc:creator>Chris Ostrouchov</dc:creator><description>&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;Python-moa (mathematics of arrays) is an approach to a high level tensor
-compiler that is based on the work of &lt;a href="https://www.albany.edu/ceas/lenore-mullin.php"&gt;Lenore
-Mullin&lt;/a&gt; and her
-&lt;a href="https://www.researchgate.net/publication/308893116_A_Mathematics_of_Arrays"&gt;dissertation&lt;/a&gt;.
-A high level compiler is necessary because there are many optimizations
-that a low level compiler such as &lt;code&gt;gcc&lt;/code&gt; will miss. It is trying to solve
-many of the same problems as other technologies such as the &lt;a href="http://tensor-compiler.org/"&gt;taco
-compiler&lt;/a&gt; and the &lt;a href="https://www.tensorflow.org/xla"&gt;xla
-compiler&lt;/a&gt;. However, it takes a much
-different approach than others guided by the following principles.&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;What is the shape? Everything has a shape. scalars, vectors, arrays,
-operations, and functions.&lt;/li&gt;
-&lt;li&gt;What are the given indicies and operations required to produce a
-given index in the result?&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Having a compiler that is guided upon these principles allows for high
-level reductions that other compilers will miss and allows for
-optimization of algorithms as a whole. Keep in mind that MOA is &lt;strong&gt;NOT&lt;/strong&gt;
-a compiler. It is a theory that guides compiler development. Since
-&lt;a href="https://github.com/Quansight-Labs/python-moa"&gt;python-moa&lt;/a&gt; is based on
-theory we get unique properties that other compilers cannot guarantee:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/04/python-moa-tensor-compiler/"&gt;Read more…&lt;/a&gt; (5 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>https://labs.quansight.org/blog/2019/04/python-moa-tensor-compiler/</guid><pubDate>Wed, 17 Apr 2019 05:00:00 GMT</pubDate></item></channel></rss>
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/04/uarray-intro/"&gt;Read more…&lt;/a&gt; (5 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>https://labs.quansight.org/blog/2019/04/uarray-intro/</guid><pubDate>Tue, 30 Apr 2019 05:04:40 GMT</pubDate></item></channel></rss>

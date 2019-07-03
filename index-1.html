@@ -78,7 +78,50 @@ navbar-dark bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/04/joining-labs/" class="u-url">Thoughts on joining Quansight Labs</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/04/python-moa-tensor-compiler/" class="u-url">MOA: a theory for composable and verifiable tensor computations</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                <a href="authors/chris-ostrouchov/">Chris Ostrouchov</a>
+            </span></p>
+            <p class="dateline">
+            <a href="blog/2019/04/python-moa-tensor-compiler/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-04-17T00:00:00-05:00" itemprop="datePublished" title="2019-04-17">2019-04-17</time></a>
+            </p>
+        </div>
+    </header><div class="p-summary entry-summary">
+    <div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Python-moa (mathematics of arrays) is an approach to a high level tensor
+compiler that is based on the work of <a href="https://www.albany.edu/ceas/lenore-mullin.php">Lenore
+Mullin</a> and her
+<a href="https://www.researchgate.net/publication/308893116_A_Mathematics_of_Arrays">dissertation</a>.
+A high level compiler is necessary because there are many optimizations
+that a low level compiler such as <code>gcc</code> will miss. It is trying to solve
+many of the same problems as other technologies such as the <a href="http://tensor-compiler.org/">taco
+compiler</a> and the <a href="https://www.tensorflow.org/xla">xla
+compiler</a>. However, it takes a much
+different approach than others guided by the following principles.</p>
+<ol>
+<li>What is the shape? Everything has a shape. scalars, vectors, arrays,
+operations, and functions.</li>
+<li>What are the given indicies and operations required to produce a
+given index in the result?</li>
+</ol>
+<p>Having a compiler that is guided upon these principles allows for high
+level reductions that other compilers will miss and allows for
+optimization of algorithms as a whole. Keep in mind that MOA is <strong>NOT</strong>
+a compiler. It is a theory that guides compiler development. Since
+<a href="https://github.com/Quansight-Labs/python-moa">python-moa</a> is based on
+theory we get unique properties that other compilers cannot guarantee:</p>
+<p class="more"><a href="blog/2019/04/python-moa-tensor-compiler/">Read more…</a></p>
+</div>
+</div>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/04/joining-labs/" class="u-url">Thoughts on joining Quansight Labs</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 <a href="authors/ralf-gommers/">Ralf Gommers</a>
@@ -107,7 +150,18 @@ navbar-dark bg-dark
         <ul class="pager postindexpager clearfix">
 <li class="previous"><a href="." rel="prev">Newer posts</a></li>
         </ul>
-<!--End of body content--><footer id="footer">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha256-SDRP1VVYu+tgAGKhddBSl5+ezofHKZeI+OzxakbIe/Y=" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--End of body content--><footer id="footer">
             Contents © 2019         <a href="mailto:info@quansight.com">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             
         </footer>

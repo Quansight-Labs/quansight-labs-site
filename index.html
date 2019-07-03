@@ -26,7 +26,7 @@ MathJax.Hub.Config({
        styles: {'.MathJax_Display': {"margin": 0}}
    }
 });
-</script><!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="blog/2019/06/labs-update-may-highlights/" type="text/html">
+</script><!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -78,7 +78,70 @@ navbar-dark bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/06/labs-update-may-highlights/" class="u-url">Labs update and May highlights</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/" class="u-url">uarray update: API changes, overhead and comparison to __array_function__</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                <a href="authors/hameer-abbasi/">Hameer Abbasi</a>
+            </span></p>
+            <p class="dateline">
+            <a href="blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-07-03T06:36:54-05:00" itemprop="datePublished" title="2019-07-03">2019-07-03</time></a>
+            </p>
+        </div>
+    </header><div class="p-summary entry-summary">
+    <div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>uarray</code> is a generic override framework for objects and methods in Python. Since <a href="https://labs.quansight.org/blog/2019/04/uarray-intro/">my last <code>uarray</code> blogpost</a>, there have been plenty of developments, changes to the API and improvements to the overhead of the protocol. Let’s begin with a walk-through of the current feature set and API, and then move on to current developments and how it compares to <a href="blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/www.numpy.org/neps/nep-0018-array-function-protocol.html"><code>__array_function__</code></a>. For further details on the API and latest developments, please see <a href="https://uarray.readthedocs.io/en/latest/generated/uarray.html">the API page for <code>uarray</code></a>. The examples there are doctested, so they will always be current.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Enable __array_function__ for NumPy &lt; 1.17.0</span>
+<span class="o">!</span><span class="nb">export</span> <span class="nv">NUMPY_EXPERIMENTAL_ARRAY_FUNCTION</span><span class="o">=</span><span class="m">1</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">uarray</span> <span class="k">as</span> <span class="nn">ua</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In <code>uarray</code>, the fundamental building block is a multimethod. Multimethods have a number of nice properties, such as automatic dispatch based on backends. It is important to note here that multimethods will be written by API authors, rather than implementors. Here's how we define a multimethod in <code>uarray</code>:
+</p>
+<p class="more"><a href="blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/">Read more…</a></p>
+</div>
+</div>
+</div>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/06/labs-update-may-highlights/" class="u-url">Labs update and May highlights</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 <a href="authors/ralf-gommers/">Ralf Gommers</a>
@@ -471,49 +534,6 @@ do the release itself.</p>
 <li>Xnd, which extends the type system and the universal function concept found in NumPy</li>
 </ul>
 <p class="more"><a href="blog/2019/04/uarray-intro/">Read more…</a></p>
-</div>
-</div>
-</div>
-    </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/04/python-moa-tensor-compiler/" class="u-url">MOA: a theory for composable and verifiable tensor computations</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                <a href="authors/chris-ostrouchov/">Chris Ostrouchov</a>
-            </span></p>
-            <p class="dateline">
-            <a href="blog/2019/04/python-moa-tensor-compiler/" rel="bookmark">
-            <time class="published dt-published" datetime="2019-04-17T00:00:00-05:00" itemprop="datePublished" title="2019-04-17">2019-04-17</time></a>
-            </p>
-        </div>
-    </header><div class="p-summary entry-summary">
-    <div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Python-moa (mathematics of arrays) is an approach to a high level tensor
-compiler that is based on the work of <a href="https://www.albany.edu/ceas/lenore-mullin.php">Lenore
-Mullin</a> and her
-<a href="https://www.researchgate.net/publication/308893116_A_Mathematics_of_Arrays">dissertation</a>.
-A high level compiler is necessary because there are many optimizations
-that a low level compiler such as <code>gcc</code> will miss. It is trying to solve
-many of the same problems as other technologies such as the <a href="http://tensor-compiler.org/">taco
-compiler</a> and the <a href="https://www.tensorflow.org/xla">xla
-compiler</a>. However, it takes a much
-different approach than others guided by the following principles.</p>
-<ol>
-<li>What is the shape? Everything has a shape. scalars, vectors, arrays,
-operations, and functions.</li>
-<li>What are the given indicies and operations required to produce a
-given index in the result?</li>
-</ol>
-<p>Having a compiler that is guided upon these principles allows for high
-level reductions that other compilers will miss and allows for
-optimization of algorithms as a whole. Keep in mind that MOA is <strong>NOT</strong>
-a compiler. It is a theory that guides compiler development. Since
-<a href="https://github.com/Quansight-Labs/python-moa">python-moa</a> is based on
-theory we get unique properties that other compilers cannot guarantee:</p>
-<p class="more"><a href="blog/2019/04/python-moa-tensor-compiler/">Read more…</a></p>
 </div>
 </div>
 </div>
