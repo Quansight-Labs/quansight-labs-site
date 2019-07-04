@@ -113,6 +113,45 @@ navbar-dark bg-dark
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Motivation">Motivation<a class="anchor-link" href="#Motivation">¶</a>
+</h3>
+<h4 id="Other-array-objects">Other array objects<a class="anchor-link" href="#Other-array-objects">¶</a>
+</h4>
+<p>NumPy is a simple, rectangular, dense, and in-memory data store. This is great for some applications but isn't complete on its own. It doesn't encompass every single use-case. The following are examples of array objects available today that have different features and cater to a different kind of audience.</p>
+<ul>
+<li>Dask is one of the most popular ones. It allows distributed and chunked computation.</li>
+<li>CuPy is another popular one, and allows GPU computation.</li>
+<li>PyData/Sparse is slowly gaining popularity, and is a sparse, in-memory data store.</li>
+<li>XArray includes named dimensions.</li>
+<li>Xnd is another effort to re-write and modernise the NumPy API, and includes support for GPU arrays and ragged arrays.</li>
+<li>Another effort (although with no Python wrapper, only data marshalling) is xtensor.</li>
+</ul>
+<p>Some of these objects can be composed. Namely, Dask both expects and exports the NumPy API, whereas XArray expects the NumPy API. This makes interesting combinations possible, such as distributed sparse or GPU arrays, or even labelled distributed sparse or CPU/GPU arrays.</p>
+<p>Also, there are many other libraries (a popular one being scikit-learn) that need a back-end mechanism in order to be able to support different kinds of array objects. Finally, there is a desire to see SciPy itself gain support for other array objects.</p>
+<h4 id="__array_function__-and-its-limitations">
+<code>__array_function__</code> and its limitations<a class="anchor-link" href="#__array_function__-and-its-limitations">¶</a>
+</h4>
+<p>One of my motivations for working on <code>uarray</code> were the limitations of the <code>__array_function__</code> protocol, defined in <a href="https://www.numpy.org/neps/nep-0018-array-function-protocol.html">this proposal</a>. The limitations are threefold:</p>
+<ul>
+<li>It can only dispatch on array objects.</li>
+<li>Consequently, it can only dispatch on functions that <em>accept</em> array objects.</li>
+<li>It has no mechanism for conversion and coercion.</li>
+<li>Since it conflates arrays and backends, only a single backend type per array object is possible.</li>
+</ul>
+<p>These limitations have been <a href="https://github.com/numpy/numpy/issues/11129">partially</a> <a href="http://numpy-discussion.10968.n7.nabble.com/Allowing-broadcasting-of-code-dimensions-in-generalized-ufuncs-td45589.html">discussed</a> <a href="http://numpy-discussion.10968.n7.nabble.com/Proposal-to-accept-NEP-18-array-function-protocol-td46001.html">before</a>.</p>
+<h3 id="uarray-—-The-solution?">
+<code>uarray</code> — The solution?<a class="anchor-link" href="#uarray-%E2%80%94-The-solution?">¶</a>
+</h3>
+<p>With that out of the way, let's explore <code>uarray</code>, a library that hopes to resolve these issues, and even though the original motivation was NumPy and array computing, the library itself is meant to be a generic multiple-dispatch mechanism.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In [1]:</div>
@@ -224,7 +263,7 @@ navbar-dark bg-dark
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>As we can see, it remains faithful to its purpose. It has a default implementation that it can produce nicely. However, the real power comes when overriding this multimethod. To do this, we must consider the concept of a backend, which is separate. This is different from the view of <code>__array_function__</code>, in which array objects themselves define the backend. Here, we have applied the principle of <a href="https://en.wikipedia.org/wiki/Separation_of_concerns">separation of concerns</a> to separate the multimethod, the objects it operates on, as well as the backend. Note as well that backend authors provide the implementation of a given API.</p>
+<p>As we can see, it remains faithful to its purpose. It has a default implementation that it can execute nicely. However, the real power comes when overriding this multimethod. To do this, we must consider the concept of a backend, which is separate. This is different from the view of <code>__array_function__</code>, in which array objects themselves define the backend. Here, we have applied the principle of <a href="https://en.wikipedia.org/wiki/Separation_of_concerns">separation of concerns</a> to separate the multimethod, the objects it operates on, as well as the backend. Note as well that backend authors provide the implementation of a given API.</p>
 <p>Let’s see how one would define a backend in <code>uarray</code>.</p>
 
 </div>
@@ -375,14 +414,7 @@ navbar-dark bg-dark
 <span class="ansi-green-fg">&lt;ipython-input-8-14d7909bfa3d&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
 <span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>my_multimethod_with_dispatch<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">)</span>
 
-<span class="ansi-green-fg">~/Quansight/uarray/uarray/_backend.py</span> in <span class="ansi-cyan-fg">inner</span><span class="ansi-blue-fg">(*args, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    152</span>         <span class="ansi-green-fg">if</span> result <span class="ansi-green-fg">is</span> NotImplemented<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    153</span>             raise BackendNotImplementedError(
-<span class="ansi-green-fg">--&gt; 154</span><span class="ansi-red-fg">                 </span><span class="ansi-blue-fg">"No selected backends had an implementation for this function."</span><span class="ansi-blue-fg">,</span> errors
-<span class="ansi-green-intense-fg ansi-bold">    155</span>             )
-<span class="ansi-green-intense-fg ansi-bold">    156</span> 
-
-<span class="ansi-red-fg">BackendNotImplementedError</span>: ('No selected backends had an implementation for this function.', [])</pre>
+<span class="ansi-red-fg">BackendNotImplementedError</span>: No selected backends had an implementation for this function.</pre>
 </div>
 </div>
 
@@ -499,14 +531,7 @@ navbar-dark bg-dark
 <span class="ansi-green-intense-fg ansi-bold">      3</span>     print<span class="ansi-blue-fg">(</span>my_multimethod_with_dispatch<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">1.0</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
 <span class="ansi-green-fg">----&gt; 4</span><span class="ansi-red-fg">     </span>print<span class="ansi-blue-fg">(</span>my_multimethod_with_dispatch<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">"1"</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
 
-<span class="ansi-green-fg">~/Quansight/uarray/uarray/_backend.py</span> in <span class="ansi-cyan-fg">inner</span><span class="ansi-blue-fg">(*args, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    152</span>         <span class="ansi-green-fg">if</span> result <span class="ansi-green-fg">is</span> NotImplemented<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    153</span>             raise BackendNotImplementedError(
-<span class="ansi-green-fg">--&gt; 154</span><span class="ansi-red-fg">                 </span><span class="ansi-blue-fg">"No selected backends had an implementation for this function."</span><span class="ansi-blue-fg">,</span> errors
-<span class="ansi-green-intense-fg ansi-bold">    155</span>             )
-<span class="ansi-green-intense-fg ansi-bold">    156</span> 
-
-<span class="ansi-red-fg">BackendNotImplementedError</span>: ('No selected backends had an implementation for this function.', [])</pre>
+<span class="ansi-red-fg">BackendNotImplementedError</span>: No selected backends had an implementation for this function.</pre>
 </div>
 </div>
 
@@ -519,7 +544,7 @@ navbar-dark bg-dark
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>As we can see, the method dispatches fine on <code>int</code> and <code>float</code> to the correct implementation but raises an error for strings. Let's make a small modification to make even working with <code>int</code> possible:</p>
+<p>As we can see, the method dispatches fine on <code>int</code> and <code>float</code> to the correct implementation but raises an error for strings. Let's make a small modification to make even working with <code>str</code> possible:</p>
 
 </div>
 </div>
@@ -627,7 +652,7 @@ navbar-dark bg-dark
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Note that we must pass the <code>coerce=True</code> parameter to make this work, otherwise the method will return <code>NotImplemented</code> and fail. Note also that the string has been correctly converted before being passed into the function. I previously mentioned the possibility of adding a reverse dispatcher to <code>__array_function__</code> <a href="https://github.com/numpy/numpy/issues/12974#issuecomment-467197477">[1]</a> <a href="https://github.com/dask/dask/pull/4567#issuecomment-471630100">[2]</a>, but it was rejected. I have added it to <code>uarray</code>, but it is optional.</p>
+<p>Note that we must pass the <code>coerce=True</code> parameter to make this work, otherwise the method will return <code>NotImplemented</code> and fail. Note also that the string has been correctly converted before being passed into the function. I previously <a href="https://github.com/numpy/numpy/issues/12974#issuecomment-467197477">mentioned</a> <a href="https://github.com/dask/dask/pull/4567#issuecomment-471630100">the possibility</a> of adding a reverse dispatcher to <code>__array_function__</code>, but it was rejected. I have added it to <code>uarray</code>, but it is optional.</p>
 
 </div>
 </div>
@@ -745,7 +770,7 @@ navbar-dark bg-dark
 </h3>
 <h4 id="Replacement-and-dispatching-based-on-different-objects">Replacement and dispatching based on different objects<a class="anchor-link" href="#Replacement-and-dispatching-based-on-different-objects">¶</a>
 </h4>
-<p>In this section, let’s define a function with <code>__array_function__</code>, its <code>uarray</code> equivalent and explore the limitations of <code>__array_function__</code> and how <code>uarray</code> attempts to resolve them. Here's a snippet from NumPy showing roughly how <code>np.sum</code> would be defined (<a href="https://github.com/numpy/numpy/blob/02c8e80d5f65c7870f71c989c425d1bad24bd312/numpy/core/fromnumeric.py#L2040-L2182">current code as of writing here</a>):</p>
+<p>In this section, let’s define a function with <code>__array_function__</code>, its <code>uarray</code> equivalent and explore the limitations of <code>__array_function__</code> and how <code>uarray</code> attempts to resolve them. You can see the <a href="https://www.numpy.org/neps/nep-0018-array-function-protocol.html">NumPy enhancement proposal defining <code>__array_function__</code> here</a>. Here's a snippet from NumPy showing roughly how <code>np.sum</code> would be defined (<a href="https://github.com/numpy/numpy/blob/02c8e80d5f65c7870f71c989c425d1bad24bd312/numpy/core/fromnumeric.py#L2040-L2182">current code as of writing here</a>):</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_sum_dispatcher</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                     <span class="n">initial</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span>
@@ -806,9 +831,399 @@ navbar-dark bg-dark
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Complete-example:-np.ones-using-uarray">Complete example: <code>np.ones</code> using <code>uarray</code><a class="anchor-link" href="#Complete-example:-np.ones-using-uarray">¶</a>
+</h3>
+<p>Here is a complete example of how one would override <code>np.ones</code> using <code>uarray</code>, with backends for NumPy, Dask, and XArray as examples. I will mention some advanced features one could use but won't implement them myself. For reference, let's see how <code>np.ones</code> would work with <code>__array_function__</code>: In any codebase using <code>np.ones</code>, someone would first have to replace it with <code>np.ones_like</code>, and then dispatch using <code>__array_function__</code>, which is a bit of a hack, and sort of undesirable. What's more, it would need to be done throughout the codebase. Let’s first begin by defining the multimethod.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">shape_type</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">ones_ar</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">kw</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">replacer</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">'C'</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">],),</span> <span class="nb">dict</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">replacer</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+
+<span class="nd">@ua</span><span class="o">.</span><span class="n">create_multimethod</span><span class="p">(</span><span class="n">ones_ar</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="s2">"numpy"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">ones</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">'C'</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">ua</span><span class="o">.</span><span class="n">Dispatchable</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">shape_type</span><span class="p">),</span> <span class="n">ua</span><span class="o">.</span><span class="n">Dispatchable</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now, we'll go on to define the NumPy backend, and register it:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">collections.abc</span> <span class="k">as</span> <span class="nn">collections</span>
+
+<span class="k">class</span> <span class="nc">NumpyBackend</span><span class="p">:</span>  <span class="c1"># Ideally, this would be the numpy module itself.</span>
+    <span class="n">__ua_domain__</span> <span class="o">=</span> <span class="s2">"numpy"</span>
+    
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__ua_function__</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">kw</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">np</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__ua_convert__</span><span class="p">(</span><span class="n">dispatchables</span><span class="p">,</span> <span class="n">coerce</span><span class="p">):</span>
+        <span class="n">converted</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dispatchables</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="c1"># We ONLY want to coerce if coercion is true.</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="s1">'__array_interface__'</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="n">coerce</span> <span class="ow">and</span> <span class="n">d</span><span class="o">.</span><span class="n">coercible</span><span class="p">):</span>
+                        <span class="k">return</span> <span class="bp">NotImplemented</span>
+                    <span class="n">converted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+                <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="bp">NotImplemented</span>
+            <span class="k">elif</span> <span class="n">d</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="n">shape_type</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Integral</span><span class="p">)</span>
+                        <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">)</span>
+                        <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Integral</span><span class="p">)</span> <span class="k">for</span> <span class="n">dim</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">)):</span>
+                    <span class="k">return</span> <span class="bp">NotImplemented</span>
+
+                <span class="n">converted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span> <span class="k">for</span> <span class="n">dim</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Iterable</span><span class="p">)</span>
+                        <span class="k">else</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">),))</span>
+            <span class="k">elif</span> <span class="n">d</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">converted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+                <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="bp">NotImplemented</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Handle the base case, pass through everything else</span>
+                <span class="n">converted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">converted</span>
+    
+<span class="n">ua</span><span class="o">.</span><span class="n">set_global_backend</span><span class="p">(</span><span class="n">NumpyBackend</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Since we have set NumPy to be a global backend, it will always work.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[19]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[1., 1., 1., 1.],
+       [1., 1., 1., 1.],
+       [1., 1., 1., 1.]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let’s now move forward to Dask, and how its backend would be defined:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [20]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">dask.array</span> <span class="k">as</span> <span class="nn">da</span>
+
+<span class="k">class</span> <span class="nc">DaskBackend</span><span class="p">:</span>  <span class="c1"># Ideally, this would be the dask.array module itself.</span>
+    <span class="n">__ua_domain__</span> <span class="o">=</span> <span class="s2">"numpy"</span>
+    
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__ua_function__</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">kw</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__ua_convert__</span><span class="p">(</span><span class="n">dispatchables</span><span class="p">,</span> <span class="n">coerce</span><span class="p">):</span>
+        <span class="n">converted</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dispatchables</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="c1"># We ONLY want to coerce if coercion is true.</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="s1">'__array_interface__'</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="n">coerce</span> <span class="ow">and</span> <span class="n">d</span><span class="o">.</span><span class="n">coercible</span><span class="p">):</span>
+                        <span class="k">return</span> <span class="bp">NotImplemented</span>
+                    <span class="n">converted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+                <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="bp">NotImplemented</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Pass through everything else, we only want to dispatch on arrays.</span>
+                <span class="n">converted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">converted</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [21]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">ua</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="n">DaskBackend</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>dask.array&lt;ones, shape=(3, 4), dtype=float64, chunksize=(3, 4)&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Note how a simple context manager allows things to magically work, unlike in <code>__array_function__</code> where array creation functions are not supported at all.</p>
+<p>Here are a few things that could be done by Dask:</p>
+<ol>
+<li>It could depend on <code>unumpy</code> and become a true, agnostic, meta-array.</li>
+<li>It could define a backend factory, which automatically inserts the chunk sizes into functions.</li>
+</ol>
+<p>Next, let’s move on to XArray.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [22]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">xarray</span>
+
+<span class="k">def</span> <span class="nf">xarray_ones</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">ones</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">shape</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">xarray</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">shape</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+
+<span class="k">class</span> <span class="nc">XarrayBackend</span><span class="p">:</span>  <span class="c1"># Ideally, this would be the xarray module itself.</span>
+    <span class="n">__ua_domain__</span> <span class="o">=</span> <span class="s2">"numpy"</span>
+    
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__ua_function__</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">kw</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">ua</span><span class="o">.</span><span class="n">skip_backend</span><span class="p">(</span><span class="n">XarrayBackend</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">f</span> <span class="ow">is</span> <span class="n">ones</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">xarray_ones</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="bp">NotImplemented</span>
+    
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__ua_convert__</span><span class="p">(</span><span class="n">dispatchables</span><span class="p">,</span> <span class="n">coerce</span><span class="p">):</span>
+        <span class="n">converted</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dispatchables</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="c1"># We ONLY want to coerce if coercion is true.</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="s1">'__array_interface__'</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="n">coerce</span> <span class="ow">and</span> <span class="n">d</span><span class="o">.</span><span class="n">coercible</span><span class="p">):</span>
+                        <span class="k">return</span> <span class="bp">NotImplemented</span>
+                    <span class="n">converted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xarray</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+                <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="bp">NotImplemented</span>
+            <span class="k">elif</span> <span class="n">d</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="n">shape_type</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+                        <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span>
+                            <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+                            <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">numbers</span><span class="o">.</span><span class="n">Integral</span><span class="p">)</span>
+                            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                        <span class="p">)):</span>
+                    <span class="k">return</span> <span class="bp">NotImplemented</span>
+
+                <span class="n">converted</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>
+            <span class="k">elif</span> <span class="n">d</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">converted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+                <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="bp">NotImplemented</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Handle the base case, pass through everything else</span>
+                <span class="n">converted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">converted</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [23]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">ua</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="n">XarrayBackend</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ones</span><span class="p">({</span><span class="s1">'t'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">'x'</span><span class="p">:</span> <span class="mi">5</span><span class="p">}))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;xarray.DataArray (t: 3, x: 5)&gt;
+array([[1., 1., 1., 1., 1.],
+       [1., 1., 1., 1., 1.],
+       [1., 1., 1., 1., 1.]])
+Dimensions without coordinates: t, x
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Note here how a shape as a dictionary was automatically intercepted by XArray, and creates a suitable <code>DataArray</code>. This would simply not be possible in <code>__array_function__</code>. Let's explore a more exotic case:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [24]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">ua</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="n">DaskBackend</span><span class="p">),</span> <span class="n">ua</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="n">XarrayBackend</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ones</span><span class="p">({</span><span class="s1">'t'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">'x'</span><span class="p">:</span> <span class="mi">5</span><span class="p">}))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;xarray.DataArray 'ones-c74937aa1cf5a1e9c9dd0ca4c337fd2c' (t: 3, x: 5)&gt;
+dask.array&lt;shape=(3, 5), dtype=float64, chunksize=(3, 5)&gt;
+Dimensions without coordinates: t, x
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And just like that, you can compose the two, without either having to be aware of the other!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="The-overhead-of-uarray">The overhead of <code>uarray</code><a class="anchor-link" href="#The-overhead-of-uarray">¶</a>
 </h3>
-<p>One of the limiting factors in the adoption of <code>uarray</code> has been its overhead. This is currently <a href="https://github.com/Quansight-Labs/uarray/pull/170">being brought down</a> by <a href="https://github.com/peterbell10">Peter Bell</a>, a GSoC student working on <code>uarray</code>, who is working on a C++ implementation of the protocol. As of the last version, the overhead on my machine was about 1.37 μs per call, and this is still being worked on. You can follow the <a href="https://blogs.python-gsoc.org/en/blogs/peterbell10s-blog/">updates on Peter’s work here</a>. It is also being <a href="https://github.com/scipy/scipy/pull/10383">merged into <code>scipy.fft</code></a> as part of his ongoing GSoC work.</p>
+<p>One of the limiting factors in the adoption of <code>uarray</code> has been its overhead. This is currently <a href="https://github.com/Quansight-Labs/uarray/pull/170">being brought down</a> by <a href="https://github.com/peterbell10">Peter Bell</a>, a GSoC student working on <code>uarray</code>, who is working on a C++ implementation of the protocol. As of the last version, the overhead on my machine was about 449 ns per call (or about 12.4 Python function calls) for a simple function with no parameters that returns nothing, and this is still being worked on. You can follow the <a href="https://blogs.python-gsoc.org/en/blogs/peterbell10s-blog/">updates on Peter’s work here</a>. It is also being <a href="https://github.com/scipy/scipy/pull/10383">merged into <code>scipy.fft</code></a> as part of his ongoing GSoC work.</p>
 
 </div>
 </div>
@@ -824,19 +1239,6 @@ navbar-dark bg-dark
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
 </div>
 </div>
     </div>
