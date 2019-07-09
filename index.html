@@ -26,7 +26,7 @@ MathJax.Hub.Config({
        styles: {'.MathJax_Display': {"margin": 0}}
    }
 });
-</script><!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/" type="text/html">
+</script><!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="blog/2019/07/ibis-python-data-analysis-productivity-framework/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -78,7 +78,46 @@ navbar-dark bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/" class="u-url">uarray update: API changes, overhead and comparison to __array_function__</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/07/ibis-python-data-analysis-productivity-framework/" class="u-url">Ibis: Python data analysis productivity framework</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                <a href="authors/ivan-ogasawara/">Ivan Ogasawara</a>
+            </span></p>
+            <p class="dateline">
+            <a href="blog/2019/07/ibis-python-data-analysis-productivity-framework/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-07-09T03:30:00Z" itemprop="datePublished" title="2019-07-09">2019-07-09</time></a>
+            </p>
+        </div>
+    </header><div class="p-summary entry-summary">
+    <div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ibis is a library pretty useful on data analysis tasks that provides a pandas-like API that allows operations like create filter, add columns, apply math operations etc in a <code>lazy</code> mode so all the operations are just registered in memory but not executed and when you want to get the result of the expression you created, Ibis compiles that and makes a request to the remote server (remote storage and execution systems like Hadoop components or SQL databases). Its goal is to simplify analytical workflows and make you more productive.</p>
+<p>Ibis was created by <a href="https://github.com/wesm">Wes McKinney</a> and is mainly maintained by <a href="https://github.com/cpcloud">Phillip Cloud</a> and <a href="https://github.com/kszucs">Krisztián Szűcs</a>. Also, recently, I was invited to become a maintainer of the Ibis repository!</p>
+<p>Maybe you are thinking: "why should I use Ibis?". Well, if you have any of the following issues, probably you should consider using Ibis in your analytical workflow!</p>
+<ul>
+<li>if you need to get data from a SQL database but you don't know much about SQL ...</li>
+<li>if you create SQL statements manually using string and have a lot of <code>IF</code>'s in your code that compose specific parts of your SQL code (it could be pretty hard to maintain and it will makes your code pretty ugly) ...</li>
+<li>if you need to handle data with a big volume ...</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p class="more"><a href="blog/2019/07/ibis-python-data-analysis-productivity-framework/">Read more…</a></p>
+</div>
+</div>
+</div>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/" class="u-url">uarray update: API changes, overhead and comparison to __array_function__</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 <a href="authors/hameer-abbasi/">Hameer Abbasi</a>
@@ -540,41 +579,6 @@ this release.</p>
 for this release tended to be more invisible, behind the scenes fixes), I did
 do the release itself.</p>
 <p class="more"><a href="blog/2019/04/whats-new-in-sympy-14/">Read more…</a></p>
-</div>
-    </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/04/uarray-intro/" class="u-url">uarray: A Generic Override Framework for Methods</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                <a href="authors/hameer-abbasi/">Hameer Abbasi</a>
-            </span></p>
-            <p class="dateline">
-            <a href="blog/2019/04/uarray-intro/" rel="bookmark">
-            <time class="published dt-published" datetime="2019-04-30T00:04:40-05:00" itemprop="datePublished" title="2019-04-30">2019-04-30</time></a>
-            </p>
-        </div>
-    </header><div class="p-summary entry-summary">
-    <div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="uarray:-A-Generic-Override-Framework-for-Methods">
-<code>uarray</code>: A Generic Override Framework for Methods<a class="anchor-link" href="blog/2019/04/uarray-intro/#uarray:-A-Generic-Override-Framework-for-Methods">¶</a>
-</h2>
-<p><code>uarray</code> is an override framework for methods in Python. In the scientific Python ecosystem, and in other similar places, there has been one recurring problem: That similar tools to do a job have existed, but don't conform to a single, well-defined API. <code>uarray</code> tries to solve this problem in general, but also for the scientific Python ecosystem in particular, by defining APIs independent of their implementations.</p>
-<h3 id="Array-Libraries-in-the-Scientific-Python-Ecosystem">Array Libraries in the Scientific Python Ecosystem<a class="anchor-link" href="blog/2019/04/uarray-intro/#Array-Libraries-in-the-Scientific-Python-Ecosystem">¶</a>
-</h3>
-<p>When SciPy was created, and Numeric and Numarray unified into NumPy, it jump-started Python's data science community. The ecosystem grew quickly: Academics started moving to SciPy, and the Scikits that popped up made the transition all the more smooth.</p>
-<p>However, the scientific Python community also shifted during that time: GPUs and distributed computing emerged. Also, there were old ideas that couldn't really be used with NumPy's API, such as sparse arrays. To solve these problems, various libraries emerged:</p>
-<ul>
-<li>Dask, for distributed NumPy</li>
-<li>CuPy, for NumPy on Nvidia-branded GPUs.</li>
-<li>PyData/Sparse, a project started to make sparse arrays conform to the NumPy API</li>
-<li>Xnd, which extends the type system and the universal function concept found in NumPy</li>
-</ul>
-<p class="more"><a href="blog/2019/04/uarray-intro/">Read more…</a></p>
-</div>
-</div>
 </div>
     </div>
     </article>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs (Posts by Ivan Ogasawara)</title><link>https://labs.quansight.org/</link><description></description><atom:link href="https://labs.quansight.org/authors/ivan-ogasawara.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Tue, 09 Jul 2019 03:52:23 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Ibis: Python data analysis productivity framework</title><link>https://labs.quansight.org/blog/2019/07/ibis-python-data-analysis-productivity-framework/</link><dc:creator>Ivan Ogasawara</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Ibis is a library pretty useful on data analysis tasks that provides a pandas-like API that allows operations like create filter, add columns, apply math operations etc in a &lt;code&gt;lazy&lt;/code&gt; mode so all the operations are just registered in memory but not executed and when you want to get the result of the expression you created, Ibis compiles that and makes a request to the remote server (remote storage and execution systems like Hadoop components or SQL databases). Its goal is to simplify analytical workflows and make you more productive.&lt;/p&gt;
+&lt;p&gt;Ibis was created by &lt;a href="https://github.com/wesm"&gt;Wes McKinney&lt;/a&gt; and is mainly maintained by &lt;a href="https://github.com/cpcloud"&gt;Phillip Cloud&lt;/a&gt; and &lt;a href="https://github.com/kszucs"&gt;Krisztián Szűcs&lt;/a&gt;. Also, recently, I was invited to become a maintainer of the Ibis repository!&lt;/p&gt;
+&lt;p&gt;Maybe you are thinking: "why should I use Ibis?". Well, if you have any of the following issues, probably you should consider using Ibis in your analytical workflow!&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;if you need to get data from a SQL database but you don't know much about SQL ...&lt;/li&gt;
+&lt;li&gt;if you create SQL statements manually using string and have a lot of &lt;code&gt;IF&lt;/code&gt;'s in your code that compose specific parts of your SQL code (it could be pretty hard to maintain and it will makes your code pretty ugly) ...&lt;/li&gt;
+&lt;li&gt;if you need to handle data with a big volume ...&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/07/ibis-python-data-analysis-productivity-framework/"&gt;Read more…&lt;/a&gt; (5 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><category>Ibis</category><guid>https://labs.quansight.org/blog/2019/07/ibis-python-data-analysis-productivity-framework/</guid><pubDate>Tue, 09 Jul 2019 03:30:00 GMT</pubDate></item></channel></rss>
