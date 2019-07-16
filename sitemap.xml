@@ -7,134 +7,142 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://labs.quansight.org/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/2019/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/archive.html</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/aaron-meurer/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/chris-ostrouchov/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/christopher-ostrouchov/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/gonzalo-pena-castellanos/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/hameer-abbasi/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/ivan-ogasawara/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/ralf-gommers/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/saul-shanabrook/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/04/joining-labs/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/04/python-moa-tensor-compiler/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/04/uarray-intro/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/04/whats-new-in-sympy-14/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/05/community-driven-opensource-funded-development/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/05/labs-update-april-highlights/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/05/metadsl-dsl-framework/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/05/python-package-function-usage/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/05/spyder-4-beta2-release/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/06/labs-update-may-highlights/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/06/tdk-partners-with-quansight-labs/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/07/ibis-python-data-analysis-productivity-framework/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://labs.quansight.org/blog/2019/07/quansight-at-scipy2019/</loc>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/community/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/funding/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/ibis/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/labs/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://labs.quansight.org/categories/scipy/</loc>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/spyder/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/sympy/</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/index-1.html</loc>
-  <lastmod>2019-07-09T03:52:00Z</lastmod>
+  <lastmod>2019-07-16T00:27:00Z</lastmod>
  </url>
 </urlset>
