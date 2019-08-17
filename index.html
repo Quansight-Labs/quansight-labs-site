@@ -26,7 +26,7 @@ MathJax.Hub.Config({
        styles: {'.MathJax_Display': {"margin": 0}}
    }
 });
-</script><!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="blog/2019/07/quansight-at-scipy2019/" type="text/html">
+</script><!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="blog/2019/08/spyder-40-beta4-kite-integration-is-here/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -78,7 +78,25 @@ navbar-dark bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/07/quansight-at-scipy2019/" class="u-url">Quansight presence at SciPy'19</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/08/spyder-40-beta4-kite-integration-is-here/" class="u-url">Spyder 4.0 beta4: Kite integration is here</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                <a href="authors/edgar-margffoy-tuay/">Edgar Margffoy-Tuay</a>
+            </span></p>
+            <p class="dateline">
+            <a href="blog/2019/08/spyder-40-beta4-kite-integration-is-here/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-08-16T14:19:13-05:00" itemprop="datePublished" title="2019-08-16">2019-08-16</time></a>
+            </p>
+        </div>
+    </header><div class="p-summary entry-summary">
+    <div>
+<p><em><a href="https://kite.com">Kite</a> is sponsoring the work discussed in this blog post, and in addition supports Spyder 4.0 development through a Quansight Labs <a href="http://labs.quansight.org/blog/2019/05/community-driven-opensource-funded-development/">Community Work Order</a>.</em></p>
+<p>As part of our next release, we are proud to announce an additional completion client for Spyder, Kite. <a href="https://kite.com/">Kite</a> is a novel completion client that uses Machine Learning techniques to find and predict the best autocompletion for a given text. Additionally, it collects improved documentation for compiled packages, i.e., Matplotlib, NumPy, SciPy that cannot be obtained easily by using traditional code analysis packages such as Jedi.</p>
+<p><img alt="alt_text" src="images/spyder-kite-hover.png" title="image_tooltip"></p>
+<p class="more"><a href="blog/2019/08/spyder-40-beta4-kite-integration-is-here/">Read more…</a></p>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/07/quansight-at-scipy2019/" class="u-url">Quansight presence at SciPy'19</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 <a href="authors/ralf-gommers/">Ralf Gommers</a>
@@ -511,44 +529,6 @@ syntax-highlighting scheme, or changing <code>Interface theme</code> to <code>Li
 <p><img alt="Screenshot of the Spyder main window with default panes, with the dark theme applied across the entire interface" src="images/spyder-qdarkstyle.png"></p>
 <p>Pretty, right :-) ?</p>
 <p class="more"><a href="blog/2019/05/spyder-4-beta2-release/">Read more…</a></p>
-</div>
-    </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/05/labs-update-april-highlights/" class="u-url">Labs update and April highlights</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                <a href="authors/ralf-gommers/">Ralf Gommers</a>
-            </span></p>
-            <p class="dateline">
-            <a href="blog/2019/05/labs-update-april-highlights/" rel="bookmark">
-            <time class="published dt-published" datetime="2019-05-03T00:00:00-05:00" itemprop="datePublished" title="2019-05-03">2019-05-03</time></a>
-            </p>
-        </div>
-    </header><div class="p-summary entry-summary">
-    <div>
-<p>It has been an exciting first month for me at Quansight Labs. It's a good time
-for a summary of what we worked on in April and what is coming next.</p>
-<h3>Progress on array computing libraries</h3>
-<p>Our first bucket of activities I'd call "innovation". The most prominent
-projects in this bucket are <a href="https://xnd.io/">XND</a>,
-<a href="https://uarray.readthedocs.io/en/latest/">uarray</a>,
-<a href="https://github.com/Quansight-Labs/metadsl">metadsl</a>,
-<a href="https://github.com/Quansight-Labs/python-moa">python-moa</a>,
-<a href="https://github.com/xnd-project/rbc">Remote Backend Compiler</a> and
-<a href="https://github.com/xnd-project/arrayviews">arrayviews</a>.
-XND is an umbrella name for a set of related array
-computing libraries: <code>xnd</code>, <code>ndtypes</code>, <code>gumath</code>, and <code>xndtools</code>.</p>
-<p>Hameer Abbasi made some major steps forward with <code>uarray</code>: the backend and
-coercion semantics are now largely worked out, there is
-good <a href="https://uarray.readthedocs.io/en/latest/">documentation</a>, and the
-<code>unumpy</code> package (which currently has <code>numpy</code>, <code>XND</code> and <code>PyTorch</code> backends)
-is progressing well. This <a href="https://labs.quansight.org/blog/2019/04/uarray-intro/">blog post</a>
-gives a good overview of the motivation for <code>uarray</code> and its main concepts.</p>
-<p>Saul Shanabrook and Chris Ostrouchov worked out how best to put <code>metadsl</code>
-and <code>python-moa</code> together: <code>metadsl</code> can be used to create the API for
-<code>python-moa</code> to simplify the code base of the latter a lot. Chris 
-also wrote an interesting <a href="https://labs.quansight.org/blog/2019/04/python-moa-tensor-compiler/">blog post</a>
-explaining the MoA principles.</p>
-<p class="more"><a href="blog/2019/05/labs-update-april-highlights/">Read more…</a></p>
 </div>
     </div>
     </article>
