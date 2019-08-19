@@ -15,7 +15,7 @@ To not show the whole post but only the first bit and then `read more ...`, use 
 
 To set up a development environment: in a new conda env or virtualenv:
 ```
-$ pip install nikola[extras]
+$ pip install "nikola[extras]"
 $ nikola theme -i maupassant
 ```
 
