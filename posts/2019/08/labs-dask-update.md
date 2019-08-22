@@ -1,5 +1,5 @@
 <!--
-.. title: Labs Dask Update
+.. title: Quansight Labs Dask Update
 .. slug: labs-dask-update
 .. date: 2019-08-19
 .. author: James Bourbeau
@@ -10,7 +10,7 @@
 .. type: text
 -->
 
-This post provides an update on some recent [Dask](https://dask.org/)-related activities at Quansight.
+This post provides an update on some recent [Dask](https://dask.org/)-related activities the Quansight Labs team has been working on.
 
 ## Dask community work order
 
@@ -22,7 +22,9 @@ This CWO approach allows institutions, in this case D. E. Shaw, to fund developm
 
 ## Conferences
 
-In addition to working on Dask directly, we've also been engaging the broader scientific Python community through attending conferences. In particular, developers at Quansight, Anaconda, and NVIDIA organized a Dask sprint at the SciPy 2019 conference. Throughout the two-day sprint, core developers were able to help sprint attendees become more familiar with the Dask codebase, set up local development environments, and even get new pull requests from sprinters submitted, reviewed, and merged into Dask! I personally had a great time at SciPy and hope to see lots of familiar faces again next year. Likewise, in July I spoke about Dask at the Data-Driven Wisconsin 2019 conference (materials presented at the talk can be found [here](https://github.com/jrbourbeau/ddw-dask)). Following my talk, I had several engaging discussions with other conference attendees and it was really gratifying to see all the enthusiasm surrounding Dask.
+In addition to working on Dask directly, we've also been engaging the broader scientific Python community through attending conferences. In particular, developers at Quansight, Anaconda, and NVIDIA organized a Dask sprint at the SciPy 2019 conference. Throughout the two-day sprint, core developers were able to help sprint attendees become more familiar with the Dask codebase, set up local development environments, and even get new pull requests from sprinters submitted, reviewed, and merged into Dask! I personally had a great time at SciPy and hope to see lots of familiar faces again next year.
+
+Likewise, in July I spoke about Dask at the Data-Driven Wisconsin 2019 conference. Following my talk, I had several engaging discussions with other conference attendees and it was really gratifying to see all the enthusiasm surrounding Dask. The materials presented at the talk can be found [on GitHub](https://github.com/jrbourbeau/ddw-dask) and a live, interactive version is available [on mybinder.org](https://mybinder.org/v2/gh/jrbourbeau/ddw-dask/master?urlpath=lab/tree/ddw-dask.ipynb).
 
 ## Maintenance and development
 
