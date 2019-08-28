@@ -1,7 +1,7 @@
 <!--
 .. title: Quansight Labs Dask Update
 .. slug: labs-dask-update
-.. date: 2019-08-19
+.. date: 2019-08-27
 .. author: James Bourbeau
 .. tags: Labs, Dask 
 .. category: 
@@ -14,11 +14,11 @@ This post provides an update on some recent [Dask](https://dask.org/)-related ac
 
 ## Dask community work order
 
-Through a community work order (CWO) with D. E. Shaw, the Quansight Labs team has been able to dedicate developer time towards bug fixes and feature requests for Dask. This work has touched on several portions of the Dask codebase, but generally have centered around using [Dask Arrays](https://docs.dask.org/en/latest/array.html) with the [distributed scheduler](https://distributed.dask.org/en/latest/).
+Through a community work order (CWO) with [the D. E. Shaw group](https://www.deshaw.com/), the Quansight Labs team has been able to dedicate developer time towards bug fixes and feature requests for Dask. This work has touched on several portions of the Dask codebase, but generally have centered around using [Dask Arrays](https://docs.dask.org/en/latest/array.html) with the [distributed scheduler](https://distributed.dask.org/en/latest/).
 <!-- TEASER_END -->
 For instance, performance improvement in how Dask handles large graphs were made in [`dask` PR #4918](https://github.com/dask/dask/pull/4918) and [`distributed` PR #2594](https://github.com/dask/distributed/pull/2594), while several Dask Array bug fixes and support for asymmetric overlapping computations were included in [`dask` PR #5256](https://github.com/dask/dask/pull/5256), [`dask` PR #5151](https://github.com/dask/dask/pull/5151), and [`dask` PR #4863](https://github.com/dask/dask/pull/4863).
 
-This CWO approach allows institutions, in this case D. E. Shaw, to fund development in community-driven open source projects while still respecting how these projects make decisions. To learn more about funding projects through CWOs, check out [this post](http://labs.quansight.org/blog/2019/05/community-driven-opensource-funded-development/) by Ralf Gommers which discusses the CWO model in detail.
+This CWO approach allows institutions, in this case the D. E. Shaw group, to fund development in community-driven open source projects while still respecting how these projects make decisions. To learn more about funding projects through CWOs, check out [this post](http://labs.quansight.org/blog/2019/05/community-driven-opensource-funded-development/) by Ralf Gommers which discusses the CWO model in detail.
 
 ## Conferences
 
