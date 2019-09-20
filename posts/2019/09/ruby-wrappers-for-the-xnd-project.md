@@ -2,6 +2,7 @@
 .. title: Ruby wrappers for the XND project
 .. slug: ruby-wrappers-for-the-xnd-project
 .. date: 2019-09-15 00:32:00 UTC-05:00
+.. author: Sameer Deshmukh (@v0dro)
 .. tags: 
 .. category: 
 .. link: 
@@ -55,8 +56,8 @@ However, all of the above projects fall short in two major aspects:
 * Lack of a critical mass of developers to maintain a robust and fast array library.
 
 The first problem is mainly due to the fact that they do not support very robust type systems.
-The available data types are limited and are extend to more complex uses. Modern use cases like
-Machine Learning require much more robust data types, as has been demonstrated by the tensor
+The available data types are limited and are hard to extend to more complex uses. Modern use cases like
+Machine Learning require a more robust type system (i.e. defining array shapes of arbitrary dimension on multiple devices), as has been demonstrated by the tensor
 implementations of various frameworks like Tensorflow and PyTorch.
 
 The second problem is due to the fact that all of the aforementioned projects are community
@@ -65,6 +66,7 @@ passion. Sustaining such complex projects for extended periods of time without e
 of any support is simply unfeasible even for the most driven engineers.
 
 This is where the XND project comes in. The [XND project](https://xnd.io/) is a project for
+`<!-- TEASER_END -->`
 building a common library that is able to meet the needs of the various data analysis and
 machine learning frameworks that have had to build their own array objects and programming 
 languages. It is built with the premise of extending arrays with new types and various 
