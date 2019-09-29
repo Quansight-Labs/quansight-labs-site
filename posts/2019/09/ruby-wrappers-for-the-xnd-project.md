@@ -32,6 +32,7 @@
         - [Usage via The C API](#usage-via-the-c-api)
     - [Implementation](#implementation)
     - [Automatic Kernel Generation](#automatic-kernel-generation)
+- [Conclusion and Future Work](#conclusion-and-future-work)
 
 <!-- markdown-toc end -->
 
@@ -86,8 +87,8 @@ experts who have vast experience in this domain for the Python scientific comput
 
 The biggest backer of XND as of now is Quansight, and I as a part-time engineer am responsible 
 for maintaining the Ruby wrapper for XND. This post is a rather long and detailed introduction 
-to the XND ruby wrapper including various use cases and benchmarks. There will also be some
-details on the implementation of the wrapper and how it differs from the python wrapper (which
+to the XND ruby wrapper. There will also be some
+details on the implementation of the wrapper and how it differs from the Python wrapper (which
 existed before the Ruby wrapper). Read on for further details.
 
 All the source code can be found in the [xnd-ruby](https://github.com/xnd-project/xnd-ruby) repo.
@@ -388,3 +389,26 @@ Writing kernels can be painstaking if you're not familiar with the various funct
 that libgumath provides for this purpose. Therefore we also provide a kernel generator
 called [xndtools](https://xnd.readthedocs.io/en/latest/xndtools/index.html#kernel-generator) that allows writing gumath kernels by simply providing the function
 that needs to wrapped. However, this functionality has not yet been tested for Ruby.
+
+# Conclusion and Future Work
+
+The current state of the Ruby XND wrappers makes them suitable for the XND libraries via Ruby,
+but what would be truly exciting would be have a more Ruby-like API that conforms to accepted
+Ruby idioms and creates a truly intuitive XND Ruby interface, rather than simply a one-on-one
+mapping of functions.
+
+In the future we also plant to integrate XND with various Ruby libraries like rubyplot and daru
+and expand the uses of XND even further. For example, operators like multiplication in other 
+scientific languages like MATLAB simply work with operator overloading by using the `*` operator
+between objects. Similarly over-riding operators on `XND` and calling the underlying gumath
+kernel is a work in progress.
+
+Similarly, have a 'Ruby-like' API that allows better method chaining in the sense of Rails or 
+rspec should free up the programmer of having to 'think' of the interfaces and make
+array computations much more intuitive for programmers. These changes will of course be implemented
+after XND reaches a critical base of users who are willing to provide feedback and try out
+new interfaces. We plan to integrate XND into [rubyplot](https://github.com/sciruby/rubyplot) to achieve this goal of more usage.
+
+The C API for the wrapper is also quite limiting as of now, and it would be quite a pain
+for another Ruby gem to use XND via the C API. Therefore, improving the C API is also
+something that we will be seriously looking into in the future.
