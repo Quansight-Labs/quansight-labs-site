@@ -53,8 +53,9 @@ of various types. All of them are able to easily interface with libraries like A
 and LAPACK.
 
 However, all of the above projects fall short in two major aspects:
-* Lack of extensibility to adapt to modern use cases (read Machine Learning).
-* Lack of a critical mass of developers to maintain a robust and fast array library.
+
+- Lack of extensibility to adapt to modern use cases (read Machine Learning).
+- Lack of a critical mass of developers to maintain a robust and fast array library.
 
 The first problem is mainly due to the fact that they do not support very robust type systems.
 The available data types are limited and are hard to extend to more complex uses. Modern use cases like
@@ -67,11 +68,12 @@ passion. Sustaining such complex projects for extended periods of time without e
 of any support is simply unfeasible even for the most driven engineers.
 
 This is where the XND project comes in. The [XND project](https://xnd.io/) is a project for
-`<!-- TEASER_END -->`
 building a common library that is able to meet the needs of the various data analysis and
 machine learning frameworks that have had to build their own array objects and programming 
 languages. It is built with the premise of extending arrays with new types and various 
 device types (CPUs, GPUs etc.) without loss of performance and ease of use.
+
+<!-- TEASER_END -->
 
 The XND project as a whole is a product of three C libraries : ndtypes, xnd and gumath. They
 have been made such that they can work as standalone C libraries that can be interfaced
@@ -397,10 +399,10 @@ but what would be truly exciting would be have a more Ruby-like API that conform
 Ruby idioms and creates a truly intuitive XND Ruby interface, rather than simply a one-on-one
 mapping of functions.
 
-In the future we also plant to integrate XND with various Ruby libraries like rubyplot and daru
+In the future we also plan to integrate XND with various Ruby libraries like rubyplot and daru
 and expand the uses of XND even further. For example, operators like multiplication in other 
 scientific languages like MATLAB simply work with operator overloading by using the `*` operator
-between objects. Similarly over-riding operators on `XND` and calling the underlying gumath
+between objects. Similarly overriding operators on `XND` and calling the underlying gumath
 kernel is a work in progress.
 
 Similarly, have a 'Ruby-like' API that allows better method chaining in the sense of Rails or 
