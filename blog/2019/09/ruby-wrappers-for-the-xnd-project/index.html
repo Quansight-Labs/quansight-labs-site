@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ruby wrappers for the XND project | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Sameer Deshmukh (@v0dro)">
+<link rel="prev" href="../../08/labs-dask-update/" title="Quansight Labs Dask Update" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="Ruby wrappers for the XND project">
+<meta property="og:url" content="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/">
+<meta property="og:description" content="Table of Contents
+
+Introduction
+Ndtypes
+Usage
+Basic initialization
+Concrete Vs. Abstract Types
+Typedefs
+Usage via The C API
+
+
+Implementation
+
+
+Xnd
+Basic Usage
+Data Type Support
+Missing Values
+Usage vi">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2019-09-15T00:32:00-05:00">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+
+            <span id="blog-title">Quansight Labs</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../archive.html" class="nav-link">Archive</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../categories/" class="nav-link">Tags</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS feed</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right">
+<li class="nav-item">
+    <a href="index.md" id="sourcelink" class="nav-link">Source</a>
+    </li>
+
+
+                
+            </ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Ruby wrappers for the XND project</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    <a href="../../../../authors/sameer-deshmukh-v0dro/">Sameer Deshmukh (@v0dro)</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2019-09-15T00:32:00-05:00" itemprop="datePublished" title="2019-09-15">2019-09-15</time></a>
+            </p>
+            
+        <p class="sourceline"><a href="index.md" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-generate-toc again -->
+
+<p><strong>Table of Contents</strong></p>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li>
+<a href="#ndtypes">Ndtypes</a><ul>
+<li>
+<a href="#usage">Usage</a><ul>
+<li><a href="#basic-initialization">Basic initialization</a></li>
+<li><a href="#concrete-vs-abstract-types">Concrete Vs. Abstract Types</a></li>
+<li><a href="#typedefs">Typedefs</a></li>
+<li><a href="#usage-via-the-c-api">Usage via The C API</a></li>
+</ul>
+</li>
+<li><a href="#implementation">Implementation</a></li>
+</ul>
+</li>
+<li>
+<a href="#xnd">Xnd</a><ul>
+<li>
+<a href="#basic-usage">Basic Usage</a><ul>
+<li><a href="#data-type-support">Data Type Support</a></li>
+<li><a href="#missing-values">Missing Values</a></li>
+<li><a href="#usage-via-the-c-api">Usage via The C API</a></li>
+</ul>
+</li>
+<li><a href="#implementation">Implementation</a></li>
+</ul>
+</li>
+<li>
+<a href="#gumath">Gumath</a><ul>
+<li>
+<a href="#usage">Usage</a><ul>
+<li><a href="#usage-via-the-c-api">Usage via The C API</a></li>
+</ul>
+</li>
+<li><a href="#implementation">Implementation</a></li>
+<li><a href="#automatic-kernel-generation">Automatic Kernel Generation</a></li>
+</ul>
+</li>
+<li><a href="#conclusion-and-future-work">Conclusion and Future Work</a></li>
+</ul>
+<!-- markdown-toc end --><h2>Introduction</h2>
+<p>Lack of stable and reliable scientific computing software has been a persistent problem
+for the Ruby community, making it hard for enthusiastic Ruby developers to use Ruby in
+everything from their web applications to their data analysis projects. One of the most important
+components of any successful scientific software stack is a well maintained and flexible
+array computation library that can act as a fast and simple way of storing in-memory data
+and interfacing it with various fast and battle-tested libraries like LAPACK and BLAS.</p>
+<p>Various projects have attempted to make such libraries in the past (and some are still thriving
+and maintained). Some of the notable ones are <a href="https://github.com/ruby-numo">numo</a>, <a href="https://github.com/SciRuby/nmatrix">nmatrix</a>, and more recently, <a href="https://github.com/SciRuby/numruby">numruby</a>.
+These projects attempt to provide a simple Ruby-like API for creating and manipulating arrays
+of various types. All of them are able to easily interface with libraries like ATLAS, FFTW
+and LAPACK.</p>
+<p>However, all of the above projects fall short in two major aspects:</p>
+<ul>
+<li>Lack of extensibility to adapt to modern use cases (read Machine Learning).</li>
+<li>Lack of a critical mass of developers to maintain a robust and fast array library.</li>
+</ul>
+<p>The first problem is mainly due to the fact that they do not support very robust type systems.
+The available data types are limited and are hard to extend to more complex uses. Modern use cases like
+Machine Learning require a more robust type system (i.e. defining array shapes of arbitrary dimension on multiple devices), as has been demonstrated by the tensor
+implementations of various frameworks like Tensorflow and PyTorch.</p>
+<p>The second problem is due to the fact that all of the aforementioned projects are community
+efforts that are maintained part-time by developers simply out of a sense of purpose and
+passion. Sustaining such complex projects for extended periods of time without expectation
+of any support is simply unfeasible even for the most driven engineers.</p>
+<p>This is where the XND project comes in. The <a href="https://xnd.io/">XND project</a> is a project for
+building a common library that is able to meet the needs of the various data analysis and
+machine learning frameworks that have had to build their own array objects and programming 
+languages. It is built with the premise of extending arrays with new types and various 
+device types (CPUs, GPUs etc.) without loss of performance and ease of use.</p>
+<!-- TEASER_END -->
+
+<p>The XND project as a whole is a product of three C libraries : ndtypes, xnd and gumath. They
+have been made such that they can work as standalone C libraries that can be interfaced
+with any language binding (currently supporting Ruby and Python). Ndtypes is used for defining
+the shape of data within memory, XND is a data container that holds that data and gumath provides
+a multiple dispatch mechanism for performing computations on data held in XND containers. We will
+elaborate on each of these in the post below.</p>
+<p>The XND project presents the perfect answer to Ruby's lack of a mature array computation ecosystem. 
+It is highly extensible, allows defining data types in almost any combination with a simple and
+intuitive interface, is built with performance in mind and is backed by a team consisting of 
+experts who have vast experience in this domain for the Python scientific computing stack.</p>
+<p>The biggest backer of XND as of now is Quansight, and I as a part-time engineer am responsible 
+for maintaining the Ruby wrapper for XND. This post is a rather long and detailed introduction 
+to the XND ruby wrapper. There will also be some
+details on the implementation of the wrapper and how it differs from the Python wrapper (which
+existed before the Ruby wrapper). Read on for further details.</p>
+<p>All the source code can be found in the <a href="https://github.com/xnd-project/xnd-ruby">xnd-ruby</a> repo.</p>
+<h2>Ndtypes</h2>
+<p>Ndtypes is the library that is used for defining the shape of data.</p>
+<p>Run <code>gem install ndtypes --pre</code> for easily installing ndtypes onto your machine. It has
+been tested with Ruby 2.4.1 so far. The <code>gem install</code> will download the C sources and compile
+them by itself.</p>
+<h3>Usage</h3>
+<h4>Basic initialization</h4>
+<p>The ndtypes Ruby wrapper provides a simple interface to the ndtypes C library for creating
+complex data shapes with extreme simplicity. For example, for creating an array of 10 <code>int64</code>
+digits, all we need to do is create an instance of the <code>NDT</code> class:</p>
+<pre class="code literal-block"><span></span><span class="n">t</span> <span class="o">=</span> <span class="no">NDT</span><span class="o">.</span><span class="n">new</span> <span class="s2">"10 * int64"</span>
+</pre>
+
+
+<p>Not only can you create arrays, but also very complex types, for example a nested record (xnd 
+terminology for a Ruby <code>Hash</code>) with the values as arrays of type <code>float32</code> of size 25 each:</p>
+<pre class="code literal-block"><span></span><span class="n">t</span> <span class="o">=</span> <span class="no">NDT</span><span class="o">.</span><span class="n">new</span> <span class="s2">"{x: 25 * float32, y: {a: 25 * float64, 25 * float64}}"</span>
+</pre>
+
+
+<h4>Concrete Vs. Abstract Types</h4>
+<p>Ndtypes distinguishes types depending on whether they are abstract or concrete. Abstract types
+can have symbolic values like dimension or type variables and are used for type checking. Concrete 
+types additionally have full memory layout information like alignment and data size.</p>
+<p>Some operations can be only performed on abstract types.</p>
+<h4>Typedefs</h4>
+<p>One can also define typedefs using the <code>NDT#typedef</code> function and then use them in place of
+the original type. Here's an example of using typedefs to define a graph type:</p>
+<pre class="code literal-block"><span></span><span class="no">NDT</span><span class="o">.</span><span class="n">typedef</span> <span class="s2">"node"</span><span class="p">,</span> <span class="s2">"int32"</span>
+<span class="no">NDT</span><span class="o">.</span><span class="n">typedef</span> <span class="s2">"cost"</span><span class="p">,</span> <span class="s2">"int32"</span>
+<span class="no">NDT</span><span class="o">.</span><span class="n">typedef</span> <span class="s2">"graph"</span><span class="p">,</span> <span class="s2">"var * var * (node, cost)"</span>
+</pre>
+
+
+<h4>Usage via The C API</h4>
+<p>Most of the C API functions of ndtypes deal with creating <code>NDT</code> Ruby objects or obtaining
+internal struct data of an <code>NDT</code> Ruby object. The complete specification can be found
+in the <a href="https://github.com/xnd-project/xnd-ruby/blob/master/ndtypes/ext/ruby_ndtypes/ruby_ndtypes.h">ruby_ndtypes.h</a> file. This is the file you should include if you want to use the
+C API in any of your libraries.</p>
+<h3>Implementation</h3>
+<p>The Ruby wrapper is a wrapper over the libndtypes library. The <code>NDT</code> Ruby object is a wrapper
+over a C struct of type <code>NdtObject</code> that has the following definition:</p>
+<pre class="code literal-block"><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">NdtObject</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="n">ndt_t</span> <span class="o">*</span><span class="n">ndt</span><span class="p">;</span>                   <span class="cm">/* type */</span>
+<span class="p">}</span> <span class="n">NdtObject</span><span class="p">;</span>
+</pre>
+
+
+<p>This simple struct stores a pointer to a struct of type <code>const ndt_t *</code> that is provided
+by libndtypes for representing an ndtype. The <code>const ndt_t</code> structs are allocated by
+various libndtypes functions like <code>ndt_from_string()</code> or <code>ndt_alloc()</code>.</p>
+<p>Internally libndtypes uses a reference counting mechanism for keeping track of <code>ndt_t</code> allocations
+that need to be destroyed. The reference count can be incremented using <code>ndt_incref()</code> or
+decremented using <code>ndt_decref()</code>. Once the refcount reaches the <code>0</code> the object is automatically
+destroyed by libndtypes. Of course, <code>ndt_t</code> structs allocated via calls to functions like
+<code>ndt_alloc()</code> already come with a refcount of 1.</p>
+<h2>Xnd</h2>
+<p>XND is the main storage library of the project. It uses types defined by ndtypes for defining
+the shape of data and allows users to read and write data into buffers that are of the shape
+of the data passed to it by ndtypes. It is responsible for maintaining the memory consistency
+of data and has provisions for various operations such as slicing, copying and interfacing
+data with 3rd party libraries like Apache Arrow. It also serves as a memory buffer for the
+functions that are defined within gumath (explained later in this post).</p>
+<p>Similar to the ndtypes wrapper, the xnd Ruby wrapper can be installed with a call to
+<code>gem install xnd --pre</code>.</p>
+<h3>Basic Usage</h3>
+<p>The xnd Ruby wrapper is extremely simple to use and provides a single class <code>XND</code> for the
+user that interfaces with libxnd. In the simplest case, one can create an XND object as follows:</p>
+<pre class="code literal-block"><span></span><span class="n">x</span> <span class="o">=</span> <span class="no">XND</span><span class="o">.</span><span class="n">new</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="o">]</span>
+<span class="c1"># =&gt; #&lt;XND:47340720296980&gt;</span>
+<span class="c1">#    type= 4 * int64</span>
+<span class="c1">#    value= [1, 2, 3, 4]</span>
+</pre>
+
+
+<p>Since we have not specified the data type, it will be inferred as <code>int64</code> since we are supplying
+an array composed entirely of integers. This can be seen using the <code>XND#dtype</code> function, which
+will return the <code>NDT</code> object that holds the type of this <code>XND</code> object:</p>
+<pre class="code literal-block"><span></span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span>
+<span class="c1"># =&gt; #&lt;NDTypes:47340721833280&gt;</span>
+<span class="c1">#   int64 </span>
+</pre>
+
+
+<p>While <code>XND#dtype</code> gives the general type of the object, a more precise description of the data
+type (including shape etc.) can be obtained using the <code>type</code> method:</p>
+<pre class="code literal-block"><span></span><span class="n">x</span><span class="o">.</span><span class="n">type</span>
+<span class="c1"># =&gt; #&lt;NDTypes:47340721846240&gt;</span>
+<span class="c1">#  4 * int64</span>
+</pre>
+
+
+<p>The value within the <code>XND</code> object can be obtained as a Ruby Array (or Hash if it is a NDT record)
+using the <code>XND#value</code> method:</p>
+<pre class="code literal-block"><span></span><span class="n">x</span><span class="o">.</span><span class="n">value</span>
+<span class="c1"># =&gt; [1, 2, 3, 4]</span>
+</pre>
+
+
+<p>We can also perform operations for checking equality between <code>XND</code> objects using the <code>==</code> or <code>!=</code> operators:</p>
+<pre class="code literal-block"><span></span><span class="n">a</span> <span class="o">=</span> <span class="no">XND</span><span class="o">.</span><span class="n">new</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="o">]</span>
+<span class="n">x</span> <span class="o">==</span> <span class="n">a</span>
+<span class="c1"># =&gt; true</span>
+</pre>
+
+
+<p>A nice thing about <code>XND</code> is that it returns copy-free 'views' of data when you perform a slicing
+operation. So say we define a 2D tensor <code>tensor_2d</code> like this:</p>
+<pre class="code literal-block"><span></span><span class="n">tensor_2d</span> <span class="o">=</span> <span class="no">XND</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+  <span class="o">[</span>
+    <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="o">]</span><span class="p">,</span>
+    <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="o">]</span><span class="p">,</span>
+    <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="o">]</span><span class="p">,</span>
+    <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="o">]</span><span class="p">,</span>
+    <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="o">]</span>
+  <span class="o">]</span>
+<span class="p">)</span>
+<span class="n">tensor_2d</span><span class="o">.</span><span class="n">inspect</span>
+<span class="c1"># =&gt; #&lt;XND:47340720946720&gt;</span>
+<span class="c1">#    type= 5 * 5 * int64</span>
+<span class="c1">#    value= [[1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5]]</span>
+</pre>
+
+
+<p>We can obtain a slice (say the 2nd column) of the tensor using Ruby Range. Note that using <code>INF</code> is a shorthand for specifying the entire axis (usually denoted as <code>0..-1</code>):</p>
+<pre class="code literal-block"><span></span><span class="n">vector_view</span> <span class="o">=</span> <span class="n">tensor_2d</span><span class="o">[</span><span class="no">INF</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span>
+<span class="c1"># =&gt; #&lt;XND:47340720380980&gt;</span>
+<span class="c1">#    type= 5 * int64</span>
+<span class="c1">#    value= [3, 3, 3, 3, 3]</span>
+</pre>
+
+
+<p>When using slices, <code>XND</code> will always return a 'view' of the original <code>XND</code> object. Changes
+made to this slice will reflect on the original XND object as well:</p>
+<pre class="code literal-block"><span></span><span class="n">vector_view</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span> <span class="o">=</span> <span class="mi">666</span>
+<span class="n">tensor_2d</span><span class="o">.</span><span class="n">inspect</span>
+<span class="c1"># =&gt; #&lt;XND:47340720946720&gt;</span>
+<span class="c1">#    type= 5 * 5 * int64</span>
+<span class="c1">#    value= [[1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 666, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5]]</span>
+</pre>
+
+
+<p>However, the <code>type</code> of the view and the original object differ as they should:</p>
+<pre class="code literal-block"><span></span><span class="n">vector_view</span><span class="o">.</span><span class="n">type</span>
+<span class="c1"># =&gt; #&lt;NDTypes:47340720381100&gt;</span>
+<span class="c1">#   5 * int64 </span>
+<span class="n">tensor_2d</span><span class="o">.</span><span class="n">type</span>
+<span class="c1"># =&gt; #&lt;NDTypes:47340720939360&gt;</span>
+<span class="c1">#   5 * 5 * int64</span>
+</pre>
+
+
+<p>If you want a separate storage space for the view (i.e. do not want changes to the view
+to reflect on the parent object), you should use the <code>XND#dup</code> method and make a copy. You
+can also allocate a data container without storing any data into it using the <code>XND.empty</code>
+method as can be seen in the following examples.</p>
+<h4>Data Type Support</h4>
+<p>As a result of the flexibility provided by the ndtypes type definition interface, xnd is able
+to provide type support for far more flexible data shapes than simply for arrays with fixed
+dimensions. For example, you can use records for storing Ruby Hashes and performing operations
+on them:</p>
+<pre class="code literal-block"><span></span><span class="nb">require</span> <span class="s1">'xnd'</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="no">XND</span><span class="o">.</span><span class="n">empty</span> <span class="s2">"{x: complex64, y: bytes, z: string}"</span>
+<span class="n">v</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">'x'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="o">+</span><span class="mi">20</span><span class="n">i</span><span class="p">,</span> <span class="s1">'y'</span> <span class="o">=&gt;</span> <span class="s2">"abc"</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="s1">'z'</span> <span class="o">=&gt;</span> <span class="s2">"any"</span> <span class="p">}</span>
+<span class="n">x</span><span class="o">[</span><span class="s1">'x'</span><span class="o">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">[</span><span class="s1">'x'</span><span class="o">]</span>
+<span class="n">x</span><span class="o">[</span><span class="s1">'y'</span><span class="o">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">[</span><span class="s1">'y'</span><span class="o">]</span>
+<span class="n">x</span><span class="o">[</span><span class="s1">'z'</span><span class="o">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">[</span><span class="s1">'z'</span><span class="o">]</span>
+<span class="n">x</span>
+<span class="c1"># =&gt; #&lt;XND:47340721378580&gt;</span>
+<span class="c1">#    type= {x : complex64, y : bytes, z : string}</span>
+<span class="c1">#    value= {"x"=&gt;(1.0+20.0i), "y"=&gt;"abc", "z"=&gt;"any"}</span>
+</pre>
+
+
+<h4>Missing Values</h4>
+<p>XND also supports optional data (represented by <code>nil</code>). It can be created as follows:</p>
+<pre class="code literal-block"><span></span><span class="n">x</span> <span class="o">=</span> <span class="no">XND</span><span class="o">.</span><span class="n">empty</span> <span class="s2">"2 * 4 * ?float64"</span>
+<span class="n">v</span> <span class="o">=</span> <span class="o">[[</span><span class="mi">10</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="kp">nil</span><span class="p">,</span> <span class="mi">2</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="o">.</span><span class="mi">12</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="kp">nil</span><span class="p">,</span> <span class="kp">nil</span><span class="p">,</span> <span class="mi">6</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="o">.</span><span class="mi">0</span><span class="o">]]</span>
+<span class="n">x</span><span class="o">[</span><span class="no">INF</span><span class="o">]</span> <span class="o">=</span> <span class="n">v</span> <span class="c1"># assign full slice</span>
+<span class="c1"># =&gt; [[10.0, nil, 2.0, 100.12], [nil, nil, 6.0, 7.0]] </span>
+</pre>
+
+
+<h4>Usage via The C API</h4>
+<p>The primary function of the XND Ruby C API is for creating and querying XND Ruby objects.
+The full API can be found in the <a href="https://github.com/xnd-project/xnd-ruby/blob/master/xnd/ext/ruby_xnd/ruby_xnd.h">ruby_xnd.h</a> file.</p>
+<h3>Implementation</h3>
+<p>The implementation of the Ruby wrapper differs from the Python wrapper largely due to nature
+of the garbage collection algorithms employed by both these languages: Ruby uses a mark-and-sweep
+GC while Python uses a reference counted GC. Therefore, Ruby objects created within the C extension
+have to somehow be kept 'alive' such that the GC does not deallocate them thinking that they
+have gone out of scope and are no longer useful.</p>
+<p>For this purpose we utilize a 'GC guard' structure (inspired by the implementation of 
+<a href="https://github.com/mrkn/">@mrkn</a>'s <a href="https://github.com/mrkn/matplotlib.rb">matplotlib.rb</a> gem). The GC guard is basically a global Ruby Hash that has the
+Ruby object created within the C extension as a key and something random as a value. We
+use a Hash because it provides lookups in <code>O(1)</code> time and we don't care about the value
+because we only want to save the object in some kind of a global store so that Ruby is 
+aware of its presence (in case of NDT we use <code>true</code> for the value). XND uses three different
+GC guards for various internal objects, which can be found in the <a href="https://github.com/xnd-project/xnd-ruby/blob/master/xnd/ext/ruby_xnd/gc_guard.h">gc_guard.h</a> file.</p>
+<h2>Gumath</h2>
+<p>While ndtypes and xnd allow us to define types and memory storage, gumath allows us to actually
+do something with them. The basic idea behind gumath is that it is a library that allows defining
+functions for various data types stored within an <code>XND</code> object and allows the user to transparently
+call them using a high level interface that uses multiple dispatch for calling the relevant function
+on the appropriate type. The Ruby interface is a wrapper over the <code>libgumath</code> C library.</p>
+<p>Some functions (known as kernels) come bundled with libgumath and others can be written fairly
+easily. Similar to the xnd and ndtypes wrappers, the gumath Ruby wrapper can be installed with a call to <code>gem install gumath --pre</code>.</p>
+<h3>Usage</h3>
+<p>The <code>Gumath</code> class is a top level namespace for various modules that serve as namespaces for
+functions that come rolled in with the libgumath C library. These modules will keep expanding
+as more interfaces are added to libgumath. The <code>Gumath::Functions</code> module contains various
+such functions that are provided by libgumath by default.</p>
+<p><code>Gumath</code> functions accept <code>XND</code> objects as arguments and output <code>XND</code> objects with the result
+of the function. An example of a simple element-wise multiply kernel is the following:</p>
+<pre class="code literal-block"><span></span><span class="nb">require</span> <span class="s1">'xnd'</span>
+<span class="nb">require</span> <span class="s1">'gumath'</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="no">XND</span><span class="o">.</span><span class="n">new</span> <span class="o">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="o">]</span><span class="p">,</span> <span class="ss">dtype</span><span class="p">:</span> <span class="s2">"float64"</span>
+<span class="n">y</span> <span class="o">=</span> <span class="no">XND</span><span class="o">.</span><span class="n">new</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="o">]</span><span class="p">,</span> <span class="ss">dtype</span><span class="p">:</span> <span class="s2">"float64"</span>
+<span class="n">z</span> <span class="o">=</span> <span class="no">Gumath</span><span class="o">::</span><span class="no">Functions</span><span class="o">.</span><span class="n">multiply</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+<span class="c1"># =&gt; #&lt;XND:47340721458320&gt;</span>
+<span class="c1">#    type= 8 * float64</span>
+<span class="c1">#    value= [2.0, 6.0, 12.0, 20.0, 30.0, 42.0, 56.0, 72.0]</span>
+</pre>
+
+
+<h4>Usage via The C API</h4>
+<p>Since the main purpose of the gumath C API is to allow adding kernels to a Ruby module,
+it provides a single function of the prototype:</p>
+<pre class="code literal-block"><span></span><span class="kt">int</span> <span class="nf">rb_gumath_add_functions</span><span class="p">(</span><span class="n">VALUE</span> <span class="n">module</span><span class="p">,</span> <span class="k">const</span> <span class="n">gm_tbl_t</span> <span class="o">*</span><span class="n">tbl</span><span class="p">);</span>
+</pre>
+
+
+<p>The <code>module</code> parameter is a Ruby object, and <code>tbl</code> is a function table of gumath kernels.</p>
+<h3>Implementation</h3>
+<p>Compared to xnd and ndtypes, the gumath Ruby wrapper is much simpler
+since its primary function is to take functions from libgumath and add them as module 
+functions to Ruby modules.</p>
+<p>When the library is initially loaded using a call to <code>require</code>, the relevant libgumath kernels
+provided by default are loaded into the Ruby interpreter by interfacing each kernel with a
+Ruby object. Further details on the working of the method dispatch within Ruby can be found
+in the <a href="https://github.com/xnd-project/xnd-ruby/blob/master/gumath/CONTRIBUTING.md">CONTRIBUTING</a> file.</p>
+<p>The most important part of the C implementation is the <code>GufuncObject</code> class which is a Ruby
+class defined within the C API that helps interface with a single gumath function. This class
+is basically a wrapper over a C struct <code>GufuncObject</code> that can be found in the <a href="https://github.com/xnd-project/xnd-ruby/blob/master/gumath/ext/ruby_gumath/gufunc_object.h">gufunc_object.h</a>
+file.</p>
+<p>The struct has the following definition:</p>
+<pre class="code literal-block"><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+  <span class="k">const</span> <span class="n">gm_tbl_t</span> <span class="o">*</span><span class="n">table</span><span class="p">;</span>          <span class="cm">/* kernel table */</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>                     <span class="cm">/* function name */</span>
+  <span class="kt">uint32_t</span> <span class="n">flags</span><span class="p">;</span>                 <span class="cm">/* memory target */</span>
+  <span class="n">VALUE</span> <span class="n">identity</span><span class="p">;</span>                 <span class="cm">/* identity element */</span>
+<span class="p">}</span> <span class="n">GufuncObject</span><span class="p">;</span>
+</pre>
+
+
+<p>The <code>table</code> pointer is the pointer to the definition of the function within libgumath that
+holds information about the function that is used by <code>gm_apply</code> for making the actual call to
+the function with the data. <code>name</code> is a string holding the name of the function. <code>flags</code>
+signify whether the function is a CPU function or a CUDA function (or for that matter any
+other device that might be added in the future). <code>identity</code> is a Ruby object used for identifying
+this function. It is initially set to <code>nil</code>.</p>
+<h3>Automatic Kernel Generation</h3>
+<p>Writing kernels can be painstaking if you're not familiar with the various functionalities
+that libgumath provides for this purpose. Therefore we also provide a kernel generator
+called <a href="https://xnd.readthedocs.io/en/latest/xndtools/index.html#kernel-generator">xndtools</a> that allows writing gumath kernels by simply providing the function
+that needs to wrapped. However, this functionality has not yet been tested for Ruby.</p>
+<h2>Conclusion and Future Work</h2>
+<p>The current state of the Ruby XND wrappers makes them suitable for the XND libraries via Ruby,
+but what would be truly exciting would be have a more Ruby-like API that conforms to accepted
+Ruby idioms and creates a truly intuitive XND Ruby interface, rather than simply a one-on-one
+mapping of functions.</p>
+<p>In the future we also plan to integrate XND with various Ruby libraries like rubyplot and daru
+and expand the uses of XND even further. For example, operators like multiplication in other 
+scientific languages like MATLAB simply work with operator overloading by using the <code>*</code> operator
+between objects. Similarly overriding operators on <code>XND</code> and calling the underlying gumath
+kernel is a work in progress.</p>
+<p>Similarly, have a 'Ruby-like' API that allows better method chaining in the sense of Rails or 
+rspec should free up the programmer of having to 'think' of the interfaces and make
+array computations much more intuitive for programmers. These changes will of course be implemented
+after XND reaches a critical base of users who are willing to provide feedback and try out
+new interfaces. We plan to integrate XND into <a href="https://github.com/sciruby/rubyplot">rubyplot</a> to achieve this goal of more usage.</p>
+<p>The C API for the wrapper is also quite limiting as of now, and it would be quite a pain
+for another Ruby gem to use XND via the C API. Therefore, improving the C API is also
+something that we will be seriously looking into in the future.</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../../08/labs-dask-update/" rel="prev" title="Quansight Labs Dask Update">Previous post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2019         <a href="mailto:info@quansight.com">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>

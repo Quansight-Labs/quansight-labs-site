@@ -1,5 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Wed, 28 Aug 2019 05:09:45 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Quansight Labs Dask Update</title><link>https://labs.quansight.org/blog/2019/08/labs-dask-update/</link><dc:creator>James Bourbeau</dc:creator><description>&lt;div&gt;&lt;p&gt;This post provides an update on some recent &lt;a href="https://dask.org/"&gt;Dask&lt;/a&gt;-related activities the Quansight Labs team has been working on.&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Sun, 29 Sep 2019 12:25:02 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Ruby wrappers for the XND project</title><link>https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/</link><dc:creator>Sameer Deshmukh (@v0dro)</dc:creator><description>&lt;div&gt;&lt;!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-generate-toc again --&gt;
+
+&lt;p&gt;&lt;strong&gt;Table of Contents&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#introduction"&gt;Introduction&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#ndtypes"&gt;Ndtypes&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#usage"&gt;Usage&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#basic-initialization"&gt;Basic initialization&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#concrete-vs-abstract-types"&gt;Concrete Vs. Abstract Types&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#typedefs"&gt;Typedefs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#usage-via-the-c-api"&gt;Usage via The C API&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#implementation"&gt;Implementation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#xnd"&gt;Xnd&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#basic-usage"&gt;Basic Usage&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#data-type-support"&gt;Data Type Support&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#missing-values"&gt;Missing Values&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#usage-via-the-c-api"&gt;Usage via The C API&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#implementation"&gt;Implementation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#gumath"&gt;Gumath&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#usage"&gt;Usage&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#usage-via-the-c-api"&gt;Usage via The C API&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#implementation"&gt;Implementation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#automatic-kernel-generation"&gt;Automatic Kernel Generation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#conclusion-and-future-work"&gt;Conclusion and Future Work&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- markdown-toc end --&gt;
+
+&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Lack of stable and reliable scientific computing software has been a persistent problem
+for the Ruby community, making it hard for enthusiastic Ruby developers to use Ruby in
+everything from their web applications to their data analysis projects. One of the most important
+components of any successful scientific software stack is a well maintained and flexible
+array computation library that can act as a fast and simple way of storing in-memory data
+and interfacing it with various fast and battle-tested libraries like LAPACK and BLAS.&lt;/p&gt;
+&lt;p&gt;Various projects have attempted to make such libraries in the past (and some are still thriving
+and maintained). Some of the notable ones are &lt;a href="https://github.com/ruby-numo"&gt;numo&lt;/a&gt;, &lt;a href="https://github.com/SciRuby/nmatrix"&gt;nmatrix&lt;/a&gt;, and more recently, &lt;a href="https://github.com/SciRuby/numruby"&gt;numruby&lt;/a&gt;.
+These projects attempt to provide a simple Ruby-like API for creating and manipulating arrays
+of various types. All of them are able to easily interface with libraries like ATLAS, FFTW
+and LAPACK.&lt;/p&gt;
+&lt;p&gt;However, all of the above projects fall short in two major aspects:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Lack of extensibility to adapt to modern use cases (read Machine Learning).&lt;/li&gt;
+&lt;li&gt;Lack of a critical mass of developers to maintain a robust and fast array library.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The first problem is mainly due to the fact that they do not support very robust type systems.
+The available data types are limited and are hard to extend to more complex uses. Modern use cases like
+Machine Learning require a more robust type system (i.e. defining array shapes of arbitrary dimension on multiple devices), as has been demonstrated by the tensor
+implementations of various frameworks like Tensorflow and PyTorch.&lt;/p&gt;
+&lt;p&gt;The second problem is due to the fact that all of the aforementioned projects are community
+efforts that are maintained part-time by developers simply out of a sense of purpose and
+passion. Sustaining such complex projects for extended periods of time without expectation
+of any support is simply unfeasible even for the most driven engineers.&lt;/p&gt;
+&lt;p&gt;This is where the XND project comes in. The &lt;a href="https://xnd.io/"&gt;XND project&lt;/a&gt; is a project for
+building a common library that is able to meet the needs of the various data analysis and
+machine learning frameworks that have had to build their own array objects and programming 
+languages. It is built with the premise of extending arrays with new types and various 
+device types (CPUs, GPUs etc.) without loss of performance and ease of use.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/"&gt;Read more…&lt;/a&gt; (12 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><guid>https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/</guid><pubDate>Sun, 15 Sep 2019 05:32:00 GMT</pubDate></item><item><title>Quansight Labs Dask Update</title><link>https://labs.quansight.org/blog/2019/08/labs-dask-update/</link><dc:creator>James Bourbeau</dc:creator><description>&lt;div&gt;&lt;p&gt;This post provides an update on some recent &lt;a href="https://dask.org/"&gt;Dask&lt;/a&gt;-related activities the Quansight Labs team has been working on.&lt;/p&gt;
 &lt;h3&gt;Dask community work order&lt;/h3&gt;
 &lt;p&gt;Through a community work order (CWO) with &lt;a href="https://www.deshaw.com/"&gt;the D. E. Shaw group&lt;/a&gt;, the Quansight Labs team has been able to dedicate developer time towards bug fixes and feature requests for Dask. This work has touched on several portions of the Dask codebase, but generally have centered around using &lt;a href="https://docs.dask.org/en/latest/array.html"&gt;Dask Arrays&lt;/a&gt; with the &lt;a href="https://distributed.dask.org/en/latest/"&gt;distributed scheduler&lt;/a&gt;.
 &lt;/p&gt;&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/08/labs-dask-update/"&gt;Read more…&lt;/a&gt; (2 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Dask</category><category>Labs</category><guid>https://labs.quansight.org/blog/2019/08/labs-dask-update/</guid><pubDate>Tue, 27 Aug 2019 05:00:00 GMT</pubDate></item><item><title>Spyder 4.0 beta4: Kite integration is here</title><link>https://labs.quansight.org/blog/2019/08/spyder-40-beta4-kite-integration-is-here/</link><dc:creator>Edgar Margffoy-Tuay</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;em&gt;&lt;a href="https://kite.com"&gt;Kite&lt;/a&gt; is sponsoring the work discussed in this blog post, and in addition supports Spyder 4.0 development through a Quansight Labs &lt;a href="http://labs.quansight.org/blog/2019/05/community-driven-opensource-funded-development/"&gt;Community Work Order&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
@@ -197,43 +266,4 @@ proposition is that because we understand how open source works and many of
 our developers are maintainers and contributors of the open source projects
 already, we propose work that the community already has interest in and we
 open the discussion about any major code change early to avoid issues.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/05/community-driven-opensource-funded-development/"&gt;Read more…&lt;/a&gt; (6 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>community</category><category>funding</category><category>Labs</category><guid>https://labs.quansight.org/blog/2019/05/community-driven-opensource-funded-development/</guid><pubDate>Wed, 29 May 2019 05:00:00 GMT</pubDate></item><item><title>Measuring API usage for popular numerical and scientific libraries</title><link>https://labs.quansight.org/blog/2019/05/python-package-function-usage/</link><dc:creator>Christopher Ostrouchov</dc:creator><description>&lt;div&gt;&lt;p&gt;Developers of open source software often have a difficult time
-understanding how others utilize their libraries. Having better data of
-when and how functions are being used has many benefits. Some of these
-are:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;better API design&lt;/li&gt;
-&lt;li&gt;determining whether or not a feature can be deprecated or removed.&lt;/li&gt;
-&lt;li&gt;more instructive tutorials&lt;/li&gt;
-&lt;li&gt;understanding the adoption of new features&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;Python Namespace Inspection&lt;/h2&gt;
-&lt;p&gt;We wrote a general tool
-&lt;a href="https://github.com/Quansight-Labs/python-api-inspect"&gt;python-api-inspect&lt;/a&gt;
-to analyze any function/attribute call within a given set of
-namespaces in a repository. This work was heavily inspired by a blog
-post on inspecting method usage with
-&lt;a href="https://galeascience.wordpress.com/2016/08/10/top-10-pandas-numpy-and-scipy-functions-on-github/"&gt;Google BigQuery&lt;/a&gt;
-for &lt;a href="https://pandas.pydata.org/"&gt;pandas&lt;/a&gt;,
-&lt;a href="https://www.numpy.org/"&gt;NumPy&lt;/a&gt;, and
-&lt;a href="https://www.scipy.org/"&gt;SciPy&lt;/a&gt;. The previously mentioned work used
-regular expressions to search for method usage. The primary issue with
-this approach is that it cannot handle &lt;code&gt;import numpy.random as rand;
-rand.random(...)&lt;/code&gt; unless additional regular expressions are
-constructed for each case and will result in false
-positives. Additionally,
-&lt;a href="https://cloud.google.com/bigquery/"&gt;BigQuery&lt;/a&gt; is not a free resource.
-Thus, this approach is not general enough and does not scale well with
-the number of libraries that we would like to inspect function and
-attribute usage.&lt;/p&gt;
-&lt;p&gt;A more robust approach is to inspect the Python abstract syntax tree
-(AST). Python comes with a performant method from the &lt;a href="https://docs.python.org/3/library/ast.html"&gt;ast
-module&lt;/a&gt; &lt;code&gt;ast.parse(...)&lt;/code&gt;
-for constructing a Python AST from source code. A &lt;a href="https://docs.python.org/3/library/ast.html#ast.NodeVisitor"&gt;node
-visitor&lt;/a&gt;
-is used to traverse the AST and record &lt;code&gt;import&lt;/code&gt; statements, and
-function/attribute calls. This allows us to catch any absolute
-namespace reference. The following are cases that
-&lt;a href="https://github.com/Quansight-Labs/python-api-inspect"&gt;python-api-inspect&lt;/a&gt;
-catches:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/05/python-package-function-usage/"&gt;Read more…&lt;/a&gt; (4 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Labs</category><guid>https://labs.quansight.org/blog/2019/05/python-package-function-usage/</guid><pubDate>Mon, 27 May 2019 05:00:00 GMT</pubDate></item></channel></rss>
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/05/community-driven-opensource-funded-development/"&gt;Read more…&lt;/a&gt; (6 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>community</category><category>funding</category><category>Labs</category><guid>https://labs.quansight.org/blog/2019/05/community-driven-opensource-funded-development/</guid><pubDate>Wed, 29 May 2019 05:00:00 GMT</pubDate></item></channel></rss>

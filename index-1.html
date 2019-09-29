@@ -78,7 +78,61 @@ navbar-dark bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/05/spyder-4-beta2-release/" class="u-url">Spyder 4.0 takes a big step closer with the release of Beta 2!</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/05/python-package-function-usage/" class="u-url">Measuring API usage for popular numerical and scientific libraries</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                <a href="authors/christopher-ostrouchov/">Christopher Ostrouchov</a>
+            </span></p>
+            <p class="dateline">
+            <a href="blog/2019/05/python-package-function-usage/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-05-27T00:00:00-05:00" itemprop="datePublished" title="2019-05-27">2019-05-27</time></a>
+            </p>
+        </div>
+    </header><div class="p-summary entry-summary">
+    <div>
+<p>Developers of open source software often have a difficult time
+understanding how others utilize their libraries. Having better data of
+when and how functions are being used has many benefits. Some of these
+are:</p>
+<ul>
+<li>better API design</li>
+<li>determining whether or not a feature can be deprecated or removed.</li>
+<li>more instructive tutorials</li>
+<li>understanding the adoption of new features</li>
+</ul>
+<h2>Python Namespace Inspection</h2>
+<p>We wrote a general tool
+<a href="https://github.com/Quansight-Labs/python-api-inspect">python-api-inspect</a>
+to analyze any function/attribute call within a given set of
+namespaces in a repository. This work was heavily inspired by a blog
+post on inspecting method usage with
+<a href="https://galeascience.wordpress.com/2016/08/10/top-10-pandas-numpy-and-scipy-functions-on-github/">Google BigQuery</a>
+for <a href="https://pandas.pydata.org/">pandas</a>,
+<a href="https://www.numpy.org/">NumPy</a>, and
+<a href="https://www.scipy.org/">SciPy</a>. The previously mentioned work used
+regular expressions to search for method usage. The primary issue with
+this approach is that it cannot handle <code>import numpy.random as rand;
+rand.random(...)</code> unless additional regular expressions are
+constructed for each case and will result in false
+positives. Additionally,
+<a href="https://cloud.google.com/bigquery/">BigQuery</a> is not a free resource.
+Thus, this approach is not general enough and does not scale well with
+the number of libraries that we would like to inspect function and
+attribute usage.</p>
+<p>A more robust approach is to inspect the Python abstract syntax tree
+(AST). Python comes with a performant method from the <a href="https://docs.python.org/3/library/ast.html">ast
+module</a> <code>ast.parse(...)</code>
+for constructing a Python AST from source code. A <a href="https://docs.python.org/3/library/ast.html#ast.NodeVisitor">node
+visitor</a>
+is used to traverse the AST and record <code>import</code> statements, and
+function/attribute calls. This allows us to catch any absolute
+namespace reference. The following are cases that
+<a href="https://github.com/Quansight-Labs/python-api-inspect">python-api-inspect</a>
+catches:</p>
+<p class="more"><a href="blog/2019/05/python-package-function-usage/">Read more…</a></p>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/05/spyder-4-beta2-release/" class="u-url">Spyder 4.0 takes a big step closer with the release of Beta 2!</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 <a href="authors/gonzalo-pena-castellanos/">Gonzalo Peña-Castellanos</a>
