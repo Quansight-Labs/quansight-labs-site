@@ -39,6 +39,8 @@ compiler for Python. It lets you write native Python code and with the use of
 a simple `@jit` decorator, the code will be automatically sped up using LLVM.
 This can result in code that is up to 1000x faster in some cases:
 
+<!-- TEASER_END -->
+
 ```
 
 In [1]: import numba
