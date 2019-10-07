@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quansight Labs Work Update for September, 2019 | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2019/10/quansight-labs-work-update-for-september-2019/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Aaron Meurer">
+<link rel="prev" href="../../09/ruby-wrappers-for-the-xnd-project/" title="Ruby wrappers for the XND project" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="Quansight Labs Work Update for September, 2019">
+<meta property="og:url" content="https://labs.quansight.org/blog/2019/10/quansight-labs-work-update-for-september-2019/">
+<meta property="og:description" content="As of November, 2018, I have been working at
+Quansight. Quansight is a new startup founded by
+the same people who started Anaconda, which aims to connect companies and open
+source communities, and off">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2019-10-07T00:00:00-05:00">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+
+            <span id="blog-title">Quansight Labs</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../archive.html" class="nav-link">Archive</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../categories/" class="nav-link">Tags</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS feed</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right">
+<li class="nav-item">
+    <a href="index.md" id="sourcelink" class="nav-link">Source</a>
+    </li>
+
+
+                
+            </ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Quansight Labs Work Update for September, 2019</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    <a href="../../../../authors/aaron-meurer/">Aaron Meurer</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2019-10-07T00:00:00-05:00" itemprop="datePublished" title="2019-10-07">2019-10-07</time></a>
+            </p>
+            
+        <p class="sourceline"><a href="index.md" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<p>As of November, 2018, I have been working at
+<a href="https://www.quansight.com/">Quansight</a>. Quansight is a new startup founded by
+the same people who started Anaconda, which aims to connect companies and open
+source communities, and offers consulting, training, support and mentoring
+services. I work under the heading of <a href="https://www.quansight.com/labs">Quansight
+Labs</a>. Quansight Labs is a public-benefit
+division of Quansight. It provides a home for a "PyData Core Team" which
+consists of developers, community managers, designers, and documentation
+writers who build open-source technology and grow open-source communities
+around all aspects of the AI and Data Science workflow.</p>
+<p>My work at Quansight is split between doing open source consulting for various
+companies, and working on SymPy.
+<a href="https://www.sympy.org/en/index.html">SymPy</a>, for those who do not know, is a
+symbolic mathematics library written in pure Python. I am the lead maintainer
+of SymPy.</p>
+<p>In this post, I will detail some of the open source work that I have done
+recently, both as part of my open source consulting, and as part of my work on
+SymPy for Quansight Labs.</p>
+<h3>Bounds Checking in Numba</h3>
+<p>As part of work on a client project, I have been working on contributing code
+to the <a href="https://numba.pydata.org">numba</a> project. Numba is a just-in-time
+compiler for Python. It lets you write native Python code and with the use of
+a simple <code>@jit</code> decorator, the code will be automatically sped up using LLVM.
+This can result in code that is up to 1000x faster in some cases:</p>
+<!-- TEASER_END -->
+
+<pre class="code literal-block"><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">numba</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+   <span class="o">...</span><span class="p">:</span>     <span class="n">A</span> <span class="o">=</span> <span class="mi">0</span>
+   <span class="o">...</span><span class="p">:</span>     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+   <span class="o">...</span><span class="p">:</span>         <span class="n">A</span> <span class="o">+=</span> <span class="n">i</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+   <span class="o">...</span><span class="p">:</span>     <span class="k">return</span> <span class="n">A</span>
+   <span class="o">...</span><span class="p">:</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="nd">@numba.njit</span>
+   <span class="o">...</span><span class="p">:</span> <span class="k">def</span> <span class="nf">test_jit</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+   <span class="o">...</span><span class="p">:</span>     <span class="n">A</span> <span class="o">=</span> <span class="mi">0</span>
+   <span class="o">...</span><span class="p">:</span>     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+   <span class="o">...</span><span class="p">:</span>         <span class="n">A</span> <span class="o">+=</span> <span class="n">i</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+   <span class="o">...</span><span class="p">:</span>     <span class="k">return</span> <span class="n">A</span>
+   <span class="o">...</span><span class="p">:</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="kp">arange</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="o">%</span><span class="n">timeit</span> <span class="kp">test</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="mi">249</span> <span class="err">µ</span><span class="n">s</span> <span class="err">±</span> <span class="mf">5.77</span> <span class="err">µ</span><span class="n">s</span> <span class="n">per</span> <span class="n">loop</span> <span class="p">(</span><span class="kp">mean</span> <span class="err">±</span> <span class="kp">std</span><span class="o">.</span> <span class="n">dev</span><span class="o">.</span> <span class="n">of</span> <span class="mi">7</span> <span class="n">runs</span><span class="p">,</span> <span class="mi">1000</span> <span class="n">loops</span> <span class="n">each</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="o">%</span><span class="n">timeit</span> <span class="n">test_jit</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="mi">336</span> <span class="n">ns</span> <span class="err">±</span> <span class="mf">0.638</span> <span class="n">ns</span> <span class="n">per</span> <span class="n">loop</span> <span class="p">(</span><span class="kp">mean</span> <span class="err">±</span> <span class="kp">std</span><span class="o">.</span> <span class="n">dev</span><span class="o">.</span> <span class="n">of</span> <span class="mi">7</span> <span class="n">runs</span><span class="p">,</span> <span class="mi">1000000</span> <span class="n">loops</span> <span class="n">each</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="mi">249</span><span class="o">/.</span><span class="mi">336</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="mf">741.0714285714286</span>
+</pre>
+
+
+<p>Numba only works for a subset of Python code, and primarily targets code that
+uses NumPy arrays.</p>
+<p>Numba, with the help of LLVM, achieves this level of performance through many
+optimizations. One thing that it does to improve performance is to remove all
+bounds checking from array indexing. This means that if an array index is out
+of bounds, instead of receiving an <code>IndexError</code>, you will get garbage, or
+possibly a segmentation fault.</p>
+<pre class="code literal-block"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">numba</span> <span class="kn">import</span> <span class="n">njit</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">outtabounds</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="o">...</span>     <span class="n">A</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="o">...</span>     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+<span class="o">...</span>         <span class="n">A</span> <span class="o">+=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="o">...</span>     <span class="k">return</span> <span class="n">A</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">arange</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">outtabounds</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># pure Python/NumPy behavior</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s2">"&lt;stdin&gt;"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+  <span class="n">File</span> <span class="s2">"&lt;stdin&gt;"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">4</span><span class="p">,</span> <span class="ow">in</span> <span class="n">outtabounds</span>
+<span class="ne">IndexError</span><span class="p">:</span> <span class="n">index</span> <span class="mi">100</span> <span class="ow">is</span> <span class="n">out</span> <span class="n">of</span> <span class="n">bounds</span> <span class="k">for</span> <span class="n">axis</span> <span class="mi">0</span> <span class="k">with</span> <span class="kp">size</span> <span class="mi">100</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">njit</span><span class="p">(</span><span class="n">outtabounds</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># the default numba behavior</span>
+<span class="o">-</span><span class="mi">8557904790533229732</span>
+</pre>
+
+
+<p>In numba pull request <a href="https://github.com/numba/numba/pull/4432">#4432</a>, I am
+working on adding a flag to <code>@njit</code> that will enable bounds checks for array
+indexing. This will remain disabled by default for performance purposes. But
+you will be able to enable it by passing <code>boundscheck=True</code> to <code>@njit</code>, or by
+setting the <code>NUMBA_BOUNDSCHECK=1</code> environment variable. This will make it
+easier to detect out of bounds issues like the one above. It will work like</p>
+<pre class="code literal-block"><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@njit</span><span class="p">(</span><span class="n">boundscheck</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">outtabounds</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">A</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="n">A</span> <span class="o">+=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">A</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">outtabounds</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># numba behavior in my pull request #4432</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">"&lt;stdin&gt;"</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+<span class="gr">IndexError</span>: <span class="n">index is out of bounds</span>
+</pre>
+
+
+<p>The pull request is still in progress, and many things such as the quality of
+the error message reporting will need to be improved. This should make
+debugging issues easier for people who write numba code once it is merged.</p>
+<h3>removestar</h3>
+<p><a href="https://www.asmeurer.com/removestar/">removestar</a> is a new tool I wrote to
+automatically replace <code>import *</code> in Python modules with explicit imports.</p>
+<p>For those who don't know, Python's <code>import</code> statement supports so-called
+"wildcard" or "star" imports, like</p>
+<pre class="code literal-block"><span></span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="o">*</span>
+</pre>
+
+
+<p>This will import every public name from the <code>sympy</code> module into the current
+namespace. This is often useful because it saves on typing every name that is
+used in the import line. This is especially useful when working interactively,
+where you just want to import every name and minimize typing.</p>
+<p>However, doing <code>from module import *</code> is generally frowned upon in Python. It is
+considered acceptable when working interactively at a <code>python</code> prompt, or in
+<code>__init__.py</code> files (removestar skips <code>__init__.py</code> files by default).</p>
+<p>Some reasons why <code>import *</code> is bad:</p>
+<ul>
+<li>It hides which names are actually imported.</li>
+<li>It is difficult both for human readers and static analyzers such as
+  pyflakes to tell where a given name comes from when <code>import *</code> is used. For
+  example, pyflakes cannot detect unused names (for instance, from typos) in
+  the presence of <code>import *</code>.</li>
+<li>If there are multiple <code>import *</code> statements, it may not be clear which names
+  come from which module. In some cases, both modules may have a given name,
+  but only the second import will end up being used. This can break people's
+  intuition that the order of imports in a Python file generally does not
+  matter.</li>
+<li>
+<code>import *</code> often imports more names than you would expect. Unless the module
+  you import defines <code>__all__</code> or carefully <code>del</code>s unused names at the module
+  level, <code>import *</code> will import every public (doesn't start with an
+  underscore) name defined in the module file. This can often include things
+  like standard library imports or loop variables defined at the top-level of
+  the file. For imports from modules (from <code>__init__.py</code>), <code>from module import
+  *</code> will include every submodule defined in that module. Using <code>__all__</code> in
+  modules and <code>__init__.py</code> files is also good practice, as these things are
+  also often confusing even for interactive use where <code>import *</code> is
+  acceptable.</li>
+<li>In Python 3, <code>import *</code> is syntactically not allowed inside of a function
+  definition.</li>
+</ul>
+<p>Here are some official Python references stating not to use <code>import *</code> in
+files:</p>
+<ul>
+<li>
+<a href="https://docs.python.org/3/faq/programming.html?highlight=faq#what-are-the-best-practices-for-using-import-in-a-module">The official Python
+  FAQ</a>:</li>
+</ul>
+<blockquote>
+<p>In general, don’t use <code>from modulename import *</code>. Doing so clutters the
+importer’s namespace, and makes it much harder for linters to detect
+undefined names.</p>
+</blockquote>
+<ul>
+<li>
+<a href="https://www.python.org/dev/peps/pep-0008/#imports">PEP 8</a> (the official
+  Python style guide):</li>
+</ul>
+<blockquote>
+<p>Wildcard imports (<code>from &lt;module&gt; import *</code>) should be avoided, as they
+make it unclear which names are present in the namespace, confusing both
+readers and many automated tools.</p>
+</blockquote>
+<p>Unfortunately, if you come across a file in the wild that uses <code>import *</code>, it
+can be hard to fix it, because you need to find every name in the file that is
+imported from the <code>*</code> and manually add an import for it. Removestar makes this
+easy by finding which names come from <code>*</code> imports and replacing the import
+lines in the file automatically.</p>
+<p>As an example, suppose you have a module <code>mymod</code> like</p>
+<pre class="code literal-block"><span></span><span class="n">mymod</span><span class="o">/</span>
+  <span class="o">|</span> <span class="n">__init__</span><span class="p">.</span><span class="n">py</span>
+  <span class="o">|</span> <span class="n">a</span><span class="p">.</span><span class="n">py</span>
+  <span class="o">|</span> <span class="n">b</span><span class="p">.</span><span class="n">py</span>
+</pre>
+
+
+<p>with</p>
+<pre class="code literal-block"><span></span><span class="c1"># mymod/a.py</span>
+<span class="kn">from</span> <span class="nn">.b</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+</pre>
+
+
+<p>and</p>
+<pre class="code literal-block"><span></span><span class="c1"># mymod/b.py</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span>
+</pre>
+
+
+<p>Then <code>removestar</code> works like:</p>
+<pre class="code literal-block"><span></span><span class="err">$</span> <span class="n">removestar</span> <span class="o">-</span><span class="n">i</span> <span class="n">mymod</span><span class="o">/</span>
+<span class="err">$</span> <span class="n">cat</span> <span class="n">mymod</span><span class="o">/</span><span class="n">a</span><span class="o">.</span><span class="n">py</span>
+<span class="c1"># mymod/a.py</span>
+<span class="kn">from</span> <span class="nn">.b</span> <span class="kn">import</span> <span class="n">y</span>
+
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+</pre>
+
+
+<p>The <code>-i</code> flag causes it to edit <code>a.py</code> in-place. Without it, it would just
+print a diff to the terminal.</p>
+<p>For implicit star imports and explicit star imports from the same module,
+<code>removestar</code> works statically, making use of
+<a href="https://github.com/PyCQA/pyflakes">pyflakes</a>. This means none of the code is
+actually executed. For external imports, it is not possible to work statically
+as external imports may include C extension modules, so in that case, it
+imports the names dynamically.</p>
+<p><code>removestar</code> can be installed with pip or conda:</p>
+<pre class="code literal-block"><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">removestar</span>
+</pre>
+
+
+<p>or if you use conda</p>
+<pre class="code literal-block"><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="k">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">removestar</span>
+</pre>
+
+
+<h3>sphinx-math-dollar</h3>
+<p>In SymPy, we make heavy use of LaTeX math in our documentation. For example,
+in our <a href="https://docs.sympy.org/dev/modules/functions/special.html#sympy.functions.special.hyper.hyper">special functions
+documentation</a>,
+most special functions are defined using a LaTeX formula, like <img alt="The docs for besselj" src="../../../../images/besselj_docs.png"></p>
+<p>(from <a href="https://docs.sympy.org/dev/modules/functions/special.html#sympy.functions.special.bessel.besselj">https://docs.sympy.org/dev/modules/functions/special.html#sympy.functions.special.bessel.besselj</a>)</p>
+<p>However, the source for this math in the docstring of the function uses RST
+syntax:</p>
+<pre class="code literal-block"><span></span><span class="k">class</span> <span class="nc">besselj</span><span class="p">(</span><span class="n">BesselBase</span><span class="p">):</span>
+    <span class="s2">"""</span>
+<span class="s2">    Bessel function of the first kind.</span>
+
+<span class="s2">    The Bessel `J` function of order `</span><span class="se">\n</span><span class="s2">u` is defined to be the function</span>
+<span class="s2">    satisfying Bessel's differential equation</span>
+
+<span class="s2">    .. math ::</span>
+<span class="s2">        z^2 </span><span class="se">\f</span><span class="s2">rac{\mathrm{d}^2 w}{\mathrm{d}z^2}</span>
+<span class="s2">        + z </span><span class="se">\f</span><span class="s2">rac{\mathrm{d}w}{\mathrm{d}z} + (z^2 - </span><span class="se">\n</span><span class="s2">u^2) w = 0,</span>
+
+<span class="s2">    with Laurent expansion</span>
+
+<span class="s2">    .. math ::</span>
+<span class="s2">        J_</span><span class="se">\n</span><span class="s2">u(z) = z^</span><span class="se">\n</span><span class="s2">u \left(</span><span class="se">\f</span><span class="s2">rac{1}{\Gamma(</span><span class="se">\n</span><span class="s2">u + 1) 2^</span><span class="se">\n</span><span class="s2">u} + O(z^2) </span><span class="se">\r</span><span class="s2">ight),</span>
+
+<span class="s2">    if :math:`</span><span class="se">\n</span><span class="s2">u` is not a negative integer. If :math:`</span><span class="se">\n</span><span class="s2">u=-n \in \mathbb{Z}_{&lt;0}`</span>
+<span class="s2">    *is* a negative integer, then the definition is</span>
+
+<span class="s2">    .. math ::</span>
+<span class="s2">        J_{-n}(z) = (-1)^n J_n(z).</span>
+</pre>
+
+
+<p>Furthermore, in SymPy's documentation we have configured it so that text
+between `single backticks` is rendered as math. This was originally done for
+convenience, as the alternative way is to write <code>:math:`\nu`</code> every
+time you want to use inline math. But this has lead to many people being
+confused, as they are used to Markdown where `single backticks` produce
+<code>code</code>.</p>
+<p>A better way to write this would be if we could delimit math with dollar
+signs, like <code>$\nu$</code>. This is how things are done in LaTeX documents, as well
+as in things like the Jupyter notebook.</p>
+<p>With the new <a href="https://www.sympy.org/sphinx-math-dollar/">sphinx-math-dollar</a>
+Sphinx extension, this is now possible. Writing <code>$\nu$</code> produces $\nu$, and
+the above docstring can now be written as</p>
+<pre class="code literal-block"><span></span><span class="k">class</span> <span class="nc">besselj</span><span class="p">(</span><span class="n">BesselBase</span><span class="p">):</span>
+    <span class="s2">"""</span>
+<span class="s2">    Bessel function of the first kind.</span>
+
+<span class="s2">    The Bessel $J$ function of order $</span><span class="se">\n</span><span class="s2">u$ is defined to be the function</span>
+<span class="s2">    satisfying Bessel's differential equation</span>
+
+<span class="s2">    .. math ::</span>
+<span class="s2">        z^2 </span><span class="se">\f</span><span class="s2">rac{\mathrm{d}^2 w}{\mathrm{d}z^2}</span>
+<span class="s2">        + z </span><span class="se">\f</span><span class="s2">rac{\mathrm{d}w}{\mathrm{d}z} + (z^2 - </span><span class="se">\n</span><span class="s2">u^2) w = 0,</span>
+
+<span class="s2">    with Laurent expansion</span>
+
+<span class="s2">    .. math ::</span>
+<span class="s2">        J_</span><span class="se">\n</span><span class="s2">u(z) = z^</span><span class="se">\n</span><span class="s2">u \left(</span><span class="se">\f</span><span class="s2">rac{1}{\Gamma(</span><span class="se">\n</span><span class="s2">u + 1) 2^</span><span class="se">\n</span><span class="s2">u} + O(z^2) </span><span class="se">\r</span><span class="s2">ight),</span>
+
+<span class="s2">    if $</span><span class="se">\n</span><span class="s2">u$ is not a negative integer. If $</span><span class="se">\n</span><span class="s2">u=-n \in \mathbb{Z}_{&lt;0}$</span>
+<span class="s2">    *is* a negative integer, then the definition is</span>
+
+<span class="s2">    .. math ::</span>
+<span class="s2">        J_{-n}(z) = (-1)^n J_n(z).</span>
+</pre>
+
+
+<p>We also plan to add support for <code>$$double dollars$$</code> for display math so that <code>..
+math ::</code> is no longer needed either .</p>
+<p>For end users, the documentation on <a href="https://docs.sympy.org">docs.sympy.org</a>
+will continue to render exactly the same, but for developers, it is much
+easier to read and write.</p>
+<p>This extension can be easily used in any Sphinx project. Simply install it
+with pip or conda:</p>
+<pre class="code literal-block"><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sphinx</span><span class="o">-</span><span class="n">math</span><span class="o">-</span><span class="n">dollar</span>
+</pre>
+
+
+<p>or</p>
+<pre class="code literal-block"><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="k">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">sphinx</span><span class="o">-</span><span class="n">math</span><span class="o">-</span><span class="n">dollar</span>
+</pre>
+
+
+<p>Then enable it in your <code>conf.py</code>:</p>
+<pre class="code literal-block"><span></span><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'sphinx_math_dollar'</span><span class="p">,</span> <span class="s1">'sphinx.ext.mathjax'</span><span class="p">]</span>
+</pre>
+
+
+<h3>Google Season of Docs</h3>
+<p>The above work on sphinx-math-dollar is part of work I have been doing to
+improve the tooling around SymPy's documentation. This has been to assist our
+technical writer Lauren Glattly, who is working with SymPy for the next three
+months as part of the new <a href="https://developers.google.com/season-of-docs/">Google Season of
+Docs</a> program. Lauren's project
+is to improve the consistency of our docstrings in SymPy. She has already
+identified many key ways our docstring documentation can be improved, and is
+currently working on a style guide for writing docstrings. Some of the issues
+that Lauren has identified require improved tooling around the way the HTML
+documentation is built to fix. So some other SymPy developers and I have been
+working on improving this, so that she can focus on the technical writing
+aspects of our documentation.</p>
+<p>Lauren has created a draft style guide for documentation at
+<a href="https://github.com/sympy/sympy/wiki/SymPy-Documentation-Style-Guide">https://github.com/sympy/sympy/wiki/SymPy-Documentation-Style-Guide</a>. Please
+take a moment to look at it and if you have any feedback on it, <a href="mailto:asmeurer@quansight.com">email
+me</a> or write to the SymPy mailing list.</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../../09/ruby-wrappers-for-the-xnd-project/" rel="prev" title="Ruby wrappers for the XND project">Previous post</a>
+            </li>
+        </ul></nav></aside><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha256-SDRP1VVYu+tgAGKhddBSl5+ezofHKZeI+OzxakbIe/Y=" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script></article><!--End of body content--><footer id="footer">
+            Contents © 2019         <a href="mailto:info@quansight.com">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>

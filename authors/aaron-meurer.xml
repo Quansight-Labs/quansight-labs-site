@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs (Posts by Aaron Meurer)</title><link>https://labs.quansight.org/</link><description></description><atom:link href="https://labs.quansight.org/authors/aaron-meurer.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Sun, 29 Sep 2019 12:25:02 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>What's New in SymPy 1.4</title><link>https://labs.quansight.org/blog/2019/04/whats-new-in-sympy-14/</link><dc:creator>Aaron Meurer</dc:creator><description>&lt;div&gt;&lt;p&gt;As of November, 2018, I have been working at
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs (Posts by Aaron Meurer)</title><link>https://labs.quansight.org/</link><description></description><atom:link href="https://labs.quansight.org/authors/aaron-meurer.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Mon, 07 Oct 2019 20:15:56 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Quansight Labs Work Update for September, 2019</title><link>https://labs.quansight.org/blog/2019/10/quansight-labs-work-update-for-september-2019/</link><dc:creator>Aaron Meurer</dc:creator><description>&lt;div&gt;&lt;p&gt;As of November, 2018, I have been working at
+&lt;a href="https://www.quansight.com/"&gt;Quansight&lt;/a&gt;. Quansight is a new startup founded by
+the same people who started Anaconda, which aims to connect companies and open
+source communities, and offers consulting, training, support and mentoring
+services. I work under the heading of &lt;a href="https://www.quansight.com/labs"&gt;Quansight
+Labs&lt;/a&gt;. Quansight Labs is a public-benefit
+division of Quansight. It provides a home for a "PyData Core Team" which
+consists of developers, community managers, designers, and documentation
+writers who build open-source technology and grow open-source communities
+around all aspects of the AI and Data Science workflow.&lt;/p&gt;
+&lt;p&gt;My work at Quansight is split between doing open source consulting for various
+companies, and working on SymPy.
+&lt;a href="https://www.sympy.org/en/index.html"&gt;SymPy&lt;/a&gt;, for those who do not know, is a
+symbolic mathematics library written in pure Python. I am the lead maintainer
+of SymPy.&lt;/p&gt;
+&lt;p&gt;In this post, I will detail some of the open source work that I have done
+recently, both as part of my open source consulting, and as part of my work on
+SymPy for Quansight Labs.&lt;/p&gt;
+&lt;h3&gt;Bounds Checking in Numba&lt;/h3&gt;
+&lt;p&gt;As part of work on a client project, I have been working on contributing code
+to the &lt;a href="https://numba.pydata.org"&gt;numba&lt;/a&gt; project. Numba is a just-in-time
+compiler for Python. It lets you write native Python code and with the use of
+a simple &lt;code&gt;@jit&lt;/code&gt; decorator, the code will be automatically sped up using LLVM.
+This can result in code that is up to 1000x faster in some cases:&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/10/quansight-labs-work-update-for-september-2019/"&gt;Read more…&lt;/a&gt; (7 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><guid>https://labs.quansight.org/blog/2019/10/quansight-labs-work-update-for-september-2019/</guid><pubDate>Mon, 07 Oct 2019 05:00:00 GMT</pubDate></item><item><title>What's New in SymPy 1.4</title><link>https://labs.quansight.org/blog/2019/04/whats-new-in-sympy-14/</link><dc:creator>Aaron Meurer</dc:creator><description>&lt;div&gt;&lt;p&gt;As of November, 2018, I have been working at
 &lt;a href="https://www.quansight.com/"&gt;Quansight&lt;/a&gt;, under the heading of &lt;a href="https://www.quansight.com/labs"&gt;Quansight
 Labs&lt;/a&gt;. Quansight Labs is a public-benefit
 division of Quansight. It provides a home for a "PyData Core Team" which

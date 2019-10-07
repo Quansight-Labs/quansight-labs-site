@@ -26,7 +26,7 @@ MathJax.Hub.Config({
        styles: {'.MathJax_Display': {"margin": 0}}
    }
 });
-</script><!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="blog/2019/09/ruby-wrappers-for-the-xnd-project/" type="text/html">
+</script><!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="blog/2019/10/quansight-labs-work-update-for-september-2019/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -78,7 +78,46 @@ navbar-dark bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/09/ruby-wrappers-for-the-xnd-project/" class="u-url">Ruby wrappers for the XND project</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/10/quansight-labs-work-update-for-september-2019/" class="u-url">Quansight Labs Work Update for September, 2019</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                <a href="authors/aaron-meurer/">Aaron Meurer</a>
+            </span></p>
+            <p class="dateline">
+            <a href="blog/2019/10/quansight-labs-work-update-for-september-2019/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-10-07T00:00:00-05:00" itemprop="datePublished" title="2019-10-07">2019-10-07</time></a>
+            </p>
+        </div>
+    </header><div class="p-summary entry-summary">
+    <div>
+<p>As of November, 2018, I have been working at
+<a href="https://www.quansight.com/">Quansight</a>. Quansight is a new startup founded by
+the same people who started Anaconda, which aims to connect companies and open
+source communities, and offers consulting, training, support and mentoring
+services. I work under the heading of <a href="https://www.quansight.com/labs">Quansight
+Labs</a>. Quansight Labs is a public-benefit
+division of Quansight. It provides a home for a "PyData Core Team" which
+consists of developers, community managers, designers, and documentation
+writers who build open-source technology and grow open-source communities
+around all aspects of the AI and Data Science workflow.</p>
+<p>My work at Quansight is split between doing open source consulting for various
+companies, and working on SymPy.
+<a href="https://www.sympy.org/en/index.html">SymPy</a>, for those who do not know, is a
+symbolic mathematics library written in pure Python. I am the lead maintainer
+of SymPy.</p>
+<p>In this post, I will detail some of the open source work that I have done
+recently, both as part of my open source consulting, and as part of my work on
+SymPy for Quansight Labs.</p>
+<h3>Bounds Checking in Numba</h3>
+<p>As part of work on a client project, I have been working on contributing code
+to the <a href="https://numba.pydata.org">numba</a> project. Numba is a just-in-time
+compiler for Python. It lets you write native Python code and with the use of
+a simple <code>@jit</code> decorator, the code will be automatically sped up using LLVM.
+This can result in code that is up to 1000x faster in some cases:</p>
+<p class="more"><a href="blog/2019/10/quansight-labs-work-update-for-september-2019/">Read more…</a></p>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/09/ruby-wrappers-for-the-xnd-project/" class="u-url">Ruby wrappers for the XND project</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 <a href="authors/sameer-deshmukh-v0dro/">Sameer Deshmukh (@v0dro)</a>
@@ -478,64 +517,6 @@ we decided to remove it in the 3.x series.</p>
 </div>
 </div>
 </div>
-</div>
-    </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/05/community-driven-opensource-funded-development/" class="u-url">Community-driven open source and funded development</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                <a href="authors/ralf-gommers/">Ralf Gommers</a>
-            </span></p>
-            <p class="dateline">
-            <a href="blog/2019/05/community-driven-opensource-funded-development/" rel="bookmark">
-            <time class="published dt-published" datetime="2019-05-29T00:00:00-05:00" itemprop="datePublished" title="2019-05-29">2019-05-29</time></a>
-            </p>
-        </div>
-    </header><div class="p-summary entry-summary">
-    <div>
-<p>Quansight Labs is an experiment for us in a way. One of our main aims is to
-channel more resources into community-driven PyData projects, to keep them
-healthy and accelerate their development. <em>And do so in a way that projects
-themselves stay in charge.</em></p>
-<p>This post explains one method we're starting to use for this. I'm writing it
-to be transparent with projects, the wider community and potential funders
-about what we're starting to do. As well as to explicitly solicit feedback on
-this method.</p>
-<h3>Community work orders</h3>
-<p>If you talk to someone about supporting an open source project, in particular a
-well-known one that they rely on (e.g. NumPy, Jupyter, Pandas), they're often
-willing to listen and help. What you quickly learn though is that they want
-to know in some detail what will be done with the funds provided. This is
-true not only for companies, but also for individuals. In addition, companies
-will likely want a written agreement and some form of reporting about the
-progress of the work. To meet this need we came up with <em>community work
-orders</em> (CWOs) - agreements that outline what work will be done on a project
-(implementing new features, release management, improving documentation,
-etc.) and outlining a reporting mechanism. What makes a CWO different from a
-consulting contract? Key differences are:</p>
-<ol>
-<li>It must be work that is done on the open source project itself (and not e.g.
-   on a plugin for it, or a customization for the client).</li>
-<li>The developers must have a reasonable amount of freedom to decide what to
-   work on and what the technical approach will be, within the broad scope of
-   the agreement.</li>
-<li>Deliverables cannot be guaranteed to end up in a project; instead the funder
-   gets the promise of a best effort of implementation and working with the
-   community.</li>
-</ol>
-<h3>Respecting community processes</h3>
-<p>Point 3 above is particularly important: <em>we must respect how open source
-projects make decisions</em>. If the project maintainers decide that they don't
-want to include a particular change or new feature, that's their decision to
-make. Any code change proposed as part of work on a CWO has to go through the
-same review process as any other change, and be accepted on its merits. The
-argument "but someone paid for this" isn't particularly strong, nor is one
-that reviewers should have to care about. Now of course we don't expect it to
-be common for work to be rejected. An important part of the Quansight value
-proposition is that because we understand how open source works and many of
-our developers are maintainers and contributors of the open source projects
-already, we propose work that the community already has interest in and we
-open the discussion about any major code change early to avoid issues.</p>
-<p class="more"><a href="blog/2019/05/community-driven-opensource-funded-development/">Read more…</a></p>
 </div>
     </div>
     </article>
