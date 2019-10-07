@@ -2,6 +2,7 @@
 .. title: Quansight Labs Work Update for September, 2019
 .. slug: quansight-labs-work-update-for-september-2019
 .. date: 2019-10-04
+.. author: Aaron Meurer
 .. tags:
 .. category:
 .. link:
