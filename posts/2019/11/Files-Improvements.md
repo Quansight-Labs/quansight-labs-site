@@ -1,9 +1,9 @@
 <!--
 .. title: Files Improvements Spyder4
-.. slug: 
-.. date: 2019-10-28
-.. author: Juanita Gomez
-.. tags: 
+.. slug: Files-Improvements
+.. date: 2019-11-01 12:00:00 UTC-05:00
+.. author: Juanita Gomez & Gonzalo Peña
+.. tags: Labs, Spyder
 .. category: 
 .. link: 
 .. description: 
@@ -22,7 +22,7 @@ In order to simplify the file explorer interface, by default now the columns cor
 
 ![Header Menu](/images/header-menu.png)
 
-### Custom File Associations
+## Custom File Associations
 
 First, we added the possibility to associate different external applications to open specific file extensions. By going to the “Files” option in the preferences window, it is possible to set the file associations by, selecting the File Types and the Associated applications that should be used to open this specific file extensions. 
 
@@ -36,7 +36,7 @@ Once this configuration is set you can go to the files pane in spyder and whenev
 
 Another improvement made was the option to open files and directories with a single click which was not possible before because files and folders could only be opened by double clicking them. In order to enable this option, go to the files tab in the preferences window, check the box “Single click to open files” and apply the changes. With this set, now only a single click is needed to open a file externally or in spyder, from the files tab. 
 
-![Single click](/images/single-click.jpg)
+![Single click](/images/single-click.png)
 
 Bear in mind that changing this configuration option will also affect the behaviour of the Project Explorer pane.
 
