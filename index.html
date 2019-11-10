@@ -26,7 +26,7 @@ MathJax.Hub.Config({
        styles: {'.MathJax_Display': {"margin": 0}}
    }
 });
-</script><!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="blog/2019/10/quansight-labs-work-update-for-september-2019/" type="text/html">
+</script><!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="blog/2019/11/uarray-attempting-to-move-the-ecosystem-forward/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -72,13 +72,31 @@ navbar-dark bg-dark
         <!--Body content-->
         
         
+        
 
     
 
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/10/quansight-labs-work-update-for-september-2019/" class="u-url">Quansight Labs Work Update for September, 2019</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/11/uarray-attempting-to-move-the-ecosystem-forward/" class="u-url">uarray: Attempting to move the ecosystem forward</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                <a href="authors/hameer-abbasi/">Hameer Abbasi</a>
+            </span></p>
+            <p class="dateline">
+            <a href="blog/2019/11/uarray-attempting-to-move-the-ecosystem-forward/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-11-10T05:28:00Z" itemprop="datePublished" title="2019-11-10">2019-11-10</time></a>
+            </p>
+        </div>
+    </header><div class="p-summary entry-summary">
+    <div>
+<p>There comes a time in every project where most technological hurdles have been surpassed, and its adoption is a social problem. I believe <code>uarray</code> and <code>unumpy</code> had reached such a state, a month ago.</p>
+<p>I then proceeded, along with <a href="https://github.com/rgommers">Ralf Gommers</a> and <a href="https://github.com/peterbell10">Peter Bell</a> to write <a href="https://numpy.org/neps/nep-0031-uarray.html">NumPy Enhancement Proposal 31</a> or NEP-31. This generated a lot of excellent feedback on the structure and the nuances of the proposal, which you can read both on the <a href="https://numpy.org/neps/nep-0031-uarray.html">pull request</a> and on the <a href="https://mail.python.org/pipermail/numpy-discussion/2019-September/079961.html">mailing list discussion</a>, which led to a lot of restructuring in the contents and the structure of the NEP, but very little in the actual proposal. I take full responsibility for this: I have a bad tendency to assume everyone knows what I'm thinking. Thankfully, I'm not alone in this: It's a <a href="https://en.wikipedia.org/wiki/Curse_of_knowledge">known psychological phenomenon</a>.</p>
+<p class="more"><a href="blog/2019/11/uarray-attempting-to-move-the-ecosystem-forward/">Read more…</a></p>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/10/quansight-labs-work-update-for-september-2019/" class="u-url">Quansight Labs Work Update for September, 2019</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 <a href="authors/aaron-meurer/">Aaron Meurer</a>
@@ -480,52 +498,13 @@ we decided to remove it in the 3.x series.</p>
 <p class="more"><a href="blog/2019/06/tdk-partners-with-quansight-labs/">Read more…</a></p>
 </div>
     </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/05/metadsl-dsl-framework/" class="u-url">metadsl: A Framework for Domain Specific Languages in Python</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                <a href="authors/saul-shanabrook/">Saul Shanabrook</a>
-            </span></p>
-            <p class="dateline">
-            <a href="blog/2019/05/metadsl-dsl-framework/" rel="bookmark">
-            <time class="published dt-published" datetime="2019-05-31T00:00:00-05:00" itemprop="datePublished" title="2019-05-31">2019-05-31</time></a>
-            </p>
-        </div>
-    </header><div class="p-summary entry-summary">
-    <div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="metadsl:-A-Framework-for-Domain-Specific-Languages-in-Python">
-<a href="https://github.com/quansight-labs/metadsl"><code>metadsl</code></a>: A Framework for Domain Specific Languages in Python<a class="anchor-link" href="blog/2019/05/metadsl-dsl-framework/#metadsl:-A-Framework-for-Domain-Specific-Languages-in-Python">¶</a>
-</h2>
-<p>Hello, my name is Saul Shanabrook and for the past year or so I have been at Quansight exploring the array computing ecosystem. This started with working on the <a href="https://xnd.io/">xnd project</a>, a set of low level primitives to help build cross platform NumPy-like APIs, and then <a href="https://github.com/saulshanabrook/moa">started</a> <a href="https://github.com/saulshanabrook/moa">exploring</a> Lenore Mullin's work on a mathematics of arrays. After spending quite a bit of time working on an integrated solution built on these concepts, I decided to step back to try to generalize and simplify the core concepts. The trickiest part was not actually compiling mathematical descriptions of array operations in Python, but figuring out how to make it useful to existing users. To do this, we need to meet users where they are at, which is with the APIs they are already familiar with, like <code>numpy</code>. The goal of <code>metadsl</code> is to make it easier to tackle parts of this problem seperately so that we can collaborate on tackling it together.</p>
-<h3 id="Libraries-for-Scientific-Computing">Libraries for Scientific Computing<a class="anchor-link" href="blog/2019/05/metadsl-dsl-framework/#Libraries-for-Scientific-Computing">¶</a>
-</h3>
-<p>Much of the recent rise of Python's popularity is due to its usage for scientific computing and machine learning. This work is built on different frameworks, like Pandas, NumPy, Tensorflow, and scikit-learn. Each of these are meant to be used from Python, but have their own concepts and abstractions to learn on top of the core language, so we can look at them as Domain Specific Languages (DSLs). As the ecosystem has matured, we are now demanding more flexibility for how these languages are executed. Dask gives us a way to write Pandas or NumPy and execute it across many cores or computers, Ibis allows us to write Pandas but on a SQL database, with CuPy we can execute NumPy on our GPU, and with Numba we can optimize our NumPy expession on a CPU or GPU. These projects prove that it is possible to write optimizing compilers that target varying hardware paradigms for existing Python numeric APIs. However, this isn't straightforward and these projects success is a testament to the perserverence and ingenuity of the authors. We need to make it easy to add reusable optimizations to libraries like these, so that we can support the latest hardware and compiler optimizations from Python. <a href="https://github.com/quansight-labs/metadsl"><code>metadsl</code></a> is meant to be a place to come together to build a framework for DSLs in Python. It provides a way to seperate the user experience from the the specific of execution, to enable consistency and flexibility for users. In this post, I will go through an example of creating a very basic DSL. It will not use the <code>metadsl</code> library, but will created in the same style as <code>metadsl</code> to illustrate its basic principles.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p class="more"><a href="blog/2019/05/metadsl-dsl-framework/">Read more…</a></p>
-</div>
-</div>
-</div>
-</div>
-    </div>
     </article>
 </div>
 
         <ul class="pager postindexpager clearfix">
 <li class="next"><a href="index-1.html" rel="next">Older posts</a></li>
         </ul>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha256-SDRP1VVYu+tgAGKhddBSl5+ezofHKZeI+OzxakbIe/Y=" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha384-3lJUsx1TJHt7BA4udB5KPnDrlkO8T6J6v/op7ui0BbCjvZ9WqV4Xm6DTP6kQ/iBH" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
 MathJax.Hub.Config({
    tex2jax: {
        inlineMath: [ ['$','$'], ["\\(","\\)"], ],
@@ -538,6 +517,7 @@ MathJax.Hub.Config({
 });
 </script><!--End of body content--><footer id="footer">
             Contents © 2019         <a href="mailto:info@quansight.com">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
             
         </footer>
 </div>

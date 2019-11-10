@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>uarray: Attempting to move the ecosystem forward | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2019/11/uarray-attempting-to-move-the-ecosystem-forward/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Hameer Abbasi">
+<link rel="prev" href="../../10/quansight-labs-work-update-for-september-2019/" title="Quansight Labs Work Update for September, 2019" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="uarray: Attempting to move the ecosystem forward">
+<meta property="og:url" content="https://labs.quansight.org/blog/2019/11/uarray-attempting-to-move-the-ecosystem-forward/">
+<meta property="og:description" content="There comes a time in every project where most technological hurdles have been surpassed, and its adoption is a social problem. I believe uarray and unumpy had reached such a state, a month ago.
+I the">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2019-11-10T05:28:00Z">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+
+            <span id="blog-title">Quansight Labs</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../archive.html" class="nav-link">Archive</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../categories/" class="nav-link">Tags</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS feed</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right">
+<li class="nav-item">
+    <a href="index.md" id="sourcelink" class="nav-link">Source</a>
+    </li>
+
+
+                
+            </ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">uarray: Attempting to move the ecosystem forward</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    <a class="u-url" href="../../../../authors/hameer-abbasi/">Hameer Abbasi</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2019-11-10T05:28:00Z" itemprop="datePublished" title="2019-11-10">2019-11-10</time></a>
+            </p>
+            
+        <p class="sourceline"><a href="index.md" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<p>There comes a time in every project where most technological hurdles have been surpassed, and its adoption is a social problem. I believe <code>uarray</code> and <code>unumpy</code> had reached such a state, a month ago.</p>
+<p>I then proceeded, along with <a href="https://github.com/rgommers">Ralf Gommers</a> and <a href="https://github.com/peterbell10">Peter Bell</a> to write <a href="https://numpy.org/neps/nep-0031-uarray.html">NumPy Enhancement Proposal 31</a> or NEP-31. This generated a lot of excellent feedback on the structure and the nuances of the proposal, which you can read both on the <a href="https://numpy.org/neps/nep-0031-uarray.html">pull request</a> and on the <a href="https://mail.python.org/pipermail/numpy-discussion/2019-September/079961.html">mailing list discussion</a>, which led to a lot of restructuring in the contents and the structure of the NEP, but very little in the actual proposal. I take full responsibility for this: I have a bad tendency to assume everyone knows what I'm thinking. Thankfully, I'm not alone in this: It's a <a href="https://en.wikipedia.org/wiki/Curse_of_knowledge">known psychological phenomenon</a>.</p>
+<!-- TEASER_END -->
+
+<p>Of course, social problems can take a long time to resolve one way or another, regardless of the proponents. And I consider this a good thing: it's better not to be stuck with an API decision that may bite you a few years down the line, especially with a project with API compatibility guarantees and number of dependents as NumPy.</p>
+<p>I must confess I felt discouraged at some points in the <code>uarray</code> journey: However, realising my flaws will make me perform better in the future.</p>
+<p>Although my main focus at this point in my career isn't <code>uarray</code> (not that I don't want it to be, only that social problems don't take very much of your time), it isn't a small library at the back of my head by any means.</p>
+<p>With that out of the way, I'd like to present some improvements the Quansight team has made to <code>uarray</code> over the course of the past several months:</p>
+<h3>Progress on Integration</h3>
+<h4>
+<code>uarray</code> ❤️ <code>scipy.fft</code>
+</h4>
+<p><code>uarray</code> is now the <a href="http://scipy.github.io/devdocs/fft.html#backend-control">official override mechanism</a> for <code>scipy.fft</code>. This is a <em>huge</em> win.</p>
+<h4>NEP-31 merged with draft status</h4>
+<p>Already discussed above, but <a href="https://numpy.org/neps/nep-0031-uarray.html">NEP-31</a> is available on the NumPy website in draft form.</p>
+<h3>In core <code>uarray</code>
+</h3>
+<h4>C++ Implementation Merged</h4>
+<p>The C++ implementation of the <code>uarray</code> protocol is now <a href="https://github.com/Quansight-Labs/uarray/pull/170">merged</a>. <code>uarray</code> is now lightning fast: About as fast as <code>__array_function__</code>.</p>
+<h4>Global backend as the "only" backend</h4>
+<p>The <code>set_global_backend</code> gained an <code>only=</code> kwarg. You can read what this means in the <a href="https://uarray.org/en/latest/generated/uarray.set_global_backend.html">docs</a>, but basically: In the absence of any local backends; no other backend will be tried at all.</p>
+<h4>Cross-platform CI</h4>
+<p>We now have <a href="https://github.com/Quansight-Labs/uarray/pull/178">cross-platform CI</a> for Windows, macOS and Linux.</p>
+<h4>Building wheels on CI</h4>
+<p><a href="https://github.com/Quansight-Labs/uarray/pull/193">... so we don't have to. 😁</a></p>
+<h4>Backends can fail fast</h4>
+<p><a href="https://github.com/Quansight-Labs/uarray/pull/199">... by throwing a <code>ua.BackendNotImplementedError</code></a></p>
+<h4>New website 🥳</h4>
+<p><a href="https://uarray.org/">https://uarray.org/</a>, and <a href="https://unumpy.uarray.org/">https://unumpy.uarray.org/</a>. 'Nuff said.</p>
+<h4>Test <code>scipy.fft</code> in CI</h4>
+<p><a href="https://github.com/Quansight-Labs/uarray/commit/ddbdad8bec3c94258e646313bcb20189f103a120">... so we don't accidentally break it.</a></p>
+<h4>Re-entrant context managers</h4>
+<p><a href="https://github.com/Quansight-Labs/uarray/pull/207">... so you can cache contexts and use them without worrying.</a></p>
+<h4>Then we cache for you</h4>
+<p><a href="https://github.com/Quansight-Labs/uarray/pull/210">... so you don't have to.</a></p>
+<h4>Rich comparison of backends</h4>
+<p><a href="https://github.com/Quansight-Labs/uarray/pull/212">... so you can specify (via <code>__eq__</code>) which backends to skip</a></p>
+<h4>A bit of performance here and there</h4>
+<p><a href="https://github.com/Quansight-Labs/uarray/pull/212">Backend systems need to be fast. 😉</a></p>
+<h3>In <code>unumpy</code>
+</h3>
+<p>More coverage of the NumPy API, mainly. 🏃‍</p>
+<h3><a href="https://github.com/Quansight-Labs/udiff"><code>udiff</code></a></h3>
+<p>There's another part of the <a href="https://uarray.org/"><code>uarray</code></a> ecosystem now: <a href="https://github.com/Quansight-Labs/udiff"><code>udiff</code></a>. It can perform auto differentiation of any <a href="https://unumpy.uarray.org/"><code>unumpy</code></a> array.</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../../10/quansight-labs-work-update-for-september-2019/" rel="prev" title="Quansight Labs Work Update for September, 2019">Previous post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2019         <a href="mailto:info@quansight.com">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>
