@@ -1,6 +1,6 @@
 <!--
-.. title: Files Improvements Spyder4
-.. slug: Files-Improvements
+.. title: File management improvements in Spyder4
+.. slug: File-management-improvements-in-Spyder4
 .. date: 2019-11-01 12:00:00 UTC-05:00
 .. author: Juanita Gomez & Gonzalo Peña
 .. tags: Labs, Spyder
@@ -10,31 +10,30 @@
 .. type: text
 -->
 
-# Files Improvements Spyder4
-
-For version 4 of Spyder several improvements have been made regarding file management and visualization. 
+Spyder 4.0 is almost ready! It has been in the making for 1.5 years, and it contains lots of interesting new features. In this post we will focus on the files plugin where several improvements have been made regarding file management and interface. 
 
 ## Simplified interface
 
 In order to simplify the file explorer interface, by default now the columns corresponding to size and kind are hidden. This feature can be activated or deactivated by either accessing the Pane Menu or by right clicking the header directly. In both, cases you can select which columns to display in the file explorer.
 
 ![Pane Menu](/images/spyder-files-pane-menu.png)
+<!-- TEASER_END -->
 
 ![Header Menu](/images/spyder-files-header-menu.png)
 
-## Custom File Associations
+## Custom file associations
 
 First, we added the possibility to associate different external applications to open specific file extensions. By going to the “Files” option in the preferences window, it is possible to set the file associations by, selecting the File Types and the Associated applications that should be used to open this specific file extensions. 
 
 ![File associations](/images/spyder-files-file-associations.png)
 
-Once this configuration is set you can go to the files pane in spyder and whenever you open a file with the selected extension, it will open automatically with the selected associated application. Additionally, when you right click a file with one of this extensions, you will find an “open with” option that will show the application associated for this extension.
+Once this configuration is set you can go to the files pane in Spyder and whenever you open a file with the selected extension, it will open automatically with the selected associated application. Additionally, when you right click a file with one of this extensions, you will find an “open with” option that will show the application associated for this extension.
 
 ![Open With](/images/spyder-files-open-with.png)
 
 ## Single click open on file explorer
 
-Another improvement made was the option to open files and directories with a single click which was not possible before because files and folders could only be opened by double clicking them. In order to enable this option, go to the files tab in the preferences window, check the box “Single click to open files” and apply the changes. With this set, now only a single click is needed to open a file externally or in spyder, from the files tab. 
+Another improvement made was the option to open files and directories with a single click which was not possible before because files and folders could only be opened by double clicking them. In order to enable this option, go to the files tab in the preferences window, check the box “Single click to open files” and apply the changes. With this set, now only a single click is needed to open a file externally or in Spyder, from the files tab. 
 
 ![Single click](/images/spyder-files-single-click.png)
 
@@ -42,7 +41,7 @@ Bear in mind that changing this configuration option will also affect the behavi
 
 ## Open files externally
 
-Additionally, we added a context menu action called Open externally to open files with the Operating System default program associated with the file type. To use this action, go to the file you want to open in the files tab and right-click it to see the context menu. Then select “Open Externally” and the file will be opened outside spyder, with the default program associated with its file type, depending on the Operating System.
+Additionally, we added a context menu action called Open externally to open files with the Operating System default program associated with the file type. To use this action, go to the file you want to open in the files tab and right-click it to see the context menu. Then select “Open Externally” and the file will be opened outside Spyder, with the default program associated with its file type, depending on the Operating System.
 
 ![Open Externally](/images/spyder-files-open-externally.png)
 
@@ -52,13 +51,13 @@ By doing this, it is possible to execute some of the actions available in the co
 
 ![Select Files](/images/spyder-files-select-files.png)
 
-## Files absolute and relative path handling
+## Absolute and relative path handling
 
 Another functionality added was the ability to copy and paste files and their absolute or relative paths. To access these actions, go to the context menu by right-clicking a file in the files tab. 
 
 ![Copy Path](/images/spyder-files-copy-path.png)
 
-With this, a file can be copied from the files tab and pasted anywhere else directly from spyder. The “Copy Absolute Path” and “Copy Relative Path” actions, give us access to the files’ path, to be pasted as text. 
+With this, a file can be copied from the files tab and pasted anywhere else directly from Spyder. The “Copy Absolute Path” and “Copy Relative Path” actions, give us access to the files’ path, to be pasted as text. 
 
 This way, when pasting the absolute path of a file, we get the complete path of the file starting from the root.
 
@@ -72,7 +71,7 @@ Finally, files are now displayed along with icons depending on their file type. 
 
 ![File Extensions](/images/spyder-files-file-extensions.png)
 
-
+With this new features added to Spyder's file management behavior and UI design in the files plugin, we think we achieved to improve the experience of the user managing files in Spyder.
 
 
 
