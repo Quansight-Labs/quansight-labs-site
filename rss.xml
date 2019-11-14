@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Tue, 12 Nov 2019 23:36:23 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>File management improvements in Spyder4</title><link>https://labs.quansight.org/blog/2019/11/File-management-improvements-in-Spyder4/</link><dc:creator>Juanita Gomez &amp; Gonzalo Peña</dc:creator><description>&lt;div&gt;&lt;p&gt;Version 4.0 of &lt;a href="https://www.spyder-ide.org/"&gt;Spyder&lt;/a&gt;—a powerful Python IDE designed for scientists, engineers and data analysts—is almost ready! It has been in the making for well over two years, and it contains lots of interesting new features. We will focus on the Files pane in this post, where we've made several improvements to the interface and file management tools. &lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Thu, 14 Nov 2019 23:33:43 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>A new grant for NumPy and OpenBLAS!</title><link>https://labs.quansight.org/blog/2019/11/numpy-openblas-CZI-grant/</link><dc:creator>Ralf Gommers</dc:creator><description>&lt;div&gt;&lt;p&gt;I'm very pleased to announce that NumPy and OpenBLAS just received a $195,000 grant from
+the Chan Zuckerberg Initiative, through its
+&lt;a href="https://chanzuckerberg.com/rfa/essential-open-source-software-for-science/"&gt;Essential Open Source Software for Science&lt;/a&gt;
+(EOSS) program! This is good news for both projects, and I'm particularly excited about
+the types of activities we'll be undertaking, what this will mean in terms of growing
+the community, and to be part of the first round of funded projects of this visionary program.&lt;/p&gt;
+&lt;h3&gt;The program&lt;/h3&gt;
+&lt;p&gt;The &lt;a href="https://chanzuckerberg.com/newsroom/chan-zuckerberg-initiative-awards-5-million-for-open-source-software-projects-essential-to-science/"&gt;press release&lt;/a&gt;
+gives a high level overview of the program, and the
+&lt;a href="https://chanzuckerberg.com/eoss/proposals"&gt;grantee website&lt;/a&gt; lists the 32 successful applications.
+Other projects that got funded include SciPy and Matplotlib (it's the very first
+significant funding for both projects!), Pandas, Zarr, scikit-image, JupyterHub, and
+Bioconda - we're in good company!&lt;/p&gt;
+&lt;p&gt;Nicholas Sonofriew and Dario Taborelli, two of the people driving the EOSS program, wrote
+a blog post that's well worth reading about the motivations for starting this program and
+the 42 projects that applied and got funded:
+&lt;a href="https://medium.com/@cziscience/4ab7f8d4f5dd"&gt;The Invisible Foundations of Biomedicine&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/11/numpy-openblas-CZI-grant/"&gt;Read more…&lt;/a&gt; (5 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>community</category><category>funding</category><category>Labs</category><category>NumPy</category><category>OpenBLAS</category><guid>https://labs.quansight.org/blog/2019/11/numpy-openblas-CZI-grant/</guid><pubDate>Thu, 14 Nov 2019 20:00:00 GMT</pubDate></item><item><title>File management improvements in Spyder4</title><link>https://labs.quansight.org/blog/2019/11/File-management-improvements-in-Spyder4/</link><dc:creator>Juanita Gomez &amp; Gonzalo Peña</dc:creator><description>&lt;div&gt;&lt;p&gt;Version 4.0 of &lt;a href="https://www.spyder-ide.org/"&gt;Spyder&lt;/a&gt;—a powerful Python IDE designed for scientists, engineers and data analysts—is almost ready! It has been in the making for well over two years, and it contains lots of interesting new features. We will focus on the Files pane in this post, where we've made several improvements to the interface and file management tools. &lt;/p&gt;
 &lt;h3&gt;Simplified interface&lt;/h3&gt;
 &lt;p&gt;In order to simplify the Files pane's interface, the columns corresponding to size and kind are hidden by default. To change which columns are shown, use the top-right pane menu or right-click the header directly.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Pane Menu" src="https://labs.quansight.org/images/spyder-files/pane-menu.png"&gt;
@@ -194,26 +211,4 @@ device types (CPUs, GPUs etc.) without loss of performance and ease of use.&lt;/
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;In &lt;code&gt;uarray&lt;/code&gt;, the fundamental building block is a multimethod. Multimethods have a number of nice properties, such as automatic dispatch based on backends. It is important to note here that multimethods will be written by API authors, rather than implementors. Here's how we define a multimethod in &lt;code&gt;uarray&lt;/code&gt;:
-&lt;/p&gt;&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/"&gt;Read more…&lt;/a&gt; (10 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/</guid><pubDate>Wed, 03 Jul 2019 11:36:54 GMT</pubDate></item><item><title>Labs update and May highlights</title><link>https://labs.quansight.org/blog/2019/06/labs-update-may-highlights/</link><dc:creator>Ralf Gommers</dc:creator><description>&lt;div&gt;&lt;p&gt;Time flies when you're having fun. Here is an update of some of the highlights
-of my second month at Quansight Labs.&lt;/p&gt;
-&lt;h3&gt;The making of a black hole image &amp;amp; GitHub Sponsors&lt;/h3&gt;
-&lt;p&gt;Both Travis and myself were invited by GitHub to attend GitHub Satellite in
-Berlin. The main reason was that Nat Friedman (GitHub CEO) decided to spend the
-first 20 minutes of his keynote to highlight the &lt;a href="https://eventhorizontelescope.org/"&gt;Event Horizon
-Telescope's&lt;/a&gt; black hole image and the open
-source software that made that imaging possible. This included the scientific
-Python very prominently - NumPy, Matplotlib, Python, Cython, SciPy, AstroPy and
-other projects were highlighted. At the same time, Nat introduced new GitHub
-features like "used by", a triaging role and new dependency graph features and
-illustrated how those worked for NumPy. These features will be very welcome
-news to maintainers of almost any project.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="GitHub Satellite'19 keynote, showcasing NumPy and Matplotlib" src="https://labs.quansight.org/images/githubsatellite_keynote_numpy_matplotlib.png"&gt;&lt;/p&gt;
-&lt;p&gt;The single most visible feature introduced was &lt;strong&gt;GitHub Sponsors&lt;/strong&gt;:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="GitHub Sponsors enabled on the NumPy repo" src="https://labs.quansight.org/images/github_sponsors_screenshot.png"&gt;&lt;/p&gt;
-&lt;p&gt;I really enjoyed meeting &lt;a href="https://devonzuegel.com"&gt;Devon Zuegel&lt;/a&gt;, Product
-Manager of the Open Source Economy Team at GitHub, in person after previously
-having had the chance to exchange ideas with her about the funding related
-needs of scientific Python projects and their core teams. I'm confident that
-GitHub Sponsors will evolve in a direction that's beneficial to
-community-driven open source projects.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/06/labs-update-may-highlights/"&gt;Read more…&lt;/a&gt; (5 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Labs</category><guid>https://labs.quansight.org/blog/2019/06/labs-update-may-highlights/</guid><pubDate>Wed, 12 Jun 2019 05:00:00 GMT</pubDate></item></channel></rss>
+&lt;/p&gt;&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/"&gt;Read more…&lt;/a&gt; (10 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/</guid><pubDate>Wed, 03 Jul 2019 11:36:54 GMT</pubDate></item></channel></rss>
