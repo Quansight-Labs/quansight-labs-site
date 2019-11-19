@@ -41,7 +41,7 @@ Finally, we added a context-menu action to allow using the object explorer viewe
 
 ![View object explorer](/images/spyder-variable-explorer/view-object-explorer.png)
 
-##Multi-index support in the dataframe viewer
+## Multi-index support in the dataframe viewer
 
 One of the first enhancements we did to the Variable Explorer in Spyder 4 was adding support for multi-dimensional indexes to its dataframe viewer. In Spyder 3 the support was very limited, which made inspecting those indexes a painful experience:
 
@@ -51,7 +51,7 @@ For Spyder 4 we took advantage of the work done by Scott Hansen ([@firecat53](ht
 
 ![Table headings](/images/spyder-variable-explorer/table-headings.png)
 
-##Fuzzy filtering of variables
+## Fuzzy filtering of variables
 
 This version also includes the ability to filter variables in the current namespace to focus only on the ones you are interested in. This filtering is done in a fuzzy way by matching any letter of text entered in the search field with the type and name of all available variables.
 To access this functionality you need to press the keyboard shortcut `Ctrl+F` when the Variable Explorer has focus or by pressing the magnifying glass icon on top,
@@ -61,7 +61,7 @@ To access this functionality you need to press the keyboard shortcut `Ctrl+F` wh
 
 To remove the filtering, simply press `Esc` or `Ctrl + F` when the Variable Explorer is focused, or the magnifying glass icon again.
 
-##Refresh while code is running
+## Refresh while code is running
 
 Finally, we restored the ability to refresh the Variable Explorer while code is running in the console. This was lost in Spyder 3.2, when we removed the old and unmaintained Python console. It’s coming back thanks to the fantastic work done by Quentin Peter ([@impact27](https://github.com/impact27)), who completely re-architectured the way the Spyder interface talks to the Jupyter kernels in charge of running code in our IPython console, by using [Jupyter Comms](https://jupyter-client.readthedocs.io/en/stable/messaging.html#custom-messages).
 
