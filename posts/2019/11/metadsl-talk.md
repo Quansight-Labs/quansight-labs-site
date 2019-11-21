@@ -1,28 +1,44 @@
 
 
-# `metadsl`
+# [`metadsl`](https://metadsl.readthedocs.io/en/latest/) talk
 
-PyData NYC just ended and I thought it would be good to collect my thoughts on `metadsl`, based on the many conversations I had there surrounding it.
+PyData NYC just ended and I thought it would be good to collect my thoughts on `metadsl` based on the many conversations I had there surrounding it. This is a rather long post, so if you are just looking for some code [**here is a Binder link for my talk**][binder]
 
 
 
 ## What is `metadsl`?
 
-It's a system for creating domain specific languages in Python. The idea is to be able to seperate your API from how it is implemented. I wrote a previous blog post showing how to create a system like metadsl from the ground up in Python. The premise is that we are looking to a future (and present) where we use Python to build up computation to compile and execute with other systems, as well as doing computation itself. Current examples today are things like Tensorflow or Numba.
+```python
+class Number(metadsl.Expression):
+    @metadsl.expression
+    def __add__(self, other: Number) -> Number:
+        ...
 
-There are currently many different approaches to writing deeply embeded domain specific languages in Python. `metadsl`s main differentiator is that it piggybacks on Python's existing static typing community. All code written in `metadsl` should be statically analyzeable with MyPy and its ilk. This means, we define the language using Python's existing mechanisms of class and functions with type annotations. We also support writing re-write rules, using regular Python code that is also statically analyzeable.
+    @metadsl.expression
+    @classmethod
+    def from_int(cls, i: int) -> Number:
+        ...
+
+
+@metadsl.rule
+def add_zero(y: Number):
+    yield Number.from_int(0) + y, y
+    yield y + Number.from_int(0), y
+```
+
+It's a system for creating DSLs (domain specificic languages) in Python so that you can seperate your API from its implemented. I wrote [a previous blog post showing how to create a system like `metadsl` from the ground up in Python][previous-post]. The premise is that we are looking to a future (and present) where Python is used to build up computation which is compiled and execute with other systems. Examples of this today are systems like Tensorflow, [Numba][numba], and [Ibis][ibis].
+
+There are currently many different approaches to writing deeply embeded DSLs in Python. `metadsl`s main differentiator is that it piggybacks on Python's existing static typing community. All code written in `metadsl` should be statically analyzeable with MyPy and its ilk. We define the language using Python's existing mechanisms of class and functions with type annotations. We also support writing re-write rules, using regular Python code that is also statically analyzeable. So instead of defing a seperate API for describing your nodes in your graph, their signatures, and how to replace them with other nodes, you just write Python functions and expressions.
 
 Why would we limit ourselves to essentially a restricted subset of Python's flexability when it has such great support for flexible metaprogramming and magic? It's so that users of the library can keep the same abstractions that they know from Python. It ties it closer conceptually to the language itself and pushes any type level improvements to happen at the `typing`/`mypy` level. So that `metadsl` moves in accordance with the language itself. It also means we are more restricted in what we can support, but sometimes bounds are helpful to limit scope and possible options.
 
 **TLDR**: `metadsl` is a framework to write domain specific languages in Python that piggybacks on the standard type annotation semantics. 
 
-TODO: Link to previous
 
-TODO:  Simple example
 
 ## How did your talk go?
 
-This was my first time to present `metadsl`, although really a year earlier Travis and I co-presented on a previous incernation of the project. I imagine at some point the recording will be published, but until then you can run through my talk by playing with this notebook on Binder. I appreciated the opportunity to try to place this project in some historical context. I think once I got to the actual code example though, I could have done a better job actually explaining how the system worked and what it's limitations are. But it did give me leaping off point to have many great conversations with folks afterwards, which I will summerize below.
+This was my first time to present `metadsl`, although really a year earlier Travis and I [co-presented on a previous incernation of the project][uarray-talk]. I imagine at some point the recording will be published, but until then you can run through my talk by playing with [this][binder] notebook on Binder. I appreciated the opportunity to try to place this project in some historical context. I think once I got to the actual code example though, I could have done a better job actually explaining how the system worked and what it's limitations are. But it did give me leaping off point to have many great conversations with folks afterwards, which I will summerize below.
 
 ## What are the remaining technical hurdles?
 
@@ -31,9 +47,9 @@ Many! :D
 
 ### Debugging
 
-I was very glad to bump into Martin XXX again. He presented a great poster at PLDI a year and a half ago, outlining some issues with using a variety of probabilistic programming libraries in Python. Each, for example, has their own abstractions for things like arrays or variables, that users have to re-learn as they switch between them. Users also don't get the same sort of debugging or tracebacks when using these libraries, as they do with regular Python, which leads to a worse user experience.
+I was very glad to bump into [Martin Hirzel][martin] again. He presented [a great poster at PLDI][pldi-poster] a year and a half ago, outlining some issues with using a variety of probabilistic programming libraries in Python. Each, for example, has their own abstractions for things like arrays or variables, that users have to re-learn as they switch between them. Users also don't get the same sort of debugging or tracebacks when using these libraries, as they do with regular Python, which leads to a worse user experience.
 
-But he was here at PyData presenting a new system, called Lyle, which allows you to decleratively specify your machine learning pipeline and leave out hyperperamaters which you don't know. Then you can find this to an automatic meta learning system like TPOT which will optimize these. Watch for him on a future Open Source Directions presenting this work!
+But he was here at PyData presenting a new system, called [Lale][lale], which allows you to decleratively specify your machine learning pipeline and leave out hyperperamaters which you don't know. Then you can find this to an automatic meta learning system like TPOT which will optimize these. Watch for him on a future Open Source Directions presenting this work!
 
 
 We talked about how we might add better debugging to `metadsl`. Ideally, we would be able to track back errors to the line where the user entered the expression. So even if they compile to say LLVM, and the code throws some error, it would be good to point that error to where the user originally wrote the code. To do this, we would have to track the file, line, and column for every expression creation and propogate those along as we do replacements. We should look to Swift for some guidance here, because I know they have spent some effort making sure their compiler preserves source location as it compiles.
@@ -46,11 +62,16 @@ However, to get to those systems it would be good to first make our pattern matc
 
 * One use case for unpure functions is to check if a certain python value has some **property**. Like checking if a integer is 0 to execute some optimization. Even if we don't wanna be able to prove anything about the actual details of these properties, we could model them as pre-checks for the substition based on deterministic functions on the values.
 * Another is to wrap/unwrap from **values in the host language** of Python. We need this at the edges of the system, for example to unwrap tuples or replace based on which python type is found. I don't think we can avoid this part. However, by making sure we limit it to the edges, we could still possibly prove things about the inside of thte system.
-* We also embed a **simply typed lambda calculus** into the language itself, and implement beta reduction by replacing variables in the subtree. ADD LINK FOR THIS. Beta reduction is impure, because we are doing a recursive find a replace on the subtree. Creation, from a Python function, is impure not only because it calls a Python callable, but also because it generates a "Variable" with a unique ID to save as the param for the function.
-* In order to compile a functional data flow expression to an imperative CFG we need to order our expressions (EXAMPLE LINK). One way to do this is to do a preorder (***check) traversal of the graph. More details can be found in XXXX data flow graph paper. It's hard for me at the moment to imagine this kind of transformation in a pure pattern replacement.
+* We also [embed a **simply typed lambda calculus** into the language itself and implement beta reduction by replacing variables in the subtree][metadsl-abstraction]. Beta reduction is impure, because we are doing a recursive find a replace on the subtree. Creation, from a Python function, is impure not only because it calls a Python callable, but also because it generates a "Variable" with a unique ID to save as the param for the function.
+* In order to compile a functional data flow expression to an imperative CFG we need to order our expressions. More details can be found in ["Optimizing compilation with the Value State Dependence Graph"][dataflow-paper] paper. It's hard for me at the moment to imagine this kind of transformation in a pure pattern replacement.
 
-These last two have probably been explore in the literature before. It would be good to talk to someone from the pattern matching community to ask about these two.
 
+For these last two, we should talk to folks from the term rewriting and lambda calculus communities. In particular, the ["International Conference on Formal Structures for Computation and Deduction"][fscd] seems like an appropriate venue to look into:
+
+> FSCD covers all aspects of formal structures for computation and deduction from theoretical foundations to applications. Building on two communities, RTA (Rewriting Techniques and Applications) and TLCA (Typed Lambda Calculi and Applications), FSCD embraces their core topics and broadens their scope to closely related areas in logics, models of computation (e.g. quantum computing, probabilistic computing, homotopy type theory), semantics and verification in new challenging areas (e.g. blockchain protocols or deep learning algorithms).
+
+
+There is also [a long history of approaches in trying to compile simply typed lambda calculus using term rewriting systems][lambda-term].
 
 
 ### Python Control Flow
@@ -61,13 +82,10 @@ It was really nice to meet XXXX for the first time. He has a ton of experience h
 Currently, `metadsl` creates expressions just by executing Python functions. This is nice and simple, but it doesn't let us map Python control flow, like `if`, `for`, and list comprehensions, to a functional form. XXX said we could modify the CPython interpreter to be able to transform these things. I like this method more than AST or bytecode parsing since it should work without access to the source and we don't need to put our computation in a function. 
 
 
-Tiark Rompf and some folks at Google have been exploring a similar space, in their PAPER and in Tensorflow REPO. They transform this code block with control flow:
+Tiark Rompf and some folks at Google have been exploring a similar space, in their ["The 800 Pound Python in the Machine Learning Room" paper][rompf-paper] and in [`snek-LMS`][snek-lms] repo:
 
-Into this code block which removes control flow and allows you to build up an expression graph:
+![][snek-image]
 
-
-
-SHOW CODE EXAMPLE
 
 
 This is a great area of future work, exploring how we can map Python control flow to metadsl expressions to get closer to the expressiveness of things like Numba or Tensorflow. It's much nicer for users to be able to write `if: .... else: ...` instead of a functional `if_(true_clause, false_clause)`. 
@@ -96,12 +114,12 @@ I think for now we should focus on doing something useful with `metadsl` first, 
 
 Which brings me to the most practically relevent conversations... Dataframes!
 
-I was excited to reconnect with Marc LAST NAME, after meeting him a few years ago at SciPy. Congratulations to him for winning a community (NAME OF AWARD) awards at the NumFocus summit last weekend! He ran a docs sprint for Pandas that drew XXX people and is mentoring XXX new women to contribute to Pandas.
+I was excited to reconnect with Marc Garcia, after meeting him a few years ago at SciPy. Congratulations to him for being awarded the Project Sustainabuility award at the NumFocus summit last weekend! He ran a docs sprint for Pandas that drew 500 people and is mentoring 26 new women to contribute to Pandas.
 
-We talked about how we could think about targeting different backends and optimizing Pandas. His notion is that they are already exploring this for small chunks of computatoin. Like adding a `backend` flag to some larger operations to run them through different systems. They just implemented this for plotting as well. He said to move Pandas anywhere, it has to be incremental, that a full rewrite would be less likely to succeed.
+We talked about how we could think about targeting different backends and optimizing Pandas. His notion is that they are already exploring this for small chunks of computation. Like adding a `backend` flag to some larger operations to run them through different systems. They just implemented this for plotting as well. He said to move Pandas anywhere, it has to be incremental, that a full rewrite would be less likely to succeed.
 
  
-I was also thrilled to meet Jeff Reback for this first time, who heriocally helps manage the Pandas and Ibis projects, answering your issues and merging your pull requests. If you haven't hear of Ibis, it's a lazy Pandas project that can target different backends, like SQL databases. At Quansight, Ivan XXX has implemented a backend for the OmniSci GPU database (LINK TO BLOG POST OR WORK?), so that you can run queries over millions of rows very quickly from Python with a familiar API. This seems like a nice project to see if `metadsl` has legs.
+I was also thrilled to meet Jeff Reback for this first time, who heriocally helps manage the Pandas and Ibis projects, answering your issues and merging your pull requests. If you haven't hear of Ibis, it's a lazy Pandas project that can target different backends, like SQL databases. At Quansight, Ivan Ogasawara has implemented a [backend for the OmniSci GPU database][ibis-omnisci], so that you can run queries over millions of rows very quickly from Python with a familiar API. This seems like a nice project to see if `metadsl` has legs.
 
 
 We should take a look at C# LINQ for inspiration here, to see how they had to update their type system to support it. We will have to also upstream some of [these changes][python-typing-dataframe] to Python's core typing.
@@ -109,6 +127,7 @@ We should take a look at C# LINQ for inspiration here, to see how they had to up
 ## Long term implications
 
 By describing our APIs with `metadsl` we transform our code into structured data. 
+
 
 ### Reproducible Science
 
@@ -148,3 +167,19 @@ This project is at an early state and would benefit from collaboration. If you w
 [bayesian]: https://research.fb.com/blog/2018/09/efficient-tuning-of-online-systems-using-bayesian-optimization/
 [blei]: https://en.wikipedia.org/wiki/David_Blei
 [blei-pic]: https://user-images.githubusercontent.com/1186124/68776067-78d04000-05fd-11ea-8077-370f8b459661.jpg
+[binder]: TOOD:BINDER LINK FOR TALK
+[previous-post]: https://labs.quansight.org/blog/2019/05/metadsl-dsl-framework/
+[ibis]: https://docs.ibis-project.org/
+[numba]: http://numba.pydata.org/
+[uarray-talk]: https://pydata.org/dc2018/schedule/presentation/46/
+[martin]: http://hirzels.com/martin/
+[lale]: https://github.com/ibm/lale
+[pldi-poster]: http://hirzels.com/martin/papers/mapl18-deep-ppl-poster.pdf
+[metadsl-abstraction]: https://github.com/Quansight-Labs/metadsl/blob/c0419e89e72776026f97b4e5b08d337a5189300d/metadsl_core/abstraction.py
+[dataflow-paper]: https://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-705.pdf
+[fscd]: http://fscdconference.org/
+[snek-lms]: https://github.com/jmd1011/snek-LMS#lightweight-syntax-for-building-computation-graphs
+[rompf-paper]: https://www.cs.purdue.edu/homes/rompf/papers/decker-preprint201811.pdf
+[snek-image]: https://user-images.githubusercontent.com/1186124/69267752-d20b1700-0b9b-11ea-8fbb-1a014536099d.png
+[ibis-omnisci]: https://labs.quansight.org/blog/2019/07/ibis-python-data-analysis-productivity-framework/
+[lambda-term]: https://cstheory.stackexchange.com/a/36092
