@@ -1,4 +1,14 @@
-
+<!--
+.. title: metadsl PyData Talk
+.. slug: metadsl-talk
+.. date: 2019-11-25 12:00:00 UTC-05:00
+.. author: Saul Shanabrook
+.. tags: Labs, metadsl
+.. category: 
+.. link: 
+.. description: 
+.. type: text
+-->
 
 # [`metadsl`](https://metadsl.readthedocs.io/en/latest/) talk
 
