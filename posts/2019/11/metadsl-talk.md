@@ -87,9 +87,9 @@ There is also [a long history of approaches in trying to compile simply typed la
 ### Python Control Flow
 
 
-It was really nice to meet XXXX for the first time. He has a ton of experience hacking on Python to make things faster and was one of the original contributors to the Blaze project at Continiuum.
+It was really nice to meet Joe Jevnik for the first time. He has a ton of experience hacking on Python to make things faster and was one of the original contributors to the Blaze project at Continiuum.
 
-Currently, `metadsl` creates expressions just by executing Python functions. This is nice and simple, but it doesn't let us map Python control flow, like `if`, `for`, and list comprehensions, to a functional form. XXX said we could modify the CPython interpreter to be able to transform these things. I like this method more than AST or bytecode parsing since it should work without access to the source and we don't need to put our computation in a function. 
+Currently, `metadsl` creates expressions just by executing Python functions. This is nice and simple, but it doesn't let us map Python control flow, like `if`, `for`, and list comprehensions, to a functional form.  Joe said we could modify the CPython interpreter to be able to transform these things ([`codetransformer`][codetransformer]). I like this method more than AST or bytecode parsing since it should work without access to the source and we don't need to put our computation in a function. 
 
 
 Tiark Rompf and some folks at Google have been exploring a similar space, in their ["The 800 Pound Python in the Machine Learning Room" paper][rompf-paper] and in [`snek-LMS`][snek-lms] repo:
@@ -193,3 +193,4 @@ This project is at an early state and would benefit from collaboration. If you w
 [snek-image]: https://user-images.githubusercontent.com/1186124/69267752-d20b1700-0b9b-11ea-8fbb-1a014536099d.png
 [ibis-omnisci]: https://labs.quansight.org/blog/2019/07/ibis-python-data-analysis-productivity-framework/
 [lambda-term]: https://cstheory.stackexchange.com/a/36092
+[code-transformer]: https://github.com/llllllllll/codetransformer
