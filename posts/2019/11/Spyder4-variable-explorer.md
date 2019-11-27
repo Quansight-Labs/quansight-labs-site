@@ -1,12 +1,12 @@
 <!--
 .. title: Variable Explorer improvements in Spyder 4
-.. slug: Variable-Explorer-improvements-in-Spyder 4
-.. date: 2019-11-12 12:00:00 UTC-05:00
+.. slug: variable-explorer-improvements-in-Spyder-4
+.. date: 2019-11-28 20:00:00 UTC-05:00
 .. author: Daniel Althviz
 .. tags: Labs, Spyder
-.. category: 
-.. link: 
-.. description: 
+.. category:
+.. link:
+.. description:
 .. type: text
 -->
 
@@ -22,7 +22,7 @@ It is important to mention that several of the above improvements were made poss
 ## New viewer for arbitrary Python objects
 
 
-For Spyder 4 we added a long-requested feature: full support for inspecting any kind of Python object through the Variable Explorer. For many years, Spyder has been able to view and edit a small subset of Python variables: Numpy arrays, Pandas DataFrames and Series, and builtin collections (lists, dictionaries and tuples). Other objects were displayed as dictionaries of their attributes, inspecting any of which required showing a new table. This made it rather cumbersome to use this functionality, and was the reason arbitrary Python objects were hidden by default from the Variable Explorer view.
+For Spyder 4 we added a long-requested feature: full support for inspecting any kind of Python object through the Variable Explorer. For many years, Spyder has been able to view and edit a small subset of Python variables: NumPy arrays, Pandas DataFrames and Series, and builtin collections (lists, dictionaries and tuples). Other objects were displayed as dictionaries of their attributes, inspecting any of which required showing a new table. This made it rather cumbersome to use this functionality, and was the reason arbitrary Python objects were hidden by default from the Variable Explorer view.
 
 ![Python Viewer](/images/spyder-variable-explorer/python-viewer.png)
 
@@ -30,7 +30,7 @@ For the forthcoming Spyder release, we've integrated the excellent [objbrowser](
 
 ![Python Viewer Metadata](/images/spyder-variable-explorer/python-viewer-metadata.png)
 
-As can be seen above, this viewer will also allow users to browse extra metadata about the inspected object, such as its documentation, source code and the file that holds it.  
+As can be seen above, this viewer will also allow users to browse extra metadata about the inspected object, such as its documentation, source code and the file that holds it.
 It is very important to note that this work was accomplished thanks to the generosity of Pepijn, who kindly changed the license of [objbrowser](https://github.com/titusjan/objbrowser) to allow us to integrate it with Spyder.
 To expose this new functionality, we decided to set the option to hide arbitrary Python objects in the Variable Explorer to disabled by default, and introduced a new one called `Exclude callables and modules`. With this enabled by default, Spyder will now display a much larger fraction of objects that can be inspected, while still excluding most "uninteresting" variables.
 
@@ -78,4 +78,4 @@ In Spyder 3, the Variable Explorer could only show builtin Python sets as arbitr
 
 Finally, beyond the headline features, we've added numerous smaller improvements to make the Variable Explorer easier and more efficient to use. These include support for custom index names, better and more efficient automatic resizing of column widths, support for displaying Pandas Indices, tooltips for truncated column headers, and more.
 
-Spyder's Variable Explorer is what many of you consider to be one of its standout features, so we can't wait for you all to get your hands on the even better version in Spyder 4. Thanks again to Quansight, our generous community donors, and as always all of you! Spyder 4.0.0 final is planned to be released within approximately one more week, but if you'd like to test it out immediately, follow the instructions on our [Github](https://github.com/spyder-ide/spyder/releases) to install the pre-release version (which won't touch your existing Spyder install or settings). As always, happy Spydering!
+Spyder's Variable Explorer is what many of you consider to be one of its standout features, so we can't wait for you all to get your hands on the even better version in Spyder 4. Thanks again to Quansight, our generous community donors, and as always all of you! Spyder 4.0.0 final is planned to be released within approximately one more week, but if you'd like to test it out immediately, follow the instructions on our [GitHub](https://github.com/spyder-ide/spyder/releases) to install the pre-release version (which won't touch your existing Spyder install or settings). As always, happy Spydering!
