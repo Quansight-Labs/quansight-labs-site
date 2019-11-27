@@ -26,7 +26,6 @@ For Spyder 4 we added a long-requested feature: full support for inspecting any 
 
 ![Python Viewer](/images/spyder-variable-explorer/python-viewer.png)
 
-This made very cumbersome to use this functionality, which was the reason why arbitrary Python objects were hidden by default from the Variable Explorer view.  
 For the forthcoming Spyder release, we've integrated the excellent [objbrowser](https://github.com/titusjan/objbrowser) project by Pepijn Kenter ([@titusjan](https://github.com/titusjan)), which provides a tree-like view of Python objects, to offer a much simpler and more user-friendly way to inspect them.
 
 ![Python Viewer Metadata](/images/spyder-variable-explorer/python-viewer-metadata.png)
@@ -54,7 +53,7 @@ For Spyder 4, we took advantage of the work done by Scott Hansen ([@firecat53](h
 ## Fuzzy filtering of variables
 
 Spyder 4 also includes the ability to filter the variables shown down to only those of interest. This employs fuzzy matching between the text entered in the search field and the name and type of all available variables.
-To access this functionality you need to press the keyboard shortcut `Ctrl+F` when the Variable Explorer has focus or by pressing the magnifying glass icon on top,
+To access this functionality, click the search icon in the Variable Explorer toolbar, or press `Ctrl+F` (`Cmd-F` on macOS) when the Variable Explorer has focus.
 
 
 ![Filter variables](/images/spyder-variable-explorer/filter-variables.png)
