@@ -66,9 +66,21 @@ We talked about how we might add better debugging to `metadsl`. Ideally, we woul
  
 ### Mathematical soundness
  
-Another person asked a good question after the presentation, "What if two rules match? Which gets chosen?" At the moment it's a manual process, where you define groups of rules that all should fire at the same time, so should be confluent and then put those groups in series. Like a number of compiler passes. However, we can't prove that two rules won't both match the same objects, leading to indeterminism, or that there are enough rules defined so that the result will actually be replaced, leading to an error. It would be nice to be able to say these things statically. There is lots of existing research in the pattern matching and lambda calculus community on being able to answer these questions.
+Another person asked a good question after the presentation, "What if two rules match? Which gets chosen?" At the moment it's a manual process, where you define groups of rules that all should fire at the same time, so should be confluent and then put those groups in series. Like a number of compiler passes. However, we can't prove that two rules won't both match the same objects, leading to indeterminism, or that there are enough rules defined so that the result will actually be replaced, leading to an error. It would be nice to be able to say these things statically.
+
+For example, here is an optimization rule that should execute before, say, compiling to LLVM rules:
+
+```python
+@metadsl.rule
+def add_zero(y: Number):
+    """
+    Replace y + 0 with y
+    """
+    yield Number.from_int(0) + y, y
+    yield y + Number.from_int(0), y
+```
  
-However, to get to those systems it would be good to first make our pattern matching system more restricted. Currently, we can define "pure" rules, which have strictly structural matching, and "unpure" rules which execute arbitrary Python functions to determine the replacement. The unpure rules will be very hard to reason about mathematically, unless we decide to model all of Python, which seems like a bad idea. So if we can move more, if not all, of our system to pure replacements then we can have more luck analyzing them. I have a couple of ideas here:
+ There is lots of existing research in the pattern matching and lambda calculus community on being able to answer these questions. However, to get to those systems it would be good to first make our pattern matching system more restricted. Currently, we can define "pure" rules, which have strictly structural matching, and "unpure" rules which execute arbitrary Python functions to determine the replacement. The unpure rules will be very hard to reason about mathematically, unless we decide to model all of Python, which seems like a bad idea. So if we can move more, if not all, of our system to pure replacements then we can have more luck analyzing them. I have a couple of ideas here:
  
 * One use case for unpure functions is to check if a certain python value has some **property**. Like checking if a integer is 0 to execute some optimization. Even if we don't wanna be able to prove anything about the actual details of these properties, we could model them as pre-checks for the substitution based on deterministic functions on the values.
 * Another is to wrap/unwrap from **values in the host language** of Python. We need this at the edges of the system, for example to unwrap tuples or replace based on which python type is found. I don't think we can avoid this part. However, by making sure we limit it to the edges, we could still possibly prove things about the inside of the system.
