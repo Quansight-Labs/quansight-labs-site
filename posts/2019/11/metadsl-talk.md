@@ -176,7 +176,7 @@ This project is at an early state and would benefit from collaboration. If you w
 [bayesian]: https://research.fb.com/blog/2018/09/efficient-tuning-of-online-systems-using-bayesian-optimization/
 [blei]: https://en.wikipedia.org/wiki/David_Blei
 [blei-pic]: https://user-images.githubusercontent.com/1186124/68776067-78d04000-05fd-11ea-8077-370f8b459661.jpg
-[binder]: https://mybinder.org/v2/gh/Quansight-Labs/metadsl/8963d716319756b2e1d7e7543237be2be4a77a60?urlpath=lab/explorations/2109.10.23%20PyData%20Talk.ipynb
+[binder]: https://mybinder.org/v2/gh/Quansight-Labs/metadsl/8963d716319756b2e1d7e7543237be2be4a77a60?urlpath=lab/tree/explorations/2109.10.23%20PyData%20Talk.ipynb
 [previous-post]: https://labs.quansight.org/blog/2019/05/metadsl-dsl-framework/
 [ibis]: https://docs.ibis-project.org/
 [numba]: http://numba.pydata.org/
