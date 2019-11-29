@@ -26,7 +26,7 @@ MathJax.Hub.Config({
        styles: {'.MathJax_Display': {"margin": 0}}
    }
 });
-</script><!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="blog/2019/11/numpy-openblas-CZI-grant/" type="text/html">
+</script><!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="blog/2019/11/variable-explorer-improvements-in-Spyder-4/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -79,7 +79,25 @@ navbar-dark bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/11/numpy-openblas-CZI-grant/" class="u-url">A new grant for NumPy and OpenBLAS!</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/11/variable-explorer-improvements-in-Spyder-4/" class="u-url">Variable Explorer improvements in Spyder 4</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                <a href="authors/daniel-althviz/">Daniel Althviz</a>
+            </span></p>
+            <p class="dateline">
+            <a href="blog/2019/11/variable-explorer-improvements-in-Spyder-4/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-11-28T20:00:00-05:00" itemprop="datePublished" title="2019-11-28">2019-11-28</time></a>
+            </p>
+        </div>
+    </header><div class="p-summary entry-summary">
+    <div>
+<p><a href="https://www.spyder-ide.org/">Spyder</a> 4 will be released very soon with lots of interesting new features that you'll want to check out, reflecting years of effort by the team to improve the user experience. In this post, we will be talking about the improvements made to the Variable Explorer.</p>
+<p>These include the brand new Object Explorer for inspecting arbitrary Python variables, full support for MultiIndex dataframes with multiple dimensions, and the ability to filter and search for variables by name and type, and much more.</p>
+<p>It is important to mention that several of the above improvements were made possible through integrating the work of two other projects. Code from <a href="https://github.com/TabViewer/gtabview">gtabview</a> was used to implement the multi-dimensional Pandas indexes, while <a href="https://github.com/titusjan/objbrowser">objbrowser</a> was the foundation of the new Object Explorer.</p>
+<p class="more"><a href="blog/2019/11/variable-explorer-improvements-in-Spyder-4/">Read more…</a></p>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/11/numpy-openblas-CZI-grant/" class="u-url">A new grant for NumPy and OpenBLAS!</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 <a href="authors/ralf-gommers/">Ralf Gommers</a>
@@ -365,108 +383,6 @@ device types (CPUs, GPUs etc.) without loss of performance and ease of use.</p>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p class="more"><a href="blog/2019/07/ibis-python-data-analysis-productivity-framework/">Read more…</a></p>
-</div>
-</div>
-</div>
-</div>
-    </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/" class="u-url">uarray update: API changes, overhead and comparison to __array_function__</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                <a href="authors/hameer-abbasi/">Hameer Abbasi</a>
-            </span></p>
-            <p class="dateline">
-            <a href="blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/" rel="bookmark">
-            <time class="published dt-published" datetime="2019-07-03T06:36:54-05:00" itemprop="datePublished" title="2019-07-03">2019-07-03</time></a>
-            </p>
-        </div>
-    </header><div class="p-summary entry-summary">
-    <div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><code>uarray</code> is a generic override framework for objects and methods in Python. Since <a href="https://labs.quansight.org/blog/2019/04/uarray-intro/">my last <code>uarray</code> blogpost</a>, there have been plenty of developments, changes to the API and improvements to the overhead of the protocol. Let’s begin with a walk-through of the current feature set and API, and then move on to current developments and how it compares to <a href="blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/www.numpy.org/neps/nep-0018-array-function-protocol.html"><code>__array_function__</code></a>. For further details on the API and latest developments, please see <a href="https://uarray.readthedocs.io/en/latest/generated/uarray.html">the API page for <code>uarray</code></a>. The examples there are doctested, so they will always be current.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Motivation">Motivation<a class="anchor-link" href="blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/#Motivation">¶</a>
-</h3>
-<h4 id="Other-array-objects">Other array objects<a class="anchor-link" href="blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/#Other-array-objects">¶</a>
-</h4>
-<p>NumPy is a simple, rectangular, dense, and in-memory data store. This is great for some applications but isn't complete on its own. It doesn't encompass every single use-case. The following are examples of array objects available today that have different features and cater to a different kind of audience.</p>
-<ul>
-<li>Dask is one of the most popular ones. It allows distributed and chunked computation.</li>
-<li>CuPy is another popular one, and allows GPU computation.</li>
-<li>PyData/Sparse is slowly gaining popularity, and is a sparse, in-memory data store.</li>
-<li>XArray includes named dimensions.</li>
-<li>Xnd is another effort to re-write and modernise the NumPy API, and includes support for GPU arrays and ragged arrays.</li>
-<li>Another effort (although with no Python wrapper, only data marshalling) is xtensor.</li>
-</ul>
-<p>Some of these objects can be composed. Namely, Dask both expects and exports the NumPy API, whereas XArray expects the NumPy API. This makes interesting combinations possible, such as distributed sparse or GPU arrays, or even labelled distributed sparse or CPU/GPU arrays.</p>
-<p>Also, there are many other libraries (a popular one being scikit-learn) that need a back-end mechanism in order to be able to support different kinds of array objects. Finally, there is a desire to see SciPy itself gain support for other array objects.</p>
-<h4 id="__array_function__-and-its-limitations">
-<code>__array_function__</code> and its limitations<a class="anchor-link" href="blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/#__array_function__-and-its-limitations">¶</a>
-</h4>
-<p>One of my motivations for working on <code>uarray</code> were the limitations of the <code>__array_function__</code> protocol, defined in <a href="https://www.numpy.org/neps/nep-0018-array-function-protocol.html">this proposal</a>. The limitations are threefold:</p>
-<ul>
-<li>It can only dispatch on array objects.</li>
-<li>Consequently, it can only dispatch on functions that <em>accept</em> array objects.</li>
-<li>It has no mechanism for conversion and coercion.</li>
-<li>Since it conflates arrays and backends, only a single backend type per array object is possible.</li>
-</ul>
-<p>These limitations have been <a href="https://github.com/numpy/numpy/issues/11129">partially</a> <a href="http://numpy-discussion.10968.n7.nabble.com/Allowing-broadcasting-of-code-dimensions-in-generalized-ufuncs-td45589.html">discussed</a> <a href="http://numpy-discussion.10968.n7.nabble.com/Proposal-to-accept-NEP-18-array-function-protocol-td46001.html">before</a>.</p>
-<h3 id="uarray-—-The-solution?">
-<code>uarray</code> — The solution?<a class="anchor-link" href="blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/#uarray-%E2%80%94-The-solution?">¶</a>
-</h3>
-<p>With that out of the way, let's explore <code>uarray</code>, a library that hopes to resolve these issues, and even though the original motivation was NumPy and array computing, the library itself is meant to be a generic multiple-dispatch mechanism.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Enable __array_function__ for NumPy &lt; 1.17.0</span>
-<span class="o">!</span><span class="nb">export</span> <span class="nv">NUMPY_EXPERIMENTAL_ARRAY_FUNCTION</span><span class="o">=</span><span class="m">1</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">uarray</span> <span class="k">as</span> <span class="nn">ua</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In <code>uarray</code>, the fundamental building block is a multimethod. Multimethods have a number of nice properties, such as automatic dispatch based on backends. It is important to note here that multimethods will be written by API authors, rather than implementors. Here's how we define a multimethod in <code>uarray</code>:
-</p>
-<p class="more"><a href="blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/">Read more…</a></p>
 </div>
 </div>
 </div>

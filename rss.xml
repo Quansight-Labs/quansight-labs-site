@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Fri, 15 Nov 2019 05:32:59 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>A new grant for NumPy and OpenBLAS!</title><link>https://labs.quansight.org/blog/2019/11/numpy-openblas-CZI-grant/</link><dc:creator>Ralf Gommers</dc:creator><description>&lt;div&gt;&lt;p&gt;I'm very pleased to announce that NumPy and OpenBLAS just received a $195,000 grant from
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Fri, 29 Nov 2019 05:05:38 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Variable Explorer improvements in Spyder 4</title><link>https://labs.quansight.org/blog/2019/11/variable-explorer-improvements-in-Spyder-4/</link><dc:creator>Daniel Althviz</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://www.spyder-ide.org/"&gt;Spyder&lt;/a&gt; 4 will be released very soon with lots of interesting new features that you'll want to check out, reflecting years of effort by the team to improve the user experience. In this post, we will be talking about the improvements made to the Variable Explorer.&lt;/p&gt;
+&lt;p&gt;These include the brand new Object Explorer for inspecting arbitrary Python variables, full support for MultiIndex dataframes with multiple dimensions, and the ability to filter and search for variables by name and type, and much more.&lt;/p&gt;
+&lt;p&gt;It is important to mention that several of the above improvements were made possible through integrating the work of two other projects. Code from &lt;a href="https://github.com/TabViewer/gtabview"&gt;gtabview&lt;/a&gt; was used to implement the multi-dimensional Pandas indexes, while &lt;a href="https://github.com/titusjan/objbrowser"&gt;objbrowser&lt;/a&gt; was the foundation of the new Object Explorer.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/11/variable-explorer-improvements-in-Spyder-4/"&gt;Read more…&lt;/a&gt; (7 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Labs</category><category>Spyder</category><guid>https://labs.quansight.org/blog/2019/11/variable-explorer-improvements-in-Spyder-4/</guid><pubDate>Fri, 29 Nov 2019 01:00:00 GMT</pubDate></item><item><title>A new grant for NumPy and OpenBLAS!</title><link>https://labs.quansight.org/blog/2019/11/numpy-openblas-CZI-grant/</link><dc:creator>Ralf Gommers</dc:creator><description>&lt;div&gt;&lt;p&gt;I'm very pleased to announce that NumPy and OpenBLAS just received a $195,000 grant from
 the Chan Zuckerberg Initiative, through its
 &lt;a href="https://chanzuckerberg.com/rfa/essential-open-source-software-for-science/"&gt;Essential Open Source Software for Science&lt;/a&gt;
 (EOSS) program! This is good news for both projects, and I'm particularly excited about
@@ -144,71 +147,4 @@ device types (CPUs, GPUs etc.) without loss of performance and ease of use.&lt;/
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/07/ibis-python-data-analysis-productivity-framework/"&gt;Read more…&lt;/a&gt; (5 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><category>Ibis</category><guid>https://labs.quansight.org/blog/2019/07/ibis-python-data-analysis-productivity-framework/</guid><pubDate>Tue, 09 Jul 2019 03:30:00 GMT</pubDate></item><item><title>uarray update: API changes, overhead and comparison to __array_function__</title><link>https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/</link><dc:creator>Hameer Abbasi</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;&lt;code&gt;uarray&lt;/code&gt; is a generic override framework for objects and methods in Python. Since &lt;a href="https://labs.quansight.org/blog/2019/04/uarray-intro/"&gt;my last &lt;code&gt;uarray&lt;/code&gt; blogpost&lt;/a&gt;, there have been plenty of developments, changes to the API and improvements to the overhead of the protocol. Let’s begin with a walk-through of the current feature set and API, and then move on to current developments and how it compares to &lt;a href="https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/www.numpy.org/neps/nep-0018-array-function-protocol.html"&gt;&lt;code&gt;__array_function__&lt;/code&gt;&lt;/a&gt;. For further details on the API and latest developments, please see &lt;a href="https://uarray.readthedocs.io/en/latest/generated/uarray.html"&gt;the API page for &lt;code&gt;uarray&lt;/code&gt;&lt;/a&gt;. The examples there are doctested, so they will always be current.&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h3 id="Motivation"&gt;Motivation&lt;a class="anchor-link" href="https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/#Motivation"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;h4 id="Other-array-objects"&gt;Other array objects&lt;a class="anchor-link" href="https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/#Other-array-objects"&gt;¶&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;NumPy is a simple, rectangular, dense, and in-memory data store. This is great for some applications but isn't complete on its own. It doesn't encompass every single use-case. The following are examples of array objects available today that have different features and cater to a different kind of audience.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Dask is one of the most popular ones. It allows distributed and chunked computation.&lt;/li&gt;
-&lt;li&gt;CuPy is another popular one, and allows GPU computation.&lt;/li&gt;
-&lt;li&gt;PyData/Sparse is slowly gaining popularity, and is a sparse, in-memory data store.&lt;/li&gt;
-&lt;li&gt;XArray includes named dimensions.&lt;/li&gt;
-&lt;li&gt;Xnd is another effort to re-write and modernise the NumPy API, and includes support for GPU arrays and ragged arrays.&lt;/li&gt;
-&lt;li&gt;Another effort (although with no Python wrapper, only data marshalling) is xtensor.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Some of these objects can be composed. Namely, Dask both expects and exports the NumPy API, whereas XArray expects the NumPy API. This makes interesting combinations possible, such as distributed sparse or GPU arrays, or even labelled distributed sparse or CPU/GPU arrays.&lt;/p&gt;
-&lt;p&gt;Also, there are many other libraries (a popular one being scikit-learn) that need a back-end mechanism in order to be able to support different kinds of array objects. Finally, there is a desire to see SciPy itself gain support for other array objects.&lt;/p&gt;
-&lt;h4 id="__array_function__-and-its-limitations"&gt;&lt;code&gt;__array_function__&lt;/code&gt; and its limitations&lt;a class="anchor-link" href="https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/#__array_function__-and-its-limitations"&gt;¶&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;One of my motivations for working on &lt;code&gt;uarray&lt;/code&gt; were the limitations of the &lt;code&gt;__array_function__&lt;/code&gt; protocol, defined in &lt;a href="https://www.numpy.org/neps/nep-0018-array-function-protocol.html"&gt;this proposal&lt;/a&gt;. The limitations are threefold:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;It can only dispatch on array objects.&lt;/li&gt;
-&lt;li&gt;Consequently, it can only dispatch on functions that &lt;em&gt;accept&lt;/em&gt; array objects.&lt;/li&gt;
-&lt;li&gt;It has no mechanism for conversion and coercion.&lt;/li&gt;
-&lt;li&gt;Since it conflates arrays and backends, only a single backend type per array object is possible.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;These limitations have been &lt;a href="https://github.com/numpy/numpy/issues/11129"&gt;partially&lt;/a&gt; &lt;a href="http://numpy-discussion.10968.n7.nabble.com/Allowing-broadcasting-of-code-dimensions-in-generalized-ufuncs-td45589.html"&gt;discussed&lt;/a&gt; &lt;a href="http://numpy-discussion.10968.n7.nabble.com/Proposal-to-accept-NEP-18-array-function-protocol-td46001.html"&gt;before&lt;/a&gt;.&lt;/p&gt;
-&lt;h3 id="uarray-—-The-solution?"&gt;&lt;code&gt;uarray&lt;/code&gt; — The solution?&lt;a class="anchor-link" href="https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/#uarray-%E2%80%94-The-solution?"&gt;¶&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;With that out of the way, let's explore &lt;code&gt;uarray&lt;/code&gt;, a library that hopes to resolve these issues, and even though the original motivation was NumPy and array computing, the library itself is meant to be a generic multiple-dispatch mechanism.&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In [1]:&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Enable __array_function__ for NumPy &amp;lt; 1.17.0&lt;/span&gt;
-&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;NUMPY_EXPERIMENTAL_ARRAY_FUNCTION&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In [2]:&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;uarray&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;ua&lt;/span&gt;
-&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;numpy&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;np&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;In &lt;code&gt;uarray&lt;/code&gt;, the fundamental building block is a multimethod. Multimethods have a number of nice properties, such as automatic dispatch based on backends. It is important to note here that multimethods will be written by API authors, rather than implementors. Here's how we define a multimethod in &lt;code&gt;uarray&lt;/code&gt;:
-&lt;/p&gt;&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/"&gt;Read more…&lt;/a&gt; (10 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/</guid><pubDate>Wed, 03 Jul 2019 11:36:54 GMT</pubDate></item></channel></rss>
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/07/ibis-python-data-analysis-productivity-framework/"&gt;Read more…&lt;/a&gt; (5 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><category>Ibis</category><guid>https://labs.quansight.org/blog/2019/07/ibis-python-data-analysis-productivity-framework/</guid><pubDate>Tue, 09 Jul 2019 03:30:00 GMT</pubDate></item></channel></rss>

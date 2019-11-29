@@ -145,7 +145,7 @@ This can result in code that is up to 1000x faster in some cases:</p>
    <span class="o">...</span><span class="p">:</span>     <span class="k">return</span> <span class="n">A</span>
    <span class="o">...</span><span class="p">:</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="nd">@numba.njit</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span>
    <span class="o">...</span><span class="p">:</span> <span class="k">def</span> <span class="nf">test_jit</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
    <span class="o">...</span><span class="p">:</span>     <span class="n">A</span> <span class="o">=</span> <span class="mi">0</span>
    <span class="o">...</span><span class="p">:</span>     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
@@ -156,7 +156,7 @@ This can result in code that is up to 1000x faster in some cases:</p>
 <span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="kp">arange</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="o">%</span><span class="n">timeit</span> <span class="kp">test</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="mi">249</span> <span class="err">µ</span><span class="n">s</span> <span class="err">±</span> <span class="mf">5.77</span> <span class="err">µ</span><span class="n">s</span> <span class="n">per</span> <span class="n">loop</span> <span class="p">(</span><span class="kp">mean</span> <span class="err">±</span> <span class="kp">std</span><span class="o">.</span> <span class="n">dev</span><span class="o">.</span> <span class="n">of</span> <span class="mi">7</span> <span class="n">runs</span><span class="p">,</span> <span class="mi">1000</span> <span class="n">loops</span> <span class="n">each</span><span class="p">)</span>
+<span class="mi">249</span> <span class="n">µs</span> <span class="err">±</span> <span class="mf">5.77</span> <span class="n">µs</span> <span class="n">per</span> <span class="n">loop</span> <span class="p">(</span><span class="kp">mean</span> <span class="err">±</span> <span class="kp">std</span><span class="o">.</span> <span class="n">dev</span><span class="o">.</span> <span class="n">of</span> <span class="mi">7</span> <span class="n">runs</span><span class="p">,</span> <span class="mi">1000</span> <span class="n">loops</span> <span class="n">each</span><span class="p">)</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="o">%</span><span class="n">timeit</span> <span class="n">test_jit</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="mi">336</span> <span class="n">ns</span> <span class="err">±</span> <span class="mf">0.638</span> <span class="n">ns</span> <span class="n">per</span> <span class="n">loop</span> <span class="p">(</span><span class="kp">mean</span> <span class="err">±</span> <span class="kp">std</span><span class="o">.</span> <span class="n">dev</span><span class="o">.</span> <span class="n">of</span> <span class="mi">7</span> <span class="n">runs</span><span class="p">,</span> <span class="mi">1000000</span> <span class="n">loops</span> <span class="n">each</span><span class="p">)</span>
@@ -173,7 +173,7 @@ optimizations. One thing that it does to improve performance is to remove all
 bounds checking from array indexing. This means that if an array index is out
 of bounds, instead of receiving an <code>IndexError</code>, you will get garbage, or
 possibly a segmentation fault.</p>
-<pre class="code literal-block"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<pre class="code literal-block"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">numba</span> <span class="kn">import</span> <span class="n">njit</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">outtabounds</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="o">...</span>     <span class="n">A</span> <span class="o">=</span> <span class="mi">0</span>
@@ -197,7 +197,7 @@ indexing. This will remain disabled by default for performance purposes. But
 you will be able to enable it by passing <code>boundscheck=True</code> to <code>@njit</code>, or by
 setting the <code>NUMBA_BOUNDSCHECK=1</code> environment variable. This will make it
 easier to detect out of bounds issues like the one above. It will work like</p>
-<pre class="code literal-block"><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@njit</span><span class="p">(</span><span class="n">boundscheck</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<pre class="code literal-block"><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@njit</span><span class="p">(</span><span class="n">boundscheck</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">outtabounds</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">A</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="gp">... </span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
@@ -284,10 +284,10 @@ imported from the <code>*</code> and manually add an import for it. Removestar m
 easy by finding which names come from <code>*</code> imports and replacing the import
 lines in the file automatically.</p>
 <p>As an example, suppose you have a module <code>mymod</code> like</p>
-<pre class="code literal-block"><span></span><span class="n">mymod</span><span class="o">/</span>
-  <span class="o">|</span> <span class="n">__init__</span><span class="p">.</span><span class="n">py</span>
-  <span class="o">|</span> <span class="n">a</span><span class="p">.</span><span class="n">py</span>
-  <span class="o">|</span> <span class="n">b</span><span class="p">.</span><span class="n">py</span>
+<pre class="code literal-block"><span></span><span class="err">mymod/</span>
+<span class="err">  | __init__.py</span>
+<span class="err">  | a.py</span>
+<span class="err">  | b.py</span>
 </pre>
 
 
@@ -327,12 +327,12 @@ actually executed. For external imports, it is not possible to work statically
 as external imports may include C extension modules, so in that case, it
 imports the names dynamically.</p>
 <p><code>removestar</code> can be installed with pip or conda:</p>
-<pre class="code literal-block"><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">removestar</span>
+<pre class="code literal-block"><span></span><span class="err">pip install removestar</span>
 </pre>
 
 
 <p>or if you use conda</p>
-<pre class="code literal-block"><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="k">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">removestar</span>
+<pre class="code literal-block"><span></span><span class="err">conda install -c conda-forge removestar</span>
 </pre>
 
 
@@ -352,15 +352,15 @@ syntax:</p>
 <span class="s2">    satisfying Bessel's differential equation</span>
 
 <span class="s2">    .. math ::</span>
-<span class="s2">        z^2 </span><span class="se">\f</span><span class="s2">rac{\mathrm{d}^2 w}{\mathrm{d}z^2}</span>
-<span class="s2">        + z </span><span class="se">\f</span><span class="s2">rac{\mathrm{d}w}{\mathrm{d}z} + (z^2 - </span><span class="se">\n</span><span class="s2">u^2) w = 0,</span>
+<span class="s2">        z^2 </span><span class="se">\f</span><span class="s2">rac{\mathrm</span><span class="si">{d}</span><span class="s2">^2 w}{\mathrm</span><span class="si">{d}</span><span class="s2">z^2}</span>
+<span class="s2">        + z </span><span class="se">\f</span><span class="s2">rac{\mathrm</span><span class="si">{d}</span><span class="s2">w}{\mathrm</span><span class="si">{d}</span><span class="s2">z} + (z^2 - </span><span class="se">\n</span><span class="s2">u^2) w = 0,</span>
 
 <span class="s2">    with Laurent expansion</span>
 
 <span class="s2">    .. math ::</span>
-<span class="s2">        J_</span><span class="se">\n</span><span class="s2">u(z) = z^</span><span class="se">\n</span><span class="s2">u \left(</span><span class="se">\f</span><span class="s2">rac{1}{\Gamma(</span><span class="se">\n</span><span class="s2">u + 1) 2^</span><span class="se">\n</span><span class="s2">u} + O(z^2) </span><span class="se">\r</span><span class="s2">ight),</span>
+<span class="s2">        J_</span><span class="se">\n</span><span class="s2">u(z) = z^</span><span class="se">\n</span><span class="s2">u \left(</span><span class="se">\f</span><span class="s2">rac</span><span class="si">{1}</span><span class="s2">{\Gamma(</span><span class="se">\n</span><span class="s2">u + 1) 2^</span><span class="se">\n</span><span class="s2">u} + O(z^2) </span><span class="se">\r</span><span class="s2">ight),</span>
 
-<span class="s2">    if :math:`</span><span class="se">\n</span><span class="s2">u` is not a negative integer. If :math:`</span><span class="se">\n</span><span class="s2">u=-n \in \mathbb{Z}_{&lt;0}`</span>
+<span class="s2">    if :math:`</span><span class="se">\n</span><span class="s2">u` is not a negative integer. If :math:`</span><span class="se">\n</span><span class="s2">u=-n \in \mathbb</span><span class="si">{Z}</span><span class="s2">_{&lt;0}`</span>
 <span class="s2">    *is* a negative integer, then the definition is</span>
 
 <span class="s2">    .. math ::</span>
@@ -388,15 +388,15 @@ the above docstring can now be written as</p>
 <span class="s2">    satisfying Bessel's differential equation</span>
 
 <span class="s2">    .. math ::</span>
-<span class="s2">        z^2 </span><span class="se">\f</span><span class="s2">rac{\mathrm{d}^2 w}{\mathrm{d}z^2}</span>
-<span class="s2">        + z </span><span class="se">\f</span><span class="s2">rac{\mathrm{d}w}{\mathrm{d}z} + (z^2 - </span><span class="se">\n</span><span class="s2">u^2) w = 0,</span>
+<span class="s2">        z^2 </span><span class="se">\f</span><span class="s2">rac{\mathrm</span><span class="si">{d}</span><span class="s2">^2 w}{\mathrm</span><span class="si">{d}</span><span class="s2">z^2}</span>
+<span class="s2">        + z </span><span class="se">\f</span><span class="s2">rac{\mathrm</span><span class="si">{d}</span><span class="s2">w}{\mathrm</span><span class="si">{d}</span><span class="s2">z} + (z^2 - </span><span class="se">\n</span><span class="s2">u^2) w = 0,</span>
 
 <span class="s2">    with Laurent expansion</span>
 
 <span class="s2">    .. math ::</span>
-<span class="s2">        J_</span><span class="se">\n</span><span class="s2">u(z) = z^</span><span class="se">\n</span><span class="s2">u \left(</span><span class="se">\f</span><span class="s2">rac{1}{\Gamma(</span><span class="se">\n</span><span class="s2">u + 1) 2^</span><span class="se">\n</span><span class="s2">u} + O(z^2) </span><span class="se">\r</span><span class="s2">ight),</span>
+<span class="s2">        J_</span><span class="se">\n</span><span class="s2">u(z) = z^</span><span class="se">\n</span><span class="s2">u \left(</span><span class="se">\f</span><span class="s2">rac</span><span class="si">{1}</span><span class="s2">{\Gamma(</span><span class="se">\n</span><span class="s2">u + 1) 2^</span><span class="se">\n</span><span class="s2">u} + O(z^2) </span><span class="se">\r</span><span class="s2">ight),</span>
 
-<span class="s2">    if $</span><span class="se">\n</span><span class="s2">u$ is not a negative integer. If $</span><span class="se">\n</span><span class="s2">u=-n \in \mathbb{Z}_{&lt;0}$</span>
+<span class="s2">    if $</span><span class="se">\n</span><span class="s2">u$ is not a negative integer. If $</span><span class="se">\n</span><span class="s2">u=-n \in \mathbb</span><span class="si">{Z}</span><span class="s2">_{&lt;0}$</span>
 <span class="s2">    *is* a negative integer, then the definition is</span>
 
 <span class="s2">    .. math ::</span>
@@ -411,12 +411,12 @@ will continue to render exactly the same, but for developers, it is much
 easier to read and write.</p>
 <p>This extension can be easily used in any Sphinx project. Simply install it
 with pip or conda:</p>
-<pre class="code literal-block"><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sphinx</span><span class="o">-</span><span class="n">math</span><span class="o">-</span><span class="n">dollar</span>
+<pre class="code literal-block"><span></span><span class="err">pip install sphinx-math-dollar</span>
 </pre>
 
 
 <p>or</p>
-<pre class="code literal-block"><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="k">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">sphinx</span><span class="o">-</span><span class="n">math</span><span class="o">-</span><span class="n">dollar</span>
+<pre class="code literal-block"><span></span><span class="err">conda install -c conda-forge sphinx-math-dollar</span>
 </pre>
 
 
