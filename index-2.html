@@ -80,7 +80,46 @@ navbar-dark bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/" class="u-url">uarray update: API changes, overhead and comparison to __array_function__</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/07/ibis-python-data-analysis-productivity-framework/" class="u-url">Ibis: Python data analysis productivity framework</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                <a href="authors/ivan-ogasawara/">Ivan Ogasawara</a>
+            </span></p>
+            <p class="dateline">
+            <a href="blog/2019/07/ibis-python-data-analysis-productivity-framework/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-07-09T03:30:00Z" itemprop="datePublished" title="2019-07-09">2019-07-09</time></a>
+            </p>
+        </div>
+    </header><div class="p-summary entry-summary">
+    <div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ibis is a library pretty useful on data analysis tasks that provides a pandas-like API that allows operations like create filter, add columns, apply math operations etc in a <code>lazy</code> mode so all the operations are just registered in memory but not executed and when you want to get the result of the expression you created, Ibis compiles that and makes a request to the remote server (remote storage and execution systems like Hadoop components or SQL databases). Its goal is to simplify analytical workflows and make you more productive.</p>
+<p>Ibis was created by <a href="https://github.com/wesm">Wes McKinney</a> and is mainly maintained by <a href="https://github.com/cpcloud">Phillip Cloud</a> and <a href="https://github.com/kszucs">Krisztián Szűcs</a>. Also, recently, I was invited to become a maintainer of the Ibis repository!</p>
+<p>Maybe you are thinking: "why should I use Ibis?". Well, if you have any of the following issues, probably you should consider using Ibis in your analytical workflow!</p>
+<ul>
+<li>if you need to get data from a SQL database but you don't know much about SQL ...</li>
+<li>if you create SQL statements manually using string and have a lot of <code>IF</code>'s in your code that compose specific parts of your SQL code (it could be pretty hard to maintain and it will makes your code pretty ugly) ...</li>
+<li>if you need to handle data with a big volume ...</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p class="more"><a href="blog/2019/07/ibis-python-data-analysis-productivity-framework/">Read more…</a></p>
+</div>
+</div>
+</div>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/" class="u-url">uarray update: API changes, overhead and comparison to __array_function__</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 <a href="authors/hameer-abbasi/">Hameer Abbasi</a>

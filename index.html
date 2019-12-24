@@ -26,7 +26,7 @@ MathJax.Hub.Config({
        styles: {'.MathJax_Display': {"margin": 0}}
    }
 });
-</script><!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="blog/2019/11/variable-explorer-improvements-in-Spyder-4/" type="text/html">
+</script><!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="blog/2019/12/metadsl-talk/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -79,7 +79,43 @@ navbar-dark bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/11/variable-explorer-improvements-in-Spyder-4/" class="u-url">Variable Explorer improvements in Spyder 4</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/12/metadsl-talk/" class="u-url">metadsl PyData talk</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                <a href="authors/saul-shanabrook/">Saul Shanabrook</a>
+            </span></p>
+            <p class="dateline">
+            <a href="blog/2019/12/metadsl-talk/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-12-24T06:00:00-05:00" itemprop="datePublished" title="2019-12-24">2019-12-24</time></a>
+            </p>
+        </div>
+    </header><div class="p-summary entry-summary">
+    <div>
+<h2>metadsl PyData talk</h2>
+<p>PyData NYC just ended and I thought it would be good to collect my thoughts on <a href="https://metadsl.readthedocs.io/en/latest/"><code>metadsl</code></a> based on the many conversations I had there surrounding it. This is a rather long post, so if you are just looking for some code <a href="https://mybinder.org/v2/gh/Quansight-Labs/metadsl/959575fe6d6df884b987954c017dfa7f7c99b61a?urlpath=lab/tree/explorations/2109.12.07%20PyData%20Talk.ipynb"><strong>here is a Binder link for my talk</strong></a></p>
+<h3>What is <code>metadsl</code>?</h3>
+<pre class="code literal-block"><span></span><span class="k">class</span> <span class="nc">Number</span><span class="p">(</span><span class="n">metadsl</span><span class="o">.</span><span class="n">Expression</span><span class="p">):</span>
+   <span class="nd">@metadsl</span><span class="o">.</span><span class="n">expression</span>
+   <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Number</span><span class="p">:</span>
+       <span class="o">...</span>
+
+   <span class="nd">@metadsl</span><span class="o">.</span><span class="n">expression</span>
+   <span class="nd">@classmethod</span>
+   <span class="k">def</span> <span class="nf">from_int</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Number</span><span class="p">:</span>
+       <span class="o">...</span>
+
+
+<span class="nd">@metadsl</span><span class="o">.</span><span class="n">rule</span>
+<span class="k">def</span> <span class="nf">add_zero</span><span class="p">(</span><span class="n">y</span><span class="p">:</span> <span class="n">Number</span><span class="p">):</span>
+   <span class="k">yield</span> <span class="n">Number</span><span class="o">.</span><span class="n">from_int</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="n">y</span>
+   <span class="k">yield</span> <span class="n">y</span> <span class="o">+</span> <span class="n">Number</span><span class="o">.</span><span class="n">from_int</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">y</span>
+</pre>
+
+
+<p class="more"><a href="blog/2019/12/metadsl-talk/">Read more…</a></p>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/11/variable-explorer-improvements-in-Spyder-4/" class="u-url">Variable Explorer improvements in Spyder 4</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 <a href="authors/daniel-althviz/">Daniel Althviz</a>
@@ -347,45 +383,6 @@ device types (CPUs, GPUs etc.) without loss of performance and ease of use.</p>
 <p>I did not go to many technical talks, but did make sure to catch Matt Rocklin's talk "<em>Refactoring the SciPy Ecosystem for Heterogeneous Computing</em>". Matt clearly explained some key issues and opportunities around the state of array computing libraries in Python - I highly recommend watching this talk.</p>
 <p>Abigail Cabunoc Mayes' talk "<em>Work Open, Lead Open (#WOLO) for Sustainability</em>" was fascinating - it made me rethink the governance models and roles we use for our projects, and I worked on some of her concrete suggestions during the sprints.</p>
 <p class="more"><a href="blog/2019/07/quansight-at-scipy2019/">Read more…</a></p>
-</div>
-    </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/07/ibis-python-data-analysis-productivity-framework/" class="u-url">Ibis: Python data analysis productivity framework</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                <a href="authors/ivan-ogasawara/">Ivan Ogasawara</a>
-            </span></p>
-            <p class="dateline">
-            <a href="blog/2019/07/ibis-python-data-analysis-productivity-framework/" rel="bookmark">
-            <time class="published dt-published" datetime="2019-07-09T03:30:00Z" itemprop="datePublished" title="2019-07-09">2019-07-09</time></a>
-            </p>
-        </div>
-    </header><div class="p-summary entry-summary">
-    <div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Ibis is a library pretty useful on data analysis tasks that provides a pandas-like API that allows operations like create filter, add columns, apply math operations etc in a <code>lazy</code> mode so all the operations are just registered in memory but not executed and when you want to get the result of the expression you created, Ibis compiles that and makes a request to the remote server (remote storage and execution systems like Hadoop components or SQL databases). Its goal is to simplify analytical workflows and make you more productive.</p>
-<p>Ibis was created by <a href="https://github.com/wesm">Wes McKinney</a> and is mainly maintained by <a href="https://github.com/cpcloud">Phillip Cloud</a> and <a href="https://github.com/kszucs">Krisztián Szűcs</a>. Also, recently, I was invited to become a maintainer of the Ibis repository!</p>
-<p>Maybe you are thinking: "why should I use Ibis?". Well, if you have any of the following issues, probably you should consider using Ibis in your analytical workflow!</p>
-<ul>
-<li>if you need to get data from a SQL database but you don't know much about SQL ...</li>
-<li>if you create SQL statements manually using string and have a lot of <code>IF</code>'s in your code that compose specific parts of your SQL code (it could be pretty hard to maintain and it will makes your code pretty ugly) ...</li>
-<li>if you need to handle data with a big volume ...</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p class="more"><a href="blog/2019/07/ibis-python-data-analysis-productivity-framework/">Read more…</a></p>
-</div>
-</div>
-</div>
 </div>
     </div>
     </article>

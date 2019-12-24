@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs (Posts about Labs)</title><link>https://labs.quansight.org/</link><description></description><atom:link href="https://labs.quansight.org/categories/labs.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Fri, 29 Nov 2019 05:05:37 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Variable Explorer improvements in Spyder 4</title><link>https://labs.quansight.org/blog/2019/11/variable-explorer-improvements-in-Spyder-4/</link><dc:creator>Daniel Althviz</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://www.spyder-ide.org/"&gt;Spyder&lt;/a&gt; 4 will be released very soon with lots of interesting new features that you'll want to check out, reflecting years of effort by the team to improve the user experience. In this post, we will be talking about the improvements made to the Variable Explorer.&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs (Posts about Labs)</title><link>https://labs.quansight.org/</link><description></description><atom:link href="https://labs.quansight.org/categories/labs.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Tue, 24 Dec 2019 14:25:41 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>metadsl PyData talk</title><link>https://labs.quansight.org/blog/2019/12/metadsl-talk/</link><dc:creator>Saul Shanabrook</dc:creator><description>&lt;div&gt;&lt;h2&gt;metadsl PyData talk&lt;/h2&gt;
+&lt;p&gt;PyData NYC just ended and I thought it would be good to collect my thoughts on &lt;a href="https://metadsl.readthedocs.io/en/latest/"&gt;&lt;code&gt;metadsl&lt;/code&gt;&lt;/a&gt; based on the many conversations I had there surrounding it. This is a rather long post, so if you are just looking for some code &lt;a href="https://mybinder.org/v2/gh/Quansight-Labs/metadsl/959575fe6d6df884b987954c017dfa7f7c99b61a?urlpath=lab/tree/explorations/2109.12.07%20PyData%20Talk.ipynb"&gt;&lt;strong&gt;here is a Binder link for my talk&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;What is &lt;code&gt;metadsl&lt;/code&gt;?&lt;/h3&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Number&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;metadsl&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Expression&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+   &lt;span class="nd"&gt;@metadsl&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;expression&lt;/span&gt;
+   &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__add__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;other&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Number&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Number&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+       &lt;span class="o"&gt;...&lt;/span&gt;
+
+   &lt;span class="nd"&gt;@metadsl&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;expression&lt;/span&gt;
+   &lt;span class="nd"&gt;@classmethod&lt;/span&gt;
+   &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;from_int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;cls&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Number&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+       &lt;span class="o"&gt;...&lt;/span&gt;
+
+
+&lt;span class="nd"&gt;@metadsl&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rule&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;add_zero&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Number&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+   &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="n"&gt;Number&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;from_int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;
+   &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;Number&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;from_int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/12/metadsl-talk/"&gt;Read more…&lt;/a&gt; (12 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Labs</category><category>metadsl</category><guid>https://labs.quansight.org/blog/2019/12/metadsl-talk/</guid><pubDate>Tue, 24 Dec 2019 11:00:00 GMT</pubDate></item><item><title>Variable Explorer improvements in Spyder 4</title><link>https://labs.quansight.org/blog/2019/11/variable-explorer-improvements-in-Spyder-4/</link><dc:creator>Daniel Althviz</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://www.spyder-ide.org/"&gt;Spyder&lt;/a&gt; 4 will be released very soon with lots of interesting new features that you'll want to check out, reflecting years of effort by the team to improve the user experience. In this post, we will be talking about the improvements made to the Variable Explorer.&lt;/p&gt;
 &lt;p&gt;These include the brand new Object Explorer for inspecting arbitrary Python variables, full support for MultiIndex dataframes with multiple dimensions, and the ability to filter and search for variables by name and type, and much more.&lt;/p&gt;
 &lt;p&gt;It is important to mention that several of the above improvements were made possible through integrating the work of two other projects. Code from &lt;a href="https://github.com/TabViewer/gtabview"&gt;gtabview&lt;/a&gt; was used to implement the multi-dimensional Pandas indexes, while &lt;a href="https://github.com/titusjan/objbrowser"&gt;objbrowser&lt;/a&gt; was the foundation of the new Object Explorer.&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/11/variable-explorer-improvements-in-Spyder-4/"&gt;Read more…&lt;/a&gt; (7 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Labs</category><category>Spyder</category><guid>https://labs.quansight.org/blog/2019/11/variable-explorer-improvements-in-Spyder-4/</guid><pubDate>Fri, 29 Nov 2019 01:00:00 GMT</pubDate></item><item><title>A new grant for NumPy and OpenBLAS!</title><link>https://labs.quansight.org/blog/2019/11/numpy-openblas-CZI-grant/</link><dc:creator>Ralf Gommers</dc:creator><description>&lt;div&gt;&lt;p&gt;I'm very pleased to announce that NumPy and OpenBLAS just received a $195,000 grant from
@@ -124,43 +145,4 @@ proposition is that because we understand how open source works and many of
 our developers are maintainers and contributors of the open source projects
 already, we propose work that the community already has interest in and we
 open the discussion about any major code change early to avoid issues.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/05/community-driven-opensource-funded-development/"&gt;Read more…&lt;/a&gt; (6 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>community</category><category>funding</category><category>Labs</category><guid>https://labs.quansight.org/blog/2019/05/community-driven-opensource-funded-development/</guid><pubDate>Wed, 29 May 2019 05:00:00 GMT</pubDate></item><item><title>Measuring API usage for popular numerical and scientific libraries</title><link>https://labs.quansight.org/blog/2019/05/python-package-function-usage/</link><dc:creator>Christopher Ostrouchov</dc:creator><description>&lt;div&gt;&lt;p&gt;Developers of open source software often have a difficult time
-understanding how others utilize their libraries. Having better data of
-when and how functions are being used has many benefits. Some of these
-are:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;better API design&lt;/li&gt;
-&lt;li&gt;determining whether or not a feature can be deprecated or removed.&lt;/li&gt;
-&lt;li&gt;more instructive tutorials&lt;/li&gt;
-&lt;li&gt;understanding the adoption of new features&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;Python Namespace Inspection&lt;/h2&gt;
-&lt;p&gt;We wrote a general tool
-&lt;a href="https://github.com/Quansight-Labs/python-api-inspect"&gt;python-api-inspect&lt;/a&gt;
-to analyze any function/attribute call within a given set of
-namespaces in a repository. This work was heavily inspired by a blog
-post on inspecting method usage with
-&lt;a href="https://galeascience.wordpress.com/2016/08/10/top-10-pandas-numpy-and-scipy-functions-on-github/"&gt;Google BigQuery&lt;/a&gt;
-for &lt;a href="https://pandas.pydata.org/"&gt;pandas&lt;/a&gt;,
-&lt;a href="https://www.numpy.org/"&gt;NumPy&lt;/a&gt;, and
-&lt;a href="https://www.scipy.org/"&gt;SciPy&lt;/a&gt;. The previously mentioned work used
-regular expressions to search for method usage. The primary issue with
-this approach is that it cannot handle &lt;code&gt;import numpy.random as rand;
-rand.random(...)&lt;/code&gt; unless additional regular expressions are
-constructed for each case and will result in false
-positives. Additionally,
-&lt;a href="https://cloud.google.com/bigquery/"&gt;BigQuery&lt;/a&gt; is not a free resource.
-Thus, this approach is not general enough and does not scale well with
-the number of libraries that we would like to inspect function and
-attribute usage.&lt;/p&gt;
-&lt;p&gt;A more robust approach is to inspect the Python abstract syntax tree
-(AST). Python comes with a performant method from the &lt;a href="https://docs.python.org/3/library/ast.html"&gt;ast
-module&lt;/a&gt; &lt;code&gt;ast.parse(...)&lt;/code&gt;
-for constructing a Python AST from source code. A &lt;a href="https://docs.python.org/3/library/ast.html#ast.NodeVisitor"&gt;node
-visitor&lt;/a&gt;
-is used to traverse the AST and record &lt;code&gt;import&lt;/code&gt; statements, and
-function/attribute calls. This allows us to catch any absolute
-namespace reference. The following are cases that
-&lt;a href="https://github.com/Quansight-Labs/python-api-inspect"&gt;python-api-inspect&lt;/a&gt;
-catches:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/05/python-package-function-usage/"&gt;Read more…&lt;/a&gt; (4 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Labs</category><guid>https://labs.quansight.org/blog/2019/05/python-package-function-usage/</guid><pubDate>Mon, 27 May 2019 05:00:00 GMT</pubDate></item></channel></rss>
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/05/community-driven-opensource-funded-development/"&gt;Read more…&lt;/a&gt; (6 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>community</category><category>funding</category><category>Labs</category><guid>https://labs.quansight.org/blog/2019/05/community-driven-opensource-funded-development/</guid><pubDate>Wed, 29 May 2019 05:00:00 GMT</pubDate></item></channel></rss>

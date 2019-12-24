@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>metadsl PyData talk | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2019/12/metadsl-talk/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Saul Shanabrook">
+<link rel="prev" href="../../11/variable-explorer-improvements-in-Spyder-4/" title="Variable Explorer improvements in Spyder 4" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="metadsl PyData talk">
+<meta property="og:url" content="https://labs.quansight.org/blog/2019/12/metadsl-talk/">
+<meta property="og:description" content="metadsl PyData talk
+PyData NYC just ended and I thought it would be good to collect my thoughts on metadsl based on the many conversations I had there surrounding it. This is a rather long post, so if">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2019-12-24T06:00:00-05:00">
+<meta property="article:tag" content="Labs">
+<meta property="article:tag" content="metadsl">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+
+            <span id="blog-title">Quansight Labs</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../archive.html" class="nav-link">Archive</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../categories/" class="nav-link">Tags</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS feed</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right">
+<li class="nav-item">
+    <a href="index.md" id="sourcelink" class="nav-link">Source</a>
+    </li>
+
+
+                
+            </ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">metadsl PyData talk</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    <a class="u-url" href="../../../../authors/saul-shanabrook/">Saul Shanabrook</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2019-12-24T06:00:00-05:00" itemprop="datePublished" title="2019-12-24">2019-12-24</time></a>
+            </p>
+            
+        <p class="sourceline"><a href="index.md" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<h2>metadsl PyData talk</h2>
+<p>PyData NYC just ended and I thought it would be good to collect my thoughts on <a href="https://metadsl.readthedocs.io/en/latest/"><code>metadsl</code></a> based on the many conversations I had there surrounding it. This is a rather long post, so if you are just looking for some code <a href="https://mybinder.org/v2/gh/Quansight-Labs/metadsl/959575fe6d6df884b987954c017dfa7f7c99b61a?urlpath=lab/tree/explorations/2109.12.07%20PyData%20Talk.ipynb"><strong>here is a Binder link for my talk</strong></a></p>
+<h3>What is <code>metadsl</code>?</h3>
+<pre class="code literal-block"><span></span><span class="k">class</span> <span class="nc">Number</span><span class="p">(</span><span class="n">metadsl</span><span class="o">.</span><span class="n">Expression</span><span class="p">):</span>
+   <span class="nd">@metadsl</span><span class="o">.</span><span class="n">expression</span>
+   <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Number</span><span class="p">:</span>
+       <span class="o">...</span>
+
+   <span class="nd">@metadsl</span><span class="o">.</span><span class="n">expression</span>
+   <span class="nd">@classmethod</span>
+   <span class="k">def</span> <span class="nf">from_int</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Number</span><span class="p">:</span>
+       <span class="o">...</span>
+
+
+<span class="nd">@metadsl</span><span class="o">.</span><span class="n">rule</span>
+<span class="k">def</span> <span class="nf">add_zero</span><span class="p">(</span><span class="n">y</span><span class="p">:</span> <span class="n">Number</span><span class="p">):</span>
+   <span class="k">yield</span> <span class="n">Number</span><span class="o">.</span><span class="n">from_int</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="n">y</span>
+   <span class="k">yield</span> <span class="n">y</span> <span class="o">+</span> <span class="n">Number</span><span class="o">.</span><span class="n">from_int</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">y</span>
+</pre>
+
+
+<!-- TEASER_END -->
+
+<p>It's a system for creating DSLs (domain specific languages) in Python so that you can separate your API from its implementation. I wrote <a href="https://labs.quansight.org/blog/2019/05/metadsl-dsl-framework/">a previous blog post showing how to create a system like <code>metadsl</code> from the ground up in Python</a>. The premise is that we are looking to a future (and present) where Python is used to build up a computation which is compiled and executed with other systems. Examples of this today are systems like Tensorflow, <a href="http://numba.pydata.org/">Numba</a>, and <a href="https://docs.ibis-project.org/">Ibis</a>.</p>
+<p>There are currently many different approaches to writing deeply embedded DSLs in Python. <code>metadsl</code>s main differentiator is that it piggybacks on Python's existing static typing community. All code written in <code>metadsl</code> should be statically analyzable with MyPy and its ilk. We define the language using Python's existing mechanisms of class and functions with type annotations. We also support writing rewrite rules, using regular Python code that is also statically analyzable. So instead of defining a separate API for describing your nodes in your graph, their signatures, and how to replace them with other nodes, you just write Python functions and expressions.</p>
+<p>Why would we limit ourselves to essentially a restricted subset of Python's flexibility when it has such great support for flexible metaprogramming and magic? It's so that users of the library can keep the same abstractions that they know from Python. It ties it closer conceptually to the language itself and pushes any type level improvements to happen at the <code>typing</code>/<code>mypy</code> level. So that <code>metadsl</code> moves in accordance with the language itself. It also means we are more restricted in what we can support, but sometimes bounds are helpful to limit scope and possible options.</p>
+<p><strong>TLDR</strong>: <code>metadsl</code> is a framework to write domain specific languages in Python that piggybacks on the standard type annotation semantics.</p>
+<h3>How did your talk go?</h3>
+<p>This was my first time to present <code>metadsl</code>, although really a year earlier Travis and I <a href="https://pydata.org/dc2018/schedule/presentation/46/">co-presented on a previous incarnation of the project</a>. I imagine at some point the recording will be published, but until then you can run through my talk by playing with <a href="https://mybinder.org/v2/gh/Quansight-Labs/metadsl/959575fe6d6df884b987954c017dfa7f7c99b61a?urlpath=lab/tree/explorations/2109.12.07%20PyData%20Talk.ipynb">this</a> notebook on Binder. I appreciated the opportunity to try to place this project in some historical context. I think once I got to the actual code example though, I could have done a better job actually explaining how the system worked and what its limitations are. But it did give me leaping off point to have many great conversations with folks afterwards, which I will summarize below.</p>
+<h3>What are the remaining technical hurdles?</h3>
+<p>Many! :D</p>
+<h4>Debugging</h4>
+<p>I was very glad to bump into <a href="http://hirzels.com/martin/">Martin Hirzel</a> again. He presented <a href="http://hirzels.com/martin/papers/mapl18-deep-ppl-poster.pdf">a great poster at PLDI</a> a year and a half ago, outlining some issues with using a variety of probabilistic programming libraries in Python. Each, for example, has their own abstractions for things like arrays or variables, that users have to re-learn as they switch between them. Users also don't get the same sort of debugging or tracebacks when using these libraries, as they do with regular Python, which leads to a worse user experience.</p>
+<p>But he was here at PyData presenting a new system, called <a href="https://github.com/ibm/lale">Lale</a>, which allows you to declaratively specify your machine learning pipeline and leave out hyperparameters which you don't know. Then you can feed this to an automatic meta learning system like TPOT which will optimize these. Watch for him on a future Open Source Directions webinar presenting this work!</p>
+<p>We talked about how we might add better debugging to <code>metadsl</code>. Ideally, we would be able to track back errors to the line where the user entered the expression. So even if they compile to say LLVM, and the code throws some error, it would be good to point out that error to where the user originally wrote the code. To do this, we would have to track the file, line, and column for every expression creation and propagate those along as we do replacements. We should look to Swift for some guidance here, because I know they have spent some effort making sure their compiler preserves source location as it compiles.</p>
+<h4>Mathematical soundness</h4>
+<p>Another person asked a good question after the presentation, "What if two rules match? Which gets chosen?" At the moment it's a manual process, where you define groups of rules that all should fire at the same time, so should be confluent and then put those groups in series. Like a number of compiler passes. However, we can't prove that two rules won't both match the same objects, leading to indeterminism, or that there are enough rules defined so that the result will actually be replaced, leading to an error. It would be nice to be able to say these things statically.</p>
+<p>For example, here is an optimization rule that should execute before, say, compiling to LLVM rules:</p>
+<pre class="code literal-block"><span></span><span class="nd">@metadsl</span><span class="o">.</span><span class="n">rule</span>
+<span class="k">def</span> <span class="nf">add_zero</span><span class="p">(</span><span class="n">y</span><span class="p">:</span> <span class="n">Number</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Replace y + 0 with y</span>
+<span class="sd">    """</span>
+    <span class="k">yield</span> <span class="n">Number</span><span class="o">.</span><span class="n">from_int</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="n">y</span>
+    <span class="k">yield</span> <span class="n">y</span> <span class="o">+</span> <span class="n">Number</span><span class="o">.</span><span class="n">from_int</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">y</span>
+</pre>
+
+
+<p>There is lots of existing research in the pattern matching and lambda calculus community on being able to answer these questions. However, to get to those systems it would be good to first make our pattern matching system more restricted. Currently, we can define "pure" rules, which have strictly structural matching, and "unpure" rules which execute arbitrary Python functions to determine the replacement. The unpure rules will be very hard to reason about mathematically, unless we decide to model all of Python, which seems like a bad idea. So if we can move more, if not all, of our system to pure replacements then we can have more luck analyzing them. I have a couple of ideas here:</p>
+<ul>
+<li>One use case for unpure functions is to check if a certain python value has some <strong>property</strong>. Like checking if a integer is 0 to execute some optimization. Even if we don't wanna be able to prove anything about the actual details of these properties, we could model them as pre-checks for the substitution based on deterministic functions on the values.</li>
+<li>Another is to wrap/unwrap from <strong>values in the host language</strong> of Python. We need this at the edges of the system, for example to unwrap tuples or replace based on which Python type is found. I don't think we can avoid this part. However, by making sure we limit it to the edges, we could still possibly prove things about the inside of the system.</li>
+<li>We also <a href="https://github.com/Quansight-Labs/metadsl/blob/c0419e89e72776026f97b4e5b08d337a5189300d/metadsl_core/abstraction.py">embed a <strong>simply typed lambda calculus</strong> into the language itself and implement beta reduction by replacing variables in the subtree</a>. Beta reduction is impure, because we are doing a recursive find and replace on the subtree. Creation, from a Python function, is impure not only because it calls a Python callable, but also because it generates a "Variable" with a unique ID to save as the param for the function.</li>
+<li>In order to compile a functional data flow expression to an imperative control flow graph we need to order our expressions. More details can be found in <a href="https://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-705.pdf">"Optimizing compilation with the Value State Dependence Graph"</a> paper. It's hard for me at the moment to imagine this kind of transformation in a pure pattern replacement.</li>
+</ul>
+<p>For these last two, we should talk to folks from the term rewriting and lambda calculus communities. In particular, the <a href="http://fscdconference.org/">"International Conference on Formal Structures for Computation and Deduction"</a> seems like an appropriate venue to look into:</p>
+<blockquote>
+<p>FSCD covers all aspects of formal structures for computation and deduction from theoretical foundations to applications. Building on two communities, RTA (Rewriting Techniques and Applications) and TLCA (Typed Lambda Calculi and Applications), FSCD embraces their core topics and broadens their scope to closely related areas in logics, models of computation (e.g. quantum computing, probabilistic computing, homotopy type theory), semantics and verification in new challenging areas (e.g. blockchain protocols or deep learning algorithms).</p>
+</blockquote>
+<p>There is also <a href="https://cstheory.stackexchange.com/a/36092">a long history of approaches in trying to compile simply typed lambda calculus using term rewriting systems</a>.</p>
+<h4>Python Control Flow</h4>
+<p>It was really nice to meet Joe Jevnik for the first time. He has a ton of experience hacking on Python to make things faster and was one of the original contributors to the Blaze project at Continuum.</p>
+<p>Currently, <code>metadsl</code> creates expressions just by executing Python functions. This is nice and simple, but it doesn't let us map Python control flow, like <code>if</code>, <code>for</code>, and list comprehensions, to a functional form.  Joe said we could modify the CPython interpreter to be able to transform these things (<a href="https://github.com/llllllllll/codetransformer"><code>codetransformer</code></a>). I like this method more than AST or bytecode parsing since it should work without access to the source and we don't need to put our computation in a function.</p>
+<p>Tiark Rompf and some folks at Google have been exploring a similar space, in their <a href="https://www.cs.purdue.edu/homes/rompf/papers/decker-preprint201811.pdf">"The 800 Pound Python in the Machine Learning Room" paper</a> and <a href="https://github.com/jmd1011/snek-LMS#lightweight-syntax-for-building-computation-graphs"><code>snek-LMS</code></a> repo:</p>
+<p><img alt="" src="https://user-images.githubusercontent.com/1186124/69267752-d20b1700-0b9b-11ea-8fbb-1a014536099d.png"></p>
+<p>This is a great area of future work, exploring how we can map Python control flow to <code>metadsl</code> expressions to get closer to the expressiveness of things like Numba or Tensorflow. It's much nicer for users to be able to write <code>if: .... else: ...</code> instead of a functional <code>if_(true_clause, false_clause)</code>.</p>
+<h3>Where should this be used?</h3>
+<p>This was the second time talking to Mati Picus about this work. He works on NumPy as well as PyPy so has an interesting perspective on how tools like this could make it easier to create alternative runtimes for Python. One major difference between this work and PyPy is that we are limiting ourselves here to creating and compiling domain specific languages in Python, instead of all of Python. Not only does this mean we can deal with a restricted object model, but we can also co-design our libraries to work with this system. PyPy's job is much harder, having to interpret the full complexity of Python and the creative ways existing libraries use it.</p>
+<h4>MLIR</h4>
+<p>He also was wondering about the relationship with MLIR, a new project from Chris Lattner and Google to provide a meta-IR to describe translations between things like the Tensorflow Graph and LLVM. I was really excited to see this announced last year at the Compilers for Machine Learning conference, because it made me think that maybe this whole "lets share infrastructure to describe our IRs even if we know we need multiple ones" isn't totally crazy. I see <code>metadsl</code> as another take on the same idea, but focusing on Python first friendliness whereas with MLIR you use C++ (at least this is what I have seen so far).</p>
+<p>I do want  to investigate it though and see what are the main differences. One key question I have is, "Can you make a simply typed lambda calculus dialect in MLIR?" <code>metadsl</code> was designed to allow this to facilitate compiling things like the Mathematics of Arrays which represents arrays as functions from indices to values.</p>
+<p>It would be nice to see if we could convert between MLIR dialects and <code>metadsl</code>. And long term, if we could open a dialogue there and come together into one system in the end, that would be ideal!</p>
+<p>I have already started experimenting with translating <code>metadsl</code> types into JSON with the <code>typez</code> project. That's useful because then we could possibly generate these <code>typez</code> descriptions from MLIR dialects and then from there auto-generate Python code. Or vice versa.</p>
+<p>I think for now we should focus on doing something useful with <code>metadsl</code> first, to really stress test it, then we can come back and see how to bridge that gap.</p>
+<h4>Dataframes</h4>
+<p>Which brings me to the most practically relevant conversations... Dataframes!</p>
+<p>I was excited to reconnect with Marc Garcia, after meeting him a few years ago at SciPy. Congratulations to him for being awarded the Project Sustainability award at the NumFOCUS Summit the weekend before PyData NYC! He ran a docs sprint for Pandas that drew 500 people and is mentoring 26 women new to contributing to Pandas.</p>
+<p>We talked about how we could think about targeting different backends and optimizing Pandas. His notion is that they are already exploring this for small chunks of computation. Like adding a <code>backend</code> flag to some larger operations to run them through different systems. They just implemented this for plotting as well. He said to move Pandas anywhere, it has to be incremental, that a full rewrite would be less likely to succeed.</p>
+<p>I was also thrilled to meet Jeff Reback for the first time. Jeff heroically helps manage the Pandas and Ibis projects, answering your issues and merging your pull requests. If you haven't heard of Ibis yet, it's a lazy Pandas project that can target different backends, like SQL databases. At Quansight, Ivan Ogasawara has implemented a <a href="https://labs.quansight.org/blog/2019/07/ibis-python-data-analysis-productivity-framework/">backend for the OmniSci GPU database</a>, so that you can run queries over millions of rows very quickly from Python with a familiar API. This seems like a nice project to see if <code>metadsl</code> has legs.</p>
+<p>We should take a look at C# LINQ for inspiration here, to see how they had to update their type system to support it. We will have to also upstream some of <a href="https://github.com/python/typing/issues/685">these changes</a> to Python's core typing.</p>
+<h3>Long term implications</h3>
+<p>By describing our APIs with <code>metadsl</code> we transform our code into structured data.</p>
+<h4>Reproducible Science</h4>
+<p>Then, if we save this data, we are able to later analyze it semantically. For example, we can determine what data files were used to produce a certain visualization in a notebook if we output the computation graph alongside the result. This dovetails with <a href="https://github.com/jupyterlab/jupyterlab-metadata-service/">work we have been doing in JupyterLab to support viewing linked data</a> with <a href="https://derwen.ai/paco">Paco Nathan</a>, <a href="https://coleridgeinitiative.org/">the NYU Coleridge Initiative</a>, and CalPoly.</p>
+<p><img alt="screenshot of JupyterLab metadata creation" src="https://raw.githubusercontent.com/jupyterlab/jupyterlab-metadata-service/master/docs/img/notebook.png">.</p>
+<p>I sadly missed <a href="https://pydata.org/nyc2019/schedule/presentation/37/semantic-modeling-of-data-science-code/">the talk by Evan Patterson on "Semantic modeling of data science code"</a> also at PyData that seemed to be going down this same route, but instead by creating separate schemas for the API code. The difference here is that if libraries adopt <code>metadsl</code> then we get a defined ontology for free.</p>
+<h4>Statistical Code Optimizations</h4>
+<p>By creating an extensible rewrite and compilation system we make it possible to experiment with new types of whole-program optimizations on existing codebases. We are starting to see an increase in machine learning in the compilation process itself (<a href="https://research.fb.com/blog/2018/02/announcing-tensor-comprehensions/">Tensor Comprehensions</a>, <a href="https://tvm.ai/2019/04/29/opt-cuda-quantized">TVM</a>, <a href="https://ieeexplore.ieee.org/abstract/document/8357388">"Machine Learning in Compiler Optimization"</a>). As our hardware and software stacks get more complicated it becomes harder to reason about optimization strictly from first principles. So we can <a href="https://research.fb.com/blog/2018/09/efficient-tuning-of-online-systems-using-bayesian-optimization/">use tools from statistics, like Bayesian Optimization, to optimize our compilation</a>.</p>
+<p>I went to a talk last week by <a href="https://en.wikipedia.org/wiki/David_Blei">David Blei</a>, a pioneer in the probabilistic models and causal inference space. Causal inference lets us try to understand the effect of actions based on previous data from the world:</p>
+<p><img alt="Picture of talk" src="https://user-images.githubusercontent.com/1186124/68776067-78d04000-05fd-11ea-8077-370f8b459661.jpg"></p>
+<p>I would love to experiment with these tools to help users compile fast code across different architectures, but first we need to create space in the eocsystem to prototype them and get them into users' hands.</p>
+<h3>Wanna get involved?</h3>
+<p>This project is at an early state and would benefit from collaboration. If you want to get involved, please open an issue on the repo or reach out to me directly. As a Python ecosystem I hope we can come together to work towards solutions in this space.</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/labs/" rel="tag">Labs</a></li>
+            <li><a class="tag p-category" href="../../../../categories/metadsl/" rel="tag">metadsl</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../../11/variable-explorer-improvements-in-Spyder-4/" rel="prev" title="Variable Explorer improvements in Spyder 4">Previous post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2019         <a href="mailto:info@quansight.com">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>
