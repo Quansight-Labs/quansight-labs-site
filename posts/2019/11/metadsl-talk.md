@@ -1,7 +1,7 @@
 <!--
 .. title: metadsl PyData talk
 .. slug: metadsl-talk
-.. date: 2019-12-23 06:00:00 UTC-05:00
+.. date: 2019-12-24 06:00:00 UTC-05:00
 .. author: Saul Shanabrook
 .. tags: Labs, metadsl
 .. category:
