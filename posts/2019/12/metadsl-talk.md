@@ -12,7 +12,9 @@
 
 # metadsl PyData talk
  
-PyData NYC just ended and I thought it would be good to collect my thoughts on [`metadsl`](https://metadsl.readthedocs.io/en/latest/) based on the many conversations I had there surrounding it. This is a rather long post, so if you are just looking for some code [**here is a Binder link for my talk**][binder]
+PyData NYC just ended and I thought it would be good to collect my thoughts on [`metadsl`](https://metadsl.readthedocs.io/en/latest/) based on the many conversations I had there surrounding it. This is a rather long post, so if you are just looking for some code [**here is a Binder link for my talk**][binder]. Also, here is the talk I gave a month or so later on the same topic in Austin:
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/cdWdTPL7zrg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 ## What is `metadsl`?
