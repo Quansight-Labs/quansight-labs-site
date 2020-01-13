@@ -1,3 +1,56 @@
+/* Quangight Lab CSS Code */
+
+
+.navbar-light .navbar-nav .nav-link{
+  color: #8E5FBD
+} 
+.navbar-light .navbar-nav .nav-link:hover{
+  color: #5d2e8c
+} 
+.navbar-light .navbar-nav .active .nav-link{
+  color: #5D2E8C
+}
+#logo {
+  max-height: 50px;
+}  
+#navbar-separator{
+  border-bottom: 5px solid #5D2E8C;
+}
+
+div.prompt {
+  display: none;
+}
+
+div.input  {
+  border: none;
+  background-color: none;
+}
+
+div.input * {
+  background-color: none;
+}
+
+/* set a max-width for horizontal fluid layout and make it centered */
+.body-content {
+margin-right: auto;
+margin-left: auto;
+max-width: 750px;
+}
+
+div.output_subarea {
+  /* Widens image-containing divs so that image is full body width */
+  max-width: 100%;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+
+
 /*!
  * Bootstrap v3.4.0 (https://getbootstrap.com/)
  * Copyright 2011-2018 Twitter, Inc.
@@ -12,6 +65,7 @@ html {
 body {
   margin: 0;
 }
+
 article,
 aside,
 details,
@@ -4327,9 +4381,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-brand {
+  margin:0px;
   float: left;
   height: 50px;
-  padding: 15px 15px;
   font-size: 18px;
   line-height: 20px;
 }
@@ -4375,6 +4429,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     display: none;
   }
 }
+
 .navbar-nav {
   margin: 7.5px -15px;
 }

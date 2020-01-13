@@ -1,3 +1,20 @@
+.navbar-options > li > a {
+    color: #8E5FBD
+} 
+.navbar-options > .active > a{
+    color: #5D2E8C
+}
+#logo {
+    max-height: 50px;
+}  
+.navbar{
+    background-color: #fff;
+}
+  
+
+
+
+
 div.prompt {
     display: none;
 }
