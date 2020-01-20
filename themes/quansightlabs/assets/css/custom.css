@@ -1,6 +1,20 @@
 /* Quangight Lab CSS Code */
 
+/* Post Page CSS*/
+.tags{
+  text-align: left;
+  margin-left: 0px;
+}
+header a{
+  color: #5d2e8c;
+}
 
+header a:hover{
+  color: #8E5FBD
+}
+
+
+/* Nav Bar CSS */
 .navbar-light .navbar-nav .nav-link{
   color: #8E5FBD
 } 
@@ -14,6 +28,7 @@
   max-height: 50px;
 }  
 #navbar-separator{
+  background-color: #fff;
   border-bottom: 5px solid #5D2E8C;
 }
 
