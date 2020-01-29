@@ -32,7 +32,7 @@ This is a great feature because it allows the user to determine their shell inte
 
 ## Theme configuration
 
-Another big change in this new version of the terminal is that now all the Spyder themes options are available. In this way, when a user changes the palette that wants to use with Spyder, automatically the terminal will use the same theme including the font size. Some examples of the new supported themes for the terminal are shown below.
+Another big change in the new version is built-in support for both Spyder's light and dark theme. When you change your Spyder theme or display options, the Terminal automatically adapt its UI, colors and fonts accordingly.
 
 ![Spyder-terminal with minimal color theme](/images/spyder-terminal/minimal.png)
 
