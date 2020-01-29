@@ -17,7 +17,7 @@ The [Spyder-Terminal project](https://github.com/spyder-ide/spyder-terminal) is 
 ## ES6/JSX syntax
 In the first place, we were able to update all the old JavaScript files to a ES6/JS syntax. This change simplified the code base and maintenance for the terminal. Also, it allows us to extend the project in an easier way to new functionalities that the xterm.js API offers. In order to compile this code and run it inside Spyder we migrated our deployment to Webpack. Additionally, the tests for the client terminal were updated to support the new syntax.
 
-## Multiple shells per operative system
+## Multiple shells per operating system
 
 A new feature added to the terminal is that the user can configure which shell to use in the terminal. Now the terminal is able to start with `bash`, `sh`, `ksh`, `zsh`, `csh`, `pwsh`, `tcsh`, `screen`, `tmux`, `dash` and `rbash` in UNIX systems and `cmd` and `powershell` in Windows. This option is given on the preferences pane and a restart of Spyder is required to apply the changes.
 
