@@ -52,4 +52,4 @@ Lastly, the shortcuts on the terminal are configurable within the keyboard short
 
 ![Open a new terminal with the configured shortcut](/images/spyder-terminal/new-term.gif)
 
-The new Spyder-terminal version will enhance the user experience while using Spyder 4. We can't wait for users to install and experiment with the new features available. All the presented work was funded by a NumFOCUS small development grant and Quansight. Please don't forget to keep up with our updates and happy coding!
+We're excited for you to try out Spyder-Terminal 0.3.0 and experiment with the new features available; we'd like to thank [NumFOCUS](https://numfocus.org/) and Quansight for providing the funding and support that made all this work possible. Check back soon for more Spyder updates, and until then, happy coding!
