@@ -10,7 +10,7 @@
 .. type: text
 -->
 
-The Spyder-terminal project is revitalized! In the new release of the project we were able to add numerous features that improve the terminal experience. Also, this new version enhances compatibility with the latest Spyder 4 release. We were able to develop all this work thanks to the latest release of the [xterm.js](https://xtermjs.org/) project.
+The [Spyder-Terminal project](https://github.com/spyder-ide/spyder-terminal) is revitalized! The new 0.3.0 version adds numerous features that improves the user experience, and enhances compatibility with the latest Spyder 4 release, in part thanks to the improvements made in the [xterm.js](https://xtermjs.org/) project.
 
 <!-- TEASER_END -->
 
