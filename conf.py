@@ -72,6 +72,7 @@ NAVIGATION_LINKS = {
         ("/archive.html", "Blog"),
         ("/rss.xml", "Team"),
         ("/categories/", "Projects"),
+        ("/about", "About"),
     ),
 }
 
