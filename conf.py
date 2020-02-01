@@ -69,7 +69,13 @@ TRANSLATIONS_PATTERN = '{path}.{lang}.{ext}'
 NAVIGATION_LINKS = {
     DEFAULT_LANG: (
         ("/", "Home"),
-        ("/archive.html", "Blog"),
+        (
+            (
+                ("/blog", "Blog Index"),
+                ("/archive.html", "Archive"),
+            ),
+            "Blog"
+        ),
         ("/rss.xml", "Team"),
         ("/categories/", "Projects"),
         ("/about", "About"),

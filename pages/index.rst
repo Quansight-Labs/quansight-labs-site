@@ -10,7 +10,7 @@
 
 .. class:: jumbotron col-md-12
 
-.. image:: /images/community_landscape.png
+.. image:: /images/quansight_labs_logo.png
 
 
 .. class:: col-md-12
