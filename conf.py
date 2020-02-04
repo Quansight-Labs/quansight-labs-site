@@ -69,9 +69,10 @@ TRANSLATIONS_PATTERN = '{path}.{lang}.{ext}'
 NAVIGATION_LINKS = {
     DEFAULT_LANG: (
         ("/", "Home"),
-        ("/archive.html", "Blog"),
+        ("/blog/", "Blog"),
         ("/rss.xml", "Team"),
         ("/categories/", "Projects"),
+        ("/about/", "About"),
     ),
 }
 
@@ -157,12 +158,13 @@ POSTS = (
     ("posts/*.ipynb", "blog", "post_ipynb.tmpl"),
 )
 PAGES = (
-    ("pages/*.rst", "pages", "page.tmpl"),
-    ("pages/*.md", "pages", "page.tmpl"),
-    ("pages/*.html", "pages", "page.tmpl"),
-    ("pages/*.ipynb", "pages", "post_ipynb.tmpl"),
+    ("pages/*.rst", "", "page.tmpl"),
+    ("pages/*.md", "", "page.tmpl"),
+    ("pages/*.html", "", "page.tmpl"),
+    ("pages/*.ipynb", "", "post_ipynb.tmpl"),
 )
 
+INDEX_PATH = "blog"
 
 # Below this point, everything is optional
 
