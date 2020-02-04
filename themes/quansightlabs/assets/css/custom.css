@@ -12,6 +12,18 @@ header a{
 header a:hover{
   color: #8E5FBD
 }
+.body-content a {
+  color: #5d2e8c
+}
+
+.body-content a:hover{
+  color: #8E5FBD
+}
+
+.body-content a.badge{
+  color: #fff
+}
+
 
 
 /* Nav Bar CSS */
