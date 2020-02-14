@@ -1,7 +1,7 @@
 <!--
 .. title: Creating the ultimate terminal experience in Spyder 4 with Spyder-Terminal
 .. slug: creating-the-ultimate-terminal-experience-in-Spyder-4-with-Spyder-Terminal
-.. date: 2019-12-23 16:00:00 UTC-05:00
+.. date: 2020-02-14 14:00:00 UTC-05:00
 .. author: Stephannie Jimenez
 .. tags: Labs, Spyder
 .. category:
