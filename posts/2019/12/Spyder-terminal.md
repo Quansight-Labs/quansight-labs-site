@@ -29,9 +29,7 @@ This is a great feature because it allows the user to determine their shell inte
 
 Another big change in the new version is built-in support for all Spyder's light and dark themes. When you change your Spyder theme or display options, the Terminal automatically adapt its UI, colors and fonts accordingly.
 
-![Spyder-Terminal with minimal color theme](/images/Spyder-Terminal/minimal.png)
-
-![Spyder-Terminal with Spyder dark color theme](/images/Spyder-Terminal/spyder-dark.png)
+![Spyder-Terminal new themes](/images/Spyder-Terminal/terminal-colors.gif)
 
 Building on the look and feel of the plugin, we also added configurable options for the terminal sounds and the cursor style. In this way, you can choose whether the terminal uses a bell sound and can select from one of three cursors.
 
@@ -42,7 +40,5 @@ Building on the look and feel of the plugin, we also added configurable options 
 Lastly, the shortcuts on the terminal are configurable within the keyboard shortcuts in Spyder 4. The terminal's shortcuts for `Copy`, `Paste`, `Clean` and `New terminal` are now no longer hardcoded.
 
 ![Configurable shortcuts for the Terminal inside Spyder 4](/images/Spyder-Terminal/shortcuts.png)
-
-![Open a new terminal with the configured shortcut](/images/Spyder-Terminal/new-term.gif)
 
 We're excited for you to try out Spyder-Terminal 0.3.0 and experiment with the new features available; we'd like to thank [NumFOCUS](https://numfocus.org/) and Quansight for providing the funding and support that made all this work possible. Check back soon for more Spyder updates, and until then, happy coding!
