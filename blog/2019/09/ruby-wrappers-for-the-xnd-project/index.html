@@ -224,14 +224,14 @@ them by itself.</p>
 <p>The ndtypes Ruby wrapper provides a simple interface to the ndtypes C library for creating
 complex data shapes with extreme simplicity. For example, for creating an array of 10 <code>int64</code>
 digits, all we need to do is create an instance of the <code>NDT</code> class:</p>
-<pre class="code literal-block"><span></span><span class="n">t</span> <span class="o">=</span> <span class="no">NDT</span><span class="o">.</span><span class="n">new</span> <span class="s2">"10 * int64"</span>
-</pre>
+<pre class="code literal-block"><span></span><code><span class="n">t</span> <span class="o">=</span> <span class="no">NDT</span><span class="o">.</span><span class="n">new</span> <span class="s2">"10 * int64"</span>
+</code></pre>
 
 
 <p>Not only can you create arrays, but also very complex types, for example a nested record (xnd 
 terminology for a Ruby <code>Hash</code>) with the values as arrays of type <code>float32</code> of size 25 each:</p>
-<pre class="code literal-block"><span></span><span class="n">t</span> <span class="o">=</span> <span class="no">NDT</span><span class="o">.</span><span class="n">new</span> <span class="s2">"{x: 25 * float32, y: {a: 25 * float64, 25 * float64}}"</span>
-</pre>
+<pre class="code literal-block"><span></span><code><span class="n">t</span> <span class="o">=</span> <span class="no">NDT</span><span class="o">.</span><span class="n">new</span> <span class="s2">"{x: 25 * float32, y: {a: 25 * float64, 25 * float64}}"</span>
+</code></pre>
 
 
 <h4>Concrete Vs. Abstract Types</h4>
@@ -242,10 +242,10 @@ types additionally have full memory layout information like alignment and data s
 <h4>Typedefs</h4>
 <p>One can also define typedefs using the <code>NDT#typedef</code> function and then use them in place of
 the original type. Here's an example of using typedefs to define a graph type:</p>
-<pre class="code literal-block"><span></span><span class="no">NDT</span><span class="o">.</span><span class="n">typedef</span> <span class="s2">"node"</span><span class="p">,</span> <span class="s2">"int32"</span>
+<pre class="code literal-block"><span></span><code><span class="no">NDT</span><span class="o">.</span><span class="n">typedef</span> <span class="s2">"node"</span><span class="p">,</span> <span class="s2">"int32"</span>
 <span class="no">NDT</span><span class="o">.</span><span class="n">typedef</span> <span class="s2">"cost"</span><span class="p">,</span> <span class="s2">"int32"</span>
 <span class="no">NDT</span><span class="o">.</span><span class="n">typedef</span> <span class="s2">"graph"</span><span class="p">,</span> <span class="s2">"var * var * (node, cost)"</span>
-</pre>
+</code></pre>
 
 
 <h4>Usage via The C API</h4>
@@ -256,10 +256,10 @@ C API in any of your libraries.</p>
 <h3>Implementation</h3>
 <p>The Ruby wrapper is a wrapper over the libndtypes library. The <code>NDT</code> Ruby object is a wrapper
 over a C struct of type <code>NdtObject</code> that has the following definition:</p>
-<pre class="code literal-block"><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">NdtObject</span> <span class="p">{</span>
+<pre class="code literal-block"><span></span><code><span class="k">typedef</span> <span class="k">struct</span> <span class="n">NdtObject</span> <span class="p">{</span>
   <span class="k">const</span> <span class="n">ndt_t</span> <span class="o">*</span><span class="n">ndt</span><span class="p">;</span>                   <span class="cm">/* type */</span>
 <span class="p">}</span> <span class="n">NdtObject</span><span class="p">;</span>
-</pre>
+</code></pre>
 
 
 <p>This simple struct stores a pointer to a struct of type <code>const ndt_t *</code> that is provided
@@ -282,47 +282,47 @@ functions that are defined within gumath (explained later in this post).</p>
 <h3>Basic Usage</h3>
 <p>The xnd Ruby wrapper is extremely simple to use and provides a single class <code>XND</code> for the
 user that interfaces with libxnd. In the simplest case, one can create an XND object as follows:</p>
-<pre class="code literal-block"><span></span><span class="n">x</span> <span class="o">=</span> <span class="no">XND</span><span class="o">.</span><span class="n">new</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="o">]</span>
+<pre class="code literal-block"><span></span><code><span class="n">x</span> <span class="o">=</span> <span class="no">XND</span><span class="o">.</span><span class="n">new</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="o">]</span>
 <span class="c1"># =&gt; #&lt;XND:47340720296980&gt;</span>
 <span class="c1">#    type= 4 * int64</span>
 <span class="c1">#    value= [1, 2, 3, 4]</span>
-</pre>
+</code></pre>
 
 
 <p>Since we have not specified the data type, it will be inferred as <code>int64</code> since we are supplying
 an array composed entirely of integers. This can be seen using the <code>XND#dtype</code> function, which
 will return the <code>NDT</code> object that holds the type of this <code>XND</code> object:</p>
-<pre class="code literal-block"><span></span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span>
+<pre class="code literal-block"><span></span><code><span class="n">x</span><span class="o">.</span><span class="n">dtype</span>
 <span class="c1"># =&gt; #&lt;NDTypes:47340721833280&gt;</span>
 <span class="c1">#   int64 </span>
-</pre>
+</code></pre>
 
 
 <p>While <code>XND#dtype</code> gives the general type of the object, a more precise description of the data
 type (including shape etc.) can be obtained using the <code>type</code> method:</p>
-<pre class="code literal-block"><span></span><span class="n">x</span><span class="o">.</span><span class="n">type</span>
+<pre class="code literal-block"><span></span><code><span class="n">x</span><span class="o">.</span><span class="n">type</span>
 <span class="c1"># =&gt; #&lt;NDTypes:47340721846240&gt;</span>
 <span class="c1">#  4 * int64</span>
-</pre>
+</code></pre>
 
 
 <p>The value within the <code>XND</code> object can be obtained as a Ruby Array (or Hash if it is a NDT record)
 using the <code>XND#value</code> method:</p>
-<pre class="code literal-block"><span></span><span class="n">x</span><span class="o">.</span><span class="n">value</span>
+<pre class="code literal-block"><span></span><code><span class="n">x</span><span class="o">.</span><span class="n">value</span>
 <span class="c1"># =&gt; [1, 2, 3, 4]</span>
-</pre>
+</code></pre>
 
 
 <p>We can also perform operations for checking equality between <code>XND</code> objects using the <code>==</code> or <code>!=</code> operators:</p>
-<pre class="code literal-block"><span></span><span class="n">a</span> <span class="o">=</span> <span class="no">XND</span><span class="o">.</span><span class="n">new</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="o">]</span>
+<pre class="code literal-block"><span></span><code><span class="n">a</span> <span class="o">=</span> <span class="no">XND</span><span class="o">.</span><span class="n">new</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="o">]</span>
 <span class="n">x</span> <span class="o">==</span> <span class="n">a</span>
 <span class="c1"># =&gt; true</span>
-</pre>
+</code></pre>
 
 
 <p>A nice thing about <code>XND</code> is that it returns copy-free 'views' of data when you perform a slicing
 operation. So say we define a 2D tensor <code>tensor_2d</code> like this:</p>
-<pre class="code literal-block"><span></span><span class="n">tensor_2d</span> <span class="o">=</span> <span class="no">XND</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+<pre class="code literal-block"><span></span><code><span class="n">tensor_2d</span> <span class="o">=</span> <span class="no">XND</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
   <span class="o">[</span>
     <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="o">]</span><span class="p">,</span>
     <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="o">]</span><span class="p">,</span>
@@ -335,35 +335,35 @@ operation. So say we define a 2D tensor <code>tensor_2d</code> like this:</p>
 <span class="c1"># =&gt; #&lt;XND:47340720946720&gt;</span>
 <span class="c1">#    type= 5 * 5 * int64</span>
 <span class="c1">#    value= [[1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5]]</span>
-</pre>
+</code></pre>
 
 
 <p>We can obtain a slice (say the 2nd column) of the tensor using Ruby Range. Note that using <code>INF</code> is a shorthand for specifying the entire axis (usually denoted as <code>0..-1</code>):</p>
-<pre class="code literal-block"><span></span><span class="n">vector_view</span> <span class="o">=</span> <span class="n">tensor_2d</span><span class="o">[</span><span class="no">INF</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span>
+<pre class="code literal-block"><span></span><code><span class="n">vector_view</span> <span class="o">=</span> <span class="n">tensor_2d</span><span class="o">[</span><span class="no">INF</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span>
 <span class="c1"># =&gt; #&lt;XND:47340720380980&gt;</span>
 <span class="c1">#    type= 5 * int64</span>
 <span class="c1">#    value= [3, 3, 3, 3, 3]</span>
-</pre>
+</code></pre>
 
 
 <p>When using slices, <code>XND</code> will always return a 'view' of the original <code>XND</code> object. Changes
 made to this slice will reflect on the original XND object as well:</p>
-<pre class="code literal-block"><span></span><span class="n">vector_view</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span> <span class="o">=</span> <span class="mi">666</span>
+<pre class="code literal-block"><span></span><code><span class="n">vector_view</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span> <span class="o">=</span> <span class="mi">666</span>
 <span class="n">tensor_2d</span><span class="o">.</span><span class="n">inspect</span>
 <span class="c1"># =&gt; #&lt;XND:47340720946720&gt;</span>
 <span class="c1">#    type= 5 * 5 * int64</span>
 <span class="c1">#    value= [[1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 666, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5]]</span>
-</pre>
+</code></pre>
 
 
 <p>However, the <code>type</code> of the view and the original object differ as they should:</p>
-<pre class="code literal-block"><span></span><span class="n">vector_view</span><span class="o">.</span><span class="n">type</span>
+<pre class="code literal-block"><span></span><code><span class="n">vector_view</span><span class="o">.</span><span class="n">type</span>
 <span class="c1"># =&gt; #&lt;NDTypes:47340720381100&gt;</span>
 <span class="c1">#   5 * int64 </span>
 <span class="n">tensor_2d</span><span class="o">.</span><span class="n">type</span>
 <span class="c1"># =&gt; #&lt;NDTypes:47340720939360&gt;</span>
 <span class="c1">#   5 * 5 * int64</span>
-</pre>
+</code></pre>
 
 
 <p>If you want a separate storage space for the view (i.e. do not want changes to the view
@@ -375,7 +375,7 @@ method as can be seen in the following examples.</p>
 to provide type support for far more flexible data shapes than simply for arrays with fixed
 dimensions. For example, you can use records for storing Ruby Hashes and performing operations
 on them:</p>
-<pre class="code literal-block"><span></span><span class="nb">require</span> <span class="s1">'xnd'</span>
+<pre class="code literal-block"><span></span><code><span class="nb">require</span> <span class="s1">'xnd'</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="no">XND</span><span class="o">.</span><span class="n">empty</span> <span class="s2">"{x: complex64, y: bytes, z: string}"</span>
 <span class="n">v</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">'x'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="o">+</span><span class="mi">20</span><span class="n">i</span><span class="p">,</span> <span class="s1">'y'</span> <span class="o">=&gt;</span> <span class="s2">"abc"</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="s1">'z'</span> <span class="o">=&gt;</span> <span class="s2">"any"</span> <span class="p">}</span>
@@ -386,16 +386,16 @@ on them:</p>
 <span class="c1"># =&gt; #&lt;XND:47340721378580&gt;</span>
 <span class="c1">#    type= {x : complex64, y : bytes, z : string}</span>
 <span class="c1">#    value= {"x"=&gt;(1.0+20.0i), "y"=&gt;"abc", "z"=&gt;"any"}</span>
-</pre>
+</code></pre>
 
 
 <h4>Missing Values</h4>
 <p>XND also supports optional data (represented by <code>nil</code>). It can be created as follows:</p>
-<pre class="code literal-block"><span></span><span class="n">x</span> <span class="o">=</span> <span class="no">XND</span><span class="o">.</span><span class="n">empty</span> <span class="s2">"2 * 4 * ?float64"</span>
+<pre class="code literal-block"><span></span><code><span class="n">x</span> <span class="o">=</span> <span class="no">XND</span><span class="o">.</span><span class="n">empty</span> <span class="s2">"2 * 4 * ?float64"</span>
 <span class="n">v</span> <span class="o">=</span> <span class="o">[[</span><span class="mi">10</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="kp">nil</span><span class="p">,</span> <span class="mi">2</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="o">.</span><span class="mi">12</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="kp">nil</span><span class="p">,</span> <span class="kp">nil</span><span class="p">,</span> <span class="mi">6</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="o">.</span><span class="mi">0</span><span class="o">]]</span>
 <span class="n">x</span><span class="o">[</span><span class="no">INF</span><span class="o">]</span> <span class="o">=</span> <span class="n">v</span> <span class="c1"># assign full slice</span>
 <span class="c1"># =&gt; [[10.0, nil, 2.0, 100.12], [nil, nil, 6.0, 7.0]] </span>
-</pre>
+</code></pre>
 
 
 <h4>Usage via The C API</h4>
@@ -429,7 +429,7 @@ as more interfaces are added to libgumath. The <code>Gumath::Functions</code> mo
 such functions that are provided by libgumath by default.</p>
 <p><code>Gumath</code> functions accept <code>XND</code> objects as arguments and output <code>XND</code> objects with the result
 of the function. An example of a simple element-wise multiply kernel is the following:</p>
-<pre class="code literal-block"><span></span><span class="nb">require</span> <span class="s1">'xnd'</span>
+<pre class="code literal-block"><span></span><code><span class="nb">require</span> <span class="s1">'xnd'</span>
 <span class="nb">require</span> <span class="s1">'gumath'</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="no">XND</span><span class="o">.</span><span class="n">new</span> <span class="o">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="o">]</span><span class="p">,</span> <span class="ss">dtype</span><span class="p">:</span> <span class="s2">"float64"</span>
@@ -438,14 +438,14 @@ of the function. An example of a simple element-wise multiply kernel is the foll
 <span class="c1"># =&gt; #&lt;XND:47340721458320&gt;</span>
 <span class="c1">#    type= 8 * float64</span>
 <span class="c1">#    value= [2.0, 6.0, 12.0, 20.0, 30.0, 42.0, 56.0, 72.0]</span>
-</pre>
+</code></pre>
 
 
 <h4>Usage via The C API</h4>
 <p>Since the main purpose of the gumath C API is to allow adding kernels to a Ruby module,
 it provides a single function of the prototype:</p>
-<pre class="code literal-block"><span></span><span class="kt">int</span> <span class="nf">rb_gumath_add_functions</span><span class="p">(</span><span class="n">VALUE</span> <span class="n">module</span><span class="p">,</span> <span class="k">const</span> <span class="n">gm_tbl_t</span> <span class="o">*</span><span class="n">tbl</span><span class="p">);</span>
-</pre>
+<pre class="code literal-block"><span></span><code><span class="kt">int</span> <span class="nf">rb_gumath_add_functions</span><span class="p">(</span><span class="n">VALUE</span> <span class="n">module</span><span class="p">,</span> <span class="k">const</span> <span class="n">gm_tbl_t</span> <span class="o">*</span><span class="n">tbl</span><span class="p">);</span>
+</code></pre>
 
 
 <p>The <code>module</code> parameter is a Ruby object, and <code>tbl</code> is a function table of gumath kernels.</p>
@@ -462,13 +462,13 @@ class defined within the C API that helps interface with a single gumath functio
 is basically a wrapper over a C struct <code>GufuncObject</code> that can be found in the <a href="https://github.com/xnd-project/xnd-ruby/blob/master/gumath/ext/ruby_gumath/gufunc_object.h">gufunc_object.h</a>
 file.</p>
 <p>The struct has the following definition:</p>
-<pre class="code literal-block"><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+<pre class="code literal-block"><span></span><code><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
   <span class="k">const</span> <span class="n">gm_tbl_t</span> <span class="o">*</span><span class="n">table</span><span class="p">;</span>          <span class="cm">/* kernel table */</span>
   <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>                     <span class="cm">/* function name */</span>
   <span class="kt">uint32_t</span> <span class="n">flags</span><span class="p">;</span>                 <span class="cm">/* memory target */</span>
   <span class="n">VALUE</span> <span class="n">identity</span><span class="p">;</span>                 <span class="cm">/* identity element */</span>
 <span class="p">}</span> <span class="n">GufuncObject</span><span class="p">;</span>
-</pre>
+</code></pre>
 
 
 <p>The <code>table</code> pointer is the pointer to the definition of the function within libgumath that

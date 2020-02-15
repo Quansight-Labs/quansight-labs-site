@@ -126,13 +126,13 @@ some of the highlights for this release. The full release notes for the
 release can be found on the <a href="https://github.com/sympy/sympy/wiki/Release-Notes-for-1.4">SymPy
 wiki</a>.</p>
 <p>To update to SymPy 1.4, use</p>
-<pre class="code literal-block"><span></span>conda install sympy
-</pre>
+<pre class="code literal-block"><span></span><code>conda install sympy
+</code></pre>
 
 
 <p>or if you prefer to use pip</p>
-<pre class="code literal-block"><span></span>pip install -U sympy
-</pre>
+<pre class="code literal-block"><span></span><code>pip install -U sympy
+</code></pre>
 
 
 <p>The SymPy 1.4 release contains over <a href="https://github.com/sympy/sympy/wiki/Release-Notes-for-1.4#authors">500 changes from 38 different
@@ -165,17 +165,17 @@ selecting a different printer.</p>
 <code>print</code>.</p>
 <h2>Improved simplification of relational expressions</h2>
 <p>Simplification of relational and piecewise expressions has been improved:</p>
-<pre class="code literal-block"><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">'x y z w'</span><span class="p">)</span>
+<pre class="code literal-block"><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">'x y z w'</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">init_printing</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">expr</span> <span class="o">=</span> <span class="n">And</span><span class="p">(</span><span class="n">Eq</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">),</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span> <span class="o">&lt;</span> <span class="n">y</span><span class="p">,</span> <span class="n">y</span> <span class="o">&gt;=</span> <span class="n">z</span><span class="p">,</span> <span class="n">z</span> <span class="o">&lt;</span> <span class="n">y</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">expr</span>
 <span class="go">x = y ∧ x ≥ y ∧ y ≥ z ∧ w &lt; y ∧ z &lt; y</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">simplify</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
 <span class="go">x = y ∧ y &gt; Max(w, z)</span>
-</pre>
+</code></pre>
 
 
-<pre class="code literal-block"><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">expr</span> <span class="o">=</span> <span class="n">Piecewise</span><span class="p">((</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">,</span> <span class="n">And</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;=</span> <span class="n">y</span><span class="p">,</span> <span class="n">Eq</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">))),</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">Eq</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
+<pre class="code literal-block"><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">expr</span> <span class="o">=</span> <span class="n">Piecewise</span><span class="p">((</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">,</span> <span class="n">And</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;=</span> <span class="n">y</span><span class="p">,</span> <span class="n">Eq</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">))),</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">Eq</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">expr</span>
 <span class="go">⎧ x⋅y   for y = 0 ∧ x ≥ y</span>
 <span class="go">⎪</span>
@@ -184,15 +184,15 @@ selecting a different printer.</p>
 <span class="go">⎩  0        otherwise</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">simplify</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
 <span class="go">0</span>
-</pre>
+</code></pre>
 
 
 <h2>Improved MathML printing</h2>
 <p>The MathML presentation printer has been greatly improved, putting it on par
 with the existing Unicode and LaTeX pretty printers.</p>
-<pre class="code literal-block"><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mathml</span><span class="p">(</span><span class="n">Integral</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="n">oo</span><span class="p">,</span> <span class="n">oo</span><span class="p">)),</span> <span class="s1">'presentation'</span><span class="p">)</span>
+<pre class="code literal-block"><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">mathml</span><span class="p">(</span><span class="n">Integral</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="n">oo</span><span class="p">,</span> <span class="n">oo</span><span class="p">)),</span> <span class="s1">'presentation'</span><span class="p">)</span>
 <span class="go">&lt;mrow&gt;&lt;msubsup&gt;&lt;mo&gt;&amp;#x222B;&lt;/mo&gt;&lt;mrow&gt;&lt;mo&gt;-&lt;/mo&gt;&lt;mi&gt;&amp;#x221E;&lt;/mi&gt;&lt;/mrow&gt;&lt;mi&gt;&amp;#x221E;&lt;/mi&gt;&lt;/msubsup&gt;&lt;msup&gt;&lt;mi&gt;&amp;ExponentialE;&lt;/mi&gt;&lt;mrow&gt;&lt;mo&gt;-&lt;/mo&gt;&lt;msup&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;/msup&gt;&lt;mo&gt;&amp;dd;&lt;/mo&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;/mrow&gt;</span>
-</pre>
+</code></pre>
 
 
 <p>If your <a href="https://caniuse.com/#feat=mathml">browser supports MathML</a> (at the
@@ -200,7 +200,7 @@ time of writing, only Firefox and Safari), you should see the above
 presentation form for <code>Integral(exp(-x**2), (x, -oo, oo))</code> below:</p>
 <math style="display: block;"><mrow><msubsup><mo>∫</mo><mrow><mo>-</mo><mi>∞</mi></mrow><mi>∞</mi></msubsup><msup><mi>&amp;ExponentialE;</mi><mrow><mo>-</mo><msup><mi>x</mi><mn>2</mn></msup></mrow></msup><mo>&amp;dd;</mo><mi>x</mi></mrow></math><h2>Improvements to solvers</h2>
 <p>Several improvements have been made to the solvers.</p>
-<pre class="code literal-block"><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">eq</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">((</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">7</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">11</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">13</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">42</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+<pre class="code literal-block"><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">eq</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">((</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">7</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">11</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">13</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">42</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">eq</span>
 <span class="go">                2</span>
 <span class="go">               x  - 13⋅x + 42</span>
@@ -208,14 +208,14 @@ presentation form for <code>Integral(exp(-x**2), (x, -oo, oo))</code> below:</p>
 <span class="go">⎝x  - 7⋅x + 11⎠               = 1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">solve</span><span class="p">(</span><span class="n">eq</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="c1"># In SymPy 1.3, this only gave the partial solution [2, 5, 6, 7]</span>
 <span class="go">[2, 3, 4, 5, 6, 7]</span>
-</pre>
+</code></pre>
 
 
 <p>The ODE solver, <code>dsolve</code>, has also seen some improvements. Two new hints have
 been added.</p>
 <p><code>'nth_algebraic'</code> solves ODEs using <code>solve</code> by inverting the derivatives
 algebraically:</p>
-<pre class="code literal-block"><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s1">'f'</span><span class="p">)</span>
+<pre class="code literal-block"><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="s1">'f'</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">eq</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">eq</span>
 <span class="go">⎛          2    ⎞</span>
@@ -224,12 +224,12 @@ algebraically:</p>
 <span class="go">⎝⎝dx      ⎠     ⎠</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dsolve</span><span class="p">(</span><span class="n">eq</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="c1"># In SymPy 1.3, this only gave the solution f(x) = C1 - x</span>
 <span class="go">[f(x) = 0, f(x) = C₁ - x, f(x) = C₁ + x]</span>
-</pre>
+</code></pre>
 
 
 <p><code>'nth_order_reducible'</code> solves ODEs that only involve derivatives of <code>f(x)</code>,
 via the substitution $g(x)=f^{(n)}(x)$.</p>
-<pre class="code literal-block"><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">eq</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="n">x</span><span class="o">*</span><span class="n">Derivative</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span>
+<pre class="code literal-block"><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">eq</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">Derivative</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="n">x</span><span class="o">*</span><span class="n">Derivative</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">eq</span>
 <span class="go">               2</span>
 <span class="go">  d           d</span>
@@ -240,7 +240,7 @@ via the substitution $g(x)=f^{(n)}(x)$.</p>
 <span class="go">                  ⎛√2⋅x⎞</span>
 <span class="go">f(x) = C₁ + C₂⋅erf⎜────⎟ + x</span>
 <span class="go">                  ⎝ 2  ⎠</span>
-</pre>
+</code></pre>
 
 
 <h2>Dropping Python 3.4 support</h2>

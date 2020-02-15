@@ -134,7 +134,7 @@ a simple <code>@jit</code> decorator, the code will be automatically sped up usi
 This can result in code that is up to 1000x faster in some cases:</p>
 <!-- TEASER_END -->
 
-<pre class="code literal-block"><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">numba</span>
+<pre class="code literal-block"><span></span><code><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">numba</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">numpy</span>
 
@@ -163,7 +163,7 @@ This can result in code that is up to 1000x faster in some cases:</p>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="mi">249</span><span class="o">/.</span><span class="mi">336</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="mf">741.0714285714286</span>
-</pre>
+</code></pre>
 
 
 <p>Numba only works for a subset of Python code, and primarily targets code that
@@ -173,7 +173,7 @@ optimizations. One thing that it does to improve performance is to remove all
 bounds checking from array indexing. This means that if an array index is out
 of bounds, instead of receiving an <code>IndexError</code>, you will get garbage, or
 possibly a segmentation fault.</p>
-<pre class="code literal-block"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<pre class="code literal-block"><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">numba</span> <span class="kn">import</span> <span class="n">njit</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">outtabounds</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="o">...</span>     <span class="n">A</span> <span class="o">=</span> <span class="mi">0</span>
@@ -188,7 +188,7 @@ possibly a segmentation fault.</p>
 <span class="ne">IndexError</span><span class="p">:</span> <span class="n">index</span> <span class="mi">100</span> <span class="ow">is</span> <span class="n">out</span> <span class="n">of</span> <span class="n">bounds</span> <span class="k">for</span> <span class="n">axis</span> <span class="mi">0</span> <span class="k">with</span> <span class="kp">size</span> <span class="mi">100</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">njit</span><span class="p">(</span><span class="n">outtabounds</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># the default numba behavior</span>
 <span class="o">-</span><span class="mi">8557904790533229732</span>
-</pre>
+</code></pre>
 
 
 <p>In numba pull request <a href="https://github.com/numba/numba/pull/4432">#4432</a>, I am
@@ -197,7 +197,7 @@ indexing. This will remain disabled by default for performance purposes. But
 you will be able to enable it by passing <code>boundscheck=True</code> to <code>@njit</code>, or by
 setting the <code>NUMBA_BOUNDSCHECK=1</code> environment variable. This will make it
 easier to detect out of bounds issues like the one above. It will work like</p>
-<pre class="code literal-block"><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@njit</span><span class="p">(</span><span class="n">boundscheck</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<pre class="code literal-block"><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nd">@njit</span><span class="p">(</span><span class="n">boundscheck</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">... </span><span class="k">def</span> <span class="nf">outtabounds</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">A</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="gp">... </span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
@@ -208,7 +208,7 @@ easier to detect out of bounds issues like the one above. It will work like</p>
 <span class="gt">Traceback (most recent call last):</span>
   File <span class="nb">"&lt;stdin&gt;"</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
 <span class="gr">IndexError</span>: <span class="n">index is out of bounds</span>
-</pre>
+</code></pre>
 
 
 <p>The pull request is still in progress, and many things such as the quality of
@@ -219,8 +219,8 @@ debugging issues easier for people who write numba code once it is merged.</p>
 automatically replace <code>import *</code> in Python modules with explicit imports.</p>
 <p>For those who don't know, Python's <code>import</code> statement supports so-called
 "wildcard" or "star" imports, like</p>
-<pre class="code literal-block"><span></span><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="o">*</span>
-</pre>
+<pre class="code literal-block"><span></span><code><span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="o">*</span>
+</code></pre>
 
 
 <p>This will import every public name from the <code>sympy</code> module into the current
@@ -284,38 +284,38 @@ imported from the <code>*</code> and manually add an import for it. Removestar m
 easy by finding which names come from <code>*</code> imports and replacing the import
 lines in the file automatically.</p>
 <p>As an example, suppose you have a module <code>mymod</code> like</p>
-<pre class="code literal-block"><span></span><span class="err">mymod/</span>
+<pre class="code literal-block"><span></span><code><span class="err">mymod/</span>
 <span class="err">  | __init__.py</span>
 <span class="err">  | a.py</span>
 <span class="err">  | b.py</span>
-</pre>
+</code></pre>
 
 
 <p>with</p>
-<pre class="code literal-block"><span></span><span class="c1"># mymod/a.py</span>
+<pre class="code literal-block"><span></span><code><span class="c1"># mymod/a.py</span>
 <span class="kn">from</span> <span class="nn">.b</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
-</pre>
+</code></pre>
 
 
 <p>and</p>
-<pre class="code literal-block"><span></span><span class="c1"># mymod/b.py</span>
+<pre class="code literal-block"><span></span><code><span class="c1"># mymod/b.py</span>
 <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">y</span> <span class="o">=</span> <span class="mi">2</span>
-</pre>
+</code></pre>
 
 
 <p>Then <code>removestar</code> works like:</p>
-<pre class="code literal-block"><span></span><span class="err">$</span> <span class="n">removestar</span> <span class="o">-</span><span class="n">i</span> <span class="n">mymod</span><span class="o">/</span>
+<pre class="code literal-block"><span></span><code><span class="err">$</span> <span class="n">removestar</span> <span class="o">-</span><span class="n">i</span> <span class="n">mymod</span><span class="o">/</span>
 <span class="err">$</span> <span class="n">cat</span> <span class="n">mymod</span><span class="o">/</span><span class="n">a</span><span class="o">.</span><span class="n">py</span>
 <span class="c1"># mymod/a.py</span>
 <span class="kn">from</span> <span class="nn">.b</span> <span class="kn">import</span> <span class="n">y</span>
 
 <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
-</pre>
+</code></pre>
 
 
 <p>The <code>-i</code> flag causes it to edit <code>a.py</code> in-place. Without it, it would just
@@ -327,13 +327,13 @@ actually executed. For external imports, it is not possible to work statically
 as external imports may include C extension modules, so in that case, it
 imports the names dynamically.</p>
 <p><code>removestar</code> can be installed with pip or conda:</p>
-<pre class="code literal-block"><span></span><span class="err">pip install removestar</span>
-</pre>
+<pre class="code literal-block"><span></span><code><span class="err">pip install removestar</span>
+</code></pre>
 
 
 <p>or if you use conda</p>
-<pre class="code literal-block"><span></span><span class="err">conda install -c conda-forge removestar</span>
-</pre>
+<pre class="code literal-block"><span></span><code><span class="err">conda install -c conda-forge removestar</span>
+</code></pre>
 
 
 <h3>sphinx-math-dollar</h3>
@@ -344,7 +344,7 @@ most special functions are defined using a LaTeX formula, like <img alt="The doc
 <p>(from <a href="https://docs.sympy.org/dev/modules/functions/special.html#sympy.functions.special.bessel.besselj">https://docs.sympy.org/dev/modules/functions/special.html#sympy.functions.special.bessel.besselj</a>)</p>
 <p>However, the source for this math in the docstring of the function uses RST
 syntax:</p>
-<pre class="code literal-block"><span></span><span class="k">class</span> <span class="nc">besselj</span><span class="p">(</span><span class="n">BesselBase</span><span class="p">):</span>
+<pre class="code literal-block"><span></span><code><span class="k">class</span> <span class="nc">besselj</span><span class="p">(</span><span class="n">BesselBase</span><span class="p">):</span>
     <span class="s2">"""</span>
 <span class="s2">    Bessel function of the first kind.</span>
 
@@ -365,7 +365,7 @@ syntax:</p>
 
 <span class="s2">    .. math ::</span>
 <span class="s2">        J_{-n}(z) = (-1)^n J_n(z).</span>
-</pre>
+</code></pre>
 
 
 <p>Furthermore, in SymPy's documentation we have configured it so that text
@@ -380,7 +380,7 @@ as in things like the Jupyter notebook.</p>
 <p>With the new <a href="https://www.sympy.org/sphinx-math-dollar/">sphinx-math-dollar</a>
 Sphinx extension, this is now possible. Writing <code>$\nu$</code> produces $\nu$, and
 the above docstring can now be written as</p>
-<pre class="code literal-block"><span></span><span class="k">class</span> <span class="nc">besselj</span><span class="p">(</span><span class="n">BesselBase</span><span class="p">):</span>
+<pre class="code literal-block"><span></span><code><span class="k">class</span> <span class="nc">besselj</span><span class="p">(</span><span class="n">BesselBase</span><span class="p">):</span>
     <span class="s2">"""</span>
 <span class="s2">    Bessel function of the first kind.</span>
 
@@ -401,7 +401,7 @@ the above docstring can now be written as</p>
 
 <span class="s2">    .. math ::</span>
 <span class="s2">        J_{-n}(z) = (-1)^n J_n(z).</span>
-</pre>
+</code></pre>
 
 
 <p>We also plan to add support for <code>$$double dollars$$</code> for display math so that <code>..
@@ -411,18 +411,18 @@ will continue to render exactly the same, but for developers, it is much
 easier to read and write.</p>
 <p>This extension can be easily used in any Sphinx project. Simply install it
 with pip or conda:</p>
-<pre class="code literal-block"><span></span><span class="err">pip install sphinx-math-dollar</span>
-</pre>
+<pre class="code literal-block"><span></span><code><span class="err">pip install sphinx-math-dollar</span>
+</code></pre>
 
 
 <p>or</p>
-<pre class="code literal-block"><span></span><span class="err">conda install -c conda-forge sphinx-math-dollar</span>
-</pre>
+<pre class="code literal-block"><span></span><code><span class="err">conda install -c conda-forge sphinx-math-dollar</span>
+</code></pre>
 
 
 <p>Then enable it in your <code>conf.py</code>:</p>
-<pre class="code literal-block"><span></span><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'sphinx_math_dollar'</span><span class="p">,</span> <span class="s1">'sphinx.ext.mathjax'</span><span class="p">]</span>
-</pre>
+<pre class="code literal-block"><span></span><code><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'sphinx_math_dollar'</span><span class="p">,</span> <span class="s1">'sphinx.ext.mathjax'</span><span class="p">]</span>
+</code></pre>
 
 
 <h3>Google Season of Docs</h3>

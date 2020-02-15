@@ -149,7 +149,7 @@ namespace reference. The following are cases that
 catches:</p>
 <!-- TEASER_END -->
 
-<pre class="code literal-block"><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<pre class="code literal-block"><span></span><code><span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">numpy.random</span> <span class="k">as</span> <span class="nn">rnd</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">random</span> <span class="k">as</span> <span class="n">rand</span>
@@ -159,20 +159,20 @@ catches:</p>
 <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 <span class="n">rnd</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="n">rand</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-</pre>
+</code></pre>
 
 
 <p>There are limitations to this approach since Python is a heavily
 duck-typed language. To understand this see the following two
 examples.</p>
-<pre class="code literal-block"><span></span><span class="k">def</span> <span class="nf">foobar</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="nf">foobar</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">array</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
 
 <span class="n">a</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 
 <span class="n">a</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
 <span class="n">foobar</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-</pre>
+</code></pre>
 
 
 <p>How is one supposed to infer that <code>a.transpose()</code> is a numpy
@@ -194,11 +194,11 @@ compressed). It has been designed to have no other dependencies than
 the Python <a href="https://docs.python.org/3/library/">stdlib</a> and easily run
 from the command line. Below is the command that is run when
 inspecting all the libraries that depend on numpy.</p>
-<pre class="code literal-block"><span></span>python inspect_api.py data/numpy-whitelist.ini <span class="se">\</span>
+<pre class="code literal-block"><span></span><code>python inspect_api.py data/numpy-whitelist.ini <span class="se">\</span>
   --exclude-dirs test,tests,site-packages <span class="se">\</span>
   --extensions ipynb,py <span class="se">\</span>
   --output data/inspect.sqlite
-</pre>
+</code></pre>
 
 
 <p>The command comes with several options that can be useful for
