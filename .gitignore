@@ -53,4 +53,5 @@ Thumbs.db
 __pycache__/
 cache/
 output/
-themes/
+themes/*
+!themes/quansightlabs/

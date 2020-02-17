@@ -71,7 +71,7 @@ NAVIGATION_LINKS = {
         ("/", "Home"),
         ("/blog/", "Blog"),
         ("/rss.xml", "Team"),
-        ("/categories/", "Projects"),
+        ("/projects/", "Projects"),
         ("/about/", "About"),
     ),
 }

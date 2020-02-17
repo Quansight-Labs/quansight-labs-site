@@ -1,0 +1,25 @@
+---
+name: altair-logo-light.png
+eurl: https://altair-viz.github.io
+order: 3
+---
+name: dask.png
+eurl: https://dask.org/
+order: 6
+---
+name: numba-blue-horizontal-rgb.svg
+eurl: http://numba.pydata.org/
+order: 4
+---
+name: pyviz.png
+eurl: https://pyviz.org/
+order: 2
+---
+name: sympy.png
+eurl: https://www.sympy.org/en/index.html
+order: 1
+---
+name: scipy.png
+eurl: https://www.scipy.org/
+order: 5
+---
