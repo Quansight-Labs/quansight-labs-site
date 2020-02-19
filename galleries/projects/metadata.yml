@@ -1,25 +1,37 @@
 ---
-name: altair-logo-light.png
-eurl: https://altair-viz.github.io
-order: 3
----
-name: dask.png
-eurl: https://dask.org/
-order: 6
----
 name: numba-blue-horizontal-rgb.svg
 eurl: http://numba.pydata.org/
-order: 4
----
-name: pyviz.png
-eurl: https://pyviz.org/
+title: Numba
+description:  Numba makes Python code fast! Numba is an open source JIT compiler that translates a subset of Python and NumPy code into fast machine code. 
 order: 2
 ---
 name: sympy.png
 eurl: https://www.sympy.org/en/index.html
-order: 1
+title: SymPy
+description: SymPy is a Python library for symbolic mathematics. It aims to become a full-featured computer algebra system (CAS) while keeping the code as simple as possible in order to be comprehensible and easily extensible. SymPy is written entirely in Python.
+order: 0
 ---
 name: scipy.png
 eurl: https://www.scipy.org/
+title: SciPy
+description: The SciPy library is one of the core packages that make up the SciPy stack. It provides many user-friendly and efficient numerical routines, such as routines for numerical integration, interpolation, optimization, linear algebra, and statistics.
+order: 1
+---
+name: pyviz.png
+eurl: https://pyviz.org/
+title: PyViz
+description: The PyViz.org website is an open platform for helping users decide on the best open-source (OSS) Python data visualization tools for their purposes, with links, overviews, comparisons, and examples.
+order: 4
+---
+name: altair-logo-light.png
+eurl: https://altair-viz.github.io
+title: Altair
+description: Altair is a declarative statistical visualization library for Python. With Altair, you can spend more time understanding your data and its meaning. Altair's API is simple, friendly and consistent and built on top of the powerful Vega-Lite JSON specification. This elegant simplicity produces beautiful and effective visualizations with a minimal amount of code.
+order: 3
+---
+name: dask.png
+eurl: https://dask.org/
+title: Dask
+description:  Dask natively scales Python! Dask provides advanced parallelism for analytics, enabling performance at scale for the tools you love.
 order: 5
 ---
