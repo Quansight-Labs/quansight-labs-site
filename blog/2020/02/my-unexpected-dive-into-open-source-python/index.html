@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Unexpected Dive into Open-Source Python | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2020/02/my-unexpected-dive-into-open-source-python/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Mars Lee">
+<link rel="prev" href="../creating-the-ultimate-terminal-experience-in-Spyder-4-with-Spyder-Terminal/" title="Creating the ultimate terminal experience in Spyder 4 with Spyder-Terminal" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="My Unexpected Dive into Open-Source Python">
+<meta property="og:url" content="https://labs.quansight.org/blog/2020/02/my-unexpected-dive-into-open-source-python/">
+<meta property="og:description" content="Header illustration by author, Mars Lee
+I'm very happy to announce that I have joined Quansight as a front-end developer and designer! It was a happy coincidence how I joined- the intersection of my s">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-02-21T12:38:07-06:00">
+<meta property="article:tag" content="Labs">
+<meta property="article:tag" content="PyData">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+
+            <span id="blog-title">Quansight Labs</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../archive.html" class="nav-link">Archive</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../categories/" class="nav-link">Tags</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS feed</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right">
+<li class="nav-item">
+    <a href="index.md" id="sourcelink" class="nav-link">Source</a>
+    </li>
+
+
+                
+            </ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">My Unexpected Dive into Open-Source Python</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    <a class="u-url" href="../../../../authors/mars-lee/">Mars Lee</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2020-02-21T12:38:07-06:00" itemprop="datePublished" title="2020-02-21">2020-02-21</time></a>
+            </p>
+            
+        <p class="sourceline"><a href="index.md" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<p><img alt="Header Image" src="../../../../images/codesprite-comics/My-Unexpected-Dive-Into-Open-Source-Python-Illustration.png"><em>Header illustration by author, Mars Lee</em></p>
+<p>I'm very happy to announce that I have joined <a href="https://www.quansight.com/">Quansight</a> as a front-end developer and designer! It was a happy coincidence how I joined- the intersection of my skills and the open source community's expanded vision.</p>
+<!-- TEASER_END -->
+
+<p>I met Ralf Gommers, the director of <a href="https://www.quansight.com/labs">Quansight Labs</a>, at the PyData Conference in New York City last year after giving a Lightning Talk. <strong>However, as cool and confident as this may sound, I sure didn't start off that way.</strong></p>
+<p>At that point, it's been a few months since I graduated from a coding bootcamp. I was feeling down in the job-search funk. I hadn't even done much in Python, since my focus was in Javascript.</p>
+<p><img alt="PyData NYC Banner" src="../../../../images/codesprite-comics/PyData-NYC-Banner.jpg"></p>
+<p>When I first heard about <a href="https://pydata.org/">PyData</a> and its <a href="https://pydata.org/diversity-inclusion/">Diversity Scholar</a> program, I didn't think either applied to me. I didn't feel like I knew enough Python nor deserve a place to learn more about it. I'm always eager to learn something new, but PyData felt too out of my reach.</p>
+<p>Thankfully, my friend who was a volunteer at PyData really encouraged me to apply. I gave it a shot. I was rejected at first - I didn't quite make the cut. I was disappointed and accepted it.</p>
+<p>But a second round of funding came in from partner organizations. Now, they could bring in more Diversity Scholars. I was elated to have the chance! Their trust in me gave me the confidence to go. It totally changed my point of view from self-doubt to eagerness.</p>
+<p>Once I was at PyData, I signed up for the Lightning Talks, knowing that it would be a great way for me to talk about my personal project, the 'Codesprite Explains' comics.</p>
+<p>The 'Codesprite' comics break down code concepts into fun and visual ways. It was inspired by my desire to turn my boring written notes into something more personal.</p>
+<p><img alt="Page 1 of first Codepsrite comic" src="../../../../images/codesprite-comics/CodeSprite-part-1.png"><img alt="Page 2 of first Codepsrite comic" src="../../../../images/codesprite-comics/CodeSprite-part-2.png"><em>First two pages of my personal project, 'Codesprite Explains'</em></p>
+<p>At my Lightning Talk, I was confident. <strong>No longer did I doubt that I could be here- to take up space and stand up tall.</strong> I introduced myself as a Diversity Scholar. I was unabashedly unashamed to be new to Python and eager to learn. I delighted in showing off my artistic skills that give me so much joy and that aren’t common in this community. I laughed with the crowd at my cheesy puns.</p>
+<p>When I finished my talk, I realized I came a long way from where I started. So when Ralf congratulated me, I was already feeling good. When he asked if I was interested in joining Quansight, that was the most unexpected-yet-awesomest cherry on top!</p>
+<p><img alt="Author giving a Lightning Talk at PyData NYC" src="../../../../images/codesprite-comics/PyData-Lightning-Talk.png"><em>The author giving a Lightning Talk at PyData NYC</em></p>
+<p>In my next blog post, I'll talk about my first impressions of Quansight and what made me say 'yes'.</p>
+<p>Before ending this post, I would like to recap a few things.</p>
+<p><strong>There were some initial barriers that prevented me from joining the open-source space.</strong> Without knowing people involved in the community, such as my friend volunteering there, I wouldn't have known about PyData. Without the financial assistance of the Diversity Scholar program, I wouldn't have been able to afford a ticket as an unemployed graduate. A lack of technical knowledge itself isn't prohibitive, but when combined with the above factors, stops many other capable people from entering this space.</p>
+<p>I was able to overcome these barriers with a combination of external and internal factors. The Diversity Scholars program putting trust into newcomers like me, my growing confidence and a welcoming community.</p>
+<p>I look forward to contributing to the open-source community!</p>
+<h3>Special Thanks to:</h3>
+<ul>
+<li>PyData's Diversity Scholars program and its NYC volunteer organizers Hanhan and Vinay.</li>
+<li>My new friends that welcomed me at PyData NYC- W4rner, Bhargav, Agatha and Lev.</li>
+<li>
+<a href="https://numfocus.org/">NumFOCUS</a> for organizing PyData and its <a href="https://numfocus.org/sponsors">funding partner organizations</a>. </li>
+<li>Nicole from NumFOCUS for sitting next to me during my first Pandas lesson and accepting my feedback on further improving the Diversity Scholars program. </li>
+<li>My friend, Rinchen, for encouraging me to apply and volunteering at PyData NYC.</li>
+</ul>
+<p>View more of Mars's work on <a href="https://medium.com/@marsbarlee">Medium</a> and <a href="https://twitter.com/marsbarlee">Twitter</a></p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/labs/" rel="tag">Labs</a></li>
+            <li><a class="tag p-category" href="../../../../categories/pydata/" rel="tag">PyData</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../creating-the-ultimate-terminal-experience-in-Spyder-4-with-Spyder-Terminal/" rel="prev" title="Creating the ultimate terminal experience in Spyder 4 with Spyder-Terminal">Previous post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2020         <a href="mailto:info@quansight.com">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>
