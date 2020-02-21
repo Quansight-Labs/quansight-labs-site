@@ -1,7 +1,7 @@
 <!--
 .. title: My Unexpected Dive into Open-Source Python
 .. slug: my-unexpected-dive-into-open-source-python
-.. date: 2020-02-17 16:38:07 UTC-06:00
+.. date: 2020-02-21 12:38:07 UTC-06:00
 .. author: Mars Lee
 .. tags: Labs, PyData
 .. category: 
