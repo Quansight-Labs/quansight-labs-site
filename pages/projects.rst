@@ -1,0 +1,16 @@
+.. title: Quansight Labs projects
+.. slug: projects
+.. date: 2020-02-17 10:30:43 UTC-06:00
+.. tags: 
+.. category: 
+.. link: 
+.. description: 
+.. type: text
+
+.. gallery:: projects
+
+.. raw:: html
+
+    <div class="row align-center">
+       <a href="/categories/" class="center btn btn-lg">See more projects and topics here</a>
+    </div>
