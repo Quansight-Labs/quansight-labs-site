@@ -7,7 +7,16 @@
 .. description: 
 .. type: text
 
+
+Projects we are actively working on
+###################################
+
 .. gallery:: projects
+
+Projects we aim to support
+##########################
+
+.. gallery:: new_projects
 
 .. raw:: html
 

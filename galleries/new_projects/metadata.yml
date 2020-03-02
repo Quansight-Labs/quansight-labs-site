@@ -1,0 +1,36 @@
+---
+name: scipy.png
+eurl: https://www.scipy.org/
+title: SciPy
+description: The SciPy library is one of the core packages that make up the SciPy stack. It provides many user-friendly and efficient numerical routines, such as routines for numerical integration, interpolation, optimization, linear algebra, and statistics.
+---
+name: pandas.svg
+eurl: https://pandas.pydata.org/
+title: pandas
+description: <b>pandas</b> is a fast, powerful, flexible and easy to use open source data analysis and manipulation tool, built on top of the Python programming language.
+---
+name: xarray.png
+eurl: https://xarray.pydata.org/en/stable/
+title: xarray
+description: <b>xarray</b> (formerly xray) is an open source project and Python package that makes working with labelled multi-dimensional arrays simple, efficient, and fun!
+---
+name: matplotlib.svg
+eurl: https://matplotlib.org/
+title: matplotlib
+description: Matplotlib is a Python 2D plotting library which produces publication quality figures in a variety of hardcopy formats and interactive environments across platforms. Matplotlib can be used in Python scripts, the Python and IPython shells, the Jupyter notebook, web application servers, and four graphical user interface toolkits.
+---
+name: bokeh.svg
+eurl: https://docs.bokeh.org/en/latest/index.html
+title: bokeh
+description: Bokeh is an interactive visualization library for modern web browsers. It provides elegant, concise construction of versatile graphics, and affords high-performance interactivity over large or streaming datasets. Bokeh can help anyone who would like to quickly and easily make interactive plots, dashboards, and data applications.
+---
+name: scikit-learn.png
+eurl: https://scikit-learn.org/stable/
+title: scikit-learn
+description: <code>Scikit-learn</code> is an open source machine learning library that supports supervised and unsupervised learning. It also provides various tools for model fitting, data preprocessing, model selection and evaluation, and many other utilities.
+---
+name: zarr.png
+eurl: https://zarr.readthedocs.io/en/stable/
+title: Zarr
+description: Zarr is a Python package providing an implementation of chunked, compressed, N-dimensional arrays.
+---
