@@ -1,7 +1,7 @@
 <!--
-.. title: What's next for PyData/Sparse
+.. title: Planned architectural work for PyData/Sparse
 .. slug: whats-next-for-pydatasparse
-.. date: 2020-02-17 05:11:42 UTC-06:00
+.. date: 2020-03-11 12:30:00 UTC+01:00
 .. tags: Sparse, SciPy, NumPy, Tensors, Big data
 .. type: text
 .. author: Hameer Abbasi
@@ -9,7 +9,7 @@
 
 # What have we been doing so far? 🤔
 ## Research 📚
-A lot of behind the scenes work has been taking place on PyData/Sparse. Not so much in terms of code, more in terms of research and community/team building. I've decided more-or-less to use the structure and the research behind the [Tensor Algebra Compiler](https://github.com/tensor-compiler/taco), the work of Fredrik Kjolstad and his collaborators at MIT. 🙇🏻‍♂️ To this end, I've read/watched the following talks and papers:
+A lot of behind the scenes work has been taking place on PyData/Sparse. Not so much in terms of code, more in terms of research and community/team building. I've more-or-less decided to use the structure and the research behind the [Tensor Algebra Compiler](https://github.com/tensor-compiler/taco), the work of Fredrik Kjolstad and his collaborators at MIT. 🙇🏻‍♂️ To this end, I've read/watched the following talks and papers:
 
 <!-- TEASER_END -->
 
@@ -30,8 +30,12 @@ I've also had conversations with Ralf Gommers about getting someone experienced 
 ## Strategy 🦾
 The original TACO compiler requires a compiler at runtime, which isn't ideal for many users. However, what's nice is that we have Numba as a Python package. One, instead of emitting C code, can emit Python AST to be transpiled to LLVM by Numba, and then to machine code. I settled on this after researching Cppyy, which also requires a compiler, and pybind11, which wouldn't work as TACO itself is built to require a compiler.
 
+The above warrants some explanation as to _why_ exactly we're following this pattern. See, TACO is based on the fact that many popular matrix formats can be created using just a few per-dimension formats. The advantage behind this is that one can create highly efficient
+code from just a few building blocks (albeit some hard-to-understand ones) for a lot of different formats. The downside is, one needs to do some code generation (the original TACO emits C code). In Python-land, one could emit source code or AST, with the latter being easier to debug and with guaranteed syntatical correctness. This is the reason I decided to go with AST.
+
+
 # API Changes 👨🏻‍💻
-I'd also like to invite anyone who's interested into the discussion about API changes. The discussion can be found in [this issue](https://github.com/pydata/sparse/issues/326), but essentially, we're planning on moving to a lazy model for an asymptotically better runtime performance.
+I'd also like to invite anyone who's interested into the discussion about API changes. The discussion can be found in [this issue](https://github.com/pydata/sparse/issues/326), but essentially, ~~we're planning on moving to a lazy model for an asymptotically better runtime performance~~. We decided not to go and break backwards compatibility and essentially decided to have a separate submodule for this kind of work, then calling `.compute()` similar to Dask at the end.
 
 # So what does this mean for the user? 😕
-Why, support for a lot more operations across a lot more formats, really. 😄 And don't forget the performance. 🚀 With the downstream being lazy operations a-la Dask.
+Why, support for a lot more operations across a lot more formats, really. 😄 And don't forget the performance. 🚀 With the downside being lazy operations a-la Dask.
