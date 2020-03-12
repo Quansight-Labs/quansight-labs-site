@@ -52,16 +52,19 @@ class Gallery(Directive):
 
         Usage:
 
-            .. gallery:: foo
+            .. gallery:: foo [template]
 
    """
 
     has_content = False
     required_arguments = 1
-    optional_arguments = 0
+    optional_arguments = 1
 
     def run(self):
         gallery_name = self.arguments[0]
+        template_name = 'gallery_directive.tmpl'
+        if len(self.arguments) > 1:
+            template_name = self.arguments[1]
         kw = {
             'output_folder': self.site.config['OUTPUT_FOLDER'],
             'thumbnail_size': self.site.config['THUMBNAIL_SIZE'],
@@ -91,7 +94,7 @@ class Gallery(Directive):
         context.update(self.site.GLOBAL_CONTEXT)
         context.update(kw)
         output = self.site.template_system.render_template(
-            'gallery_directive.tmpl',
+            template_name,
             None,
             context
         )
