@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Wed, 11 Mar 2020 11:44:01 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Planned architectural work for PyData/Sparse</title><link>https://labs.quansight.org/blog/2020/02/whats-next-for-pydatasparse/</link><dc:creator>Hameer Abbasi</dc:creator><description>&lt;div&gt;&lt;h2&gt;What have we been doing so far? 🤔&lt;/h2&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Thu, 12 Mar 2020 15:51:57 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>uarray: GSoC Participation</title><link>https://labs.quansight.org/blog/2020/03/uarray-gsoc-participation/</link><dc:creator>Hameer Abbasi</dc:creator><description>&lt;div&gt;&lt;p&gt;I'm pleased to announce that &lt;code&gt;uarray&lt;/code&gt; is participating in GSoC '20 as a sub-organization under the umbrella of the Python Software Foundation. Our ideas page is up &lt;a href="https://uarray.org/en/latest/gsoc/2020/ideas.html"&gt;here&lt;/a&gt;, go take a look and see if you (or someone you know) is interested in participating, either as a student or as a mentor.&lt;/p&gt;
+&lt;p&gt;Prasun Anand and Peter Bell and myself will be mentoring, and we plan to take a maximum of two students, unless more community mentors show up.&lt;/p&gt;
+&lt;p&gt;There have been &lt;a href="https://github.com/Quansight-Labs/uarray/pulls?q=is%3Apr+is%3Aclosed"&gt;quite&lt;/a&gt; &lt;a href="https://github.com/Quansight-Labs/unumpy/pulls?q=is%3Apr+is%3Aclosed"&gt;a few&lt;/a&gt; &lt;a href="https://github.com/Quansight-Labs/udiff/pulls?q=is%3Apr+is%3Aclosed"&gt;pull requests&lt;/a&gt; already to qualify from prospective students, some even going as far as to begin the work described in the idea they plan to work on.&lt;/p&gt;
+&lt;p&gt;We're quite excited by the number of students who have shown an interest in participating, and we look forward to seeing excellent applications! What's more exciting, though, are some of the first contributions from people not currently at Quansight, in the true spirit of open-source software!&lt;/p&gt;&lt;/div&gt;</description><category>Big data</category><category>NumPy</category><category>SciPy</category><category>Tensors</category><category>uarray</category><guid>https://labs.quansight.org/blog/2020/03/uarray-gsoc-participation/</guid><pubDate>Thu, 12 Mar 2020 12:39:00 GMT</pubDate></item><item><title>Planned architectural work for PyData/Sparse</title><link>https://labs.quansight.org/blog/2020/02/whats-next-for-pydatasparse/</link><dc:creator>Hameer Abbasi</dc:creator><description>&lt;div&gt;&lt;h2&gt;What have we been doing so far? 🤔&lt;/h2&gt;
 &lt;h3&gt;Research 📚&lt;/h3&gt;
 &lt;p&gt;A lot of behind the scenes work has been taking place on PyData/Sparse. Not so much in terms of code, more in terms of research and community/team building. I've more-or-less decided to use the structure and the research behind the &lt;a href="https://github.com/tensor-compiler/taco"&gt;Tensor Algebra Compiler&lt;/a&gt;, the work of Fredrik Kjolstad and his collaborators at MIT. 🙇🏻‍♂️ To this end, I've read/watched the following talks and papers:&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/02/whats-next-for-pydatasparse/"&gt;Read more…&lt;/a&gt; (2 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Big data</category><category>NumPy</category><category>SciPy</category><category>Sparse</category><category>Tensors</category><guid>https://labs.quansight.org/blog/2020/02/whats-next-for-pydatasparse/</guid><pubDate>Wed, 11 Mar 2020 11:30:00 GMT</pubDate></item><item><title>My Unexpected Dive into Open-Source Python</title><link>https://labs.quansight.org/blog/2020/02/my-unexpected-dive-into-open-source-python/</link><dc:creator>Mars Lee</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;img alt="Header Image" src="https://labs.quansight.org/images/codesprite-comics/My-Unexpected-Dive-Into-Open-Source-Python-Illustration.png"&gt;
@@ -79,73 +82,4 @@ to the &lt;a href="https://numba.pydata.org"&gt;numba&lt;/a&gt; project. Numba i
 compiler for Python. It lets you write native Python code and with the use of
 a simple &lt;code&gt;@jit&lt;/code&gt; decorator, the code will be automatically sped up using LLVM.
 This can result in code that is up to 1000x faster in some cases:&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/10/quansight-labs-work-update-for-september-2019/"&gt;Read more…&lt;/a&gt; (7 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><guid>https://labs.quansight.org/blog/2019/10/quansight-labs-work-update-for-september-2019/</guid><pubDate>Mon, 07 Oct 2019 05:00:00 GMT</pubDate></item><item><title>Ruby wrappers for the XND project</title><link>https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/</link><dc:creator>Sameer Deshmukh (@v0dro)</dc:creator><description>&lt;div&gt;&lt;!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-generate-toc again --&gt;
-
-&lt;p&gt;&lt;strong&gt;Table of Contents&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#introduction"&gt;Introduction&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#ndtypes"&gt;Ndtypes&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#usage"&gt;Usage&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#basic-initialization"&gt;Basic initialization&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#concrete-vs-abstract-types"&gt;Concrete Vs. Abstract Types&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#typedefs"&gt;Typedefs&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#usage-via-the-c-api"&gt;Usage via The C API&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#implementation"&gt;Implementation&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#xnd"&gt;Xnd&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#basic-usage"&gt;Basic Usage&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#data-type-support"&gt;Data Type Support&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#missing-values"&gt;Missing Values&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#usage-via-the-c-api"&gt;Usage via The C API&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#implementation"&gt;Implementation&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#gumath"&gt;Gumath&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#usage"&gt;Usage&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#usage-via-the-c-api"&gt;Usage via The C API&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#implementation"&gt;Implementation&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#automatic-kernel-generation"&gt;Automatic Kernel Generation&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/#conclusion-and-future-work"&gt;Conclusion and Future Work&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;!-- markdown-toc end --&gt;
-
-&lt;h2&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;Lack of stable and reliable scientific computing software has been a persistent problem
-for the Ruby community, making it hard for enthusiastic Ruby developers to use Ruby in
-everything from their web applications to their data analysis projects. One of the most important
-components of any successful scientific software stack is a well maintained and flexible
-array computation library that can act as a fast and simple way of storing in-memory data
-and interfacing it with various fast and battle-tested libraries like LAPACK and BLAS.&lt;/p&gt;
-&lt;p&gt;Various projects have attempted to make such libraries in the past (and some are still thriving
-and maintained). Some of the notable ones are &lt;a href="https://github.com/ruby-numo"&gt;numo&lt;/a&gt;, &lt;a href="https://github.com/SciRuby/nmatrix"&gt;nmatrix&lt;/a&gt;, and more recently, &lt;a href="https://github.com/SciRuby/numruby"&gt;numruby&lt;/a&gt;.
-These projects attempt to provide a simple Ruby-like API for creating and manipulating arrays
-of various types. All of them are able to easily interface with libraries like ATLAS, FFTW
-and LAPACK.&lt;/p&gt;
-&lt;p&gt;However, all of the above projects fall short in two major aspects:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Lack of extensibility to adapt to modern use cases (read Machine Learning).&lt;/li&gt;
-&lt;li&gt;Lack of a critical mass of developers to maintain a robust and fast array library.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;The first problem is mainly due to the fact that they do not support very robust type systems.
-The available data types are limited and are hard to extend to more complex uses. Modern use cases like
-Machine Learning require a more robust type system (i.e. defining array shapes of arbitrary dimension on multiple devices), as has been demonstrated by the tensor
-implementations of various frameworks like Tensorflow and PyTorch.&lt;/p&gt;
-&lt;p&gt;The second problem is due to the fact that all of the aforementioned projects are community
-efforts that are maintained part-time by developers simply out of a sense of purpose and
-passion. Sustaining such complex projects for extended periods of time without expectation
-of any support is simply unfeasible even for the most driven engineers.&lt;/p&gt;
-&lt;p&gt;This is where the XND project comes in. The &lt;a href="https://xnd.io/"&gt;XND project&lt;/a&gt; is a project for
-building a common library that is able to meet the needs of the various data analysis and
-machine learning frameworks that have had to build their own array objects and programming 
-languages. It is built with the premise of extending arrays with new types and various 
-device types (CPUs, GPUs etc.) without loss of performance and ease of use.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/"&gt;Read more…&lt;/a&gt; (12 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><guid>https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/</guid><pubDate>Sun, 15 Sep 2019 05:32:00 GMT</pubDate></item></channel></rss>
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/10/quansight-labs-work-update-for-september-2019/"&gt;Read more…&lt;/a&gt; (7 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><guid>https://labs.quansight.org/blog/2019/10/quansight-labs-work-update-for-september-2019/</guid><pubDate>Mon, 07 Oct 2019 05:00:00 GMT</pubDate></item></channel></rss>

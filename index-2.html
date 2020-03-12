@@ -80,7 +80,95 @@ navbar-dark bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/08/labs-dask-update/" class="u-url">Quansight Labs Dask Update</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/09/ruby-wrappers-for-the-xnd-project/" class="u-url">Ruby wrappers for the XND project</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                <a href="authors/sameer-deshmukh-v0dro/">Sameer Deshmukh (@v0dro)</a>
+            </span></p>
+            <p class="dateline">
+            <a href="blog/2019/09/ruby-wrappers-for-the-xnd-project/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-09-15T00:32:00-05:00" itemprop="datePublished" title="2019-09-15">2019-09-15</time></a>
+            </p>
+        </div>
+    </header><div class="p-summary entry-summary">
+    <div>
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-generate-toc again -->
+
+<p><strong>Table of Contents</strong></p>
+<ul>
+<li><a href="blog/2019/09/ruby-wrappers-for-the-xnd-project/#introduction">Introduction</a></li>
+<li>
+<a href="blog/2019/09/ruby-wrappers-for-the-xnd-project/#ndtypes">Ndtypes</a><ul>
+<li>
+<a href="blog/2019/09/ruby-wrappers-for-the-xnd-project/#usage">Usage</a><ul>
+<li><a href="blog/2019/09/ruby-wrappers-for-the-xnd-project/#basic-initialization">Basic initialization</a></li>
+<li><a href="blog/2019/09/ruby-wrappers-for-the-xnd-project/#concrete-vs-abstract-types">Concrete Vs. Abstract Types</a></li>
+<li><a href="blog/2019/09/ruby-wrappers-for-the-xnd-project/#typedefs">Typedefs</a></li>
+<li><a href="blog/2019/09/ruby-wrappers-for-the-xnd-project/#usage-via-the-c-api">Usage via The C API</a></li>
+</ul>
+</li>
+<li><a href="blog/2019/09/ruby-wrappers-for-the-xnd-project/#implementation">Implementation</a></li>
+</ul>
+</li>
+<li>
+<a href="blog/2019/09/ruby-wrappers-for-the-xnd-project/#xnd">Xnd</a><ul>
+<li>
+<a href="blog/2019/09/ruby-wrappers-for-the-xnd-project/#basic-usage">Basic Usage</a><ul>
+<li><a href="blog/2019/09/ruby-wrappers-for-the-xnd-project/#data-type-support">Data Type Support</a></li>
+<li><a href="blog/2019/09/ruby-wrappers-for-the-xnd-project/#missing-values">Missing Values</a></li>
+<li><a href="blog/2019/09/ruby-wrappers-for-the-xnd-project/#usage-via-the-c-api">Usage via The C API</a></li>
+</ul>
+</li>
+<li><a href="blog/2019/09/ruby-wrappers-for-the-xnd-project/#implementation">Implementation</a></li>
+</ul>
+</li>
+<li>
+<a href="blog/2019/09/ruby-wrappers-for-the-xnd-project/#gumath">Gumath</a><ul>
+<li>
+<a href="blog/2019/09/ruby-wrappers-for-the-xnd-project/#usage">Usage</a><ul>
+<li><a href="blog/2019/09/ruby-wrappers-for-the-xnd-project/#usage-via-the-c-api">Usage via The C API</a></li>
+</ul>
+</li>
+<li><a href="blog/2019/09/ruby-wrappers-for-the-xnd-project/#implementation">Implementation</a></li>
+<li><a href="blog/2019/09/ruby-wrappers-for-the-xnd-project/#automatic-kernel-generation">Automatic Kernel Generation</a></li>
+</ul>
+</li>
+<li><a href="blog/2019/09/ruby-wrappers-for-the-xnd-project/#conclusion-and-future-work">Conclusion and Future Work</a></li>
+</ul>
+<!-- markdown-toc end --><h2>Introduction</h2>
+<p>Lack of stable and reliable scientific computing software has been a persistent problem
+for the Ruby community, making it hard for enthusiastic Ruby developers to use Ruby in
+everything from their web applications to their data analysis projects. One of the most important
+components of any successful scientific software stack is a well maintained and flexible
+array computation library that can act as a fast and simple way of storing in-memory data
+and interfacing it with various fast and battle-tested libraries like LAPACK and BLAS.</p>
+<p>Various projects have attempted to make such libraries in the past (and some are still thriving
+and maintained). Some of the notable ones are <a href="https://github.com/ruby-numo">numo</a>, <a href="https://github.com/SciRuby/nmatrix">nmatrix</a>, and more recently, <a href="https://github.com/SciRuby/numruby">numruby</a>.
+These projects attempt to provide a simple Ruby-like API for creating and manipulating arrays
+of various types. All of them are able to easily interface with libraries like ATLAS, FFTW
+and LAPACK.</p>
+<p>However, all of the above projects fall short in two major aspects:</p>
+<ul>
+<li>Lack of extensibility to adapt to modern use cases (read Machine Learning).</li>
+<li>Lack of a critical mass of developers to maintain a robust and fast array library.</li>
+</ul>
+<p>The first problem is mainly due to the fact that they do not support very robust type systems.
+The available data types are limited and are hard to extend to more complex uses. Modern use cases like
+Machine Learning require a more robust type system (i.e. defining array shapes of arbitrary dimension on multiple devices), as has been demonstrated by the tensor
+implementations of various frameworks like Tensorflow and PyTorch.</p>
+<p>The second problem is due to the fact that all of the aforementioned projects are community
+efforts that are maintained part-time by developers simply out of a sense of purpose and
+passion. Sustaining such complex projects for extended periods of time without expectation
+of any support is simply unfeasible even for the most driven engineers.</p>
+<p>This is where the XND project comes in. The <a href="https://xnd.io/">XND project</a> is a project for
+building a common library that is able to meet the needs of the various data analysis and
+machine learning frameworks that have had to build their own array objects and programming 
+languages. It is built with the premise of extending arrays with new types and various 
+device types (CPUs, GPUs etc.) without loss of performance and ease of use.</p>
+<p class="more"><a href="blog/2019/09/ruby-wrappers-for-the-xnd-project/">Read more…</a></p>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/08/labs-dask-update/" class="u-url">Quansight Labs Dask Update</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 <a href="authors/james-bourbeau/">James Bourbeau</a>
