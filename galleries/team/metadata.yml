@@ -1,25 +1,31 @@
 ---
-name: ralf_gommers.bmp
+name: ralf_gommers.png
 title: Ralf Gommers
+github: rgommers
 projects: ['NumPy', 'SciPy', 'PyWavelets']
 ---
-name: saul_shanabrook.bmp
+name: saul_shanabrook.png
 title: Saul Shanabrook
+github: saulshanabrook
 projects: ['JupyterLab', 'metadsl']
 ---
-name: hameer_abbasi.bmp
+name: hameer_abbasi.png
 title: Hameer Abbasi
-projects: ['sparse', 'uarray']
+github: hameerabbasi
+projects: ['Pydata/Sparse', 'uarray']
 ---
-name: carlos_cordoba.bmp
+name: carlos_cordoba.png
 title: Carlos Cordoba
+github: ccordoba12
 projects: ['Spyder']
 ---
-name: gonzalo_peña.bmp
+name: gonzalo_peña.png
 title: Gonzalo Peña-Castellanos
+github: goanpeca
 projects: ['Spyder']
 ---
-name: edgar_margffoy.bmp
+name: edgar_margffoy.png
 title: Edgar Margffoy
+github: andfoy
 projects: ['Spyder']
 ---

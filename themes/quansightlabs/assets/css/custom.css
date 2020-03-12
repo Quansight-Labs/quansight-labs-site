@@ -1,5 +1,10 @@
 /* Quangight Lab CSS Code */
 
+/* Github icon*/
+.fa {
+  font-size: 20px !important;
+}
+
 /* Post Page CSS*/
 .tags{
   text-align: left;
