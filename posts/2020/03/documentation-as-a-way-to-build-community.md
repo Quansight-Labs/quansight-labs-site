@@ -1,7 +1,7 @@
 <!--
 .. title: Documentation as a way to build Community
 .. slug: documentation-as-a-way-to-build-community
-.. date: 2020-03-10 15:25:55 UTC-05:00
+.. date: 2020-03-14 07:25:55 UTC-05:00
 .. author: Melissa Mendonça
 .. tags: Labs, NumPy
 .. category: 
@@ -17,6 +17,8 @@ Nobody will argue against documentation. It is clear that for an open-source sof
 I've started working at Quansight in January, and I have started doing work related to the [NumPy CZI Grant](https://labs.quansight.org/blog/2019/11/numpy-openblas-CZI-grant/). As a former professor in mathematics, this seemed like an interesting project both because of its potential impact on the NumPy (and larger) community and because of its relevance to me, as I love writing educational material and documentation. Having official high-level documentation written using up-to-date content and techniques will certainly mean more users (and developers/contributors) are involved in the NumPy community.
 
 So, if everybody agrees on its importance, why is it so hard to write good documentation?
+
+<!-- TEASER_END -->
 
 ## Why do we lack documentation?
 
@@ -47,6 +49,7 @@ In this sense, grants like the one NumPy just received are extremely important t
 As part of our work related to the CZI grant, we have submitted a [NumPy Enhancement Proposal (NEP)](https://numpy.org/neps/nep-0044-restructuring-numpy-docs.html) that proposes a restructure the NumPy documentation, to make it more organized and discoverable for beginners and experienced users. 
 
 In practical terms, we propose reorganizing the docs into the four categories mentioned in Daniele Procida's article ["What nobody tells you about documentation"](https://www.divio.com/blog/documentation), namely Tutorials, How-Tos, Reference Guide and Explanations. We believe that this will have several consequences:
+
 - Improving on the quality and discoverability of the documentation as a whole;
 - Showing a clearer difference between documentation aimed at different users (novices vs. experts, for example)
 - Giving users more opportunities to contribute, generating content that can be shared directly on NumPy's official documentation
