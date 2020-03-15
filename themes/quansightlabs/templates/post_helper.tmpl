@@ -30,13 +30,23 @@
             <li class="previous">
                 <a href="${post.prev_post.permalink()}" rel="prev" title="${post.prev_post.title()|h}">${messages("Previous post")}</a>
             </li>
+        %else:
+            <li class="previous disabled">
+                <a rel="prev">${messages("Previous post")}</a>
+            </li>
         %endif
-        <li class="archive">
-            <a href="/archive.html" rel="archive" title="Archive ">${messages("Archive")}</a>
-        </li>
+
+            <li class="archive">
+                <a href="/archive.html" rel="archive" title="Archive ">${messages("Archive")}</a>
+            </li>
+
         %if post.next_post:
             <li class="next">
                 <a href="${post.next_post.permalink()}" rel="next" title="${post.next_post.title()|h}">${messages("Next post")}</a>
+            </li>
+        %else:
+            <li class="next disabled">
+                <a rel="next">${messages("Next post")}</a>
             </li>
         %endif
         </ul>
