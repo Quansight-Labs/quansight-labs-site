@@ -70,9 +70,10 @@ NAVIGATION_LINKS = {
     DEFAULT_LANG: (
         ("/", "Home"),
         ("/blog/", "Blog"),
-        ("/rss.xml", "Team"),
+        ("/team/", "Team"),
         ("/projects/", "Projects"),
         ("/about/", "About"),
+        ("/rss.xml", "RSS"),
     ),
 }
 
