@@ -12,7 +12,7 @@ projects: ['JupyterLab', 'metadsl']
 name: hameer_abbasi.png
 title: Hameer Abbasi
 github: hameerabbasi
-projects: ['Pydata/Sparse', 'uarray']
+projects: ['NumPy', 'PyData/Sparse', 'Uarray']
 ---
 name: carlos_cordoba.png
 title: Carlos Cordoba
@@ -52,27 +52,27 @@ projects: ['NumPy']
 name: anthony_scopatz.png
 title: Anthony Scopatz
 github: scopatz
-projects: ['conda-forge']
+projects: ['conda-forge', 'PyTables']
 ---
 name: athan_reines.png
 title: Athan Reines
 github: kgryte
-projects: ['JupyterLab']
+projects: ['JupyterLab', 'stdlib.js']
 ---
 name: aaron_meurer.png
 title: Aaron Meurer
 github: asmeurer
-projects: ['SymPy']
+projects: ['Numba', 'SymPy']
 ---
 name: chris_ostrouchov.png
 title: Chris Ostrouchov
 github: costrouc
-projects: ['']
+projects: []
 ---
 name: james_bourbeau.png
 title: James Bourbeau
 github: jrbourbeau
-projects: ['Dask', 'Zarr']
+projects: ['Dask', 'Numba', 'Zarr']
 ---
 name: ivan_ogasawara.png
 title: Ivan Ogasawara
@@ -82,22 +82,17 @@ projects: ['Ibis']
 name: peter_bell.png
 title: Peter Bell
 github: peterbell10
-projects: ['SciPy']
+projects: ['SciPy', 'Uarray']
 ---
 name: pearu_peterson.png
 title: Pearu Peterson
 github: pearu
-projects: ['XND']
+projects: ['Numba', 'XND']
 ---
 name: sameer_deshmukh.png
 title: Sameer Deshmukh
 github: v0dro
 projects: ['XND']
----
-name: nathan_goldbaum.png
-title: Nathan Goldbaum
-github: ngoldbaum 
-projects: ['']
 ---
 name: guilherme_leobas.png
 title: Guilherme Leobas
