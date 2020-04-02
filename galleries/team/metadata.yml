@@ -12,7 +12,7 @@ projects: ['JupyterLab', 'metadsl']
 name: hameer_abbasi.png
 title: Hameer Abbasi
 github: hameerabbasi
-projects: ['NumPy', 'PyData/Sparse', 'Uarray']
+projects: ['NumPy', 'PyData/Sparse', 'uarray']
 ---
 name: carlos_cordoba.png
 title: Carlos Cordoba
@@ -82,7 +82,7 @@ projects: ['Ibis']
 name: peter_bell.png
 title: Peter Bell
 github: peterbell10
-projects: ['SciPy', 'Uarray']
+projects: ['SciPy', 'uarray']
 ---
 name: pearu_peterson.png
 title: Pearu Peterson
