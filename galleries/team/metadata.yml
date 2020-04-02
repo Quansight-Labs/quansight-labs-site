@@ -67,7 +67,7 @@ projects: ['Numba', 'SymPy']
 name: chris_ostrouchov.png
 title: Chris Ostrouchov
 github: costrouc
-projects: []
+projects: ['python-api-inspect']
 ---
 name: james_bourbeau.png
 title: James Bourbeau
@@ -97,15 +97,15 @@ projects: ['XND']
 name: guilherme_leobas.png
 title: Guilherme Leobas
 github: guilhermeleobas
-projects: ['XND', 'Numba']
+projects: ['Numba', 'XND']
 ---
 name: anirrudh_krishnan.png
 title: Anirrudh Krishnan
 github: anirrudh
-projects: ['JupyterLab']
+projects: []
 ---
 name: marc_garcia.png
 title: Marc Garcia
 github: datapythonista
-projects: ['Pandas', 'Ibis']
+projects: ['Ibis', 'Pandas']
 ---
