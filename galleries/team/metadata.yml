@@ -1,42 +1,67 @@
 ---
-name: ralf_gommers.png
-title: Ralf Gommers
-github: rgommers
-projects: ['NumPy', 'SciPy']
----
-name: saul_shanabrook.png
-title: Saul Shanabrook
-github: saulshanabrook
-projects: ['JupyterLab', 'metadsl']
----
 name: hameer_abbasi.png
 title: Hameer Abbasi
 github: hameerabbasi
 projects: ['NumPy', 'PyData/Sparse', 'uarray']
+---
+name: daniel_althviz.png
+title: Daniel Althviz
+github: dalthviz
+projects: ['Spyder']
+---
+name: peter_bell.png
+title: Peter Bell
+github: peterbell10
+projects: ['SciPy', 'uarray']
+---
+name: james_bourbeau.png
+title: James Bourbeau
+github: jrbourbeau
+projects: ['Dask', 'Numba', 'Zarr']
 ---
 name: carlos_cordoba.png
 title: Carlos Cordoba
 github: ccordoba12
 projects: ['Spyder']
 ---
-name: gonzalo_peña.png
-title: Gonzalo Peña-Castellanos
-github: goanpeca
-projects: ['Spyder']
+name: sameer_deshmukh.png
+title: Sameer Deshmukh
+github: v0dro
+projects: ['XND']
 ---
-name: edgar_margffoy.png
-title: Edgar Margffoy
-github: andfoy
-projects: ['Spyder']
+name: marc_garcia.png
+title: Marc Garcia
+github: datapythonista
+projects: ['Ibis', 'Pandas']
+---
+name: ralf_gommers.png
+title: Ralf Gommers
+github: rgommers
+projects: ['NumPy', 'SciPy']
 ---
 name: stephannie_jimenez.png
 title: Stephannie Jiménez
 github: steff456
 projects: ['Spyder']
 ---
-name: daniel_althviz.png
-title: Daniel Althviz
-github: dalthviz
+name: anirrudh_krishnan.png
+title: Anirrudh Krishnan
+github: anirrudh
+projects: []
+---
+name: mars_lee.png
+title: Mars Lee
+github: MarsBarLee
+projects: ['NumPy']
+---
+name: guilherme_leobas.png
+title: Guilherme Leobas
+github: guilhermeleobas
+projects: ['Numba', 'XND']
+---
+name: edgar_margffoy.png
+title: Edgar Margffoy
+github: andfoy
 projects: ['Spyder']
 ---
 name: melissa_mendoca.png
@@ -44,68 +69,43 @@ title: Melissa Mendonça
 github: melissawm
 projects: ['NumPy']
 ---
-name: mars_lee.png
-title: Mars Lee
-github: MarsBarLee
-projects: ['NumPy']
----
-name: anthony_scopatz.png
-title: Anthony Scopatz
-github: scopatz
-projects: ['conda-forge', 'PyTables']
----
-name: athan_reines.png
-title: Athan Reines
-github: kgryte
-projects: ['JupyterLab', 'stdlib.js']
----
 name: aaron_meurer.png
 title: Aaron Meurer
 github: asmeurer
 projects: ['Numba', 'SymPy']
----
-name: chris_ostrouchov.png
-title: Chris Ostrouchov
-github: costrouc
-projects: ['python-api-inspect']
----
-name: james_bourbeau.png
-title: James Bourbeau
-github: jrbourbeau
-projects: ['Dask', 'Numba', 'Zarr']
 ---
 name: ivan_ogasawara.png
 title: Ivan Ogasawara
 github: xmnlab
 projects: ['Ibis']
 ---
-name: peter_bell.png
-title: Peter Bell
-github: peterbell10
-projects: ['SciPy', 'uarray']
+name: chris_ostrouchov.png
+title: Chris Ostrouchov
+github: costrouc
+projects: ['python-api-inspect']
+---
+name: gonzalo_peña.png
+title: Gonzalo Peña-Castellanos
+github: goanpeca
+projects: ['Spyder']
 ---
 name: pearu_peterson.png
 title: Pearu Peterson
 github: pearu
 projects: ['Numba', 'XND']
 ---
-name: sameer_deshmukh.png
-title: Sameer Deshmukh
-github: v0dro
-projects: ['XND']
+name: athan_reines.png
+title: Athan Reines
+github: kgryte
+projects: ['JupyterLab', 'stdlib.js']
 ---
-name: guilherme_leobas.png
-title: Guilherme Leobas
-github: guilhermeleobas
-projects: ['Numba', 'XND']
+name: anthony_scopatz.png
+title: Anthony Scopatz
+github: scopatz
+projects: ['conda-forge', 'PyTables']
 ---
-name: anirrudh_krishnan.png
-title: Anirrudh Krishnan
-github: anirrudh
-projects: []
----
-name: marc_garcia.png
-title: Marc Garcia
-github: datapythonista
-projects: ['Ibis', 'Pandas']
+name: saul_shanabrook.png
+title: Saul Shanabrook
+github: saulshanabrook
+projects: ['JupyterLab', 'metadsl']
 ---
