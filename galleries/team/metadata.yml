@@ -92,7 +92,7 @@ projects: ['Spyder']
 name: pearu_peterson.png
 title: Pearu Peterson
 github: pearu
-projects: ['Numba', 'XND']
+projects: ['Numba', 'rbc', 'XND']
 ---
 name: athan_reines.png
 title: Athan Reines
