@@ -32,7 +32,7 @@ projects: ['XND']
 name: marc_garcia.png
 title: Marc Garcia
 github: datapythonista
-projects: ['Ibis', 'Pandas']
+projects: ['Ibis', 'pandas']
 ---
 name: ralf_gommers.png
 title: Ralf Gommers
