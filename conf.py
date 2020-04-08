@@ -101,7 +101,7 @@ THEME_COLOR = '#5670d4'
 THEME_CONFIG = {
     DEFAULT_LANG: {
         # Show either light or dark versions of the page
-        'navbar_light': True,
+        'navbar_light': False,
         # Show the latest featured post in a large box, with the previewimage as its background.
         'featured_large': False,
         # Show the first (remaining) two featured posts in small boxes.
@@ -264,7 +264,7 @@ NEW_POST_DATE_PATH_FORMAT = '%Y/%m'
 # Nikola supports logo display.  If you have one, you can put the URL here.
 # Final output is <img src="LOGO_URL" id="logo" alt="BLOG_TITLE">.
 # The URL may be relative to the site root.
-LOGO_URL = '/images/quansight_labs_logo.png'
+LOGO_URL = '/images/quansight_labs_logo_white.png'
 
 # If you want to hide the title of your website (for example, if your logo
 # already contains the text), set this to False.

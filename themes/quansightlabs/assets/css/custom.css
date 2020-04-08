@@ -9,7 +9,7 @@
   color: black;
 }
 
-/* Post Page CSS*/
+/*Single Post CSS*/
 .tags{
   text-align: left;
   margin-left: 0px;
@@ -38,16 +38,25 @@ header a:hover{
 }
 
 
+/* NavBar Header CSS */
 
-/* Nav Bar CSS */
-.navbar-light .navbar-nav .nav-link{
-  color: #8E5FBD
+.bg-dark{
+  background-color: #2c0848!important;
+}
+.navbar-dark .navbar-nav{
+  font-size: medium;
+  font-weight: bold;
+  font-family: 'Franklin Gothic Large', sans-serif;
+}
+.navbar-dark .navbar-nav .nav-link{
+  color: #FFF;
 } 
-.navbar-light .navbar-nav .nav-link:hover{
-  color: #5d2e8c
+.navbar-dark .navbar-nav .nav-link:hover{
+  color: #3bcd76;
+
 } 
-.navbar-light .navbar-nav .active .nav-link{
-  color: #5D2E8C
+.navbar-dark .navbar-nav .active .nav-link{
+  color: #3bcd76;
 }
 #logo {
   max-height: 50px;
@@ -56,6 +65,13 @@ header a:hover{
   background-color: #fff;
   border-bottom: 5px solid #5D2E8C;
 }
+
+
+
+
+
+
+
 
 div.prompt {
   display: none;
