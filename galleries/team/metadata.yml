@@ -9,6 +9,11 @@ title: Daniel Althviz
 github: dalthviz
 projects: ['Spyder']
 ---
+name: prasun_anand.png
+title: Prasun Anand
+github: prasunanand
+projects: ['Dask', 'uarray']
+---
 name: peter_bell.png
 title: Peter Bell
 github: peterbell10
@@ -33,6 +38,11 @@ name: marc_garcia.png
 title: Marc Garcia
 github: datapythonista
 projects: ['Ibis', 'pandas']
+---
+name: juanita_gomez.png
+title: Juanita Gomez
+github: juanis2112
+projects: ['Spyder']
 ---
 name: ralf_gommers.png
 title: Ralf Gommers
@@ -93,6 +103,11 @@ name: pearu_peterson.png
 title: Pearu Peterson
 github: pearu
 projects: ['Numba', 'rbc', 'XND']
+---
+name: matti_picus.png
+title: Matti Picus
+github: mattip
+projects: ['NumPy', 'PyPy']
 ---
 name: athan_reines.png
 title: Athan Reines
