@@ -149,6 +149,7 @@ THEME_CONFIG = {
 POSTS = (
     ("posts/*.rst", "blog", "post.tmpl"),
     ("posts/*.md", "blog", "post_ipynb.tmpl"),
+    ("posts/*.markdown", "blog", "post_ipynb.tmpl"),
     ("posts/*.html", "blog", "post.tmpl"),
     ("posts/*.ipynb", "blog", "post_ipynb.tmpl"),
 )
@@ -218,8 +219,9 @@ DATE_FORMAT = 'YYYY-MM-dd'
 # 'markdown' is Markdown
 # 'html' assumes the file is HTML and just copies it
 COMPILERS = {
+    "commonmark": ('.markdown',),
     "rest": ('.rst', '.txt'),
-    "markdown": ('.md', '.mdown', '.markdown'),
+    "markdown": ('.md', '.mdown'),
     "ipynb": ('.ipynb',),
     "html": ('.html', '.htm'),
     # Pandoc detects the input from the source filename
