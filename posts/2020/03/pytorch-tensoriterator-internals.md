@@ -48,6 +48,9 @@ over tensors in the C++ codebase are extremely commonplace. This post is aimed a
 who wants to contribute to pytorch, and you should at least be familiar with some of the
 basic terminologies of the pytorch codebase that can be found in Edward Yang's 
 excellent [blog post](http://blog.ezyang.com/2019/05/pytorch-internals/**) on pytorch internals.
+Although `TensorIterator` can be used for both CPUs and accelerators, this post has been
+written keeping in mind usage on the CPU. Although there can be some dissimilarities between
+the two, the overall concepts are the same.
 
 # History of TensorIterator
 
@@ -173,8 +176,8 @@ each tensor in the dimension that you're iterating over. We can add this stride 
 pointer received in order to reach the next element in the tensor. The last argument is
 `int64_t n` which is the size of the dimension being iterated over. 
 
-The `for_each` loop will implicitly parallelize each iteration of `loop` if the size
-of each iteration is more than the value of `internal::GRAIN_SIZE`, which is a value
+`for_each` implicitly parallelizes the operation by executing `loop` in parallel
+if the number of iterations is more than the value of `internal::GRAIN_SIZE`, which is a value
 that is determined as the 'right amount' of data to iterate over in order to gain a significant
 speedup using multi-threaded execution. If you want to explicitly specify that your
 operation _must_ run in serial, then use the `serial_for_each` loop.
