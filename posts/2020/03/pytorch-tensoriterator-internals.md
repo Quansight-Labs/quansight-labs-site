@@ -143,8 +143,8 @@ function. This function has two overloads: one takes a function object which ite
 single dimension (`loop_t`); the other takes a function object which iterates over two
 dimensions simultaneously (`loop2d_t`). Find their definitions [here](https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/native/TensorIterator.h#L166). The former can iterate over a loop
 of a single dimension whereas the latter can do so over two dimensions. The simplest
-way of using `loop_t` is to pass it as a lambda using `for_each`. A code snippet
-using it this way would look like so:
+way of using `for_each` is to pass it a lambda of type `loop_t` (or `loop2d_t`).
+A code snippet using it this way would look like so:
 
 ``` cpp
 auto iter = TensorIterator();
@@ -169,7 +169,7 @@ iter.for_each(loop);
 In the above example, the `char** data` gives a pointer to the data within the
 tensor in the same order that you specify when you build the iterator. Note
 that in order to make the implementation agnostic of any particular data type, you
-will always receive the data typecast to `char` (think of it as a bunch of bytes).
+will always receive the pointer typecast to `char` (think of it as a bunch of bytes).
 
 The second argument is `int64_t* strides` which is an array containing the strides of
 each tensor in the dimension that you're iterating over. We can add this stride to the
