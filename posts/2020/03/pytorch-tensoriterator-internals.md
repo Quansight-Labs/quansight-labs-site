@@ -53,7 +53,7 @@ excellent [blog post](http://blog.ezyang.com/2019/05/pytorch-internals/**) on py
 
 ## TH iterators
 
-TensorIterator was devised to simplify the implementation of pytorch's tensor operations over the TH implementation. TH uses preprocessor macros to write type-independent loops over tensors, instead of C++ templates. For example, consider this simple `TH` loop
+TensorIterator was devised to simplify the implementation of pytorch's tensor operations over the `TH` implementation. `TH` uses preprocessor macros to write type-independent loops over tensors, instead of C++ templates. For example, consider this simple `TH` loop
 for computing the product of all the numbers in a particular dimension (find the code 
 [here](https://github.com/pytorch/pytorch/blob/master/aten/src/TH/generic/THTensorMoreMath.cpp#L350)):
 
