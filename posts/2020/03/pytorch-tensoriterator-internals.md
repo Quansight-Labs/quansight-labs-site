@@ -158,7 +158,10 @@ auto loop = [&](char **data, const int64_t* strides, int64_t n) {
     auto * out_data_bytes = data[0];
     auto * in_data_bytes = data[1];
     
-    // do something with input and output.
+    // assume float data type for this example.
+    for (int i = 0; i < n; i++) {
+      (float)(*out_data_bytes) += (float)(*in_data_bytes);
+    }
     
     out_data_bytes += strides[0];
     in_data_bytes += strides[1];
