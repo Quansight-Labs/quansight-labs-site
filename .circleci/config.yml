@@ -15,7 +15,7 @@ jobs:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
       - run:
           name: Install Nikola
-          command: sudo pip install nikola[extras]
+          command: sudo pip install nikola[extras] commonmark
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
           paths:
@@ -39,7 +39,7 @@ jobs:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
       - run:
           name: Install Nikola
-          command: sudo pip install nikola[extras]
+          command: sudo pip install nikola[extras] commonmark
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
           paths:
@@ -52,11 +52,11 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               git config --global user.name 'CirclCI'
-              git config --global user.email 'circleci@invalid' 
+              git config --global user.email 'circleci@invalid'
               git pull --all
               git remote add deploy https://${GITHUB_TOKEN}@github.com/Quansight-Labs/quansight-labs-site.git
               nikola github_deploy -m 'Nikola auto deploy [ci skip]'
-            fi 
+            fi
 
 workflows:
   version: 2
