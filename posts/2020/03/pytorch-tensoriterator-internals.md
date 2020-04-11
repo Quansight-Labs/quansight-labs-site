@@ -160,7 +160,8 @@ auto loop = [&](char **data, const int64_t* strides, int64_t n) {
     
     // assume float data type for this example.
     for (int i = 0; i < n; i++) {
-      (float)(*out_data_bytes) += (float)(*in_data_bytes);
+      *reinterpret_cast<float*>(out_data_bytes) +=
+        *reinterpret_cast<float*>(in_data_bytes);
     }
     
     out_data_bytes += strides[0];
