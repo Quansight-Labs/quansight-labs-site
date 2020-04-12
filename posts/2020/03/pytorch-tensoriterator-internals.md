@@ -28,26 +28,26 @@
 # Introduction
 
 PyTorch is one of the leading frameworks for deep learning. Its core data structure is
-Tensor, a multi-dimensional array implementation with many advanced features like auto-differentiation. Pytorch is a massive
+Tensor, a multi-dimensional array implementation with many advanced features like auto-differentiation. PyTorch is a massive
 codebase (approx. [12 GB of files and about a million lines](https://www.openhub.net/p/pytorch) of
 C++, Python and CUDA code), and having a method for iterating over tensors in a very efficient manner that is independent of
 data type, dimension, striding and hardware is a critical feature that can lead to a very
 massive simplification of the codebase and make distributed development much faster and
-smoother. The [`TensorIterator`](https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/native/TensorIterator.cpp) C++ class within pytorch is a complex yet useful class that
+smoother. The [`TensorIterator`](https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/native/TensorIterator.cpp) C++ class within PyTorch is a complex yet useful class that
 is used for iterating over the elements of a tensor over any dimension and implicitly
 parallelizing various operations in a device independent manner.
 
 It does this through
 a C++ API that is independent of type and device of the tensor, freeing the programmer
-of having to worry about the datatype or device when writing iteration logic for pytorch
-tensors. For those coming from the numpy universe, `NpyIter` is a close cousin of `TensorIterator`.
+of having to worry about the datatype or device when writing iteration logic for PyTorch
+tensors. For those coming from the NumPy universe, `NpyIter` is a close cousin of `TensorIterator`.
 
 This post is a deep dive into how `TensorIterator` works, and is
-an essential part of learning to contribute to the pytorch codebase since iterations
+an essential part of learning to contribute to the PyTorch codebase since iterations
 over tensors in the C++ codebase are extremely commonplace. This post is aimed at someone
-who wants to contribute to pytorch, and you should at least be familiar with some of the
-basic terminologies of the pytorch codebase that can be found in Edward Yang's 
-excellent [blog post](http://blog.ezyang.com/2019/05/pytorch-internals/**) on pytorch internals.
+who wants to contribute to PyTorch, and you should at least be familiar with some of the
+basic terminologies of the PyTorch codebase that can be found in Edward Yang's 
+excellent [blog post](http://blog.ezyang.com/2019/05/pytorch-internals/**) on PyTorch internals.
 Although `TensorIterator` can be used for both CPUs and accelerators, this post has been
 written keeping in mind usage on the CPU. Although there can be some dissimilarities between
 the two, the overall concepts are the same.
@@ -56,7 +56,7 @@ the two, the overall concepts are the same.
 
 ## TH iterators
 
-TensorIterator was devised to simplify the implementation of pytorch's tensor operations over the `TH` implementation. `TH` uses preprocessor macros to write type-independent loops over tensors, instead of C++ templates. For example, consider this simple `TH` loop
+TensorIterator was devised to simplify the implementation of PyTorch's tensor operations over the `TH` implementation. `TH` uses preprocessor macros to write type-independent loops over tensors, instead of C++ templates. For example, consider this simple `TH` loop
 for computing the product of all the numbers in a particular dimension (find the code 
 [here](https://github.com/pytorch/pytorch/blob/master/aten/src/TH/generic/THTensorMoreMath.cpp#L350)):
 
@@ -72,8 +72,8 @@ TH_TENSOR_DIM_APPLY2(scalar_t, t, scalar_t, r_, dimension,
 
 The above loop works by following a particular convention for the naming of the
 types and variables. You specify the input type and output type of your tensors in the first
-and third arguments. `scalar_t` is a type that can generically be used for denoting a pytorch
-scalar type such as `float`, `double`, `long` etc. Internally, pytorch uses the `scalar_t` 
+and third arguments. `scalar_t` is a type that can generically be used for denoting a PyTorch
+scalar type such as `float`, `double`, `long` etc. Internally, PyTorch uses the `scalar_t` 
 for compiling the file multiple times for different definitions of `scalar_t` (as in for different
 data types like `float`, `int`, etc.). The input tensor and output tensors are
 specified in the second and fourth arguments (in this case `t` and `r_`), and the dimension that
@@ -162,10 +162,10 @@ auto loop = [&](char **data, const int64_t* strides, int64_t n) {
     for (int i = 0; i < n; i++) {
       *reinterpret_cast<float*>(out_data_bytes) +=
         *reinterpret_cast<float*>(in_data_bytes);
+        
+      out_data_bytes += strides[0];
+      in_data_bytes += strides[1];
     }
-    
-    out_data_bytes += strides[0];
-    in_data_bytes += strides[1];
 }
 
 iter.for_each(loop);
@@ -213,7 +213,7 @@ Writing the kernel in this way ensures that the value returned by the lambda pas
 
 ### Setting tensor iteration dimensions
 
-The value of the strides will determine which dimension of the tensor you will iterate over.
+The value of the sizes and strides will determine which dimension of the tensor you will iterate over.
 `TensorIterator` performs optimizations to make sure that at least
 most of the iterations happen on contiguos data to take advantage of hierarchical cache-based
 memory architectures (think dimension coalescing and reordering for maximum data locality).
@@ -259,10 +259,12 @@ iter.build();
 ```
 You can see that we first change the size of the tensors to `1` on the
 reduction dimension so that the dimension collapsing logic inside
-`TensorIterator#build` will know which dimension to broadcast the result
-over. Setting the dimension in this way is akin to telling `TensorIterator`
+`TensorIterator#build` will know which dimension to skip.
+Setting the dimension in this way is akin to telling `TensorIterator`
 to skip the dimension. We then restride the tensors using `restride_dim` and
-then use the restrided tensors for building the `TensorIterator`.
+then use the restrided tensors for building the `TensorIterator`. You can
+set any size for inputs/outputs, then `TensorIterator` with check whether it
+can come up with a common broadcasted size
 
 # Conclusion
 
@@ -270,5 +272,5 @@ This post was a very short introduction to what `TensorIterator` is actually
 capable of. If you want to learn more about how it works and what goes into
 things like collapsing the tensor size for optimizing memory access, a good
 place to start would be the `build()` function in 
-[TensorIterator.cpp](https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/native/TensorIterator.cpp#L1030). Also have a look at [this blog post](https://github.com/pytorch/pytorch/wiki/How-to-use-TensorIterator) from the pytorch team
+[TensorIterator.cpp](https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/native/TensorIterator.cpp#L1030). Also have a look at [this blog post](https://github.com/pytorch/pytorch/wiki/How-to-use-TensorIterator) from the PyTorch team
 on using `TensorIterator.`
