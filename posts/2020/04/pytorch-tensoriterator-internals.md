@@ -1,7 +1,7 @@
 <!--
 .. title: PyTorch TensorIterator Internals
 .. slug: pytorch-tensoriterator-internals
-.. date: 2020-04-13 20:39:56 UTC-05:00
+.. date: 2020-04-13 10:39:56 UTC-05:00
 .. author: Sameer Deshmukh
 .. tags: PyTorch, C++
 .. category:
@@ -29,9 +29,9 @@
 # Introduction
 
 PyTorch is one of the leading frameworks for deep learning. Its core data
-structure is Tensor, a multi-dimensional array implementation with many
+structure is `Tensor`, a multi-dimensional array implementation with many
 advanced features like auto-differentiation. PyTorch is a massive
-codebase (approx. [12 GB of files and about a million lines](https://www.openhub.net/p/pytorch) of
+codebase (approx. [a million lines](https://www.openhub.net/p/pytorch) of
 C++, Python and CUDA code), and having a method for iterating over tensors in a
 very efficient manner that is independent of data type, dimension, striding and
 hardware is a critical feature that can lead to a very massive simplification
@@ -51,7 +51,7 @@ part of learning to contribute to the PyTorch codebase since iterations over
 tensors in the C++ codebase are extremely commonplace. This post is aimed at
 someone who wants to contribute to PyTorch, and you should at least be familiar
 with some of the basic terminologies of the PyTorch codebase that can be found
-in Edward Yang's excellent [blog post](http://blog.ezyang.com/2019/05/pytorch-internals/**)
+in Edward Yang's excellent [blog post](http://blog.ezyang.com/2019/05/pytorch-internals)
 on PyTorch internals.  Although `TensorIterator` can be used for both CPUs and
 accelerators, this post has been written keeping in mind usage on the CPU.
 Although there can be some dissimilarities between the two, the overall
@@ -283,5 +283,5 @@ capable of. If you want to learn more about how it works and what goes into
 things like collapsing the tensor size for optimizing memory access, a good
 place to start would be the `build()` function in
 [TensorIterator.cpp](https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/native/TensorIterator.cpp#L1030).
-Also have a look at [this blog post](https://github.com/pytorch/pytorch/wiki/How-to-use-TensorIterator)
+Also have a look at [this wiki page](https://github.com/pytorch/pytorch/wiki/How-to-use-TensorIterator)
 from the PyTorch team on using `TensorIterator.`
