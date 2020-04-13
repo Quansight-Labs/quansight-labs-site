@@ -10,24 +10,6 @@
 .. type: text
 -->
 
-<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-generate-toc again -->
-**Table of Contents**
-
-- [Introduction](#introduction)
-- [History of TensorIterator](#history-of-tensoriterator)
-    - [TH iterators](#th-iterators)
-    - [Limitations of TH iterators](#limitations-of-th-iterators)
-- [Basics of TensorIterator](#basics-of-tensoriterator)
-- [Performing iterations](#performing-iterations)
-    - [Iteration details](#iteration-details)
-        - [Using kernels for iterations](#using-kernels-for-iterations)
-        - [Setting tensor iteration dimensions](#setting-tensor-iteration-dimensions)
-- [Conclusion](#conclusion)
-
-<!-- markdown-toc end -->
-
-# Introduction
-
 PyTorch is one of the leading frameworks for deep learning. Its core data
 structure is `Tensor`, a multi-dimensional array implementation with many
 advanced features like auto-differentiation. PyTorch is a massive
