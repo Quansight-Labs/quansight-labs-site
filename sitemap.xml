@@ -7,290 +7,290 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://labs.quansight.org/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/2019/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/2020/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/archive.html</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/aaron-meurer/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/chris-ostrouchov/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/christopher-ostrouchov/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/daniel-althviz/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/edgar-margffoy-tuay/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/gonzalo-pena-castellanos/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/hameer-abbasi/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/ivan-ogasawara/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/james-bourbeau/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/juanita-gomez-gonzalo-pena/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/mars-lee/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/melissa-mendonca/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/ralf-gommers/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/sameer-deshmukh-v0dro/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/sameer-deshmukh/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/saul-shanabrook/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/authors/stephannie-jimenez/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/04/joining-labs/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/04/python-moa-tensor-compiler/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/04/uarray-intro/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/04/whats-new-in-sympy-14/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/05/community-driven-opensource-funded-development/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/05/labs-update-april-highlights/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/05/metadsl-dsl-framework/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/05/python-package-function-usage/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/05/spyder-4-beta2-release/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/06/labs-update-may-highlights/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/06/tdk-partners-with-quansight-labs/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/07/ibis-python-data-analysis-productivity-framework/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/07/quansight-at-scipy2019/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/08/labs-dask-update/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/08/spyder-40-beta4-kite-integration-is-here/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/09/ruby-wrappers-for-the-xnd-project/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/10/quansight-labs-work-update-for-september-2019/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/11/File-management-improvements-in-Spyder4/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/11/numpy-openblas-CZI-grant/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/11/uarray-attempting-to-move-the-ecosystem-forward/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/11/variable-explorer-improvements-in-Spyder-4/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2019/12/metadsl-talk/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2020/02/creating-the-ultimate-terminal-experience-in-Spyder-4-with-Spyder-Terminal/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2020/02/my-unexpected-dive-into-open-source-python/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2020/02/whats-next-for-pydatasparse/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2020/03/documentation-as-a-way-to-build-community/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2020/03/uarray-gsoc-participation/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/blog/2020/04/pytorch-tensoriterator-internals/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/big-data/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/c%2B%2B/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/community/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/dask/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/funding/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/ibis/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/labs/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/metadsl/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/numpy/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/openblas/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/pydata/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/pytorch/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/scipy/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/sparse/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/spyder/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/sympy/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/tensors/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/categories/uarray/</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/index-1.html</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
  <url>
   <loc>https://labs.quansight.org/index-2.html</loc>
-  <lastmod>2020-04-14T22:46:00Z</lastmod>
+  <lastmod>2020-04-18T16:41:00Z</lastmod>
  </url>
 </urlset>
