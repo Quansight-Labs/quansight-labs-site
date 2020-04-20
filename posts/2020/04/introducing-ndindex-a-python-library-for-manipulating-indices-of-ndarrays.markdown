@@ -50,6 +50,8 @@ these different cases. And due to 0-based indexing, half-open semantics,
 wraparound behavior, clipping, and step logic, the formulas are often quite
 difficult to write down.
 
+<!-- TEASER_END -->
+
 ## ndindex
 
 This is where ndindex comes in. ndindex is a new library that provides high
