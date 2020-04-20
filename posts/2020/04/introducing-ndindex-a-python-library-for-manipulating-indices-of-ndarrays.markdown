@@ -1,7 +1,7 @@
 <!--
 .. title: Introducing ndindex, a Python library for manipulating indices of ndarrays
 .. slug: introducing-ndindex-a-python-library-for-manipulating-indices-of-ndarrays
-.. date: 2020-04-09 15:42:24 UTC-05:00
+.. date: 2020-04-20
 .. tags: ndindex, NumPy
 .. type: text
 .. author: Aaron Meurer
