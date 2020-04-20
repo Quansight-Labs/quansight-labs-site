@@ -142,7 +142,7 @@ The following things are not yet implemented, but are planned.
   `shape`.
 
 - `ellipsis`, `Newaxis`, `IntegerArray`, and `BooleanArray` types, so that all
-  types of indexing are support.
+  types of indexing are supported.
 
 - `i1[i2]` will create a new ndindex `i3` (when possible) so that
   `a[i1][i2] == a[i3]`.
@@ -153,8 +153,8 @@ The following things are not yet implemented, but are planned.
 - `i1 + i2` will produce a single index so that `a[i1 + i2]` gives all the
   elements of `a[i1]` and `a[i2]`.
 
-- Support [NEP 21 advanced
-  indexing](https://numpy.org/neps/nep-0021-advanced-indexing.html).
+- Support [NEP 21 outer indexing and vectorized
+  indexin](https://numpy.org/neps/nep-0021-advanced-indexing.html).
 
 And more. If there is something you would like to see this library be able to
 do, please [open an issue](https://github.com/quansight/ndindex/issues). Pull
@@ -165,7 +165,7 @@ requests are welcome as well.
 The most important priority for a library like this is correctness. Index
 manipulations, and especially slice manipulations, are complicated to code
 correctly, and the code for them typically involves dozens of different
-branches for different cases and formulas that .
+branches for different cases and formulas that can be difficult to figure out.
 
 In order to assure correctness, all operations are tested extensively against
 NumPy itself to ensure they give the same results. The basic idea is to take
@@ -237,13 +237,13 @@ There are two primary types of tests that ndindex employs to verify this:
   relevant types of indices. All ndindex tests have Hypothesis tests, even if
   they are also tested exhaustively.
 
-  The Hypotheses test for the above test looks like this
+  The Hypothesis test for the above test looks like this
 
   ```py
   from hypothesis import assume
   from hypothesis.strategies import integers, composite, none, one_of, lists
 
-  # hypotheses.strategies.tuples only generates tuples of a fixed size
+  # hypothesis.strategies.tuples only generates tuples of a fixed size
   @composite
   def tuples(draw, elements, *, min_size=0, max_size=None, unique_by=None,
              unique=False):
@@ -283,12 +283,12 @@ There are two primary types of tests that ndindex employs to verify this:
       assert len(reduced) == len(a[reduced.raw]), (s, shape)
   ```
 
-  In order to tell Hypotheses how to search the example space, we must define
+  In order to tell Hypothesis how to search the example space, we must define
   some functions to tell it how to draw example objects of a given type, in
   this case, slices and shape parameters for NumPy arrays. These strategies,
   as they are called, can be reused for multiple tests. Hypothesis then
   automatically and intelligently draws examples from the sample space to try
-  to find one that fails the test. You can think of Hypotheses as a fuzzer, or
+  to find one that fails the test. You can think of Hypothesis as a fuzzer, or
   as an "automated QA engineer". It tries to pick examples that are most
   likely to hit corner cases or different branch conditions.
 
@@ -303,9 +303,9 @@ to `Slice(-2, -1, -1)`.
 
 Another reason for the duplication is that Hypothesis can sometimes test a
 slightly expanded test space without any additional consequences. For example,
-the above Hypotheses tests all types of array shapes, whereas the exhaustive
+the above Hypothesis tests all types of array shapes, whereas the exhaustive
 test tests only 1-dimensional shapes. This doesn't affect things because
-Hypotheses will always shrink large shapes to a 1-dimensional shape in the
+Hypothesis will always shrink large shapes to a 1-dimensional shape in the
 case of a failure, and it has the benefit of ensuring the code works correctly
 for larger shapes (it should always slice over the first index, or in the case
 of an empty shape raise `IndexError`).
