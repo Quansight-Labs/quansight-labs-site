@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Introducing ndindex, a Python library for manipulating indices of ndarrays | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2020/04/introducing-ndindex-a-python-library-for-manipulating-indices-of-ndarrays/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Aaron Meurer">
+<link rel="prev" href="../pytorch-tensoriterator-internals/" title="PyTorch TensorIterator Internals" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="Introducing ndindex, a Python library for manipulating indices of ndar">
+<meta property="og:url" content="https://labs.quansight.org/blog/2020/04/introducing-ndindex-a-python-library-for-manipulating-indices-of-ndarrays/">
+<meta property="og:description" content='One of the most important features of NumPy arrays is their indexing
+semantics. By "indexing" I mean anything that happens inside square brackets,
+for example, a[4::-1, 0, ..., [0, 1], np.newaxis]. Nu'>
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-04-20T00:00:00-05:00">
+<meta property="article:tag" content="ndindex">
+<meta property="article:tag" content="NumPy">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+
+            <span id="blog-title">Quansight Labs</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../archive.html" class="nav-link">Archive</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../categories/" class="nav-link">Tags</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS feed</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right">
+<li class="nav-item">
+    <a href="index.markdown" id="sourcelink" class="nav-link">Source</a>
+    </li>
+
+
+                
+            </ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Introducing ndindex, a Python library for manipulating indices of ndarrays</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    <a class="u-url" href="../../../../authors/aaron-meurer/">Aaron Meurer</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2020-04-20T00:00:00-05:00" itemprop="datePublished" title="2020-04-20">2020-04-20</time></a>
+            </p>
+            
+        <p class="sourceline"><a href="index.markdown" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<p>One of the most important features of NumPy arrays is their indexing
+semantics. By "indexing" I mean anything that happens inside square brackets,
+for example, <code>a[4::-1, 0, ..., [0, 1], np.newaxis]</code>. NumPy's index semantics
+are very expressive and powerful, and this is one of the reasons the library
+is so popular.</p>
+<p>Index objects can be represented and manipulated directly. For example, the
+above index is <code>(slice(4, None, -1), 0, Ellipsis, [0, 1], None)</code>. If you are
+any author of a library that tries to replicate NumPy array semantics, you
+will have to work with these objects. However, they are often difficult to
+work with:</p>
+<ul>
+<li>
+<p>The different types that are valid indices for NumPy arrays do not have a
+uniform API. Most of the types are also standard Python types, such as
+<code>tuple</code>, <code>list</code>, <code>int</code>, and <code>None</code>, which are usually unrelated to indexing.</p>
+</li>
+<li>
+<p>Those objects that are specific to indexes, such as <code>slice</code> and <code>Ellipsis</code>
+do not make any assumptions about their underlying semantics. For example,
+Python lets you create <code>slice(None, None, 0)</code> or <code>slice(0, 0.5)</code> even though
+<code>a[::0]</code> and <code>a[0:0.5]</code> would be always be an <code>IndexError</code> on a NumPy array.</p>
+</li>
+<li>
+<p>Some index objects, such as <code>slice</code>, <code>list</code>, and <code>ndarray</code> are not hashable.</p>
+</li>
+<li>
+<p>NumPy itself does not offer much in the way of helper functions to work with
+these objects.</p>
+</li>
+</ul>
+<p>These limitations may be annoying, but are easy enough to live with. The real
+challenge when working with indices comes when you try to manipulate them.
+Slices in particular are challenging to work with because the rich meaning of
+slice semantics. Writing formulas for even very simple things is a real
+challenge with slices. <code>slice(start, stop, step)</code> (corresponding to
+<code>a[start:stop:step]</code>) has fundamentally different meaning depending on whether
+<code>start</code>,<code>stop</code>, or <code>step</code> are negative, nonnegative, or <code>None</code>. As an example,
+take <code>a[4:-2:-2]</code>, where <code>a</code> is a one-dimensional array. This slices every
+other element from the third element to the second from the last. What will
+the shape of this sliced array be? The answer is <code>(0,)</code> if the original shape
+is less than 1 or greater than 5, and <code>(1,)</code> otherwise.</p>
+<p>Code that manipulates slices will tend to have a lot of <code>if</code>/<code>else</code> chains for
+these different cases. And due to 0-based indexing, half-open semantics,
+wraparound behavior, clipping, and step logic, the formulas are often quite
+difficult to write down.</p>
+<!-- TEASER_END -->
+<h3>ndindex</h3>
+<p>This is where ndindex comes in. ndindex is a new library that provides high
+level objects representing the various objects that can index NumPy arrays.
+These objects automatically canonicalize under the assumption of NumPy
+indexing semantics, and can be manipulated with a uniform API. All ndindex
+types have a <code>.args</code> that can be used to access the arguments used to create
+the object, and they are all hashable.</p>
+<pre><code class="language-py">&gt;&gt;&gt; from ndindex import Slice, Integer, Tuple
+&gt;&gt;&gt; Slice(0, 3)
+Slice(0, 3, 1)
+&gt;&gt;&gt; idx = Tuple(Slice(0, 10), Integer(0))
+&gt;&gt;&gt; idx.args
+(Slice(0, 10, 1), Integer(0))
+&gt;&gt;&gt; [i.args for i in idx.args]
+[(0, 10, 1), (0,)]
+</code></pre>
+<p>The goal of ndindex is to give 100% correct semantics as defined by NumPy's
+ndarray. This means that ndindex will not make a transformation on an index
+object unless it is correct for all possible input array shapes. The only
+exception to this rule is that ndindex assumes that any given index will not
+raise IndexError (for instance, from an out of bounds integer index or from
+too few dimensions). For those operations where the array shape is known,
+there is a <code>reduce</code> method to reduce an index to a simpler index that is
+equivalent for the given shape.</p>
+<h3>Features</h3>
+<p>ndindex is still a work in progress. The following things are currently
+implemented:</p>
+<ul>
+<li>
+<p><code>Slice</code>, <code>Integer</code>, and <code>Tuple</code></p>
+</li>
+<li>
+<p>Constructing a class puts it into canonical form. For example</p>
+<pre><code class="language-python">&gt;&gt;&gt; from ndindex import Slice
+&gt;&gt;&gt; Slice(None, 12)
+Slice(0, 12, 1)
+</code></pre>
+</li>
+<li>
+<p>Object arguments can be accessed with <code>idx.args</code></p>
+<pre><code class="language-py">&gt;&gt;&gt; Slice(1, 3).args
+(1, 3, 1)
+</code></pre>
+</li>
+<li>
+<p>All ndindex objects are hashable and can be used as dictionary keys.</p>
+</li>
+<li>
+<p>A real index object can be accessed with <code>idx.raw</code>. Use this to use an
+ndindex to index an array.</p>
+<pre><code class="language-py">&gt;&gt;&gt; s = Slice(0, 2)
+&gt;&gt;&gt; from numpy import arange
+&gt;&gt;&gt; arange(4)[s.raw]
+array([0, 1])
+</code></pre>
+</li>
+<li>
+<p><code>len()</code> computes the maximum length of an index over a given axis.</p>
+<pre><code class="language-py">&gt;&gt;&gt; len(Slice(2, 10, 3))
+3
+&gt;&gt;&gt; len(arange(10)[2:10:3])
+3
+</code></pre>
+</li>
+<li>
+<p><code>idx.reduce(shape)</code> reduces an index to an equivalent index over an array
+with the given shape.</p>
+<pre><code class="language-py">&gt;&gt;&gt; Slice(2, -1).reduce((10,))
+Slice(2, 9, 1)
+&gt;&gt;&gt; arange(10)[2:-1]
+array([2, 3, 4, 5, 6, 7, 8])
+&gt;&gt;&gt; arange(10)[2:9:1]
+array([2, 3, 4, 5, 6, 7, 8])
+</code></pre>
+</li>
+</ul>
+<p>The following things are not yet implemented, but are planned.</p>
+<ul>
+<li>
+<p><code>idx.newshape(shape)</code> returns the shape of <code>a[idx]</code>, assuming <code>a</code> has shape
+<code>shape</code>.</p>
+</li>
+<li>
+<p><code>ellipsis</code>, <code>Newaxis</code>, <code>IntegerArray</code>, and <code>BooleanArray</code> types, so that all
+types of indexing are supported.</p>
+</li>
+<li>
+<p><code>i1[i2]</code> will create a new ndindex <code>i3</code> (when possible) so that
+<code>a[i1][i2] == a[i3]</code>.</p>
+</li>
+<li>
+<p><code>split(i0, [i1, i2, ...])</code> will return a list of indices <code>[j1, j2, ...]</code>
+such that <code>a[i0] = concat(a[i1][j1], a[i2][j2], ...)</code></p>
+</li>
+<li>
+<p><code>i1 + i2</code> will produce a single index so that <code>a[i1 + i2]</code> gives all the
+elements of <code>a[i1]</code> and <code>a[i2]</code>.</p>
+</li>
+<li>
+<p>Support <a href="https://numpy.org/neps/nep-0021-advanced-indexing.html">NEP 21 outer indexing and vectorized
+indexin</a>.</p>
+</li>
+</ul>
+<p>And more. If there is something you would like to see this library be able to
+do, please <a href="https://github.com/quansight/ndindex/issues">open an issue</a>. Pull
+requests are welcome as well.</p>
+<h3>Testing and correctness</h3>
+<p>The most important priority for a library like this is correctness. Index
+manipulations, and especially slice manipulations, are complicated to code
+correctly, and the code for them typically involves dozens of different
+branches for different cases and formulas that can be difficult to figure out.</p>
+<p>In order to assure correctness, all operations are tested extensively against
+NumPy itself to ensure they give the same results. The basic idea is to take
+the pure Python <code>index</code> and the <code>ndindex(index).raw</code>, or in the case of a
+transformation, the before and after raw index, and index a <code>numpy.arange</code>
+with them (the input array itself doesn't matter, so long as its values are
+distinct). If they do not give the same output array, or do not both produce
+the same error (like an <code>IndexError</code>), the code is not correct. For example,
+the <code>reduce</code> method can be verified by checking that <code>a[idx.raw]</code> and
+<code>a[idx.reduce(a.shape).raw]</code> produce the same sub-arrays for all possible
+input arrays <code>a</code> and ndindex objects <code>idx</code>.</p>
+<p>There are two primary types of tests that ndindex employs to verify this:</p>
+<ul>
+<li>
+<p><strong>Exhaustive tests.</strong> These test every possible value in some range. For
+example, <code>Slice</code> tests test all possible <code>start</code>, <code>stop</code>, and <code>step</code> values
+in the range [-10, 10], as well as <code>None</code>, on <code>numpy.arange(n)</code> for <code>n</code> in
+the range [0, 10]. This is the best type of test, because it checks every
+possible case. Unfortunately, it is often impossible to do full exhaustive
+testing due to combinatorial explosion.</p>
+<p>For example, here is the exhaustive test for <code>Slice.reduce</code>:</p>
+<pre><code class="language-py">def _iterslice(start_range=(-10, 10), stop_range=(-10, 10), step_range=(-10, 10)):
+  for start in chain(range(*start_range), [None]):
+      for stop in chain(range(*stop_range), [None]):
+          for step in chain(range(*step_range), [None]):
+              yield (start, stop, step)
+
+def test_slice_reduce_exhaustive():
+  for n in range(10):
+      a = arange(n)
+      for start, stop, step in _iterslice():
+          try:
+              s = Slice(start, stop, step)
+          except ValueError:
+              continue
+
+          check_same(a, s.raw, func=lambda x: x.reduce((n,)))
+
+          reduced = s.reduce((n,))
+          assert reduced.start &gt;= 0
+          # We cannot require stop &gt; 0 because if stop = None and step &lt; 0, the
+          # only equivalent stop that includes 0 is negative.
+          assert reduced.stop != None
+          assert len(reduced) == len(a[reduced.raw]), (s, n)
+</code></pre>
+<p><code>check_same</code> is a <a href="https://github.com/Quansight/ndindex/blob/f8706a6fb6ffac879a0863cb93243f9bb14e6487/ndindex/tests/helpers.py#L60-L82">helper
+function</a>
+that ensures that two indices give either the exact same subarray or raise
+the exact same exception. The test checks all <code>a[start:stop:step]</code> where
+<code>a</code> is an array with shape from 0 to 10, and <code>start</code>, <code>stop</code>, and <code>step</code>
+range from -10 to 10 or <code>None</code>. We also test some basic invariants, such
+as that <code>Slice.reduce</code> always returns a slice with non-None arguments and
+that the start is nonnegative, and that the length of the slice is
+minimized for the given shape.</p>
+<p>This test takes about 4 seconds to run, and is about at the limit of what is
+possible with exhaustive testing. Other objects, in particular <code>Tuple</code>, have
+so many possible combinations that a similar exhaustive test for them would
+take billions of years to complete.</p>
+</li>
+<li>
+<p><strong>Hypothesis tests.</strong>
+<a href="https://hypothesis.readthedocs.io/en/latest/index.html">Hypothesis</a> is a
+library that can intelligently check a combinatorial search space of inputs.
+This requires writing Hypothesis strategies that can generate all the
+relevant types of indices. All ndindex tests have Hypothesis tests, even if
+they are also tested exhaustively.</p>
+<p>The Hypothesis test for the above test looks like this</p>
+<pre><code class="language-py">from hypothesis import assume
+from hypothesis.strategies import integers, composite, none, one_of, lists
+
+# hypothesis.strategies.tuples only generates tuples of a fixed size
+@composite
+def tuples(draw, elements, *, min_size=0, max_size=None, unique_by=None,
+           unique=False):
+    return tuple(draw(lists(elements, min_size=min_size, max_size=max_size,
+                            unique_by=unique_by, unique=unique)))
+
+# Valid shapes for numpy arrays. Filter out shapes that would fill memory.
+shapes = tuples(integers(0, 10)).filter(lambda shape: prod([i for i in shape if i]) &lt; 100000)
+
+@composite
+def slices(draw, start=ints(), stop=ints(), step=ints()):
+    return slice(
+        draw(one_of(none(), start)),
+        draw(one_of(none(), stop)),
+        draw(one_of(none(), step)),
+    )
+
+@given(slices(), shapes)
+def test_slice_reduce_hypothesis(s, shape):
+    a = arange(prod(shape)).reshape(shape)
+    try:
+        s = Slice(s)
+    except ValueError:
+        assume(False)
+
+    check_same(a, s.raw, func=lambda x: x.reduce(shape))
+
+    try:
+        reduced = s.reduce(shape)
+    except IndexError:
+        # shape == ()
+        return
+    assert reduced.start &gt;= 0
+    # We cannot require stop &gt; 0 because if stop = None and step &lt; 0, the
+    # only equivalent stop that includes 0 is negative.
+    assert reduced.stop != None
+    assert len(reduced) == len(a[reduced.raw]), (s, shape)
+</code></pre>
+<p>In order to tell Hypothesis how to search the example space, we must define
+some functions to tell it how to draw example objects of a given type, in
+this case, slices and shape parameters for NumPy arrays. These strategies,
+as they are called, can be reused for multiple tests. Hypothesis then
+automatically and intelligently draws examples from the sample space to try
+to find one that fails the test. You can think of Hypothesis as a fuzzer, or
+as an "automated QA engineer". It tries to pick examples that are most
+likely to hit corner cases or different branch conditions.</p>
+</li>
+</ul>
+<p>Why bother with Hypothesis if the same thing is already tested exhaustively?
+The main reason is that Hypothesis is much better at producing human-readable
+failure examples. When an exhaustive test fails, the failure will always be
+from the first set of inputs in the loop that produces a failure. Hypothesis
+on the other hand attempts to "shrink" the failure input to smallest input
+that still fails. For example, a failing exhaustive slice test might give
+<code>Slice(-10, -9, -10)</code> as a the failing example, but Hypothesis would shrink it
+to <code>Slice(-2, -1, -1)</code>.</p>
+<p>Another reason for the duplication is that Hypothesis can sometimes test a
+slightly expanded test space without any additional consequences. For example,
+the above Hypothesis tests all types of array shapes, whereas the exhaustive
+test tests only 1-dimensional shapes. This doesn't affect things because
+Hypothesis will always shrink large shapes to a 1-dimensional shape in the
+case of a failure, and it has the benefit of ensuring the code works correctly
+for larger shapes (it should always slice over the first index, or in the case
+of an empty shape raise <code>IndexError</code>).</p>
+<h3>Try it out</h3>
+<p>You can install ndindex with pip or from conda-forge</p>
+<pre><code>conda install -c conda-forge ndindex
+</code></pre>
+<p>The documentation can be found <a href="https://quansight.github.io/ndindex/">here</a>,
+and the development is on <a href="https://github.com/Quansight/ndindex">GitHub</a>.
+Please try the library out and
+<a href="https://github.com/Quansight/ndindex/issues">report</a> any issues you have, or
+things you would like to see implemented. We are also looking for people who
+are interested in using the library and for people who are interested in
+contributing to it.</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/ndindex/" rel="tag">ndindex</a></li>
+            <li><a class="tag p-category" href="../../../../categories/numpy/" rel="tag">NumPy</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../pytorch-tensoriterator-internals/" rel="prev" title="PyTorch TensorIterator Internals">Previous post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2020         <a href="mailto:info@quansight.com">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>
