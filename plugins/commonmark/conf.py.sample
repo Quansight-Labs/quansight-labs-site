@@ -1,0 +1,18 @@
+# In order to use CommonMark, you must either disable the original
+# Markdown plugin, or use different file extensions for the two.
+
+COMPILERS = {
+    "commonmark": ['.md', '.mdown', '.markdown'],
+}
+
+
+POSTS = (
+    ("posts/*.md", "posts", "post.tmpl"),
+    ("posts/*.mdown", "posts", "post.tmpl"),
+    ("posts/*.markdown", "posts", "post.tmpl"),
+)
+PAGES = (
+    ("pages/*.md", "pages", "page.tmpl"),
+    ("pages/*.mdown", "pages", "page.tmpl"),
+    ("pages/*.markdown", "pages", "page.tmpl"),
+)
