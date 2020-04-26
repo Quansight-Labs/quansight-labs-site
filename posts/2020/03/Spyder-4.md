@@ -1,6 +1,6 @@
 <!--
-.. title: Spyder 4 is here!
-.. slug: spyder-4-is-here
+.. title: The people behind Spyder 4
+.. slug: the-people-behind-spyder-4
 .. date: 2020-03-05 14:00:00 UTC-05:00
 .. author: Carlos Córdoba
 .. tags: Labs, Spyder
@@ -11,7 +11,7 @@
 -->
 
 After more than three years in development and more than 5000 commits from 60 authors around the world, Spyder 4 finally saw the light on December 5, 2019!
-I decided to wait until now to make a formal announcement because shortly after the initial release, we found several critical performance issues and some regressions with respect to Spyder 3, most of which are fixed now in [version 4.1.2](https://github.com/spyder-ide/spyder/releases), released on April 3rd 2020.
+I decided to wait until now to write a blogpost about it because shortly after the initial release, we found several critical performance issues and some regressions with respect to Spyder 3, most of which are fixed now in [version 4.1.2](https://github.com/spyder-ide/spyder/releases), released on April 3rd 2020.
 
 <!-- TEASER_END -->
 
