@@ -1,6 +1,6 @@
 <!--
 .. title: Thanking the people behind Spyder 4
-.. slug: the-people-behind-spyder-4
+.. slug: thanking-the-people-behind-spyder-4
 .. date: 2020-03-05 14:00:00 UTC-05:00
 .. author: Carlos Córdoba
 .. tags: Labs, Spyder
