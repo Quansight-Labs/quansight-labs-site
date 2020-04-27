@@ -64,8 +64,23 @@ header a:hover{
   border-bottom: 5px solid #5D2E8C;
 }
 
+/* Sub Headers CSS */
+.sub-header > h1{
+  font-weight: bold;
+  font-family: 'Franklin Gothic Large', sans-serif;
+  color: #868e96;
+  margin-bottom: 0px;
+}
 
+.sub-title{
+  color: #3bcd76;
+}
 
+.sub-underline{
+  background: #3bcd76;
+  width: 120px;
+  height: 10px;
+}
 
 /*Input and Prompt styling */
 div.prompt {
