@@ -37,9 +37,7 @@ header a:hover{
   margin-top: 5px;
 }
 
-
 /* NavBar Header CSS */
-
 .bg-dark{
   background-color: #2c0848!important;
 }
@@ -69,10 +67,7 @@ header a:hover{
 
 
 
-
-
-
-
+/*Input and Prompt styling */
 div.prompt {
   display: none;
 }
@@ -84,6 +79,11 @@ div.input  {
 
 div.input * {
   background-color: none;
+}
+
+/* Center Menu Text in Small Screens */
+#bs-navbar{
+  text-align: center;
 }
 
 /* set a max-width for horizontal fluid layout and make it centered */
