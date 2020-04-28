@@ -33,14 +33,14 @@ Once I was at PyData, I signed up for the Lightning Talks, knowing that it would
 
 The 'Codesprite' comics break down code concepts into fun and visual ways. It was inspired by my desire to turn my boring written notes into something more personal.
 
-![Page 1 of first Codepsrite comic](/images/codesprite-comics/CodeSprite-part-1.png) ![Page 2 of first Codepsrite comic](/images/codesprite-comics/CodeSprite-part-2.png)
+![Page 1 of first Codepsrite comic](/images/codesprite-comics/CodeSprite-part-1.png) ![Page 2 of first Codepsrite comic](/images/codesprite-comics/CodeSprite-part-2.png)  
 *First two pages of my personal project, 'Codesprite Explains'*
 
 At my Lightning Talk, I was confident. **No longer did I doubt that I could be here- to take up space and stand up tall.** I introduced myself as a Diversity Scholar. I was unabashedly unashamed to be new to Python and eager to learn. I delighted in showing off my artistic skills that give me so much joy and that aren’t common in this community. I laughed with the crowd at my cheesy puns.
 
 When I finished my talk, I realized I came a long way from where I started. So when Ralf congratulated me, I was already feeling good. When he asked if I was interested in joining Quansight, that was the most unexpected-yet-awesomest cherry on top!
 
-![Author giving a Lightning Talk at PyData NYC](/images/codesprite-comics/PyData-Lightning-Talk.png)
+![Author giving a Lightning Talk at PyData NYC](/images/codesprite-comics/PyData-Lightning-Talk.png)  
 *The author giving a Lightning Talk at PyData NYC*
 
 In my next blog post, I'll talk about my first impressions of Quansight and what made me say 'yes'.
@@ -55,7 +55,7 @@ I look forward to contributing to the open-source community!
 
 ## Special Thanks to:
 - PyData's Diversity Scholars program and its NYC volunteer organizers Hanhan and Vinay.
-- My new friends that welcomed me at PyData NYC- W4rner, Bhargav, Agatha and Lev.
+- My new friends that welcomed me at PyData NYC - W4rner, Bhargav, Agata and Lev at their [Natural Language Role-Playing workshop](https://agileeducation.co/nlrp), hosted by [agileEducation](https://agileeducation.co/).
 - [NumFOCUS](https://numfocus.org/) for organizing PyData and its [funding partner organizations](https://numfocus.org/sponsors). 
 - Nicole from NumFOCUS for sitting next to me during my first Pandas lesson and accepting my feedback on further improving the Diversity Scholars program. 
 - My friend, Rinchen, for encouraging me to apply and volunteering at PyData NYC.
