@@ -1,7 +1,7 @@
 <!--
 .. title: Thanking the people behind Spyder 4
 .. slug: thanking-the-people-behind-spyder-4
-.. date: 2020-03-05 14:00:00 UTC-05:00
+.. date: 2020-04-28 01:00:00 UTC-05:00
 .. author: Carlos Córdoba
 .. tags: Labs, Spyder
 .. category:
@@ -30,7 +30,7 @@ I also want to thank our community for its continued support.
 As I've witnessed during my years as Spyder's lead developer, many newbies and veterans alike keep choosing Spyder as their primary tool for scientific programming in Python.
 It's really you, the members of this fantastic community, which keep Spyder relevant in a highly competitive field by using and contributing back to it.
 Furthermore, when the future looked grim, after my team and I were let go from Anaconda at the end of 2017 (not by Travis' decision), a lot of users came to our rescue by making donations through our [Open Collective page](https://opencollective.com/spyder).
-That, and a Numfocus development grant we received the next year, filled us with confidence and allowed us to continue with Spyder's development in 2018, even after losing part of our team in the process.
+That, and a NumFOCUS development grant we received the next year, filled us with confidence and allowed us to continue with Spyder's development in 2018, even after losing part of our team in the process.
 
 Last year it was also a pleasant surprise to learn that several companies were interested in seeing Spyder prosper and thrive.
 Through Quansight Labs and its [Community Work Order](https://labs.quansight.org/blog/2019/05/community-driven-opensource-funded-development/) concept, we were able to sign contracts with two of them: [TDK-Micronas](https://www.micronas.tdk.com/en) and [Kite](https://kite.com/).
