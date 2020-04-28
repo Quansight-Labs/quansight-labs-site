@@ -82,6 +82,30 @@ header a:hover{
   height: 10px;
 }
 
+/* Github icon*/
+.fa {
+  font-size: 30px !important;
+}
+
+.fa-github-square {
+  color: black;
+  color: #868e96;
+  position: relative;
+  left: 30px;
+  bottom: 30px;
+}
+
+/*Single Post CSS*/
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a img.img-circle {
+  border-radius: 50%;
+  max-width: 170px;
+}
+
 /*Input and Prompt styling */
 div.prompt {
   display: none;
@@ -5184,9 +5208,6 @@ a.badge:focus {
   padding: 4px;
   margin-bottom: 20px;
   line-height: 1.42857143;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
   -webkit-transition: border 0.2s ease-in-out;
   -o-transition: border 0.2s ease-in-out;
   transition: border 0.2s ease-in-out;
