@@ -24,6 +24,11 @@ title: James Bourbeau
 github: jrbourbeau
 projects: ['Dask', 'Numba', 'Zarr']
 ---
+name: matthias_bussonnier.JPG
+title: Matthias Bussonnier
+github: Carreau
+projects: ['Jupyter', 'JupyterHub', 'IPython']
+---
 name: carlos_cordoba.png
 title: Carlos Cordoba
 github: ccordoba12
@@ -38,6 +43,11 @@ name: marc_garcia.png
 title: Marc Garcia
 github: datapythonista
 projects: ['Ibis', 'pandas']
+---
+name: tim_george.png
+title: Tim George
+github: tgeorgeux
+projects: ['JupyterLab']
 ---
 name: juanita_gomez.png
 title: Juanita Gomez
