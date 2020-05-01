@@ -121,6 +121,7 @@ projects: ['NumPy', 'PyPy']
 ---
 name: isabela_presedo.jpg
 title: Isabela Presedo-Floyd
+github: isabela-pf
 projects: ['JupyterLab']
 ---
 name: athan_reines.png
