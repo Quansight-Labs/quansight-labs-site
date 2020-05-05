@@ -1,10 +1,10 @@
-.. title: About
+.. title: Learn About
 .. slug: about
 .. date: 2020-01-31 13:50:28 UTC-06:00
 .. tags: 
 .. category:
 .. link: 
-.. description: 
+.. description: Us
 .. type: text
 
 

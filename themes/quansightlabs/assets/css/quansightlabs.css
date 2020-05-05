@@ -1,16 +1,20 @@
-.navbar-options > li > a {
-    color: #8E5FBD
+.nav-item > a {
+    color: #FFF
 } 
-.navbar-options > .active > a{
-    color: #5D2E8C
+.nav-item.active > a{
+    color: #3bcd76
 }
 #logo {
     max-height: 50px;
 }  
 .navbar{
-    background-color: #fff;
+    background-color: #2c0848;
 }
   
+.archive {
+    margin-top: 5px;
+    float: center;
+}
 
 
 

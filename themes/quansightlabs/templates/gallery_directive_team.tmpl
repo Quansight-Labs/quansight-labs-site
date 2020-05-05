@@ -10,7 +10,7 @@
 %if photo_array:
   <div class="row">
     %for image in photo_array:
-      <div class="col-xs-12 col-md-4 thumbnail  image-reference">
+      <div class="col-xs-12 col-md-4 thumbnail image-reference">
           <div class="container-fluid">
             <h3>${image['title']}</h3>
             <a href="${image['url']}" title="${image['title']|h}">
@@ -22,8 +22,7 @@
               </a>
             %endif
             %if 'projects' in image:
-                <h4>Projects</h4>
-                <ul>
+                <ul class='projects'>
                 %for project in image['projects']:
                   <li>
                     ${project}

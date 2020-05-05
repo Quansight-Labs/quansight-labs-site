@@ -9,7 +9,7 @@
   color: black;
 }
 
-/* Post Page CSS*/
+/*Single Post CSS*/
 .tags{
   text-align: left;
   margin-left: 0px;
@@ -37,17 +37,24 @@ header a:hover{
   margin-top: 5px;
 }
 
-
-
-/* Nav Bar CSS */
-.navbar-light .navbar-nav .nav-link{
-  color: #8E5FBD
+/* NavBar Header CSS */
+.bg-dark{
+  background-color: #2c0848!important;
+}
+.navbar-dark .navbar-nav{
+  font-size: medium;
+  font-weight: bold;
+  font-family: 'Franklin Gothic Large', sans-serif;
+}
+.navbar-dark .navbar-nav .nav-link{
+  color: #FFF;
 } 
-.navbar-light .navbar-nav .nav-link:hover{
-  color: #5d2e8c
+.navbar-dark .navbar-nav .nav-link:hover{
+  color: #3bcd76;
+
 } 
-.navbar-light .navbar-nav .active .nav-link{
-  color: #5D2E8C
+.navbar-dark .navbar-nav .active .nav-link{
+  color: #3bcd76;
 }
 #logo {
   max-height: 50px;
@@ -57,6 +64,49 @@ header a:hover{
   border-bottom: 5px solid #5D2E8C;
 }
 
+/* Sub Headers CSS */
+.sub-header > h1{
+  font-weight: bold;
+  font-family: 'Franklin Gothic Large', sans-serif;
+  color: #868e96;
+  margin-bottom: 0px;
+}
+
+.sub-title{
+  color: #3bcd76;
+}
+
+.sub-underline{
+  background: #3bcd76;
+  width: 120px;
+  height: 10px;
+}
+
+/* Github icon*/
+.fa {
+  font-size: 30px !important;
+}
+
+.fa-github-square {
+  color: black;
+  color: #868e96;
+  position: relative;
+  left: 30px;
+  bottom: 30px;
+}
+
+/*Single Post CSS*/
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a img.img-circle {
+  border-radius: 50%;
+  max-width: 170px;
+}
+
+/*Input and Prompt styling */
 div.prompt {
   display: none;
 }
@@ -68,6 +118,11 @@ div.input  {
 
 div.input * {
   background-color: none;
+}
+
+/* Center Menu Text in Small Screens */
+#bs-navbar{
+  text-align: center;
 }
 
 /* set a max-width for horizontal fluid layout and make it centered */
@@ -4484,6 +4539,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     float: none;
     width: auto;
     margin-top: 0;
+    text-align: center;
     background-color: transparent;
     border: 0;
     box-shadow: none;
@@ -5152,9 +5208,6 @@ a.badge:focus {
   padding: 4px;
   margin-bottom: 20px;
   line-height: 1.42857143;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
   -webkit-transition: border 0.2s ease-in-out;
   -o-transition: border 0.2s ease-in-out;
   transition: border 0.2s ease-in-out;

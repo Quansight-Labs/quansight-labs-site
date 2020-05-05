@@ -1,10 +1,10 @@
-.. title: Quansight Labs projects
+.. title: See Our
 .. slug: projects
 .. date: 2020-02-17 10:30:43 UTC-06:00
 .. tags: 
 .. category: 
 .. link: 
-.. description: 
+.. description: Projects
 .. type: text
 
 
