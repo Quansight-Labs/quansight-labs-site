@@ -1,10 +1,10 @@
-.. title: Welcome
+.. title: Welcome To
 .. slug: index
 .. date: 2020-01-31 12:26:47 UTC-06:00
 .. tags: 
 .. category: 
 .. link:
-.. description:
+.. description: Labs
 .. type: text
 
 
