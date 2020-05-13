@@ -96,7 +96,7 @@ header a:hover{
   height: 10px;
 }
 
-/* Github icon*/
+/* Team Page */
 .fa {
   font-size: 30px !important;
 }
@@ -107,6 +107,25 @@ header a:hover{
   position: relative;
   left: 30px;
   bottom: 30px;
+}
+.projects{
+  list-style: none;
+  padding: 0px;
+  margin:0px;
+  text-align: center;
+  font-size: 0px;
+  font-weight: bold;
+  font-family: 'Franklin Gothic Large', sans-serif;
+  color: #5d2e8c;
+}
+
+.projects li {
+  display: inline;
+  font-size: 14px;
+}
+
+.projects li:not(:last-child)::after {
+  content: ",  ";
 }
 
 /*Single Post CSS*/
