@@ -10,6 +10,20 @@
 }
 
 /*Single Post CSS*/
+.p-summary.entry-summary{
+  border-color: #5d2e8c;
+  border-style: solid;
+  border-width: 0px 0px 1px 0px;
+}
+
+.p-name.entry-title a{
+  color:black;
+}
+
+.p-name.entry-title a:hover{
+  color: #868e96
+}
+
 .tags{
   text-align: left;
   margin-left: 0px;
