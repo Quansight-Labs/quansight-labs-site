@@ -1,5 +1,15 @@
 /* Quangight Lab CSS Code */
 
+/* Testing Class */
+.testing-class{
+  background-color: green;
+}
+
+/*.container-fluid{
+  background-color: red;
+}*/
+
+
 /* Github icon*/
 .fa {
   font-size: 20px !important;

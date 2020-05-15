@@ -11,8 +11,7 @@
   <div class="row">
     %for image in photo_array:
       <div class="col-xs-12 col-md-4 thumbnail image-reference">
-          <div class="container-fluid">
-            <h3>${image['title']}</h3>
+          <div class="container-fluid testing-class">
             <a href="${image['url']}" title="${image['title']|h}">
                 <img src="${image['url_thumb']}" class="img-circle" alt="${image['title']|h}" />
             </a>
