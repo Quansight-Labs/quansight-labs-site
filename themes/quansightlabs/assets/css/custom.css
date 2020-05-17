@@ -11,17 +11,17 @@
 
 /*Single Post CSS*/
 .p-summary.entry-summary{
-  border-color: #5d2e8c;
+  border-color: #2C083D;
   border-style: solid;
   border-width: 0px 0px 1px 0px;
 }
 
 .p-name.entry-title a{
-  color:black;
+  color:#2C083D;
 }
 
 .p-name.entry-title a:hover{
-  color: #868e96
+  color: #5d2e8c;
 }
 
 .tags{
@@ -126,6 +126,19 @@ header a:hover{
 
 .projects li:not(:last-child)::after {
   content: ",  ";
+}
+
+/* .container-fluid>h4{
+  position:absolute;
+  bottom: 0px;
+  left: 50%;
+}
+ */
+
+
+/* Gallery Page */
+#gallery_container > hr{
+  border-top-color: #5D2E8c;
 }
 
 /*Single Post CSS*/
