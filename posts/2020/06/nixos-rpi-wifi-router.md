@@ -11,7 +11,7 @@
 -->
 
 I recently moved, and my new place has a relatively small footprint.  (Yes, I
-moved during the COVID-19 pandemic. And yes, it was crazy.) I quickly realizied
+moved during the COVID-19 pandemic. And yes, it was crazy.) I quickly realized
 that was going to need a wireless router of some sort, or more formally, a wireless
 access point (WAP). Using my Ubuntu laptop's "wireless hotspot" capability was a
 nice temporary solution, but it had a few serious drawbacks.
@@ -22,7 +22,7 @@ nice temporary solution, but it had a few serious drawbacks.
 
 * The wireless internet goes out whenever I would travel with the laptop,
 * The laptop had to be close to the modem, so that it could be plugged into
-  ethernet, making my laptop not even portable *within* the appartment,
+  ethernet, making my laptop not even portable *within* the apartment,
 * The SSID was my laptop's hostname,
 * The WPA password would be set to a random string whenever the hotspot
   was started, and so
@@ -117,7 +117,7 @@ It almost all cases it either assumes that:
 2. You already are on a Nix machine.
 
 This makes it very frustrating to actually get started, especially on non-standard
-harware such as the Raspberry Pi. A lot of these issues can be smoothed over by a
+hardware such as the Raspberry Pi. A lot of these issues can be smoothed over by a
 friend who can act as your spirit guide. I write this as someone who has been a
 Linux user 20 years and who works on open source packaging problems
 ([conda-forge](https://conda-forge.org)).
@@ -127,16 +127,16 @@ The following are some basic Nix tips for helping get you started.
 ### Don't use `nix-env`
 
 The first bit of philosophy to understand is that while much of the Nix documentation
-touts the *functional* nature of its underlying language, the imporant aspect of Nix
+touts the *functional* nature of its underlying language, the important aspect of Nix
 is that it is *declarative*.
 
 Nix wants you to specify the configuration and layout of your Operating System (OS)
 ahead of time in a relatively static way. This is very different from how other
-Linux distributrions operate, which assume that you will *procedurally* build
+Linux distributions operate, which assume that you will *procedurally* build
 up your system from various available components, as needed. The declarative
 approach has advantages & disadvantages.
 
-**Advanatages:**
+**Advantages:**
 
 * You can write out exactly what your OS is in a single text file (see above).
 * Your OS can be built and tested before booting into it.
@@ -147,7 +147,7 @@ approach has advantages & disadvantages.
 * You have to what you want in your OS before you build it.
 * Changes to the OS configuration require a rebuild.
 
-In many cases, the advantages here outweigh the disadvanatges. It is without
+In many cases, the advantages here outweigh the disadvantages. It is without
 question that [Docker](https://www.docker.com/), [CoreOS](http://coreos.com/),
 and [conda](https://docs.conda.io/en/latest/) all owe a lot of conceptual
 inspiration to the work Nix has been performing for years.
@@ -176,7 +176,7 @@ and is used by the `nixos-rebuild` command line tool. We'll see this tool later
 to build the router's OS.
 
 Again, unfortunately, when people report bugs or list a configuration snippet,
-they are almost always refering to this file. However, they specify that they
+they are almost always referring to this file. However, they specify that they
 are talking about this file. It is just known.
 
 Now you know too.
@@ -336,10 +336,10 @@ us to always get back to a working NixOS to do another `nixos-rebuild` if someth
 went terribly wrong and we need to do another rebuild. For example, this could
 happen if there was a typo in the configuration file.
 *If you ever modify `/etc/nixos/configuration.nix`, you'll need to rebuild & reboot.*
-The rebuild & reboot cycle is the fundemental implication of having a declarative OS.
+The rebuild & reboot cycle is the fundamental implication of having a declarative OS.
 
 **Tenth**, if you want to verify that everything is working on your router after
-reboort, you can log in as root and run `ifconfig` again. This time, you should
+reboot, you can log in as root and run `ifconfig` again. This time, you should
 see `eth0`, `wlan0`, and `br0` devices. Of course, the `ping` command should
 also work too.
 
@@ -417,7 +417,7 @@ the software that what we want it to. In this case, we only need three packages
 to enable the Pi to act as an access point, provide a domain name service, and
 bridge the ethernet and the WiFi device.
 
-For comparison, in Ubunutu, we would install these packages after we installed
+For comparison, in Ubuntu, we would install these packages after we installed
 Ubuntu itself. In Nix, we install the OS and the packages at the same time!
 
 ### Enable the wireless device
@@ -447,12 +447,12 @@ services.hostapd = {
 Because we are installing the router packages along with the OS, we *also* need
 to configure these packages at the same time we configure the OS itself.
 The first line here tells Nix not to use normal networking management on the
-`wlan0` device. This is beacuse we'll be managing it as a WAP ourselves.
+`wlan0` device. This is because we'll be managing it as a WAP ourselves.
 
 The remaining lines configure the access point, including the SSID and password
 for the wireless network.
 
-### Set up aireless static IP address
+### Set up wireless static IP address
 
 ```nix
 networking.interfaces.wlan0.ip4 = lib.mkOverride 0 [ ];
@@ -460,7 +460,7 @@ networking.interfaces.wlan0.ipv4.addresses =
   lib.optionals config.services.hostapd.enable [{ address = "192.168.0.1"; prefixLength = 24; }];
 ```
 
-Now, we would like the router itself to have a conistent IP address. We set
+Now, we would like the router itself to have a consistent IP address. We set
 this in the second line above as `192.168.0.1`, though any value in `192.168.x.x`
 would work equally well. However, just providing the static IP on it's own is
 not enough. This is because NixOS will verify that `wlan0` does not have an
@@ -513,12 +513,12 @@ Nix had better documentation that was more aimed at,
 A lot of the Nix documentation seems to be aimed at a very particular kind
 of desktop user: *someone who already has Nix installed!* Such users represent
 an important use case, and the nix build configurations are easy enough to read.
-However, I definitely think there is onboarding improvement work to be done in
+However, I definitely think there is on-boarding improvement work to be done in
 the Nix ecosystem.
 
 So, will I ever go back? I don't think so! This router was so cheap (~$40) and
 the Raspberry Pi 3B+ is so powerful that I get amazing performance throughout
-my entire appartment. If it ever breaks, the Pi will be trivial to replace.
+my entire apartment. If it ever breaks, the Pi will be trivial to replace.
 I am really happy with what I created. Even if this little project isn't original,
 it solves a real problem in my day-to-day life.
 
