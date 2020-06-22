@@ -70,6 +70,7 @@ required:
 - pandas
 - scikit-learn
 - scipy
+- ipython
 ```
 
 ### Create a temporary environment
@@ -89,6 +90,7 @@ dependencies:
   - pandas
   - scikit-learn
   - scipy
+  - ipython
   - conda-pack
 ```
 
@@ -169,16 +171,3 @@ We've created the environment to run those files and wrapped that environment in
 tarball. Finally, we distributed the tarballed environment onto a different machine and
 were immediately able to utilize an identical copy of Python environment from the
 original machine.
-
-
-
-
-
-
-
-
-
-
-
-
-
