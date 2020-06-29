@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs (Posts by Tony Fast)</title><link>https://labs.quansight.org/</link><description></description><atom:link href="https://labs.quansight.org/authors/tony-fast.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Mon, 29 Jun 2020 17:34:11 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Ibis: an idiomatic flavor of SQL for Python programmers</title><link>https://labs.quansight.org/blog/2020/06/ibis-an-idiomatic-flavor-of-sql-for-python-programmers/</link><dc:creator>Tony Fast</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;&lt;img src="https://avatars3.githubusercontent.com/u/27442526?v=4" alt=""&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;&lt;a href="https://www.ibis-project.org/"&gt;Ibis&lt;/a&gt; is a mature open-source project that has been in development for about 5 years; it currently has about 1350 stars on Github. It provides an interface to SQL for Python programmers and bridges the gap between remote storage &amp;amp; execution systems. These features provide authors the ability to:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;write backend-independent &lt;a href="https://en.wikipedia.org/wiki/SQL"&gt;SQL&lt;/a&gt; expressions in &lt;a href="https://en.wikipedia.org/wiki/Python_(programming_language"&gt;Python&lt;/a&gt;);&lt;/li&gt;
+&lt;li&gt;access different database connections (eg. &lt;a href="https://www.sqlite.org/index.html"&gt;SQLite&lt;/a&gt;, &lt;a href="https://www.omnisci.com/"&gt;OmniSci&lt;/a&gt;, &lt;a href="http://pandas.pydata.org/"&gt;Pandas&lt;/a&gt;); and&lt;/li&gt;
+&lt;li&gt;confirm visually their SQL queries with &lt;a href="https://en.wikipedia.org/wiki/Directed_acyclic_graph"&gt;directed acyclic graphs (DAGs)&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/06/ibis-an-idiomatic-flavor-of-sql-for-python-programmers/"&gt;Read more…&lt;/a&gt; (11 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>https://labs.quansight.org/blog/2020/06/ibis-an-idiomatic-flavor-of-sql-for-python-programmers/</guid><pubDate>Fri, 26 Jun 2020 19:20:54 GMT</pubDate></item></channel></rss>

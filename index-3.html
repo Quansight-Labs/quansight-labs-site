@@ -11,7 +11,7 @@
 <link href="assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="rss.xml">
 <link rel="canonical" href="https://labs.quansight.org/index-3.html">
 <link rel="icon" href="favicon.ico" sizes="16x16">
 <link rel="prev" href="." type="text/html">
@@ -44,7 +44,7 @@ MathJax.Hub.Config({
 navbar-dark bg-dark
 "><div class="container">
 <!-- This keeps the margins nice -->
-        <a class="navbar-brand" href="https://labs.quansight.org/">
+        <a class="navbar-brand" href=".">
 
             <span id="blog-title">Quansight Labs</span>
         </a>
@@ -86,7 +86,45 @@ navbar-dark bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/11/variable-explorer-improvements-in-Spyder-4/" class="u-url">Variable Explorer improvements in Spyder 4</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/12/metadsl-talk/" class="u-url">metadsl PyData talk</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                <a href="authors/saul-shanabrook/">Saul Shanabrook</a>
+            </span></p>
+            <p class="dateline">
+            <a href="blog/2019/12/metadsl-talk/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-12-24T06:00:00-05:00" itemprop="datePublished" title="2019-12-24">2019-12-24</time></a>
+            </p>
+        </div>
+    </header><div class="p-summary entry-summary">
+    <div>
+<h2>metadsl PyData talk</h2>
+<p>PyData NYC just ended and I thought it would be good to collect my thoughts on <a href="https://metadsl.readthedocs.io/en/latest/"><code>metadsl</code></a> based on the many conversations I had there surrounding it. This is a rather long post, so if you are just looking for some code <a href="https://mybinder.org/v2/gh/Quansight-Labs/metadsl/959575fe6d6df884b987954c017dfa7f7c99b61a?urlpath=lab/tree/explorations/2109.12.07%20PyData%20Talk.ipynb"><strong>here is a Binder link for my talk</strong></a>. Also, here is the talk I gave a month or so later on the same topic in Austin:</p>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/cdWdTPL7zrg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<h3>What is <code>metadsl</code>?</h3>
+<pre class="code literal-block"><span></span><code><span class="k">class</span> <span class="nc">Number</span><span class="p">(</span><span class="n">metadsl</span><span class="o">.</span><span class="n">Expression</span><span class="p">):</span>
+   <span class="nd">@metadsl</span><span class="o">.</span><span class="n">expression</span>
+   <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Number</span><span class="p">:</span>
+       <span class="o">...</span>
+
+   <span class="nd">@metadsl</span><span class="o">.</span><span class="n">expression</span>
+   <span class="nd">@classmethod</span>
+   <span class="k">def</span> <span class="nf">from_int</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Number</span><span class="p">:</span>
+       <span class="o">...</span>
+
+
+<span class="nd">@metadsl</span><span class="o">.</span><span class="n">rule</span>
+<span class="k">def</span> <span class="nf">add_zero</span><span class="p">(</span><span class="n">y</span><span class="p">:</span> <span class="n">Number</span><span class="p">):</span>
+   <span class="k">yield</span> <span class="n">Number</span><span class="o">.</span><span class="n">from_int</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="n">y</span>
+   <span class="k">yield</span> <span class="n">y</span> <span class="o">+</span> <span class="n">Number</span><span class="o">.</span><span class="n">from_int</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">y</span>
+</code></pre>
+
+
+<p class="more"><a href="blog/2019/12/metadsl-talk/">Read more…</a></p>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="blog/2019/11/variable-explorer-improvements-in-Spyder-4/" class="u-url">Variable Explorer improvements in Spyder 4</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 <a href="authors/daniel-althviz/">Daniel Althviz</a>

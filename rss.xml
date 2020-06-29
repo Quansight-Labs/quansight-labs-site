@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Sat, 02 May 2020 15:42:38 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Highlights of the Ibis 1.3 release</title><link>https://labs.quansight.org/blog/2020/05/ibis-1.3-release/</link><dc:creator>Ivan Ogasawara</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Mon, 29 Jun 2020 17:34:12 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Ibis: an idiomatic flavor of SQL for Python programmers</title><link>https://labs.quansight.org/blog/2020/06/ibis-an-idiomatic-flavor-of-sql-for-python-programmers/</link><dc:creator>Tony Fast</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;&lt;img src="https://avatars3.githubusercontent.com/u/27442526?v=4" alt=""&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;&lt;a href="https://www.ibis-project.org/"&gt;Ibis&lt;/a&gt; is a mature open-source project that has been in development for about 5 years; it currently has about 1350 stars on Github. It provides an interface to SQL for Python programmers and bridges the gap between remote storage &amp;amp; execution systems. These features provide authors the ability to:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;write backend-independent &lt;a href="https://en.wikipedia.org/wiki/SQL"&gt;SQL&lt;/a&gt; expressions in &lt;a href="https://en.wikipedia.org/wiki/Python_(programming_language"&gt;Python&lt;/a&gt;);&lt;/li&gt;
+&lt;li&gt;access different database connections (eg. &lt;a href="https://www.sqlite.org/index.html"&gt;SQLite&lt;/a&gt;, &lt;a href="https://www.omnisci.com/"&gt;OmniSci&lt;/a&gt;, &lt;a href="http://pandas.pydata.org/"&gt;Pandas&lt;/a&gt;); and&lt;/li&gt;
+&lt;li&gt;confirm visually their SQL queries with &lt;a href="https://en.wikipedia.org/wiki/Directed_acyclic_graph"&gt;directed acyclic graphs (DAGs)&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/06/ibis-an-idiomatic-flavor-of-sql-for-python-programmers/"&gt;Read more…&lt;/a&gt; (11 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>https://labs.quansight.org/blog/2020/06/ibis-an-idiomatic-flavor-of-sql-for-python-programmers/</guid><pubDate>Fri, 26 Jun 2020 19:20:54 GMT</pubDate></item><item><title>Highlights of the Ibis 1.3 release</title><link>https://labs.quansight.org/blog/2020/05/ibis-1.3-release/</link><dc:creator>Ivan Ogasawara</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;Ibis 1.3 was just released, after 8 months of development work, with 104 new commits from 16 unique contributors. What is new? In this blog post we will discuss some important features in this new version!&lt;/p&gt;
@@ -107,27 +131,4 @@ concepts are the same.&lt;/p&gt;
 &lt;em&gt;Header illustration by author, Mars Lee&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;I'm very happy to announce that I have joined &lt;a href="https://www.quansight.com/"&gt;Quansight&lt;/a&gt; as a front-end developer and designer! It was a happy coincidence how I joined- the intersection of my skills and the open source community's expanded vision.&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/02/my-unexpected-dive-into-open-source-python/"&gt;Read more…&lt;/a&gt; (4 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Labs</category><category>PyData</category><guid>https://labs.quansight.org/blog/2020/02/my-unexpected-dive-into-open-source-python/</guid><pubDate>Fri, 21 Feb 2020 18:38:07 GMT</pubDate></item><item><title>Creating the ultimate terminal experience in Spyder 4 with Spyder-Terminal</title><link>https://labs.quansight.org/blog/2020/02/creating-the-ultimate-terminal-experience-in-Spyder-4-with-Spyder-Terminal/</link><dc:creator>Stephannie Jimenez</dc:creator><description>&lt;div&gt;&lt;p&gt;The &lt;a href="https://github.com/spyder-ide/Spyder-Terminal"&gt;Spyder-Terminal project&lt;/a&gt; is revitalized! The new 0.3.0 version adds numerous features that improves the user experience, and enhances compatibility with the latest Spyder 4 release, in part thanks to the improvements made in the &lt;a href="https://xtermjs.org/"&gt;xterm.js&lt;/a&gt; project.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/02/creating-the-ultimate-terminal-experience-in-Spyder-4-with-Spyder-Terminal/"&gt;Read more…&lt;/a&gt; (3 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Labs</category><category>Spyder</category><guid>https://labs.quansight.org/blog/2020/02/creating-the-ultimate-terminal-experience-in-Spyder-4-with-Spyder-Terminal/</guid><pubDate>Fri, 14 Feb 2020 19:00:00 GMT</pubDate></item><item><title>metadsl PyData talk</title><link>https://labs.quansight.org/blog/2019/12/metadsl-talk/</link><dc:creator>Saul Shanabrook</dc:creator><description>&lt;div&gt;&lt;h2&gt;metadsl PyData talk&lt;/h2&gt;
-&lt;p&gt;PyData NYC just ended and I thought it would be good to collect my thoughts on &lt;a href="https://metadsl.readthedocs.io/en/latest/"&gt;&lt;code&gt;metadsl&lt;/code&gt;&lt;/a&gt; based on the many conversations I had there surrounding it. This is a rather long post, so if you are just looking for some code &lt;a href="https://mybinder.org/v2/gh/Quansight-Labs/metadsl/959575fe6d6df884b987954c017dfa7f7c99b61a?urlpath=lab/tree/explorations/2109.12.07%20PyData%20Talk.ipynb"&gt;&lt;strong&gt;here is a Binder link for my talk&lt;/strong&gt;&lt;/a&gt;. Also, here is the talk I gave a month or so later on the same topic in Austin:&lt;/p&gt;
-&lt;iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/cdWdTPL7zrg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
-
-&lt;h3&gt;What is &lt;code&gt;metadsl&lt;/code&gt;?&lt;/h3&gt;
-&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Number&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;metadsl&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Expression&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-   &lt;span class="nd"&gt;@metadsl&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;expression&lt;/span&gt;
-   &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__add__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;other&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Number&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Number&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-       &lt;span class="o"&gt;...&lt;/span&gt;
-
-   &lt;span class="nd"&gt;@metadsl&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;expression&lt;/span&gt;
-   &lt;span class="nd"&gt;@classmethod&lt;/span&gt;
-   &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;from_int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;cls&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Number&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-       &lt;span class="o"&gt;...&lt;/span&gt;
-
-
-&lt;span class="nd"&gt;@metadsl&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rule&lt;/span&gt;
-&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;add_zero&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Number&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-   &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="n"&gt;Number&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;from_int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;
-   &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;Number&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;from_int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/12/metadsl-talk/"&gt;Read more…&lt;/a&gt; (13 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Labs</category><category>metadsl</category><guid>https://labs.quansight.org/blog/2019/12/metadsl-talk/</guid><pubDate>Tue, 24 Dec 2019 11:00:00 GMT</pubDate></item></channel></rss>
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/02/creating-the-ultimate-terminal-experience-in-Spyder-4-with-Spyder-Terminal/"&gt;Read more…&lt;/a&gt; (3 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Labs</category><category>Spyder</category><guid>https://labs.quansight.org/blog/2020/02/creating-the-ultimate-terminal-experience-in-Spyder-4-with-Spyder-Terminal/</guid><pubDate>Fri, 14 Feb 2020 19:00:00 GMT</pubDate></item></channel></rss>
