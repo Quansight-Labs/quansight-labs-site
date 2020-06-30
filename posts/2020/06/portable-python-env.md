@@ -1,7 +1,7 @@
 <!--
 .. title: Creating a Portable Python Environment from Imports
 .. slug: portable-python-env
-.. date: 2020-06-19 10:39:56 UTC-05:00
+.. date: 2020-06-30 14:39:56 UTC-05:00
 .. author: Kim Pevey
 .. tags: Conda, Python, Depfinder, Conda-Pack
 .. category:
