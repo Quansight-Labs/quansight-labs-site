@@ -1,9 +1,9 @@
 <!--
 .. title: Writing docs is not just writing docs
 .. slug: writing-docs-is-not-just-writing-docs
-.. date: 2020-07-05 12:00:00 UTC-05:00
+.. date: 2020-07-07 18:00:00 UTC-05:00
 .. author: Juanita Gomez
-.. tags: Spyder
+.. tags: Spyder, documentation, Labs
 .. category: 
 .. link: 
 .. description: 
@@ -28,7 +28,7 @@ I planned these videos as a series of progressive steps that can get users from 
  
 The [“First Steps with Spyder”](https://www.youtube.com/playlist?list=PLPonohdiDqg9epClEcXoAPUiK0pN5eRoc) section, live now on our YouTube channel, has three videos that provide a starting point for new users before they even open Spyder for the first time. The [first tutorial](https://youtu.be/E2Dap5SfXkI) covers different ways of opening Spyder, the basics of using its interface and an introduction to its four main panes, along with a quick look at the others so that users can get familiar with how Spyder is organized. 
  
-In the [second](https://youtu.be/WV9bm4ey7Cg), users can learn the basics of using Spyder’s four main panes. The goal is that after this video, users are able to open and edit a file in the Editor, run a script and find the output in Spyder’s IPython Console and execute basic Python commands. They should be able to interact with the Variable Explorer to browse and edit the objects in the console, and use the Help pane to get documentation in two different ways.
+In the [second](https://youtu.be/WV9bm4ey7Cg) video, users can learn the basics of using Spyder’s four main panes. The goal is that after this video, users are able to open and edit a file in the Editor, run a script and find the output in Spyder’s IPython Console and execute basic Python commands. They should be able to interact with the Variable Explorer to browse and edit the objects in the console, and use the Help pane to get documentation in two different ways.
  
 The [third video](https://youtu.be/-dARZBUDk_s) is meant to show users how to customize Spyder’s interface to start working with it in the way they feel more comfortable according to their preferences. It teaches users how to change the font and the theme of Spyder and rearrange its panes to display only the ones that they want such that it is easier for them to work. 
  
