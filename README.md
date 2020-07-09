@@ -35,4 +35,6 @@ To check all available commands:
 
 ## Deployment
 
-Submit pull requests first, those get run on CircleCI where the new site can be checked (stored in `Artifacts`). On merge the site will get deployed to https://labs.quansight.org
+Submit pull requests first, those get run on [Netlify](https://quansight-labs.netlify.app/) and you can see a build preview by clicking on the `details` link at the bottom.
+
+![Build previews](images/readme-build-previews.png)
