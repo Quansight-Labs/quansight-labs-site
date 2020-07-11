@@ -1,7 +1,7 @@
 <!--
 .. title: Learn NixOS by turning a Raspberry Pi into a Wireless Router
 .. slug: nixos-rpi-wifi-router
-.. date: 2020-06-19 10:39:56 UTC-05:00
+.. date: 2020-07-11 00:39:56 UTC-05:00
 .. author: Anthony Scopatz
 .. tags: NixOS, Raspberry Pi, Wireless Router
 .. category:
@@ -18,7 +18,7 @@ nice temporary solution, but it had a few serious drawbacks.
 
 <!-- TEASER_END -->
 
-## Drawback's of hotspotting with a laptop
+## Drawbacks of hotspotting with a laptop
 
 * The wireless internet goes out whenever I would travel with the laptop,
 * The laptop had to be close to the modem, so that it could be plugged into
@@ -29,7 +29,7 @@ nice temporary solution, but it had a few serious drawbacks.
 * Whenever I moved my laptop I would also need to reset the credentials
   on all of my wireless devices!
 
-Additionally, some of my coworkers are Nix true believers.
+Additionally, some of my coworkers are [Nix](https://nixos.org) true believers.
 While I had read the NixOS docs, I had never actually taken it for a spin.
 Consider this my first few steps down the `/etc/nixos` path, because, while
 I lacked a WiFi router, I did have an errant Raspberry Pi 3B+ lying around...
@@ -109,7 +109,7 @@ Be sure to fill out the SSID and WPA passphrase in the file below.
 
 ## Learning to use Nix
 
-Nix is great! It's mental model is really neat and there are some fantastic
+Nix is great! Its mental model is really neat and there are some fantastic
 ideas under the covers. However, the documentation has some glaring holes.
 It almost all cases it either assumes that:
 
@@ -119,7 +119,7 @@ It almost all cases it either assumes that:
 This makes it very frustrating to actually get started, especially on non-standard
 hardware such as the Raspberry Pi. A lot of these issues can be smoothed over by a
 friend who can act as your spirit guide. I write this as someone who has been a
-Linux user 20 years and who works on open source packaging problems
+Linux user for 20 years and who works on open source packaging problems
 ([conda-forge](https://conda-forge.org)).
 
 The following are some basic Nix tips for helping get you started.
@@ -144,7 +144,7 @@ approach has advantages & disadvantages.
 
 **Disadvantages:**
 
-* You have to what you want in your OS before you build it.
+* You have to know what you want in your OS before you build it.
 * Changes to the OS configuration require a rebuild.
 
 In many cases, the advantages here outweigh the disadvantages. It is without
@@ -156,14 +156,15 @@ Of course, even a functional OS has to have an escape valve. This is called
 `nix-env` and is a command line utility for creating & managing environments
 (a collection of packages) in an existing OS.
 
-:warning: **Do not use `nix-env`!** :warning:
+!!! warning
+    Do not use `nix-env`!
 
 We want to create a dedicated device that, when it boots up, is a WAP. To this
 end, it is important that we declare everything in the configuration file.
 If we start creating environments willy-nilly, we won't obtain the proper
 boot behavior. This is very different from procedural OSes, where you can
 modify live configuration files that affect boot processes. Not so here!
-All boot config needs to be in declared!
+All boot config needs to be declared!
 
 (Unfortunately, much of the Nix documentation uses `nix-env`, because it
 assumes that you are a user on an existing Nix box just trying things out.)
@@ -176,8 +177,8 @@ and is used by the `nixos-rebuild` command line tool. We'll see this tool later
 to build the router's OS.
 
 Again, unfortunately, when people report bugs or list a configuration snippet,
-they are almost always referring to this file. However, they specify that they
-are talking about this file. It is just known.
+they are almost always referring to this file. However, they don't specify that
+they are talking about this file. It is just known.
 
 Now you know too.
 
@@ -265,7 +266,7 @@ $ sudo umount ~/mount
 
 **Fifth**, now unplug the SD card from your main machine, plug it into the
 Raspberry Pi! Attach the ethernet, keyboard, monitor, and power supply to the
-Pi you will be booting up into your first NixOS! :tada:
+Pi you will be booting up into your first NixOS! 🎉
 
 ## Build the Router OS
 
@@ -284,7 +285,7 @@ $ sudo su
 
 **Seventh**, now let's verify that we have a working internet connection and
 that the network devices exist. To do so, start with a simple `ping` that
-should looks like:
+should looks like`
 
 ```sh
 $ ping 8.8.8.8 -c 3
@@ -341,16 +342,16 @@ The rebuild & reboot cycle is the fundamental implication of having a declarativ
 **Tenth**, if you want to verify that everything is working on your router after
 reboot, you can log in as root and run `ifconfig` again. This time, you should
 see `eth0`, `wlan0`, and `br0` devices. Of course, the `ping` command should
-also work too.
+work too.
 
 **Eleventh**, you should now be able to connect a wireless device like a phone or
 a laptop to your shiny new WAP!
 
 ## Deep dive into `configuration.nix`
 
-For the truly inquisitive who are still reading, let's breakdown what the different
-parts of the configuration file actually mean, and how they help define our
-wireless router.
+For the truly inquisitive who are still reading, let's break down what the
+different parts of the configuration file actually mean, and how they help
+define our wireless router.
 
 ### Bootloader
 
@@ -413,7 +414,7 @@ environment.systemPackages = with pkgs; [ hostapd dnsmasq bridge-utils ];
 
 Unlike procedural OSes, we list all of the packages that we need inside the
 configuration file itself. This ensures that our router is running exactly
-the software that what we want it to. In this case, we only need three packages
+the software that we want it to. In this case, we only need three packages
 to enable the Pi to act as an access point, provide a domain name service, and
 bridge the ethernet and the WiFi device.
 
@@ -462,7 +463,7 @@ networking.interfaces.wlan0.ipv4.addresses =
 
 Now, we would like the router itself to have a consistent IP address. We set
 this in the second line above as `192.168.0.1`, though any value in `192.168.x.x`
-would work equally well. However, just providing the static IP on it's own is
+would work equally well. However, just providing the static IP on its own is
 not enough. This is because NixOS will verify that `wlan0` does not have an
 IP address during the `nixos-rebuild` process. Since we are giving `wlan0`
 an IP address, we need to turn off the IP address checking. If we do not
@@ -503,8 +504,8 @@ traffic to flow through the `eth0` connection and into the `wlan0`.
 ## Reflections
 
 This was a really fun weekend project! I certainly learned a lot about Nix,
-Raspberry Pis, how to set up various parts of the Linux networking stack
-that I had never explored before. My main wish in this process was that
+Raspberry Pis, and about how to set up various parts of the Linux networking
+stack that I had never explored before. My main wish in this process was that
 Nix had better documentation that was more aimed at,
 
 1. People who had never used Nix before, and
@@ -522,16 +523,16 @@ my entire apartment. If it ever breaks, the Pi will be trivial to replace.
 I am really happy with what I created. Even if this little project isn't original,
 it solves a real problem in my day-to-day life.
 
-In terms of NixOS as a Linux distribution, I think I have now totally on board.
+In terms of NixOS as a Linux distribution, I think I now am totally on board.
 Nix has so many incredible advantages that (as a control freak who builds his
 own WiFi router) I just can't ignore or give up. The feature of Ubuntu that
-was keeping me on that distribution for so long was that, "it just works"
-:copyright: :registered:.
+was keeping me on that distribution for so long was that "it just works"
+© ®.
 
 But Nix "just works" too. The only catch is that you need to know what "it" is
 that you want working ahead of time. I am also comfortable with responsibly
-using environments, so I think increases my willingness to jump into a new
+using environments, so I think that increases my willingness to jump into a new
 OS framework. I am a little worried about moving from Ubuntu to Nix on an
 existing machine, but that is what external hard drive backups are for!
 
-That is all folks! Thanks for reading :wave:
+That is all folks! Thanks for reading 👋
