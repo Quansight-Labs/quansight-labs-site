@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Learn NixOS by turning a Raspberry Pi into a Wireless Router | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2020/06/nixos-rpi-wifi-router/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-163785882-1');
+</script><meta name="author" content="Anthony Scopatz">
+<link rel="prev" href="../../07/writing-docs-is-not-just-writing-docs/" title="Writing docs is not just writing docs" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="Learn NixOS by turning a Raspberry Pi into a Wireless Router">
+<meta property="og:url" content="https://labs.quansight.org/blog/2020/06/nixos-rpi-wifi-router/">
+<meta property="og:description" content="I recently moved, and my new place has a relatively small footprint.  (Yes, I
+moved during the COVID-19 pandemic. And yes, it was crazy.) I quickly realized
+that was going to need a wireless router of">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-07-11T00:39:56-05:00">
+<meta property="article:tag" content="NixOS">
+<meta property="article:tag" content="Raspberry Pi">
+<meta property="article:tag" content="Wireless Router">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="../../../../">
+
+            <span id="blog-title">Quansight Labs</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../archive.html" class="nav-link">Archive</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../categories/" class="nav-link">Tags</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS feed</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right">
+<li class="nav-item">
+    <a href="index.md" id="sourcelink" class="nav-link">Source</a>
+    </li>
+
+
+                
+            </ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Learn NixOS by turning a Raspberry Pi into a Wireless Router</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    <a class="u-url" href="../../../../authors/anthony-scopatz/">Anthony Scopatz</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2020-07-11T00:39:56-05:00" itemprop="datePublished" title="2020-07-11">2020-07-11</time></a>
+            </p>
+            
+        <p class="sourceline"><a href="index.md" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<p>I recently moved, and my new place has a relatively small footprint.  (Yes, I
+moved during the COVID-19 pandemic. And yes, it was crazy.) I quickly realized
+that was going to need a wireless router of some sort, or more formally, a wireless
+access point (WAP). Using my Ubuntu laptop's "wireless hotspot" capability was a
+nice temporary solution, but it had a few serious drawbacks.</p>
+<!-- TEASER_END -->
+
+<h3>Drawbacks of hotspotting with a laptop</h3>
+<ul>
+<li>The wireless internet goes out whenever I would travel with the laptop,</li>
+<li>The laptop had to be close to the modem, so that it could be plugged into
+  ethernet, making my laptop not even portable <em>within</em> the apartment,</li>
+<li>The SSID was my laptop's hostname,</li>
+<li>The WPA password would be set to a random string whenever the hotspot
+  was started, and so</li>
+<li>Whenever I moved my laptop I would also need to reset the credentials
+  on all of my wireless devices!</li>
+</ul>
+<p>Additionally, some of my coworkers are <a href="https://nixos.org">Nix</a> true believers.
+While I had read the NixOS docs, I had never actually taken it for a spin.
+Consider this my first few steps down the <code>/etc/nixos</code> path, because, while
+I lacked a WiFi router, I did have an errant Raspberry Pi 3B+ lying around...</p>
+<h3>Too Long; Didn't Read</h3>
+<p>Be sure to fill out the SSID and WPA passphrase in the file below.</p>
+<p><strong>/etc/nixos/configuration.nix</strong></p>
+<pre class="code literal-block"><span></span><code><span class="p">{</span> config<span class="p">,</span> pkgs<span class="p">,</span> lib<span class="p">,</span> <span class="o">...</span> <span class="p">}:</span>
+<span class="p">{</span>
+  <span class="c1"># NixOS wants to enable GRUB by default</span>
+  boot<span class="o">.</span>loader<span class="o">.</span>grub<span class="o">.</span><span class="ss">enable =</span> <span class="no">false</span><span class="p">;</span>
+  <span class="c1"># Enables the generation of /boot/extlinux/extlinux.conf</span>
+  boot<span class="o">.</span>loader<span class="o">.</span>generic-extlinux-compatible<span class="o">.</span><span class="ss">enable =</span> <span class="no">true</span><span class="p">;</span>
+
+  <span class="c1"># use an older kernel, so that we can actually boot</span>
+  boot<span class="o">.</span><span class="ss">kernelPackages =</span> pkgs<span class="o">.</span>linuxPackages_4_19<span class="p">;</span>
+
+  <span class="c1"># Needed for the virtual console to work on the RPi 3, as the default of 16M</span>
+  <span class="c1"># doesn't seem to be enough. If X.org behaves weirdly (I only saw the cursor)</span>
+  <span class="c1"># then try increasing this to 256M.</span>
+  boot<span class="o">.</span><span class="ss">kernelParams =</span> <span class="p">[</span><span class="s2">"cma=32M"</span><span class="p">];</span>
+
+  <span class="c1"># File systems configuration for using the installer's partition layout</span>
+  <span class="ss">fileSystems =</span> <span class="p">{</span>
+    <span class="s2">"/"</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="ss">device =</span> <span class="s2">"/dev/disk/by-label/NIXOS_SD"</span><span class="p">;</span>
+      <span class="ss">fsType =</span> <span class="s2">"ext4"</span><span class="p">;</span>
+    <span class="p">};</span>
+  <span class="p">};</span>
+
+  <span class="c1"># Recommended swap file is optional</span>
+  <span class="ss">swapDevices =</span> <span class="p">[</span> <span class="p">{</span> <span class="ss">device =</span> <span class="s2">"/swapfile"</span><span class="p">;</span> <span class="ss">size =</span> <span class="mi">1024</span><span class="p">;</span> <span class="p">}</span> <span class="p">];</span>
+
+  <span class="c1"># packages</span>
+  environment<span class="o">.</span><span class="ss">systemPackages =</span> <span class="k">with</span> pkgs<span class="p">;</span> <span class="p">[</span> hostapd dnsmasq bridge-utils <span class="p">];</span>
+
+  <span class="c1"># add wireless service</span>
+  hardware<span class="o">.</span><span class="ss">enableRedistributableFirmware =</span> <span class="no">true</span><span class="p">;</span>
+  networking<span class="o">.</span>wireless<span class="o">.</span><span class="ss">enable =</span> <span class="no">true</span><span class="p">;</span>
+
+  <span class="c1"># set up wireless access point</span>
+  networking<span class="o">.</span>networkmanager<span class="o">.</span><span class="ss">unmanaged =</span> <span class="p">[</span> <span class="s2">"interface-name:wlan*"</span> <span class="p">]</span>
+    <span class="o">++</span> lib<span class="o">.</span>optional config<span class="o">.</span>services<span class="o">.</span>hostapd<span class="o">.</span>enable <span class="s2">"interface-name:</span><span class="si">${</span>config<span class="o">.</span>services<span class="o">.</span>hostapd<span class="o">.</span>interface<span class="si">}</span><span class="s2">"</span><span class="p">;</span>
+  services<span class="o">.</span><span class="ss">hostapd =</span> <span class="p">{</span>
+    <span class="ss">enable =</span> <span class="no">true</span><span class="p">;</span>
+    <span class="ss">interface =</span> <span class="s2">"wlan0"</span><span class="p">;</span>
+    <span class="ss">hwMode =</span> <span class="s2">"g"</span><span class="p">;</span>
+    <span class="ss">ssid =</span> <span class="s2">"&lt;YOUR NETWORK NAME HERE&gt;"</span><span class="p">;</span>
+    <span class="ss">wpaPassphrase =</span> <span class="s2">"&lt;YOUR PASSWORD HERE&gt;"</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="c1"># set up wireless static IP address</span>
+  networking<span class="o">.</span>interfaces<span class="o">.</span>wlan0<span class="o">.</span><span class="ss">ip4 =</span> lib<span class="o">.</span>mkOverride <span class="mi">0</span> <span class="p">[</span> <span class="p">];</span>
+  networking<span class="o">.</span>interfaces<span class="o">.</span>wlan0<span class="o">.</span>ipv4<span class="o">.</span><span class="ss">addresses =</span>
+    lib<span class="o">.</span>optionals config<span class="o">.</span>services<span class="o">.</span>hostapd<span class="o">.</span>enable <span class="p">[{</span> <span class="ss">address =</span> <span class="s2">"192.168.0.1"</span><span class="p">;</span> <span class="ss">prefixLength =</span> <span class="mi">24</span><span class="p">;</span> <span class="p">}];</span>
+
+  <span class="c1"># set up wireless DNS</span>
+  services<span class="o">.</span><span class="ss">dnsmasq =</span> lib<span class="o">.</span>optionalAttrs config<span class="o">.</span>services<span class="o">.</span>hostapd<span class="o">.</span>enable <span class="p">{</span>
+    <span class="ss">enable =</span> <span class="no">true</span><span class="p">;</span>
+    <span class="ss">extraConfig =</span> <span class="s1">''</span>
+<span class="s1">      interface=wlan0</span>
+<span class="s1">      bind-interfaces</span>
+<span class="s1">      dhcp-range=192.168.0.10,192.168.0.254,24h</span>
+<span class="s1">    ''</span><span class="p">;</span>
+  <span class="p">};</span>
+  networking<span class="o">.</span>firewall<span class="o">.</span><span class="ss">allowedUDPPorts =</span> lib<span class="o">.</span>optionals config<span class="o">.</span>services<span class="o">.</span>hostapd<span class="o">.</span>enable <span class="p">[</span><span class="mi">53</span> <span class="mi">67</span><span class="p">];</span>
+  services<span class="o">.</span>haveged<span class="o">.</span><span class="ss">enable =</span> config<span class="o">.</span>services<span class="o">.</span>hostapd<span class="o">.</span>enable<span class="p">;</span>
+
+  <span class="c1"># Finally, bridge ethernet and wifi</span>
+  networking<span class="o">.</span>bridges<span class="o">.</span>br0<span class="o">.</span><span class="ss">interfaces =</span> <span class="p">[</span> <span class="s2">"eth0"</span> <span class="s2">"wlan0"</span> <span class="p">];</span>
+<span class="p">}</span>
+</code></pre>
+
+
+<h3>Learning to use Nix</h3>
+<p>Nix is great! Its mental model is really neat and there are some fantastic
+ideas under the covers. However, the documentation has some glaring holes.
+It almost all cases it either assumes that:</p>
+<ol>
+<li>You already know how to use Nix, or</li>
+<li>You already are on a Nix machine.</li>
+</ol>
+<p>This makes it very frustrating to actually get started, especially on non-standard
+hardware such as the Raspberry Pi. A lot of these issues can be smoothed over by a
+friend who can act as your spirit guide. I write this as someone who has been a
+Linux user for 20 years and who works on open source packaging problems
+(<a href="https://conda-forge.org">conda-forge</a>).</p>
+<p>The following are some basic Nix tips for helping get you started.</p>
+<h4>Don't use <code>nix-env</code>
+</h4>
+<p>The first bit of philosophy to understand is that while much of the Nix documentation
+touts the <em>functional</em> nature of its underlying language, the important aspect of Nix
+is that it is <em>declarative</em>.</p>
+<p>Nix wants you to specify the configuration and layout of your Operating System (OS)
+ahead of time in a relatively static way. This is very different from how other
+Linux distributions operate, which assume that you will <em>procedurally</em> build
+up your system from various available components, as needed. The declarative
+approach has advantages &amp; disadvantages.</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>You can write out exactly what your OS is in a single text file (see above).</li>
+<li>Your OS can be built and tested before booting into it.</li>
+<li>Errors in configuration are caught and tested during the build process.</li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul>
+<li>You have to know what you want in your OS before you build it.</li>
+<li>Changes to the OS configuration require a rebuild.</li>
+</ul>
+<p>In many cases, the advantages here outweigh the disadvantages. It is without
+question that <a href="https://www.docker.com/">Docker</a>, <a href="http://coreos.com/">CoreOS</a>,
+and <a href="https://docs.conda.io/en/latest/">conda</a> all owe a lot of conceptual
+inspiration to the work Nix has been performing for years.</p>
+<p>Of course, even a functional OS has to have an escape valve. This is called
+<code>nix-env</code> and is a command line utility for creating &amp; managing environments
+(a collection of packages) in an existing OS.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not use <code>nix-env</code>!</p>
+</div>
+<p>We want to create a dedicated device that, when it boots up, is a WAP. To this
+end, it is important that we declare everything in the configuration file.
+If we start creating environments willy-nilly, we won't obtain the proper
+boot behavior. This is very different from procedural OSes, where you can
+modify live configuration files that affect boot processes. Not so here!
+All boot config needs to be declared!</p>
+<p>(Unfortunately, much of the Nix documentation uses <code>nix-env</code>, because it
+assumes that you are a user on an existing Nix box just trying things out.)</p>
+<h4>The configuration.nix file</h4>
+<p>So where does this mysterious OS configuration file live? Well, the full path
+to this file is <code>/etc/nixos/configuration.nix</code>. It is written in the Nix language,
+and is used by the <code>nixos-rebuild</code> command line tool. We'll see this tool later
+to build the router's OS.</p>
+<p>Again, unfortunately, when people report bugs or list a configuration snippet,
+they are almost always referring to this file. However, they don't specify that
+they are talking about this file. It is just known.</p>
+<p>Now you know too.</p>
+<h4>You need to be root (which is shockingly easy)</h4>
+<p>Another issue that is not clear from the docs is that any serious command you might
+want to run needs to be run as root (or another user in the wheel group). However,
+the default <code>aarch64</code> image boots into a user named <code>nixos</code>. This requires you to
+<code>sudo su</code> to become the root user to run rebuild commands (or any of the commands
+prefixed by <code>sudo</code>).</p>
+<p>Also, oddly, in the initial image neither the <code>nixos</code> nor the <code>root</code> user have passwords.
+So you end up running <code>sudo</code> without needing a password. You will probably want to set a
+password with the <code>passwd</code> utility, or via user management in <code>/etc/nixos/configuration.nix</code>.</p>
+<h3>First Boot!</h3>
+<p>Assuming you have the SD card for your Raspberry Pi handy, take it out of the Pi and
+plug it into another (Linux) computer. We are going to need to flash it with a basic
+NixOS. You can find generic instructions for
+<a href="https://nixos.wiki/wiki/NixOS_on_ARM/Raspberry_Pi">NixOS on a Raspberry PI here</a> and
+instructions for <a href="https://nixos.wiki/wiki/NixOS_on_ARM">NixOS on ARM here</a>. However,
+I'll summarize the important bits here.</p>
+<p><strong>First</strong>, go to
+<a href="https://hydra.nixos.org/job/nixos/release-19.09/nixos.sd_image.aarch64-linux">the 19.09 aarm64 landing page</a>
+and download the latest NixOS image. It will be called something like
+<code>nixos-sd-image-19.09.2435.9642f121eb1-aarch64-linux.img</code>. We'll assume this is in
+your <code>~/Downloads</code> folder.</p>
+<p><strong>Second</strong>, figure out what device your SD card is. If you just plugged it in, you
+can determine this by looking at the end of the output of the <code>dmesg</code> command.
+For example,</p>
+<pre class="code literal-block"><span></span><code>$ dmesg
+<span class="o">[</span> <span class="m">4591</span>.053095<span class="o">]</span> usb <span class="m">3</span>-10: new high-speed USB device number <span class="m">5</span> using xhci_hcd
+<span class="o">[</span> <span class="m">4591</span>.201911<span class="o">]</span> usb <span class="m">3</span>-10: New USB device found, <span class="nv">idVendor</span><span class="o">=</span>14cd, <span class="nv">idProduct</span><span class="o">=</span>168a, <span class="nv">bcdDevice</span><span class="o">=</span> <span class="m">0</span>.01
+<span class="o">[</span> <span class="m">4591</span>.201915<span class="o">]</span> usb <span class="m">3</span>-10: New USB device strings: <span class="nv">Mfr</span><span class="o">=</span><span class="m">1</span>, <span class="nv">Product</span><span class="o">=</span><span class="m">3</span>, <span class="nv">SerialNumber</span><span class="o">=</span><span class="m">2</span>
+<span class="o">[</span> <span class="m">4591</span>.201917<span class="o">]</span> usb <span class="m">3</span>-10: Product: USB Mass Storage Device
+<span class="o">[</span> <span class="m">4591</span>.201919<span class="o">]</span> usb <span class="m">3</span>-10: Manufacturer: USB Device
+<span class="o">[</span> <span class="m">4591</span>.201921<span class="o">]</span> usb <span class="m">3</span>-10: SerialNumber: <span class="m">816820130806</span>
+<span class="o">[</span> <span class="m">4591</span>.202955<span class="o">]</span> usb-storage <span class="m">3</span>-10:1.0: USB Mass Storage device detected
+<span class="o">[</span> <span class="m">4591</span>.203140<span class="o">]</span> scsi host10: usb-storage <span class="m">3</span>-10:1.0
+<span class="o">[</span> <span class="m">4592</span>.205933<span class="o">]</span> scsi <span class="m">10</span>:0:0:0: Direct-Access     USB Mass  Storage Device  <span class="m">1</span>.00 PQ: <span class="m">0</span> ANSI: <span class="m">0</span>
+<span class="o">[</span> <span class="m">4592</span>.206338<span class="o">]</span> sd <span class="m">10</span>:0:0:0: Attached scsi generic sg1 <span class="nb">type</span> <span class="m">0</span>
+<span class="o">[</span> <span class="m">4592</span>.207288<span class="o">]</span> sd <span class="m">10</span>:0:0:0: <span class="o">[</span>sdb<span class="o">]</span> <span class="m">31116288</span> <span class="m">512</span>-byte logical blocks: <span class="o">(</span><span class="m">15</span>.9 GB/14.8 GiB<span class="o">)</span>
+<span class="o">[</span> <span class="m">4592</span>.207421<span class="o">]</span> sd <span class="m">10</span>:0:0:0: <span class="o">[</span>sdb<span class="o">]</span> Write Protect is off
+<span class="o">[</span> <span class="m">4592</span>.207425<span class="o">]</span> sd <span class="m">10</span>:0:0:0: <span class="o">[</span>sdb<span class="o">]</span> Mode Sense: <span class="m">03</span> <span class="m">00</span> <span class="m">00</span> <span class="m">00</span>
+<span class="o">[</span> <span class="m">4592</span>.207561<span class="o">]</span> sd <span class="m">10</span>:0:0:0: <span class="o">[</span>sdb<span class="o">]</span> No Caching mode page found
+<span class="o">[</span> <span class="m">4592</span>.207567<span class="o">]</span> sd <span class="m">10</span>:0:0:0: <span class="o">[</span>sdb<span class="o">]</span> Assuming drive cache: write through
+<span class="o">[</span> <span class="m">4592</span>.212993<span class="o">]</span>  sdb: sdb1 sdb2
+<span class="o">[</span> <span class="m">4592</span>.214220<span class="o">]</span> sd <span class="m">10</span>:0:0:0: <span class="o">[</span>sdb<span class="o">]</span> Attached SCSI removable disk
+</code></pre>
+
+
+<p>This let's us know that the SD card is the <code>/dev/sdb</code> device and has two partitions.
+Yours might be called <code>/dev/sdc</code> or something similar. It also might have more than
+two partitions. That is totally normal at this step.</p>
+<p><strong>Third</strong>, we need to copy the NixOS image over to the SD card. We'll do this with
+the <code>dd</code> command. The SD card should <em>not</em> be mounted right now. Run the following
+command with the path to the image and the SD card device replaced as appropriate.</p>
+<pre class="code literal-block"><span></span><code>$ sudo dd <span class="k">if</span><span class="o">=</span>~/Downloads/nixos-sd-image-19.09.2435.9642f121eb1-aarch64-linux.img <span class="nv">of</span><span class="o">=</span>/dev/sdb
+</code></pre>
+
+
+<p>Great! At this point, we have now flashed the SD card with our new NixOS!</p>
+<p><strong>Fourth</strong>, it will save us a lot of typing if we copy over an existing
+configuration file to the SD card. Copy the text of the
+<code>/etc/nixos/configuration.nix</code> file at the top of this article to a new file,
+let's call it <code>~/Downloads/config.nix</code>. Fill in this file with the SSID and
+password that you want your network to have. Then, run the following commands
+to copy the configuration file to the SD card. Again, modify the paths here
+as needed.</p>
+<pre class="code literal-block"><span></span><code>$ mkdir -p ~/mount
+$ sudo mount /dev/sdb2 ~/mount
+$ sudo mkdir -p ~/mount/etc/nixos
+$ sudo cp ~/Downloads/config.nix ~/mount/etc/nixos/configuration.nix
+$ sudo umount ~/mount
+</code></pre>
+
+
+<p><strong>Fifth</strong>, now unplug the SD card from your main machine, plug it into the
+Raspberry Pi! Attach the ethernet, keyboard, monitor, and power supply to the
+Pi you will be booting up into your first NixOS! 🎉</p>
+<h3>Build the Router OS</h3>
+<p>The operating system that we have just booted into on the Raspberry Pi is a
+generic image that does not use the configuration file that we copied over.
+We need the Nix tools to be able to build the image. Luckily, we are now on
+a Nix machine!</p>
+<p><strong>Sixth</strong>, we need to be root to run a lot of these tools. However, we booted
+into the <code>nixos</code> user. To make the rest of the process easier, let's just log
+in as root with the following:</p>
+<pre class="code literal-block"><span></span><code>$ sudo su
+</code></pre>
+
+
+<p><strong>Seventh</strong>, now let's verify that we have a working internet connection and
+that the network devices exist. To do so, start with a simple <code>ping</code> that
+should looks like`</p>
+<pre class="code literal-block"><span></span><code>$ ping <span class="m">8</span>.8.8.8 -c <span class="m">3</span>
+PING <span class="m">8</span>.8.8.8 <span class="o">(</span><span class="m">8</span>.8.8.8<span class="o">)</span> <span class="m">56</span><span class="o">(</span><span class="m">84</span><span class="o">)</span> bytes of data.
+<span class="m">64</span> bytes from <span class="m">8</span>.8.8.8: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">1</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">55</span> <span class="nv">time</span><span class="o">=</span><span class="m">19</span>.1 ms
+<span class="m">64</span> bytes from <span class="m">8</span>.8.8.8: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">2</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">55</span> <span class="nv">time</span><span class="o">=</span><span class="m">19</span>.3 ms
+<span class="m">64</span> bytes from <span class="m">8</span>.8.8.8: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">3</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">55</span> <span class="nv">time</span><span class="o">=</span><span class="m">24</span>.2 ms
+
+--- <span class="m">8</span>.8.8.8 ping statistics ---
+<span class="m">3</span> packets transmitted, <span class="m">3</span> received, <span class="m">0</span>% packet loss, <span class="nb">time</span> 3ms
+rtt min/avg/max/mdev <span class="o">=</span> <span class="m">19</span>.098/20.847/24.154/2.345 ms
+</code></pre>
+
+
+<p>If you only see packet loss, then this means you do not have internet on the Pi
+and you cannot proceed. Nix requires internet access to build in all realistic
+scenarios.</p>
+<p>Next run the <code>ifconfig</code> command and verify that <em>both</em> <code>eth0</code> (the ethernet device)
+and <code>wlan0</code> (the wireless device) exist.</p>
+<pre class="code literal-block"><span></span><code>$ ifconfig
+...
+eth0: <span class="nv">flags</span><span class="o">=</span><span class="m">4163</span>&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu <span class="m">1500</span>
+        inet <span class="m">37</span>.128.100.42  netmask <span class="m">255</span>.255.255.0
+        ...
+wlan0: ...
+...
+</code></pre>
+
+
+<p><strong>Eighth</strong>, we finally get to build the new OS for our router! We do this with
+the <code>nixos-rebuild</code> command. All you have to do is run the following command
+and watch the text scroll by.</p>
+<pre class="code literal-block"><span></span><code>$ nixos-rebuild switch -v
+</code></pre>
+
+
+<p><strong>Ninth</strong>, we can now reboot into our router! Just run:</p>
+<pre class="code literal-block"><span></span><code>$ reboot
+</code></pre>
+
+
+<p>The default boot option has been changed to be the OS we just built, which is the
+same as the second option in the bootloader's listing. The original image will be
+the last boot option (which for various reasons says it is from 1970). This allows
+us to always get back to a working NixOS to do another <code>nixos-rebuild</code> if something
+went terribly wrong and we need to do another rebuild. For example, this could
+happen if there was a typo in the configuration file.
+<em>If you ever modify <code>/etc/nixos/configuration.nix</code>, you'll need to rebuild &amp; reboot.</em>
+The rebuild &amp; reboot cycle is the fundamental implication of having a declarative OS.</p>
+<p><strong>Tenth</strong>, if you want to verify that everything is working on your router after
+reboot, you can log in as root and run <code>ifconfig</code> again. This time, you should
+see <code>eth0</code>, <code>wlan0</code>, and <code>br0</code> devices. Of course, the <code>ping</code> command should
+work too.</p>
+<p><strong>Eleventh</strong>, you should now be able to connect a wireless device like a phone or
+a laptop to your shiny new WAP!</p>
+<h3>Deep dive into <code>configuration.nix</code>
+</h3>
+<p>For the truly inquisitive who are still reading, let's break down what the
+different parts of the configuration file actually mean, and how they help
+define our wireless router.</p>
+<h4>Bootloader</h4>
+<pre class="code literal-block"><span></span><code>boot<span class="o">.</span>loader<span class="o">.</span>grub<span class="o">.</span><span class="ss">enable =</span> <span class="no">false</span><span class="p">;</span>
+boot<span class="o">.</span>loader<span class="o">.</span>generic-extlinux-compatible<span class="o">.</span><span class="ss">enable =</span> <span class="no">true</span><span class="p">;</span>
+</code></pre>
+
+
+<p>These lines are part of the standard ARM configuration and help speed up the boot
+process a bit by disabling the fancy GRUB bootloader.</p>
+<h4>Older Kernel</h4>
+<pre class="code literal-block"><span></span><code>boot<span class="o">.</span><span class="ss">kernelPackages =</span> pkgs<span class="o">.</span>linuxPackages_4_19<span class="p">;</span>
+</code></pre>
+
+
+<p>This line pins our packages to use and older version of the Linux kernel (v4.19).
+This is super critical because, without this line, <code>nixos-rebuild</code> will end up
+grabbing a kernel in the v5.x series. Unfortunately, the Raspberry Pi 3 has
+problems starting up these more recent kernels and the Pi will hang indefinitely
+on boot. Using an older kernel version avoids this problem for the time being.</p>
+<h4>Console Memory</h4>
+<pre class="code literal-block"><span></span><code>boot<span class="o">.</span><span class="ss">kernelParams =</span> <span class="p">[</span><span class="s2">"cma=32M"</span><span class="p">];</span>
+</code></pre>
+
+
+<p>This line gives the console more memory than the default value of 16 MB.
+The Raspberry Pi seems to need this.</p>
+<h4>Partition Layout</h4>
+<pre class="code literal-block"><span></span><code><span class="ss">fileSystems =</span> <span class="p">{</span>
+  <span class="s2">"/"</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="ss">device =</span> <span class="s2">"/dev/disk/by-label/NIXOS_SD"</span><span class="p">;</span>
+    <span class="ss">fsType =</span> <span class="s2">"ext4"</span><span class="p">;</span>
+  <span class="p">};</span>
+<span class="p">};</span>
+</code></pre>
+
+
+<p>The above specifies where the root file system lives. It is part of the
+standard ARM configuration.</p>
+<h4>Swap</h4>
+<pre class="code literal-block"><span></span><code><span class="ss">swapDevices =</span> <span class="p">[</span> <span class="p">{</span> <span class="ss">device =</span> <span class="s2">"/swapfile"</span><span class="p">;</span> <span class="ss">size =</span> <span class="mi">1024</span><span class="p">;</span> <span class="p">}</span> <span class="p">];</span>
+</code></pre>
+
+
+<p>This line gives the machine some extra virtual memory, which is always a good idea.</p>
+<h4>Router packages</h4>
+<pre class="code literal-block"><span></span><code>environment<span class="o">.</span><span class="ss">systemPackages =</span> <span class="k">with</span> pkgs<span class="p">;</span> <span class="p">[</span> hostapd dnsmasq bridge-utils <span class="p">];</span>
+</code></pre>
+
+
+<p>Unlike procedural OSes, we list all of the packages that we need inside the
+configuration file itself. This ensures that our router is running exactly
+the software that we want it to. In this case, we only need three packages
+to enable the Pi to act as an access point, provide a domain name service, and
+bridge the ethernet and the WiFi device.</p>
+<p>For comparison, in Ubuntu, we would install these packages after we installed
+Ubuntu itself. In Nix, we install the OS and the packages at the same time!</p>
+<h4>Enable the wireless device</h4>
+<pre class="code literal-block"><span></span><code>hardware<span class="o">.</span><span class="ss">enableRedistributableFirmware =</span> <span class="no">true</span><span class="p">;</span>
+networking<span class="o">.</span>wireless<span class="o">.</span><span class="ss">enable =</span> <span class="no">true</span><span class="p">;</span>
+</code></pre>
+
+
+<p>These lines simply allow the wireless card to be used on the Raspberry Pi in
+the simplest possible way.</p>
+<h4>Set up the wireless access point</h4>
+<pre class="code literal-block"><span></span><code>networking<span class="o">.</span>networkmanager<span class="o">.</span><span class="ss">unmanaged =</span> <span class="p">[</span> <span class="s2">"interface-name:wlan*"</span> <span class="p">]</span>
+  <span class="o">++</span> lib<span class="o">.</span>optional config<span class="o">.</span>services<span class="o">.</span>hostapd<span class="o">.</span>enable <span class="s2">"interface-name:</span><span class="si">${</span>config<span class="o">.</span>services<span class="o">.</span>hostapd<span class="o">.</span>interface<span class="si">}</span><span class="s2">"</span><span class="p">;</span>
+services<span class="o">.</span><span class="ss">hostapd =</span> <span class="p">{</span>
+  <span class="ss">enable =</span> <span class="no">true</span><span class="p">;</span>
+  <span class="ss">interface =</span> <span class="s2">"wlan0"</span><span class="p">;</span>
+  <span class="ss">hwMode =</span> <span class="s2">"g"</span><span class="p">;</span>
+  <span class="ss">ssid =</span> <span class="s2">"&lt;YOUR NETWORK NAME HERE&gt;"</span><span class="p">;</span>
+  <span class="ss">wpaPassphrase =</span> <span class="s2">"&lt;YOUR PASSWORD HERE&gt;"</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre>
+
+
+<p>Because we are installing the router packages along with the OS, we <em>also</em> need
+to configure these packages at the same time we configure the OS itself.
+The first line here tells Nix not to use normal networking management on the
+<code>wlan0</code> device. This is because we'll be managing it as a WAP ourselves.</p>
+<p>The remaining lines configure the access point, including the SSID and password
+for the wireless network.</p>
+<h4>Set up wireless static IP address</h4>
+<pre class="code literal-block"><span></span><code>networking<span class="o">.</span>interfaces<span class="o">.</span>wlan0<span class="o">.</span><span class="ss">ip4 =</span> lib<span class="o">.</span>mkOverride <span class="mi">0</span> <span class="p">[</span> <span class="p">];</span>
+networking<span class="o">.</span>interfaces<span class="o">.</span>wlan0<span class="o">.</span>ipv4<span class="o">.</span><span class="ss">addresses =</span>
+  lib<span class="o">.</span>optionals config<span class="o">.</span>services<span class="o">.</span>hostapd<span class="o">.</span>enable <span class="p">[{</span> <span class="ss">address =</span> <span class="s2">"192.168.0.1"</span><span class="p">;</span> <span class="ss">prefixLength =</span> <span class="mi">24</span><span class="p">;</span> <span class="p">}];</span>
+</code></pre>
+
+
+<p>Now, we would like the router itself to have a consistent IP address. We set
+this in the second line above as <code>192.168.0.1</code>, though any value in <code>192.168.x.x</code>
+would work equally well. However, just providing the static IP on its own is
+not enough. This is because NixOS will verify that <code>wlan0</code> does not have an
+IP address during the <code>nixos-rebuild</code> process. Since we are giving <code>wlan0</code>
+an IP address, we need to turn off the IP address checking. If we do not
+remove this verification, the whole OS build process will fail. The first
+line in the above snippet removes this check with the <code>mkOverride</code> function.</p>
+<h4>Set up the wireless DNS</h4>
+<pre class="code literal-block"><span></span><code>services<span class="o">.</span><span class="ss">dnsmasq =</span> lib<span class="o">.</span>optionalAttrs config<span class="o">.</span>services<span class="o">.</span>hostapd<span class="o">.</span>enable <span class="p">{</span>
+  <span class="ss">enable =</span> <span class="no">true</span><span class="p">;</span>
+  <span class="ss">extraConfig =</span> <span class="s1">''</span>
+<span class="s1">    interface=wlan0</span>
+<span class="s1">    bind-interfaces</span>
+<span class="s1">    dhcp-range=192.168.0.10,192.168.0.254,24h</span>
+<span class="s1">  ''</span><span class="p">;</span>
+<span class="p">};</span>
+networking<span class="o">.</span>firewall<span class="o">.</span><span class="ss">allowedUDPPorts =</span> lib<span class="o">.</span>optionals config<span class="o">.</span>services<span class="o">.</span>hostapd<span class="o">.</span>enable <span class="p">[</span><span class="mi">53</span> <span class="mi">67</span><span class="p">];</span>
+services<span class="o">.</span>haveged<span class="o">.</span><span class="ss">enable =</span> config<span class="o">.</span>services<span class="o">.</span>hostapd<span class="o">.</span>enable<span class="p">;</span>
+</code></pre>
+
+
+<p>The collection of lines above allows the <code>wlan0</code> device to operate as a
+domain name server, proxying a real DNS online. It also sets the range
+of IP addresses that the router will issue to other network devices.
+This is seen in the <code>dhcp-range=192.168.0.10,192.168.0.254</code> portion.
+The first IP address is the lowest address the router will issue, and
+the second IP address is the highest.</p>
+<h4>Bridge ethernet and wifi</h4>
+<pre class="code literal-block"><span></span><code>networking<span class="o">.</span>bridges<span class="o">.</span>br0<span class="o">.</span><span class="ss">interfaces =</span> <span class="p">[</span> <span class="s2">"eth0"</span> <span class="s2">"wlan0"</span> <span class="p">];</span>
+</code></pre>
+
+
+<p>Lastly, we 'bridge' the ethernet and wireless devices. This allows network
+traffic to flow through the <code>eth0</code> connection and into the <code>wlan0</code>.</p>
+<h3>Reflections</h3>
+<p>This was a really fun weekend project! I certainly learned a lot about Nix,
+Raspberry Pis, and about how to set up various parts of the Linux networking
+stack that I had never explored before. My main wish in this process was that
+Nix had better documentation that was more aimed at,</p>
+<ol>
+<li>People who had never used Nix before, and</li>
+<li>People who are trying to build dedicated devices.</li>
+</ol>
+<p>A lot of the Nix documentation seems to be aimed at a very particular kind
+of desktop user: <em>someone who already has Nix installed!</em> Such users represent
+an important use case, and the nix build configurations are easy enough to read.
+However, I definitely think there is on-boarding improvement work to be done in
+the Nix ecosystem.</p>
+<p>So, will I ever go back? I don't think so! This router was so cheap (~$40) and
+the Raspberry Pi 3B+ is so powerful that I get amazing performance throughout
+my entire apartment. If it ever breaks, the Pi will be trivial to replace.
+I am really happy with what I created. Even if this little project isn't original,
+it solves a real problem in my day-to-day life.</p>
+<p>In terms of NixOS as a Linux distribution, I think I now am totally on board.
+Nix has so many incredible advantages that (as a control freak who builds his
+own WiFi router) I just can't ignore or give up. The feature of Ubuntu that
+was keeping me on that distribution for so long was that "it just works"
+© ®.</p>
+<p>But Nix "just works" too. The only catch is that you need to know what "it" is
+that you want working ahead of time. I am also comfortable with responsibly
+using environments, so I think that increases my willingness to jump into a new
+OS framework. I am a little worried about moving from Ubuntu to Nix on an
+existing machine, but that is what external hard drive backups are for!</p>
+<p>That is all folks! Thanks for reading 👋</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/nixos/" rel="tag">NixOS</a></li>
+            <li><a class="tag p-category" href="../../../../categories/raspberry-pi/" rel="tag">Raspberry Pi</a></li>
+            <li><a class="tag p-category" href="../../../../categories/wireless-router/" rel="tag">Wireless Router</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../../07/writing-docs-is-not-just-writing-docs/" rel="prev" title="Writing docs is not just writing docs">Previous post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2020         <a href="mailto:info@quansight.com">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>
