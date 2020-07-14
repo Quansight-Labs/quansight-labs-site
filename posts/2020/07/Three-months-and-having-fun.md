@@ -11,8 +11,8 @@
 -->
 
 I joined Quansight Labs at the beginning of April, splitting my time between
-PyTorch (working on a community work order) and contributing to the
-Python scientific data software stack, primarily on NumPy. I have found
+PyTorch (as part of a group working under a contract) and contributing to the
+Python scientific data software stack, primarily to NumPy. I have found
 my next home; the people, the projects, and the atmosphere are an all
 around win-win for me and (I hope) for the projects to which I contribute.
 
@@ -27,16 +27,16 @@ took on a full-time position working on NumPy, funded through a grant to
 Labs as a full-time developer. 
 
 [Quansight Labs](https://www.quansight.com/labs) is a subsidiary of Quansight
-LLC, and Lab's mission is "Sustaining the future of open source". It does this
+LLC, and Labs' mission is "Sustaining the future of open source". It does this
 by gathering together an amazing group of software developers and letting them
-loose on a variety of open source projects: Numpy, Spyder, and
-[more](http://labs.quansight.org/categories). Of course, the developers do not
-only volunteer their time. Quansight Labs is sponsored via
+loose on a variety of open source projects: Numpy, Spyder, Jupyter, conda-forge,
+Numba and [more](http://labs.quansight.org/categories). Of course, the
+developers do not only volunteer their time. Quansight Labs is sponsored via
 
 - generous support from Quansight LLC,
 - grants like the one from [CZI for NumPy and
   OpenBLAS](http://labs.quansight.org/blog/2019/11/numpy-openblas-CZI-grant),
-- and via [work
+- and via [community work
   orders](http://labs.quansight.org/blog/2019/05/community-driven-opensource-funded-development/)
   from companies like D. E. Shaw who sponsor [work on
   Dask](http://labs.quansight.org/blog/2019/08/labs-dask-update).
@@ -63,7 +63,7 @@ there, keep posted for more as my journey progresses.
 
 I was very hesitant to make the leap into a new career. I am no spring chicken,
 and I was worried that I would not be able to find a suitable position. I only
-began my software developer carreer late in life after I tired of
+began my software developer career late in life after I tired of
 electrical design and contracting. But I am here to tell you that even an old
 dog can learn new tricks. I began my open source chapter as a volunteer,
 which improved my programming powers and led to meeting people outside
@@ -72,5 +72,3 @@ I could do it, others can too.
 
 Joining Quansight Labs was definitely the right step for me. I hope you also
 find your paths enjoyable and rewarding.
-
-Matti Picus
