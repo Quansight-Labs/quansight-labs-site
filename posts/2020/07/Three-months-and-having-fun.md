@@ -10,11 +10,12 @@
 .. type: text
 -->
 
-I joined Quansight Labs at the beginning of April, splitting my time between
-PyTorch (as part of a group working under a contract) and contributing to the
-Python scientific data software stack, primarily to NumPy. I have found
-my next home; the people, the projects, and the atmosphere are an all
-around win-win for me and (I hope) for the projects to which I contribute.
+I joined Quansight at the beginning of April, splitting my time between
+PyTorch (as part of a larger Quansight team) and contributing to Quansight Labs
+supported community-driven projects in the Python scientific and data science
+software stack, primarily to NumPy.  I have found my next home; the people, the
+projects, and the atmosphere are an all around win-win for me and (I hope) for
+the projects to which I contribute.
 
 <!-- TEASER_END -->
 
