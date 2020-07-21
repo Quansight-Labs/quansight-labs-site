@@ -5,6 +5,16 @@ title: Numba
 description:  Numba makes Python code fast! Numba is an open source JIT compiler that translates a subset of Python and NumPy code into fast machine code. 
 order: 1
 ---
+name: scipy.png
+eurl: https://www.scipy.org/
+title: SciPy
+description: The SciPy library is one of the core packages that make up the SciPy stack. It provides many user-friendly and efficient numerical routines, such as routines for numerical integration, interpolation, optimization, linear algebra, and statistics.
+---
+name: zarr.png
+eurl: https://zarr.readthedocs.io/en/stable/
+title: Zarr
+description: Zarr is a Python package providing an implementation of chunked, compressed, N-dimensional arrays.
+---
 name: sympy.png
 eurl: https://www.sympy.org/en/index.html
 title: SymPy
