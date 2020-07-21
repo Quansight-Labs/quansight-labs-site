@@ -19,11 +19,6 @@ title: Peter Bell
 github: peterbell10
 projects: ['SciPy', 'uarray']
 ---
-name: james_bourbeau.png
-title: James Bourbeau
-github: jrbourbeau
-projects: ['Dask', 'Numba', 'Zarr']
----
 name: matthias_bussonnier.JPG
 title: Matthias Bussonnier
 github: Carreau
@@ -67,7 +62,7 @@ projects: ['Spyder']
 name: anirrudh_krishnan.png
 title: Anirrudh Krishnan
 github: anirrudh
-projects: []
+projects: ['mtypes']
 ---
 name: mars_lee.png
 title: Mars Lee
@@ -92,7 +87,7 @@ projects: ['NumPy']
 name: aaron_meurer.png
 title: Aaron Meurer
 github: asmeurer
-projects: ['Numba', 'SymPy']
+projects: ['Numba', 'SymPy', 'ndindex']
 ---
 name: ivan_ogasawara.png
 title: Ivan Ogasawara
@@ -138,4 +133,9 @@ name: saul_shanabrook.png
 title: Saul Shanabrook
 github: saulshanabrook
 projects: ['JupyterLab', 'metadsl']
+---
+name: victor_fomin.jpg
+title: Victor Fomin
+github: vfdev-5
+projects: ['PyTorch Ignite']
 ---
