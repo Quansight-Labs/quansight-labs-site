@@ -1,7 +1,7 @@
 <!--
 .. title: Quansight Labs: what I learned in my first 3 months
-.. slug: A win-win all around
-.. date: 2020-07-03 01:00:00 UTC-05:00
+.. slug: a-win-win-all-around
+.. date: 2020-07-21 01:00:00 UTC-05:00
 .. author: Matti Picus
 .. tags: Labs, NumPy, PyTorch, funding
 .. category:
