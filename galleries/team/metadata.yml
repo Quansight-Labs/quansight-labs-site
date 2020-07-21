@@ -67,7 +67,7 @@ projects: ['Spyder']
 name: anirrudh_krishnan.png
 title: Anirrudh Krishnan
 github: anirrudh
-projects: []
+projects: ['mtypes']
 ---
 name: mars_lee.png
 title: Mars Lee
@@ -92,7 +92,7 @@ projects: ['NumPy']
 name: aaron_meurer.png
 title: Aaron Meurer
 github: asmeurer
-projects: ['Numba', 'SymPy']
+projects: ['Numba', 'SymPy', 'ndindex']
 ---
 name: ivan_ogasawara.png
 title: Ivan Ogasawara
