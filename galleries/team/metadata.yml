@@ -72,7 +72,7 @@ projects: ['NumPy']
 name: guilherme_leobas.png
 title: Guilherme Leobas
 github: guilhermeleobas
-projects: ['Numba', 'XND']
+projects: ['Numba', 'XND', 'PyData/Sparse']
 ---
 name: edgar_margffoy.png
 title: Edgar Margffoy
@@ -107,7 +107,7 @@ projects: ['Spyder']
 name: pearu_peterson.png
 title: Pearu Peterson
 github: pearu
-projects: ['Numba', 'rbc', 'XND']
+projects: ['Numba', 'f2py', 'rbc', 'XND']
 ---
 name: matti_picus.png
 title: Matti Picus
@@ -117,7 +117,7 @@ projects: ['NumPy', 'PyPy']
 name: isabela_presedo.jpg
 title: Isabela Presedo-Floyd
 github: isabela-pf
-projects: ['JupyterLab']
+projects: ['JupyterLab', 'Spyder']
 ---
 name: athan_reines.png
 title: Athan Reines
@@ -127,7 +127,7 @@ projects: ['JupyterLab', 'stdlib.js']
 name: anthony_scopatz.png
 title: Anthony Scopatz
 github: scopatz
-projects: ['conda-forge', 'PyTables']
+projects: ['conda-forge']
 ---
 name: saul_shanabrook.png
 title: Saul Shanabrook
