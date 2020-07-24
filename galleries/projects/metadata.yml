@@ -95,21 +95,9 @@ title: XND
 description: We are building XND to recreate the foundations of NumPy as a number of smaller libraries, combining the lessons learned in the past twenty years of array computing in Python with the needs of newer applications. This is not a replacement of NumPy. Eventually, NumPy could use XND as could Pandas, Dask, and other libraries.
 order: 15
 ---
-name: pytables.png
-eurl: https://www.pytables.org/
-title: PyTables
-description: PyTables is a package for managing hierarchical datasets and designed to efficiently and easily cope with extremely large amounts of data. You can download PyTables and use it for free.
+name: holoviz_logo.svg
+eurl: http://holoviz.org/
+title: HoloViz
+description: HoloViz is a coordinated effort to make browser-based data visualization in Python easier to use, easier to learn, and more powerful.
 order: 16
----
-name: pyviz.png
-eurl: https://pyviz.org/
-title: PyViz
-description: The PyViz.org website is an open platform for helping users decide on the best open-source (OSS) Python data visualization tools for their purposes, with links, overviews, comparisons, and examples.
-order: 17
----
-name: altair-logo-light.png
-eurl: https://altair-viz.github.io
-title: Altair
-description: Altair is a declarative statistical visualization library for Python. With Altair, you can spend more time understanding your data and its meaning. Altair's API is simple, friendly and consistent and built on top of the powerful Vega-Lite JSON specification. This elegant simplicity produces beautiful and effective visualizations with a minimal amount of code.
-order: 18
 ---
