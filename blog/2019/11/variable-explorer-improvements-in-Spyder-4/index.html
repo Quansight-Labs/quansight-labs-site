@@ -42,9 +42,7 @@ navbar-dark bg-dark
 "><div class="container">
 <!-- This keeps the margins nice -->
         <a class="navbar-brand" href="../../../../">
-
-            <span id="blog-title">Quansight Labs</span>
-        </a>
+            <img src="../../../../images/quansight_labs_logo_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -55,25 +53,24 @@ navbar-dark bg-dark
 <a href="../../../../" class="nav-link">Home</a>
                 </li>
 <li class="nav-item">
-<a href="../../../../archive.html" class="nav-link">Archive</a>
+<a href="../../../" class="nav-link">Blog</a>
                 </li>
 <li class="nav-item">
-<a href="../../../../categories/" class="nav-link">Tags</a>
+<a href="../../../../team/" class="nav-link">Team</a>
                 </li>
 <li class="nav-item">
-<a href="../../../../rss.xml" class="nav-link">RSS feed</a>
+<a href="../../../../projects/" class="nav-link">Projects</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../about/" class="nav-link">About</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS</a>
 
                 
             </li>
 </ul>
-<ul class="navbar-nav navbar-right">
-<li class="nav-item">
-    <a href="index.md" id="sourcelink" class="nav-link">Source</a>
-    </li>
-
-
-                
-            </ul>
+<ul class="navbar-nav navbar-right"></ul>
 </div>
 <!-- /.navbar-collapse -->
     </div>
@@ -84,7 +81,9 @@ navbar-dark bg-dark
         
         
         
-<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Variable Explorer improvements in Spyder 4</a></h1>
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name">
+                <a href="." class="u-url">Variable Explorer improvements in Spyder 4</a>
+            </h1>
 
         <div class="metadata">
             <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
@@ -95,13 +94,14 @@ navbar-dark bg-dark
             <time class="published dt-published" datetime="2019-11-28T20:00:00-05:00" itemprop="datePublished" title="2019-11-28">2019-11-28</time></a>
             </p>
             
-        <p class="sourceline"><a href="index.md" class="sourcelink">Source</a></p>
 
         </div>
         
-
-    </header><div class="e-content entry-content" itemprop="articleBody text">
-    <div>
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/labs/" rel="tag">Labs</a></li>
+            <li><a class="tag p-category" href="../../../../categories/spyder/" rel="tag">Spyder</a></li>
+        </ul></header><div class="e-content entry-content" itemprop="articleBody text">
+        <div>
 <p><a href="https://www.spyder-ide.org/">Spyder</a> 4 will be released very soon with lots of interesting new features that you'll want to check out, reflecting years of effort by the team to improve the user experience. In this post, we will be talking about the improvements made to the Variable Explorer.</p>
 <p>These include the brand new Object Explorer for inspecting arbitrary Python variables, full support for MultiIndex dataframes with multiple dimensions, and the ability to filter and search for variables by name and type, and much more.</p>
 <p>It is important to mention that several of the above improvements were made possible through integrating the work of two other projects. Code from <a href="https://github.com/TabViewer/gtabview">gtabview</a> was used to implement the multi-dimensional Pandas indexes, while <a href="https://github.com/titusjan/objbrowser">objbrowser</a> was the foundation of the new Object Explorer.</p>
@@ -140,19 +140,20 @@ To access this functionality, click the search icon in the Variable Explorer too
 <p>Spyder's Variable Explorer is what many of you consider to be one of its standout features, so we can't wait for you all to get your hands on the even better version in Spyder 4. Thanks again to Quansight, our generous community donors, and as always all of you! Spyder 4.0.0 final is planned to be released within approximately one more week, but if you'd like to test it out immediately, follow the instructions on our <a href="https://github.com/spyder-ide/spyder/releases">GitHub</a> to install the pre-release version (which won't touch your existing Spyder install or settings). As always, happy Spydering!</p>
 </div>
     </div>
-    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
-<li><a class="tag p-category" href="../../../../categories/labs/" rel="tag">Labs</a></li>
-            <li><a class="tag p-category" href="../../../../categories/spyder/" rel="tag">Spyder</a></li>
-        </ul>
-<ul class="pager hidden-print">
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
 <li class="previous">
                 <a href="../numpy-openblas-CZI-grant/" rel="prev" title="A new grant for NumPy and OpenBLAS!">Previous post</a>
             </li>
+
+            <li class="archive">
+                <a href="../../../../archive.html" rel="archive" title="Archive ">Archive</a>
+            </li>
+
             <li class="next">
                 <a href="../../12/metadsl-talk/" rel="next" title="metadsl PyData talk">Next post</a>
             </li>
         </ul></nav></aside></article><!--End of body content--><footer id="footer">
-            Contents © 2020         <a href="mailto:info@quansight.com">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            Contents © 2020         <a href="../../../../team">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             
             
         </footer>

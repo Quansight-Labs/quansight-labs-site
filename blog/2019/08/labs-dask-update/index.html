@@ -44,9 +44,7 @@ navbar-dark bg-dark
 "><div class="container">
 <!-- This keeps the margins nice -->
         <a class="navbar-brand" href="../../../../">
-
-            <span id="blog-title">Quansight Labs</span>
-        </a>
+            <img src="../../../../images/quansight_labs_logo_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -57,25 +55,24 @@ navbar-dark bg-dark
 <a href="../../../../" class="nav-link">Home</a>
                 </li>
 <li class="nav-item">
-<a href="../../../../archive.html" class="nav-link">Archive</a>
+<a href="../../../" class="nav-link">Blog</a>
                 </li>
 <li class="nav-item">
-<a href="../../../../categories/" class="nav-link">Tags</a>
+<a href="../../../../team/" class="nav-link">Team</a>
                 </li>
 <li class="nav-item">
-<a href="../../../../rss.xml" class="nav-link">RSS feed</a>
+<a href="../../../../projects/" class="nav-link">Projects</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../about/" class="nav-link">About</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS</a>
 
                 
             </li>
 </ul>
-<ul class="navbar-nav navbar-right">
-<li class="nav-item">
-    <a href="index.md" id="sourcelink" class="nav-link">Source</a>
-    </li>
-
-
-                
-            </ul>
+<ul class="navbar-nav navbar-right"></ul>
 </div>
 <!-- /.navbar-collapse -->
     </div>
@@ -86,7 +83,9 @@ navbar-dark bg-dark
         
         
         
-<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Quansight Labs Dask Update</a></h1>
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name">
+                <a href="." class="u-url">Quansight Labs Dask Update</a>
+            </h1>
 
         <div class="metadata">
             <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
@@ -97,13 +96,14 @@ navbar-dark bg-dark
             <time class="published dt-published" datetime="2019-08-27T00:00:00-05:00" itemprop="datePublished" title="2019-08-27">2019-08-27</time></a>
             </p>
             
-        <p class="sourceline"><a href="index.md" class="sourcelink">Source</a></p>
 
         </div>
         
-
-    </header><div class="e-content entry-content" itemprop="articleBody text">
-    <div>
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/dask/" rel="tag">Dask</a></li>
+            <li><a class="tag p-category" href="../../../../categories/labs/" rel="tag">Labs</a></li>
+        </ul></header><div class="e-content entry-content" itemprop="articleBody text">
+        <div>
 <p>This post provides an update on some recent <a href="https://dask.org/">Dask</a>-related activities the Quansight Labs team has been working on.</p>
 <h3>Dask community work order</h3>
 <p>Through a community work order (CWO) with <a href="https://www.deshaw.com/">the D. E. Shaw group</a>, the Quansight Labs team has been able to dedicate developer time towards bug fixes and feature requests for Dask. This work has touched on several portions of the Dask codebase, but generally have centered around using <a href="https://docs.dask.org/en/latest/array.html">Dask Arrays</a> with the <a href="https://distributed.dask.org/en/latest/">distributed scheduler</a>.
@@ -117,19 +117,20 @@ For instance, performance improvement in how Dask handles large graphs were made
 <p>Finally, there's been a push for a more coordinated effort towards project maintenance and development by core Dask maintainers at Quansight, Anaconda, and NVIDIA. As part of this effort, we spend a portion of our work week on day-to-day project maintenance tasks (e.g. responding on issues, reviewing pull requests, fixing CI systems, etc.) as well as working on contributions that require significant amounts of time or expertise to implement (e.g. large-scale refactoring, adding new features, writing documentation, etc.). Today, Dask users typically get a quicker response from a core maintainer when opening an issue or pull request, in part, because of these efforts. I, and perhaps other core maintainers, hope to write more about this process in the future.</p>
 </div>
     </div>
-    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
-<li><a class="tag p-category" href="../../../../categories/dask/" rel="tag">Dask</a></li>
-            <li><a class="tag p-category" href="../../../../categories/labs/" rel="tag">Labs</a></li>
-        </ul>
-<ul class="pager hidden-print">
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
 <li class="previous">
                 <a href="../spyder-40-beta4-kite-integration-is-here/" rel="prev" title="Spyder 4.0 beta4: Kite integration is here">Previous post</a>
             </li>
+
+            <li class="archive">
+                <a href="../../../../archive.html" rel="archive" title="Archive ">Archive</a>
+            </li>
+
             <li class="next">
                 <a href="../../09/ruby-wrappers-for-the-xnd-project/" rel="next" title="Ruby wrappers for the XND project">Next post</a>
             </li>
         </ul></nav></aside></article><!--End of body content--><footer id="footer">
-            Contents © 2020         <a href="mailto:info@quansight.com">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            Contents © 2020         <a href="../../../../team">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             
             
         </footer>

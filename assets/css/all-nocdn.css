@@ -876,6 +876,154 @@ html[dir="rtl"] body {
     text-align: right;
 }
 
+/* Quangight Lab CSS Code */
+
+/* Github icon*/
+.fa {
+  font-size: 20px !important;
+}
+
+.fa-github-square {
+  color: black;
+}
+
+/*Single Post CSS*/
+.tags{
+  text-align: left;
+  margin-left: 0px;
+}
+header a{
+  color: #5d2e8c;
+}
+
+header a:hover{
+  color: #8E5FBD
+}
+.body-content a {
+  color: #5d2e8c
+}
+
+.body-content a:hover{
+  color: #8E5FBD
+}
+
+.body-content a.badge{
+  color: #fff
+}
+
+.archive {
+  margin-top: 5px;
+}
+
+/* NavBar Header CSS */
+.bg-dark{
+  background-color: #2c0848!important;
+}
+.navbar-dark .navbar-nav{
+  font-size: medium;
+  font-weight: bold;
+  font-family: 'Franklin Gothic Large', sans-serif;
+}
+.navbar-dark .navbar-nav .nav-link{
+  color: #FFF;
+} 
+.navbar-dark .navbar-nav .nav-link:hover{
+  color: #3bcd76;
+
+} 
+.navbar-dark .navbar-nav .active .nav-link{
+  color: #3bcd76;
+}
+#logo {
+  max-height: 50px;
+}  
+#navbar-separator{
+  background-color: #fff;
+  border-bottom: 5px solid #5D2E8C;
+}
+
+/* Sub Headers CSS */
+.sub-header > h1{
+  font-weight: bold;
+  font-family: 'Franklin Gothic Large', sans-serif;
+  color: #868e96;
+  margin-bottom: 0px;
+}
+
+.sub-title{
+  color: #3bcd76;
+}
+
+.sub-underline{
+  background: #3bcd76;
+  width: 120px;
+  height: 10px;
+}
+
+/* Github icon*/
+.fa {
+  font-size: 30px !important;
+}
+
+.fa-github-square {
+  color: black;
+  color: #868e96;
+  position: relative;
+  left: 30px;
+  bottom: 30px;
+}
+
+/*Single Post CSS*/
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a img.img-circle {
+  border-radius: 50%;
+  max-width: 170px;
+}
+
+/*Input and Prompt styling */
+div.prompt {
+  display: none;
+}
+
+div.input  {
+  border: none;
+  background-color: none;
+}
+
+div.input * {
+  background-color: none;
+}
+
+/* Center Menu Text in Small Screens */
+#bs-navbar{
+  text-align: center;
+}
+
+/* set a max-width for horizontal fluid layout and make it centered */
+.body-content {
+margin-right: auto;
+margin-left: auto;
+max-width: 750px;
+}
+
+div.output_subarea {
+  /* Widens image-containing divs so that image is full body width */
+  max-width: 100%;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+
+
 /*!
  * Bootstrap v3.4.0 (https://getbootstrap.com/)
  * Copyright 2011-2018 Twitter, Inc.
@@ -890,6 +1038,7 @@ html {
 body {
   margin: 0;
 }
+
 article,
 aside,
 details,
@@ -5205,9 +5354,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-brand {
+  margin:0px;
   float: left;
   height: 50px;
-  padding: 15px 15px;
   font-size: 18px;
   line-height: 20px;
 }
@@ -5253,6 +5402,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     display: none;
   }
 }
+
 .navbar-nav {
   margin: 7.5px -15px;
 }
@@ -5267,6 +5417,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     float: none;
     width: auto;
     margin-top: 0;
+    text-align: center;
     background-color: transparent;
     border: 0;
     box-shadow: none;
@@ -5935,9 +6086,6 @@ a.badge:focus {
   padding: 4px;
   margin-bottom: 20px;
   line-height: 1.42857143;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
   -webkit-transition: border 0.2s ease-in-out;
   -o-transition: border 0.2s ease-in-out;
   transition: border 0.2s ease-in-out;
