@@ -1,0 +1,72 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="post_helper.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+
+<%def name="html_title()">
+%if title and not post.meta('hidetitle'):
+    %if description :
+            <div class="sub-header">
+                <h1>
+                    ${post.title()|h}<span class="sub-title"> ${post.description()|h}</span>
+                </h1>
+                <div class="sub-underline"> </div>
+            </div>
+        %else :
+            <h1 class="p-name entry-title" itemprop="headline name">
+                <a href="${post.permalink()}" class="u-url">${post.title()|h}</a>
+            </h1>
+        %endif
+%endif
+</%def>
+
+<%def name="html_translations(post)">
+    % if len(post.translated_to) > 1:
+        <div class="metadata posttranslations translations">
+            <h3 class="posttranslations-intro">${messages("Also available in:")}</h3>
+            % for langname in sorted(translations):
+                % if langname != lang and post.is_translation_available(langname):
+                <p><a href="${post.permalink(langname)}" rel="alternate" hreflang="${langname}">${messages("LANGUAGE", langname)}</a></p>
+                % endif
+            % endfor
+        </div>
+    % endif
+</%def>
+
+<%def name="html_sourcelink()">
+    % if show_sourcelink:
+        <p class="sourceline"><a href="${post.source_link()}" class="sourcelink">${messages("Source")}</a></p>
+    % endif
+</%def>
+
+<%def name="html_post_header()">
+    <header>
+        ${html_title()}
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                % if author_pages_generated:
+                    <a class="u-url" href="${_link('author', post.author())}">${post.author()|h}</a>
+                % else:
+                    ${post.author()|h}
+                % endif
+            </span></p>
+            <p class="dateline">
+            <a href="${post.permalink()}" rel="bookmark">
+            <time class="published dt-published" datetime="${post.formatted_date('webiso')}" itemprop="datePublished" title="${post.formatted_date(date_format)|h}">${post.formatted_date(date_format)|h}</time>
+            % if post.updated and post.updated != post.date:
+                <span class="updated"> (${messages("updated")}
+                    <time class="updated dt-updated" datetime="${post.formatted_updated('webiso')}" itemprop="dateUpdated" title="${post.formatted_updated(date_format)|h}">${post.formatted_updated(date_format)|h}</time>)</span>
+            % endif
+            </a>
+            </p>
+            % if not post.meta('nocomments') and site_has_comments:
+                <p class="commentline">${comments.comment_link(post.permalink(), post._base_path)}
+            % endif
+            ${html_sourcelink()}
+            % if post.meta('link'):
+                    <p class="linkline"><a href="${post.meta('link')}">${messages("Original site")}</a></p>
+            % endif
+        </div>
+        ${helper.html_tags(post)}
+        ${html_translations(post)}
+    </header>
+</%def>

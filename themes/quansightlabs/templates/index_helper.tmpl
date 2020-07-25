@@ -1,0 +1,30 @@
+## -*- coding: utf-8 -*-
+<%def name="html_pager()">
+    %if prevlink or nextlink:
+        <ul class="pager postindexpager clearfix">
+        %if nextlink:
+            <li class="previous">
+                <a href="${nextlink}" rel="next">${messages("Older posts")}</a>
+            </li>
+        %else:
+            <li class="previous disabled">
+                <a rel="next">${messages("Older posts")}</a>
+            </li>
+        %endif
+
+            <li class="archive">
+                <a href="/archive.html" rel="archive" title="Archive ">${messages("Archive")}</a>
+            </li>
+
+        %if prevlink:
+            <li class="next">
+                <a href="${prevlink}" rel="prev">${messages("Newer posts")}</a>
+            </li>
+        %else:
+            <li class="next disabled">
+                <a rel="next">${messages("Newer posts")}</a>
+            </li>
+        %endif
+        </ul>
+    %endif
+</%def>

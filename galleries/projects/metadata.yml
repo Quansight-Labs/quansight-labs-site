@@ -1,0 +1,103 @@
+---
+name: numpylogo.svg
+eurl: https://numpy.org/
+title: NumPy
+description: "NumPy is the fundamental package for scientific computing with Python. It contains among other things: a powerful N-dimensional array object, sophisticated (broadcasting) functions, tools for integrating C/C++ and Fortran code, and useful linear algebra, Fourier transform, and random number capabilities."
+order: 0
+---
+name: jupyterlab.svg
+eurl: https://jupyterlab.readthedocs.io/en/stable/getting_started/overview.html
+title: JupyterLab
+description: JupyterLab is a next-generation web-based user interface for Project Jupyter. JupyterLab enables you to work with documents and activities such as Jupyter notebooks, text editors, terminals, and custom components in a flexible, integrated, and extensible manner.
+order: 1
+---
+name: conda-forge.png
+eurl: https://conda-forge.org/
+title: conda-forge
+description: conda-forge is a community effort that provides conda packages for a wide range of software.
+order: 2
+---
+name: dask.png
+eurl: https://dask.org/
+title: Dask
+description:  Dask natively scales Python! Dask provides advanced parallelism for analytics, enabling performance at scale for the tools you love.
+order: 3
+---
+name: spyder.svg
+eurl: https://www.spyder-ide.org
+title: Spyder IDE
+description:  Spyder is a powerful scientific environment written in Python, for Python, and designed by and for scientists, engineers and data analysts. It offers a unique combination of the advanced editing, analysis, debugging, and profiling functionality of a comprehensive development tool with the data exploration, interactive execution, deep inspection, and beautiful visualization capabilities of a scientific package.
+order: 4
+---
+name: scipy.png
+eurl: https://www.scipy.org/
+title: SciPy
+description: The SciPy library is one of the core packages that make up the SciPy stack. It provides many user-friendly and efficient numerical routines, such as routines for numerical integration, interpolation, optimization, linear algebra, and statistics.
+order: 5
+---
+name: zarr.png
+eurl: https://zarr.readthedocs.io/en/stable/
+title: Zarr
+description: Zarr is a Python package providing an implementation of chunked, compressed, N-dimensional arrays.
+order: 6
+---
+name: jupyterhub.svg
+eurl: https://jupyter.org/hub
+title: JupyterHub
+description: JupyterHub brings the power of notebooks to groups of users. It gives users access to computational environments and resources without burdening the users with installation and maintenance tasks. Users - including students, researchers, and data scientists - can get their work done in their own workspaces on shared resources which can be managed efficiently by system administrators.
+order: 7
+---
+name: numba-blue-horizontal-rgb.svg
+eurl: http://numba.pydata.org/
+title: Numba
+description:  Numba makes Python code fast! Numba is an open source JIT compiler that translates a subset of Python and NumPy code into fast machine code.
+order: 8
+---
+name: sympy.png
+eurl: https://www.sympy.org/en/index.html
+title: SymPy
+description: SymPy is a Python library for symbolic mathematics. It aims to become a full-featured computer algebra system (CAS) while keeping the code as simple as possible in order to be comprehensible and easily extensible. SymPy is written entirely in Python.
+order: 9
+---
+name: sparse.png
+eurl: https://sparse.pydata.org/en/latest/index.html
+title: PyData Sparse 
+description: Sparse arrays, or arrays that are mostly empty or filled with zeros, are common in many scientific applications. To save space we often avoid storing these arrays in traditional dense formats, and instead choose different data structures. Our choice of data structure can significantly affect our storage and computational costs when working with these arrays. Sparse implements sparse arrays of arbitrary dimension on top of numpy and scipy.sparse. It generalizes the scipy.sparse.coo_matrix and scipy.sparse.dok_matrix layouts, but extends beyond just rows and columns to an arbitrary number of dimensions.
+order: 10
+---
+name: ignite_logo.svg
+eurl: https://github.com/pytorch/ignite
+title: PyTorch Ignite
+description: Ignite is a high-level library to help with training and evaluating neural networks in PyTorch flexibly and transparently.
+order: 11
+---
+name: ibis.svg
+eurl: https://docs.ibis-project.org/
+title: Ibis 
+description: Ibis is a toolbox to bridge the gap between local Python environments (like pandas and scikit-learn) and remote storage and execution systems like Hadoop components (like HDFS, Impala, Hive, Spark) and SQL databases (Postgres, etc.). Its goal is to simplify analytical workflows and make you more productive.
+order: 12
+---
+name: uarray.png
+eurl: https://uarray.org/en/latest/
+title: Uarray 
+description: <code>uarray</code> is a backend system for Python that allows you to separately define an API, along with backends that contain separate implementations of that API.
+order: 13
+---
+name: metadsl.png
+eurl: https://uarray.org/en/latest/
+title: metadsl
+description: <i>Domain Specific Languages Embedded in Python</i> <br> <i>metadsl</i> inserts a layer between calling a function and computing its result, so that we can build up a bunch of calls, transform them, and then execute them all at once.
+order: 14
+---
+name: xnd.png
+eurl: https://xnd.io/
+title: XND
+description: We are building XND to recreate the foundations of NumPy as a number of smaller libraries, combining the lessons learned in the past twenty years of array computing in Python with the needs of newer applications. This is not a replacement of NumPy. Eventually, NumPy could use XND as could Pandas, Dask, and other libraries.
+order: 15
+---
+name: holoviz_logo.svg
+eurl: http://holoviz.org/
+title: HoloViz
+description: HoloViz is a coordinated effort to make browser-based data visualization in Python easier to use, easier to learn, and more powerful.
+order: 16
+---
