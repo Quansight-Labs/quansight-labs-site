@@ -12,6 +12,7 @@
 
 .. image:: /images/quansight_labs_logo.png
 
+.. class:: col-md-12
 
 TODO: add text
 
@@ -19,4 +20,6 @@ TODO: add text
 Sponsors
 --------
 
-.. image:: /images/sponsors/sponsors.png
+.. class:: jumbotron col-md-12
+
+.. image:: /images/sponsors.png
