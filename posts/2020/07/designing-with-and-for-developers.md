@@ -1,7 +1,7 @@
 <!--
 .. title: Designing with and for developers
 .. slug: designing-with-and-for-developers
-.. date: 2020-07-20 00:13:42 UTC-08:42
+.. date: 2020-08-03 00:13:42 UTC-08:42
 .. author: Isabela Presedo-Floyd
 .. tags: design,
 .. category:
