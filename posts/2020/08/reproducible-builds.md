@@ -1,7 +1,7 @@
 <!--
 .. title: IPython reproducible build
 .. slug: ipython-reproducible-builds
-.. date: 2020-08-05 22:00:00 UTC-00:00
+.. date: 2020-08-10 22:00:00 UTC-00:00
 .. author: Matthias Bussonnier
 .. tags: Labs, IPython, reproducible-builds, packaging
 .. category:
@@ -11,7 +11,7 @@
 -->
 
 Starting with IPython 7.16.1 (released in June 2020), you _should_ be able to recreate the sdist (`.tar.gz`) and wheel
-(`.whl`), and get bytes for bytes identical result to the ones publish on PyPI. This is a critical step toward being able
+(`.whl`), and get byte for byte identical result to the wheels published on PyPI. This is a critical step toward being able
 to _trust_ your computing platforms, and a key component to improve efficiency of build and packaging platform, with
 potentially impacts on fast conda environment creation for users. The following goes into some reason of why you should care.
 
@@ -26,13 +26,13 @@ build process.
 [2]: https://reproducible-builds.org/
 [1]: https://www.cs.cmu.edu/~rdriley/487/papers/Thompson_1984_ReflectionsonTrustingTrust.pdf
 
-While security is one of the earliest concepts that advocated for reproducible build, there are a number of other
-advantages to ensure the same artifacts can be reproduced identically.
+While information security practitioners were one of the earliest groups who advocated for reproducible builds, there
+are a number of other advantages to ensure the same artifacts can be reproduced identically.
 
 For the users of the Scientific Python ecosystem, the notion of reproducibility/replicability is not new, and is one of
 the critical idea behind the scientific process. Given some instructions from an author, you should be able to perform some
-experiments or proof, and reach the same conclusion. When the contrary then your instructions or hypothesis are missing
-some variable elements and your model is incomplete; having a complete model, reproductible, is one of the necessary
+experiments or proof, and reach the same conclusion. When you see the opposite then your instructions or hypothesis are missing
+some variable elements and your model is incomplete; having a complete model, reproducibility, is one of the necessary
 component to be able to trust the results and build upon it. We are not going to enter into the exact distinction
 between reproducible and replicable, both have their goal and uses.
 
@@ -64,7 +64,7 @@ one step at a time. Reproducible build artifacts can also have impact on the bui
 # Efficient dependencies rebuild. 
 
 Currently IPython depends on many packages: prompt_toolkit, traitlets, setuptools, ...etc, and we have a number of
-dependees, ipykernel, then jupyter notebook... When dependencies tree is rebuilt for a reason or another, a change of a
+downstream packages, ipykernel, then jupyter notebook... When dependencies tree is rebuilt for a reason or another, a change of a
 single bit could trigger the rebuild of the all chain. When package like IPython are not reproducible, this mean  a
 rebuild of IPython – whether it has changed or not – could trigger a rebuild of all downstream elements.
 
