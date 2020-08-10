@@ -75,7 +75,7 @@ movement), and we can also do caching of results, so for identical input we know
 
 This can allow break rebuild chains and stop as soon as soon as a dependency rebuild has no effect.
 
-This has the opportunity to massively decrease the time spend by platform like conda-forge on rebuilding the ecosystem
+Thus, reproducible builds are a necessary but not sufficient condition to decrease the time spend by platform like conda-forge on rebuilding the ecosystem
 on new version of Python; making new packages available faster. 
 
 # Deduplication
