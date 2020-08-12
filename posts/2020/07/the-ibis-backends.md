@@ -209,7 +209,7 @@ Leave a comment the backends what you like to see? `dask`? `altair`?
 
 ## `ibis` direct execution.
 
-`ibis` direct execution backends like `pandas and hdf5` operate on conventional in-memory python objects.
+`ibis` direct execution backends like `pandas` and `hdf5` operate on conventional in-memory python objects.
 `pandas` is the gold standard for structured data in python, and inspires the api for `ibis`.
 
 `pd` is an `ibis` backend based off `pandas.DataFrame` objects.
