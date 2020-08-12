@@ -197,7 +197,7 @@ for different backends over __6__ years.
 
 > We note an early focus `ibis.sqlite, sqlalchemy and ibis.impala`. 
 Later, work began on the `pandas` backend rounding out the three different types of backgrounds.
-From this point, improvements were made to these key backends as `ibis.clickhouse, ibis.spark and "postgres"`. Recently, 
+From this point, improvements were made to these key backends as `ibis.clickhouse`, `ibis.spark` and `ibis.postgres`. 
 For the past 3 years, Quansight, in partnership with OmniSci, added the `ibis.omniscidb`
 string generating backend. Since Quansight Labs has taken on a role as a community maintainer 
 for `ibis`. This collaboration introduced geospatial functionality to `ibis`, and we 
