@@ -9,7 +9,7 @@
 
 In [our most recent `ibis` post] we look at querying & retrieving data using a familiar `pandas`-like interface.
 This example focused on the fluent API that `ibis` provides to query structure from a SQLite database, a single backend.
-In this post, we'll explore `ibis`'s ability to answer questions about data using to different `ibis` backends.
+In this post, we'll explore `ibis`'s ability to answer questions about data using two different `ibis` backends.
 
 ## `ibis` in the scientific Python ecosystem.
 
