@@ -46,7 +46,7 @@ In the next few sections we'll unravel some of the different capabilities of eac
 ## A data-driven history of `ibis` compatability.
 
 The table below looks at over 2000 issues in the ibis project.
-It provides an annual looked at the issues tagged in `ibis`
+It provides an annual summary of the issues tagged in `ibis`
 for different backends over __6__ years.
 
 
