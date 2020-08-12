@@ -40,7 +40,7 @@ A backend implementation, that can be queried with `ibis`, has one of the three 
 2. Expression generating backends that create `sqlalchemy` expressions - `ibis.sql`.
 3. String generating backends - `ibis.bigquery and ibis.omniscidb`
 
-In the next few sections we'll unravel some of the different capiabilities of each approach.
+In the next few sections we'll unravel some of the different capabilities of each approach.
 
 
 ## A data-driven history of `ibis` compatability.
