@@ -253,7 +253,7 @@ their own computation. For example, we may connect to an example `omnisci` datab
 query is a flavor of SQL.
 
     
-A string generating expression compiles to `ibis.omniscidb` flavored [SQL], while `ibis.bigquery` may have a different string representatin.
+A string generating expression compiles to `ibis.omniscidb` flavored [SQL], while `ibis.bigquery` may have a different string representation.
 
 
 
