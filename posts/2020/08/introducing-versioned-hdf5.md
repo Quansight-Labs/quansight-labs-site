@@ -13,6 +13,7 @@
 The problem of storing and manipulating large amounts of data is a challenge in many scientific computing and industry applications. One of the standard data models for this is [HDF5](https://support.hdfgroup.org/HDF5/whatishdf5.html), an open technology that implements a hierarchical structure (similar to a file-system structure) for storing large amounts of possibly heterogeneous data within a single file. Data in an HDF5 file is organized into *groups* and *datasets*; you can think about these as the folders and files in your local file system, respectively. You can also optionally store metadata associated with each item in a file, which makes this a self-describing and powerful data storage model.
 
 ![Hierarchical Data Format (HDF5) Dataset (From https://www.neonscience.org/about-hdf5)](https://www.neonscience.org/sites/default/files/images/HDF5/hdf5_structure4.jpg)
+*Image: Hierarchical Data Format (HDF5) Dataset (From https://www.neonscience.org/about-hdf5)*
 
 Since reading and writing operations in these large data files must be fast, the HDF5 model includes data compression and *chunking*. This technique allows the data to be retrieved in subsets that fit the computer's memory or RAM, which means that it doesn't require the entire file contents to be loaded into memory at once. All this makes HDF5 a popular format in several domains, and with [h5py](https://www.h5py.org) it is possible to use a Pythonic interface to read and write data to a HDF5 file. 
 
@@ -44,12 +45,7 @@ This file still doesn't have any data or versions stored in it. To create a new 
     ...     group['mydataset'] = np.ones(10000)
 ```
 
-The context manager returns a h5py group object, which should be modified in-place to build the new version. When the context manager exits, the version will be written to the file. This creates a `_version_data` group containing metadata associated with versions in the file:
-
-```py
-    >>> fileobject.keys()
-    <KeysViewHDF5 ['_version_data']>
-```
+The context manager returns a h5py group object, which should be modified in-place to build the new version. When the context manager exits, the version will be written to the file. From this moment on, any interaction with the versioned groups and datasets should be done via the Versioned HDF5 API, rather than h5py.
 
 Now, the `versioned_file` object can be used to expose versioned data by version name:
 
@@ -68,6 +64,24 @@ To access the actual data stored in version `version1`, we use the same syntax a
     >>> dataset[()]
     array([1., 1., 1., ..., 1., 1., 1.])
 ```
+
+Suppose now we want to commit a new version of this data, changing just a slice of the data. We can do this as follows:
+
+```py
+    >>> with versioned_file.stage_version('version2') as group:
+    ...     group['mydataset'][0] = -10
+```
+
+Both versions are now stored in the file, and can be accessed independently.
+
+```py
+    >>> v2 = versioned_file['version2']
+    >>> v1['mydataset'][()]
+    array([1., 1., 1., ...,  1.,  1.,  1.])]
+    >>> v2['mydataset'][()]
+    array([-10., 1., 1., ...,  1.,  1.,  1.])]
+```
+
 
 Current status
 --------------
