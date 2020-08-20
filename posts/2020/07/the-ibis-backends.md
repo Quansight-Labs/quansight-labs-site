@@ -197,7 +197,7 @@ for different backends over __6__ years.
 </div>
 <br>
 
-> We note an early focus `ibis.sqlite, sqlalchemy and ibis.impala`. 
+> We note an early focus `ibis.sqlite`, `sqlalchemy` and `ibis.impala`. 
 Later, work began on the `pandas` backend rounding out the three different types of backgrounds.
 From this point, improvements were made to these key backends as `ibis.clickhouse`, `ibis.spark` and `ibis.postgres`. 
 For the past 3 years, Quansight, in partnership with OmniSci, added the `ibis.omniscidb`
