@@ -195,7 +195,7 @@ for different backends over __6__ years.
 
 </table>
 </div>
-
+<br>
 
 > We note an early focus `ibis.sqlite, sqlalchemy and ibis.impala`. 
 Later, work began on the `pandas` backend rounding out the three different types of backgrounds.
