@@ -40,7 +40,7 @@ Currently, `ibis` supports __>10__ backends.
 A backend takes an `ibis` query expression and applies computation, _and the query is independent of the computation_.
 A backend implementation, that can be queried with `ibis`, has one of the three following architectures.
 
-1. Direct execution backends - `pandas and hdf5`.
+1. Direct execution backends - `pandas` and `hdf5`.
 2. Expression generating backends that create `sqlalchemy` expressions - `ibis.sql`.
 3. String generating backends - `ibis.bigquery` and `ibis.omniscidb`
 
