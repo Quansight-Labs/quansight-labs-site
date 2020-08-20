@@ -269,6 +269,7 @@ with traditional [SQL] databases.
 
 ```bash
 pip install --upgrade ibis-framework[omniscidb]
+# ORx
 conda install -c conda-forge ibis-framework # install all the backends!
 ```
 
@@ -311,12 +312,7 @@ We'd like to thank the maintainers of the `ibis` for
 their and effort in supporting the `ibis` community.
 
 
-[sql-server]: #
-[omnisci]: #
-[labs-post]: #
-[our most recent `ibis` post]: #
-
-
+[our most recent `ibis` post]: https://labs.quansight.org/blog/2020/06/ibis-an-idiomatic-flavor-of-sql-for-python-programmers/
 [ibis]: https://www.ibis-project.org/
 [SQL]: https://en.wikipedia.org/wiki/SQL
 [Python]: https://en.wikipedia.org/wiki/Python_(programming_language)
