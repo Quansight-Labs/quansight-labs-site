@@ -207,7 +207,7 @@ This collaboration introduced geospatial functionality to `ibis` for several bac
 
 ### Currently, there is an ongoing effort to add sqlserver backends
 
-There are on going efforts to introduce [SQL Server][sql-server] support.
+There are on going efforts to introduce [SQL Server][sql-server] support.  
 What other backends would you like to see for `ibis`?
 Maybe our community could benefit from a `dask` backend or `altair` backend?
 
