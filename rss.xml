@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Wed, 05 Aug 2020 21:26:23 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Designing with and for developers</title><link>https://labs.quansight.org/blog/2020/08/designing-with-and-for-developers/</link><dc:creator>Isabela Presedo-Floyd</dc:creator><description>&lt;div&gt;&lt;p&gt;Open source is notorious for lack of design presence, enough so that my search
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Fri, 21 Aug 2020 13:52:53 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Introducing Versioned HDF5</title><link>https://labs.quansight.org/blog/2020/08/introducing-versioned-hdf5/</link><dc:creator>Quansight Labs Team</dc:creator><description>&lt;div&gt;&lt;p&gt;The problem of storing and manipulating large amounts of data is a challenge in
+many scientific computing and industry applications. One of the standard data
+models for this is &lt;a href="https://support.hdfgroup.org/HDF5/whatishdf5.html"&gt;HDF5&lt;/a&gt;,
+an open technology that implements a hierarchical structure (similar to a
+file-system structure) for storing large amounts of possibly heterogeneous data
+within a single file. Data in an HDF5 file is organized into &lt;em&gt;groups&lt;/em&gt; and
+&lt;em&gt;datasets&lt;/em&gt;; you can think about these as the folders and files in your local
+file system, respectively. You can also optionally store metadata associated
+with each item in a file, which makes this a self-describing and powerful data
+storage model.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/08/introducing-versioned-hdf5/"&gt;Read more…&lt;/a&gt; (3 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>h5py</category><category>HDF5</category><guid>https://labs.quansight.org/blog/2020/08/introducing-versioned-hdf5/</guid><pubDate>Fri, 21 Aug 2020 13:00:00 GMT</pubDate></item><item><title>Designing with and for developers</title><link>https://labs.quansight.org/blog/2020/08/designing-with-and-for-developers/</link><dc:creator>Isabela Presedo-Floyd</dc:creator><description>&lt;div&gt;&lt;p&gt;Open source is notorious for lack of design presence, enough so that my search
 to prove this fact has turned up nearly nothing. There’s many ways that such a
 gap in community might manifest, but one that I never anticipated was working
 with developers that had never interacted with a designer before.&lt;/p&gt;
@@ -121,30 +131,4 @@ is less than 1 or greater than 5, and &lt;code&gt;(1,)&lt;/code&gt; otherwise.&l
 these different cases. And due to 0-based indexing, half-open semantics,
 wraparound behavior, clipping, and step logic, the formulas are often quite
 difficult to write down.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/04/introducing-ndindex-a-python-library-for-manipulating-indices-of-ndarrays/"&gt;Read more…&lt;/a&gt; (7 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>ndindex</category><category>NumPy</category><guid>https://labs.quansight.org/blog/2020/04/introducing-ndindex-a-python-library-for-manipulating-indices-of-ndarrays/</guid><pubDate>Mon, 20 Apr 2020 05:00:00 GMT</pubDate></item><item><title>PyTorch TensorIterator Internals</title><link>https://labs.quansight.org/blog/2020/04/pytorch-tensoriterator-internals/</link><dc:creator>Sameer Deshmukh</dc:creator><description>&lt;div&gt;&lt;p&gt;PyTorch is one of the leading frameworks for deep learning. Its core data
-structure is &lt;code&gt;Tensor&lt;/code&gt;, a multi-dimensional array implementation with many
-advanced features like auto-differentiation. PyTorch is a massive
-codebase (approx. &lt;a href="https://www.openhub.net/p/pytorch"&gt;a million lines&lt;/a&gt; of
-C++, Python and CUDA code), and having a method for iterating over tensors in a
-very efficient manner that is independent of data type, dimension, striding and
-hardware is a critical feature that can lead to a very massive simplification
-of the codebase and make distributed development much faster and smoother. The
-&lt;a href="https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/native/TensorIterator.cpp"&gt;&lt;code&gt;TensorIterator&lt;/code&gt;&lt;/a&gt;
-C++ class within PyTorch is a complex yet useful class that is used for
-iterating over the elements of a tensor over any dimension and implicitly
-parallelizing various operations in a device independent manner.&lt;/p&gt;
-&lt;p&gt;It does this through a C++ API that is independent of type and device of the
-tensor, freeing the programmer of having to worry about the datatype or device
-when writing iteration logic for PyTorch tensors. For those coming from the
-NumPy universe, &lt;code&gt;NpyIter&lt;/code&gt; is a close cousin of &lt;code&gt;TensorIterator&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;This post is a deep dive into how &lt;code&gt;TensorIterator&lt;/code&gt; works, and is an essential
-part of learning to contribute to the PyTorch codebase since iterations over
-tensors in the C++ codebase are extremely commonplace. This post is aimed at
-someone who wants to contribute to PyTorch, and you should at least be familiar
-with some of the basic terminologies of the PyTorch codebase that can be found
-in Edward Yang's excellent &lt;a href="http://blog.ezyang.com/2019/05/pytorch-internals"&gt;blog post&lt;/a&gt;
-on PyTorch internals.  Although &lt;code&gt;TensorIterator&lt;/code&gt; can be used for both CPUs and
-accelerators, this post has been written keeping in mind usage on the CPU.
-Although there can be some dissimilarities between the two, the overall
-concepts are the same.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/04/pytorch-tensoriterator-internals/"&gt;Read more…&lt;/a&gt; (7 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>C++</category><category>PyTorch</category><guid>https://labs.quansight.org/blog/2020/04/pytorch-tensoriterator-internals/</guid><pubDate>Mon, 13 Apr 2020 15:39:56 GMT</pubDate></item></channel></rss>
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/04/introducing-ndindex-a-python-library-for-manipulating-indices-of-ndarrays/"&gt;Read more…&lt;/a&gt; (7 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>ndindex</category><category>NumPy</category><guid>https://labs.quansight.org/blog/2020/04/introducing-ndindex-a-python-library-for-manipulating-indices-of-ndarrays/</guid><pubDate>Mon, 20 Apr 2020 05:00:00 GMT</pubDate></item></channel></rss>
