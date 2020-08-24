@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Fri, 21 Aug 2020 13:52:53 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Introducing Versioned HDF5</title><link>https://labs.quansight.org/blog/2020/08/introducing-versioned-hdf5/</link><dc:creator>Quansight Labs Team</dc:creator><description>&lt;div&gt;&lt;p&gt;The problem of storing and manipulating large amounts of data is a challenge in
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Mon, 24 Aug 2020 20:23:42 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>IPython reproducible builds</title><link>https://labs.quansight.org/blog/2020/08/ipython-reproducible-builds/</link><dc:creator>Matthias Bussonnier</dc:creator><description>&lt;div&gt;&lt;p&gt;Starting with IPython 7.16.1 (released in June 2020), you &lt;em&gt;should&lt;/em&gt; be able to recreate the sdist (&lt;code&gt;.tar.gz&lt;/code&gt;) and wheel
+(&lt;code&gt;.whl&lt;/code&gt;), and get byte for byte identical result to the wheels published on PyPI. This is a critical step toward being able
+to &lt;em&gt;trust&lt;/em&gt; your computing platforms, and a key component to improve efficiency of build and packaging platforms. It also
+potentially impacts fast conda environment creation for users. The following goes into some reasons for why you should care.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/08/ipython-reproducible-builds/"&gt;Read more…&lt;/a&gt; (5 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>IPython</category><category>Labs</category><category>packaging</category><category>reproducible-builds</category><guid>https://labs.quansight.org/blog/2020/08/ipython-reproducible-builds/</guid><pubDate>Mon, 24 Aug 2020 12:00:00 GMT</pubDate></item><item><title>Introducing Versioned HDF5</title><link>https://labs.quansight.org/blog/2020/08/introducing-versioned-hdf5/</link><dc:creator>Quansight Labs Team</dc:creator><description>&lt;div&gt;&lt;p&gt;The problem of storing and manipulating large amounts of data is a challenge in
 many scientific computing and industry applications. One of the standard data
 models for this is &lt;a href="https://support.hdfgroup.org/HDF5/whatishdf5.html"&gt;HDF5&lt;/a&gt;,
 an open technology that implements a hierarchical structure (similar to a
@@ -86,49 +90,4 @@ reproduce the exact same environment.&lt;/p&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/05/ibis-1.3-release/"&gt;Read more…&lt;/a&gt; (9 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><category>Ibis</category><guid>https://labs.quansight.org/blog/2020/05/ibis-1.3-release/</guid><pubDate>Sat, 02 May 2020 03:30:00 GMT</pubDate></item><item><title>Thanking the people behind Spyder 4</title><link>https://labs.quansight.org/blog/2020/04/thanking-the-people-behind-spyder-4/</link><dc:creator>Carlos Córdoba</dc:creator><description>&lt;div&gt;&lt;p&gt;After more than three years in development and more than 5000 commits from 60 authors around the world, Spyder 4 finally saw the light on December 5, 2019!
 I decided to wait until now to write a blogpost about it because shortly after the initial release, we found several critical performance issues and some regressions with respect to Spyder 3, most of which are fixed now in &lt;a href="https://github.com/spyder-ide/spyder/releases/tag/v4.1.2"&gt;version 4.1.2&lt;/a&gt;, released on April 3rd 2020.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/04/thanking-the-people-behind-spyder-4/"&gt;Read more…&lt;/a&gt; (3 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Labs</category><category>Spyder</category><guid>https://labs.quansight.org/blog/2020/04/thanking-the-people-behind-spyder-4/</guid><pubDate>Tue, 28 Apr 2020 06:00:00 GMT</pubDate></item><item><title>Introducing ndindex, a Python library for manipulating indices of ndarrays</title><link>https://labs.quansight.org/blog/2020/04/introducing-ndindex-a-python-library-for-manipulating-indices-of-ndarrays/</link><dc:creator>Aaron Meurer</dc:creator><description>&lt;div&gt;&lt;p&gt;One of the most important features of NumPy arrays is their indexing
-semantics. By "indexing" I mean anything that happens inside square brackets,
-for example, &lt;code&gt;a[4::-1, 0, ..., [0, 1], np.newaxis]&lt;/code&gt;. NumPy's index semantics
-are very expressive and powerful, and this is one of the reasons the library
-is so popular.&lt;/p&gt;
-&lt;p&gt;Index objects can be represented and manipulated directly. For example, the
-above index is &lt;code&gt;(slice(4, None, -1), 0, Ellipsis, [0, 1], None)&lt;/code&gt;. If you are
-any author of a library that tries to replicate NumPy array semantics, you
-will have to work with these objects. However, they are often difficult to
-work with:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;The different types that are valid indices for NumPy arrays do not have a
-uniform API. Most of the types are also standard Python types, such as
-&lt;code&gt;tuple&lt;/code&gt;, &lt;code&gt;list&lt;/code&gt;, &lt;code&gt;int&lt;/code&gt;, and &lt;code&gt;None&lt;/code&gt;, which are usually unrelated to indexing.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Those objects that are specific to indexes, such as &lt;code&gt;slice&lt;/code&gt; and &lt;code&gt;Ellipsis&lt;/code&gt;
-do not make any assumptions about their underlying semantics. For example,
-Python lets you create &lt;code&gt;slice(None, None, 0)&lt;/code&gt; or &lt;code&gt;slice(0, 0.5)&lt;/code&gt; even though
-&lt;code&gt;a[::0]&lt;/code&gt; and &lt;code&gt;a[0:0.5]&lt;/code&gt; would be always be an &lt;code&gt;IndexError&lt;/code&gt; on a NumPy array.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Some index objects, such as &lt;code&gt;slice&lt;/code&gt;, &lt;code&gt;list&lt;/code&gt;, and &lt;code&gt;ndarray&lt;/code&gt; are not hashable.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;NumPy itself does not offer much in the way of helper functions to work with
-these objects.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;These limitations may be annoying, but are easy enough to live with. The real
-challenge when working with indices comes when you try to manipulate them.
-Slices in particular are challenging to work with because the rich meaning of
-slice semantics. Writing formulas for even very simple things is a real
-challenge with slices. &lt;code&gt;slice(start, stop, step)&lt;/code&gt; (corresponding to
-&lt;code&gt;a[start:stop:step]&lt;/code&gt;) has fundamentally different meaning depending on whether
-&lt;code&gt;start&lt;/code&gt;,&lt;code&gt;stop&lt;/code&gt;, or &lt;code&gt;step&lt;/code&gt; are negative, nonnegative, or &lt;code&gt;None&lt;/code&gt;. As an example,
-take &lt;code&gt;a[4:-2:-2]&lt;/code&gt;, where &lt;code&gt;a&lt;/code&gt; is a one-dimensional array. This slices every
-other element from the third element to the second from the last. What will
-the shape of this sliced array be? The answer is &lt;code&gt;(0,)&lt;/code&gt; if the original shape
-is less than 1 or greater than 5, and &lt;code&gt;(1,)&lt;/code&gt; otherwise.&lt;/p&gt;
-&lt;p&gt;Code that manipulates slices will tend to have a lot of &lt;code&gt;if&lt;/code&gt;/&lt;code&gt;else&lt;/code&gt; chains for
-these different cases. And due to 0-based indexing, half-open semantics,
-wraparound behavior, clipping, and step logic, the formulas are often quite
-difficult to write down.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/04/introducing-ndindex-a-python-library-for-manipulating-indices-of-ndarrays/"&gt;Read more…&lt;/a&gt; (7 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>ndindex</category><category>NumPy</category><guid>https://labs.quansight.org/blog/2020/04/introducing-ndindex-a-python-library-for-manipulating-indices-of-ndarrays/</guid><pubDate>Mon, 20 Apr 2020 05:00:00 GMT</pubDate></item></channel></rss>
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/04/thanking-the-people-behind-spyder-4/"&gt;Read more…&lt;/a&gt; (3 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Labs</category><category>Spyder</category><guid>https://labs.quansight.org/blog/2020/04/thanking-the-people-behind-spyder-4/</guid><pubDate>Tue, 28 Apr 2020 06:00:00 GMT</pubDate></item></channel></rss>
