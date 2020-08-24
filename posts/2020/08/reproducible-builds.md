@@ -1,7 +1,7 @@
 <!--
-.. title: IPython reproducible build
+.. title: IPython reproducible builds
 .. slug: ipython-reproducible-builds
-.. date: 2020-08-10 22:00:00 UTC-00:00
+.. date: 2020-08-24 12:00:00 UTC-00:00
 .. author: Matthias Bussonnier
 .. tags: Labs, IPython, reproducible-builds, packaging
 .. category:
@@ -12,78 +12,78 @@
 
 Starting with IPython 7.16.1 (released in June 2020), you _should_ be able to recreate the sdist (`.tar.gz`) and wheel
 (`.whl`), and get byte for byte identical result to the wheels published on PyPI. This is a critical step toward being able
-to _trust_ your computing platforms, and a key component to improve efficiency of build and packaging platform, with
-potentially impacts on fast conda environment creation for users. The following goes into some reason of why you should care.
+to _trust_ your computing platforms, and a key component to improve efficiency of build and packaging platforms. It also
+potentially impacts fast conda environment creation for users. The following goes into some reasons for why you should care.
 
 <!-- TEASER_END -->
 
-Since the cornerstone Paper [Refections on trusting Trust][1], there are always been advocate of reproducible builds, in
-todays highly interconnected world, and with the speed at which new software is released and deployed, being able to confirm
-the provenance and verify that supply chain has not been affected by malicious actor is often critical. To help in this
-endeavour, the movement of [reproducible builds][2], attempt to push software toward a deterministic and reproducible
+Since the cornerstone paper [Refections on trusting Trust][1], there have always been advocates of reproducible builds. In
+today's highly interconnected world, and with the speed at which new software is released and deployed, being able to confirm
+the provenance of build artifacts and verify that the supply chain has not been affected by a malicious actor is often critical. To help in this
+endeavour, the movement of [reproducible builds][2], attempts to push software toward a deterministic and reproducible
 build process.
 
-[2]: https://reproducible-builds.org/
 [1]: https://www.cs.cmu.edu/~rdriley/487/papers/Thompson_1984_ReflectionsonTrustingTrust.pdf
+[2]: https://reproducible-builds.org/
 
 While information security practitioners were one of the earliest groups who advocated for reproducible builds, there
 are a number of other advantages to ensure the same artifacts can be reproduced identically.
 
 For the users of the Scientific Python ecosystem, the notion of reproducibility/replicability is not new, and is one of
-the critical idea behind the scientific process. Given some instructions from an author, you should be able to perform some
-experiments or proof, and reach the same conclusion. When you see the opposite then your instructions or hypothesis are missing
+the critical ideas behind the scientific process. Given some instructions from an author, you should be able to perform some
+experiments or proof, and reach the same conclusion. When you see the opposite, your instructions or hypothesis are missing
 some variable elements and your model is incomplete; having a complete model, reproducibility, is one of the necessary
 component to be able to trust the results and build upon it. We are not going to enter into the exact distinction
-between reproducible and replicable, both have their goal and uses.
+between reproducible and replicable, both have their goals and uses.
 
-# Aren't computer reproducible by design ? 
+# Aren't computers reproducible by design?
 
-One of the requisite for reproducibility is to have a deterministic process, and while we tend to think about computers
-as deterministic things, they often are not, and on purpose. Mainly driven by security concern, a number of processes in
+One of the prerequisites for reproducibility is to have a deterministic process, and while we tend to think about computers
+as deterministic things, they often are not, and on purpose. Mainly driven by security concerns, a number of processes in
 a computer use pseudo-randomness to prevent an attacker from gaining control over a system. Thus by default, many of the
-typical actions you may do in a software (iterating over a dictionary in Python), with have _some_ randomness in them,
+typical actions you may do in a software (iterating over a dictionary in Python), will have _some_ randomness in them,
 which impact the determinism of a process.
 
-There are of course a number of source of involuntary randomness doe to the practicality of computer systems. Among
-other, the current date and time, your user name and uid, hostname, order of files on your hard drive, and in which
-order they may be listed...
+There are of course a number of sources of involuntary randomness due to the practicality of computer systems. These
+include: the current date and time, your user name and uid, hostname, order of files on your hard drive and in which
+order they may be listed.
 
-To obtain a reproducible results, one thus often need to make sure each step is deterministic, and that all the variable
-influencing that process are either controlled, or recorded.
+To obtain a reproducible result, one thus often needs to make sure each step is deterministic and that all the variables
+influencing that process are either controlled or recorded.
 
 # Reproducible artifact build
 
 In IPython 7.16.1 we have tried to removed all sources of variability, by controlling the order in which the files are
-generated, archived in the sdists, their metadata, timestamp... etc. Thus should be able to go from the commit in the
+generated, archived in the sdists, their metadata, timestamps, etc. Thus you should be able to go from the commit in the
 source repository to the sdist/wheel and obtain an identical result. This should help you to trust that no backdoor has
-been introduced in the released packages, though this is also critically useful for efficiency in package managers.
+been introduced in the released packages. It is also critically useful for efficiency in package managers.
 
-Of course you have to trust that the IPython source itself, and its dependencies are devoid of backdoors, but let's move
+Of course you have to trust that the IPython source itself and its dependencies are devoid of backdoors, but let's move
 one step at a time. Reproducible build artifacts can also have impact on the build and installation process of packages.
 
-# Efficient dependencies rebuild. 
+# Efficient rebuilds of dependencies
 
-Currently IPython depends on many packages: prompt_toolkit, traitlets, setuptools, ...etc, and we have a number of
-downstream packages, ipykernel, then jupyter notebook... When dependencies tree is rebuilt for a reason or another, a change of a
-single bit could trigger the rebuild of the all chain. When package like IPython are not reproducible, this mean  a
+Currently IPython depends on many packages: `prompt_toolkit`, `traitlets`, `setuptools`, and more. We also have a number of
+downstream packages, like `ipykernel`, then `jupyter notebook`. When a dependency tree is rebuilt for one reason or another, a change of a
+single bit could trigger the rebuild of the whole chain. When a package like IPython is not reproducible, this means a
 rebuild of IPython – whether it has changed or not – could trigger a rebuild of all downstream elements.
 
-With reproducible build, you can trust that the artifact will not change after a rebuild. For the functional programmer
-around you it indicate that the process of building from the source is a pure function. Therefore it can safely be part
+With a reproducible build, you can trust that the artifact will not change after a rebuild. For the functional programmer
+around you: it indicates that the process of building from source is a pure function. Therefore it can safely be part
 of a distributed system (rebuilding on two different places will give the same result, so you can avoid costly data
 movement), and we can also do caching of results, so for identical input we know the output will be identical.
 
-This can allow break rebuild chains and stop as soon as soon as a dependency rebuild has no effect.
+This can allow breaking rebuild chains by stopping as soon as a dependency rebuild has no effect.
 
-Thus, reproducible builds are a necessary but not sufficient condition to decrease the time spend by platform like conda-forge on rebuilding the ecosystem
-on new version of Python; making new packages available faster. 
+Thus, reproducible builds are a necessary but not sufficient condition to decrease the time spent by platforms like conda-forge on rebuilding the ecosystem
+for a new version of Python; making new packages available faster.
 
 # Deduplication
 
-One rarely mentioned advantage is de-duplication. In many cases there are no reasons why artifacts produce by a build
-step would depends on all their input. For example IPython has currently no reason to build differently on Python 3.7,
-3.8, and soon to be release 3.9, linux/macOS/ of windows. Nevertheless Conda provides no less than 10 downloads for each
-release of IPython. 
+One rarely mentioned advantage is deduplication. In many cases there are no reasons why artifacts produced by a build
+step would depend on _all_ of their inputs. For example IPython has currently no reason to build differently on Python 3.7,
+3.8, and the soon-to-be-released 3.9, or on Linux/macOS/Windows. Nevertheless Conda provides no less than 10 downloads for each
+release of IPython.
 
 ```bash
 $ diff -U0  <(cd ipython-7.17.0-py37hc6149b9_0/ ; fd -tf --full-path  | xargs -L1 md5)  <(cd ipython-7.17.0-py38h1cdfbd6_0/ ; fd --full-path  -t f | xargs -L1 md5)
@@ -115,7 +115,7 @@ $ diff -U0  <(cd ipython-7.17.0-py37hc6149b9_0/ ; fd -tf --full-path  | xargs -L
 +MD5 (info/test/test_time_dependencies.json) = ca1e35258bf3ce4719b090a90f886cd6
 ```
 
-I'm sure _some_ of these changes are necessary as the refer to which Python version the package refers to ; but let's
+I'm sure _some_ of these changes are necessary as they are related to which Python version the package refers to; but let's
 look in more detail at one of those:
 
 ```bash
@@ -127,20 +127,16 @@ $ fd test_time_dependencies.json | xargs diff -U2
 +["requests", "numpy", "matplotlib", "trio", "testpath", "pip", "pygments", "nbformat", "ipykernel", "nose >=0.10.1"]
 ```
 
-Here the changes are minor; and completely inconsequential for the use of the package, and woudl prevent us from
-detecting that two build are actually identical.
+Here the changes are minor and completely inconsequential for the use of the package; those changes prevent us from
+detecting that two builds are actually identical.
 
-This could allow to decrease precious disk space, bandwidth, and time spend waiting for software to install. 
+This could allow to decrease precious disk space, bandwidth, and time spent waiting for software to install.
 
-I would recommend Go talk as well to some [Nix][Nix] Users to see how a purely functional package manager works and
-which other advantage this brings.
+If you'd like to learn more about this topic, I'd recommend talking to some [Nix][Nix] users to see how a purely functional package manager works and
+which other advantages this brings.
 
-But in the meantime, please go track the various source of randomness in your favorite library or build system, and
-let works together to change things so that that things never changes.
-
-
-
+But in the meantime, please go track the various sources of randomness in your favorite library or build system, and
+let's work together to change things so that things never change!
 
 
 [Nix]: https://nixos.org/
-
