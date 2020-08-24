@@ -41,7 +41,7 @@ between reproducible and replicable, both have their goals and uses.
 One of the prerequisites for reproducibility is to have a deterministic process, and while we tend to think about computers
 as deterministic things, they often are not, and on purpose. Mainly driven by security concerns, a number of processes in
 a computer use pseudo-randomness to prevent an attacker from gaining control over a system. Thus by default, many of the
-typical actions you may do in a software (iterating over a dictionary in Python), will have _some_ randomness in them,
+typical actions you may do in a software (iterating over a set in Python, the hash value of strings), will have _some_ randomness in them,
 which impact the determinism of a process.
 
 There are of course a number of sources of involuntary randomness due to the practicality of computer systems. These
