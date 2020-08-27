@@ -17,21 +17,37 @@ historical context.
 
 <!-- TEASER_END -->
 
-Traitlets 5.0 has recently been released / will be released soon, this was a
-multi-year process to bring new features and cleanup the codebase without
-breaking backward compatibility. Traitlets are used everywhere in
-Jupyter/IPython, for configuration and CLI parsing.
+Traitlets 5.0 has recently been released, this was a multi-year process to bring
+new features and cleanup the codebase without breaking backward compatibility.
+Traitlets are used everywhere in Jupyter/IPython, for configuration, runtime
+type checking, and CLI parsing.
 
 Originally traitlets are a pure python limited implementation of the Enthought
-`Traits` library included in the IPython (pre-jupyter) code base; Traits used
-compiled code which at the time was a tough requirement for a Python REPL. Trait, and
-traitlets initially offer runtime type checking, cohesion and validation at run
-time. Traitlets were split as their own packages during [The Big Split](https://blog.jupyter.org/the-big-split-9d7b88a031a7).
+`Traits` library. Traitlets used to be  part of the IPython (pre-jupyter) code
+base;
+
+The Traits library traitlets was inspired from used compiled code which at the
+time was a tough requirement for a Python REPL. Trait, and traitlets initially
+offer runtime type checking, coercion and validation at run time. Traitlets were
+split as their own packages during [The Big
+Split](https://blog.jupyter.org/the-big-split-9d7b88a031a7).
+
+
+The general idea for traitlets is the following:
+
+  - The developer defines a class-level attribute,
+
+  - This class level attribute will automatically be converted into
+    *a property-like* element with *runtime type and value checking*, *configurability* and
+    *changes events*.
+
+This generally highly reduce boiler plate; and help maintaining a uniform
+configuration naming of parameter.
 
 
 Let's look at a traitlets usage example; IPython's `autocall`  feature and how
-its value can be changed from the CLI, config file, and where this is defined in
-the code.
+its value can be changed from the command line interface, configuration file, as
+well as dynamically.
 
 Here is an extract of IPython main class:
 
@@ -59,21 +75,21 @@ class InteractiveShell(SingletonConfigurable):
 The ``autocall`` class attribute will be converted at instantiation to an
 instance ``property``, in particular an ``Enum``, which values are ensured to be
 either `0`,`1`, or `2`. Traitlets provides a number of utilities to decide
-whether assigning incorrect values should raise an exception; or use some other
-logic to guess the correct value.
+whether assigning incorrect values should raise an exception; or coerce to one
+of the valid ones.
 
 While type – and value – checking at runtime is a nice features; most of these
 options are usually user preferences. Traitlets provides way to automatically
 create config files with help, as well as CLI parsing.
 
-In the above you see that the traitlets have a ``help`` string, a
-``default_value`` and is marked with ``config=True`` this allow any of the
+In the above you see that the traitlets have a ``help=`` string, a
+``default_value`` and is tagged with ``config=True`` this allow any of the
 jupyter app to automatically generate config files; decide of the option name
 and document it. No need for the developer to decide of a configuration
 parameter name.
 
 On a brand new machine with IPython installed you will find the following in
-yout `~/.ipython/profile_default/ipython_config.py`:
+your default configuration file `~/.ipython/profile_default/ipython_config.py`:
 
 ```
 ...
@@ -87,19 +103,24 @@ yout `~/.ipython/profile_default/ipython_config.py`:
 ...
 ```
 
-And if you update this file, uncomment the last line and change the value, you
-guessed it, new instances of InteractiveShell will have a new default value.
+You will recognize there the help string provided before, as well as the default
+value.
+
+If you update this file, uncomment the last line and change the value,
+as you would expect, new instances of InteractiveShell will be instantiated with this new default value.
 
 Alternatively, traitlets also parse the command lines, so ``ipython
 --InteractiveShell.autocall=3`` will take precedence over configuration files
-and start IPython with this new confirm option.
+and start IPython with this new confirm option, and will display the same help
+if you try `ipython --help-all`.
 
 
-Adding an option is a breeze, for example IPython can reformat your code with
-black since [this pull request](https://github.com/ipython/ipython/pull/11734/files),
-beyond the logic to actually do the reformat the complete diff to add the
-options to the CLI, configuration file with help and automatic generation of
-this option in sphinx doc is as followed.
+Adding an configuration option is thus a breeze, for example IPython can
+reformat your code with black since [this pull
+request](https://github.com/ipython/ipython/pull/11734/files), beyond the logic
+to actually do the reformat the complete diff to add the options to the CLI,
+configuration file, and automatic generation of this option in sphinx
+documentation is as follow:
 
 
 ```diff
@@ -114,22 +135,27 @@ Class TerminalInteractiveShell(InteractiveShell)
 
 If you have an application or library which potentially have a really large
 number of configuration knobs and want to isolate changes;
-Traitlets can help you expose all of those cleanly to a user.
-
+Traitlets can help you expose all of those cleanly to a user, without having to
+think about the option name, or writing the logic to set a default value.
 
 # Configure what you do not yet know about
 
 In an application with few parameters and only a couple plugins it might be
-relatively straitforward to provide options and cli arguments; this becomes
+relatively straightforward to provide options and cli arguments; this becomes
 harder when arbitrary plugins are involved and those plugins have arbitrary
-configuration options you may, or may not know at startup time. 
+configuration options you may, or may not know at startup time.
 
-One good example is JupyterHub; JupyterHub have spawners that decide how
-notebook servers are started. You can find how to [use a custom
+One good example is JupyterHub; JupyterHub have various plugins, one category of
+which is Spawners. Spawners decide how notebook servers are started. You can
+find how to [use a custom
 spawner](https://jupyterhub.readthedocs.io/en/stable/reference/spawners.html#writing-a-custom-spawner),
 and many institutions have only minimal changes to Spawner to accommodate their
-use case. It is critical to make it as simple as possible to provide
-configuration options and make them available from Jupyter Configuration files.
+use case. A few of the command ones include SystemDSpawner, SlurmSpawner,
+KubeSpawner, each with their parameters.
+
+It is critical to make it as simple as possible to provide
+configuration options and make them available from Jupyter Configuration files
+and from command line.
 
 Using a custom Spawner is simple:
 
@@ -137,42 +163,44 @@ Using a custom Spawner is simple:
 c.JupyterHub.spawner_class = 'mypackage:MySpawner'
 ```
 
-and this allow you  to also arbitrarily configure MySpawner with
+and this allow you to also arbitrarily configure MySpawner with
 
 ```
-c.MySpawner.myattribute = 'new value'
+c.MySpawner.mem_limit = '200G'
 ```
 
 Traitlets is aware of class hierarchy, thus when `MySpawner` inherit from the
 default Spawner, all `c.Spawner...` options will affect `MySpawner`, but
-`c.MySpawner...` options will of course not affect super classes or siblings. 
+`c.MySpawner...` options will of course only affect MySpawner and siblings.
 
 It is thus also easy to configure differently siblings; a good  example is CLI
 IPython vs IPykernel used in notebooks and lab. Both applications are subclasses
 of InteractiveShell. Respectively ZMQInteractiveShell and
 TerminalInteractiveShell.
 
-I can thus configure both with `c.InteractiveShell.attribute=`, only CLI with
-`c.TerminalInteractiveShell.attribute=`, or only notebooks-like with
-`c.ZMQInteractiveShell.attribute=`; On my own machine I for example have by
-default matplotlib in inline mode only for kernel and not terminal.
+I can configure both with `c.InteractiveShell.attribute=`, or decide that only
+the CLI will be affected via `c.TerminalInteractiveShell.attribute=`, I can also
+target only notebooks-like interfaces `c.ZMQInteractiveShell.attribute=`;
+
+On my own machine I for example, `%matplotlib` is setup to be `inline` only for
+kernels and not terminal.
 
 
 Thus if you have an application or library with a number of plugins, an for
-which configure ability could be thoughts as tree-like for a class hierachy;
-traitlets can help you. 
+which configure ability could be thoughts as tree-like for a class hierarchy;
+traitlets can help you.
 
 
-# Other functionalities 
+# Other functionalities
 
 ## Observability
 
-Beyond the configure ability part is observability; as we already had a great type
-system with hooks, and the sometime you may want to mutate configuration of a
-running application, traitlets allow you to observe value and propagate them to other places. 
+Beyond the configurability part is observability; as we already had a great
+type-system with hooks, and the sometime you may want to mutate configuration of
+a running application, traitlets allow you to observe value and propagate them
+to other places.
 
-
-To look at the above example with code reformatting, the reformatter con be
+To look at the above example with code reformatting, the reformatter can be
 change dynamically things to the following:
 
 
@@ -192,10 +220,10 @@ Class TerminalInteractiveShell(InteractiveShell)
             raise ValueError
 ```
 
-
-
-This is what powers
-[ipywidgets](https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20Events.html?highlight=link#Linking-Widgets).
+Observability is also what powers
+[ipywidgets](https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20Events.html?highlight=link#Linking-Widgets),
+and allow dynamic binding of sliders, buttons and other controls to
+visualisation.
 
 This can be useful to glue together models where parameter need to be
 synchronized and react to changes.
@@ -205,9 +233,10 @@ synchronized and react to changes.
 
 Traitlets support [dynamic
 default](https://traitlets.readthedocs.io/en/stable/api.html#dynamic-default-values)
-if your default value may depend on some context. Configuration are also by
-default Python scripts (but can be Json), so user config files can be share
-across machines and have dynamic values.
+if your default values may depend on some context (OS, Python version).
+
+Configuration are also by default Python scripts (but can be Json), so user
+config files can be share across machines and have dynamic values.
 
 
 ## Context base configuration
@@ -227,7 +256,7 @@ to activate depending on whether you to `--to=pdf`, or `--to-html`
 ## flag and aliases
 
 Long flag names like `--InteractiveShell.debug=True` can be cumbersome to type.
-That why Traitlets provide aliases and flags, so that `ipython --debug`, will
+That is why Traitlets provide aliases and flags, so that `ipython --debug`, will
 set `debug=True` to enable logging  on all classes supporting it; while still
 allowing you to tweak the login level used on a per-class basis.
 
@@ -237,11 +266,20 @@ allowing you to tweak the login level used on a per-class basis.
 Of course with great power comes some limitations:
 
  - Your class names and attributes names become part of API
- - As configuration is loaded/read before any potential plugin are loaded it is
+ - As configuration is loaded/read before any potential plug-in are loaded it is
    impossible to detect typos or invalid configuration options.
  - Rely heavily on metaclass, so can add a construction cost to your objects,
    and can be hard to debug
 
+# Conclusion
+
+This was a short introduction to traitlets; I hope it made it lightly clearer
+how the Jupyter configuration system works, and we are looking forward to see
+how this can be used to adapt Jupyter to your work flow.
+
+Are you struggling with a system that have too many configuration options ? Do
+you have a use case where you believe traitlets can be useful ? We'll be happy
+to hear from you.
 
 # Going further
 
