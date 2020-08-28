@@ -3,7 +3,7 @@
 .. slug: what-are-traitlets
 .. date: 2020-08-28 22:00:00 UTC-00:00
 .. author: Matthias Bussonnier, Tony Fast
-.. tags: Labs, IPython, traitlets, historical
+.. tags: Labs, IPython, traitlets, historical, python, community, Jupyter
 .. category:
 .. link:
 .. description:
