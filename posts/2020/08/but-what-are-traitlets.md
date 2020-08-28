@@ -11,7 +11,7 @@
 -->
 
 You probably seen `traitlets` in applications, you likely even use them. They have nearly 5 million downloads
-on [conda-forge] alone.
+on [conda-forge](https://anaconda.org/conda-forge/traitlets) alone.
 
 # But, what are `traitlets`?
 
@@ -27,7 +27,7 @@ new features and a cleaner codebase while maintaining backward compatibility wit
 This is a big upgrade to our interactive computing tools because `traitlets` are used everywhere in Jupyter/IPython.
 They are used configuration, runtime type checking, widgets, and CLI parsing.
 
-Traitlets is [a library](https://pypi.org/project/traitlets) that provides a base classes as well as are objects that
+Traitlets is [a library](https://pypi.org/project/traitlets) that provides base classes, as well as are objects that
 can expose individual configuration options in an intelligent way. They are used in almost all the Jupyter Projects.
 
 `traitlets` began as a pure python implementation of the Enthought `traits` library.
@@ -111,7 +111,7 @@ parameter name.
 On a brand new machine with IPython installed you will find the following in
 your default configuration file `~/.ipython/profile_default/ipython_config.py`:
 
-```
+```python
 ...
 ## Make IPython automatically call any callable object even if you didn't type
 #  explicit parentheses. For example, 'str 43' becomes 'str(43)' automatically.
@@ -143,7 +143,7 @@ Out[1]: 2
 
 And will display the same help if you try `ipython --help-all`:
 
-```
+```text
 $ ipython --help-all
 ...
 --InteractiveShell.autocall=<Enum>
@@ -171,7 +171,7 @@ documentation is as follow:
 Class TerminalInteractiveShell(InteractiveShell)
 ... snip ...
 +     autoformatter = Unicode(None,
-+        help="Autoformatter to reformat Terminal code. Can be `'black'` or `None`",
++        help="Autoformatter to reformat code.",
 +        allow_none=True
 +    ).tag(config=True)
 ```
@@ -202,13 +202,13 @@ and from command line.
 
 Using a custom Spawner is simple:
 
-```
+```python
 c.JupyterHub.spawner_class = 'mypackage:MySpawner'
 ```
 
 and this allow you to also arbitrarily configure MySpawner with
 
-```
+```python
 c.MySpawner.mem_limit = '200G'
 ```
 
@@ -287,7 +287,7 @@ config files can be share across machines and have dynamic values.
 Object configuration can also look at the creator of the object at instantiation
 time.
 
-```
+```python
 c.Foo.Bar.attr = 1
 c.Qux.Bar.attr = 2
 ```
@@ -328,7 +328,7 @@ to hear from you.
 
 
 If you want to learn more, see [this JupyterCon 2018
-talk](https://www.youtube.com/watch?v=_gYEVTaNuKU), and the [doc](https://traitlets.readthedocs.io/)
+talk](https://www.youtube.com/watch?v=_gYEVTaNuKU), and the [documentation](https://traitlets.readthedocs.io/)
 
 Try the new 5.x version and let us know if you have questions.
 
