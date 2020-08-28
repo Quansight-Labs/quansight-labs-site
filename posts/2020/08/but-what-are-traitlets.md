@@ -1,7 +1,7 @@
 <!--
 .. title: Traitlets - an introduction & use in Jupyter configuration management
 .. slug: what-are-traitlets
-.. date: 2020-08-28 22:00:00 UTC-00:00
+.. date: 2020-08-28 12:00:00 UTC-00:00
 .. author: Matthias Bussonnier, Tony Fast
 .. tags: Labs, IPython, traitlets, historical, python, community, Jupyter
 .. category:
