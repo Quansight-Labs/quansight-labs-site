@@ -10,46 +10,49 @@
 .. type: text
 -->
 
-You probably have head the name, you likely have used them, but you likely are
-still confused ? What are `trailtlets`; in the following we'll discuss a bit
-what traitlets are, where they came from, what is their use, and a tiny bit of
-historical context.
+You probably seen `traitlets` in applications, you likely even use them. They have nearly 5 million downloads
+on [conda-forge] alone.
+
+# But, what are `traitlets`?
+
+In this post we'll answer this question along with where `traitlets` came from, their use, and a bit of history.
 
 <!-- TEASER_END -->
 
-Traitlets 5.0 has recently been released, this was a multi-year process to bring
-new features and cleanup the codebase without breaking backward compatibility.
-Traitlets are used everywhere in Jupyter/IPython, for configuration, runtime
-type checking, and CLI parsing.
+## `traitlets` 5.0
 
-Originally traitlets are a pure python limited implementation of the Enthought
-`Traits` library. Traitlets used to be  part of the IPython (pre-jupyter) code
-base;
+`traitlets` 5.0 has recently been released; 5 years after the earliest versions of
+`traitlets` 4.0. The latest and greatest 5.0 release brings
+new features and a cleaner codebase while maintaining backward compatibility with 4.0.
+This is a big upgrade to our interactive computing tools because `traitlets` are used everywhere in Jupyter/IPython.
+They are used configuration, runtime type checking, widgets, and CLI parsing.
 
-The Traits library traitlets was inspired from used compiled code which at the
-time was a tough requirement for a Python REPL. Trait, and traitlets initially
-offer runtime type checking, coercion and validation at run time. Traitlets were
-split as their own packages during [The Big
-Split](https://blog.jupyter.org/the-big-split-9d7b88a031a7).
+`traitlets` began as a pure python implementation of the Enthought `traits` library.
+These libraries implement the object-oriented [trait pattern]. Prior to 2015, `traitlets` was a part of the IPython (pre-jupyter) code base; then during [The Big
+Split](https://blog.jupyter.org/the-big-split-9d7b88a031a7) they were moved to their own reusable package.
 
+Both `traitlets` and `traits` addressed the challenge of using compiled code in interactive Python [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop "read-eval-print-loop")s. They offer type checking, coercion and validation at run time.
 
-The general idea for traitlets is the following:
+### `traitlets` for development
 
-  - The developer defines a class-level attribute,
+The general idea when developing `traitlets` is:
 
-  - This class level attribute will automatically be converted into
+1. The developer defines a class-level attribute,
+
+2. This class level attribute will automatically be converted into
     *a property-like* element with *runtime type and value checking*, *configurability* and
-    *changes events*.
+    *obserable events and changes*.
 
-This generally highly reduce boiler plate; and help maintaining a uniform
-configuration naming of parameter.
+`traitlets` minimizes boilerplate for python applications. `traitlets` maintain a uniform
+naming convention helps your users configure their applications.
+
+## A `traitlets` usage example
 
 
-Let's look at a traitlets usage example; IPython's `autocall`  feature and how
-its value can be changed from the command line interface, configuration file, as
-well as dynamically.
-
-Here is an extract of IPython main class:
+Below is an excerpt of `IPython` main class [link to code] that defines
+IPython's `autocall` traitlet. We'll demonstrate the flexibility
+of `traitlets` by configuring `autocall` from
+the command line interface, configuration file, as well as observed dynamically.
 
 ```python
 from traitlets import SingletonConfigurable, Enum
@@ -74,19 +77,20 @@ class InteractiveShell(SingletonConfigurable):
 
 The ``autocall`` class attribute will be converted at instantiation to an
 instance ``property``, in particular an ``Enum``, which values are ensured to be
-either `0`,`1`, or `2`. Traitlets provides a number of utilities to decide
+either `0`,`1`, or `2`. `traitlets` provides a number of utilities to decide
 whether assigning incorrect values should raise an exception; or coerce to one
 of the valid ones.
 
 While type – and value – checking at runtime is a nice features; most of these
-options are usually user preferences. Traitlets provides way to automatically
-create config files with help, as well as CLI parsing.
-
-In the above you see that the traitlets have a ``help=`` string, a
-``default_value`` and is tagged with ``config=True`` this allow any of the
-jupyter app to automatically generate config files; decide of the option name
+options are usually user preferences. `traitlets` provides way to automatically
+create config files with help, as well as CLI parsing. The class's `traitlets` 
+have ``help=`` and ``default_value`` strings that are tagged with ``config=True``.
+This notifies a jupyter app to automatically generate config files; decide of the option name
 and document it. No need for the developer to decide of a configuration
 parameter name.
+
+
+### A generated configuration file.
 
 On a brand new machine with IPython installed you will find the following in
 your default configuration file `~/.ipython/profile_default/ipython_config.py`:
