@@ -31,8 +31,8 @@ Traitlets is [a library](https://pypi.org/project/traitlets) that provides a bas
 can expose individual configuration options in an intelligent way. They are used in almost all the Jupyter Projects.
 
 `traitlets` began as a pure python implementation of the Enthought `traits` library.
-These libraries implement the object-oriented [trait pattern](https://en.wikipedia.org/wiki/Trait_(computer_programming)). Prior to 2015, `traitlets` was a part of the IPython (pre-jupyter) code base; then during [The Big
-Split](https://blog.jupyter.org/the-big-split-9d7b88a031a7) they were moved to their own reusable package.
+These libraries implement the object-oriented [trait pattern](https://en.wikipedia.org/wiki/Trait_(computer_programming)). Prior to 2015, `traitlets` was a part of the IPython (pre-jupyter) code base; then during ["The Big
+Split"](https://blog.jupyter.org/the-big-split-9d7b88a031a7) they were moved to their own reusable package.
 
 Both `traitlets` and `traits` addressed the challenge of using compiled code in interactive Python [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop "read-eval-print-loop")s. They offer type checking, coercion and validation at run time.
 
