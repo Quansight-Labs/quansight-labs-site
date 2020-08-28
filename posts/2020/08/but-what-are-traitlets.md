@@ -1,8 +1,8 @@
 <!--
-.. title: But What are Traitelts ?
+.. title: Traitlets - an introduction & use in Jupyter configuration management
 .. slug: what-are-traitlets
-.. date: 2020-08-xx 22:00:00 UTC-00:00
-.. author: Matthias Bussonnier
+.. date: 2020-08-31 22:00:00 UTC-00:00
+.. author: Matthias Bussonnier, Tony Fast
 .. tags: Labs, IPython, traitlets, historical
 .. category:
 .. link:
@@ -27,8 +27,11 @@ new features and a cleaner codebase while maintaining backward compatibility wit
 This is a big upgrade to our interactive computing tools because `traitlets` are used everywhere in Jupyter/IPython.
 They are used configuration, runtime type checking, widgets, and CLI parsing.
 
+Traitlets is [a library](https://pypi.org/project/traitlets) that provides a base classes as well as are objects that
+can expose individual configuration options in an intelligent way. They are used in almost all the Jupyter Projects.
+
 `traitlets` began as a pure python implementation of the Enthought `traits` library.
-These libraries implement the object-oriented [trait pattern]. Prior to 2015, `traitlets` was a part of the IPython (pre-jupyter) code base; then during [The Big
+These libraries implement the object-oriented [trait pattern](https://en.wikipedia.org/wiki/Trait_(computer_programming)). Prior to 2015, `traitlets` was a part of the IPython (pre-jupyter) code base; then during [The Big
 Split](https://blog.jupyter.org/the-big-split-9d7b88a031a7) they were moved to their own reusable package.
 
 Both `traitlets` and `traits` addressed the challenge of using compiled code in interactive Python [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop "read-eval-print-loop")s. They offer type checking, coercion and validation at run time.
@@ -49,7 +52,7 @@ naming convention helps your users configure their applications.
 ## A `traitlets` usage example
 
 
-Below is an excerpt of `IPython` main class [link to code] that defines
+Below is an excerpt of [`IPython` main class](https://github.com/ipython/ipython/blob/aa2b54815c55c2f229de8c57e20a757d1b27ffd7/IPython/core/interactiveshell.py#L338-L359)  that defines
 IPython's `autocall` traitlet. We'll demonstrate the flexibility
 of `traitlets` by configuring `autocall` from
 the command line interface, configuration file, as well as observed dynamically.
@@ -83,7 +86,7 @@ of the valid ones.
 
 While type – and value – checking at runtime is a nice features; most of these
 options are usually user preferences. `traitlets` provides way to automatically
-create config files with help, as well as CLI parsing. The class's `traitlets` 
+create configuration files with help, as well as CLI parsing. The class's `traitlets` 
 have ``help=`` and ``default_value`` strings that are tagged with ``config=True``.
 This notifies a jupyter app to automatically generate config files; decide of the option name
 and document it. No need for the developer to decide of a configuration
