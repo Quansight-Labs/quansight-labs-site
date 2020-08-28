@@ -82,7 +82,20 @@ The ``autocall`` class attribute will be converted at instantiation to an
 instance ``property``, in particular an ``Enum``, which values are ensured to be
 either `0`,`1`, or `2`. `traitlets` provides a number of utilities to decide
 whether assigning incorrect values should raise an exception; or coerce to one
-of the valid ones.
+of the valid ones. Here a wrong assignment willfail:
+
+
+```
+In [1]: ip = get_ipython()
+
+In [2]: ip.autocall
+Out[2]: 0
+
+In [3]: ip.autocall = 5
+...
+TraitError: The 'autocall' trait of a TerminalInteractiveShell instance expected any of [0, 1, 2], not the int 5.
+```
+
 
 While type – and value – checking at runtime is a nice features; most of these
 options are usually user preferences. `traitlets` provides way to automatically
@@ -118,15 +131,38 @@ as you would expect, new instances of InteractiveShell will be instantiated with
 
 Alternatively, traitlets also parse the command lines, so ``ipython
 --InteractiveShell.autocall=3`` will take precedence over configuration files
-and start IPython with this new confirm option, and will display the same help
-if you try `ipython --help-all`.
+and start IPython with this new confirm option:
+
+```
+$ ipython --no-banner --InteractiveShell.autocall=2
+
+In [1]: get_ipython().autocall
+Out[1]: 2
+```
+
+
+And will display the same help if you try `ipython --help-all`:
+
+```
+$ ipython --help-all
+...
+--InteractiveShell.autocall=<Enum>
+    Make IPython automatically call any callable object even if you didn't type
+    explicit parentheses. For example, 'str 43' becomes 'str(43)' automatically.
+    The value can be '0' to disable the feature, '1' for 'smart' autocall, where
+    it is not applied if there are no more arguments on the line, and '2' for
+    'full' autocall, where all callable objects are automatically called (even
+    if no arguments are present).
+    Choices: any of [0, 1, 2]
+    Default: 0
+```
 
 
 Adding an configuration option is thus a breeze, for example IPython can
 reformat your code with black since [this pull
 request](https://github.com/ipython/ipython/pull/11734/files), beyond the logic
 to actually do the reformat the complete diff to add the options to the CLI,
-configuration file, and automatic generation of this option in sphinx
+configuration file, and [automatic generation](https://github.com/ipython/traitlets/blob/3293530b6943b9522ae570e7ca29b30709a43567/traitlets/config/sphinxdoc.py#L1-L33) of [this option](https://ipython.readthedocs.io/en/7.18.0/config/options/terminal.html#configtrait-TerminalInteractiveShell.autoformatter) in sphinx
 documentation is as follow:
 
 
@@ -178,12 +214,12 @@ c.MySpawner.mem_limit = '200G'
 
 Traitlets is aware of class hierarchy, thus when `MySpawner` inherit from the
 default Spawner, all `c.Spawner...` options will affect `MySpawner`, but
-`c.MySpawner...` options will of course only affect MySpawner and siblings.
+`c.MySpawner...` options will of course only affect `MySpawner` and siblings.
 
 It is thus also easy to configure differently siblings; a good  example is CLI
 IPython vs IPykernel used in notebooks and lab. Both applications are subclasses
-of InteractiveShell. Respectively ZMQInteractiveShell and
-TerminalInteractiveShell.
+of `InteractiveShell`. Respectively `ZMQInteractiveShell` and
+`TerminalInteractiveShell`.
 
 I can configure both with `c.InteractiveShell.attribute=`, or decide that only
 the CLI will be affected via `c.TerminalInteractiveShell.attribute=`, I can also
