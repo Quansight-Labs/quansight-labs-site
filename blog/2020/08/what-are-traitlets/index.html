@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Traitlets - an introduction &amp; use in Jupyter configuration management | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2020/08/what-are-traitlets/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-163785882-1');
+</script><meta name="author" content="Matthias Bussonnier, Tony Fast">
+<link rel="prev" href="../ipython-reproducible-builds/" title="IPython reproducible builds" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="Traitlets - an introduction &amp; use in Jupyter configuration management">
+<meta property="og:url" content="https://labs.quansight.org/blog/2020/08/what-are-traitlets/">
+<meta property="og:description" content="You have probably seen Traitlets in applications, you likely even use it. The package has nearly 5 million downloads
+on conda-forge alone.
+But, what is Traitlets ?
+In this post we'll answer this quest">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-08-30T09:00:00Z">
+<meta property="article:tag" content="community">
+<meta property="article:tag" content="historical">
+<meta property="article:tag" content="IPython">
+<meta property="article:tag" content="Jupyter">
+<meta property="article:tag" content="Labs">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="traitlets">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="../../../../">
+            <img src="../../../../images/quansight_labs_logo_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../" class="nav-link">Blog</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../team/" class="nav-link">Team</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../projects/" class="nav-link">Projects</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../about/" class="nav-link">About</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right"></ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name">
+                <a href="." class="u-url">Traitlets - an introduction &amp; use in Jupyter configuration management</a>
+            </h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    <a class="u-url" href="../../../../authors/matthias-bussonnier-tony-fast/">Matthias Bussonnier, Tony Fast</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2020-08-30T09:00:00Z" itemprop="datePublished" title="2020-08-30">2020-08-30</time></a>
+            </p>
+            
+
+        </div>
+        
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/community/" rel="tag">community</a></li>
+            <li><a class="tag p-category" href="../../../../categories/historical/" rel="tag">historical</a></li>
+            <li><a class="tag p-category" href="../../../../categories/ipython/" rel="tag">IPython</a></li>
+            <li><a class="tag p-category" href="../../../../categories/jupyter/" rel="tag">Jupyter</a></li>
+            <li><a class="tag p-category" href="../../../../categories/labs/" rel="tag">Labs</a></li>
+            <li><a class="tag p-category" href="../../../../categories/python/" rel="tag">Python</a></li>
+            <li><a class="tag p-category" href="../../../../categories/traitlets/" rel="tag">traitlets</a></li>
+        </ul></header><div class="e-content entry-content" itemprop="articleBody text">
+        <div>
+<p>You have probably seen Traitlets in applications, you likely even use it. The package has nearly 5 million downloads
+on <a href="https://anaconda.org/conda-forge/traitlets">conda-forge</a> alone.</p>
+<h2>But, what is Traitlets ?</h2>
+<p>In this post we'll answer this question along with where Traitlets came from, its applications, and a bit of history.</p>
+<!-- TEASER_END -->
+
+<h3>
+<code>traitlets</code> 5.0</h3>
+<p><code>traitlets</code> 5.0 has recently been released; 5 years after the earliest versions of
+<code>traitlets</code> 4.0. The latest and greatest 5.0 release brings
+new features and a cleaner codebase while maintaining backward compatibility with 4.0.
+This is a big upgrade to our interactive computing tools because Traitlets is used everywhere in Jupyter/IPython - for configuration, runtime type checking, widgets, and CLI parsing.</p>
+<p>Traitlets is <a href="https://pypi.org/project/traitlets">a library</a> that provides objects that
+can expose individual configuration options in an intelligent way. They are used in almost all the Jupyter Projects.</p>
+<p>Traitlets began as a pure Python implementation of the Enthought <a href="https://pypi.org/project/traits/">Traits</a> library.
+These libraries implement the object-oriented <a href="https://en.wikipedia.org/wiki/Trait_(computer_programming)">trait pattern</a>. Prior to 2015, <code>traitlets</code> was a part of the IPython (pre-jupyter) code base; then during <a href="https://blog.jupyter.org/the-big-split-9d7b88a031a7">"The Big
+Split"</a> it was moved to their own reusable package.</p>
+<p>Both <code>traitlets</code> and <code>traits</code> addressed the challenge of using typed code in interactive Python <a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop" title="read-eval-print-loop">REPL</a>s. They offer type checking, coercion and validation at run time.</p>
+<h4>Traitlets for development</h4>
+<p>The general idea when developing with Traitlets is:</p>
+<ol>
+<li>
+<p>The developer defines a class-level attribute,</p>
+</li>
+<li>
+<p>This class level attribute will automatically be converted into
+    <em>a property-like</em> element with <em>runtime type and value checking</em>, <em>configurability</em> and
+    <em>observable events and changes</em>.</p>
+</li>
+</ol>
+<p>Traitlets minimizes boilerplate for Python applications. Traitlets maintains a uniform
+naming convention and helps your users configure their applications.</p>
+<h3>A Traitlets usage example</h3>
+<p>We'll demonstrate the flexibility of Traitlets by configuring the <code>autocall</code>
+traitlet/option of IPython from the command line interface, configuration
+file, as well as observe effect of dynamically changing values.
+Below is an excerpt of the <a href="https://github.com/ipython/ipython/blob/aa2b54815c55c2f229de8c57e20a757d1b27ffd7/IPython/core/interactiveshell.py#L338-L359"><code>IPython</code> main class</a> that defines
+IPython's <code>autocall</code> traitlet.</p>
+<pre class="code literal-block"><span></span><code><span class="kn">from</span> <span class="nn">traitlets</span> <span class="kn">import</span> <span class="n">SingletonConfigurable</span><span class="p">,</span> <span class="n">Enum</span>
+
+<span class="k">class</span> <span class="nc">InteractiveShell</span><span class="p">(</span><span class="n">SingletonConfigurable</span><span class="p">):</span>
+
+    <span class="o">...</span>
+
+    <span class="n">autocall</span> <span class="o">=</span> <span class="n">Enum</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">default_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span>
+        <span class="sd">"""</span>
+<span class="sd">        Make IPython automatically call any callable object even if you didn't</span>
+<span class="sd">        type explicit parentheses. For example, 'str 43' becomes 'str(43)'</span>
+<span class="sd">        automatically. The value can be '0' to disable the feature, '1' for</span>
+<span class="sd">        'smart' autocall, where it is not applied if there are no more</span>
+<span class="sd">        arguments on the line, and '2' for 'full' autocall, where all callable</span>
+<span class="sd">        objects are automatically called (even if no arguments are present).</span>
+<span class="sd">        """</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="o">...</span>
+</code></pre>
+
+
+<p>Here, the <code>autocall</code> class attribute will be converted at instantiation to an
+instance <code>property</code>, in particular an <code>Enum</code> whose values are ensured to be
+either <code>0</code>,<code>1</code>, or <code>2</code>. Traitlets provides a number of utilities to decide
+whether assigning incorrect values should raise an exception; or coerce to one
+of the valid ones. Here a wrong assignment will fail:</p>
+<pre class="code literal-block"><span></span><code>$ ipython --no-banner
+
+In <span class="o">[</span><span class="m">1</span><span class="o">]</span>: <span class="nv">ip</span> <span class="o">=</span> get_ipython<span class="o">()</span>
+
+In <span class="o">[</span><span class="m">2</span><span class="o">]</span>: ip.autocall
+Out<span class="o">[</span><span class="m">2</span><span class="o">]</span>: <span class="m">0</span>
+
+In <span class="o">[</span><span class="m">3</span><span class="o">]</span>: ip.autocall <span class="o">=</span> <span class="m">5</span>
+...
+TraitError: The <span class="s1">'autocall'</span> trait of a TerminalInteractiveShell instance expected any of <span class="o">[</span><span class="m">0</span>, <span class="m">1</span>, <span class="m">2</span><span class="o">]</span>, not the int <span class="m">5</span>.
+</code></pre>
+
+
+<p>While type – and value – checking at runtime is a nice feature, most of these
+options are usually user preferences. Traitlets provides a way to automatically
+create configuration files with help, as well as command line arguments
+parsing. The <code>autocall</code> traitlet has <code>help=</code> and <code>default_value</code>
+strings that are tagged with <code>config=True</code>. This informs the current
+application on how to automatically generate configuration files, decide on
+the option name and document it. No need for the developer to spend time on
+deciding on a configuration parameter name.</p>
+<h4>A generated configuration file.</h4>
+<p>On a brand new machine with IPython installed you will find the following in
+your default configuration file <code>~/.ipython/profile_default/ipython_config.py</code>,
+referring to our <code>autocall</code> traitlet of previous section:</p>
+<pre class="code literal-block"><span></span><code><span class="o">...</span>
+<span class="c1">## Make IPython automatically call any callable object even if you didn't type</span>
+<span class="c1">#  explicit parentheses. For example, 'str 43' becomes 'str(43)' automatically.</span>
+<span class="c1">#  The value can be '0' to disable the feature, '1' for 'smart' autocall, where</span>
+<span class="c1">#  it is not applied if there are no more arguments on the line, and '2' for</span>
+<span class="c1">#  'full' autocall, where all callable objects are automatically called (even if</span>
+<span class="c1">#  no arguments are present).</span>
+<span class="c1">#c.InteractiveShell.autocall = 0</span>
+<span class="o">...</span>
+</code></pre>
+
+
+<p>You will recognize there the help string provided before, as well as the default
+value.</p>
+<p>If you update this file by uncommenting the last line and changing the value,
+as you would expect, new instances of <code>InteractiveShell</code> will be instantiated
+with this new default value.</p>
+<p>Alternatively, Traitlets can also generate and parse command line arguments, so
+<code>ipython --InteractiveShell.autocall=3</code> will take precedence over
+configuration files and start IPython with this new option:</p>
+<pre class="code literal-block"><span></span><code>$ ipython --no-banner --InteractiveShell.autocall<span class="o">=</span><span class="m">2</span>
+
+In <span class="o">[</span><span class="m">1</span><span class="o">]</span>: get_ipython<span class="o">()</span>.autocall
+Out<span class="o">[</span><span class="m">1</span><span class="o">]</span>: <span class="m">2</span>
+</code></pre>
+
+
+<p>It will display the same help if you try <code>ipython --help-all</code>:</p>
+<pre class="code literal-block"><span></span><code>$ ipython --help-all
+...
+--InteractiveShell.autocall=&lt;Enum&gt;
+    Make IPython automatically call any callable object even if you didn't type
+    explicit parentheses. For example, 'str 43' becomes 'str(43)' automatically.
+    The value can be '0' to disable the feature, '1' for 'smart' autocall, where
+    it is not applied if there are no more arguments on the line, and '2' for
+    'full' autocall, where all callable objects are automatically called (even
+    if no arguments are present).
+    Choices: any of [0, 1, 2]
+    Default: 0
+</code></pre>
+
+
+<p>Adding a configuration option is thus a breeze, for example IPython can
+reformat your code with <a href="https://github.com/psf/black">Black</a> since <a href="https://github.com/ipython/ipython/pull/11734/files">this pull
+request</a>. Beyond the logic
+to actually do the reformatting, the complete diff to add the options to the CLI,
+configuration file, and <a href="https://github.com/ipython/traitlets/blob/3293530b6943b9522ae570e7ca29b30709a43567/traitlets/config/sphinxdoc.py#L1-L33">automatic generation</a> of <a href="https://ipython.readthedocs.io/en/7.18.0/config/options/terminal.html#configtrait-TerminalInteractiveShell.autoformatter">the option documentation</a> in Sphinx
+documentation is as follows:</p>
+<pre class="code literal-block"><span></span><code><span class="gu">@IPython/terminal/interactiveshell.py:98</span>
+Class TerminalInteractiveShell(InteractiveShell)
+... snip ...
+<span class="gi">+     autoformatter = Unicode(None,</span>
+<span class="gi">+        help="Autoformatter to reformat code.",</span>
+<span class="gi">+        allow_none=True</span>
+<span class="gi">+    ).tag(config=True)</span>
+</code></pre>
+
+
+<p>If you have an application or library which potentially has a really large
+number of configuration knobs and you want to isolate changes:
+Traitlets can help you expose all of those cleanly to a user, without having to
+think about the option name or writing the logic to set a default value.</p>
+<p>Unlike many other libraries likes argparse or click, the listing of
+configuration options is decentralized and lives on the object being
+configured. And there is no differences between adding a configuration option
+in the configuration file or at the command line interface.</p>
+<h2>Configure what you do not yet know about</h2>
+<p>In an application with few parameters and only a couple of plugins it might be
+relatively straightforward to provide options and CLI arguments; this becomes
+harder when arbitrary plugins are involved and those plugins have arbitrary
+configuration options you may or may not know about at startup time.</p>
+<p>One good example is JupyterHub. JupyterHub has various plugins, one category of
+which is Spawners. Spawners decide how notebook servers are started. You can
+<a href="https://jupyterhub.readthedocs.io/en/stable/reference/spawners.html#writing-a-custom-spawner">use a custom spawner</a>,
+and many institutions employ only minimal changes to the default Spawner to
+accommodate their use case. A few of the common Spawners are <code>SystemDSpawner</code>,
+<code>SlurmSpawner</code>, and <code>KubeSpawner</code>, each with their own parameters.</p>
+<p>It is critical to make it as simple as possible to provide configuration
+options and make them available from Jupyter Configuration files and from the
+command line.</p>
+<p>Using a custom Spawner is simple:</p>
+<pre class="code literal-block"><span></span><code><span class="n">c</span><span class="o">.</span><span class="n">JupyterHub</span><span class="o">.</span><span class="n">spawner_class</span> <span class="o">=</span> <span class="s1">'mypackage:MySpawner'</span>
+</code></pre>
+
+
+<p>and Traitlets allows you to also arbitrarily configure <code>MySpawner</code> with</p>
+<pre class="code literal-block"><span></span><code><span class="n">c</span><span class="o">.</span><span class="n">MySpawner</span><span class="o">.</span><span class="n">mem_limit</span> <span class="o">=</span> <span class="s1">'200G'</span>
+</code></pre>
+
+
+<p>Traitlets is aware of class hierarchy, thus when <code>MySpawner</code> inherits from the
+default Spawner, all <code>c.Spawner...</code> options will affect <code>MySpawner</code>, but
+<code>c.MySpawner...</code> options will of course only affect <code>MySpawner</code>.</p>
+<p>It is thus also easy to configure siblings differently; a good example is Terminal
+IPython vs IPykernel (used in notebooks and lab). Both applications are subclasses
+of <code>InteractiveShell</code>, namely <code>ZMQInteractiveShell</code> and <code>TerminalInteractiveShell</code>.</p>
+<p>I can configure both with <code>c.InteractiveShell.attribute=</code>, or decide that only
+terminal IPython will be affected via <code>c.TerminalInteractiveShell.attribute=</code>, I can also
+target only notebook-like interfaces with <code>c.ZMQInteractiveShell.attribute=</code>;</p>
+<p>On my own machine for example, <code>%matplotlib</code> is setup to be <code>inline</code> only for
+kernels and not terminal.</p>
+<p>Thus if you have an application or library with a number of plugins, and for
+which configurability can be thought of as tree-like similar to a class
+hierarchy, Traitlets can help you.</p>
+<h2>Other functionalities</h2>
+<h3>Observability</h3>
+<p>Beyond the configurability part is observability; as we already had a great
+type system with hooks, and sometimes you may want to mutate configuration of
+a running application, traitlets allow you to observe values and propagate
+them to other places.</p>
+<p>To look at the above example with code reformatting, the reformatter can be
+changed dynamically to a different one with the following:</p>
+<pre class="code literal-block"><span></span><code><span class="n">Class</span> <span class="n">TerminalInteractiveShell</span><span class="p">(</span><span class="n">InteractiveShell</span><span class="p">)</span>
+<span class="o">...</span>
+
+    <span class="nd">@observe</span><span class="p">(</span><span class="s1">'autoformatter'</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_autoformatter_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">change</span><span class="p">):</span>
+        <span class="n">formatter</span> <span class="o">=</span> <span class="n">change</span><span class="o">.</span><span class="n">new</span>
+        <span class="k">if</span> <span class="n">formatter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reformat_handler</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span>
+        <span class="k">elif</span> <span class="n">formatter</span> <span class="o">==</span> <span class="s1">'black'</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reformat_handler</span> <span class="o">=</span> <span class="n">black_reformat_handler</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span>
+</code></pre>
+
+
+<p>Observability is also what powers
+<a href="https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20Events.html?highlight=link#Linking-Widgets">ipywidgets</a>;
+it allows dynamic binding of sliders, buttons and other controls to
+visualisations.</p>
+<p>This can be useful to glue together models, with parameters needing to be
+synchronized and models needing to react to changes.</p>
+<h3>Dynamic defaults</h3>
+<p>Traitlets supports <a href="https://traitlets.readthedocs.io/en/stable/api.html#dynamic-default-values">dynamic defaults</a>,
+i.e. your default values may depend on some context (OS, Python version).</p>
+<p>Configurations are by default Python scripts (but can be JSON), so user
+config files can be shared across machines and have dynamic values.</p>
+<h3>Context base configuration</h3>
+<p>Object configuration can also look at the creator of the object at instantiation
+time.</p>
+<pre class="code literal-block"><span></span><code><span class="n">c</span><span class="o">.</span><span class="n">Foo</span><span class="o">.</span><span class="n">Bar</span><span class="o">.</span><span class="n">attr</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">c</span><span class="o">.</span><span class="n">Qux</span><span class="o">.</span><span class="n">Bar</span><span class="o">.</span><span class="n">attr</span> <span class="o">=</span> <span class="mi">2</span>
+</code></pre>
+
+
+<p>With the above, the <code>Bar</code> object created by <code>Foo</code> or by <code>Qux</code> will get different
+default values. This is for example used by <a href="https://github.com/jupyter/nbconvert">nbconvert</a>
+to decide which options to activate depending on whether you do <code>--to=pdf</code>,
+or <code>--to-html</code></p>
+<h3>Flags and aliases</h3>
+<p>Long flag names like <code>--InteractiveShell.debug=True</code> can be cumbersome to type.
+That is why traitlets provide aliases and flags, so that <code>ipython --debug</code> will
+set <code>debug=True</code> to enable logging on all classes supporting it while still
+allowing you to tweak the login level used on a per-class basis.</p>
+<h2>Limitations</h2>
+<p>Of course all this power doesn't come completely for free:</p>
+<ul>
+<li>Your class and attribute names become part of your API</li>
+<li>As configuration is loaded/read before any potential plugins are loaded, it is
+   impossible to definitively detect typos or invalid configuration options.</li>
+<li>Traitlets relies heavily on metaclasses, so it can add a construction cost to
+   your objects and can be hard to debug.</li>
+</ul>
+<h2>Conclusion</h2>
+<p>This was a short introduction to Traitlets. I hope it made it a little clearer
+how the Jupyter configuration system works, and we are looking forward to see
+how this can be used to adapt Jupyter to your work flow.</p>
+<p>Are you struggling with a system that has too many configuration options? Do
+you have a use case where you believe Traitlets can be useful? We'll be happy
+to hear from you.</p>
+<p>If you want to learn more, see <a href="https://www.youtube.com/watch?v=_gYEVTaNuKU">this JupyterCon 2018
+talk</a> and the <a href="https://traitlets.readthedocs.io/">documentation</a>.</p>
+<p>Try the new 5.x version and let us know if you have questions.</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../ipython-reproducible-builds/" rel="prev" title="IPython reproducible builds">Previous post</a>
+            </li>
+
+            <li class="archive">
+                <a href="../../../../archive.html" rel="archive" title="Archive ">Archive</a>
+            </li>
+
+            <li class="next disabled">
+                <a rel="next">Next post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2020         <a href="../../../../team">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>
