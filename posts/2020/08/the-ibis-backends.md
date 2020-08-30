@@ -1,3 +1,15 @@
+<!--
+.. title: Querying multiple backends with ibis
+.. slug: the-ibis-backends
+.. date: 2020-08-30
+.. author: Tony Fast, Kim Pevey
+.. tags: ibis, omnisci, sql, pandas
+.. category: 
+.. link: 
+.. description: 
+.. type: text
+-->
+
 ```python
     import ibis.omniscidb, dask, intake, sqlalchemy, pandas, pyarrow as arrow, altair, h5py as hdf5
 ```
@@ -333,11 +345,11 @@ their and effort in supporting the `ibis` community.
 [qs]: https://www.quansight.com/
 [graphviz]: https://graphviz.org
 [materialized view]: https://en.wikipedia.org/wiki/Materialized_view
-[blaze]: #
-[sqlalchemy]: #
-[backends]: #
-[intake]: #
-[arrow]: #
+[blaze]: https://blaze.pydata.org/
+[sqlalchemy]: https://www.sqlalchemy.org/
+[backends]: https://ibis-project.org/docs/backends/index.html
+[intake]: https://intake.readthedocs.io/en/latest/
+[arrow]: https://arrow.apache.org/docs/python/
 [labs-post]: https://labs.quansight.org/blog/2019/07/ibis-python-data-analysis-productivity-framework/
 [geo-tutorial]: https://github.com/ibis-project/ibis/pull/1991
 [geo-closed]: https://github.com/ibis-project/ibis/issues?q=label%3Ageospatial+is%3Aclosed
