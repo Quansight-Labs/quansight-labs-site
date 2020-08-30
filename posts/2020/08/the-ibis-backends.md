@@ -1,7 +1,7 @@
 <!--
 .. title: Querying different backends with `ibis`
 .. slug: the-ibis-backends
-.. date: 2020-08-30 09: 00: 00 UTC-00: 00
+.. date: 2020-08-30
 .. author: Tony Fast, Kim Pevery
 .. tags: ibis, data, pandas, omnisci
 .. category:
