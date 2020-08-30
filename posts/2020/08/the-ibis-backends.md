@@ -10,16 +10,6 @@
 .. type: text
 -->
 
-```python
-    import ibis.omniscidb, dask, intake, sqlalchemy, pandas, pyarrow as arrow, altair, h5py as hdf5
-```
-
-<!-- END_TEASER -->
-
-<!--    
-
- 
--->
 
 # `ibis` as a generalized query tool for different backends
 
@@ -27,17 +17,15 @@ In [our most recent `ibis` post] we look at querying & retrieving data using a f
 This example focused on the fluent API that `ibis` provides to query structure from a SQLite database, a single backend.
 In this post, we'll explore `ibis`'s ability to answer questions about data using two different `ibis` backends.
 
+```python
+    import ibis.omniscidb, dask, intake, sqlalchemy, pandas, pyarrow as arrow, altair, h5py as hdf5
+```
+
+
 ## `ibis` in the scientific Python ecosystem
 
-Before we continue into the technical nitty-gritty of `ibis`, we'll consider `ibis` in the greater historical context of the scientific Python ecosystem.
-
-The design of quite a few high-level tools in the scientific Python world can be tracked back to the holistic `blaze` ecosystem that offered ways _**store, describe, query, and process**_ data.
-`blaze` had ambitious goals and is now defunct, but its influences resonate throughout
-the scientific python community development in the success of projects the focus specific features of a data ecosystem like:
-
-* `dask` processing data.
-* `intake` for describing data.
-* `ibis` for querying data.
+Before we continue into the technical nitty-gritty of `ibis`, we'll consider `ibis` in the greater historical context of the scientific Python ecosystem. It was started by Wes McKinney, the creator of pandas, as way to query information on
+the [Hadoop distributed file system][hdfs] and [pyspark]. Later more backends were added as `ibis` became a general tool for querying data.  
 
 Throughout the rest of this document we'll highlight the ability of `ibis` to generically prescribe
 query expressions across different data storage systems.
@@ -46,8 +34,10 @@ query expressions across different data storage systems.
 
 Currently, `ibis` supports __>10__ backends.
 
-    >>> dir(ibis)
-    [...HDFS...WebHDFS...bigquery...clickhouse...hdf5...impala...omniscidb...pandas...pyspark...spark...sql...sqlite...]
+```
+>>> dir(ibis)
+[...HDFS...WebHDFS...bigquery...clickhouse...hdf5...impala...omniscidb...pandas...pyspark...spark...sql...sqlite...]
+```
 
 A backend takes an `ibis` query expression and applies computation, _and the query is independent of the computation_.
 A backend implementation, that can be queried with `ibis`, has one of the three following architectures.
@@ -58,161 +48,32 @@ A backend implementation, that can be queried with `ibis`, has one of the three 
 
 In the next few sections we'll unravel some of the different capabilities of each approach.
 
-## A data-driven history of `ibis` compatability
+## A data-driven history of `ibis` compatibility
 
 The table below looks at over 2000 issues in the ibis project.
 It provides an annual summary of the issues tagged in `ibis`
 for different backends over __6__ years.
 
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>omnisci</th>
-      <th>spark</th>
-      <th>postgres</th>
-      <th>bigquery</th>
-      <th>pandas</th>
-      <th>sqlite</th>
-      <th>impala</th>
-      <th>kudu</th>
-      <th>geospatial</th>
-      <th>clickhouse</th>
-      <th>mysql</th>
-      <th>sqlalchemy</th>
-    </tr>
-    <tr>
-      <th>year</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>2015</th>
-      <td></td>
-      <td></td>
-      <td>2</td>
-      <td></td>
-      <td>2</td>
-      <td>25</td>
-      <td>52</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>17</td>
-    </tr>
-    <tr>
-      <th>2016</th>
-      <td></td>
-      <td></td>
-      <td>3</td>
-      <td></td>
-      <td></td>
-      <td>2</td>
-      <td>4</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>2017</th>
-      <td></td>
-      <td>1</td>
-      <td>21</td>
-      <td>15</td>
-      <td>49</td>
-      <td>10</td>
-      <td>15</td>
-      <td></td>
-      <td></td>
-      <td>8</td>
-      <td></td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <th>2018</th>
-      <td>31</td>
-      <td></td>
-      <td>10</td>
-      <td>71</td>
-      <td>35</td>
-      <td>8</td>
-      <td>17</td>
-      <td></td>
-      <td></td>
-      <td>9</td>
-      <td>2</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>2019</th>
-      <td>33</td>
-      <td>22</td>
-      <td>17</td>
-      <td>12</td>
-      <td>32</td>
-      <td>1</td>
-      <td>4</td>
-      <td></td>
-      <td>7</td>
-      <td>1</td>
-      <td>2</td>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>2020</th>
-      <td>38</td>
-      <td>3</td>
-      <td>4</td>
-      <td>2</td>
-      <td>4</td>
-      <td>1</td>
-      <td>2</td>
-      <td>1</td>
-      <td>3</td>
-      <td>4</td>
-      <td>4</td>
-      <td></td>
-    </tr>
-  </tbody>ibis direct execution backends like pandas and hdf5 operate on conventional in-memory python objects. pandas is the gold standard for structured data in python, and inspires the API for ibis.
+|            | 2015   | 2016   | 2017   | 2018   | 2019   | 2020   |
+|:-----------|:-------|:-------|:-------|:-------|:-------|:-------|
+| omnisci    |        |        |        | 31.0   | 33.0   | 38.0   |
+| spark      |        |        | 1.0    |        | 22.0   | 3.0    |
+| postgres   | 2      | 3      | 21     | 10     | 17     | 4      |
+| bigquery   |        |        | 15.0   | 71.0   | 12.0   | 2.0    |
+| pandas     | 2.0    |        | 49.0   | 35.0   | 32.0   | 4.0    |
+| sqlite     | 25     | 2      | 10     | 8      | 1      | 1      |
+| impala     | 52     | 4      | 15     | 17     | 4      | 2      |
+| kudu       |        |        |        |        |        | 1.0    |
+| geospatial |        |        |        |        | 7.0    | 3.0    |
+| clickhouse |        |        | 8.0    | 9.0    | 1.0    | 4.0    |
+| mysql      |        |        |        | 2.0    | 2.0    | 4.0    |
+| sqlalchemy | 17.0   | 3.0    | 10.0   | 2.0    | 5.0    |        |
 
 
-</table>
-</div>
-<br>
-
-> We note an early focus `ibis.sqlite`, `sqlalchemy` and `ibis.impala`. 
+We note an early focus `ibis.sqlite`, `sqlalchemy` and `ibis.impala`. 
 Later, work began on the `pandas` backend rounding out the three different types of backgrounds.
 From this point, improvements were made to these key backends as `ibis.clickhouse`, `ibis.spark` and `ibis.postgres`. 
-For the past 3 years, Quansight, in partnership with OmniSci, added the `ibis.omniscidb`
+For the past 2 years, Quansight, in partnership with OmniSci, added the `ibis.omniscidb`
 string generating backend. Further, our responsibilities have expanded
 to support `ibis` as community maintainers through Quansight Labs. 
 This collaboration introduced geospatial functionality to `ibis` for several backends.
@@ -230,15 +91,13 @@ Maybe our community could benefit from a `dask` backend or `altair` backend?
 
 
 ```python
-    pd = ibis.pandas.connect({'A': pandas.util.testing.makeDataFrame()})
+pd = ibis.pandas.connect({'A': pandas.util.testing.makeDataFrame()})
 ```
 
-`pd` is an `ibis` backend based off `pandibis direct execution backends like pandas and hdf5 operate on conventional in-memory python objects. pandas is the gold standard for structured data in python, and inspires the API for ibis.
-
-as.DataFrame` objects.
+`pd` is an `ibis` backend based off `pandas.DataFrame` objects.
 
 ```python
-    expression = pd.table('A').head()
+expression = pd.table('A').head()
 ```
 
 `expression` is an `ibis` query, that has `expression.compile` and `expression.execute` methods.
@@ -261,37 +120,51 @@ practical in mocking tests for expressions independent of backends.
 ## `ibis` expression generating backends.
 
 ```python
-    db = ibis.sqlite.connect('lahmansbaseballdb.sqlite')
-    expression = db.table('halloffame').head()
+db = ibis.sqlite.connect('lahmansbaseballdb.sqlite')
+expression = db.table('halloffame').head()
 ```
 
 Expression generating backends operate on [SQL] databases that interoperate with `sqlalchemy`.
 
 ```python
-    >>> assert isinstance(expression.compile(), sqlalchemy.sql.Select)
+>>> assert isinstance(expression.compile(), sqlalchemy.sql.Select)
 ```
 
 In the case of expression generating backends, the intermediate representation is a `sqlalchemy` object.
-`sqlalchemy` is _The Database Toolkit for Python_, and `ibis` leverages it compatability
+`sqlalchemy` is _The Database Toolkit for Python_, and `ibis` leverages it compatibility
 with traditional [SQL] databases.
     
 
 
 ## `ibis` string generating backends.
 
-```bash
-pip install --upgrade ibis-framework[omniscidb]
-# ORx
-conda install -c conda-forge ibis-framework # install all the backends!
-```
+There are two options for downloading `ibis`
+
+1. Using `pip` we'll need to request the extra backends from `ibis`.
+
+    ```bash
+    pip install --upgrade ibis-framework[omniscidb] ibis-framework[sqlite]
+    ```
+
+2. `conda` will download all of the supported [backends] meaning you'll have the packages
+required to work across sql, pandas, [bigquery], or [Omnisci].
+
+    ```bash
+    conda install -c conda-forge ibis-framework # install all the backends!
+    ```
 
 String generating backends allow `ibis` to interface with big data systems that manage 
 their own computation. For example, we may connect to an example `omnisci` database.
     
 
 ```python
-    import ibis.omniscidb
-    omnisci = ibis.omniscidb.connect(host='metis.omnisci.com', user='demouser', password='HyperInteractive', port=443, database='omnisci', protocol='https')
+import ibis.omniscidb
+omnisci = ibis.omniscidb.connect(host='metis.omnisci.com', 
+                                user='demouser', 
+                                password='HyperInteractive', 
+                                port=443, 
+                                database='omnisci', 
+                                protocol='https')
 ```
     
 `omnisci` is described as a string generating backend because the intermediate representation of the
@@ -299,7 +172,7 @@ query is a flavor of SQL.
 
 
 ```python
-    expression = omnisci.table('upstream_reservoir').head()
+expression = omnisci.table('upstream_reservoir').head()
 ```
 
     
@@ -307,8 +180,8 @@ A string generating expression compiles to `ibis.omniscidb` flavored [SQL], whil
 
 
 ```python
-    >>> expression.compile()
-    'SELECT *\nFROM upstream_reservoir\nLIMIT 5'
+>>> expression.compile()
+'SELECT *\nFROM upstream_reservoir\nLIMIT 5'
 ```
     
 
@@ -320,8 +193,8 @@ the drama play out in this [Github Issue][omnisci-pr]. If you'd like to learn mo
 
 ## Conclusion
 
-We'd like to thank the maintainers of the `ibis` for
-their and effort in supporting the `ibis` community.
+We'd like to thank the maintainers of the Ibis for
+their and effort in supporting the Ibis community.
 
 
 [our most recent `ibis` post]: https://labs.quansight.org/blog/2020/06/ibis-an-idiomatic-flavor-of-sql-for-python-programmers/
@@ -357,3 +230,6 @@ their and effort in supporting the `ibis` community.
 [omnisci-pr]: https://github.com/ibis-project/ibis/pull/1419
 [test-hdf5]: https://github.com/ibis-project/ibis/blob/master/ibis/file/tests/test_hdf5.py
 [@xmnlab]: https://github.com/xmnlab
+[hdfs]: https://en.wikipedia.org/wiki/Apache_Hadoop#HDFS
+[pyspark]: https://pypi.org/project/pyspark/
+[bigquery]: https://cloud.google.com/bigquery/
