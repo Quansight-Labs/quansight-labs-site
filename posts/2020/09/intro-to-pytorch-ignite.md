@@ -1,7 +1,7 @@
 <!--
 .. title: PyTorch-Ignite: training and evaluating neural networks flexibly and transparently
 .. slug: pytorch-ignite
-.. date: 2020-09-01 09:00:00 UTC-00:00
+.. date: 2020-08-01 09:00:00 UTC-00:00
 .. author: Victor Fomin, Sylvain Desroziers
 .. tags: Labs, Python, Deep Learning, PyTorch, Machine Learning, Neural Networks, Tutorial
 .. category:
@@ -22,22 +22,18 @@ This post is a general introduction of PyTorch-Ignite. It tends to give a brief 
 
 Throughout this tutorial, we will introduce the basic concepts of PyTorch-Ignite with the training and evaluation of a MNIST classifier as a beginner application case. We also assume that the reader is familiar with PyTorch.
 
-This tutorial can be also executed in Google Colab: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](LINK)
+This tutorial can be also executed in Google Colab: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1gFIPXmUX73HWlLSxFvvYEweQBD_OPx1t)
 
 ## Content
 
-1.   PyTorch-Ignite: What and Why ? 
-2.   Quick-start example
-3.   Advanced features
-  
-  3.1  Power of Events & Handlers
-  
-  3.2  Out-of-the-box metrics and handlers
-  
-  3.3  Distributed and XLA devices support
-
-4.   Public use-cases
-5.   Project news
+- [PyTorch-Ignite: What and Why ?](#pytorch-ignite--what-and-why)
+- [Quick-start example](#quick-start-example)
+- [Advanced features](#advanced-features)
+  * Power of Events & Handlers
+  * Out-of-the-box metrics and handlers  
+  * Distributed and XLA devices support
+- [Projects using PyTorch-Ignite](#projects-using-pytorch-ignite)
+- [Project news](#project-news)
 
 
 # PyTorch-Ignite: What and Why ?
