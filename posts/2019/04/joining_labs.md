@@ -10,7 +10,7 @@
 .. type: text
 -->
 
-In his [blog post](https://www.quansight.com/single-post/2019/04/02/Welcoming-Ralf-Gommers-as-Director-of-Quansight-Labs) welcoming me, Travis set out his vision for pushing forward the Python ecosystem for scientific computing and data science, and how to fund it. In this post I'll add my own perspectives to that. Given that Quansight Labs' purpose, it seems fitting to start with how I see things as a community member and organizer.
+In his [blog post](https://www.quansight.com/post/welcoming-ralf-gommers-as-director-of-quansight-labs) welcoming me, Travis set out his vision for pushing forward the Python ecosystem for scientific computing and data science, and how to fund it. In this post I'll add my own perspectives to that. Given that Quansight Labs' purpose, it seems fitting to start with how I see things as a community member and organizer.
 
 ### A community perspective
 
