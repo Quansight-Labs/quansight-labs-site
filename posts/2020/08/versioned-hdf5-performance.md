@@ -10,7 +10,7 @@
 .. type: text
 -->
 
-In a previous post, we introduced the Versioned HDF5 library and described some of its features. In this post, we'll show some of the performance analysis we did while developing the library, hopefully making the case that reading and writing versioned HDF5 files is efficient and useful.
+In a [previous post](https://labs.quansight.org/blog/2020/08/introducing-versioned-hdf5/), we introduced the Versioned HDF5 library and described some of its features. In this post, we'll show some of the performance analysis we did while developing the library, hopefully making the case that reading and writing versioned HDF5 files is efficient and useful.
 
 <!-- TEASER_END -->
 
@@ -53,7 +53,7 @@ We’ll start by analyzing how the HDF5 file sizes grow as the number of version
 
 <img src="/images/versioned-hdf5-performance/filesizes.png" alt="File sizes for Versioned HDF5 files" width="533" height="400">
 
-Note that in some of the examples the size of the arrays stored in the file also grow as the number of versions grows, since each new version is changing the original arrays by adding, deleting and changing values in the original arrays. *Keep in mind there is redundant data as some of it is not changed during the staging of a new version but it is still being stored.* It's also worth noting that for these tests we don't use compression, even though algorithms available in [h5py](link to h5py compression) can be used in Versioned HDF5. You can see the [Versioned HDF5 documentation](https://deshaw.github.io/versioned-hdf5/) for more detailed tests regarding chunking and compression.
+Note that in some of the examples the size of the arrays stored in the file also grow as the number of versions grows, since each new version is changing the original arrays by adding, deleting and changing values in the original arrays. *Keep in mind there is redundant data as some of it is not changed during the staging of a new version but it is still being stored.* It's also worth noting that for these tests we don't use compression, even though [algorithms available in h5py](https://docs.h5py.org/en/stable/high/dataset.html#filter-pipeline) can be used in Versioned HDF5. You can see the [Versioned HDF5 documentation](https://deshaw.github.io/versioned-hdf5/) for more detailed tests regarding chunking and compression.
 
 ### Creation times
 
@@ -103,7 +103,7 @@ In this case, we can see that on average, reading the latest version on a Versio
 
 ## Summary
 
-Overall, the worst performance was observed for tests with large array sizes. This seems to show that the file sizes and IO performance of Versioned HDF5 files are significantly affected by the size of the datasets stored in each file, which is to be expected. 
+Overall, the worst performance was observed for tests with large array sizes. This seems to show that the file sizes and IO performance of Versioned HDF5 files are significantly affected by the size of the unique datasets stored in each file, which is to be expected. 
 
 The results presented here show that the largest impact on IO performance and storage is in fact explained by the size of the datasets stored in the file, and not significantly reduced by the Versioned HDF5 abstraction.
 
