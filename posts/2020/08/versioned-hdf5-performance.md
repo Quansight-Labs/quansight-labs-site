@@ -18,11 +18,11 @@ In a [previous post](https://labs.quansight.org/blog/2020/08/introducing-version
 
 *Performance* can mean different things for different operations. For the tests presented here, the main goals are:
 
-- To evaluate the performance of reading/writing Versioned HDF5 files and compare it with non-versioned files (that is, files where only the last version of the datasets is stored);
-- To evaluate the performance when reading/writing data to a Versioned HDF5 file in a set of different use cases;
-- To evaluate the performance when different parameters options are considered for chunking and compression on Versioned HDF5 files.
+- To evaluate the performance (size on disk and I/O speed) of reading/writing versioned HDF5 files and compare it with non-versioned files (that is, files where only the last version of the datasets is stored);
+- To evaluate the performance when reading/writing data to a versioned HDF5 file in a set of different use cases;
+- To evaluate the performance when different parameters options are considered for chunking and compression on versioned HDF5 files.
 
-When different versions of a dataset are stored in a Versioned HDF5 file, modified copies of the data are stored as new versions. This means that there may be duplication of data between versions, which might impact the performance of reading, writing or manipulating these files.
+When different versions of a dataset are stored in a versioned HDF5 file, modified copies of the data are stored as new versions. This means that there may be duplication of data between versions, which might impact the performance of reading, writing or manipulating these files.
 
 In order to analyze this, we will consider test files created with a variable number of versions (or transactions) of a dataset consisting of three ndarrays of variable length. One test includes a two-dimensional ndarray as part of this dataset, but all other test cases consist of three one-dimensional ndarrays per dataset.
 
@@ -43,7 +43,7 @@ In the next tests, the number of modifications is dominated by the number of app
 
 5. In the second case, the dataset contains one two-dimensional array with shape `(30, 30)` and two one-dimensional arrays acting as indices to the 2d array. In this case, rows are only appended in the first axis of the two-dimensional array, and a small number of positions (at most 10) is chosen at random and changed. We call this test `test_mostly_appends_dense`.
 
-To test the performance of VersionedHDF5 files, we have chosen to compare a few different chunk sizes and compression algorithms. These values have been chosen arbitrarily, and optimal values depend on different use cases and on the nature of the datasets stored in the file.
+To test the performance of the Versioned HDF5 library, we have chosen to compare a few different chunk sizes and compression algorithms. These values have been chosen arbitrarily, and optimal values depend on different use cases and on the nature of the datasets stored in the file.
 
 ### File sizes
 
@@ -51,7 +51,7 @@ As the number of versions in a file grows, its size on disk is also expected to 
 
 We’ll start by analyzing how the HDF5 file sizes grow as the number of versions grows. Using a chunk size of **4096**, we can see the following results for the 4 one-dimensional test cases:
 
-<img src="/images/versioned-hdf5-performance/filesizes.png" alt="File sizes for Versioned HDF5 files" width="533" height="400">
+<img src="/images/versioned-hdf5-performance/filesizes.png" alt="File sizes for `versioned-hdf5` files" width="533" height="400">
 
 Note that in some of the examples the size of the arrays stored in the file also grow as the number of versions grows, since each new version is changing the original arrays by adding, deleting and changing values in the original arrays. *Keep in mind there is redundant data as some of it is not changed during the staging of a new version but it is still being stored.* It's also worth noting that for these tests we don't use compression, even though [algorithms available in h5py](https://docs.h5py.org/en/stable/high/dataset.html#filter-pipeline) can be used in Versioned HDF5. You can see the [Versioned HDF5 documentation](https://deshaw.github.io/versioned-hdf5/) for more detailed tests regarding chunking and compression.
 
@@ -83,9 +83,9 @@ We can also look at the times required to create each new version and write it t
 
 ![write_versions](/images/versioned-hdf5-performance/write_times_test5.png)
 
-This test case is unique for a few reasons. First, having a two-dimensional dataset introduces new considerations, such as the number of rows being added in each axis. For this test case, we have only added (few) new rows to the first axis with each new version, and this might explain why we don’t see an increase in the time required to write new versions to file as the number of versions grow. While these are preliminary tests, and multidimensional datasets are still experimental at this point in VersionedHDF5, we can see that there are no unexpected drops in performance and the results can generally be explained by the size of the data stored in each file. 
+This test case is unique for a few reasons. First, having a two-dimensional dataset introduces new considerations, such as the number of rows being added in each axis. For this test case, we have only added (few) new rows to the first axis with each new version, and this might explain why we don’t see an increase in the time required to write new versions to file as the number of versions grow. While these are preliminary tests, and multidimensional datasets are still experimental at this point in Versioned HDF5, we can see that there are no unexpected drops in performance and the results can generally be explained by the size of the data stored in each file. 
 
-## I/O Performance for Versioned-HDF5 Files
+## I/O performance for versioned HDF5 files
 
 First, we'll look at the time required to read data from all versions in a file, sequentially. To keep this test short, we’ll only analyze the tests using **no compression**, and **chunk size** 16384 for the one-dimensional datasets and 256 for the two-dimensional dataset in `test_mostly_appends_dense`.
 
@@ -95,34 +95,30 @@ Plotting with respect to the number of versions, we get the following:
 
 As expected, read times increase for files with a larger number of versions, but the growth is close to linear in all cases except for `test_mostly_appends_dense`, where the large array sizes explain the larger read times.
 
-Next, we’ll compare the times necessary to read the latest version on each file. Because of how VersionedHDF5 is designed, this is the same as reading the last array stored in the HDF5 file. For each test, we made 20 different reads of the latest version in order to eliminate fluctuations generated by background processes or the OS (solid lines). We also compare these read times with the time required to read an unversioned file (which only stored the latest version - dashed black line).
+Next, we’ll compare the times necessary to read the latest version on each file. Because of how Versioned HDF5 is designed, this is the same as reading the last array stored in the HDF5 file. For each test, we made 20 different reads of the latest version in order to eliminate fluctuations generated by background processes or the OS (solid lines). We also compare these read times with the time required to read an unversioned file (which only stored the latest version - dashed black line).
 
 ![](/images/versioned-hdf5-performance/latestread.png)
 
-In this case, we can see that on average, reading the latest version on a VersionedHDF5File is ~5x-10x slower than reading an unversioned file. Also, the time required to read the latest version from a Versioned HDF5 file increases modestly with the number of versions stored in the file, except when the size of the array increases significantly with each new version.
+In this case, we can see that on average, reading the latest version on a `VersionedHDF5File` is ~5x-10x slower than reading an unversioned file. Also, the time required to read the latest version from a versioned HDF5 file increases modestly with the number of versions stored in the file, except when the size of the array increases significantly with each new version.
 
 ## Summary
 
-Overall, the worst performance was observed for tests with large array sizes. This seems to show that the file sizes and IO performance of Versioned HDF5 files are significantly affected by the size of the unique datasets stored in each file, which is to be expected. 
+Overall, the worst performance was observed for tests with large array sizes. This seems to show that the file sizes and I/O performance of versioned HDF5 files are significantly affected by the size of the unique datasets stored in each file, which is to be expected. 
 
-The results presented here show that the largest impact on IO performance and storage is in fact explained by the size of the datasets stored in the file, and not significantly reduced by the Versioned HDF5 abstraction.
+The results presented here show that the largest impact on I/O performance and storage is in fact explained by the size of the datasets stored in the file, and that this performance is not significantly reduced by the Versioned HDF5 abstraction.
 
 Next steps
 ----------
 
-This is the second post in a series about the Versioned HDF5 library. Next,
-we'll discuss the the design of the Versioned HDF5 library.
+This is the second post in a series about the Versioned HDF5 library. In our next post, we'll discuss the the design of the Versioned HDF5 library.
 
 `versioned-hdf5 1.0` has recently been released, and is available on PyPI and conda-forge. You can install it with
 
-```py
+```bash
 conda install -c conda-forge versioned-hdf5
 ```
 
-The development is on [GitHub](https://github.com/deshaw/versioned-hdf5).
-Currently, the library supports basic use cases, but there is still a lot to
-do. We welcome community contributions to the library, including any issues or
-feature requests.
+Development for `versioned-hdf5` happens on [GitHub](https://github.com/deshaw/versioned-hdf5). Currently, the library supports basic use cases, but there is still a lot to do. We welcome community contributions to the library, including any issues or feature requests.
 
 For now, you can check out the
 [documentation](https://deshaw.github.io/versioned-hdf5/) for more details on
