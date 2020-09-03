@@ -173,3 +173,9 @@ just like their h5py counterparts, but do the right thing on versioned data.
 The top-level `versioned_hdf5.VersionedHDF5File` API returns these objects
 whenever a versioned dataset is accessed. They are designed to work seamlessly
 like the corresponding h5py objects.
+
+The Versioned HDF5 library was created by the [D. E. Shaw
+group](https://www.deshaw.com/) in conjunction with
+[Quansight](https://www.quansight.com/).
+
+![https://www.deshaw.com](/images/sponsors/black_logo_417x125.png)
