@@ -1,9 +1,9 @@
 <!--
-.. title: Querying multiple backends with ibis
+.. title: Querying multiple backends with Ibis
 .. slug: the-ibis-backends
-.. date: 2020-08-30
+.. date: 2020-09-05
 .. author: Tony Fast, Kim Pevey
-.. tags: Ibis, omnisci, sql, pandas
+.. tags: Ibis, OmniSci, SQL, Pandas
 .. category:
 .. link:
 .. description:
@@ -29,6 +29,8 @@ the [Hadoop distributed file system][hdfs] and [pyspark]. Later more backends we
 
 Throughout the rest of this document we'll highlight the ability of `ibis` to generically prescribe
 query expressions across different data storage systems.
+
+<!-- TEASER_END -->
 
 ### The design of [`ibis` backends][backends]
 
