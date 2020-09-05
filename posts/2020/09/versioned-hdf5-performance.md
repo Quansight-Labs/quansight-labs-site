@@ -1,7 +1,7 @@
 <!--
 .. title: Performance of the Versioned HDF5 Library
 .. slug: versioned-hdf5-performance
-.. date: 2020-08-31 08:00:00 UTC-05:00
+.. date: 2020-09-05 01:00:00 UTC-05:00
 .. author: Melissa Weber Mendonça
 .. tags: HDF5, h5py
 .. category:
@@ -87,7 +87,7 @@ This test case is unique for a few reasons. First, having a two-dimensional data
 
 ## I/O performance for versioned HDF5 files
 
-First, we'll look at the time required to read data from all versions in a file, sequentially. To keep this test short, we’ll only analyze the tests using **no compression**, and **chunk size** 16384 for the one-dimensional datasets and 256 for the two-dimensional dataset in `test_mostly_appends_dense`.
+First, we'll look at the time required to read data from all versions in a file, sequentially. To keep this test short, we’ll only analyze the tests using _no compression_, and _chunk size_ 16384 for the one-dimensional datasets and 256 for the two-dimensional dataset in `test_mostly_appends_dense`.
 
 Plotting with respect to the number of versions, we get the following:
 
