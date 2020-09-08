@@ -34,6 +34,16 @@ title: Sameer Deshmukh
 github: v0dro
 projects: ['XND']
 ---
+name: tony_fast.png
+title: Tony Fast
+github: tonyfast
+projects: ['Holoviz', 'Jupyter']
+---
+name: victor_fomin.jpg
+title: Victor Fomin
+github: vfdev-5
+projects: ['PyTorch Ignite']
+---
 name: marc_garcia.png
 title: Marc Garcia
 github: datapythonista
@@ -109,6 +119,11 @@ title: Pearu Peterson
 github: pearu
 projects: ['Numba', 'f2py', 'rbc', 'XND']
 ---
+name: kim_pevey.png
+title: Kim Pevey
+github: kcpevey
+projects: ['Holoviz']
+---
 name: matti_picus.png
 title: Matti Picus
 github: mattip
@@ -134,8 +149,8 @@ title: Saul Shanabrook
 github: saulshanabrook
 projects: ['JupyterLab', 'metadsl']
 ---
-name: victor_fomin.jpg
-title: Victor Fomin
-github: vfdev-5
-projects: ['PyTorch Ignite']
+name: pam_wadhwa.jpeg
+title: Pam Wadhwa
+github: ppwadhwa
+projects: ['Holoviz']
 ---
