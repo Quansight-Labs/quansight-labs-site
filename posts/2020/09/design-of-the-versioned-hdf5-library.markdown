@@ -7,27 +7,27 @@
 .. link:
 .. description:
 .. type: text
-
 -->
 
-In a previous post, we introduced the Versioned HDF5 library and described
-some of its features. In this post, we'll go into detail on how the underlying
-design of the library.
+In a [previous
+post](https://labs.quansight.org/blog/2020/08/introducing-versioned-hdf5/), we
+introduced the Versioned HDF5 library and described some of its features. In
+this post, we'll go into detail on how the underlying design of the library
+works on a technical level.
 
 <!-- TEASER_END -->
 
-The Versioned-HDF5 library is a library that wraps h5py and offers a versioned
-abstraction for HDF5 groups and datasets. The basic idea behind the design is
-that versioned-hdf5 is a
+Versioned HDF5 is a library that wraps h5py and offers a versioned abstraction
+for HDF5 groups and datasets. Versioned HDF5 works fundamentally as a
 [copy-on-write](https://en.wikipedia.org/wiki/Copy-on-write) system. The basic
 idea of copy-on-write is that all data is effectively immutable in the
 backend. Whenever a high-level representation of data is modified, it is
 copied to a new location in the backend, leaving the original version intact.
 Any references to the original will continue to point to it.
 
-The basic high-level idea of a versioned system built on top of copy-on-write
-is that is stored in the system is stored in immutable blobs in the backend.
-The immutability of these blobs is often enforced by making them
+At a high-level, in a versioned system built with copy-on-write, all data in
+the system is stored in immutable blobs in the backend. The immutability of
+these blobs is often enforced by making them
 [content-addressable](https://en.wikipedia.org/wiki/Content-addressable_storage),
 where the blobs are always referred to in the system by a cryptographic hash
 of their contents. Cryptographic hashes form a mapping from any blob of data
@@ -39,19 +39,20 @@ hash.
 
 Whenever data for a version is committed, its data is stored as blobs in the
 backend. It may be put into a single blob, or split into multiple blobs. If it
-is split, a way to reoncstruct the data from the blobs is stored. If a later
+is split, a way to reconstruct the data from the blobs is stored. If a later
 version modifies that data, any blobs that are different are stored as new
 blobs. If the data is the same, the blobs will also be the same, and hence
 will not be written to twice, because they will already exist in the backend.
 
-At a high-level, this is how the git version control system works, for
-example. It is also how versioning constructs in some modern filesystems like
-APFS and Btrfs.
+At a high-level, this is how the git version control system works, for example
+([this is a good talk](https://www.youtube.com/watch?v=lG90LZotrpo) on the
+internals of git). It is also how versioning constructs in some modern
+filesystems like APFS and Btrfs.
 
-## Versioned-HDF5 Implementation
+## Versioned HDF5 Implementation
 
 
-In Versioned-HDF5, this idea is implemented using two key HDF5 primitives:
+In Versioned HDF5, this idea is implemented using two key HDF5 primitives:
 chunks and virtual datasets.
 
 In HDF5, datasets are split into multiple chunks. Each chunk is of equal size,
@@ -60,34 +61,34 @@ chunk is the smallest part of a dataset that HDF5 operates on. Whenever a
 subset of a dataset is to be read, the entire chunk containing that dataset is
 read into memory. Picking an optimal chunk size is a nontrivial task, and
 depends on things such as the size of your L1 cache and the typical shape of
-your dataset. Furthermore, in versioned-hdf5 a chunk is the smallest amount of
+your dataset. Furthermore, in Versioned HDF5 a chunk is the smallest amount of
 data that is stored only once across versions if it has not changed. If the
 chunk size is too small, it would affect performance, as operations would
 require reading and writing more chunks, but if it is too large, it would make
 the resulting versioned file unnecessarily large, as changing even a single
-element of a chunk requires rewriting the entire chunk. Versioned-hdf5 does
+element of a chunk requires rewriting the entire chunk. Versioned HDF5 does
 not presently contain any logic for automatically picking a chunk size. The
 [pytables
 documentation](https://www.pytables.org/usersguide/optimization.html) has some
 tips on picking an optimal chunk size.
 
-Because chunks are the most basic HDF5 primitive, Versioned-HDF5 uses them as
+Because chunks are the most basic HDF5 primitive, Versioned HDF5 uses them as
 the underlying blobs for storage. This way operations on data can be as
-performant possible.
-<!-- TODO: Link to performance blog post here -->
+[performant as
+possible](https://labs.quansight.org/blog/2020/09/versioned-hdf5-performance/).
 
 [Virtual datasets](http://docs.h5py.org/en/stable/vds.html) are a special kind
 of dataset that reference data from other datasets in a seamless way. The data
 from each part of a virtual dataset comes from another dataset. HDF5 does this
 seamlessly, so that a virtual dataset appears to be a normal dataset.
 
-The basic design of versioned-hdf5 is this: whenever a dataset is created for
+The basic design of Versioned HDF5 is this: whenever a dataset is created for
 the first time (the first version containing the dataset), it is split into
 chunks. The data in each chunk is hashed and stored in a hash table. The
-unique chunks are then appended into to a `raw_data` dataset corresponding to
-the dataset. Finally, a virtual dataset is made that references the
-corresponding chunks in the raw dataset to recreate the original dataset. When
-later versions modify this dataset, each modified chunk is appended to the raw
+unique chunks are then appended into a `raw_data` dataset corresponding to the
+dataset. Finally, a virtual dataset is made that references the corresponding
+chunks in the raw dataset to recreate the original dataset. When later
+versions modify this dataset, each modified chunk is appended to the raw
 dataset, and a new virtual dataset is created pointing to corresponding
 chunks.
 
@@ -112,17 +113,17 @@ All extra metadata, such as attributes, is stored on the virtual dataset.
 Since virtual datasets act exactly like real datasets and operate at the HDF5
 level, each version is a real group in the HDF5 file that is exactly that
 version. However, these groups should be treated as read-only, and you should
-never access them outside of the versioned-hdf5 API (see below).
+never access them outside of the Versioned HDF5 API (see below).
 
 ## HDF5 File Layout
 
 Inside of the HDF5 file, there is a special `_versioned_data` group that holds
-all the internal data for versioned-hdf5. This group contains a `versions`
+all the internal data for Versioned HDF5. This group contains a `versions`
 group, which contains groups for each version that has been created. It also
 contains a group for each dataset that exists in a version. These groups each
 contain two datasets, `hash_table`, and `raw_data`.
 
-For example, consider a versioned-hdf5 file that contains two versions,
+For example, consider a Versioned HDF5 file that contains two versions,
 `version1`, and `version2`, with datasets `data1` and `data2`. Suppose also
 that `data1` exists in both versions and `data2` only exists in `version2`.
 The HDF5 layout would look like this
@@ -158,13 +159,13 @@ virtual datasets in the corresponding version groups in `versions/`. For
 example, the chunks for the data `data1` in versions `version1` and `version2`
 are stored in `_versioned_data/data1/raw_data`.
 
-## Versioned-HDF5 API
+## Versioned HDF5 API
 
 The biggest challenge of this design is that the virtual datasets representing
 the data in each versioned data all point to the same blobs in the backend.
 However, in HDF5, if a virtual dataset is written to, it will write to the
-location it points to. This is at ends with the immutable copy-on-write
-design. As a consequence, Versioned-HDF5 needs to wrap all the h5py APIs that
+location it points to. This is at odds with the immutable copy-on-write
+design. As a consequence, Versioned HDF5 needs to wrap all the h5py APIs that
 write into a dataset to disallow writing for versions that are already
 committed, and to do the proper copy-on-write semantics for new versions that
 are being staged. Several classes that wrap the h5py Dataset and Group objects
@@ -178,4 +179,4 @@ The Versioned HDF5 library was created by the [D. E. Shaw
 group](https://www.deshaw.com/) in conjunction with
 [Quansight](https://www.quansight.com/).
 
-![https://www.deshaw.com](/images/sponsors/black_logo_417x125.png)
+<img src="/images/sponsors/black_logo_417x125.png" width="200" class="center">
