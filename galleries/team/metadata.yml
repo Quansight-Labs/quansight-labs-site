@@ -1,43 +1,63 @@
 ---
-name: hameer_abbasi.png
-title: Hameer Abbasi
-github: hameerabbasi
-projects: ['NumPy', 'PyData/Sparse', 'uarray']
----
 name: daniel_althviz.png
 title: Daniel Althviz
 github: dalthviz
 projects: ['Spyder']
 ---
-name: prasun_anand.png
-title: Prasun Anand
-github: prasunanand
-projects: ['Dask', 'uarray']
+name: juanita_gomez.png
+title: Juanita Gomez
+github: juanis2112
+projects: ['Spyder']
 ---
 name: peter_bell.png
 title: Peter Bell
 github: peterbell10
 projects: ['SciPy', 'uarray']
 ---
-name: matthias_bussonnier.JPG
-title: Matthias Bussonnier
-github: Carreau
-projects: ['Jupyter', 'JupyterHub', 'IPython']
----
 name: carlos_cordoba.png
 title: Carlos Cordoba
 github: ccordoba12
 projects: ['Spyder']
 ---
-name: sameer_deshmukh.png
-title: Sameer Deshmukh
-github: v0dro
-projects: ['XND']
+name: matti_picus.png
+title: Matti Picus
+github: mattip
+projects: ['NumPy', 'PyPy']
+---
+name: melissa_mendoca.png
+title: Melissa Mendonça
+github: melissawm
+projects: ['NumPy']
+---
+name: pearu_peterson.png
+title: Pearu Peterson
+github: pearu
+projects: ['Numba', 'f2py', 'rbc', 'XND']
+---
+name: isabela_presedo.jpg
+title: Isabela Presedo-Floyd
+github: isabela-pf
+projects: ['JupyterLab', 'Spyder']
 ---
 name: tony_fast.png
 title: Tony Fast
 github: tonyfast
 projects: ['Holoviz', 'Jupyter']
+---
+name: hameer_abbasi.png
+title: Hameer Abbasi
+github: hameerabbasi
+projects: ['NumPy', 'PyData/Sparse', 'uarray']
+---
+name: saul_shanabrook.png
+title: Saul Shanabrook
+github: saulshanabrook
+projects: ['JupyterLab', 'metadsl']
+---
+name: stephannie_jimenez.png
+title: Stephannie Jiménez
+github: steff456
+projects: ['Spyder']
 ---
 name: victor_fomin.jpg
 title: Victor Fomin
@@ -49,30 +69,10 @@ title: Marc Garcia
 github: datapythonista
 projects: ['Ibis', 'pandas']
 ---
-name: tim_george.png
-title: Tim George
-github: tgeorgeux
-projects: ['JupyterLab']
----
-name: juanita_gomez.png
-title: Juanita Gomez
-github: juanis2112
-projects: ['Spyder']
----
 name: ralf_gommers.png
 title: Ralf Gommers
 github: rgommers
 projects: ['NumPy', 'SciPy']
----
-name: stephannie_jimenez.png
-title: Stephannie Jiménez
-github: steff456
-projects: ['Spyder']
----
-name: anirrudh_krishnan.png
-title: Anirrudh Krishnan
-github: anirrudh
-projects: ['mtypes']
 ---
 name: mars_lee.png
 title: Mars Lee
@@ -89,11 +89,6 @@ title: Edgar Margffoy
 github: andfoy
 projects: ['Spyder']
 ---
-name: melissa_mendoca.png
-title: Melissa Mendonça
-github: melissawm
-projects: ['NumPy']
----
 name: aaron_meurer.png
 title: Aaron Meurer
 github: asmeurer
@@ -104,35 +99,20 @@ title: Ivan Ogasawara
 github: xmnlab
 projects: ['Ibis']
 ---
-name: chris_ostrouchov.png
-title: Chris Ostrouchov
-github: costrouc
-projects: ['python-api-inspect']
----
 name: gonzalo_peña.jpg
 title: Gonzalo Peña-Castellanos
 github: goanpeca
 projects: ['JupyterLab', 'Spyder']
 ---
-name: pearu_peterson.png
-title: Pearu Peterson
-github: pearu
-projects: ['Numba', 'f2py', 'rbc', 'XND']
+name: matthias_bussonnier.JPG
+title: Matthias Bussonnier
+github: Carreau
+projects: ['Jupyter', 'JupyterHub', 'IPython']
 ---
 name: kim_pevey.jpg
 title: Kim Pevey
 github: kcpevey
 projects: ['Holoviz']
----
-name: matti_picus.png
-title: Matti Picus
-github: mattip
-projects: ['NumPy', 'PyPy']
----
-name: isabela_presedo.jpg
-title: Isabela Presedo-Floyd
-github: isabela-pf
-projects: ['JupyterLab', 'Spyder']
 ---
 name: athan_reines.png
 title: Athan Reines
@@ -144,13 +124,33 @@ title: Anthony Scopatz
 github: scopatz
 projects: ['conda-forge']
 ---
-name: saul_shanabrook.png
-title: Saul Shanabrook
-github: saulshanabrook
-projects: ['JupyterLab', 'metadsl']
----
 name: pam_wadhwa.jpeg
 title: Pam Wadhwa
 github: ppwadhwa
 projects: ['Holoviz']
+---
+name: sameer_deshmukh.png
+title: Sameer Deshmukh
+github: v0dro
+projects: ['XND']
+---
+name: chris_ostrouchov.png
+title: Chris Ostrouchov
+github: costrouc
+projects: ['python-api-inspect']
+---
+name: prasun_anand.png
+title: Prasun Anand
+github: prasunanand
+projects: ['Dask', 'uarray']
+---
+name: anirrudh_krishnan.png
+title: Anirrudh Krishnan
+github: anirrudh
+projects: ['mtypes']
+---
+name: tim_george.png
+title: Tim George
+github: tgeorgeux
+projects: ['JupyterLab']
 ---
