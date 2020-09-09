@@ -20,20 +20,20 @@ In a [previous post](https://labs.quansight.org/blog/2020/08/introducing-version
 
 - To evaluate the performance (size on disk and I/O speed) of reading/writing versioned HDF5 files and compare it with non-versioned files (that is, files where only the last version of the datasets is stored);
 - To evaluate the performance when reading/writing data to a versioned HDF5 file in a set of different use cases;
-- To evaluate the performance when different parameters options are considered for chunking and compression on versioned HDF5 files.
+- To evaluate the performance when different parameter options are considered for chunking and compression on versioned HDF5 files.
 
 When different versions of a dataset are stored in a versioned HDF5 file, modified copies of the data are stored as new versions. This means that there may be duplication of data between versions, which might impact the performance of reading, writing or manipulating these files.
 
 In order to analyze this, we will consider test files created with a variable number of versions (or transactions) of a dataset consisting of three ndarrays of variable length. One test includes a two-dimensional ndarray as part of this dataset, but all other test cases consist of three one-dimensional ndarrays per dataset.
 
-With each new version a certain number of rows is added, removed, and modified. For
+With each new version a certain number of rows are added, removed, and modified. For
 these tests, all changes are made to elements chosen according to a [power law](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.powerlaw.html) which biases the modifications towards the end of the array, simulating a possible use case of modifying more recent results in a given timeseries.
 
 The tests are as follows:
 
 1. A large fraction of changes is made to the dataset with each new version: The dataset initially has three arrays with 5000 rows, and 1000 positions are chosen at random and changed, and a small number (at most 10) rows are added or deleted with each new version. We will refer to this test as `test_large_fraction_changes_sparse`.
 
-2. A small fraction of changes is made to the dataset with each new version: The dataset initially has three arrays with 5000, but only 10 positions are chosen at random and changed, and a small number (at most 10) rows are added or deleted with each new version. We will refer to this test as `test_small_fraction_changes_sparse`.
+2. A small fraction of changes is made to the dataset with each new version: The dataset initially has three arrays with 5000 rows, but only 10 positions are chosen at random and changed, and a small number (at most 10) rows are added or deleted with each new version. We will refer to this test as `test_small_fraction_changes_sparse`.
 
 3. A large fraction of changes is made to the dataset with each version, with the same three arrays of 5000 rows defined initially, 1000 positions are chosen at random and changed, but the size of the final array remains constant (no new rows are added and no rows are deleted). We will refer to this test as `test_large_fraction_constant_sparse`.
    
