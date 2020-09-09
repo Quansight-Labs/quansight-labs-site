@@ -53,7 +53,7 @@ We’ll start by analyzing how the HDF5 file sizes grow as the number of version
 
 <img src="/images/versioned-hdf5-performance/filesizes.png" alt="File sizes for `versioned-hdf5` files" width="533" height="400">
 
-Note that in some of the examples the size of the arrays stored in the file also grow as the number of versions grows, since each new version is changing the original arrays by adding, deleting and changing values in the original arrays. *Keep in mind there is redundant data as some of it is not changed during the staging of a new version but it is still being stored.* It's also worth noting that for these tests we don't use compression, even though [algorithms available in h5py](https://docs.h5py.org/en/stable/high/dataset.html#filter-pipeline) can be used in Versioned HDF5. You can see the [Versioned HDF5 documentation](https://deshaw.github.io/versioned-hdf5/) for more detailed tests regarding chunking and compression.
+We can see from the figure that in `test_large_fraction_constant_sparse` case, writing 5000 versions of a 117KB array, which would take around 572MB in separate files, takes around 252MB - less than half the storage size. Note that the other examples the size of the arrays stored in the file also grow as the number of versions grows, since each new version is changing the original arrays by adding, deleting and changing values in the original arrays. *Keep in mind there is redundant data as some of it is not changed during the staging of a new version but it is still being stored.* It's also worth noting that for these tests we don't use compression, even though [algorithms available in h5py](https://docs.h5py.org/en/stable/high/dataset.html#filter-pipeline) can be used in Versioned HDF5. You can see the [Versioned HDF5 documentation](https://deshaw.github.io/versioned-hdf5/) for more detailed tests regarding chunking and compression.
 
 ### Creation times
 
@@ -71,7 +71,7 @@ Now, we can look at the time required to stage a new version in the file, that i
 :-------------------------:|:-------------------------:
 ![test3](/images/versioned-hdf5-performance/write_times_test3.png) | ![test4](/images/versioned-hdf5-performance/write_times_test4.png)
 
-It is clear that as the number of versions stored in the file increases, the times required to create versioned HDF5 files increases significantly when compared to regular HDF5 files. This is expected, since all the data about previous versions is stored in the same file when we keep track of the changes made to each file. In particular, in `test_mostly_appends_sparse`, where the size of the arrays stored in the file grow significantly with each new version, we can see a marked increase in the times required to stage new versions.
+It is clear that as the number of versions stored in the file increases, the times required to create versioned HDF5 files increases significantly when compared to regular HDF5 files. However, note that the increase is linear, consistent with what is expected from adding new versions to the file. For example, looking at `test_large_fraction_constant_sparse`, where the size of the arrays do not increase as new versions are added, choosing (again) a chunk size of 4096 means that writing each new version to file takes about 6-8x as much as in the unversioned case, with more than 50% savings on disk storage. Note that a larger chunk size may mean faster read and write times but can also mean larger file sizes if no compression is used, because of how Versioned HDF5 is designed. This is expected, since all chunks where data has been changed from one version to the next have to be stored. Also, in `test_mostly_appends_sparse`, where the size of the arrays stored in the file grow significantly with each new version, we can see a marked increase in the times required to stage new versions. 
 
 Finally, we'll look at a two-dimensional dataset. In this case, we have chosen different chunk sizes to test, considering that larger chunk sizes increase file sizes considerably. 
 
@@ -103,9 +103,9 @@ In this case, we can see that on average, reading the latest version on a `Versi
 
 ## Summary
 
-Overall, the worst performance was observed for tests with large array sizes. This seems to show that the file sizes and I/O performance of versioned HDF5 files are significantly affected by the size of the unique datasets stored in each file, which is to be expected. 
+The results presented here show that the largest impact on I/O performance and storage is in fact explained by the size of the datasets stored in the file, and that this performance is not significantly reduced by the Versioned HDF5 abstraction. In fact, the tests show that the library behaves reasonably well without unexpected overhead.
 
-The results presented here show that the largest impact on I/O performance and storage is in fact explained by the size of the datasets stored in the file, and that this performance is not significantly reduced by the Versioned HDF5 abstraction.
+Overall, the worst performance was observed for tests with large array sizes. This seems to show that the file sizes and I/O performance of versioned HDF5 files are significantly affected by the size of the unique datasets stored in each file, which is to be expected. Also, choosing the right chunk size parameter can have an impact on the performace of the library.
 
 Next steps
 ----------
