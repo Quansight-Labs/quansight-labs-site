@@ -15,7 +15,7 @@ jobs:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
       - run:
           name: Install Nikola
-          command: sudo pip install nikola[extras]==8.1.1 commonmark
+          command: sudo pip install -r requirements.txt
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
           paths:
