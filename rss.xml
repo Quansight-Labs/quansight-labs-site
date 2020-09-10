@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Wed, 09 Sep 2020 13:31:55 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Traitlets - an introduction &amp; use in Jupyter configuration management</title><link>https://labs.quansight.org/blog/2020/08/what-are-traitlets/</link><dc:creator>Matthias Bussonnier, Tony Fast</dc:creator><description>&lt;div&gt;&lt;p&gt;You have probably seen Traitlets in applications, you likely even use it. The package has nearly 5 million downloads
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Thu, 10 Sep 2020 22:37:25 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>PyTorch-Ignite: training and evaluating neural networks flexibly and transparently</title><link>https://labs.quansight.org/blog/2020/09/pytorch-ignite/</link><dc:creator>Victor Fomin</dc:creator><description>&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;!--# PyTorch-Ignite: training and evaluating neural networks flexibly and transparently--&gt;
+
+&lt;!--div align="center"&gt;
+&lt;img width=512 src="https://i.ibb.co/WtbmXJQ/ignite-blog.jpg"/&gt;
+&lt;/div--&gt;
+
+&lt;div align="center"&gt;
+&lt;img width="512" src="https://i.ibb.co/x8Bhqhj/habr-pytorch-ignite-image.png"&gt;
+&lt;/div&gt;&lt;div align="center"&gt;
+Authors: Victor Fomin (Quansight), Sylvain Desroziers (IFPEN, France)
+&lt;/div&gt;&lt;div&gt;
+This post is a general introduction of PyTorch-Ignite. It intends to give a brief but illustrative overview of what PyTorch-Ignite can offer for Deep Learning enthusiasts, professionals and researchers. Following the same philosophy as PyTorch, PyTorch-Ignite aims to keep it simple, flexible and extensible but performant and scalable.
+&lt;/div&gt;&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/09/pytorch-ignite/"&gt;Read more…&lt;/a&gt; (27 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><category>Deep Learning</category><category>Labs</category><category>Machine Learning</category><category>Neural Networks</category><category>Python</category><category>PyTorch</category><category>Tutorial</category><guid>https://labs.quansight.org/blog/2020/09/pytorch-ignite/</guid><pubDate>Thu, 10 Sep 2020 05:00:00 GMT</pubDate></item><item><title>Traitlets - an introduction &amp; use in Jupyter configuration management</title><link>https://labs.quansight.org/blog/2020/08/what-are-traitlets/</link><dc:creator>Matthias Bussonnier, Tony Fast</dc:creator><description>&lt;div&gt;&lt;p&gt;You have probably seen Traitlets in applications, you likely even use it. The package has nearly 5 million downloads
 on &lt;a href="https://anaconda.org/conda-forge/traitlets"&gt;conda-forge&lt;/a&gt; alone.&lt;/p&gt;
 &lt;h2&gt;But, what is Traitlets ?&lt;/h2&gt;
 &lt;p&gt;In this post we'll answer this question along with where Traitlets came from, its applications, and a bit of history.&lt;/p&gt;
@@ -71,25 +86,4 @@ reproduce the exact same environment.&lt;/p&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/06/ibis-an-idiomatic-flavor-of-sql-for-python-programmers/"&gt;Read more…&lt;/a&gt; (11 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>https://labs.quansight.org/blog/2020/06/ibis-an-idiomatic-flavor-of-sql-for-python-programmers/</guid><pubDate>Fri, 26 Jun 2020 19:20:54 GMT</pubDate></item><item><title>Highlights of the Ibis 1.3 release</title><link>https://labs.quansight.org/blog/2020/05/ibis-1.3-release/</link><dc:creator>Ivan Ogasawara</dc:creator><description>&lt;div&gt;&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;Ibis 1.3 was just released, after 8 months of development work, with 104 new commits from 16 unique contributors. What is new? In this blog post we will discuss some important features in this new version!&lt;/p&gt;
-&lt;p&gt;First, if you are new to the Ibis framework world, you can check this &lt;a href="https://labs.quansight.org/blog/2019/07/ibis-python-data-analysis-productivity-framework/"&gt;blog post&lt;/a&gt; I wrote last year, with some introductory information about it.&lt;/p&gt;
-&lt;p&gt;Some highlighted features of this new version are:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Addition of a &lt;code&gt;PySpark&lt;/code&gt; backend&lt;/li&gt;
-&lt;li&gt;Improvement of geospatial support&lt;/li&gt;
-&lt;li&gt;Addition of &lt;code&gt;JSON&lt;/code&gt;, &lt;code&gt;JSONB&lt;/code&gt; and &lt;code&gt;UUID&lt;/code&gt; data types&lt;/li&gt;
-&lt;li&gt;Initial support for &lt;code&gt;Python 3.8&lt;/code&gt; added and support for &lt;code&gt;Python 3.5&lt;/code&gt; dropped&lt;/li&gt;
-&lt;li&gt;Added new backends and geospatial methods to the documentation&lt;/li&gt;
-&lt;li&gt;Renamed the &lt;code&gt;mapd&lt;/code&gt; backend to &lt;code&gt;omniscidb&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;&lt;div class="inner_cell"&gt;
-&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/05/ibis-1.3-release/"&gt;Read more…&lt;/a&gt; (9 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><category>Ibis</category><guid>https://labs.quansight.org/blog/2020/05/ibis-1.3-release/</guid><pubDate>Sat, 02 May 2020 03:30:00 GMT</pubDate></item></channel></rss>
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/06/ibis-an-idiomatic-flavor-of-sql-for-python-programmers/"&gt;Read more…&lt;/a&gt; (11 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><guid>https://labs.quansight.org/blog/2020/06/ibis-an-idiomatic-flavor-of-sql-for-python-programmers/</guid><pubDate>Fri, 26 Jun 2020 19:20:54 GMT</pubDate></item></channel></rss>

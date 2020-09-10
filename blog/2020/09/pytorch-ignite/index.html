@@ -1,0 +1,2255 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PyTorch-Ignite: training and evaluating neural networks flexibly and transparently | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2020/09/pytorch-ignite/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-163785882-1');
+</script><meta name="author" content="Victor Fomin">
+<link rel="prev" href="../../08/what-are-traitlets/" title="Traitlets - an introduction &amp; use in Jupyter configuration management" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="PyTorch-Ignite: training and evaluating neural networks flexibly and t">
+<meta property="og:url" content="https://labs.quansight.org/blog/2020/09/pytorch-ignite/">
+<meta property="og:description" content="Authors: Victor Fomin (Quansight), Sylvain Desroziers (IFPEN, France)
+
+This post is a general introduction of PyTorch-Ignite. It intends to give a brief but illustrative overview of what PyTorch-Ignit">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-09-10T00:00:00-05:00">
+<meta property="article:tag" content="Deep Learning">
+<meta property="article:tag" content="Labs">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Neural Networks">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="PyTorch">
+<meta property="article:tag" content="Tutorial">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+            <img src="../../../../images/quansight_labs_logo_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../" class="nav-link">Blog</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../team/" class="nav-link">Team</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../projects/" class="nav-link">Projects</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../about/" class="nav-link">About</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right"></ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name">
+                <a href="." class="u-url">PyTorch-Ignite: training and evaluating neural networks flexibly and transparently</a>
+            </h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    <a class="u-url" href="../../../../authors/victor-fomin/">Victor Fomin</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2020-09-10T00:00:00-05:00" itemprop="datePublished" title="2020-09-10">2020-09-10</time></a>
+            </p>
+            
+
+        </div>
+        
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/deep-learning/" rel="tag">Deep Learning</a></li>
+            <li><a class="tag p-category" href="../../../../categories/labs/" rel="tag">Labs</a></li>
+            <li><a class="tag p-category" href="../../../../categories/machine-learning/" rel="tag">Machine Learning</a></li>
+            <li><a class="tag p-category" href="../../../../categories/neural-networks/" rel="tag">Neural Networks</a></li>
+            <li><a class="tag p-category" href="../../../../categories/python/" rel="tag">Python</a></li>
+            <li><a class="tag p-category" href="../../../../categories/pytorch/" rel="tag">PyTorch</a></li>
+            <li><a class="tag p-category" href="../../../../categories/tutorial/" rel="tag">Tutorial</a></li>
+        </ul></header><div class="e-content entry-content" itemprop="articleBody text">
+        <div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<!--# PyTorch-Ignite: training and evaluating neural networks flexibly and transparently-->
+
+<!--div align="center">
+<img width=512 src="https://i.ibb.co/WtbmXJQ/ignite-blog.jpg"/>
+</div-->
+
+<div align="center">
+<img width="512" src="https://i.ibb.co/x8Bhqhj/habr-pytorch-ignite-image.png">
+</div>
+<div align="center">
+Authors: Victor Fomin (Quansight), Sylvain Desroziers (IFPEN, France)
+</div>
+<div>
+This post is a general introduction of PyTorch-Ignite. It intends to give a brief but illustrative overview of what PyTorch-Ignite can offer for Deep Learning enthusiasts, professionals and researchers. Following the same philosophy as PyTorch, PyTorch-Ignite aims to keep it simple, flexible and extensible but performant and scalable.
+</div>
+<!-- TEASER_END -->
+
+<p>Throughout this tutorial, we will introduce the basic concepts of PyTorch-Ignite with the training and evaluation of a MNIST classifier as a beginner application case. We also assume that the reader is familiar with PyTorch.</p>
+<p><a href="https://colab.research.google.com/drive/1gFIPXmUX73HWlLSxFvvYEweQBD_OPx1t"><img style="float: left;" src="https://colab.research.google.com/assets/colab-badge.svg"> This tutorial can be also executed in Google Colab. </a></p>
+<h3 id="Content">Content<a class="anchor-link" href="#Content">¶</a>
+</h3>
+<ul>
+<li><a href="#PyTorch-Ignite:-What-and-Why-?">PyTorch-Ignite: What and Why?</a></li>
+<li><a href="#Quick-start-example">Quick-start example</a></li>
+<li>
+<a href="#Advanced-features">Advanced features</a><ul>
+<li><a href="#Power-of-Events-&amp;-Handlers">Power of Events &amp; Handlers</a></li>
+<li><a href="#Out-of-the-box-metrics">Out-of-the-box metrics</a></li>
+<li><a href="#Out-of-the-box-handlers">Out-of-the-box handlers</a></li>
+<li><a href="#Distributed-and-XLA-devices-support">Distributed and XLA device support</a></li>
+</ul>
+</li>
+<li><a href="#Projects-using-PyTorch-Ignite">Projects using PyTorch-Ignite</a></li>
+<li><a href="#Project-news">Project news</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="PyTorch-Ignite:-What-and-Why-?">PyTorch-Ignite: What and Why ?<a class="anchor-link" href="#PyTorch-Ignite:-What-and-Why-?">¶</a>
+</h2>
+<p>PyTorch-Ignite is a high-level library to help with training and evaluating neural networks in PyTorch flexibly and transparently.</p>
+<p>PyTorch-Ignite is designed to be at the crossroads of high-level Plug &amp; Play features and under-the-hood expansion possibilities. PyTorch-Ignite aims to improve the deep learning community's technical skills by promoting best practices. 
+Things are not hidden behind a divine tool that does everything, but remain within the reach of users.</p>
+<p>PyTorch-Ignite takes a "Do-It-Yourself" approach as research is unpredictable and it is important to capture its requirements without blocking things.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="🔥-PyTorch-+-Ignite-🔥">🔥 PyTorch + Ignite 🔥<a class="anchor-link" href="#%F0%9F%94%A5-PyTorch-+-Ignite-%F0%9F%94%A5">¶</a>
+</h3>
+<p>PyTorch-Ignite wraps native PyTorch abstractions such as Modules, Optimizers, and DataLoaders in thin abstractions which allow your models to be separated from their training framework completely. This is achieved by a way of inverting control using an abstraction known as the <strong>Engine</strong>. The <strong>Engine</strong> is responsible for running an arbitrary function - typically a training or evaluation function - and emitting events along the way.</p>
+<p>A built-in event system represented by the <strong>Events</strong> class ensures <code>Engine</code>'s flexibility, thus facilitating interaction on each step of the run.
+With this approach users can completely customize the flow of events during the run.</p>
+<p>In summary, PyTorch-Ignite is</p>
+<ul>
+<li>Extremely simple engine and event system = Training loop abstraction</li>
+<li>Out-of-the-box metrics to easily evaluate models</li>
+<li>Built-in handlers to compose training pipelines, save artifacts and log parameters and metrics</li>
+</ul>
+<p>Additional benefits of using PyTorch-Ignite are</p>
+<ul>
+<li>Less code than pure PyTorch while ensuring maximum control and simplicity</li>
+<li>More modular code</li>
+</ul>
+<table><tr>
+<th>
+PyTorch-Ignite
+</th>
+
+<th>
+</th>    
+
+<th>
+</th>    
+
+<th>
+</th>    
+
+<th>
+</th>    
+
+<th>
+</th>    
+
+<th>
+</th>    
+
+<th>
+</th>    
+
+
+<th>
+Pure PyTorch
+</th>
+
+</tr></table>
+<p><a href="https://raw.githubusercontent.com/pytorch/ignite/master/assets/ignite_vs_bare_pytorch.png"><img width="800" src="https://raw.githubusercontent.com/pytorch/ignite/master/assets/ignite_vs_bare_pytorch.png"></a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="About-the-design-of-PyTorch-Ignite">About the design of PyTorch-Ignite<a class="anchor-link" href="#About-the-design-of-PyTorch-Ignite">¶</a>
+</h4>
+<p>PyTorch-Ignite allows you to compose your application without being focused on a super multi-purpose object, but rather on weakly coupled components allowing advanced customization.</p>
+<p>The design of the library is guided by:</p>
+<ul>
+<li>Anticipating new software or use-cases to come in in the future without centralizing everything in a single class.</li>
+<li>Avoiding configurations with a ton of parameters that are complicated to manage and maintain.</li>
+<li>Providing tools targeted to maximizing cohesion and minimizing coupling.</li>
+<li>Keeping it simple.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Quick-start-example">Quick-start example<a class="anchor-link" href="#Quick-start-example">¶</a>
+</h2>
+<p>In this section we will use PyTorch-Ignite to build and train a classifier of the well-known <a href="http://yann.lecun.com/exdb/mnist/">MNIST</a> dataset. This simple example will introduce the principal concepts behind PyTorch-Ignite.</p>
+<p>For additional information and details about the API, please, refer to the project's <a href="https://pytorch.org/ignite/">documentation</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip install pytorch-ignite
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Collecting pytorch-ignite
+  Downloading https://files.pythonhosted.org/packages/c0/8e/08569347023611e40e62a14162024ca6238d42cb528b2302f84d662a2033/pytorch_ignite-0.4.1-py2.py3-none-any.whl (166kB)
+     |████████████████████████████████| 174kB 8.4MB/s eta 0:00:01
+Requirement already satisfied: torch&lt;2,&gt;=1.3 in /usr/local/lib/python3.6/dist-packages (from pytorch-ignite) (1.6.0+cu101)
+Requirement already satisfied: future in /usr/local/lib/python3.6/dist-packages (from torch&lt;2,&gt;=1.3-&gt;pytorch-ignite) (0.16.0)
+Requirement already satisfied: numpy in /usr/local/lib/python3.6/dist-packages (from torch&lt;2,&gt;=1.3-&gt;pytorch-ignite) (1.18.5)
+Installing collected packages: pytorch-ignite
+Successfully installed pytorch-ignite-0.4.1
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Common-PyTorch-code">Common PyTorch code<a class="anchor-link" href="#Common-PyTorch-code">¶</a>
+</h3>
+<p>First, we define our model, training and validation datasets, optimizer and loss function:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">from</span> <span class="nn">torch.optim</span> <span class="k">import</span> <span class="n">SGD</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="k">import</span> <span class="n">DataLoader</span>
+
+<span class="kn">from</span> <span class="nn">torchvision.transforms</span> <span class="k">import</span> <span class="n">Compose</span><span class="p">,</span> <span class="n">ToTensor</span><span class="p">,</span> <span class="n">Normalize</span>
+<span class="kn">from</span> <span class="nn">torchvision.datasets</span> <span class="k">import</span> <span class="n">MNIST</span>
+
+<span class="c1"># transform to normalize the data</span>
+<span class="n">transform</span> <span class="o">=</span> <span class="n">Compose</span><span class="p">([</span><span class="n">ToTensor</span><span class="p">(),</span> <span class="n">Normalize</span><span class="p">((</span><span class="mf">0.1307</span><span class="p">,),</span> <span class="p">(</span><span class="mf">0.3081</span><span class="p">,))])</span>
+
+<span class="c1"># Download and load the training data</span>
+<span class="n">trainset</span> <span class="o">=</span> <span class="n">MNIST</span><span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">)</span>
+<span class="n">train_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">trainset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Download and load the test data</span>
+<span class="n">validationset</span> <span class="o">=</span> <span class="n">MNIST</span><span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">)</span>
+<span class="n">val_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">validationset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Define a class of CNN model (as you want)</span>
+<span class="k">class</span> <span class="nc">Net</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv2_drop</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout2d</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">320</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv2_drop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">x</span><span class="p">)),</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">320</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">training</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">log_softmax</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">device</span> <span class="o">=</span> <span class="s2">"cuda"</span>
+
+<span class="c1"># Define a model on move it on CUDA device</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+<span class="c1"># Define a NLL loss</span>
+<span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">NLLLoss</span><span class="p">()</span>
+
+<span class="c1"># Define a SGD optimizer</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">SGD</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The above code is pure PyTorch and is typically user-defined and is required for any pipeline.</p>
+<h3 id="Trainer-and-evaluator's-setup">Trainer and evaluator's setup<a class="anchor-link" href="#Trainer-and-evaluator's-setup">¶</a>
+</h3>
+<p><code>model</code>'s trainer is an engine that loops multiple times over the training dataset and updates model parameters. Let's see how we define such a trainer using PyTorch-Ignite. To do this, PyTorch-Ignite introduces the generic class <a href="https://pytorch.org/ignite/concepts.html#engine"><code>Engine</code></a> that is an abstraction that loops over the provided data, executes a processing function and returns a result:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.engine</span> <span class="k">import</span> <span class="n">Engine</span>
+
+<span class="k">def</span> <span class="nf">train_step</span><span class="p">(</span><span class="n">engine</span><span class="p">,</span> <span class="n">batch</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">loss</span>
+
+<span class="c1"># Define a trainer engine</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">Engine</span><span class="p">(</span><span class="n">train_step</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The only argument needed to construct the trainer is a <code>train_step</code> function.</p>
+<p>Similarly, model evaluation can be done with an engine that runs a single time over the validation dataset and computes metrics.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">validation_step</span><span class="p">(</span><span class="n">engine</span><span class="p">,</span> <span class="n">batch</span><span class="p">):</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">batch</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">"cuda"</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">"cuda"</span><span class="p">)</span>
+
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">y</span>
+
+<span class="n">evaluator</span> <span class="o">=</span> <span class="n">Engine</span><span class="p">(</span><span class="n">validation_step</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This allows the construction of training logic from the simplest to the most complicated scenarios.</p>
+<p>The type of output of the process functions (i.e. <code>loss</code> or <code>y_pred, y</code> in the above examples) is not restricted. These functions can return everything the user wants. Output is set to an engine's internal object <code>engine.state.output</code> and can be used further for any type of processing.</p>
+<h3 id="Events-and-Handers">Events and Handers<a class="anchor-link" href="#Events-and-Handers">¶</a>
+</h3>
+<p>To improve the engine’s flexibility, a configurable event system is introduced to facilitate the interaction on each step of the run. Namely, <code>Engine</code> allows to add handlers on various <a href="https://pytorch.org/ignite/concepts.html#events-and-handlers"><code>Events</code></a> that are triggered during the run. When an event is triggered, attached handlers (named functions, lambdas, class functions) are executed. Here is a schema for when built-in events are triggered by default:</p>
+
+<pre><code>fire_event(Events.STARTED)
+while epoch &lt; max_epochs:
+    fire_event(Events.EPOCH_STARTED)
+    # run once on data
+    for batch in data:
+        fire_event(Events.ITERATION_STARTED)
+
+        output = process_function(batch)
+
+        fire_event(Events.ITERATION_COMPLETED)
+    fire_event(Events.EPOCH_COMPLETED)
+fire_event(Events.COMPLETED)</code></pre>
+<p>Note that each engine (i.e. <code>trainer</code> and <code>evaluator</code>) has its own event system which allows to define its own engine's process logic.</p>
+<p>Using <code>Events</code> and handlers, it is possible to completely customize the engine's runs in a very intuitive way:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.engine</span> <span class="k">import</span> <span class="n">Events</span>
+
+<span class="c1"># Show a message when the training begins</span>
+<span class="nd">@trainer</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">STARTED</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">start_message</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Start training!"</span><span class="p">)</span>
+
+<span class="c1"># Handler can be want you want, here a lambda ! </span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">add_event_handler</span><span class="p">(</span>
+    <span class="n">Events</span><span class="o">.</span><span class="n">COMPLETED</span><span class="p">,</span> 
+    <span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"Training completed!"</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># Run evaluator on val_loader every trainer's epoch completed</span>
+<span class="nd">@trainer</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">EPOCH_COMPLETED</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">run_validation</span><span class="p">():</span>
+    <span class="n">evaluator</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">val_loader</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In the code above, the <code>run_validation</code> function is attached to the <code>trainer</code> and will be triggered at each completed epoch to launch <code>model</code>'s validation with <code>evaluator</code>. This shows that engines can be embedded to create complex pipelines.</p>
+<p>Handlers offer unparalleled flexibility compared to callbacks as they can be any function: e.g., a lambda, a simple function, a class method, etc. Thus, we do not require to inherit from an interface and override its abstract methods which could unnecessarily bulk up your code and its complexity.</p>
+<p>The possibilities of customization are endless as Pytorch-Ignite allows you to get hold of your application workflow. As mentioned before, there is no magic nor fully automatated things in PyTorch-Ignite.</p>
+<h3 id="Model-evaluation-metrics">Model evaluation metrics<a class="anchor-link" href="#Model-evaluation-metrics">¶</a>
+</h3>
+<p>Metrics are another nice example of what the handlers for PyTorch-Ignite are and how to use them. In our example, we use the built-in metrics <code>Accuracy</code> and <code>Loss</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.metrics</span> <span class="k">import</span> <span class="n">Accuracy</span><span class="p">,</span> <span class="n">Loss</span>
+
+<span class="c1"># Accuracy and loss metrics are defined</span>
+<span class="n">val_metrics</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">"accuracy"</span><span class="p">:</span> <span class="n">Accuracy</span><span class="p">(),</span>
+  <span class="s2">"loss"</span><span class="p">:</span> <span class="n">Loss</span><span class="p">(</span><span class="n">criterion</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1"># Attach metrics to the evaluator</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">val_metrics</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">metric</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">evaluator</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>PyTorch-Ignite metrics can be elegantly combined with each other.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.metrics</span> <span class="k">import</span> <span class="n">Precision</span><span class="p">,</span> <span class="n">Recall</span>
+
+<span class="c1"># Build F1 score</span>
+<span class="n">precision</span> <span class="o">=</span> <span class="n">Precision</span><span class="p">(</span><span class="n">average</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">recall</span> <span class="o">=</span> <span class="n">Recall</span><span class="p">(</span><span class="n">average</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">F1</span> <span class="o">=</span> <span class="p">(</span><span class="n">precision</span> <span class="o">*</span> <span class="n">recall</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">precision</span> <span class="o">+</span> <span class="n">recall</span><span class="p">))</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="c1"># and attach it to evaluator</span>
+<span class="n">F1</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">evaluator</span><span class="p">,</span> <span class="s2">"f1"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To make general things even easier, <a href="https://pytorch.org/ignite/engine.html#ignite-engine">helper methods</a> are available for the creation of a supervised <code>Engine</code> as above. Thus, let's define another evaluator applied to the training dataset in this way.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.engine</span> <span class="k">import</span> <span class="n">create_supervised_evaluator</span>
+
+<span class="c1"># Define another evaluator with default validation function and attach metrics</span>
+<span class="n">train_evaluator</span> <span class="o">=</span> <span class="n">create_supervised_evaluator</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="n">val_metrics</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">"cuda"</span><span class="p">)</span>
+
+<span class="c1"># Run train_evaluator on train_loader every trainer's epoch completed</span>
+<span class="nd">@trainer</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">EPOCH_COMPLETED</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">run_train_validation</span><span class="p">():</span>
+    <span class="n">train_evaluator</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">train_loader</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The reason why we want to have two separate evaluators (<code>evaluator</code> and <code>train_evaluator</code>) is that they can have different attached handlers and logic to perform. For example, if we would like store the best model defined by the validation metric value, this role is delegated to <code>evaluator</code> which computes metrics over the validation dataset.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Common-training-handlers">Common training handlers<a class="anchor-link" href="#Common-training-handlers">¶</a>
+</h3>
+<p>From now on, we have <code>trainer</code> which will call evaluators <code>evaluator</code> and <code>train_evaluator</code> at every completed epoch. Thus, each evaluator will run and compute corresponding metrics. In addition, it would be very helpful to have a display of the results that shows those metrics.</p>
+<p>Using the customization potential of the engine's system, we can add simple handlers for this logging purpose:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@evaluator</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">COMPLETED</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">log_validation_results</span><span class="p">():</span>
+    <span class="n">metrics</span> <span class="o">=</span> <span class="n">evaluator</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">metrics</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Validation Results - Epoch: </span><span class="si">{}</span><span class="s2">  Avg accuracy: </span><span class="si">{:.2f}</span><span class="s2"> Avg loss: </span><span class="si">{:.2f}</span><span class="s2"> Avg F1: </span><span class="si">{:.2f}</span><span class="s2">"</span>
+          <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">trainer</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">epoch</span><span class="p">,</span> <span class="n">metrics</span><span class="p">[</span><span class="s2">"accuracy"</span><span class="p">],</span> <span class="n">metrics</span><span class="p">[</span><span class="s2">"loss"</span><span class="p">],</span> <span class="n">metrics</span><span class="p">[</span><span class="s2">"f1"</span><span class="p">]))</span>
+    
+<span class="nd">@train_evaluator</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">COMPLETED</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">log_train_results</span><span class="p">():</span>
+    <span class="n">metrics</span> <span class="o">=</span> <span class="n">train_evaluator</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">metrics</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"  Training Results - Epoch: </span><span class="si">{}</span><span class="s2">  Avg accuracy: </span><span class="si">{:.2f}</span><span class="s2"> Avg loss: </span><span class="si">{:.2f}</span><span class="s2">"</span>
+          <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">trainer</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">epoch</span><span class="p">,</span> <span class="n">metrics</span><span class="p">[</span><span class="s2">"accuracy"</span><span class="p">],</span> <span class="n">metrics</span><span class="p">[</span><span class="s2">"loss"</span><span class="p">]))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's see how to add some others helpful features to our application.</p>
+<ul>
+<li>PyTorch-Ignite provides a <a href="https://pytorch.org/ignite/contrib/handlers.html#tqdm-logger"><code>ProgressBar</code></a> handler to show an engine's progression.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.contrib.handlers</span> <span class="k">import</span> <span class="n">ProgressBar</span>
+
+<span class="n">ProgressBar</span><span class="p">()</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">trainer</span><span class="p">,</span> <span class="n">output_transform</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">{</span><span class="s1">'batch loss'</span><span class="p">:</span> <span class="n">x</span><span class="p">})</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>
+<a href="https://pytorch.org/ignite/handlers.html#ignite.handlers.ModelCheckpoint"><code>ModelCheckpoint</code></a> handler can be used to periodically save objects which have an attribute <code>state_dict</code>.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.handlers</span> <span class="k">import</span> <span class="n">ModelCheckpoint</span><span class="p">,</span> <span class="n">global_step_from_engine</span>
+
+<span class="c1"># Score function to select relevant metric, here f1</span>
+<span class="k">def</span> <span class="nf">score_function</span><span class="p">(</span><span class="n">engine</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">engine</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s2">"f1"</span><span class="p">]</span>
+
+<span class="c1"># Checkpoint to store n_saved best models wrt score function</span>
+<span class="n">model_checkpoint</span> <span class="o">=</span> <span class="n">ModelCheckpoint</span><span class="p">(</span>
+    <span class="s2">"quick-start-mnist-output"</span><span class="p">,</span>
+    <span class="n">n_saved</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">filename_prefix</span><span class="o">=</span><span class="s2">"best"</span><span class="p">,</span>
+    <span class="n">score_function</span><span class="o">=</span><span class="n">score_function</span><span class="p">,</span>
+    <span class="n">score_name</span><span class="o">=</span><span class="s2">"f1"</span><span class="p">,</span>
+    <span class="n">global_step_transform</span><span class="o">=</span><span class="n">global_step_from_engine</span><span class="p">(</span><span class="n">trainer</span><span class="p">),</span>
+<span class="p">)</span>
+  
+<span class="c1"># Save the model (if relevant) every epoch completed of evaluator</span>
+<span class="n">evaluator</span><span class="o">.</span><span class="n">add_event_handler</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">COMPLETED</span><span class="p">,</span> <span class="n">model_checkpoint</span><span class="p">,</span> <span class="p">{</span><span class="s2">"model"</span><span class="p">:</span> <span class="n">model</span><span class="p">});</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>PyTorch-Ignite provides wrappers to modern tools to track experiments. For example, <a href="https://pytorch.org/ignite/contrib/handlers.html#ignite.contrib.handlers.tensorboard_logger.TensorboardLogger"><code>TensorBoardLogger</code></a> handler allows to log metric results, model's and optimizer's parameters, gradients, and more during the training and validation for TensorBoard.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.contrib.handlers</span> <span class="k">import</span> <span class="n">TensorboardLogger</span>
+
+<span class="c1"># Define a Tensorboard logger</span>
+<span class="n">tb_logger</span> <span class="o">=</span> <span class="n">TensorboardLogger</span><span class="p">(</span><span class="n">log_dir</span><span class="o">=</span><span class="s2">"quick-start-mnist-output"</span><span class="p">)</span>
+
+<span class="c1"># Attach handler to plot trainer's loss every 100 iterations</span>
+<span class="n">tb_logger</span><span class="o">.</span><span class="n">attach_output_handler</span><span class="p">(</span>
+    <span class="n">trainer</span><span class="p">,</span>
+    <span class="n">event_name</span><span class="o">=</span><span class="n">Events</span><span class="o">.</span><span class="n">ITERATION_COMPLETED</span><span class="p">(</span><span class="n">every</span><span class="o">=</span><span class="mi">100</span><span class="p">),</span>
+    <span class="n">tag</span><span class="o">=</span><span class="s2">"training"</span><span class="p">,</span>
+    <span class="n">output_transform</span><span class="o">=</span><span class="k">lambda</span> <span class="n">loss</span><span class="p">:</span> <span class="p">{</span><span class="s2">"batchloss"</span><span class="p">:</span> <span class="n">loss</span><span class="p">},</span>
+<span class="p">)</span>
+
+<span class="c1"># Attach handler to dump evaluator's metrics every epoch completed</span>
+<span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">evaluator</span> <span class="ow">in</span> <span class="p">[(</span><span class="s2">"training"</span><span class="p">,</span> <span class="n">train_evaluator</span><span class="p">),</span> <span class="p">(</span><span class="s2">"validation"</span><span class="p">,</span> <span class="n">evaluator</span><span class="p">)]:</span>
+    <span class="n">tb_logger</span><span class="o">.</span><span class="n">attach_output_handler</span><span class="p">(</span>
+        <span class="n">evaluator</span><span class="p">,</span>
+        <span class="n">event_name</span><span class="o">=</span><span class="n">Events</span><span class="o">.</span><span class="n">EPOCH_COMPLETED</span><span class="p">,</span>
+        <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span>
+        <span class="n">metric_names</span><span class="o">=</span><span class="s2">"all"</span><span class="p">,</span>
+        <span class="n">global_step_transform</span><span class="o">=</span><span class="n">global_step_from_engine</span><span class="p">(</span><span class="n">trainer</span><span class="p">),</span>
+    <span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It is possible to extend the use of the TensorBoard logger very simply by integrating user-defined functions. For example, here is how to display images and predictions during training:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Store predictions and scores using matplotlib</span>
+<span class="k">def</span> <span class="nf">predictions_gt_images_handler</span><span class="p">(</span><span class="n">engine</span><span class="p">,</span> <span class="n">logger</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">batch</span>
+    <span class="n">y_pred</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">engine</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">output</span>
+    <span class="c1"># y_pred is log softmax value</span>
+    <span class="n">num_x</span> <span class="o">=</span> <span class="n">num_y</span> <span class="o">=</span> <span class="mi">8</span>
+    <span class="n">le</span> <span class="o">=</span> <span class="n">num_x</span> <span class="o">*</span> <span class="n">num_y</span>
+    <span class="n">probs</span><span class="p">,</span> <span class="n">preds</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">y_pred</span><span class="p">[:</span><span class="n">le</span><span class="p">]),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">le</span><span class="p">):</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">num_x</span><span class="p">,</span> <span class="n">num_y</span><span class="p">,</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xticks</span><span class="o">=</span><span class="p">[],</span> <span class="n">yticks</span><span class="o">=</span><span class="p">[])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">"Greys"</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"</span><span class="si">{0}</span><span class="s2"> </span><span class="si">{1:.1f}</span><span class="s2">% (label: </span><span class="si">{2}</span><span class="s2">)"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">preds</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span>
+            <span class="n">probs</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">*</span> <span class="mf">100.0</span><span class="p">,</span>
+            <span class="n">y</span><span class="p">[</span><span class="n">idx</span><span class="p">]),</span>
+            <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="s2">"green"</span> <span class="k">if</span> <span class="n">preds</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">==</span> <span class="n">y</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">else</span> <span class="s2">"red"</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">writer</span><span class="o">.</span><span class="n">add_figure</span><span class="p">(</span><span class="s1">'predictions vs actuals'</span><span class="p">,</span> <span class="n">figure</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span> <span class="n">global_step</span><span class="o">=</span><span class="n">trainer</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">epoch</span><span class="p">)</span>
+
+<span class="c1"># Attach custom function to evaluator at first iteration</span>
+<span class="n">tb_logger</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span>
+    <span class="n">evaluator</span><span class="p">,</span>
+    <span class="n">log_handler</span><span class="o">=</span><span class="n">predictions_gt_images_handler</span><span class="p">,</span>
+    <span class="n">event_name</span><span class="o">=</span><span class="n">Events</span><span class="o">.</span><span class="n">ITERATION_COMPLETED</span><span class="p">(</span><span class="n">once</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+<span class="p">);</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>All that is left to do now is to  run the <code>trainer</code> on data from <code>train_loader</code> for a number of epochs.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">trainer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">train_loader</span><span class="p">,</span> <span class="n">max_epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Once everything is done, let's close the logger</span>
+<span class="n">tb_logger</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Start training!
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+
+ 
+ 
+<div id="a20ab7c4-e866-4f1c-b39e-834997d74b8f"></div>
+<div class="output_subarea output_widget_view ">
+<script type="text/javascript">
+var element = $('#a20ab7c4-e866-4f1c-b39e-834997d74b8f');
+</script><script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "9cf4a3960d9c4c31a775cf19c00fddd2", "version_major": 2, "version_minor": 0}
+</script>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Validation Results - Epoch: 1  Avg accuracy: 0.94 Avg loss: 0.20 Avg F1: 0.94
+  Training Results - Epoch: 1  Avg accuracy: 0.94 Avg loss: 0.21
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+
+ 
+ 
+<div id="82a916ad-9d68-43b9-a797-97fc27d37e2a"></div>
+<div class="output_subarea output_widget_view ">
+<script type="text/javascript">
+var element = $('#82a916ad-9d68-43b9-a797-97fc27d37e2a');
+</script><script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "435204a5d8294b9faf37e86a2a2c6106", "version_major": 2, "version_minor": 0}
+</script>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Validation Results - Epoch: 2  Avg accuracy: 0.96 Avg loss: 0.12 Avg F1: 0.96
+  Training Results - Epoch: 2  Avg accuracy: 0.96 Avg loss: 0.13
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+
+ 
+ 
+<div id="e1ed982a-5271-468e-8569-fc1b0335339c"></div>
+<div class="output_subarea output_widget_view ">
+<script type="text/javascript">
+var element = $('#e1ed982a-5271-468e-8569-fc1b0335339c');
+</script><script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "2bf732207a604791b52f75e2c7acde77", "version_major": 2, "version_minor": 0}
+</script>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Validation Results - Epoch: 3  Avg accuracy: 0.97 Avg loss: 0.10 Avg F1: 0.97
+  Training Results - Epoch: 3  Avg accuracy: 0.97 Avg loss: 0.10
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+
+ 
+ 
+<div id="edddc992-d8d6-44d4-96f8-c048e7f39647"></div>
+<div class="output_subarea output_widget_view ">
+<script type="text/javascript">
+var element = $('#edddc992-d8d6-44d4-96f8-c048e7f39647');
+</script><script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "a4ee6eaef1b34de3a18a48008b0f574b", "version_major": 2, "version_minor": 0}
+</script>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Validation Results - Epoch: 4  Avg accuracy: 0.98 Avg loss: 0.07 Avg F1: 0.98
+  Training Results - Epoch: 4  Avg accuracy: 0.97 Avg loss: 0.09
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+
+ 
+ 
+<div id="78284245-0b54-4aef-b8f6-3e09b1b809a4"></div>
+<div class="output_subarea output_widget_view ">
+<script type="text/javascript">
+var element = $('#78284245-0b54-4aef-b8f6-3e09b1b809a4');
+</script><script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "4be1c90dbd704ebfb5291fdd2ca25ca9", "version_major": 2, "version_minor": 0}
+</script>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Validation Results - Epoch: 5  Avg accuracy: 0.98 Avg loss: 0.07 Avg F1: 0.98
+  Training Results - Epoch: 5  Avg accuracy: 0.98 Avg loss: 0.08
+Training completed!
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can inspect results using <code>tensorboard</code>. We can observe two tabs "Scalars" and "Images".</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> tensorboard
+
+<span class="o">%</span><span class="k">tensorboard</span> --logdir=.
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+
+<div id="0f7be3a8-3cb7-4cc8-8269-d98aedb23907"></div>
+<div class="output_subarea output_javascript ">
+<script type="text/javascript">
+var element = $('#0f7be3a8-3cb7-4cc8-8269-d98aedb23907');
+
+        (async () => {
+            const url = await google.colab.kernel.proxyPort(6006, {"cache": true});
+            const iframe = document.createElement('iframe');
+            iframe.src = url;
+            iframe.setAttribute('width', '100%');
+            iframe.setAttribute('height', '800');
+            iframe.setAttribute('frameborder', 0);
+            document.body.appendChild(iframe);
+        })();
+    
+</script>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div>
+
+<a href="../../../../images/pytorch-ignite/mnist-tb-scalars.png">
+<img style="float: left" width="50%" src="../../../../images/pytorch-ignite/mnist-tb-scalars.png"></a>
+
+<a href="../../../../images/pytorch-ignite/mnist-tb-images.png">
+<img style="float: right" width="50%" src="../../../../images/pytorch-ignite/mnist-tb-images.png"></a>
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="5-takeaways">5 takeaways<a class="anchor-link" href="#5-takeaways">¶</a>
+</h3>
+<ul>
+<li>
+<p>Almost any training logic can be coded as a <code>train_step</code> method and a trainer built using this method.</p>
+</li>
+<li>
+<p>The essence of the library is the <strong><code>Engine</code></strong> class that loops a given number of times over a dataset and executes a processing function.</p>
+</li>
+<li>
+<p>A highly customizable <strong>event system</strong> simplifies interaction with the engine on each step of the run.</p>
+</li>
+<li>
+<p>PyTorch-Ignite provides a set of built-in handlers and metrics for common tasks.</p>
+</li>
+<li>
+<p>PyTorch-Ignite is easy to extend.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Advanced-features">Advanced features<a class="anchor-link" href="#Advanced-features">¶</a>
+</h2>
+<p>In this section we would like to present some advanced features of PyTorch-Ignite for experienced users. We will cover events, handlers and metrics in more detail, as well as distributed computations on GPUs and TPUs. Feel free to skip this section now and come back later if you are a beginner.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Power-of-Events-&amp;-Handlers">Power of Events &amp; Handlers<a class="anchor-link" href="#Power-of-Events-&amp;-Handlers">¶</a>
+</h3>
+<p>We have seen throughout the quick-start example that events and handlers are perfect to execute any number of functions whenever you wish. In addition to that we provide several ways to extend it even more by</p>
+<ul>
+<li>Built-in events filtering</li>
+<li>Stacking events to share the action</li>
+<li>Adding custom events to go beyond built-in standard events</li>
+</ul>
+<p>Let's look at these features in more detail.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Built-in-events-filtering">Built-in events filtering<a class="anchor-link" href="#Built-in-events-filtering">¶</a>
+</h4>
+<p>Users can simply filter out events to skip triggering the handler. Let's create a dummy trainer:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.engine</span> <span class="k">import</span> <span class="n">Engine</span><span class="p">,</span> <span class="n">Events</span>
+
+
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">Engine</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's consider a use-case where we would like to train a model and periodically run its validation on several development datasets, e.g. <code>devset1</code> and <code>devset2</code>:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># We run the validation on devset1 every 5 epochs</span>
+<span class="nd">@trainer</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">EPOCH_COMPLETED</span><span class="p">(</span><span class="n">every</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">run_validation1</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Epoch </span><span class="si">{}</span><span class="s2">: Validation on devset 1"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">trainer</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">epoch</span><span class="p">))</span>
+    <span class="c1"># evaluator.run(devset1)  # commented out for demo purposes</span>
+
+<span class="c1"># We run another validation on devset2 every 10 epochs</span>
+<span class="nd">@trainer</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">EPOCH_COMPLETED</span><span class="p">(</span><span class="n">every</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">run_validation2</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Epoch </span><span class="si">{}</span><span class="s2">: Validation on devset 2"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">trainer</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">epoch</span><span class="p">))</span>
+    <span class="c1"># evaluator.run(devset2)  # commented out for demo purposes</span>
+
+<span class="n">train_data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">max_epochs</span><span class="o">=</span><span class="mi">50</span><span class="p">);</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Epoch 5: Validation on devset 1
+Epoch 10: Validation on devset 1
+Epoch 10: Validation on devset 2
+Epoch 15: Validation on devset 1
+Epoch 20: Validation on devset 1
+Epoch 20: Validation on devset 2
+Epoch 25: Validation on devset 1
+Epoch 30: Validation on devset 1
+Epoch 30: Validation on devset 2
+Epoch 35: Validation on devset 1
+Epoch 40: Validation on devset 1
+Epoch 40: Validation on devset 2
+Epoch 45: Validation on devset 1
+Epoch 50: Validation on devset 1
+Epoch 50: Validation on devset 2
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's now consider another situation where we would like to make a single change once we reach a certain epoch or iteration. For example, let's change the training dataset on the 5-th epoch from low resolution images to high resolution images:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">train_step</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">batch</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Epoch </span><span class="si">{}</span><span class="s2"> - </span><span class="si">{}</span><span class="s2"> : batch=</span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">epoch</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">iteration</span><span class="p">,</span> <span class="n">batch</span><span class="p">))</span>
+
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">Engine</span><span class="p">(</span><span class="n">train_step</span><span class="p">)</span>
+
+<span class="n">small_res_data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">]</span>
+<span class="n">high_res_data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">]</span>
+
+<span class="c1"># We run the following handler once on 5-th epoch started</span>
+<span class="nd">@trainer</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">EPOCH_STARTED</span><span class="p">(</span><span class="n">once</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">change_train_dataset</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Epoch </span><span class="si">{}</span><span class="s2">: Change training dataset"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">trainer</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">epoch</span><span class="p">))</span>
+    <span class="n">trainer</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">high_res_data</span><span class="p">)</span>
+
+<span class="n">trainer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">small_res_data</span><span class="p">,</span> <span class="n">max_epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">);</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Epoch 1 - 1 : batch=0
+Epoch 1 - 2 : batch=1
+Epoch 1 - 3 : batch=2
+Epoch 2 - 4 : batch=0
+Epoch 2 - 5 : batch=1
+Epoch 2 - 6 : batch=2
+Epoch 3 - 7 : batch=0
+Epoch 3 - 8 : batch=1
+Epoch 3 - 9 : batch=2
+Epoch 4 - 10 : batch=0
+Epoch 4 - 11 : batch=1
+Epoch 4 - 12 : batch=2
+Epoch 5: Change training dataset
+Epoch 5 - 13 : batch=10
+Epoch 5 - 14 : batch=11
+Epoch 5 - 15 : batch=12
+Epoch 6 - 16 : batch=10
+Epoch 6 - 17 : batch=11
+Epoch 6 - 18 : batch=12
+Epoch 7 - 19 : batch=10
+Epoch 7 - 20 : batch=11
+Epoch 7 - 21 : batch=12
+Epoch 8 - 22 : batch=10
+Epoch 8 - 23 : batch=11
+Epoch 8 - 24 : batch=12
+Epoch 9 - 25 : batch=10
+Epoch 9 - 26 : batch=11
+Epoch 9 - 27 : batch=12
+Epoch 10 - 28 : batch=10
+Epoch 10 - 29 : batch=11
+Epoch 10 - 30 : batch=12
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's now consider another situation where we would like to trigger a handler with completely custom logic. For example, we would like to dump model gradients if the training loss satisfies a certain condition:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Let's predefine for simplicity training losses</span>
+<span class="n">train_losses</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.9</span><span class="p">,</span> <span class="mf">1.7</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.6</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">]</span>
+
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">Engine</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">train_losses</span><span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">iteration</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># We define our custom logic when to execute a handler</span>
+<span class="k">def</span> <span class="nf">custom_event_filter</span><span class="p">(</span><span class="n">trainer</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+    <span class="k">if</span> <span class="mf">0.1</span> <span class="o">&lt;</span> <span class="n">trainer</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">output</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
+
+<span class="c1"># We run the following handler every iteration completed under our custom_event_filter condition:</span>
+<span class="nd">@trainer</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">ITERATION_COMPLETED</span><span class="p">(</span><span class="n">event_filter</span><span class="o">=</span><span class="n">custom_event_filter</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">dump_model_grads</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="si">{}</span><span class="s2"> - loss=</span><span class="si">{}</span><span class="s2">: dump model grads"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">trainer</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">iteration</span><span class="p">,</span> <span class="n">trainer</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">output</span><span class="p">))</span>
+
+<span class="n">train_data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">]</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">max_epochs</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">train_losses</span><span class="p">));</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>7 - loss=0.9: dump model grads
+8 - loss=0.8: dump model grads
+10 - loss=0.8: dump model grads
+11 - loss=0.7: dump model grads
+12 - loss=0.4: dump model grads
+13 - loss=0.2: dump model grads
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Stack-events-to-share-the-action">Stack events to share the action<a class="anchor-link" href="#Stack-events-to-share-the-action">¶</a>
+</h4>
+<p>A user can trigger the same handler on events of differen types. For example, let's run a handler for model's validation every 3 epochs and when the training is completed:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">trainer</span> <span class="o">=</span> <span class="n">Engine</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="kc">None</span><span class="p">)</span>
+
+<span class="nd">@trainer</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">EPOCH_COMPLETED</span><span class="p">(</span><span class="n">every</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span> <span class="o">|</span> <span class="n">Events</span><span class="o">.</span><span class="n">COMPLETED</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">run_validation</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Epoch </span><span class="si">{}</span><span class="s2"> - event=</span><span class="si">{}</span><span class="s2">: Validation"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">trainer</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">epoch</span><span class="p">,</span> <span class="n">trainer</span><span class="o">.</span><span class="n">last_event_name</span><span class="p">))</span>
+    <span class="c1"># evaluator.run(devset)</span>
+
+<span class="n">train_data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">max_epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">);</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Epoch 3 - event=epoch_completed: Validation
+Epoch 6 - event=epoch_completed: Validation
+Epoch 9 - event=epoch_completed: Validation
+Epoch 12 - event=epoch_completed: Validation
+Epoch 15 - event=epoch_completed: Validation
+Epoch 18 - event=epoch_completed: Validation
+Epoch 20 - event=completed: Validation
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Add-custom-events">Add custom events<a class="anchor-link" href="#Add-custom-events">¶</a>
+</h4>
+<p>A user can add their own events to go beyond built-in standard events. For example,
+let's define new events related to backward and optimizer step calls. This can help us to attach specific handlers on these events in a configurable manner.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.engine</span> <span class="k">import</span> <span class="n">EventEnum</span>
+
+
+<span class="k">class</span> <span class="nc">BackpropEvents</span><span class="p">(</span><span class="n">EventEnum</span><span class="p">):</span>
+    <span class="n">BACKWARD_STARTED</span> <span class="o">=</span> <span class="s1">'backward_started'</span>
+    <span class="n">BACKWARD_COMPLETED</span> <span class="o">=</span> <span class="s1">'backward_completed'</span>
+    <span class="n">OPTIM_STEP_COMPLETED</span> <span class="o">=</span> <span class="s1">'optim_step_completed'</span>
+
+
+<span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">engine</span><span class="p">,</span> <span class="n">batch</span><span class="p">):</span>
+    <span class="c1"># ...</span>
+    <span class="c1"># loss = criterion(y_pred, y)</span>
+    <span class="n">engine</span><span class="o">.</span><span class="n">fire_event</span><span class="p">(</span><span class="n">BackpropEvents</span><span class="o">.</span><span class="n">BACKWARD_STARTED</span><span class="p">)</span>
+    <span class="c1"># loss.backward()</span>
+    <span class="n">engine</span><span class="o">.</span><span class="n">fire_event</span><span class="p">(</span><span class="n">BackpropEvents</span><span class="o">.</span><span class="n">BACKWARD_COMPLETED</span><span class="p">)</span>
+    <span class="c1"># optimizer.step()</span>
+    <span class="n">engine</span><span class="o">.</span><span class="n">fire_event</span><span class="p">(</span><span class="n">BackpropEvents</span><span class="o">.</span><span class="n">OPTIM_STEP_COMPLETED</span><span class="p">)</span>
+    <span class="c1"># ...    </span>
+
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">Engine</span><span class="p">(</span><span class="n">update</span><span class="p">)</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">register_events</span><span class="p">(</span><span class="o">*</span><span class="n">BackpropEvents</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">function_before_backprop</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="si">{}</span><span class="s2"> - before backprop"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">trainer</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">iteration</span><span class="p">))</span>
+
+<span class="n">trainer</span><span class="o">.</span><span class="n">add_event_handler</span><span class="p">(</span><span class="n">BackpropEvents</span><span class="o">.</span><span class="n">BACKWARD_STARTED</span><span class="p">,</span> <span class="n">function_before_backprop</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">function_after_backprop</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="si">{}</span><span class="s2"> - after backprop"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">trainer</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">iteration</span><span class="p">))</span>
+
+<span class="n">trainer</span><span class="o">.</span><span class="n">add_event_handler</span><span class="p">(</span><span class="n">BackpropEvents</span><span class="o">.</span><span class="n">BACKWARD_COMPLETED</span><span class="p">,</span> <span class="n">function_after_backprop</span><span class="p">)</span>
+
+<span class="n">train_data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">max_epochs</span><span class="o">=</span><span class="mi">2</span><span class="p">);</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1 - before backprop
+1 - after backprop
+2 - before backprop
+2 - after backprop
+3 - before backprop
+3 - after backprop
+4 - before backprop
+4 - after backprop
+5 - before backprop
+5 - after backprop
+6 - before backprop
+6 - after backprop
+7 - before backprop
+7 - after backprop
+8 - before backprop
+8 - after backprop
+9 - before backprop
+9 - after backprop
+10 - before backprop
+10 - after backprop
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Out-of-the-box-metrics">Out-of-the-box metrics<a class="anchor-link" href="#Out-of-the-box-metrics">¶</a>
+</h3>
+<p>PyTorch-Ignite provides an ensemble of metrics dedicated to many Deep Learning tasks (classification, regression, segmentation, etc.). Most of these metrics provide a way to compute various quantities of interest in an online fashion without having to store the entire output history of a model.</p>
+<ul>
+<li>For classification : <code>Precision</code>, <code>Recall</code>, <code>Accuracy</code>, <code>ConfusionMatrix</code> and more!</li>
+<li>For segmentation : <code>DiceCoefficient</code>, <code>IoU</code>, <code>mIOU</code> and more!</li>
+<li>~20 regression metrics, e.g. MSE, MAE, MedianAbsoluteError, etc </li>
+<li>Metrics that store the entire output history per epoch<ul>
+<li>Possible to use with <code>scikit-learn</code> metrics, e.g. <code>EpochMetric</code>, <code>AveragePrecision</code>, <code>ROC_AUC</code>, etc</li>
+</ul>
+</li>
+<li>Easily composable to assemble a custom metric</li>
+<li>Easily extendable to <a href="https://pytorch.org/ignite/metrics.html#how-to-create-a-custom-metric">create custom metrics</a>
+</li>
+</ul>
+<p>Complete lists of metrics provided by PyTorch-Ignite can be found <a href="https://pytorch.org/ignite/metrics.html#complete-list-of-metrics">here</a> for <code>ignite.metrics</code> and <a href="https://pytorch.org/ignite/contrib/metrics.html#ignite-contrib-metrics">here</a> for <code>ignite.contrib.metrics</code>.</p>
+<p>Two kinds of public APIs are provided:</p>
+<ul>
+<li>metric is attached to <code>Engine</code>
+</li>
+<li>metric's <code>reset, update, compute</code> methods </li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="More-on-the-reset,-update,-compute-public-API">More on the <code>reset, update, compute</code> public API<a class="anchor-link" href="#More-on-the-reset,-update,-compute-public-API">¶</a>
+</h4>
+<p>Let's demonstrate this API on a simple example using the <code>Accuracy</code> metric. The idea behind this API is that we accumulate internally certain counters on each <code>update</code> call. The metric's value is computed on each <code>compute</code> call and counters are reset on each <code>reset</code> call.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">ignite.metrics</span> <span class="k">import</span> <span class="n">Accuracy</span>
+
+<span class="n">acc</span> <span class="o">=</span> <span class="n">Accuracy</span><span class="p">()</span>
+
+<span class="c1"># Start accumulation</span>
+<span class="n">acc</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+<span class="n">y_target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,])</span>
+<span class="c1"># y_pred is logits computed by the model</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span>
+    <span class="p">[</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">],</span>  <span class="c1"># correct </span>
+    <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">],</span>  <span class="c1"># incorrect</span>
+    <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span>   <span class="c1"># correct</span>
+    <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">],</span>   <span class="c1"># correct</span>
+<span class="p">])</span>
+<span class="n">acc</span><span class="o">.</span><span class="n">update</span><span class="p">((</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_target</span><span class="p">))</span>
+
+<span class="c1"># Compute accuracy on 4 samples</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"After 1st update, accuracy="</span><span class="p">,</span> <span class="n">acc</span><span class="o">.</span><span class="n">compute</span><span class="p">())</span>
+
+<span class="n">y_target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="c1"># y_pred is logits computed by the model</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span>
+    <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">],</span>   <span class="c1"># incorrect</span>
+    <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">],</span>   <span class="c1"># incorrect</span>
+    <span class="p">[</span><span class="mf">2.6</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.0</span><span class="p">],</span>   <span class="c1"># correct</span>
+    <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span>   <span class="c1"># correct</span>
+<span class="p">])</span>
+<span class="n">acc</span><span class="o">.</span><span class="n">update</span><span class="p">((</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_target</span><span class="p">))</span>
+
+<span class="c1"># Compute accuracy on 8 samples</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"After 2nd update, accuracy="</span><span class="p">,</span> <span class="n">acc</span><span class="o">.</span><span class="n">compute</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>After 1st update, accuracy= 0.75
+After 2nd update, accuracy= 0.625
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Composable-metrics">Composable metrics<a class="anchor-link" href="#Composable-metrics">¶</a>
+</h4>
+<p>Users can compose their own metrics with ease from existing ones using arithmetic operations or PyTorch methods. For example, an error metric defined as <code>100 * (1.0 - accuracy)</code> can be coded in a straightforward manner:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">ignite.metrics</span> <span class="k">import</span> <span class="n">Accuracy</span>
+
+<span class="n">acc</span> <span class="o">=</span> <span class="n">Accuracy</span><span class="p">()</span>
+<span class="n">error</span> <span class="o">=</span> <span class="mf">100.0</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">acc</span><span class="p">)</span> 
+
+<span class="c1"># Start accumulation</span>
+<span class="n">acc</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+<span class="n">y_target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,])</span>
+<span class="c1"># y_pred is logits computed by the model</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span>
+    <span class="p">[</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">],</span>  <span class="c1"># correct </span>
+    <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">],</span>  <span class="c1"># incorrect</span>
+    <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span>   <span class="c1"># correct</span>
+    <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">],</span>   <span class="c1"># correct</span>
+<span class="p">])</span>
+<span class="n">acc</span><span class="o">.</span><span class="n">update</span><span class="p">((</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_target</span><span class="p">))</span>
+
+<span class="c1"># Compute error on 4 samples</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"After 1st update, error="</span><span class="p">,</span> <span class="n">error</span><span class="o">.</span><span class="n">compute</span><span class="p">())</span>
+
+<span class="n">y_target</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="c1"># y_pred is logits computed by the model</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span>
+    <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">],</span>   <span class="c1"># incorrect</span>
+    <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">],</span>   <span class="c1"># incorrect</span>
+    <span class="p">[</span><span class="mf">2.6</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.0</span><span class="p">],</span>   <span class="c1"># correct</span>
+    <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span>   <span class="c1"># correct</span>
+<span class="p">])</span>
+<span class="n">acc</span><span class="o">.</span><span class="n">update</span><span class="p">((</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_target</span><span class="p">))</span>
+
+<span class="c1"># Compute err on 8 samples</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"After 2nd update, error="</span><span class="p">,</span> <span class="n">error</span><span class="o">.</span><span class="n">compute</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>After 1st update, error= 25.0
+After 2nd update, error= 37.5
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In case a custom metric can not be expressed as arithmetic operations of base metrics, please follow <a href="https://pytorch.org/ignite/metrics.html#how-to-create-a-custom-metric">this guide</a> to implement the custom metric.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Out-of-the-box-handlers">Out-of-the-box handlers<a class="anchor-link" href="#Out-of-the-box-handlers">¶</a>
+</h3>
+<p>PyTorch-Ignite provides various commonly used handlers to simplify 
+application code:</p>
+<ul>
+<li>Common training handlers: <code>Checkpoint</code>, <code>EarlyStopping</code>, <code>Timer</code>, <code>TerminateOnNan</code>
+</li>
+<li>Optimizer's parameter scheduling (learning rate, momentum, etc.)<ul>
+<li>concatenate schedulers, add warm-up, cyclical scheduling, piecewise-linear scheduling, and more! See <a href="https://pytorch.org/ignite/contrib/handlers.html#more-on-parameter-scheduling">examples</a>.</li>
+</ul>
+</li>
+<li>Time profiling</li>
+<li>Logging to experiment tracking systems:<ul>
+<li>Tensorboard, Visdom, MLflow, Polyaxon, Neptune, Trains, etc.</li>
+</ul>
+</li>
+</ul>
+<p>Complete lists of handlers provided by PyTorch-Ignite can be found <a href="https://pytorch.org/ignite/handlers.html#complete-list-of-handlers">here</a> for <code>ignite.handlers</code> and <a href="https://pytorch.org/ignite/contrib/handlers.html#ignite-contrib-handlers">here</a> for <code>ignite.contrib.handlers</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Common-training-handlers">Common training handlers<a class="anchor-link" href="#Common-training-handlers">¶</a>
+</h4>
+<p>With the out-of-the-box <a href="https://pytorch.org/ignite/handlers.html#ignite.handlers.Checkpoint"><code>Checkpoint</code></a> handler, a user can easily save the training state or best models to the filesystem or a cloud.</p>
+<p><a href="https://pytorch.org/ignite/handlers.html#ignite.handlers.EarlyStopping"><code>EarlyStopping</code></a> and <a href="https://pytorch.org/ignite/handlers.html#ignite.handlers.TerminateOnNan"><code>TerminateOnNan</code></a> helps to stop the training if overfitting or diverging.</p>
+<p>All those things can be easily added to the trainer one by one or with <a href="https://pytorch.org/ignite/contrib/engines.html#module-ignite.contrib.engines.common">helper methods</a>.</p>
+<p>Let's consider an example of using helper methods.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">torch.optim</span> <span class="k">as</span> <span class="nn">optim</span>
+
+<span class="kn">from</span> <span class="nn">ignite.engine</span> <span class="k">import</span> <span class="n">create_supervised_trainer</span><span class="p">,</span> <span class="n">create_supervised_evaluator</span><span class="p">,</span> <span class="n">Events</span>
+<span class="kn">from</span> <span class="nn">ignite.metrics</span> <span class="k">import</span> <span class="n">Accuracy</span>
+<span class="kn">import</span> <span class="nn">ignite.contrib.engines.common</span> <span class="k">as</span> <span class="nn">common</span>
+
+<span class="n">train_data</span> <span class="o">=</span> <span class="p">[[</span><span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">))]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+<span class="n">val_data</span> <span class="o">=</span> <span class="p">[[</span><span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">))]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+<span class="n">epoch_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="c1"># step_size is expressed in iterations</span>
+<span class="n">lr_scheduler</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">lr_scheduler</span><span class="o">.</span><span class="n">StepLR</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">step_size</span><span class="o">=</span><span class="n">epoch_length</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.88</span><span class="p">)</span>
+
+<span class="c1"># Let's define some dummy trainer and evaluator</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">create_supervised_trainer</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">())</span>
+<span class="n">evaluator</span> <span class="o">=</span> <span class="n">create_supervised_evaluator</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">{</span><span class="s2">"accuracy"</span><span class="p">:</span> <span class="n">Accuracy</span><span class="p">()})</span>
+
+
+<span class="nd">@trainer</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">EPOCH_COMPLETED</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">run_validation</span><span class="p">():</span>
+    <span class="n">evaluator</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">val_data</span><span class="p">)</span>
+
+<span class="c1"># training state to save</span>
+<span class="n">to_save</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"trainer"</span><span class="p">:</span> <span class="n">trainer</span><span class="p">,</span> <span class="s2">"model"</span><span class="p">:</span> <span class="n">model</span><span class="p">,</span>
+    <span class="s2">"optimizer"</span><span class="p">:</span> <span class="n">optimizer</span><span class="p">,</span> <span class="s2">"lr_scheduler"</span><span class="p">:</span> <span class="n">lr_scheduler</span>
+<span class="p">}</span>
+<span class="n">metric_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"batch loss"</span><span class="p">,</span> <span class="p">]</span>
+
+<span class="n">common</span><span class="o">.</span><span class="n">setup_common_training_handlers</span><span class="p">(</span>
+    <span class="n">trainer</span><span class="o">=</span><span class="n">trainer</span><span class="p">,</span>
+    <span class="n">to_save</span><span class="o">=</span><span class="n">to_save</span><span class="p">,</span>
+    <span class="n">output_path</span><span class="o">=</span><span class="s2">"checkpoints"</span><span class="p">,</span>
+    <span class="n">save_every_iters</span><span class="o">=</span><span class="n">epoch_length</span><span class="p">,</span>
+    <span class="n">lr_scheduler</span><span class="o">=</span><span class="n">lr_scheduler</span><span class="p">,</span>
+    <span class="n">output_names</span><span class="o">=</span><span class="n">metric_names</span><span class="p">,</span>
+    <span class="n">with_pbars</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">tb_logger</span> <span class="o">=</span> <span class="n">common</span><span class="o">.</span><span class="n">setup_tb_logging</span><span class="p">(</span><span class="s2">"tb_logs"</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">evaluators</span><span class="o">=</span><span class="n">evaluator</span><span class="p">)</span>
+
+<span class="n">common</span><span class="o">.</span><span class="n">save_best_model_by_val_score</span><span class="p">(</span>
+    <span class="s2">"best_models"</span><span class="p">,</span>
+    <span class="n">evaluator</span><span class="o">=</span><span class="n">evaluator</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="n">metric_name</span><span class="o">=</span><span class="s2">"accuracy"</span><span class="p">,</span>
+    <span class="n">n_saved</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">trainer</span><span class="o">=</span><span class="n">trainer</span><span class="p">,</span>
+    <span class="n">tag</span><span class="o">=</span><span class="s2">"val"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">trainer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">max_epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">tb_logger</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+
+ 
+ 
+<div id="1a09a4dd-e89c-4ae5-9964-5286e4129f87"></div>
+<div class="output_subarea output_widget_view ">
+<script type="text/javascript">
+var element = $('#1a09a4dd-e89c-4ae5-9964-5286e4129f87');
+</script><script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "ef6ae183108243b8b758fe7f4f05fe79", "version_major": 2, "version_minor": 0}
+</script>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>ls -all <span class="s2">"checkpoints"</span>
+<span class="o">!</span>ls -all <span class="s2">"best_models"</span>
+<span class="o">!</span>ls -all <span class="s2">"tb_logs"</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>total 12
+drwxr-xr-x 2 root root 4096 Aug 31 11:27 .
+drwxr-xr-x 1 root root 4096 Aug 31 11:27 ..
+-rw------- 1 root root 1657 Aug 31 11:27 training_checkpoint_50.pt
+total 16
+drwxr-xr-x 2 root root 4096 Aug 31 11:27  .
+drwxr-xr-x 1 root root 4096 Aug 31 11:27  ..
+-rw------- 1 root root 1145 Aug 31 11:27 'best_model_2_val_accuracy=0.3000.pt'
+-rw------- 1 root root 1145 Aug 31 11:27 'best_model_3_val_accuracy=0.3000.pt'
+total 12
+drwxr-xr-x 2 root root 4096 Aug 31 11:27 .
+drwxr-xr-x 1 root root 4096 Aug 31 11:27 ..
+-rw-r--r-- 1 root root  325 Aug 31 11:27 events.out.tfevents.1598873224.3aa7adc24d3d.115.1
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In the above code, the <code>common.setup_common_training_handlers</code> method adds <code>TerminateOnNan</code>, adds a handler to use <code>lr_scheduler</code> (expressed in iterations), adds training state checkpointing, exposes <code>batch loss</code> output as exponential moving averaged metric for logging, and adds a progress bar to the trainer.</p>
+<p>Next, the <code>common.setup_tb_logging</code> method returns a TensorBoard logger which is automatically configured to log trainer's metrics (i.e. <code>batch loss</code>), optimizer's learning rate and evaluator's metrics.</p>
+<p>Finally, <code>common.save_best_model_by_val_score</code> sets up a handler to save the best two models according to the validation accuracy metric.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Distributed-and-XLA-device-support">Distributed and XLA device support<a class="anchor-link" href="#Distributed-and-XLA-device-support">¶</a>
+</h3>
+<p>PyTorch offers a distributed communication package for writing and running parallel applications on multiple devices and machines. The native interface provides commonly used collective operations and allows to address multi-CPU and multi-GPU computations seamlessly using the <a href="https://pytorch.org/docs/stable/generated/torch.nn.parallel.DistributedDataParallel.html">torch <code>DistributedDataParallel</code></a> module and the well-known <code>mpi</code>, <code>gloo</code> and <code>nccl</code> backends. Recently, users can also run PyTorch on XLA devices, like TPUs, with the <code>torch_xla</code> package. However, writing distributed training code working on GPUs and TPUs is not a trivial task due to some API specificities. The purpose of the PyTorch-Ignite <code>ignite.distributed</code> package introduced in version 0.4 is to unify the code for native <code>torch.distributed</code> API, <code>torch_xla</code> API on XLA devices and also supporting other distributed frameworks (e.g. Horovod).</p>
+<p>To make distributed configuration setup easier, the <a href="https://pytorch.org/ignite/distributed.html#ignite.distributed.launcher.Parallel"><code>Parallel</code></a> context manager has been introduced:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">code</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">import ignite.distributed as idist</span>
+
+<span class="s2">def training(local_rank, config, **kwargs):</span>
+<span class="s2">    print(idist.get_rank(), ': run with config:', config, '- backend=', idist.backend())</span>
+<span class="s2">    # do the training ...</span>
+<span class="s2">  </span>
+<span class="s2">backend = 'gloo' # or "xla-tpu" or None</span>
+<span class="s2">dist_configs = {'nproc_per_node': 2}  # or dist_configs = {...}</span>
+<span class="s2">config = {'c': 12345}</span>
+
+<span class="s2">if __name__ == '__main__':</span>
+
+<span class="s2">    with idist.Parallel(backend=backend, **dist_configs) as parallel:</span>
+<span class="s2">        parallel.run(training, config, a=1, b=2)</span>
+<span class="s2">"""</span>
+<span class="o">!</span><span class="nb">echo</span> <span class="s2">"{code}"</span> &gt; main.py
+<span class="o">!</span>python main.py
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>2020-08-31 11:27:07,128 ignite.distributed.launcher.Parallel INFO: Initialized distributed launcher with backend: 'gloo'
+2020-08-31 11:27:07,128 ignite.distributed.launcher.Parallel INFO: - Parameters to spawn processes: 
+	nproc_per_node: 2
+	nnodes: 1
+	node_rank: 0
+2020-08-31 11:27:07,128 ignite.distributed.launcher.Parallel INFO: Spawn function '&lt;function training at 0x7f32b8ac9d08&gt;' in 2 processes
+0 : run with config: {'c': 12345} - backend= gloo
+1 : run with config: {'c': 12345} - backend= gloo
+2020-08-31 11:27:09,959 ignite.distributed.launcher.Parallel INFO: End of run
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The above code with a single modification can run on a GPU, single-node multiple GPUs, single or multiple TPUs etc. It can be executed with the <code>torch.distributed.launch</code> tool or by Python and spawning the required number of processes. For more details, see <a href="https://pytorch.org/ignite/distributed.html">the documentation</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In addition, methods like <code>auto_model()</code>, <code>auto_optim()</code> and <code>auto_dataloader()</code> help to adapt in a transparent way the provided model, optimizer and data loaders to an existing configuration:</p>
+<div class="highlight"><pre><span></span><span class="c1"># main.py</span>
+
+<span class="kn">import</span> <span class="nn">ignite.distributed</span> <span class="kn">as</span> <span class="nn">idist</span>
+
+<span class="k">def</span> <span class="nf">training</span><span class="p">(</span><span class="n">local_rank</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="n">idist</span><span class="o">.</span><span class="n">get_rank</span><span class="p">(),</span> <span class="s2">": run with config:"</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="s2">"- backend="</span><span class="p">,</span> <span class="n">idist</span><span class="o">.</span><span class="n">backend</span><span class="p">())</span>
+
+    <span class="n">train_loader</span> <span class="o">=</span> <span class="n">idist</span><span class="o">.</span><span class="n">auto_dataloader</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="c1"># batch size, num_workers and sampler are automatically adapted to existing configuration</span>
+    <span class="c1"># ...</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">resnet50</span><span class="p">()</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+
+    <span class="c1"># if training with Nvidia/Apex for Automatic Mixed Precision (AMP)</span>
+    <span class="c1"># model, optimizer = amp.initialize(model, optimizer, opt_level=opt_level)</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">idist</span><span class="o">.</span><span class="n">auto_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="c1"># model is DDP or DP or just itself according to existing configuration</span>
+    <span class="c1"># ...</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">idist</span><span class="o">.</span><span class="n">auto_optim</span><span class="p">(</span><span class="n">optimizer</span><span class="p">)</span>
+    <span class="c1"># optimizer is itself, except XLA configuration and overrides `step()` method.</span>
+    <span class="c1"># User can safely call `optimizer.step()` (behind `xm.optimizer_step(optimizier)` is performed)</span>
+
+<span class="n">backend</span> <span class="o">=</span> <span class="s2">"nccl"</span>  <span class="c1"># torch native distributed configuration on multiple GPUs</span>
+<span class="c1"># backend = "xla-tpu"  # XLA TPUs distributed configuration</span>
+<span class="c1"># backend = None  # no distributed configuration</span>
+<span class="k">with</span> <span class="n">idist</span><span class="o">.</span><span class="n">Parallel</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="n">backend</span><span class="p">,</span> <span class="o">**</span><span class="n">dist_configs</span><span class="p">)</span> <span class="k">as</span> <span class="n">parallel</span><span class="p">:</span>
+    <span class="n">parallel</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">training</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+<p>Please note that these <code>auto_*</code> methods are optional; a user is free use some of them and manually set up certain parts of the code if required. The advantage of this approach is that there is no under the hood inevitable objects' patching and overriding.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>More details about distributed helpers provided by PyTorch-Ignite can be found in <a href="https://pytorch.org/ignite/distributed.html">the documentation</a>.
+A complete example of training on CIFAR10 can be found <a href="https://github.com/pytorch/ignite/tree/master/examples/contrib/cifar10">here</a>.</p>
+<p>A detailed tutorial with distributed helpers will be published in another article.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Projects-using-PyTorch-Ignite">Projects using PyTorch-Ignite<a class="anchor-link" href="#Projects-using-PyTorch-Ignite">¶</a>
+</h2>
+<p>There is a list of research papers with code, blog articles, tutorials, toolkits and other projects that are using PyTorch-Ignite. A detailed overview can be found <a href="https://github.com/pytorch/ignite#projects-using-ignite">here</a>.</p>
+<p>To start your project using PyTorch-Ignite is simple and can require only to pass through this quick-start example and <a href="https://pytorch.org/ignite/concepts.html">library "Concepts"</a>.</p>
+<p>In addition, PyTorch-Ignite also provides several tutorials:</p>
+<ul>
+<li>
+<a href="https://github.com/pytorch/ignite/blob/master/examples/notebooks/TextCNN.ipynb">Text Classification using Convolutional Neural
+Networks</a> </li>
+<li>
+<a href="https://github.com/pytorch/ignite/blob/master/examples/notebooks/VAE.ipynb">Variational Auto
+Encoders</a> </li>
+<li><a href="https://github.com/pytorch/ignite/blob/master/examples/notebooks/FashionMNIST.ipynb">Convolutional Neural Networks for Classifying Fashion-MNIST Dataset</a></li>
+<li>
+<a href="https://github.com/pytorch/ignite/blob/master/examples/notebooks/CycleGAN_with_nvidia_apex.ipynb">Training Cycle-GAN on Horses to Zebras with Nvidia/Apex</a> </li>
+<li><a href="https://github.com/pytorch/ignite/blob/master/examples/notebooks/CycleGAN_with_torch_cuda_amp.ipynb">Another training Cycle-GAN on Horses to Zebras with Native Torch CUDA AMP</a></li>
+<li><a href="https://github.com/pytorch/ignite/blob/master/examples/notebooks/EfficientNet_Cifar100_finetuning.ipynb">Finetuning EfficientNet-B0 on CIFAR100</a></li>
+<li>
+<a href="https://github.com/pytorch/ignite/blob/master/examples/notebooks/Cifar10_Ax_hyperparam_tuning.ipynb">Hyperparameters tuning with Ax</a> </li>
+<li><a href="https://github.com/pytorch/ignite/blob/master/examples/notebooks/FastaiLRFinder_MNIST.ipynb">Basic example of LR finder on MNIST</a></li>
+<li>
+<a href="https://github.com/pytorch/ignite/blob/master/examples/notebooks/Cifar100_bench_amp.ipynb">Benchmark mixed precision training on Cifar100: torch.cuda.amp vs nvidia/apex</a> </li>
+<li><a href="https://github.com/pytorch/ignite/blob/master/examples/notebooks/MNIST_on_TPU.ipynb">MNIST training on a single TPU</a></li>
+<li><a href="https://github.com/pytorch/ignite/tree/master/examples/contrib/cifar10">CIFAR10 Training on multiple TPUs</a></li>
+</ul>
+<p>and examples:</p>
+<ul>
+<li>
+<a href="https://github.com/pytorch/ignite/tree/master/examples/contrib/cifar10">cifar10</a> (single/multi-GPU, DDP, AMP, TPUs)</li>
+<li><a href="https://github.com/pytorch/ignite/tree/master/examples/reinforcement_learning">basic RL</a></li>
+<li>
+<a href="https://github.com/pytorch/ignite/tree/master/examples/references">reproducible baselines for vision tasks</a>:<ul>
+<li>classification on ImageNet (single/multi-GPU, DDP, AMP)</li>
+<li>semantic segmentation on Pascal VOC2012 (single/multi-GPU, DDP, AMP)</li>
+</ul>
+</li>
+</ul>
+<p>The package can be installed with pip or conda. More info and guides can be found <a href="https://github.com/pytorch/ignite#installation">here</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Project-news">Project news<a class="anchor-link" href="#Project-news">¶</a>
+</h2>
+<p>Instead of a conclusion, we will wrap up with some current project news:</p>
+<hr>
+<!--div align="center"--><!--img width=150 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAABkCAYAAADDhn8LAAAQlklEQVR4Ae2di7EUNxOFNwaXk6CcA04Bp2AygAzsCCACiMBOwCTgBEiABEhg//q2/qaa5kjT0szs1V63qrY0Dz1On+6jx+zsvZdrpWKgGGgycGneqRvFQDFwLYE84yD4559/nrF19zGtBHIfnp+klz/++OP677//Pknfz6XTEshz8aSw49dff72+e/dO3KlLWQZKIFmmHqzc169fr5fL5frq1asHQ74W3BLIWv44DM1ff/11EwgiQSyV5hgogczxtlytz58/Xz9+/Hh9/fr19eeff/4mDgTCh+XWn3/+ef306VMJZsB7JZABslYuymac/QZLKhOFz3/66afr77//fv3w4cMVMVXKMVACyfH0cKUQggmkBDHvvhLIPHdL17RN+suXL5fGuTq4EsjqHtqBD3HwXUileQZKIPPcLV8TcdS36fvcVALZx9/StRFHPeLd56ISyD7+lq5d4tjvnhLIfg6rhWfMQAnkGTu3TNvPQAlkP4eHtcCSiC/8/Ectk/hew5fhuNI5DJRAzuF1qlUC3b7cs1wFv/q2fKrDqrTJQAlkk6L7FSiB3I/rbE8lkCxTdyhXArkDyYNdnCYQnM2bo+/fv5cf7tU7Qt97qwTyPR8rnB0iEDaSf//99/Xt27fXX3755Yd1tK2nWzmvaPOq9pcvX1KcqE0qwdX6ZNtNdX5ioRLIieRONr1LIDgUUbQCf+Y6YqHdXlKb1F5fZ/3s1A8Mv/322+13GPzuguMo+DiTKtHeQyD0CzaPh8FN4en5IN4Du2+TPs5cIdA2uOmTvJfwk1rNZOyeEghkEAS9oNx7j/ZbTltBIJCrfpjk7eY+gULy1zlWg8CZAgHv1uwO5wpXK/gIPAK0xwN9+vfBIg9q8FL+NQyt2LP7Pid+MgM4GOEHe2IaEggdMsJHI888xwExKQJ7GJQTYpsj5xnSPR5VXgXiGQLB6aM+A68KFs8RscBs6e3sHdMmKZZRvlH+pa7/GbFvR73Sjyh7wvX17RihxFkvLZCZDq3jvTmO8A5TBPb6UE7wzh45pq1eX9l79xAInI0EscduAa24QRyjwUfbaqBQvlH+Jf48Pn/MLyV9agnJ1+kde5GkBMJvmXsN3uMejjbgisAeBuUET2j2mMBQ/fBzVvog6PngIEY1Vdau3UMgaubwWOETHG/evJFYsUOlluiwGR7sk/GT8o2qFwVJGV7np77HiU3Gsc+xGzspi8384hJh+TJ2TF/4mrQpEKV6a+jeOcAhQBHYw6KcoBy/dU0FEiT72c23gQNbuM4WCO3HvgkSc7zHybEKLJYcMRFgsV3OCTiVwPHixQtZh3rKNz3/0pbizvpW4kW4LbtpC16iTezHSF2BrCQOMwACFAl2X+XKCUboSB7bhviWOKxdJSraUU7mWuxDlVMBZP1Zrh6i+M2ylfO5EnSso7hvicPaJjhVEGKr8o2yj7K00eNbiTfjoxa+26BhRsQc4NFZj3qunBDt3TpXa2AVvLEdHIqTIneq7lECoc/YHyPvVlKzCKKxNNsu9ZVtYFS+aQkEfL2kBiPFs2rD/5EL4+42YKjCKhis0iPmygnK7t61OGAwmmWTCjzlOBVEqpwKII9F+Y/gyaQ40tOXJYVvhFuFW9VX5TL44z4lMyiYbUr8NxxWwHIKxo4eURQes3KC2ZvNo0B84GTaiPVV4KsAVOVUAHkMsS/Pxeixt1PhG+FWLYFUfWVfaw/h7Y62eey+XOs4zvQ3HcTC6slH7HjknE7ZyEKE/3Ctt3kb6WOrrHJCtHvrnDZ8P6Pkx/oq8FUAqnIqgDz+2JfHPXpMkFhS+Ea4Jchj/6r+ln2GJ+ax7VEfqX6/26QrAmKnmXMCnzVdRvUsP1jrxak900+2jHJCJHfrPAadD5ytuopXFfjZcsqRHoMaqbNcqXLWtsI3wq16CKDqb9lneGIesY8KJD6AuMWk70Q9+Yid9s5pUBns+2gds7RTBPb6y96bxeSxqk0cgbiVWkvWMwWiApkZe29Seyl7HLrVdosH5ZujBEJ8jKQYTzcc1oAiNVbonbOUyswY1l8rB8fRs4lyQqv/1nUVHHxPgON7qTXonCkQtZQZmfF69ijfKFtiG62vDJRvZgXCIBBjND6mjrjsXM263z3FUo/IYmetc8SxFSgGJJPj4LhhavWdua6ckMERyyjHMS2rgQE+WkEBZhVUXIv2qHIKR8Sq9ndH8EAbESPiYwBppd6bGApTxj7Vlwpy/LMVm9zHhmjXbVCkIwrEm9lzAvmMBDg1WmVx+XLKCTOY1eNT+oFcxMAbobxWTUAowj0mFfhHCkQtCenf3i7esh9b1OhLrLT8gt3YwIBBnnmDWPlmViDYpAYGZvGWSMAa9x7wZEvS2yJNKc87s3UMUa2OtxyQua8CpoWld105IdO/KnPUPgnbYlL2qnKZAMIvKljgiaUhb0nTtv8gHoRu4sZWlVoDRc8H3FOrAuWbjH0KF9da2GwQw0ZsRrytGZ64tlXBTSBq7bZlLPeV81rAZ69DYAZLr4xywiwe6o0uR1V5xR3Xoh2qXDaA9s7C9NNKo4OqLcOjfco3Wfta2FqzZ+xbnSMOv1y8CcRGDFWhda1HXgv47HVFWAuXuq6cMIvF6uGE1lLDMHCfciS7ZrkK/KMFQr97RMIM1EvgzfiGAcJWGma/5co3qs0eDnUPAW/5xzBYjoht5rA2LxBoBUZy5WBr9OgcckeN9bYoJxyBEVw4ghnYljPgxMH06cnm3H/8PcNyhkBoG5z0neUQe7Arm8DNcgy7/SdyQHveLxxTJqYjBEKbcJyxG2G07L1wI4LeOrcNTDTszHMVPFs47b5ywplYZ9smkLHTf7gWE4OaL8NxNlGXWQ1OGNnxJcd8aEf1l217qxwBaz6xXPlmj30tDN5us5f9ypa9Fwob2GzeUlsL3FHXZ7Bik3LCUZiqnTwDyn+r++aiprMtoajlQZ6mfSVn8K7uhH2M3L82fPIEiFE5m1pPl54yljLYhwXCeu0pE1Nidi1tQi+BHOsx/1SOR8b2/YdarrBsaz1OZbBbPV0siLL5CkZBehYv5Uogx4bhzCwe/cUgt/rsAWvDAlkl2MARSW+dr4L52DB9utZaPGevI46R5dnTWfrAAvm/ulMiKYEcG2KM/H6ZlRUG5Xhq9ggzhzH2sDMI692sY0og5u5cDreZR76U45ExS67evpB9K4J6lFnDs/SwAhl5J6oE4l3eP47fi4080mdmQFj+0+9t/bvDAllhk956ZNiaUUoguUAkwBWHj7QkylmaL3Vh+lOktK7xavBTJpw1+u5YCSTnsdbTQa7/V9Pw9yAIRz3vvheB6t39lpjt+tECUYH0HIKoZpAfo/gy8zRiZF36Y5fzV0b2HSYO8hJInvM9e5B8L49TcupdLER17zS67yiBzHso+xRrvofHqXmZDbx7btxm9h0lkMcJwpWRXhgtfDBlj+85i8zsO7wd/5UlFvsg+9xzANsK8KOw0A723fP7lNsvCkefZFnw3QMowW39zeZHCIT9Dz/+56MEyzW7H3O/Z4Oz3n2CgJf7eAnQ7O3h57fVtGdlfW6/PbcA9jZQx+NqlaFcTFs2MOiCS/HEX+7MPtCAC347r9rBTuyDK/5QxlnpJpDZzS8Az3yihSNGH+n6ALHjXoBlid3zgp7vn+AwXJbb/bhBtvv2s12PFd5bwrB6luMnuIw2WL++3ViGNmLq2cC9jM94A7iX4CLTTrSx1+bMvZv1kGcdjeaMCGckAgDHjuJR5VUgjGJWgaP6Utd8/63gooyqyzXq+MTIOsoNwRbreFzWvrLT7lnesqEl8JZd7H9Vmt0XnzFYfxse7DfVLWN615nmjkwY2ppWezha91QgjOJVgdPqL173/avg2mo7On6Lm957UR6bx2V8KCx2z3JlAy8hqhFftWcYEKxKqh3ik5UOmPnQn7dz6w9MqH4y174JhE4N+EyO06IjMwBiGWazrQAYxacCIfY7cq4ChGuZpOp6e3A0I2iLy9YoTSB6DMwyWz5VvKiAjnZlbPBYqA9uH9BmcyynZo/eAyHqI5ZemYh/5PybQHCIMsAMyeQon83ZTKJ/NmSZfkbLqECYwWh1VIBER1vZmKu6Zg8PS1rCsHbiMom6veDoLZ8VL3sFgg2tpAQbMagyGW63eGth2rr+TSAUVODMeSM5m0eEkgHNSMdfu1PT6kifvbLRCVukbN1XQZ5xIu2qumBncNriC66inQT0VmrNOoqXPQLZsgH7Iv4obhWD4H+q9J1AMGDPXiQazzmbeGYG/6cuOeYpRvYpjGp35JoKhD2EqyDfK5BMEKhAz/ZLIEbOFC97BJKxIWKIAlc2MngSMwwQ907fCYTO1RowGvVo5yoQ9hB9tECyG8w4ujJiZ5Ma/BQvswLJYomxEwUCTtqK5eycJaYNutnBIcuRKveDQCikRhsD+Ii5CgRFRvba0QLJ4osCicG1hT8OfqrfWYHwhCmTYvwoG9QsEuvZuc0umb5nykiBoOLZb9cN+Eq5CoQZsqzOKgLhad9IYuT1flG8zApEtaWw+f45VgKhHhyPLPdHuVDY1DUpEAquKhKEq5wYiffnWecpgtS1VQSCjdl1Od/Ge044VrwobiMHyn7VVqzHecTQEojV5SkcbStcsa0sBms7kzcFQmXI760HI8CzzxlREG6GLI/laOJUgKjXQZQDVN0sPrX0yNRtPepVdRW30Y49Nni/cLwlkNg3tsC1ml3OmEW6AgHcKjMJM4eNlsqJkXh/rgIhEj9yrgIuuwbfE1zY7+2yY9psJfynvjuhruJFcRvb3mODYbZ8VCCGBbuUSOz+UfmmQOgIME+5cUccYLCknGiEq1wFgrU1m8d+2Cx6jK129wQXbfKtceybc/Wv1RBU760ExYviNtqyx4aIXQmkJ3iPJWJFMEenlECsU56C3HvJhTBj4EViIunxXAWC2TSbq9GLYOTVawITJ/PhPTVssLQnuGhDzV5mLyJlI853TD1hWHnFi+LWsFu+xwbr2/IoELNv6zV2K2ftkHueDevefEggdEawQuzZQiEAEaRKyomeqHisAkG1O3KNNmM/rXMC19Ke4LI21F6k1be/Hn2meFHcWr+W77HB4+E4CiTaBnd8oWxfNpPHp3HWJqI5Og0LxACYUNRIaoBnctpTjrN+yZUTe31ttefbzh5j/4jttn/aE1weWwyknv3co3zkTfESy1A3pj02RJxRILO/TcK+M9KP1k/0wkjP9DYSMJEo1tZZIyERYrOfbLujpjNiZb4vghcb3fYEV8RHmyqgPbfgs75j2RUF0npC5W3yx3ALp2elQwTiwTFSIhjI7wUygqLMmcZ5XGceI0DsIQBxmAkX++IyEX647j97OaBNAsv4ZrBR3CIU+rKPzWqeG2vDbCCPaY8N3m6OW4MXGA1LXBoieviO3EacR5wfLpAjQFUbxcAqDJRAVvFE4ViSgRLIkm4pUKswUAJZxROFY0kGSiBLuqVArcJACWQVTxSOJRkogSzplgK1CgMlkFU8UTiWZKAEsqRbCtQqDJRAVvFE4ViSgRLIkm4pUKswUAJZxROFY0kGSiBLuqVArcJACWQVTxSOJRkogSzplgK1CgMlkFU8UTiWZKAEsqRbCtQqDJRAVvFE4ViSgRLIkm4pUKswUAJZxROFY0kGSiBLuqVArcLA/wBQk1M3IoBt1wAAAABJRU5ErkJggg==" />
+
+</div--><p>🎊🚄 <a href="https://app.ignite.trains.allegro.ai">Trains Ignite server</a> is open to everyone to browse our reproducible experiment logs, compare performances and restart any run on their own <a href="https://github.com/allegroai/trains">Trains server</a> and associated infrastructure. Many thanks to the folks at <a href="https://allegro.ai/">Allegro AI</a> who are making this possible!</p>
+<hr>
+<!--div align="center">
+<img width=150 src="https://numfocus.org/wp-content/uploads/2018/01/optNumFocus_LRG.png" />
+<img width=175 src="https://labs.quansight.org/images/quansight_labs_logo.png" />
+</div--><p>🎉🎊 Since June 2020, PyTorch-Ignite has joined <a href="https://numfocus.org/sponsored-projects/affiliated-projects">NumFOCUS as an affiliated project</a> as well as <a href="https://labs.quansight.org/projects/">Quansight Labs</a>. We believe that it will be a new step in our project’s development, and in promoting open practices in research and industry.</p>
+<hr>
+<p><img style="float: left;" width="20" src="https://hacktoberfest.digitalocean.com/h-light.svg"> 🎉 <a href="https://hacktoberfest.digitalocean.com/">Hacktoberfest 2020</a> is the open-source coding festival for everyone to attend in October and PyTorch-Ignite is also preparing for it. Please, check out <a href="https://github.com/pytorch/ignite/issues/1257">our announcement</a>.</p>
+<hr>
+<!--div align="center">
+
+<a href="https://www.mentored-sprints.dev/">
+<img width=320 src="https://the-turing-way.netlify.app/_images/community.jpg" />
+</a>
+
+</div--><p>🎉 <img style="float: left;" width="20" src="https://global.pydata.org/assets/images/pydata.png"> We are pleased to announce that we will run a mentored sprint session to contribute to PyTorch-Ignite at PyData Global 2020. We are looking forward to seeing you in November at this event!</p>
+<hr>
+<!--div align="center">
+
+<img width=200 src="https://raw.githubusercontent.com/pytorch/ignite/master/assets/ignite_logo.svg" />
+
+</div--><p>.\ | 📈💻 The project is currently maintained by a team of volunteers and we are looking for motivated contributors to help us to move the project forward. Please see the <a href="https://github.com/pytorch/ignite/blob/master/CONTRIBUTING.md">contribution guidelines</a> for more information if this sounds interesting to you.</p>
+<hr>
+<p><img style="float: left;" width="20" src="https://github.githubassets.com/images/icons/emoji/octocat.png">  Check out the project on <a href="https://github.com/pytorch/ignite">GitHub</a> and follow us on <a href="https://twitter.com/pytorch_ignite">Twitter</a>. For any questions, support or issues, please <a href="https://github.com/pytorch/ignite#communication">reach out to us</a>. For all other questions and inquiries, please send an email to contact@pytorch-ignite.ai</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://labs.quansight.org/"><img style="float: left;" width="175" src="https://labs.quansight.org/images/quansight_labs_logo.png"></a>  Quansight Labs is a public-benefit division of <a href="https://www.quansight.com/">Quansight</a> created to provide a home for a “PyData Core Team” who create and maintain open-source technology around all aspects of scientific and data science workflows. PyTorch-Ignite being part of Labs benefits from Labs' community, supports PyTorch-Ignite's sustainability, and accelerates development of the project that users rely on.</p>
+<p><a href="https://www.ifpenergiesnouvelles.com/"><img style="float: left;" pad="5" width="170" src="https://www.ifpenergiesnouvelles.com/sites/ifpen.fr/files/logo_ifpen_2.jpg"></a>  IFP Energies nouvelles (IFPEN) is a major research and training player in the fields of energy, transport and the environment. Deep Learning approaches are currently carried out through different projects from high performance data analytics to numerical simulation and natural language processing. Contributing to PyTorch-Ignite is a way for IFPEN to develop and maintain its software skills and best practices at the highest technical level.</p>
+
+</div>
+</div>
+</div>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../../08/what-are-traitlets/" rel="prev" title="Traitlets - an introduction &amp; use in Jupyter configuration management">Previous post</a>
+            </li>
+
+            <li class="archive">
+                <a href="../../../../archive.html" rel="archive" title="Archive ">Archive</a>
+            </li>
+
+            <li class="next disabled">
+                <a rel="next">Next post</a>
+            </li>
+        </ul></nav></aside><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha384-3lJUsx1TJHt7BA4udB5KPnDrlkO8T6J6v/op7ui0BbCjvZ9WqV4Xm6DTP6kQ/iBH" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script></article><!--End of body content--><footer id="footer">
+            Contents © 2020         <a href="../../../../team">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>

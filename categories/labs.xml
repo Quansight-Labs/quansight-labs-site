@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs (Posts about Labs)</title><link>https://labs.quansight.org/</link><description></description><atom:link href="https://labs.quansight.org/categories/labs.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Wed, 09 Sep 2020 13:31:56 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Traitlets - an introduction &amp; use in Jupyter configuration management</title><link>https://labs.quansight.org/blog/2020/08/what-are-traitlets/</link><dc:creator>Matthias Bussonnier, Tony Fast</dc:creator><description>&lt;div&gt;&lt;p&gt;You have probably seen Traitlets in applications, you likely even use it. The package has nearly 5 million downloads
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs (Posts about Labs)</title><link>https://labs.quansight.org/</link><description></description><atom:link href="https://labs.quansight.org/categories/labs.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Thu, 10 Sep 2020 22:37:25 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>PyTorch-Ignite: training and evaluating neural networks flexibly and transparently</title><link>https://labs.quansight.org/blog/2020/09/pytorch-ignite/</link><dc:creator>Victor Fomin</dc:creator><description>&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;!--# PyTorch-Ignite: training and evaluating neural networks flexibly and transparently--&gt;
+
+&lt;!--div align="center"&gt;
+&lt;img width=512 src="https://i.ibb.co/WtbmXJQ/ignite-blog.jpg"/&gt;
+&lt;/div--&gt;
+
+&lt;div align="center"&gt;
+&lt;img width="512" src="https://i.ibb.co/x8Bhqhj/habr-pytorch-ignite-image.png"&gt;
+&lt;/div&gt;&lt;div align="center"&gt;
+Authors: Victor Fomin (Quansight), Sylvain Desroziers (IFPEN, France)
+&lt;/div&gt;&lt;div&gt;
+This post is a general introduction of PyTorch-Ignite. It intends to give a brief but illustrative overview of what PyTorch-Ignite can offer for Deep Learning enthusiasts, professionals and researchers. Following the same philosophy as PyTorch, PyTorch-Ignite aims to keep it simple, flexible and extensible but performant and scalable.
+&lt;/div&gt;&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/09/pytorch-ignite/"&gt;Read more…&lt;/a&gt; (27 min remaining to read)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description><category>Deep Learning</category><category>Labs</category><category>Machine Learning</category><category>Neural Networks</category><category>Python</category><category>PyTorch</category><category>Tutorial</category><guid>https://labs.quansight.org/blog/2020/09/pytorch-ignite/</guid><pubDate>Thu, 10 Sep 2020 05:00:00 GMT</pubDate></item><item><title>Traitlets - an introduction &amp; use in Jupyter configuration management</title><link>https://labs.quansight.org/blog/2020/08/what-are-traitlets/</link><dc:creator>Matthias Bussonnier, Tony Fast</dc:creator><description>&lt;div&gt;&lt;p&gt;You have probably seen Traitlets in applications, you likely even use it. The package has nearly 5 million downloads
 on &lt;a href="https://anaconda.org/conda-forge/traitlets"&gt;conda-forge&lt;/a&gt; alone.&lt;/p&gt;
 &lt;h2&gt;But, what is Traitlets ?&lt;/h2&gt;
 &lt;p&gt;In this post we'll answer this question along with where Traitlets came from, its applications, and a bit of history.&lt;/p&gt;
@@ -30,24 +45,21 @@ I decided to wait until now to write a blogpost about it because shortly after t
 
 &lt;h3&gt;What is &lt;code&gt;metadsl&lt;/code&gt;?&lt;/h3&gt;
 &lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Number&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;metadsl&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Expression&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-   &lt;span class="nd"&gt;@metadsl&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;expression&lt;/span&gt;
+   &lt;span class="nd"&gt;@metadsl.expression&lt;/span&gt;
    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__add__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;other&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Number&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Number&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
        &lt;span class="o"&gt;...&lt;/span&gt;
 
-   &lt;span class="nd"&gt;@metadsl&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;expression&lt;/span&gt;
+   &lt;span class="nd"&gt;@metadsl.expression&lt;/span&gt;
    &lt;span class="nd"&gt;@classmethod&lt;/span&gt;
    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;from_int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;cls&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Number&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
        &lt;span class="o"&gt;...&lt;/span&gt;
 
 
-&lt;span class="nd"&gt;@metadsl&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rule&lt;/span&gt;
+&lt;span class="nd"&gt;@metadsl.rule&lt;/span&gt;
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;add_zero&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Number&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
    &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="n"&gt;Number&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;from_int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;
    &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;Number&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;from_int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 
 
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/12/metadsl-talk/"&gt;Read more…&lt;/a&gt; (13 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Labs</category><category>metadsl</category><guid>https://labs.quansight.org/blog/2019/12/metadsl-talk/</guid><pubDate>Tue, 24 Dec 2019 11:00:00 GMT</pubDate></item><item><title>Variable Explorer improvements in Spyder 4</title><link>https://labs.quansight.org/blog/2019/11/variable-explorer-improvements-in-Spyder-4/</link><dc:creator>Daniel Althviz</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://www.spyder-ide.org/"&gt;Spyder&lt;/a&gt; 4 will be released very soon with lots of interesting new features that you'll want to check out, reflecting years of effort by the team to improve the user experience. In this post, we will be talking about the improvements made to the Variable Explorer.&lt;/p&gt;
-&lt;p&gt;These include the brand new Object Explorer for inspecting arbitrary Python variables, full support for MultiIndex dataframes with multiple dimensions, and the ability to filter and search for variables by name and type, and much more.&lt;/p&gt;
-&lt;p&gt;It is important to mention that several of the above improvements were made possible through integrating the work of two other projects. Code from &lt;a href="https://github.com/TabViewer/gtabview"&gt;gtabview&lt;/a&gt; was used to implement the multi-dimensional Pandas indexes, while &lt;a href="https://github.com/titusjan/objbrowser"&gt;objbrowser&lt;/a&gt; was the foundation of the new Object Explorer.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/11/variable-explorer-improvements-in-Spyder-4/"&gt;Read more…&lt;/a&gt; (7 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Labs</category><category>Spyder</category><guid>https://labs.quansight.org/blog/2019/11/variable-explorer-improvements-in-Spyder-4/</guid><pubDate>Fri, 29 Nov 2019 01:00:00 GMT</pubDate></item></channel></rss>
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2019/12/metadsl-talk/"&gt;Read more…&lt;/a&gt; (13 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Labs</category><category>metadsl</category><guid>https://labs.quansight.org/blog/2019/12/metadsl-talk/</guid><pubDate>Tue, 24 Dec 2019 11:00:00 GMT</pubDate></item></channel></rss>

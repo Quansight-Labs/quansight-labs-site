@@ -10,10 +10,21 @@
 <link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../../../rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
 <link rel="canonical" href="https://labs.quansight.org/blog/2020/08/what-are-traitlets/">
 <link rel="icon" href="../../../../favicon.ico" sizes="16x16">
-<!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -21,6 +32,7 @@
   gtag('config', 'UA-163785882-1');
 </script><meta name="author" content="Matthias Bussonnier, Tony Fast">
 <link rel="prev" href="../ipython-reproducible-builds/" title="IPython reproducible builds" type="text/html">
+<link rel="next" href="../../09/pytorch-ignite/" title="PyTorch-Ignite: training and evaluating neural networks flexibly and transparently" type="text/html">
 <meta property="og:site_name" content="Quansight Labs">
 <meta property="og:title" content="Traitlets - an introduction &amp; use in Jupyter configuration management">
 <meta property="og:url" content="https://labs.quansight.org/blog/2020/08/what-are-traitlets/">
@@ -48,7 +60,7 @@ In this post we'll answer this quest">
 navbar-dark bg-dark
 "><div class="container">
 <!-- This keeps the margins nice -->
-        <a class="navbar-brand" href="../../../../">
+        <a class="navbar-brand" href="https://labs.quansight.org/">
             <img src="../../../../images/quansight_labs_logo_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -167,7 +179,7 @@ IPython's <code>autocall</code> traitlet.</p>
 <span class="sd">        arguments on the line, and '2' for 'full' autocall, where all callable</span>
 <span class="sd">        objects are automatically called (even if no arguments are present).</span>
 <span class="sd">        """</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
     <span class="o">...</span>
 </code></pre>
@@ -321,7 +333,7 @@ changed dynamically to a different one with the following:</p>
     <span class="nd">@observe</span><span class="p">(</span><span class="s1">'autoformatter'</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">_autoformatter_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">change</span><span class="p">):</span>
         <span class="n">formatter</span> <span class="o">=</span> <span class="n">change</span><span class="o">.</span><span class="n">new</span>
-        <span class="k">if</span> <span class="n">formatter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">formatter</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">reformat_handler</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span>
         <span class="k">elif</span> <span class="n">formatter</span> <span class="o">==</span> <span class="s1">'black'</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">reformat_handler</span> <span class="o">=</span> <span class="n">black_reformat_handler</span>
@@ -388,8 +400,8 @@ talk</a> and the <a href="https://traitlets.readthedocs.io/">documentation</a>.<
                 <a href="../../../../archive.html" rel="archive" title="Archive ">Archive</a>
             </li>
 
-            <li class="next disabled">
-                <a rel="next">Next post</a>
+            <li class="next">
+                <a href="../../09/pytorch-ignite/" rel="next" title="PyTorch-Ignite: training and evaluating neural networks flexibly and transparently">Next post</a>
             </li>
         </ul></nav></aside></article><!--End of body content--><footer id="footer">
             Contents © 2020         <a href="../../../../team">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
