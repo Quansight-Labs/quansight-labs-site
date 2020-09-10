@@ -27,7 +27,7 @@ Jinja2==2.10.1
 jsonschema==3.0.2
 jupyter-client==5.3.1
 jupyter-core==4.5.0
-Logbook==1.4.3
+Logbook==1.4.3.post1
 lxml==4.4.1
 Mako==1.1.0
 Markdown==3.2.2
