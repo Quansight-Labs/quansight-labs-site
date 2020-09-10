@@ -1,2 +1,2 @@
 commonmark 
-nikola[extras]==8.0.4
+nikola[extras]==8.1.1
