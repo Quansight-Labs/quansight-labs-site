@@ -391,7 +391,7 @@ Successfully installed pytorch-ignite-0.4.1
 <p>The above code is pure PyTorch and is typically user-defined and is required for any pipeline.</p>
 <h3 id="Trainer-and-evaluator's-setup">Trainer and evaluator's setup<a class="anchor-link" href="#Trainer-and-evaluator's-setup">¶</a>
 </h3>
-<p><code>model</code>'s trainer is an engine that loops multiple times over the training dataset and updates model parameters. Let's see how we define such a trainer using PyTorch-Ignite. To do this, PyTorch-Ignite introduces the generic class <a href="https://pytorch.org/ignite/concepts.html#engine"><code>Engine</code></a> that is an abstraction that loops over the provided data, executes a processing function and returns a result:</p>
+<p><code>model</code>'s trainer is an engine that loops multiple times over the training dataset and updates model parameters. Let's see how we define such a trainer using PyTorch-Ignite. To do this, PyTorch-Ignite introduces the generic class <a href="https://pytorch.org/ignite/concepts.html#engine"><code>Engine</code></a> that is an abstraction that loops over the provided data, executes a processing function and returns a result. The only argument needed to construct the trainer is a <code>train_step</code> function.</p>
 
 </div>
 </div>
@@ -432,7 +432,7 @@ Successfully installed pytorch-ignite-0.4.1
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The only argument needed to construct the trainer is a <code>train_step</code> function.</p>
+<p>Please note that <code>train_step</code> function must accept <code>engine</code> and <code>batch</code> arguments. In the example above, <code>engine</code> is not used inside <code>train_step</code>, but we can easily imagine a use-case where we would like to fetch certain information like current iteration, epoch or custom variables from the engine.</p>
 <p>Similarly, model evaluation can be done with an engine that runs a single time over the validation dataset and computes metrics.</p>
 
 </div>
@@ -671,6 +671,7 @@ fire_event(Events.COMPLETED)</code></pre>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>Here we attached <code>log_validation_results</code> and <code>log_train_results</code> handlers on <code>Events.COMPLETED</code> since <code>evaluator</code> and <code>train_evaluator</code> will run a single epoch over the validation datasets.</p>
 <p>Let's see how to add some others helpful features to our application.</p>
 <ul>
 <li>PyTorch-Ignite provides a <a href="https://pytorch.org/ignite/contrib/handlers.html#tqdm-logger"><code>ProgressBar</code></a> handler to show an engine's progression.</li>
@@ -880,10 +881,10 @@ fire_event(Events.COMPLETED)</code></pre>
 
  
  
-<div id="0f0d2a0c-876d-4ef0-9eba-2ffa835355bc"></div>
+<div id="67a94a7e-97dc-4de5-9aef-724e2d170b14"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#0f0d2a0c-876d-4ef0-9eba-2ffa835355bc');
+var element = $('#67a94a7e-97dc-4de5-9aef-724e2d170b14');
 </script><script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "9cf4a3960d9c4c31a775cf19c00fddd2", "version_major": 2, "version_minor": 0}
 </script>
@@ -913,10 +914,10 @@ var element = $('#0f0d2a0c-876d-4ef0-9eba-2ffa835355bc');
 
  
  
-<div id="4170b7c4-ad2d-490d-a5aa-5220c6406b2c"></div>
+<div id="3c989a98-8a18-4e8b-93dc-fd0ed925c7cf"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#4170b7c4-ad2d-490d-a5aa-5220c6406b2c');
+var element = $('#3c989a98-8a18-4e8b-93dc-fd0ed925c7cf');
 </script><script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "435204a5d8294b9faf37e86a2a2c6106", "version_major": 2, "version_minor": 0}
 </script>
@@ -946,10 +947,10 @@ var element = $('#4170b7c4-ad2d-490d-a5aa-5220c6406b2c');
 
  
  
-<div id="617197e3-89df-401e-a83b-2030e1d92540"></div>
+<div id="ee8c67a5-bd43-486c-82f6-83a09dbcd156"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#617197e3-89df-401e-a83b-2030e1d92540');
+var element = $('#ee8c67a5-bd43-486c-82f6-83a09dbcd156');
 </script><script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "2bf732207a604791b52f75e2c7acde77", "version_major": 2, "version_minor": 0}
 </script>
@@ -979,10 +980,10 @@ var element = $('#617197e3-89df-401e-a83b-2030e1d92540');
 
  
  
-<div id="99108569-6837-4a37-afb8-bdbc25739fc1"></div>
+<div id="45f6dcac-da89-4b66-9482-09f2304c9ccd"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#99108569-6837-4a37-afb8-bdbc25739fc1');
+var element = $('#45f6dcac-da89-4b66-9482-09f2304c9ccd');
 </script><script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "a4ee6eaef1b34de3a18a48008b0f574b", "version_major": 2, "version_minor": 0}
 </script>
@@ -1012,10 +1013,10 @@ var element = $('#99108569-6837-4a37-afb8-bdbc25739fc1');
 
  
  
-<div id="207e4ca7-0ed5-4966-b60d-063ebbc43dab"></div>
+<div id="3db32295-54d5-4f24-abf1-ec5409531a9e"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#207e4ca7-0ed5-4966-b60d-063ebbc43dab');
+var element = $('#3db32295-54d5-4f24-abf1-ec5409531a9e');
 </script><script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "4be1c90dbd704ebfb5291fdd2ca25ca9", "version_major": 2, "version_minor": 0}
 </script>
@@ -1076,10 +1077,10 @@ Training completed!
 
 
 
-<div id="1c22c2b4-0aed-4309-adc0-9c2e8ed7bbf7"></div>
+<div id="daae1d1e-ec69-41b5-b174-6d6b35fd0506"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#1c22c2b4-0aed-4309-adc0-9c2e8ed7bbf7');
+var element = $('#daae1d1e-ec69-41b5-b174-6d6b35fd0506');
 
         (async () => {
             const url = await google.colab.kernel.proxyPort(6006, {"cache": true});
@@ -1889,10 +1890,10 @@ application code:</p>
 
  
  
-<div id="499da5a6-d452-46cf-aedc-ad234262f62a"></div>
+<div id="eee488c5-621a-4576-89a5-ad91598ca440"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#499da5a6-d452-46cf-aedc-ad234262f62a');
+var element = $('#eee488c5-621a-4576-89a5-ad91598ca440');
 </script><script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "ef6ae183108243b8b758fe7f4f05fe79", "version_major": 2, "version_minor": 0}
 </script>
