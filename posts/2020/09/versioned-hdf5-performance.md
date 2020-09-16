@@ -10,7 +10,9 @@
 .. type: text
 -->
 
-In a [previous post](https://labs.quansight.org/blog/2020/08/introducing-versioned-hdf5/), we introduced the Versioned HDF5 library and described some of its features. In this post, we'll show some of the performance analysis we did while developing the library, hopefully making the case that reading and writing versioned HDF5 files is efficient and useful.
+In several industry and science applications, a filesystem-like storage model such as [HDF5](https://www.hdfgroup.org/solutions/hdf5/) is the more appropriate solution for manipulating large amounts of data. However, suppose that data changes over time. In that case, it's not obvious how to track those different versions, since HDF5 is a binary format and is not well suited for traditional version control systems and tools. 
+
+In a [previous post](https://labs.quansight.org/blog/2020/08/introducing-versioned-hdf5/), we introduced the Versioned HDF5 library, which implements a mechanism for storing binary data sets in a versioned way that feels natural to users of other version control systems, and described some of its features. In this post, we'll show some of the performance analysis we did while developing the library, hopefully making the case that reading and writing versioned HDF5 files can be done with a nice, intuitive API while being as efficient as possible.
 
 <!-- TEASER_END -->
 
@@ -103,9 +105,9 @@ In this case, we can see that on average, reading the latest version on a `Versi
 
 ## Summary
 
-The results presented here show that the largest impact on I/O performance and storage is in fact explained by the size of the datasets stored in the file, and that this performance is not significantly reduced by the Versioned HDF5 abstraction. In fact, the tests show that the library behaves reasonably well without unexpected overhead.
+The tests presented here show that using the Versioned HDF5 library results in reduced disk space usage, and further reductions in this area can be achieved with the use of HDF5/h5py-provided compression algorithms. That only comes at a cost of <10x file writing speed; file reading speed for the latest version of the data is unaffected. The largest impact on I/O performance and storage is in fact explained by the size of the datasets stored in the file, and the Versioned HDF5 abstraction does not significantly reduce this performance. In fact, the tests show that the library behaves reasonably well without unexpected overhead.
 
-Overall, the worst performance was observed for tests with large array sizes. This seems to show that the file sizes and I/O performance of versioned HDF5 files are significantly affected by the size of the unique datasets stored in each file, which is to be expected. Also, choosing the right chunk size parameter can have an impact on the performace of the library.
+Overall, the worst performance was observed for tests with large array sizes. This seems to show that the file sizes and I/O performance of versioned HDF5 files are significantly affected by the size of the unique datasets stored in each file, which is to be expected. Also, choosing the right chunk size parameter can have an impact on the performance of the library.
 
 Next steps
 ----------
