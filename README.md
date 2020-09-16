@@ -15,23 +15,15 @@ To not show the whole post but only the first bit and then `read more ...`, use 
 
 To set up a development environment: in a new conda env or virtualenv:
 ```
-$ pip install "nikola[extras]"
-$ nikola theme -i maupassant
+$ pip install -r requirements.txt
 ```
 
 Configuration file for the site is ``conf.py``.
 
-To build the site:
+To build the site, and have it auto-update when you edit content:
 
-    nikola build
+    nikola auto
 
-To see it:
-
-    nikola serve -b
-
-To check all available commands:
-
-    nikola help
 
 ## Deployment
 
