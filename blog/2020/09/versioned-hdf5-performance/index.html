@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Performance of the Versioned HDF5 Library | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2020/09/versioned-hdf5-performance/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-163785882-1');
+</script><meta name="author" content="Melissa Weber Mendonça">
+<link rel="prev" href="../pytorch-ignite/" title="PyTorch-Ignite: training and evaluating neural networks flexibly and transparently" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="Performance of the Versioned HDF5 Library">
+<meta property="og:url" content="https://labs.quansight.org/blog/2020/09/versioned-hdf5-performance/">
+<meta property="og:description" content="In several industry and science applications, a filesystem-like storage model such as HDF5 is the more appropriate solution for manipulating large amounts of data. However, suppose that data changes o">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-09-11T06:00:00-05:00">
+<meta property="article:tag" content="h5py">
+<meta property="article:tag" content="HDF5">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+            <img src="../../../../images/quansight_labs_logo_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../" class="nav-link">Blog</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../team/" class="nav-link">Team</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../projects/" class="nav-link">Projects</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../about/" class="nav-link">About</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right"></ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name">
+                <a href="." class="u-url">Performance of the Versioned HDF5 Library</a>
+            </h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    <a class="u-url" href="../../../../authors/melissa-weber-mendonca/">Melissa Weber Mendonça</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2020-09-11T06:00:00-05:00" itemprop="datePublished" title="2020-09-11">2020-09-11</time></a>
+            </p>
+            
+
+        </div>
+        
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/h5py/" rel="tag">h5py</a></li>
+            <li><a class="tag p-category" href="../../../../categories/hdf5/" rel="tag">HDF5</a></li>
+        </ul></header><div class="e-content entry-content" itemprop="articleBody text">
+        <div>
+<p>In several industry and science applications, a filesystem-like storage model such as <a href="https://www.hdfgroup.org/solutions/hdf5/">HDF5</a> is the more appropriate solution for manipulating large amounts of data. However, suppose that data changes over time. In that case, it's not obvious how to track those different versions, since HDF5 is a binary format and is not well suited for traditional version control systems and tools. </p>
+<p>In a <a href="https://labs.quansight.org/blog/2020/08/introducing-versioned-hdf5/">previous post</a>, we introduced the Versioned HDF5 library, which implements a mechanism for storing binary data sets in a versioned way that feels natural to users of other version control systems, and described some of its features. In this post, we'll show some of the performance analysis we did while developing the library, hopefully making the case that reading and writing versioned HDF5 files can be done with a nice, intuitive API while being as efficient as possible. The tests presented here show that using the Versioned HDF5 library results in reduced disk space usage, and further reductions in this area can be achieved with the use of HDF5/<a href="https://www.h5py.org">h5py</a>-provided compression algorithms. That only comes at a cost of &lt;10x file writing speed.</p>
+<!-- TEASER_END -->
+
+<h3>What are we measuring?</h3>
+<p><em>Performance</em> can mean different things for different operations. For the tests presented here, the main goals are:</p>
+<ul>
+<li>To evaluate the performance (size on disk and I/O speed) of reading/writing versioned HDF5 files and compare it with non-versioned files (that is, files where only the last version of the datasets is stored);</li>
+<li>To evaluate the performance when reading/writing data to a versioned HDF5 file in a set of different use cases;</li>
+<li>To evaluate the performance when different parameter options are considered for chunking and compression on versioned HDF5 files.</li>
+</ul>
+<p>When different versions of a dataset are stored in a versioned HDF5 file, modified copies of the data are stored as new versions. This means that there may be duplication of data between versions, which might impact the performance of reading, writing or manipulating these files.</p>
+<p>In order to analyze this, we will consider test files created with a variable number of versions (or transactions) of a dataset consisting of three ndarrays of variable length. One test includes a two-dimensional ndarray as part of this dataset, but all other test cases consist of three one-dimensional ndarrays per dataset.</p>
+<p>With each new version a certain number of rows are added, removed, and modified. For
+these tests, all changes are made to elements chosen according to a <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.powerlaw.html">power law</a> which biases the modifications towards the end of the array, simulating a possible use case of modifying more recent results in a given timeseries.</p>
+<p>The tests are as follows:</p>
+<ol>
+<li>
+<p>A large fraction of changes is made to the dataset with each new version: The dataset initially has three arrays with 5000 rows, and 1000 positions are chosen at random and changed, and a small number (at most 10) rows are added or deleted with each new version. We will refer to this test as <code>test_large_fraction_changes_sparse</code>.</p>
+</li>
+<li>
+<p>A small fraction of changes is made to the dataset with each new version: The dataset initially has three arrays with 5000 rows, but only 10 positions are chosen at random and changed, and a small number (at most 10) rows are added or deleted with each new version. We will refer to this test as <code>test_small_fraction_changes_sparse</code>.</p>
+</li>
+<li>
+<p>A large fraction of changes is made to the dataset with each version, with the same three arrays of 5000 rows defined initially, 1000 positions are chosen at random and changed, but the size of the final array remains constant (no new rows are added and no rows are deleted). We will refer to this test as <code>test_large_fraction_constant_sparse</code>.</p>
+</li>
+</ol>
+<p>In the next tests, the number of modifications is dominated by the number of appended rows. There are two such cases:</p>
+<ol>
+<li>
+<p>In the first case, the dataset contains three one-dimensional arrays with 1000 rows initially, and 1000 rows are added with each new version. A small number (at most 10) values are chosen at random, following the power law described above, and changed or deleted. We call this test <code>test_mostly_appends_sparse</code>.</p>
+</li>
+<li>
+<p>In the second case, the dataset contains one two-dimensional array with shape <code>(30, 30)</code> and two one-dimensional arrays acting as indices to the 2d array. In this case, rows are only appended in the first axis of the two-dimensional array, and a small number of positions (at most 10) is chosen at random and changed. We call this test <code>test_mostly_appends_dense</code>.</p>
+</li>
+</ol>
+<p>To test the performance of the Versioned HDF5 library, we have chosen to compare a few different chunk sizes and compression algorithms. These values have been chosen arbitrarily, and optimal values depend on different use cases and on the nature of the datasets stored in the file.</p>
+<h4>File sizes</h4>
+<p>As the number of versions in a file grows, its size on disk is also expected to grow. However, it is reasonable to expect that the overhead of storing metadata for versioned files doesn't cause the file sizes to explode as the number of versions increases.</p>
+<p>We’ll start by analyzing how the HDF5 file sizes grow as the number of versions grows. Using a chunk size of <strong>4096</strong>, we can see the following results for the 4 one-dimensional test cases:</p>
+<p><img src="../../../../images/versioned-hdf5-performance/filesizes.png" alt="File sizes for &lt;code&gt;versioned-hdf5&lt;/code&gt; files" width="533" height="400"></p>
+<p>We can see from the figure that in <code>test_large_fraction_constant_sparse</code> case, writing 5000 versions of a 117KB array, which would take around 572MB in separate files, takes around 252MB - less than half the storage size. Note that the other examples the size of the arrays stored in the file also grow as the number of versions grows, since each new version is changing the original arrays by adding, deleting and changing values in the original arrays. <em>Keep in mind there is redundant data as some of it is not changed during the staging of a new version but it is still being stored.</em> It's also worth noting that for these tests we don't use compression, even though <a href="https://docs.h5py.org/en/stable/high/dataset.html#filter-pipeline">algorithms available in h5py</a> can be used in Versioned HDF5. You can see the <a href="https://deshaw.github.io/versioned-hdf5/">Versioned HDF5 documentation</a> for more detailed tests regarding chunking and compression.</p>
+<h4>Creation times</h4>
+<p>If we look at the time spent creating the files for each example, comparing chunk sizes but not considering compression, we have something like this:</p>
+<table>
+<thead><tr>
+<th align="center"><img alt="test1" src="../../../../images/versioned-hdf5-performance/create_test1.png"></th>
+<th align="center"><img alt="test2" src="../../../../images/versioned-hdf5-performance/create_test2.png"></th>
+</tr></thead>
+<tbody><tr>
+<td align="center"><img alt="test3" src="../../../../images/versioned-hdf5-performance/create_test3.png"></td>
+<td align="center"><img alt="test4" src="../../../../images/versioned-hdf5-performance/create_test4.png"></td>
+</tr></tbody>
+</table>
+<p><img alt="legend" src="../../../../images/versioned-hdf5-performance/legend.png"></p>
+<p>Now, we can look at the time required to stage a new version in the file, that is, to add a new transaction. The graphs below show, for each fixed number of transactions, the time required to add new versions as the file is created. Note that the scales vary for each test.</p>
+<table>
+<thead><tr>
+<th align="center"><img alt="test1" src="../../../../images/versioned-hdf5-performance/write_times_test1.png"></th>
+<th align="center"><img alt="test2" src="../../../../images/versioned-hdf5-performance/write_times_test2.png"></th>
+</tr></thead>
+<tbody><tr>
+<td align="center"><img alt="test3" src="../../../../images/versioned-hdf5-performance/write_times_test3.png"></td>
+<td align="center"><img alt="test4" src="../../../../images/versioned-hdf5-performance/write_times_test4.png"></td>
+</tr></tbody>
+</table>
+<p>It is clear that as the number of versions stored in the file increases, the times required to create versioned HDF5 files increases significantly when compared to regular HDF5 files. However, note that the increase is linear, consistent with what is expected from adding new versions to the file. For example, looking at <code>test_large_fraction_constant_sparse</code>, where the size of the arrays do not increase as new versions are added, choosing (again) a chunk size of 4096 means that writing each new version to file takes about 6-8x as much as in the unversioned case, with more than 50% savings on disk storage. Note that a larger chunk size may mean faster read and write times but can also mean larger file sizes if no compression is used, because of how Versioned HDF5 is designed. This is expected, since all chunks where data has been changed from one version to the next have to be stored. Also, in <code>test_mostly_appends_sparse</code>, where the size of the arrays stored in the file grow significantly with each new version, we can see a marked increase in the times required to stage new versions.</p>
+<p>Finally, we'll look at a two-dimensional dataset. In this case, we have chosen different chunk sizes to test, considering that larger chunk sizes increase file sizes considerably.</p>
+<p><img alt="filesizes_test5" src="../../../../images/versioned-hdf5-performance/filesizes_test5.png"></p>
+<p><img alt="creation_times" src="../../../../images/versioned-hdf5-performance/create_test5.png"></p>
+<p>We can also look at the times required to create each new version and write it to file in the versioned and unversioned cases. This is shown in the image below (note the different axis scale from previous figures.)</p>
+<p><img alt="write_versions" src="../../../../images/versioned-hdf5-performance/write_times_test5.png"></p>
+<p>This test case is unique for a few reasons. First, having a two-dimensional dataset introduces new considerations, such as the number of rows being added in each axis. For this test case, we have only added (few) new rows to the first axis with each new version, and this might explain why we don’t see an increase in the time required to write new versions to file as the number of versions grow. While these are preliminary tests, and multidimensional datasets are still experimental at this point in Versioned HDF5, we can see that there are no unexpected drops in performance and the results can generally be explained by the size of the data stored in each file.</p>
+<h3>I/O performance for versioned HDF5 files</h3>
+<p>First, we'll look at the time required to read data from all versions in a file, sequentially. To keep this test short, we’ll only analyze the tests using <em>no compression</em>, and <em>chunk size</em> 16384 for the one-dimensional datasets and 256 for the two-dimensional dataset in <code>test_mostly_appends_dense</code>.</p>
+<p>Plotting with respect to the number of versions, we get the following:</p>
+<p><img alt="" src="../../../../images/versioned-hdf5-performance/seqread.png"></p>
+<p>As expected, read times increase for files with a larger number of versions, but the growth is close to linear in all cases except for <code>test_mostly_appends_sparse</code>, where the large array sizes explain the larger read times.</p>
+<p>Next, we’ll compare the times necessary to read the latest version on each file. Because of how Versioned HDF5 is designed, this is the same as reading the last array stored in the HDF5 file. For each test, we made 20 different reads of the latest version in order to eliminate fluctuations generated by background processes or the OS (solid lines). We also compare these read times with the time required to read an unversioned file (which only stored the latest version - dashed black line).</p>
+<p><img alt="" src="../../../../images/versioned-hdf5-performance/latestread.png"></p>
+<p>In this case, we can see that on average, reading the latest version on a <code>VersionedHDF5File</code> is ~5x-10x slower than reading an unversioned file. Also, the time required to read the latest version from a versioned HDF5 file increases modestly with the number of versions stored in the file, except when the size of the array increases significantly with each new version.</p>
+<h3>Summary</h3>
+<p>These results show that the library behaves reasonably well without unexpected overhead. The reduction in file size comes at a moderate cost for file writing speed, and file reading speed for the latest version of the data is unaffected. The largest impact on I/O performance and storage is in fact explained by the size of the datasets stored in the file, and the Versioned HDF5 abstraction does not significantly reduce this performance. </p>
+<p>Overall, the worst performance was observed for tests with large array sizes. This seems to show that the file sizes and I/O performance of versioned HDF5 files are significantly affected by the size of the unique datasets stored in each file, which is to be expected. Also, choosing the right chunk size parameter can have an impact on the performance of the library.</p>
+<h3>Next steps</h3>
+<p>This is the second post in a series about the Versioned HDF5 library. In our next post, we'll discuss the the design of the Versioned HDF5 library.</p>
+<p><code>versioned-hdf5 1.0</code> has recently been released, and is available on PyPI and conda-forge. You can install it with</p>
+<pre class="code literal-block"><span></span><code>conda install -c conda-forge versioned-hdf5
+</code></pre>
+
+
+<p>Development for <code>versioned-hdf5</code> happens on <a href="https://github.com/deshaw/versioned-hdf5">GitHub</a>. Currently, the library supports basic use cases, but there is still a lot to do. We welcome community contributions to the library, including any issues or feature requests.</p>
+<p>For now, you can check out the
+<a href="https://deshaw.github.io/versioned-hdf5/">documentation</a> for more details on
+what is supported and how the library is built.</p>
+<p>The Versioned HDF5 library was created by the <a href="https://www.deshaw.com/">D. E. Shaw
+group</a> in conjunction with
+<a href="https://www.quansight.com/">Quansight</a>.</p>
+<p><img src="../../../../images/sponsors/black_logo_417x125.png" width="200" class="center"></p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../pytorch-ignite/" rel="prev" title="PyTorch-Ignite: training and evaluating neural networks flexibly and transparently">Previous post</a>
+            </li>
+
+            <li class="archive">
+                <a href="../../../../archive.html" rel="archive" title="Archive ">Archive</a>
+            </li>
+
+            <li class="next disabled">
+                <a rel="next">Next post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2020         <a href="../../../../team">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>
