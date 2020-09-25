@@ -34,7 +34,7 @@ query expressions across different data storage systems.
 
 Currently, `ibis` supports __>10__ backends.
 
-```
+```pycon
 >>> dir(ibis)
 [...HDFS...WebHDFS...bigquery...clickhouse...hdf5...impala...omniscidb...pandas...pyspark...spark...sql...sqlite...]
 ```
@@ -54,21 +54,127 @@ The table below looks at over 2000 issues in the ibis project.
 It provides an annual summary of the issues tagged in `ibis`
 for different backends over __6__ years.
 
-|            | 2015   | 2016   | 2017   | 2018   | 2019   | 2020   |
-|:-----------|:-------|:-------|:-------|:-------|:-------|:-------|
-| omnisci    |        |        |        | 31.0   | 33.0   | 38.0   |
-| spark      |        |        | 1.0    |        | 22.0   | 3.0    |
-| postgres   | 2      | 3      | 21     | 10     | 17     | 4      |
-| bigquery   |        |        | 15.0   | 71.0   | 12.0   | 2.0    |
-| pandas     | 2.0    |        | 49.0   | 35.0   | 32.0   | 4.0    |
-| sqlite     | 25     | 2      | 10     | 8      | 1      | 1      |
-| impala     | 52     | 4      | 15     | 17     | 4      | 2      |
-| kudu       |        |        |        |        |        | 1.0    |
-| geospatial |        |        |        |        | 7.0    | 3.0    |
-| clickhouse |        |        | 8.0    | 9.0    | 1.0    | 4.0    |
-| mysql      |        |        |        | 2.0    | 2.0    | 4.0    |
-| sqlalchemy | 17.0   | 3.0    | 10.0   | 2.0    | 5.0    |        |
-
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">2015</th>
+<th align="left">2016</th>
+<th align="left">2017</th>
+<th align="left">2018</th>
+<th align="left">2019</th>
+<th align="left">2020</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">omnisci</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">31.0</td>
+<td align="left">33.0</td>
+<td align="left">38.0</td>
+</tr>
+<tr>
+<td align="left">spark</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">1.0</td>
+<td align="left"></td>
+<td align="left">22.0</td>
+<td align="left">3.0</td>
+</tr>
+<tr>
+<td align="left">postgres</td>
+<td align="left">2</td>
+<td align="left">3</td>
+<td align="left">21</td>
+<td align="left">10</td>
+<td align="left">17</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="left">bigquery</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">15.0</td>
+<td align="left">71.0</td>
+<td align="left">12.0</td>
+<td align="left">2.0</td>
+</tr>
+<tr>
+<td align="left">pandas</td>
+<td align="left">2.0</td>
+<td align="left"></td>
+<td align="left">49.0</td>
+<td align="left">35.0</td>
+<td align="left">32.0</td>
+<td align="left">4.0</td>
+</tr>
+<tr>
+<td align="left">sqlite</td>
+<td align="left">25</td>
+<td align="left">2</td>
+<td align="left">10</td>
+<td align="left">8</td>
+<td align="left">1</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">impala</td>
+<td align="left">52</td>
+<td align="left">4</td>
+<td align="left">15</td>
+<td align="left">17</td>
+<td align="left">4</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">kudu</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">1.0</td>
+</tr>
+<tr>
+<td align="left">geospatial</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">7.0</td>
+<td align="left">3.0</td>
+</tr>
+<tr>
+<td align="left">clickhouse</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">8.0</td>
+<td align="left">9.0</td>
+<td align="left">1.0</td>
+<td align="left">4.0</td>
+</tr>
+<tr>
+<td align="left">mysql</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">2.0</td>
+<td align="left">2.0</td>
+<td align="left">4.0</td>
+</tr>
+<tr>
+<td align="left">sqlalchemy</td>
+<td align="left">17.0</td>
+<td align="left">3.0</td>
+<td align="left">10.0</td>
+<td align="left">2.0</td>
+<td align="left">5.0</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
 
 We note an early focus `ibis.sqlite`, `sqlalchemy` and `ibis.impala`. 
 Later, work began on the `pandas` backend rounding out the three different types of backgrounds.
