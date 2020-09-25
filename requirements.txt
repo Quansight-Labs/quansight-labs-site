@@ -1,0 +1,2 @@
+commonmark 
+nikola[extras]==8.0.4

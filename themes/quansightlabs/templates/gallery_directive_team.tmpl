@@ -1,0 +1,37 @@
+## -*- coding: utf-8 -*-
+
+%if post:
+<p>
+    ${post.text()}
+</p>
+%endif
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<div id="gallery_container"></div>
+%if photo_array:
+  <div class="row">
+    %for image in photo_array:
+      <div class="col-xs-12 col-md-4 thumbnail image-reference">
+          <div class="container-fluid">
+            <h3>${image['title']}</h3>
+            <a href="${image['url']}" title="${image['title']|h}">
+                <img src="${image['url_thumb']}" class="img-circle" alt="${image['title']|h}" />
+            </a>
+            %if 'github' in image:
+              <a href="https://github.com/${image['github']}" target="_blank" rel="noopener">
+                <span><i class="fa fa-github-square"></i></span>
+              </a>
+            %endif
+            %if 'projects' in image:
+                <ul class='projects'>
+                %for project in image['projects']:
+                  <li>
+                    ${project}
+                  </li>
+                %endfor
+                </ul>
+            %endif
+        </div>
+      </div>
+    %endfor
+  </div>
+%endif
