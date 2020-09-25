@@ -3,7 +3,7 @@
 .. slug: the-ibis-backends
 .. date: 2020-08-30
 .. author: Tony Fast, Kim Pevey
-.. tags: Ibis, Omnisci, SQL, Pandas
+.. tags: Ibis, OmniSci, SQL, Pandas
 .. category: 
 .. link: 
 .. description: 
