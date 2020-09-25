@@ -1,2 +1,3 @@
 commonmark 
+nbconvert < 6
 nikola[extras]==8.0.4
