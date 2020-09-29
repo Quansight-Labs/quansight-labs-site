@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design of the Versioned HDF5 Library | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2020/09/design-of-the-versioned-hdf5-library/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-163785882-1');
+</script><meta name="author" content="Aaron Meurer">
+<link rel="prev" href="../versioned-hdf5-performance/" title="Performance of the Versioned HDF5 Library" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="Design of the Versioned HDF5 Library">
+<meta property="og:url" content="https://labs.quansight.org/blog/2020/09/design-of-the-versioned-hdf5-library/">
+<meta property="og:description" content="In a previous
+post, we
+introduced the Versioned HDF5 library and described some of its features. In
+this post, we'll go into detail on how the underlying design of the library
+works on a technical lev">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-09-29T11:00:00-05:00">
+<meta property="article:tag" content="h5py">
+<meta property="article:tag" content="HDF5">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+            <img src="../../../../images/quansight_labs_logo_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../" class="nav-link">Blog</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../team/" class="nav-link">Team</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../projects/" class="nav-link">Projects</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../about/" class="nav-link">About</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right"></ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name">
+                <a href="." class="u-url">Design of the Versioned HDF5 Library</a>
+            </h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    <a class="u-url" href="../../../../authors/aaron-meurer/">Aaron Meurer</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2020-09-29T11:00:00-05:00" itemprop="datePublished" title="2020-09-29">2020-09-29</time></a>
+            </p>
+            
+
+        </div>
+        
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/h5py/" rel="tag">h5py</a></li>
+            <li><a class="tag p-category" href="../../../../categories/hdf5/" rel="tag">HDF5</a></li>
+        </ul></header><div class="e-content entry-content" itemprop="articleBody text">
+        <div>
+<p>In a <a href="https://labs.quansight.org/blog/2020/08/introducing-versioned-hdf5/">previous
+post</a>, we
+introduced the Versioned HDF5 library and described some of its features. In
+this post, we'll go into detail on how the underlying design of the library
+works on a technical level.</p>
+<!-- TEASER_END -->
+<p>Versioned HDF5 is a library that wraps h5py and offers a versioned abstraction
+for HDF5 groups and datasets. Versioned HDF5 works fundamentally as a
+<a href="https://en.wikipedia.org/wiki/Copy-on-write">copy-on-write</a> system. The basic
+idea of copy-on-write is that all data is effectively immutable in the
+backend. Whenever a high-level representation of data is modified, it is
+copied to a new location in the backend, leaving the original version intact.
+Any references to the original will continue to point to it.</p>
+<p>At a high level, in a versioned system built with copy-on-write, all data in
+the system is stored in immutable blobs in the backend. The immutability of
+these blobs is often enforced by making them
+<a href="https://en.wikipedia.org/wiki/Content-addressable_storage">content-addressable</a>,
+where the blobs are always referred to in the system by a cryptographic hash
+of their contents. Cryptographic hashes form a mapping from any blob of data
+to a fixed set of bytes, which is effectively one-to-one, meaning if two blobs
+have the same hash, they must be exactly the same data. This means that it is
+impossible to mutate a blob of data in-place. Doing so would change its hash,
+which would make it a different blob, since blobs are referenced only by their
+hash.</p>
+<p>Whenever data for a version is committed, its data is stored as blobs in the
+backend. It may be put into a single blob, or split into multiple blobs. If it
+is split, a way to reconstruct the data from the blobs is stored. If a later
+version modifies that data, any blobs that are different are stored as new
+blobs. If the data is the same, the blobs will also be the same, and hence
+will not be written to twice, because they will already exist in the backend.</p>
+<p>At a high level, this is how the git version control system works, for example
+(<a href="https://www.youtube.com/watch?v=lG90LZotrpo">this is a good talk</a> on the
+internals of git). It is also how versioning constructs in some modern
+filesystems like APFS and Btrfs.</p>
+<h3>Versioned HDF5 Implementation</h3>
+<p>In Versioned HDF5, this idea is implemented using two key HDF5 primitives:
+chunks and virtual datasets.</p>
+<p>In HDF5, datasets are split into multiple chunks. Each chunk is of equal size,
+which is configurable, although some chunks may not be completely full. A
+chunk is the smallest part of a dataset that HDF5 operates on. Whenever a
+subset of a dataset is to be read, the entire chunk containing that dataset is
+read into memory. Picking an optimal chunk size is a nontrivial task, and
+depends on things such as the size of your L1 cache and the typical shape of
+your dataset. Furthermore, in Versioned HDF5 a chunk is the smallest amount of
+data that is stored only once across versions if it has not changed. If the
+chunk size is too small, it would affect performance, as operations would
+require reading and writing more chunks, but if it is too large, it would make
+the resulting versioned file unnecessarily large, as changing even a single
+element of a chunk requires rewriting the entire chunk. Versioned HDF5 does
+not presently contain any logic for automatically picking a chunk size. The
+<a href="https://www.pytables.org/usersguide/optimization.html">pytables
+documentation</a> has some
+tips on picking an optimal chunk size.</p>
+<p>Because chunks are the most basic HDF5 primitive, Versioned HDF5 uses them as
+the underlying blobs for storage. This way operations on data can be as
+<a href="https://labs.quansight.org/blog/2020/09/versioned-hdf5-performance/">performant as
+possible</a>.</p>
+<p><a href="http://docs.h5py.org/en/stable/vds.html">Virtual datasets</a> are a special kind
+of dataset that reference data from other datasets in a seamless way. The data
+from each part of a virtual dataset comes from another dataset. HDF5 does this
+seamlessly, so that a virtual dataset appears to be a normal dataset.</p>
+<p>The basic design of Versioned HDF5 is this: whenever a dataset is created for
+the first time (the first version containing the dataset), it is split into
+chunks. The data in each chunk is hashed and stored in a hash table. The
+unique chunks are then appended into a <code>raw_data</code> dataset corresponding to the
+dataset. Finally, a virtual dataset is made that references the corresponding
+chunks in the raw dataset to recreate the original dataset. When later
+versions modify this dataset, each modified chunk is appended to the raw
+dataset, and a new virtual dataset is created pointing to corresponding
+chunks.</p>
+<p>For example, say we start with the first version, <code>version_1</code>, and create a
+dataset <code>my_dataset</code> with <code>n</code> chunks. The dataset chunks will be written into the
+raw dataset, and the final virtual dataset will point to those chunks.</p>
+<img width="296pt" height="129pt" src="../../../../images/versioned-hdf5-design-1.svg"><p>If we then create a version <code>version_2</code> based off <code>version_1</code>, and modify only
+data contained in CHUNK 2, that new data will be appended to the raw dataset,
+and the resulting virtual dataset for <code>version_2</code> will look like this:</p>
+<img width="515pt" height="153pt" src="../../../../images/versioned-hdf5-design-2.svg"><p>Since both versions 1 and 2 of <code>my_dataset</code> have identical data in chunks other than
+CHUNK 2, they both point to the exact same data in <code>raw_data</code>. Thus, the
+underlying HDF5 file only stores the data in version 1 of <code>my_dataset</code> once, and
+only the modified chunks from <code>version_2</code>'s <code>my_dataset</code> are stored on top of that.</p>
+<p>All extra metadata, such as attributes, is stored on the virtual dataset.
+Since virtual datasets act exactly like real datasets and operate at the HDF5
+level, each version is a real group in the HDF5 file that is exactly that
+version. However, these groups should be treated as read-only, and you should
+never access them outside of the Versioned HDF5 API (see below).</p>
+<h3>HDF5 File Layout</h3>
+<p>Inside of the HDF5 file, there is a special <code>_versioned_data</code> group that holds
+all the internal data for Versioned HDF5. This group contains a <code>versions</code>
+group, which contains groups for each version that has been created. It also
+contains a group for each dataset that exists in a version. These groups each
+contain two datasets, <code>hash_table</code>, and <code>raw_data</code>.</p>
+<p>For example, consider a Versioned HDF5 file that contains two versions,
+<code>version1</code>, and <code>version2</code>, with datasets <code>data1</code> and <code>data2</code>. Suppose also
+that <code>data1</code> exists in both versions and <code>data2</code> only exists in <code>version2</code>.
+The HDF5 layout would look like this</p>
+<pre><code>/_versioned_data/
+├── data1/
+│   ├── hash_table
+│   └── raw_data
+│
+├── data2/
+│   ├── hash_table
+│   └── raw_data
+│
+└── versions/
+    ├── __first_version__/
+    │
+    ├── version1/
+    │   └── data1
+    │
+    └── version2/
+        ├── data1
+        └── data2
+</code></pre>
+<p><code>__first_version__</code> is an empty group that exists only for internal
+bookkeeping purposes.</p>
+<p>The <code>hash_table</code> datasets store the hashes for each chunk of data, so that
+duplicate data will not be written twice, and the <code>raw_data</code> dataset stores
+the chunks for all versions of a given dataset. It is referenced by the
+virtual datasets in the corresponding version groups in <code>versions/</code>. For
+example, the chunks for the data <code>data1</code> in versions <code>version1</code> and <code>version2</code>
+are stored in <code>_versioned_data/data1/raw_data</code>.</p>
+<h3>Versioned HDF5 API</h3>
+<p>The biggest challenge of this design is that the virtual datasets representing
+the data in each versioned data all point to the same blobs in the backend.
+However, in HDF5, if a virtual dataset is written to, it will write to the
+location it points to. This is at odds with the immutable copy-on-write
+design. As a consequence, Versioned HDF5 needs to wrap all the h5py APIs that
+write into a dataset to disallow writing for versions that are already
+committed, and to do the proper copy-on-write semantics for new versions that
+are being staged. Several classes that wrap the h5py Dataset and Group objects
+are present in the <code>versioned_hdf5.wrappers</code> submodule. These wrappers act
+just like their h5py counterparts, but do the right thing on versioned data.
+The top-level <code>versioned_hdf5.VersionedHDF5File</code> API returns these objects
+whenever a versioned dataset is accessed. They are designed to work seamlessly
+like the corresponding h5py objects.</p>
+<p>The Versioned HDF5 library was created by the <a href="https://www.deshaw.com/">D. E. Shaw
+group</a> in conjunction with
+<a href="https://www.quansight.com/">Quansight</a>.</p>
+<img src="../../../../images/sponsors/black_logo_417x125.png" width="200" class="center">
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../versioned-hdf5-performance/" rel="prev" title="Performance of the Versioned HDF5 Library">Previous post</a>
+            </li>
+
+            <li class="archive">
+                <a href="../../../../archive.html" rel="archive" title="Archive ">Archive</a>
+            </li>
+
+            <li class="next disabled">
+                <a rel="next">Next post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2020         <a href="../../../../team">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>
