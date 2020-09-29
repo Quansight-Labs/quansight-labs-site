@@ -1,8 +1,9 @@
 <!--
 .. title: Design of the Versioned HDF5 Library
 .. slug: design-of-the-versioned-hdf5-library
-.. date: 2020-08-31 16:30:26 UTC-05:00
-.. tags:
+.. date: 2020-09-29 11:00:00 UTC-05:00
+.. author: Aaron Meurer
+.. tags: HDF5, h5py
 .. category:
 .. link:
 .. description:
@@ -25,7 +26,7 @@ backend. Whenever a high-level representation of data is modified, it is
 copied to a new location in the backend, leaving the original version intact.
 Any references to the original will continue to point to it.
 
-At a high-level, in a versioned system built with copy-on-write, all data in
+At a high level, in a versioned system built with copy-on-write, all data in
 the system is stored in immutable blobs in the backend. The immutability of
 these blobs is often enforced by making them
 [content-addressable](https://en.wikipedia.org/wiki/Content-addressable_storage),
@@ -44,13 +45,12 @@ version modifies that data, any blobs that are different are stored as new
 blobs. If the data is the same, the blobs will also be the same, and hence
 will not be written to twice, because they will already exist in the backend.
 
-At a high-level, this is how the git version control system works, for example
+At a high level, this is how the git version control system works, for example
 ([this is a good talk](https://www.youtube.com/watch?v=lG90LZotrpo) on the
 internals of git). It is also how versioning constructs in some modern
 filesystems like APFS and Btrfs.
 
 ## Versioned HDF5 Implementation
-
 
 In Versioned HDF5, this idea is implemented using two key HDF5 primitives:
 chunks and virtual datasets.
