@@ -73,7 +73,9 @@ and drop support for Python3.6 sooner rather than later.
 Conda does not use the same kind of wheel format provided by PyPI and `pip`. Their
 build system is internally consistent and they build a binary package for each
 OS they support, thus they are not bound to the manylinux designation.
-Conda does not have a declared policy around deprecating Python3.6.
+Conda does not have a declared policy around deprecating Python3.6. Conda does
+support `pip`, and the pip provided should be version 20 or later. If needed,
+`conda upgrade pip` should get a modern version.
 
 ## What comes after manylinux2014?
 The glibc used in manylinux2014 is defined as the one used by CentOS7. This OS
@@ -89,6 +91,13 @@ version. Now we need to take the dive: decide what the base OS for the next
 manylinux tag will be, roll out a docker image and tooling around it, and
 convince library packaging teams to adopt it.
 
+## What about non-x86 machines and linux?
+
+As mentioned before, starting with manylinux2014 `pip` and `wheel` supports
+non-x86 architectures like ARM64. Many packages are just now starting to roll
+out support for these architectures, as the CI systems that support OpenSource
+are now making them avaialble. It might be easier to use Conda and the
+`conda-forge` channel since they have support for non-x86 architetures now.
 
 ## OK, so what is the bottom line?
 
