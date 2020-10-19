@@ -18,7 +18,7 @@ To set up a development environment: in a new conda env or virtualenv:
 $ pip install -r requirements.txt
 ```
 
-Configuration file for the site is ``conf.py``.
+The configuration file for the site is ``conf.py``.
 
 To build the site, and have it auto-update when you edit content:
 
