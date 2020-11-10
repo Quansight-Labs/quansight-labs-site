@@ -1,15 +1,15 @@
  <!--
-.. title: Designers should be a good fit for open source
-.. slug: designers-should-be-a-good-fit-for-open-source
+.. title: Introduction to Design in Open-Source
+.. slug: introduction-to-design-in-open-source
 .. date: 2020-11-13 00:07:30 UTC-05:00
 .. author: Tim George and Isabela Presedo-Floyd
-.. tags: design,
-.. category:
+.. tags: design,UX, User Experience, Open-Source, 
+.. category: 
 .. link:
 .. description:
 .. type: text
 -->
-# Designers should be a good fit for open source
+## Designers should be a good fit for open source
 *This blog post is a conversation. Portions lead by Tim George are marked with **TG**, and those lead by Isabela Presedo-Floyd are marked with **IPF**.*
 **TG:** When I speak with other designers, one common theme I see concerning why they chose this career path is that they want to make a difference in the world. We design because we imagine a better world and we want to help make it real. Part of the reason we design as a career is that we’re unable to go through life without designing; we’re always thinking about how things are and how they could be better. This ethos also exists in many open-source communities. It seems like it ought to be an ideal match.
 So what’s the disconnect? I'm still exploring that myself, but after a few years in open source I want to share my observations, experiences, and hope for a stronger collaboration between design and development. I don’t think I have a complete solution, and some days I'm not even sure I grasp the entire problem. What I hope is to say that which often goes unsaid in these spaces: design and development skills in open source coexist precariously. 
