@@ -14,13 +14,13 @@
 lead by Isabela Presedo-Floyd are marked with **IPF**.*
 
 **TG:** When I speak with other designers, one common theme I see concerning why they chose this 
-career path is that they want to make a difference in the world. We design because we imagine a better 
-world and we want to help make it real. Part of the reason we design as a career is that we’re 
+career path is they want to make a difference in the world. We design because we imagine a better 
+world and we want to help make it real. Part of the reason we design as a career is we’re 
 unable to go through life without designing; we’re always thinking about how things are and how 
 they could be better. This ethos also exists in many open-source communities. It seems like it ought 
 to be an ideal match.
 
-So what’s the disconnect? I'm still exploring that myself, but after a few years in open source I want 
+So what’s the disconnect? I'm still exploring that myself, but after a few years in open-source I want 
 to share my observations, experiences, and hope for a stronger collaboration between design and 
 development. I don’t think I have a complete solution, and some days I'm not even sure I grasp the 
 entire problem. What I hope is to say that which often goes unsaid in these spaces: design and 
@@ -31,7 +31,7 @@ development skills in open source coexist precariously.
 Marshal McLuhan in his book The Medium is the Message: “We shape our tools, then our tools shape us.”  
 Github has become the place many open source projects exist. Github (I don’t want to suggest that  
 Github is the only place open-source exists, just that it’s the only place I’ve been involved with it)  
-is also designed first and foremost with code contributions in min. The ripple effect is that the  
+is also designed first and foremost with code contributions in mind. The ripple effect is that the  
 people and the project will similarly center around code and it will take effort to use the tool in  
 a way it is not designed to support. While it has a number of features that support design input,  
 it doesn’t integrate directly with design tools, and it isn’t tracked in the git history in any meaningful  
@@ -40,17 +40,22 @@ isn’t accurately reflected, only the outcome of it.
 
 **IPF:** That may be one theory as to the problem’s root, but its certainly not the only explanation.  
 Because the question of missing skills in open source could be the source of many blog posts, I’ve  
-narrowed it down to a list. Topics marked with a * will be expanded upon later. Here are some other  
-thoughts I’ve had or heard (like in [this discussion](https://discourse.opensourcedesign.net/t/difficulties-of-design-in-open-source/787/19)) floating about explaining  
+narrowed it down to a list. Topics marked with an * will be expanded upon later. Here are some other  
+thoughts I’ve had or heard (like in [this discussion](https://discourse.opensourcedesign.net/t/difficulties-of-design-in-open-source/787/19))  
+floating about explaining  
 the absence of design in this space:
 - Designers might be unaware of open source.
-- An open source community might be relatively unaware of design/what it can mean in practice.
-- Designers might be wary of working in public. (“You want me to post my horrible first draft somewhere anyone could see it forever?”)
+- An open source community might be relatively unaware of design and what it can mean in practice.
+- Designers might be wary of working in public. (“You want me to post my horrible first draft somewhere  
+anyone could see it forever?”)
 - Some open source communities don’t want or need conventional design.
 - Some open source communities might not welcome different skill sets.
-- Designers have a history of being under- or not paid for their work. We are often encouraged to be wary of working for free, especially if it’s not for a group/project/product we’ve heard of.
-- Lack of design and design literacy is common in open source projects. Designers are likely to be teaching as they work, which means more work.*
-- Just as has been mentioned about code and documentation, lots of what is needed most in open source projects is not the clear or glamourous design work that might draw in lots of designers. There’s a lot of question marks and maintenance work.
+- Designers have a history of being under or not paid for their work; we are often encouraged to be wary  
+of working for free, especially if it’s not for a group/project/product we’ve heard of.
+- Lack of design talent and design literacy is common in open source projects. Designers are likely to  
+be teaching as they work, which means more work.*
+- As has been mentioned about code and documentation, lots of what is needed most in open source projects is  
+not the clear or glamourous design work that might draw in designers. There are mostly question marks and maintenance work.
 - This type of work lacks recognition in design communities.
 - Open source projects tend to lack community recognition beyond what’s tied to code.*
 
@@ -70,30 +75,30 @@ to navigating design in open source!
 **IPF:** One person wants a light yellow icon on a white background.¹ One person wants the warning  
 text written in all caps.² One person thinks this specific feature should use interactions that don’t  
 match the ones used everywhere else.³ It’s not malicious, but it represents differing goals and  
-knowledge that needs to be united to move forward in a collaborative environment. If any of this  
+knowledge that need to be united to move forward in a collaborative environment. If any of this  
 doesn’t seem like a problem, that’s why we’re here.
 
-Disconnects between a design team and anyone else on a project is not unique to open source.  
+Disconnects between a design team and anyone else on a project are not unique to open source.  
 Designing often alone and outnumbered by people who might not know what you are talking about  
-is where open source hits harder. Designers are presenting new information in this space, and so  
+is where open source hits harder. Designers present new information in this space, and so  
 they constantly bear the burden of proof to explain every move. They usually bear this alone. While  
-it can be very fulfilling to know you are helping people learn a new perspective, it still takes  
-more overlooked time and energy and will constantly detract time and energy from design itself.
+it can be very fulfilling to know you are helping people learn a new perspective, it detracts time  
+and energy from design itself.
 
 ### Community Trust and Recognition
 
-**IPF:** A developer decides to contribute to their favorite open source project for the first  
+**TG: ** A developer decides to contribute to their favorite open source project for the first  
 time. On the PR, there’s one person who keeps asking them lots of questions, attaching a lot of  
 images, and requesting changes. They sound like they understand the project, but they don’t have  
 the contributor tag and there isn’t any record of them working directly with the project. In fact,  
 there’s barely anything at all on their Github profile. Who could it be? Probably a designer.
 
-In my experience, communities have always been welcoming of design work, so this scenario usually  
-ends well. Still, it exposes exactly how the value system that drives a lot of open source work  
-(trust and reputation) fails people who do non-development work (not only design) in this field.  
-Personally, I’m grateful that people tend to trust my word when I say I’m a designer, or that there  
-have always been developers in the communities I’ve worked with willing to vouch for me if needed.  
-It still is extra time and work siphoning energy from the design, and continues a greater trend of  
+**IPF: ** In my experience, communities have always been welcoming of design work, so this scenario usually  
+ends well. Still, it exposes exactly how the value system (trust and reputation) that drives a lot of  
+open source work fails people who do non-development work (not only design) in this field.  Personally,  
+I’m grateful that people tend to trust my word when I say I’m a designer, or that there have always  
+been developers in the communities I’ve worked with willing to vouch for me if needed. However,  
+it still is extra time and work siphoning energy from the design, and continues a greater trend of  
 lack of trackable credit for design work.
 
 ## Coordination and Product Direction
@@ -130,50 +135,48 @@ helpful or impactful: when initially solving the problem.
 
 ## To a brighter future
   
-**TG:** While most of my open-source experience is with Jupyter, I’d have to say that design input is  
-desired, and well received. Different projects, depending on size and scope, have different understandings  
-of, and interest in, design. One thing that will have to happen if designers are going to make a larger  
-impact on open-source projects, is projects need to understand the value of design beyond simply ‘making  
-things look good.’ Many open-source initiatives would benefit from a visual overhaul, especially of the  
-type that leans into consistent looks for similar interactions throughout the software. This is usually  
-the limits of other contributors' expectations of designers, but that’s just scratching the surface of  
-the problems we’ve worked through so far, and what we’re capable of in the future. 
+**TG:** In my experience, which is mostly in Jupyter-related projects, design input is desired, and well  
+received. Different projects, depending on size and scope, have different understandings of, and  
+interest in, design. If designers are going to make a larger impact on open-source projects, committers  
+need to understand the value of design beyond simply ‘making things look good.’ Many open-source  
+initiatives would benefit from a visual overhaul, especially of the type that leans into consistent  
+looks for similar interactions throughout the software. This is usually the limits of other contributors'  
+expectations of designers, but that’s just scratching the surface of the problems we’ve worked through  
+so far, and what we’re capable of in the future.
 
-**IPF:** At the beginning we mentioned imagining a better world as a part of being a designer, and  
+**IPF:** At the beginning, we mentioned imagining a better world as a part of being a designer, and  
 imagining a healthier open source experience is no exception! Changing the collaboration process is a  
 good first step.
 
 **TG:** As a Human-Computer Interaction practitioner, I always strive to understand ‘why’ a problem exists  
 before I decide what to do about it. There’s a lot of ‘what’ and ‘how’ in open-source development.  
-Oftentimes a scientist or developer simply solves the problem they have. But if we take some time  
-to walk through the design process and understand more about why the question arose and who else  
-has the problem, we can get to the core of the problem, and design both a solution and interface for  
-it in a way that is knowledgeable both of the problem and the people solving it. In essence we build  
-software that the user can partner with to solve their problems, instead of building a tool that  
-accomplishes a single task.
+Oftentimes, a scientist or developer simply solves the problem they have. But if we take some time to  
+walk through the design process and understand more about why the question arose and who else has the problem,  
+we can get to the core issue, and design both a solution and interface for it in a way that is knowledgeable  
+both of the problem and the people trying to solve it. In essence, we build software that the user can partner  
+with to process data, instead of building a tool that accomplishes a single task.
+ 
+New -- **IPF:** But if designers are brought in just at the review or UI decision stage, as they often are, it  
+can be a little late to start asking ‘why’ with so much work already done. The ideal answer is to bring designers  
+in early, preferably as early as when the problem is discovered. This currently isn’t possible, there are still  
+so few designers in this space and so many problems to be solved. The mainstream field of User Experience Design  
+describes two overarching duties for designers in any environment: creating new features (discovering what’s useful),  
+and refining software (to make what’s useful better). How often do I get to deep dive into either of these  
+directions? Rarely. Creating new features is more likely to be driven by developer inspiration, while refinement  
+usually must rely on external standards and comparable software experiences to make up for the resources open  
+source projects don’t often have. So what might be the path forward? Stop only trying to lean into what designers  
+think they do best and work with open source’s strengths of innovation and pushing technical limitations.
 
-Unfortunately, in practice, there’s been a lot of times we’re asked to give a feature a ‘UX Review’  
-when what it really needs is a complete design. I’m not suggesting we block all progress on designers,  
-but designers need to be brought into the conversation as soon as possible. This is not to say that  
-the people writing the code are to blame. In order to offer something meaningful to the early design  
-process, designers will have to have a working understanding of the software, including technical  
-constraints. There are two overarching duties in the field of User Experience Design, creating new  
-features (discovering useful features), and refining software (that is already useful). We’re almost  
-never working on refining an existing software tool to work the best it possibly could, that’s usually  
-done by large corporations with matching design budgets. Open-source software is popular, generally  
-speaking, because it’s innovative, not because it has the best user experience. When you’re a designer  
-working in the innovation space you have to be keenly aware of software limitations. 
+**TG: ** This brings us back to a foundational aspect of open-source, mainly, open-source software is built on trust  
+and relationships between contributors. Design in open-source has to be a two-way street. Developers need to be  
+open to digging in and understanding the problem from its source, and designers need to be willing to put in the  
+work to understand the technical limitations of the technology that’s being utilized to build the software. Fortunately  
+this gives designers and developers a place to meet in the middle (and that place will almost always be on Github).  
+I’ve had a number of experiences where simply asking hard questions has helped developers to better understand why  
+they’re solving that problem at all. At the same time, there have been hundreds of solutions I have conceived of that  
+just aren’t yet possible to implement. Getting involved early, and understanding what the limitations are is a great way  
+to help existing teams integrate design into their process.
 
-This brings us back to a foundational aspect of open-source, mainly, open-source software is built on  
-trust and relationships between contributors. Design in open-source has to be a two-way street.  
-Developers need to be open to digging in and understanding the problem from its source, and designers  
-need to be willing to put in the work to understand the technical limitations of the technology that’s  
-being utilized to build the software. Fortunately this gives designers and developers a place to meet  
-in the middle, I’ve had a number of experiences where simply asking hard questions has helped developers  
-to better understand why they’re solving the problem they are. At the same time, there have been hundreds  
-of solutions I have conceived of that just aren’t possible to implement yet. Getting involved early,  
-and understanding what the limitations are is a great way to help existing teams integrate design into  
-their process.
 
 Want to hear this talked about more? Tim and I had a conversation with Ani Krishnan and Tony Fast [here](https://www.youtube.com/watch?v=3SBwb8ppz5I).
 ---
