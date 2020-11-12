@@ -120,7 +120,7 @@ wherever the project is, with no guarantee of impact in the area we are working.
 It can be hard to invest into a thorough design process if you’re not sure what’s going to be developed  
 next, or ever. And if you do take that chance and invest in a design, there’s an uncomfortably  
 high chance you’re missing the mark of what the maintainer thinks the next big steps of their project  
-are (possibly) documented only in their mind). If members of a project don’t intentionally take time  
+are (possibly) documented only in their mind. If members of a project don’t intentionally take time  
 to prioritize design, it can be easier to just merge changes directly into the code base and see how  
 the community likes it, as opposed to putting significant amounts of time into design. Many features  
 that end up in open-source software are the result of one or two software developers writing the code  
@@ -155,7 +155,7 @@ we can get to the core issue, and design both a solution and interface for it in
 both of the problem and the people trying to solve it. In essence, we build software that the user can partner  
 with to process data, instead of building a tool that accomplishes a single task.
  
-New -- **IPF:** But if designers are brought in just at the review or UI decision stage, as they often are, it  
+**IPF:** But if designers are brought in just at the review or UI decision stage, as they often are, it  
 can be a little late to start asking ‘why’ with so much work already done. The ideal answer is to bring designers  
 in early, preferably as early as when the problem is discovered. This currently isn’t possible, there are still  
 so few designers in this space and so many problems to be solved. The mainstream field of User Experience Design  
