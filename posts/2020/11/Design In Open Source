@@ -34,7 +34,7 @@ it is the only place open-source exists, just that it’s the only place where I
 is also designed first and foremost with code contributions in mind. The ripple effect is that the  
 people and the project will similarly center around code and it will take effort to use the tool in  
 a way it is not designed to support. While it has a number of features that support design input,  
-it doesn’t integrate directly with design tools, and it isn’t tracked in the git history in any meaningful  
+it doesn’t integrate directly with design tools, and design artifacts aren’t tracked in the git history in any meaningful  
 way. Unless, of course, the designer is directly committing code, but then the design process still  
 isn’t accurately reflected, only the outcome of it.
 
