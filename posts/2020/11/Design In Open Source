@@ -40,23 +40,23 @@ isn’t accurately reflected, only the outcome of it.
 
 **IPF:** That may be one theory as to the problem’s root, but it's certainly not the only explanation.  
 Because the question of missing skills in open source could be the source of many blog posts, I’ve  
-narrowed it down to a list. Topics marked with an * will be expanded upon later. Here are some other  
-thoughts I’ve had or heard floating about (like in [this discussion](https://discourse.opensourcedesign.net/t/difficulties-of-design-in-open-source/787/19)) explaining
-the absence of design in this space:
+narrowed it down to a list. Here are some other thoughts I’ve had or heard floating about (like in [this discussion](https://discourse.opensourcedesign.net/t/difficulties-of-design-in-open-source/787/19))  
+explaining the absence of design in this space:
 - Designers might be unaware of open source.
-- An open source community might be relatively unaware of design and what it can mean in practice.
 - Designers might be wary of working in public. (“You want me to post my horrible first draft somewhere  
 anyone could see it forever?”)
 - Some open source communities don’t want or need conventional design.
 - Some open source communities might not welcome different skill sets.
 - Designers have a history of being under or not paid for their work; we are often encouraged to be wary  
 of working for free, especially if it’s not for a group/project/product we’ve heard of.
-- Lack of design talent and design literacy is common in open source projects. Designers are likely to  
-be teaching as they work, which means more work.*
 - As has been mentioned about code and documentation, lots of what is needed most in open source projects is  
 not the clear or glamourous design work that might draw in designers. There are mostly question marks and maintenance work.
 - This type of work lacks recognition in design communities.
-- Open source projects tend to lack community recognition beyond what’s tied to code.*
+And here are some issues we'll tackle below:
+- An open source community might be relatively unaware of design and what it can mean in practice.
+- Lack of design talent and design literacy is common in open source projects. Designers are likely to  
+be teaching as they work, which means more work.
+- Open source projects tend to lack community recognition beyond what’s tied to code.
 
 **TG:** For many (most) open source projects, designers are not a part of the founding team. The  
 infrastructure used to support many (most) open source projects was not made for designers. Many  
