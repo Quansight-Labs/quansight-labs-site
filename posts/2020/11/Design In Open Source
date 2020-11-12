@@ -38,7 +38,7 @@ it doesn’t integrate directly with design tools, and design artifacts aren’t
 way. Unless, of course, the designer is directly committing code, but then the design process still  
 isn’t accurately reflected, only the outcome of it.
 
-**IPF:** That may be one theory as to the problem’s root, but its certainly not the only explanation.  
+**IPF:** That may be one theory as to the problem’s root, but it's certainly not the only explanation.  
 Because the question of missing skills in open source could be the source of many blog posts, I’ve  
 narrowed it down to a list. Topics marked with an * will be expanded upon later. Here are some other  
 thoughts I’ve had or heard (like in [this discussion](https://discourse.opensourcedesign.net/t/difficulties-of-design-in-open-source/787/19))  
