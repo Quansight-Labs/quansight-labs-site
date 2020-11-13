@@ -1,7 +1,7 @@
 <!--
 .. title: Manylinux1 is obsolete, manylinux2010 is almost EOL, what is next?
 .. slug: manylinux1-is-obsolete-manylinux2010-is-almost-eol-what-is-next
-.. date: 2020-10-19 14:00:06 UTC-05:00
+.. date: 2020-11-12 14:00:06 UTC-05:00
 .. author: Matti Picus
 .. tags: manylinux, packaging, pip
 .. category: 
