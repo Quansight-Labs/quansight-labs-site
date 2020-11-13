@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Fri, 13 Nov 2020 00:47:16 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Design of the Versioned HDF5 Library</title><link>https://labs.quansight.org/blog/2020/09/design-of-the-versioned-hdf5-library/</link><dc:creator>Aaron Meurer</dc:creator><description>&lt;div&gt;&lt;p&gt;In a &lt;a href="https://labs.quansight.org/blog/2020/08/introducing-versioned-hdf5/"&gt;previous
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Fri, 13 Nov 2020 01:01:35 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Manylinux1 is obsolete, manylinux2010 is almost EOL, what is next?</title><link>https://labs.quansight.org/blog/2020/11/manylinux1-is-obsolete-manylinux2010-is-almost-eol-what-is-next/</link><dc:creator>Matti Picus</dc:creator><description>&lt;div&gt;&lt;p&gt;The basic installation format for users who install packages via &lt;code&gt;pip&lt;/code&gt; is
+the wheel format. Wheel names are composed of four parts: a
+package-name-and-version tag (which can be further broken down), a Python tag,
+an ABI tag, and a platform tag. More information on the tags can be found in
+&lt;a href="https://www.python.org/dev/peps/pep-0425"&gt;PEP 425&lt;/a&gt;.  So a package like NumPy
+will be available on PyPI as &lt;code&gt;numpy-1.19.2-cp36-cp36m-win_amd64.whl&lt;/code&gt; for 64-bit
+windows and &lt;code&gt;numpy-1.19.2-cp36-cp36m-macosx_10_9_x86_64.whl&lt;/code&gt; for macOS. Note
+that only the plaform tag &lt;code&gt;win_amd64&lt;/code&gt; or &lt;code&gt;macosx_10_9_x86_64&lt;/code&gt; differs. &lt;/p&gt;
+&lt;p&gt;But what about Linux? There is no single, vendor controlled, "Linux platform"
+e.g., Ubuntu, RedHat, Fedora, Debian, FreeBSD all package software at slightly
+different versions. What most Linux distributions do have in common is the
+glibc runtime library, and a smattering of various additional system libraries.
+So it is possible to define a least common denominator (LCD) of software
+expected to be on a Linux platform (exceptions apply, e.g. non-glibc
+distributions).&lt;/p&gt;
+&lt;p&gt;The decision to converge on a LCD common platform gave birth to the
+&lt;a href="https://www.python.org/dev/peps/pep-0513/"&gt;manylinux1&lt;/a&gt; standard. Going back
+to our example, numpy is available as
+&lt;code&gt;numpy-1.19.2-cp36-cp36m-manylinux1_x86_64.whl&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The first manylinux standard, manylinux1, was based on CentOS5 which has &lt;a href="https://endoflife.software/operating-systems/linux/centos"&gt;been
+obsolete&lt;/a&gt; since
+March 2017. The subsequent manylinux2010 standard is based on CentOS6, which
+will hit end-of-life in December 2020. The manylinux2014 standard still has some
+breathing room. Based on CentOS7, it will reach end-of-life in July 2024.&lt;/p&gt;
+&lt;p&gt;So what is next for &lt;code&gt;manylinux&lt;/code&gt;, and what &lt;code&gt;manylinux&lt;/code&gt; should users and package
+maintainers use?&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/11/manylinux1-is-obsolete-manylinux2010-is-almost-eol-what-is-next/"&gt;Read more…&lt;/a&gt; (3 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>manylinux</category><category>packaging</category><category>pip</category><guid>https://labs.quansight.org/blog/2020/11/manylinux1-is-obsolete-manylinux2010-is-almost-eol-what-is-next/</guid><pubDate>Thu, 12 Nov 2020 19:00:06 GMT</pubDate></item><item><title>Design of the Versioned HDF5 Library</title><link>https://labs.quansight.org/blog/2020/09/design-of-the-versioned-hdf5-library/</link><dc:creator>Aaron Meurer</dc:creator><description>&lt;div&gt;&lt;p&gt;In a &lt;a href="https://labs.quansight.org/blog/2020/08/introducing-versioned-hdf5/"&gt;previous
 post&lt;/a&gt;, we
 introduced the Versioned HDF5 library and described some of its features. In
 this post, we'll go into detail on how the underlying design of the library
@@ -61,5 +87,4 @@ moved during the COVID-19 pandemic. And yes, it was crazy.) I quickly realized
 that was going to need a wireless router of some sort, or more formally, a wireless
 access point (WAP). Using my Ubuntu laptop's "wireless hotspot" capability was a
 nice temporary solution, but it had a few serious drawbacks.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/07/nixos-rpi-wifi-router/"&gt;Read more…&lt;/a&gt; (14 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>NixOS</category><category>Raspberry Pi</category><category>Wireless Router</category><guid>https://labs.quansight.org/blog/2020/07/nixos-rpi-wifi-router/</guid><pubDate>Sat, 11 Jul 2020 05:39:56 GMT</pubDate></item><item><title>Writing docs is not just writing docs</title><link>https://labs.quansight.org/blog/2020/07/writing-docs-is-not-just-writing-docs/</link><dc:creator>Juanita Gomez</dc:creator><description>&lt;div&gt;&lt;p&gt;I joined the &lt;a href="https://www.spyder-ide.org"&gt;Spyder&lt;/a&gt; team almost two years ago, and I never thought I was going to end up working on docs. Six months ago I started a project with &lt;a href="https://github.com/CAM-Gerlach"&gt;CAM Gerlach&lt;/a&gt; and &lt;a href="https://github.com/ccordoba12"&gt;Carlos Cordoba&lt;/a&gt; to improve Spyder’s documentation. At first, I didn’t actually understand how important docs are for software, especially for open source projects. However, during all this time I’ve learned how documentation has a huge impact on the open-source community and I’ve been thankful to have been able to do this. But, from the beginning, I asked myself “why am I the ‘right person’ for this?”&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/07/writing-docs-is-not-just-writing-docs/"&gt;Read more…&lt;/a&gt; (3 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>documentation</category><category>Labs</category><category>Spyder</category><guid>https://labs.quansight.org/blog/2020/07/writing-docs-is-not-just-writing-docs/</guid><pubDate>Tue, 07 Jul 2020 22:00:00 GMT</pubDate></item></channel></rss>
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/07/nixos-rpi-wifi-router/"&gt;Read more…&lt;/a&gt; (14 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>NixOS</category><category>Raspberry Pi</category><category>Wireless Router</category><guid>https://labs.quansight.org/blog/2020/07/nixos-rpi-wifi-router/</guid><pubDate>Sat, 11 Jul 2020 05:39:56 GMT</pubDate></item></channel></rss>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manylinux1 is obsolete, manylinux2010 is almost EOL, what is next? | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2020/11/manylinux1-is-obsolete-manylinux2010-is-almost-eol-what-is-next/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-163785882-1');
+</script><meta name="author" content="Matti Picus">
+<link rel="prev" href="../../09/design-of-the-versioned-hdf5-library/" title="Design of the Versioned HDF5 Library" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="Manylinux1 is obsolete, manylinux2010 is almost EOL, what is next?">
+<meta property="og:url" content="https://labs.quansight.org/blog/2020/11/manylinux1-is-obsolete-manylinux2010-is-almost-eol-what-is-next/">
+<meta property="og:description" content="The basic installation format for users who install packages via pip is
+the wheel format. Wheel names are composed of four parts: a
+package-name-and-version tag (which can be further broken down), a P">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-11-12T14:00:06-05:00">
+<meta property="article:tag" content="manylinux">
+<meta property="article:tag" content="packaging">
+<meta property="article:tag" content="pip">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+            <img src="../../../../images/quansight_labs_logo_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../" class="nav-link">Blog</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../team/" class="nav-link">Team</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../projects/" class="nav-link">Projects</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../about/" class="nav-link">About</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right"></ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name">
+                <a href="." class="u-url">Manylinux1 is obsolete, manylinux2010 is almost EOL, what is next?</a>
+            </h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    <a class="u-url" href="../../../../authors/matti-picus/">Matti Picus</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2020-11-12T14:00:06-05:00" itemprop="datePublished" title="2020-11-12">2020-11-12</time></a>
+            </p>
+            
+
+        </div>
+        
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/manylinux/" rel="tag">manylinux</a></li>
+            <li><a class="tag p-category" href="../../../../categories/packaging/" rel="tag">packaging</a></li>
+            <li><a class="tag p-category" href="../../../../categories/pip/" rel="tag">pip</a></li>
+        </ul></header><div class="e-content entry-content" itemprop="articleBody text">
+        <div>
+<p>The basic installation format for users who install packages via <code>pip</code> is
+the wheel format. Wheel names are composed of four parts: a
+package-name-and-version tag (which can be further broken down), a Python tag,
+an ABI tag, and a platform tag. More information on the tags can be found in
+<a href="https://www.python.org/dev/peps/pep-0425">PEP 425</a>.  So a package like NumPy
+will be available on PyPI as <code>numpy-1.19.2-cp36-cp36m-win_amd64.whl</code> for 64-bit
+windows and <code>numpy-1.19.2-cp36-cp36m-macosx_10_9_x86_64.whl</code> for macOS. Note
+that only the plaform tag <code>win_amd64</code> or <code>macosx_10_9_x86_64</code> differs. </p>
+<p>But what about Linux? There is no single, vendor controlled, "Linux platform"
+e.g., Ubuntu, RedHat, Fedora, Debian, FreeBSD all package software at slightly
+different versions. What most Linux distributions do have in common is the
+glibc runtime library, and a smattering of various additional system libraries.
+So it is possible to define a least common denominator (LCD) of software
+expected to be on a Linux platform (exceptions apply, e.g. non-glibc
+distributions).</p>
+<p>The decision to converge on a LCD common platform gave birth to the
+<a href="https://www.python.org/dev/peps/pep-0513/">manylinux1</a> standard. Going back
+to our example, numpy is available as
+<code>numpy-1.19.2-cp36-cp36m-manylinux1_x86_64.whl</code>.</p>
+<p>The first manylinux standard, manylinux1, was based on CentOS5 which has <a href="https://endoflife.software/operating-systems/linux/centos">been
+obsolete</a> since
+March 2017. The subsequent manylinux2010 standard is based on CentOS6, which
+will hit end-of-life in December 2020. The manylinux2014 standard still has some
+breathing room. Based on CentOS7, it will reach end-of-life in July 2024.</p>
+<p>So what is next for <code>manylinux</code>, and what <code>manylinux</code> should users and package
+maintainers use?</p>
+<!-- TEASER_END -->
+
+<h3>If <code>manylinux1</code> is obsolete, why are there still manylinux1 wheels?</h3>
+<p>Wheels are typically consumed by Pip via <code>pip install</code>. Manylinux wheels are
+used for projects that require compilation, otherwise they would ship
+pure Python wheels with the "none" platform tag, meaning they are compatible with
+any platform. So say you are a library author and want to make it convenient
+for users to install your package. If you ship a manylinux2014 wheel, but the
+version of Pip your users have is too old to support manylinux2014 wheels, Pip
+will happily download the source package and compile it for them. Havoc ensues:
+Windows users typically cannot compile, prerequisites will be missing. Pip has
+a <code>--only-binary</code> option to prevent it from downloading source code and
+compiling, and a <code>--prefer-binary</code> option to prefer older binary packages over
+compiling from source, but neither is on by default.</p>
+<p>Pip began supporting manylinux2010 wheels with <a href="https://github.com/pypa/pip/blob/master/NEWS.rst#190-2019-01-22">version
+19.0</a>,
+released in Jan 2019. The version of Pip that is officially shipped with Python 3.6, via
+the <a href="https://docs.python.org/3.6/library/ensurepip.html">ensurepip</a> module, is
+version 18. Python 3.7 ships pip 20. It is easy enough to upgrade, but to be on
+the safe side, and prevent havoc, library authors will ship a manylinux1 wheel
+for Python 3.6 support.</p>
+<h3>What happens now that Python 3.6 is falling out of favor?</h3>
+<p><a href="https://www.python.org/dev/peps/pep-0494">Python 3.6 is no longer in active
+development</a>. In fact, the scientific
+Python community has decided to stop actively supporting Python 3.6 <a href="https://numpy.org/neps/nep-0029-deprecation_policy.html#support-table">from
+July 2020</a>.
+So I would expect to see projects begin to drop the older manylinux1 format,
+and drop support for Python 3.6 sooner rather than later, meaning that
+<strong><code>manylinux2014</code> may soon become the only option</strong> for new versions.</p>
+<h3>What about Conda packages?</h3>
+<p>Conda does not use the same kind of wheel format provided by PyPI and Pip. Conda's
+build system is internally consistent, and Conda packagers build a binary
+package for each supported OS, thus they are not bound to the manylinux
+designation. Conda does not have a declared policy around deprecating Python
+3.6 yet. Conda does support <code>pip</code> (but try not to mix <code>conda</code> and <code>pip</code>
+usage!), and the Pip provided should be version 20 or later. If needed,
+<code>conda upgrade pip</code> should get you a modern version, so here too
+<code>manylinux2014</code> will soon become the only option.</p>
+<h3>What comes after manylinux2014?</h3>
+<p>The glibc used in manylinux2014 is defined as the one used by CentOS7. This OS
+was released in June 2014. This manylinux standard, for the first time,
+declared support for non-x86 hardware systems like ARM64 (aarch64), Power
+(ppc64) and S390X.  However the ARM platform has grown greatly since 2014, and
+glibc has moved from version 2.17 to 2.31, fixing many bugs. Since the real
+driver for platform compatibility is glibc, <a href="https://www.python.org/dev/peps/pep-0600/">PEP
+600</a> defined a "perennial manylinux
+spec" that is based on the glibc version number. A lot of work has <a href="https://github.com/pypa/manylinux/issues/542">already
+taken place</a> to support the next
+version. Now we need to take the dive: decide what the base OS for the next
+manylinux tag will be, roll out a Docker image and tooling around it, and
+convince library packaging teams to adopt it. This is needed to allow libraries
+like NumPy to confidently use the glibc routines fixed after 2014. For
+instance, <a href="https://github.com/numpy/numpy/issues/15763">this issue</a> is
+preventing NumPy from properly supporting <code>np.float128</code> on Power and S390X.</p>
+<h3>What about non-x86 machines and Linux?</h3>
+<p>As mentioned before, starting with manylinux2014 <code>pip</code> and <code>wheel</code> supports
+non-x86 architectures like ARM64. Many packages are just now starting to roll
+out support for these architectures, as the CI systems that support open source
+projects (like TravisCI) have only recently made those platforms available.
+It might be easier for users to adopt Conda and the <code>conda-forge</code> channel
+since conda-forge has support for non-x86 architectures today.</p>
+<h3>OK, so what is the bottom line?</h3>
+<ul>
+<li>Use pip v20 or later to make it easier on libarary packagers: modern pip
+  versions will take the latest manylinux package they can support and will be
+  forward-compatible with the PEP 600 perennial manylinux standard.</li>
+<li>Manylinux1 and Python 3.6 are going away. Update your systems.</li>
+<li>For people looking to move PEP 600 forward, the next step is to dive into the
+  <a href="https://github.com/pypa/auditwheel">auditwheel</a> repo to define and support
+  the next manylinux version. </li>
+</ul>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../../09/design-of-the-versioned-hdf5-library/" rel="prev" title="Design of the Versioned HDF5 Library">Previous post</a>
+            </li>
+
+            <li class="archive">
+                <a href="../../../../archive.html" rel="archive" title="Archive ">Archive</a>
+            </li>
+
+            <li class="next disabled">
+                <a rel="next">Next post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2020         <a href="../../../../team">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>

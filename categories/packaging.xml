@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs (Posts about packaging)</title><link>https://labs.quansight.org/</link><description></description><atom:link href="https://labs.quansight.org/categories/packaging.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Fri, 13 Nov 2020 00:47:15 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>IPython reproducible builds</title><link>https://labs.quansight.org/blog/2020/08/ipython-reproducible-builds/</link><dc:creator>Matthias Bussonnier</dc:creator><description>&lt;div&gt;&lt;p&gt;Starting with IPython 7.16.1 (released in June 2020), you &lt;em&gt;should&lt;/em&gt; be able to recreate the sdist (&lt;code&gt;.tar.gz&lt;/code&gt;) and wheel
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs (Posts about packaging)</title><link>https://labs.quansight.org/</link><description></description><atom:link href="https://labs.quansight.org/categories/packaging.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Fri, 13 Nov 2020 01:01:35 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Manylinux1 is obsolete, manylinux2010 is almost EOL, what is next?</title><link>https://labs.quansight.org/blog/2020/11/manylinux1-is-obsolete-manylinux2010-is-almost-eol-what-is-next/</link><dc:creator>Matti Picus</dc:creator><description>&lt;div&gt;&lt;p&gt;The basic installation format for users who install packages via &lt;code&gt;pip&lt;/code&gt; is
+the wheel format. Wheel names are composed of four parts: a
+package-name-and-version tag (which can be further broken down), a Python tag,
+an ABI tag, and a platform tag. More information on the tags can be found in
+&lt;a href="https://www.python.org/dev/peps/pep-0425"&gt;PEP 425&lt;/a&gt;.  So a package like NumPy
+will be available on PyPI as &lt;code&gt;numpy-1.19.2-cp36-cp36m-win_amd64.whl&lt;/code&gt; for 64-bit
+windows and &lt;code&gt;numpy-1.19.2-cp36-cp36m-macosx_10_9_x86_64.whl&lt;/code&gt; for macOS. Note
+that only the plaform tag &lt;code&gt;win_amd64&lt;/code&gt; or &lt;code&gt;macosx_10_9_x86_64&lt;/code&gt; differs. &lt;/p&gt;
+&lt;p&gt;But what about Linux? There is no single, vendor controlled, "Linux platform"
+e.g., Ubuntu, RedHat, Fedora, Debian, FreeBSD all package software at slightly
+different versions. What most Linux distributions do have in common is the
+glibc runtime library, and a smattering of various additional system libraries.
+So it is possible to define a least common denominator (LCD) of software
+expected to be on a Linux platform (exceptions apply, e.g. non-glibc
+distributions).&lt;/p&gt;
+&lt;p&gt;The decision to converge on a LCD common platform gave birth to the
+&lt;a href="https://www.python.org/dev/peps/pep-0513/"&gt;manylinux1&lt;/a&gt; standard. Going back
+to our example, numpy is available as
+&lt;code&gt;numpy-1.19.2-cp36-cp36m-manylinux1_x86_64.whl&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The first manylinux standard, manylinux1, was based on CentOS5 which has &lt;a href="https://endoflife.software/operating-systems/linux/centos"&gt;been
+obsolete&lt;/a&gt; since
+March 2017. The subsequent manylinux2010 standard is based on CentOS6, which
+will hit end-of-life in December 2020. The manylinux2014 standard still has some
+breathing room. Based on CentOS7, it will reach end-of-life in July 2024.&lt;/p&gt;
+&lt;p&gt;So what is next for &lt;code&gt;manylinux&lt;/code&gt;, and what &lt;code&gt;manylinux&lt;/code&gt; should users and package
+maintainers use?&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/11/manylinux1-is-obsolete-manylinux2010-is-almost-eol-what-is-next/"&gt;Read more…&lt;/a&gt; (3 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>manylinux</category><category>packaging</category><category>pip</category><guid>https://labs.quansight.org/blog/2020/11/manylinux1-is-obsolete-manylinux2010-is-almost-eol-what-is-next/</guid><pubDate>Thu, 12 Nov 2020 19:00:06 GMT</pubDate></item><item><title>IPython reproducible builds</title><link>https://labs.quansight.org/blog/2020/08/ipython-reproducible-builds/</link><dc:creator>Matthias Bussonnier</dc:creator><description>&lt;div&gt;&lt;p&gt;Starting with IPython 7.16.1 (released in June 2020), you &lt;em&gt;should&lt;/em&gt; be able to recreate the sdist (&lt;code&gt;.tar.gz&lt;/code&gt;) and wheel
 (&lt;code&gt;.whl&lt;/code&gt;), and get byte for byte identical result to the wheels published on PyPI. This is a critical step toward being able
 to &lt;em&gt;trust&lt;/em&gt; your computing platforms, and a key component to improve efficiency of build and packaging platforms. It also
 potentially impacts fast conda environment creation for users. The following goes into some reasons for why you should care.&lt;/p&gt;
