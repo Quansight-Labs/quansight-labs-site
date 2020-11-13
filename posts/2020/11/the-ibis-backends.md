@@ -1,7 +1,7 @@
 <!--
 .. title: Querying multiple backends with Ibis
 .. slug: the-ibis-backends
-.. date: 2020-11-12
+.. date: 2020-11-13
 .. author: Tony Fast, Kim Pevey
 .. tags: Ibis, OmniSci, SQL, Pandas
 .. category:
@@ -81,7 +81,7 @@ to support Ibis as community maintainers through Quansight Labs.
 This collaboration introduced [geospatial functionality to Ibis][Geospatial] for several backends.
 
 There are currently ongoing efforts to introduce support for [SQL Server][sql-server] backends.
-What other backends would you like to see for Ibis?  Maybe our community could benefit from a [Dask] 
+What other backends would you like to see for Ibis?  Maybe our community could benefit from a [Dask]
 backend or an [Altair] backend?
 
 ## Ibis direct execution backends
@@ -134,11 +134,11 @@ with traditional SQL databases.
 There are two options for downloading Ibis: using `pip` or using `conda`.
 
 - `pip`: the extra backends from Ibis need to be requested explicitly, e.g.:
-    
+
 ```bash
 pip install --upgrade ibis-framework[omniscidb] ibis-framework[sqlite]
 ```
-    
+
 - `conda`: all the supported [backends] (e.g., [SQL], [Pandas], [BigQuery], [Omnisci], etc.) are bundled in a single conda package and can be downloaded/installed simultaneously:
 
 ```bash
@@ -173,10 +173,10 @@ A string-generating expression compiles to `ibis.omniscidb` flavored SQL, while 
 
 ## Acknowledgements
 Major credit goes to [@xmnlab] in his heroic PR to introduce `ibis.omniscidb` into Ibis. You can watch
-the drama play out in this [Github Issue][omnisci-pr]. We'd like to thank the maintainers of Ibis for 
+the drama play out in this [Github Issue][omnisci-pr]. We'd like to thank the maintainers of Ibis for
 their effort in supporting the Ibis community.
 
-Learn more about OmniSci and `ibis.omniscidb` in this Quansight Labs post: 
+Learn more about OmniSci and `ibis.omniscidb` in this Quansight Labs post:
 [Ibis: Python data analysis productivity framework][labs-post].
 
 [our recent Ibis post]: https://labs.quansight.org/blog/2020/06/ibis-an-idiomatic-flavor-of-sql-for-python-programmers/
