@@ -1,10 +1,10 @@
 <!--
 .. title: Introduction to Design in Open Source
 .. slug: introduction-to-design-in-open-source
-.. date: 2020-11-10 00:07:30 UTC-05:00
+.. date: 2020-11-14 00:07:30 UTC-05:00
 .. author: Tim George and Isabela Presedo-Floyd
-.. tags: design, UX, User Experience, Open-Source, 
-.. category: 
+.. tags: design, UX, User Experience, Open Source,
+.. category:
 .. link:
 .. description:
 .. type: text
@@ -27,7 +27,9 @@ in open source I want to share my observations, experiences, and hope for a
 stronger collaboration between design and development. I don't think I have a
 complete solution, and some days I'm not even sure I grasp the entire problem.
 What I hope is to say that which often goes unsaid in these spaces: design and
-development skills in open source coexist precariously. 
+development skills in open source coexist precariously.
+
+<!-- TEASER_END -->
 
 ## Why design might be missing in open source
 
@@ -49,7 +51,7 @@ still isn't accurately reflected, only the outcome of it.
 the only explanation. Because the question of missing skills in open source
 could be the source of many blog posts, I've narrowed it down to a list. Here
 are some other thoughts I've had or heard floating about (like in
-[this discussion](https://discourse.opensourcedesign.net/t/difficulties-of-design-in-open-source/787/19)) 
+[this discussion](https://discourse.opensourcedesign.net/t/difficulties-of-design-in-open-source/787/19))
 explaining the absence of design in this space:
 - Designers might be unaware of open source.
 - Designers might be wary of working in public. ("You want me to post my
@@ -163,7 +165,7 @@ works against involving designer perspectives where they might be most helpful
 or impactful: when initially solving the problem.
 
 ## To a brighter future
-  
+
 **TG:** In my experience, which is mostly in Jupyter-related projects, design
 input is desired, and well received. Different projects, depending on size and
 scope, have different understandings of, and interest in, design. If designers
@@ -189,7 +191,7 @@ solution and interface for it in a way that is knowledgeable both of the problem
 and the people trying to solve it. In essence, we build software that the user
 can partner with to process data, instead of building a tool that accomplishes a
 single task.
- 
+
 **IPF:** But if designers are brought in just at the review or UI decision
 stage, as they often are, it can be a little late to start asking "why" with so
 much work already done. The ideal answer is to bring designers in early,
