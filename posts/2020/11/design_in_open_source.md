@@ -3,7 +3,7 @@
 .. slug: introduction-to-design-in-open-source
 .. date: 2020-11-14 00:07:30 UTC-05:00
 .. author: Tim George and Isabela Presedo-Floyd
-.. tags: design, UX, User Experience, Open Source,
+.. tags: design, UX, User Experience, Open-Source,
 .. category:
 .. link:
 .. description:
@@ -35,8 +35,8 @@ development skills in open source coexist precariously.
 
 **TG:** If you're looking for a quick and singular answer, it might be best
 summed up by a quote from Marshal McLuhan in his book The Medium is the Message:
-"We shape our tools, then our tools shape us." Github has become the place where
-many open-source projects exist. Github (I don't want to suggest that it is the
+"We shape our tools, then our tools shape us." GitHub has become the place where
+many open-source projects exist. GitHub (I don't want to suggest that it is the
 only place open source exists, just that it's the only place where I've been
 involved with open source) is also designed first and foremost with code
 contributions in mind. The ripple effect is that the people and the project will
@@ -53,25 +53,29 @@ could be the source of many blog posts, I've narrowed it down to a list. Here
 are some other thoughts I've had or heard floating about (like in
 [this discussion](https://discourse.opensourcedesign.net/t/difficulties-of-design-in-open-source/787/19))
 explaining the absence of design in this space:
+
 - Designers might be unaware of open source.
 - Designers might be wary of working in public. ("You want me to post my
 horrible first draft somewhere anyone could see it forever?")
 - Some open-source communities don't want or need conventional design.
 - Some open-source communities might not welcome different skill sets.
-- Designers have a history of being under or not paid for their work; we are
-often encouraged to be wary of working for free, especially if it's not for a
-group/project/product we've heard of.
+- Designers have a history of being underpaid or not paid for their work; we
+  are often encouraged to be wary of working for free, especially if it's not
+  for a group/project/product we've heard of.
 - As has been mentioned about code and documentation, lots of what is needed
-most in open-source projects is not the clear or glamourous design work that
-might draw in designers. There are mostly question marks and maintenance work.
+  most in open-source projects is not the clear or glamourous design work that
+  might draw in designers. There are mostly question marks and maintenance
+  work.
 - This type of work lacks recognition in design communities.
+
 And here are some issues we'll tackle below:
-- An open-source community might be relatively unaware of design and what it can
-mean in practice.
+
+- An open-source community might be relatively unaware of design and what it
+  can mean in practice.
 - Lack of design talent and design literacy is common in open-source projects.
-Designers are likely to be teaching as they work, which means more work.
+  Designers are likely to be teaching as they work, which means more work.
 - Open-source projects tend to lack community recognition beyond what's tied to
-code.
+  code.
 
 **TG:** For many (most) open-source projects, designers are not a part of the
 founding team. The infrastructure used to support many (most) open-source
@@ -110,7 +114,7 @@ for the first time. On the PR, there's one person who keeps asking them lots of
 questions, attaching a lot of images, and requesting changes. They sound like
 they understand the project, but they don't have the contributor tag and there
 isn't any record of them working directly with the project. In fact, there's
-barely anything at all on their Github profile. Who could it be? Probably a
+barely anything at all on their GitHub profile. Who could it be? Probably a
 designer.
 
 **IPF:** In my experience, communities have always been welcoming of design
@@ -142,12 +146,12 @@ Great design, on the other hand, is often the product of a well-defined vision.
 Steve Jobs was famous for saying, "Design is not what it looks like and feels
 like, it's how it works." But we don't often have the luxury, as designers, of
 designing how it works, we're asked to pick up wherever the project is, with no
-guarantee of impact in the area we are working.
+guarantee of impact in the area we are working on.
 
-It can be hard to invest into a thorough design process if you're not sure
+It can be hard to invest in a thorough design process if you're not sure
 what's going to be developed next, or ever. And if you do take that chance and
 invest in a design, there's an uncomfortably high chance you're missing the mark
-of what the maintainer thinks the next big steps of their project are (possibly)
+of what the maintainer thinks the next big steps of their project are, (possibly)
 documented only in their mind. If members of a project don't intentionally take
 time to prioritize design, it can be easier to just merge changes directly into
 the code base and see how the community likes it, as opposed to putting
@@ -173,7 +177,7 @@ are going to make a larger impact on open-source projects, committers need to
 understand the value of design beyond simply "making things look good." Many
 open-source initiatives would benefit from a visual overhaul, especially of the
 type that leans into consistent looks for similar interactions throughout the
-software. This is usually the limits of other contributors' expectations of
+software. This is usually the limit of other contributors' expectations of
 designers, but that's just scratching the surface of the problems we've worked
 through so far, and what we're capable of in the future.
 
@@ -187,8 +191,8 @@ lot of "what" and "how" in open-source development. Oftentimes, a scientist or
 developer simply solves the problem they have. But if we take some time to walk
 through the design process and understand more about why the question arose and
 who else has the problem, we can get to the core issue, and design both a
-solution and interface for it in a way that is knowledgeable both of the problem
-and the people trying to solve it. In essence, we build software that the user
+solution and an interface for it in a way that is knowledgeable of the problem as
+well as the people trying to solve it. In essence, we build software that the user
 can partner with to process data, instead of building a tool that accomplishes a
 single task.
 
@@ -215,21 +219,24 @@ digging in and understanding the problem from its source, and designers need to
 be willing to put in the work to understand the technical limitations of the
 technology that's being utilized to build the software. Fortunately this gives
 designers and developers a place to meet in the middle (and that place will
-almost always be Github). I've had a number of experiences where simply
+almost always be GitHub). I've had a number of experiences where simply
 asking hard questions has helped developers to better understand why they're
 solving that problem at all. At the same time, there have been hundreds of
 solutions I have conceived of that just aren't yet possible to implement.
 Getting involved early, and understanding what the limitations are is a great
 way to help existing teams integrate design into their process.
 
-Want to hear us talk more about this? Tim and I had a conversation with Ani
-Krishnan and Tony Fast [here](https://www.youtube.com/watch?v=3SBwb8ppz5I).
+**IPF**: Want to hear us talk more about this? Tim and I had a conversation
+with Ani Krishnan and Tony Fast
+[here](https://www.youtube.com/watch?v=3SBwb8ppz5I).
 
 ---
 ¹ Wondering what's wrong with this scenario? Yellow and white is a low contrast
 combination that makes it hard to see the icon. It also fails accessibility
 contrast standards.
+
 ² All caps aren't recommended. Depending how it's implemented, it can be an
 accessibility concern, too.
+
 ³ A common goal of interface design is to teach users via interaction patterns.
 Inconsistency is confusing and can break user trust both short and long term.
