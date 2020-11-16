@@ -11,8 +11,6 @@
 -->
 
 
-# Querying multiple backends with Ibis
-
 In [our recent Ibis post], we discussed querying & retrieving data using a familiar [Pandas]-like interface.
 That discussion focused on the fluent API that [Ibis] provides to query structure from a SQLite database&mdash;in particular, using a single specific backend.
 In this post, we'll explore Ibis's ability to answer questions about data using two different Ibis backends.
