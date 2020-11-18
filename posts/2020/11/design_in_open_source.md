@@ -1,7 +1,7 @@
 <!--
 .. title: Introduction to Design in Open Source
 .. slug: introduction-to-design-in-open-source
-.. date: 2020-11-14 00:07:30 UTC-05:00
+.. date: 2020-11-18 00:00:30 UTC-05:00
 .. author: Tim George and Isabela Presedo-Floyd
 .. tags: design, UX, User Experience, Open-Source,
 .. category:
