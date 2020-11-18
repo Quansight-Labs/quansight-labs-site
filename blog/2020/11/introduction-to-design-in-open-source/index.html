@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Introduction to Design in Open Source | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2020/11/introduction-to-design-in-open-source/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-163785882-1');
+</script><meta name="author" content="Tim George and Isabela Presedo-Floyd">
+<link rel="prev" href="../the-ibis-backends/" title="Querying multiple backends with Ibis" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="Introduction to Design in Open Source">
+<meta property="og:url" content="https://labs.quansight.org/blog/2020/11/introduction-to-design-in-open-source/">
+<meta property="og:description" content="This blog post is a conversation. Portions lead by Tim George are marked with
+TG, and those lead by Isabela Presedo-Floyd are marked with IPF.
+TG: When I speak with other designers, one common theme I">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-11-18T00:00:30-05:00">
+<meta property="article:tag" content="design">
+<meta property="article:tag" content="Open-Source">
+<meta property="article:tag" content="User Experience">
+<meta property="article:tag" content="UX">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+            <img src="../../../../images/quansight_labs_logo_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../" class="nav-link">Blog</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../team/" class="nav-link">Team</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../projects/" class="nav-link">Projects</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../about/" class="nav-link">About</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right"></ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name">
+                <a href="." class="u-url">Introduction to Design in Open Source</a>
+            </h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    <a class="u-url" href="../../../../authors/tim-george-and-isabela-presedo-floyd/">Tim George and Isabela Presedo-Floyd</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2020-11-18T00:00:30-05:00" itemprop="datePublished" title="2020-11-18">2020-11-18</time></a>
+            </p>
+            
+
+        </div>
+        
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/design/" rel="tag">design</a></li>
+            <li><a class="tag p-category" href="../../../../categories/open-source/" rel="tag">Open-Source</a></li>
+            <li><a class="tag p-category" href="../../../../categories/user-experience/" rel="tag">User Experience</a></li>
+            <li><a class="tag p-category" href="../../../../categories/ux/" rel="tag">UX</a></li>
+        </ul></header><div class="e-content entry-content" itemprop="articleBody text">
+        <div>
+<p><em>This blog post is a conversation. Portions lead by Tim George are marked with
+</em><em>TG</em><em>, and those lead by Isabela Presedo-Floyd are marked with </em><em>IPF</em><em>.</em></p>
+<p><strong>TG:</strong> When I speak with other designers, one common theme I see concerning why
+they chose this career path is they want to make a difference in the world. We
+design because we imagine a better world and we want to help make it real. Part
+of the reason we design as a career is we're unable to go through life without
+designing; we're always thinking about how things are and how they could be
+better. This ethos also exists in many open-source communities. It seems like it
+ought to be an ideal match.</p>
+<p>So what's the disconnect? I'm still exploring that myself, but after a few years
+in open source I want to share my observations, experiences, and hope for a
+stronger collaboration between design and development. I don't think I have a
+complete solution, and some days I'm not even sure I grasp the entire problem.
+What I hope is to say that which often goes unsaid in these spaces: design and
+development skills in open source coexist precariously.</p>
+<!-- TEASER_END -->
+
+<h3>Why design might be missing in open source</h3>
+<p><strong>TG:</strong> If you're looking for a quick and singular answer, it might be best
+summed up by a quote from Marshal McLuhan in his book The Medium is the Message:
+"We shape our tools, then our tools shape us." GitHub has become the place where
+many open-source projects exist. GitHub (I don't want to suggest that it is the
+only place open source exists, just that it's the only place where I've been
+involved with open source) is also designed first and foremost with code
+contributions in mind. The ripple effect is that the people and the project will
+similarly center around code and it will take effort to use the tool in a way it
+is not designed to support. While it has a number of features that support
+design input, it doesn't integrate directly with design tools, and design
+artifacts aren't tracked in the git history in any meaningful way. Unless, of
+course, the designer is directly committing code, but then the design process
+still isn't accurately reflected, only the outcome of it.</p>
+<p><strong>IPF:</strong> That may be one theory as to the problem's root, but it's certainly not
+the only explanation. Because the question of missing skills in open source
+could be the source of many blog posts, I've narrowed it down to a list. Here
+are some other thoughts I've had or heard floating about (like in
+<a href="https://discourse.opensourcedesign.net/t/difficulties-of-design-in-open-source/787/19">this discussion</a>)
+explaining the absence of design in this space:</p>
+<ul>
+<li>Designers might be unaware of open source.</li>
+<li>Designers might be wary of working in public. ("You want me to post my
+horrible first draft somewhere anyone could see it forever?")</li>
+<li>Some open-source communities don't want or need conventional design.</li>
+<li>Some open-source communities might not welcome different skill sets.</li>
+<li>Designers have a history of being underpaid or not paid for their work; we
+  are often encouraged to be wary of working for free, especially if it's not
+  for a group/project/product we've heard of.</li>
+<li>As has been mentioned about code and documentation, lots of what is needed
+  most in open-source projects is not the clear or glamourous design work that
+  might draw in designers. There are mostly question marks and maintenance
+  work.</li>
+<li>This type of work lacks recognition in design communities.</li>
+</ul>
+<p>And here are some issues we'll tackle below:</p>
+<ul>
+<li>An open-source community might be relatively unaware of design and what it
+  can mean in practice.</li>
+<li>Lack of design talent and design literacy is common in open-source projects.
+  Designers are likely to be teaching as they work, which means more work.</li>
+<li>Open-source projects tend to lack community recognition beyond what's tied to
+  code.</li>
+</ul>
+<p><strong>TG:</strong> For many (most) open-source projects, designers are not a part of the
+founding team. The infrastructure used to support many (most) open-source
+projects was not made for designers. Many people who work in open source have
+backgrounds that have given them limited interaction with design work. This
+isn't intended as a gripe so much as a statement of facts because if we aren't
+in agreement about this then the rest of this post doesn't make sense. What
+these facts mean is that doing design work for open-source projects is unusual,
+has a high barrier to entry, and sometimes doesn't feel like design at all. If
+this is all sounding vague and nebulous, you're right. Welcome to navigating
+design in open source!</p>
+<h3>Breaking it Down</h3>
+<h4>Design literacy</h4>
+<p><strong>IPF:</strong> One person wants a light yellow icon on a white background.¹ One person
+wants the warning text written in all caps.² One person thinks this specific
+feature should use interactions that don't match the ones used everywhere else.³
+It's not malicious, but it represents differing goals and knowledge that need to
+be united to move forward in a collaborative environment. If any of this doesn't
+seem like a problem, that's why we're here.</p>
+<p>Disconnects between a design team and anyone else on a project are not unique to
+open source. Designing often alone and outnumbered by people who might not know
+what you are talking about is where open source hits harder. Designers present
+new information in this space, and so they constantly bear the burden of proof
+to explain every move. They usually bear this alone. While it can be very
+fulfilling to know you are helping people learn a new perspective, it detracts
+time and energy from design itself.</p>
+<h4>Community Trust and Recognition</h4>
+<p><strong>TG:</strong> A developer decides to contribute to their favorite open-source project
+for the first time. On the PR, there's one person who keeps asking them lots of
+questions, attaching a lot of images, and requesting changes. They sound like
+they understand the project, but they don't have the contributor tag and there
+isn't any record of them working directly with the project. In fact, there's
+barely anything at all on their GitHub profile. Who could it be? Probably a
+designer.</p>
+<p><strong>IPF:</strong> In my experience, communities have always been welcoming of design
+work, so this scenario usually ends well. Still, it exposes exactly how the
+value system (trust and reputation) that drives a lot of open-source work fails
+people who do non-development work (not only design) in this field. Personally,
+I'm grateful that people tend to trust my word when I say I'm a designer, or
+that there have always been developers in the communities I've worked with
+willing to vouch for me if needed. However, it still is extra time and work
+siphoning energy from the design, and continues a greater trend of lack of
+trackable credit for design work.</p>
+<h3>Coordination and Product Direction</h3>
+<p><strong>TG:</strong> None of this is to say that design contributions are not welcome in
+open source, in fact I've personally found the opposite to be true. But at its
+core, open source is, and has generally been, focused on generating code. This
+focus is a choice, and this choice has impacts on the community, governance,
+direction, and more. Given the constraints that go into a decentralized team,
+often working on different priorities, it can be difficult to know in what
+direction the project is heading. This process often generates useful software
+that's technically sound, after all, as Vincent Van Gogh said, "Great things are
+done by a series of small things being brought together." Open source does a
+wonderful job of improving large complex software systems by iterating on
+bite-sized pieces, but this work often comes in spurts when maintainers have
+time and inspiration.</p>
+<p>Great design, on the other hand, is often the product of a well-defined vision.
+Steve Jobs was famous for saying, "Design is not what it looks like and feels
+like, it's how it works." But we don't often have the luxury, as designers, of
+designing how it works, we're asked to pick up wherever the project is, with no
+guarantee of impact in the area we are working on.</p>
+<p>It can be hard to invest in a thorough design process if you're not sure
+what's going to be developed next, or ever. And if you do take that chance and
+invest in a design, there's an uncomfortably high chance you're missing the mark
+of what the maintainer thinks the next big steps of their project are, (possibly)
+documented only in their mind. If members of a project don't intentionally take
+time to prioritize design, it can be easier to just merge changes directly into
+the code base and see how the community likes it, as opposed to putting
+significant amounts of time into design. Many features that end up in
+open-source software are the result of one or two software developers writing
+the code and offering it directly to the project, while even the most well
+executed design still needs to be coded. It often happens that the solution
+that's working now, is the priority over the solution that might work better,
+<em>if</em> it is even built.</p>
+<p><strong>IPF:</strong> Because features are often already or mostly built by the time they are
+revealed to the team (designers included), they have also already been
+designed—intentionally or not—by the people who built that feature. This process
+works against involving designer perspectives where they might be most helpful
+or impactful: when initially solving the problem.</p>
+<h3>To a brighter future</h3>
+<p><strong>TG:</strong> In my experience, which is mostly in Jupyter-related projects, design
+input is desired, and well received. Different projects, depending on size and
+scope, have different understandings of, and interest in, design. If designers
+are going to make a larger impact on open-source projects, committers need to
+understand the value of design beyond simply "making things look good." Many
+open-source initiatives would benefit from a visual overhaul, especially of the
+type that leans into consistent looks for similar interactions throughout the
+software. This is usually the limit of other contributors' expectations of
+designers, but that's just scratching the surface of the problems we've worked
+through so far, and what we're capable of in the future.</p>
+<p><strong>IPF:</strong> At the beginning, we mentioned imagining a better world as a part of
+being a designer, and imagining a healthier open-source experience is no
+exception! Changing the collaboration process is a good first step.</p>
+<p><strong>TG:</strong> As a Human-Computer Interaction practitioner, I always strive to
+understand "why" a problem exists before I decide what to do about it. There's a
+lot of "what" and "how" in open-source development. Oftentimes, a scientist or
+developer simply solves the problem they have. But if we take some time to walk
+through the design process and understand more about why the question arose and
+who else has the problem, we can get to the core issue, and design both a
+solution and an interface for it in a way that is knowledgeable of the problem as
+well as the people trying to solve it. In essence, we build software that the user
+can partner with to process data, instead of building a tool that accomplishes a
+single task.</p>
+<p><strong>IPF:</strong> But if designers are brought in just at the review or UI decision
+stage, as they often are, it can be a little late to start asking "why" with so
+much work already done. The ideal answer is to bring designers in early,
+preferably as early as when the problem is discovered. This currently isn't
+possible, there are still so few designers in this space and so many problems to
+be solved. The mainstream field of User Experience Design describes two
+overarching duties for designers in any environment: creating new features
+(discovering what's useful), and refining software (to make what's useful
+better). How often do I get to deep dive into either of these directions?
+Rarely. Creating new features is more likely to be driven by developer
+inspiration, while refinement usually must rely on external standards and
+comparable software experiences to make up for the resources open-source
+projects don't often have. So what might be the path forward? Stop only trying
+to lean into what designers think they do best and work with open source's
+strengths of innovation and pushing technical limitations.</p>
+<p><strong>TG:</strong> This brings us back to a foundational aspect of open source, mainly,
+open-source software is built on trust and relationships between contributors.
+Design in open source has to be a two-way street. Developers need to be open to
+digging in and understanding the problem from its source, and designers need to
+be willing to put in the work to understand the technical limitations of the
+technology that's being utilized to build the software. Fortunately this gives
+designers and developers a place to meet in the middle (and that place will
+almost always be GitHub). I've had a number of experiences where simply
+asking hard questions has helped developers to better understand why they're
+solving that problem at all. At the same time, there have been hundreds of
+solutions I have conceived of that just aren't yet possible to implement.
+Getting involved early, and understanding what the limitations are is a great
+way to help existing teams integrate design into their process.</p>
+<p><strong>IPF</strong>: Want to hear us talk more about this? Tim and I had a conversation
+with Ani Krishnan and Tony Fast
+<a href="https://www.youtube.com/watch?v=3SBwb8ppz5I">here</a>.</p>
+<hr>
+<p>¹ Wondering what's wrong with this scenario? Yellow and white is a low contrast
+combination that makes it hard to see the icon. It also fails accessibility
+contrast standards.</p>
+<p>² All caps aren't recommended. Depending how it's implemented, it can be an
+accessibility concern, too.</p>
+<p>³ A common goal of interface design is to teach users via interaction patterns.
+Inconsistency is confusing and can break user trust both short and long term.</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../the-ibis-backends/" rel="prev" title="Querying multiple backends with Ibis">Previous post</a>
+            </li>
+
+            <li class="archive">
+                <a href="../../../../archive.html" rel="archive" title="Archive ">Archive</a>
+            </li>
+
+            <li class="next disabled">
+                <a rel="next">Next post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2020         <a href="../../../../team">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>

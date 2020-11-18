@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs (Posts by Tim George and Isabela Presedo-Floyd)</title><link>https://labs.quansight.org/</link><description></description><atom:link href="https://labs.quansight.org/authors/tim-george-and-isabela-presedo-floyd.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Wed, 18 Nov 2020 07:01:04 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Introduction to Design in Open Source</title><link>https://labs.quansight.org/blog/2020/11/introduction-to-design-in-open-source/</link><dc:creator>Tim George and Isabela Presedo-Floyd</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;em&gt;This blog post is a conversation. Portions lead by Tim George are marked with
+&lt;/em&gt;&lt;em&gt;TG&lt;/em&gt;&lt;em&gt;, and those lead by Isabela Presedo-Floyd are marked with &lt;/em&gt;&lt;em&gt;IPF&lt;/em&gt;&lt;em&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;TG:&lt;/strong&gt; When I speak with other designers, one common theme I see concerning why
+they chose this career path is they want to make a difference in the world. We
+design because we imagine a better world and we want to help make it real. Part
+of the reason we design as a career is we're unable to go through life without
+designing; we're always thinking about how things are and how they could be
+better. This ethos also exists in many open-source communities. It seems like it
+ought to be an ideal match.&lt;/p&gt;
+&lt;p&gt;So what's the disconnect? I'm still exploring that myself, but after a few years
+in open source I want to share my observations, experiences, and hope for a
+stronger collaboration between design and development. I don't think I have a
+complete solution, and some days I'm not even sure I grasp the entire problem.
+What I hope is to say that which often goes unsaid in these spaces: design and
+development skills in open source coexist precariously.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/11/introduction-to-design-in-open-source/"&gt;Read more…&lt;/a&gt; (10 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>design</category><category>Open-Source</category><category>User Experience</category><category>UX</category><guid>https://labs.quansight.org/blog/2020/11/introduction-to-design-in-open-source/</guid><pubDate>Wed, 18 Nov 2020 05:00:30 GMT</pubDate></item></channel></rss>
