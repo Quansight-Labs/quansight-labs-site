@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A second CZI grant for NumPy and OpenBLAS | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2020/11/a-second-czi-grant-for-numpy-and-openblas/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-163785882-1');
+</script><meta name="author" content="Melissa Weber Mendonça">
+<link rel="prev" href="../introduction-to-design-in-open-source/" title="Introduction to Design in Open Source" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="A second CZI grant for NumPy and OpenBLAS">
+<meta property="og:url" content="https://labs.quansight.org/blog/2020/11/a-second-czi-grant-for-numpy-and-openblas/">
+<meta property="og:description" content="I am happy to announce that NumPy and OpenBLAS have once again been awarded a
+grant from the Chan Zuckerberg Initiative through
+Cycle 3 of the Essential Open Source Software for Science (EOSS) program">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-11-19T11:29:55-06:00">
+<meta property="article:tag" content="CZI">
+<meta property="article:tag" content="funding">
+<meta property="article:tag" content="grant">
+<meta property="article:tag" content="NumPy">
+<meta property="article:tag" content="OpenBLAS">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+            <img src="../../../../images/quansight_labs_logo_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../" class="nav-link">Blog</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../team/" class="nav-link">Team</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../projects/" class="nav-link">Projects</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../about/" class="nav-link">About</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right"></ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name">
+                <a href="." class="u-url">A second CZI grant for NumPy and OpenBLAS</a>
+            </h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    <a class="u-url" href="../../../../authors/melissa-weber-mendonca/">Melissa Weber Mendonça</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2020-11-19T11:29:55-06:00" itemprop="datePublished" title="2020-11-19">2020-11-19</time></a>
+            </p>
+            
+
+        </div>
+        
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/czi/" rel="tag">CZI</a></li>
+            <li><a class="tag p-category" href="../../../../categories/funding/" rel="tag">funding</a></li>
+            <li><a class="tag p-category" href="../../../../categories/grant/" rel="tag">grant</a></li>
+            <li><a class="tag p-category" href="../../../../categories/numpy/" rel="tag">NumPy</a></li>
+            <li><a class="tag p-category" href="../../../../categories/openblas/" rel="tag">OpenBLAS</a></li>
+        </ul></header><div class="e-content entry-content" itemprop="articleBody text">
+        <div>
+<p>I am happy to announce that NumPy and OpenBLAS have once again been awarded a
+grant from the Chan Zuckerberg Initiative through
+<a href="https://chanzuckerberg.com/newsroom/czi-awards-4-7-million-for-open-source-software-and-organizations-advancing-open-science/">Cycle 3 of the Essential Open Source Software for Science (EOSS) program</a>.
+This new grant totaling $140,000 will fund part of our efforts to improve
+usability and sustainability in both projects and is excellent news for the
+scientific computing community, which will certainly benefit from this work
+downstream.</p>
+<!-- TEASER_END -->
+
+<h3>Why this is important for NumPy and OpenBLAS</h3>
+<p>The Essential Open Source Software for Science program is visionary and unique.
+The activities supported by this funding are not restricted to new technical
+features. Rather, it supports maintenance, community engagement, and other types
+of work that often go unrewarded in open source projects. And although
+<a href="https://chanzuckerberg.com/eoss/">its primary goal is to fund the computational foundations of biology</a>, the benefits of the work done under the Chan
+Zuckerberg Initiative's program extend well beyond specific scientific areas.</p>
+<p><a href="https://labs.quansight.org/blog/2019/11/numpy-openblas-CZI-grant/">This is the second grant from CZI that NumPy and OpenBLAS have received.</a>
+This past year, the funding has enabled several high-impact improvements to the
+NumPy and OpenBLAS communities. For NumPy, this has meant
+<a href="https://numpy.org/">a new website</a>, the establishment of the
+<a href="https://numpy.org/gallery/team.html">Documentation and Website Teams</a>, and
+mentorship and onboarding activities to grow and diversify the maintainers for
+the project. For OpenBLAS, the focus has been on technical improvements (thread
+safety, support for the 512-bit Advanced Vector Extensions (AVX-512) code, and
+thread-local storage). The impacts of these developments extend throughout the
+scientific Python ecosystem and beyond, and the increased activity has also
+attracted several new contributors.</p>
+<p>Our plans for 2021 include continuing with our efforts in documentation and
+community building for NumPy and also working to modernize its integration with
+Fortran tools via F2py, in addition to dedicating resources towards ensuring the
+sustainability of both NumPy and OpenBLAS.</p>
+<h4>Documentation</h4>
+<p>The establishment of the NumPy documentation team has resulted not only in a
+<a href="https://numpy.org/neps/nep-0044-restructuring-numpy-docs.html">restructuring of the documentation</a>
+and <a href="https://github.com/numpy/numpy-tutorials">a new repository for educational content</a>
+but has also created the opportunity for many new contributors to join the
+project. Part of this new grant will enable us to continue that work, resulting
+in a set of high-quality documents around NumPy while at the same time
+diversifying opportunities for community contributions.</p>
+<h4>F2py</h4>
+<p>As a part of NumPy, the F2py tool is used by numerous projects in the Python
+scientific ecosystem, including SciPy itself, to automate the compilation of
+Fortran code into Python modules, making it an essential piece of the
+infrastructure for these projects.</p>
+<p>However, Fortran has evolved over the years. Although considered by some as a
+niche language, it is still <a href="https://github.com/search?q=fortran">very popular</a>
+among scientific computing and high-performance developers and is in
+<a href="https://fortran-lang.org/">active development</a>. Due to a lack of dedicated
+development work in the past years, <a href="https://github.com/numpy/numpy/issues/14938">F2py does not support many current
+features of the language</a>. In
+addition, because of limited resources dedicated to testing and maintenance,
+regressions have been introduced in the F2py code that may result in a
+propagation of bugs for many other projects. With this grant, we plan to address
+the maintenance backlog and extend the functionality of F2py and bring back
+Pearu Peterson, the original author for the F2py tool, to its development.</p>
+<p>Currently, F2py supports wrapping Fortran 77 and Fortran 90 code, except for
+derived types introduced in Fortran 90. To support modern use cases, we plan to
+add support for derived types and work towards full Fortran 2003 compatibility.
+While there have been
+<a href="https://github.com/pearu/f2py">attempts at resolving these issues in the past</a>,
+they were never integrated into NumPy, and at the moment, this would require a
+larger refactor of F2py, which we propose to do. We are also writing a new F2py
+user guide with comprehensive examples and feature descriptions.</p>
+<h4>OpenBLAS</h4>
+<p>OpenBLAS is a highly optimized library for linear algebra computations. It
+provides accelerated versions of BLAS (Basic Linear Algebra Subroutines and
+LAPACK (Linear Algebra Package), which are the two universal interfaces to
+perform linear algebra with. It is a key dependency of NumPy and SciPy, as well
+as of R and Julia. While most users will not realize they are using it, it is
+essential for the three leading scientific open-source programming ecosystems.</p>
+<p>This grant will enable the OpenBLAS maintainers to continue addressing critical
+technical issues. These include issues with Thread Local Storage, performance at
+certain problem sizes, and the implementation of BLAS extensions already
+provided by similar libraries.</p>
+<h3>In practice</h3>
+<p>As part of the third cycle of the ​Essential Open Source Software for Science
+(EOSS)​ program, CZI awarded $3 million for 17 new grants. These awards bring the
+total number of funded proposals to 67 projects and the EOSS program's total
+commitment to funding scientific open source to $11.8 million. View the
+​<a href="https://chanzuckerberg.com/eoss/proposals/">full list of grantees​</a>.</p>
+<p>As for our project, the funds will be again managed by NumFOCUS as a fiscal
+sponsor. Of the total value (removing the overhead charges), about two-thirds
+will go to NumPy. This will support me, as the PI of this proposal, and Pearu
+Peterson part-time for a year, as a subcontract with Quansight. The remaining
+funds will support Martin Kroeker part-time for a year.</p>
+<h3>To work!</h3>
+<p>The actual work begins on January 1st, and I'm looking forward to this. Moving
+from being a part of the grant project for NumPy in 2020 to being the PI in 2021
+is exciting - I can't wait to see what we do next!</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../introduction-to-design-in-open-source/" rel="prev" title="Introduction to Design in Open Source">Previous post</a>
+            </li>
+
+            <li class="archive">
+                <a href="../../../../archive.html" rel="archive" title="Archive ">Archive</a>
+            </li>
+
+            <li class="next disabled">
+                <a rel="next">Next post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2020         <a href="../../../../team">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>
