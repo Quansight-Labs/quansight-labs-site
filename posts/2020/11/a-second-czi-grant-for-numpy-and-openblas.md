@@ -3,15 +3,15 @@
 .. slug: a-second-czi-grant-for-numpy-and-openblas
 .. date: 2020-11-19 11:29:55 UTC-06:00
 .. author: Melissa Weber Mendonça
-.. tags: NumPy, OpenBLAS, grant, funding, czi
-.. category: 
-.. link: 
-.. description: 
+.. tags: NumPy, OpenBLAS, grant, funding, CZI
+.. category:
+.. link:
+.. description:
 .. type: text
 -->
 
 I am happy to announce that NumPy and OpenBLAS have once again been awarded a
-grant from the Chan Zuckerberg Initiative through 
+grant from the Chan Zuckerberg Initiative through
 [Cycle 3 of the Essential Open Source Software for Science (EOSS) program](https://chanzuckerberg.com/newsroom/czi-awards-4-7-million-for-open-source-software-and-organizations-advancing-open-science/).
 This new grant totaling $140,000 will fund part of our efforts to improve
 usability and sustainability in both projects and is excellent news for the
@@ -54,14 +54,14 @@ and [a new repository for educational content](https://github.com/numpy/numpy-tu
 but has also created the opportunity for many new contributors to join the
 project. Part of this new grant will enable us to continue that work, resulting
 in a set of high-quality documents around NumPy while at the same time
-diversifying opportunities for community contributions. 
+diversifying opportunities for community contributions.
 
 ### F2py
 
 As a part of NumPy, the F2py tool is used by numerous projects in the Python
 scientific ecosystem, including SciPy itself, to automate the compilation of
 Fortran code into Python modules, making it an essential piece of the
-infrastructure for these projects. 
+infrastructure for these projects.
 
 However, Fortran has evolved over the years. Although considered by some as a
 niche language, it is still [very popular](https://github.com/search?q=fortran)
@@ -76,13 +76,13 @@ the maintenance backlog and extend the functionality of F2py and bring back
 Pearu Peterson, the original author for the F2py tool, to its development.
 
 Currently, F2py supports wrapping Fortran 77 and Fortran 90 code, except for
-derived types introduced in Fortran 90. To support modern use cases, we plan to 
+derived types introduced in Fortran 90. To support modern use cases, we plan to
 add support for derived types and work towards full Fortran 2003 compatibility.
 While there have been
 [attempts at resolving these issues in the past](https://github.com/pearu/f2py),
 they were never integrated into NumPy, and at the moment, this would require a
 larger refactor of F2py, which we propose to do. We are also writing a new F2py
-user guide with comprehensive examples and feature descriptions. 
+user guide with comprehensive examples and feature descriptions.
 
 ### OpenBLAS
 
@@ -91,7 +91,7 @@ provides accelerated versions of BLAS (Basic Linear Algebra Subroutines and
 LAPACK (Linear Algebra Package), which are the two universal interfaces to
 perform linear algebra with. It is a key dependency of NumPy and SciPy, as well
 as of R and Julia. While most users will not realize they are using it, it is
-essential for the three leading scientific open-source programming ecosystems. 
+essential for the three leading scientific open-source programming ecosystems.
 
 This grant will enable the OpenBLAS maintainers to continue addressing critical
 technical issues. These include issues with Thread Local Storage, performance at
@@ -103,7 +103,7 @@ provided by similar libraries.
 As part of the third cycle of the ​Essential Open Source Software for Science
 (EOSS)​ program, CZI awarded $3 million for 17 new grants. These awards bring the
 total number of funded proposals to 67 projects and the EOSS program's total
-commitment to funding scientific open source to $11.8 million. View the 
+commitment to funding scientific open source to $11.8 million. View the
 ​[full list of grantees​](https://chanzuckerberg.com/eoss/proposals/).
 
 As for our project, the funds will be again managed by NumFOCUS as a fiscal
