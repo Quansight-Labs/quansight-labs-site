@@ -45,6 +45,7 @@ Our plans for 2021 include continuing with our efforts in documentation and
 community building for NumPy and also working to modernize its integration with
 Fortran tools via F2py, in addition to dedicating resources towards ensuring the
 sustainability of both NumPy and OpenBLAS.
+[You can read the full proposal here](https://figshare.com/articles/online_resource/Improving_usability_and_sustainability_for_NumPy_and_OpenBLAS/13269167).
 
 ### Documentation
 
