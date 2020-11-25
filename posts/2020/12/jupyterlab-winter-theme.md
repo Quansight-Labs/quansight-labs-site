@@ -67,10 +67,15 @@ and contribute.
 
 # installing jupyter lab
 
-To get started you do [NOT?] need a developement version of JupyterLab this can
+To get started you do [NOT?] need a development version of JupyterLab this can
 be achieved with:
 
+$ conda install jupyterlab
 
+While we are at it we eill need to install nodejs, as nodejs is _not_ a python
+package you will need to use conda or another package manager. 
+
+$ conda install nodejs
 
 # creating a theme extensions
 
@@ -78,18 +83,138 @@ Now is the hard part you have an idea, you need a name. Naming is one of the
 two hard-things in data-science along with caching-results and off-by-one error, but is
 critical to adoption and discoverability. We suggest starting with cookie-cutter
 
-Cookie cutter ....
+$ pip install cookie cutter
+
+$ cookiecutter https://github.com/jupyterlab/theme-cookiecutter
+author_name []: QUansight Labs
+author_email []: contact@quansight.com
+extension_name [mytheme]: jupyterlab-winter-2020
+org_name [myorg]: quansight
+homepage []:
+project_short_description [A JupyterLab theme extension.]: A winter theme for jupyterlab
+
+This as created the jupyterlab-winter-2020 directory in which we can move, and
+will immediately turn into a git repository
+
+$ cd jupyterlab-winter-2020/
+$ git init
+$ git add .
+$ git commit -am 'initial commit'
 
 
-INSERT PSEUDO SNIPPET of interaction
+
 
 
 # building and installing our extensions
 
-....
+THe readme of our new theme does already containsome information on how to
+install this theme:
+
+```bash
+npm install
+jupyter labextension link .
+```
+
+You only need to do this one. 
+
+In a separate terminal you can now open jupyterlab, and will see the theme available from the menu. 
+
+You can switch themes; but as you will see; the current theme is identical to
+the light-theme. Now is time to modify some values. 
 
 
 # modifying some values
+
+After each modification you will need to build the extension with 
+
+```bash
+npm run build; jupyter lab build
+```
+
+No need to stop and restart JupyterLab server; simply refresh the page.
+Now we are going to modify some values in the file `varaibles.css` in our
+project. This file control many of the color of Jupyterlab, and is a nice place
+to start to change the overall color scheme before doing more detailed
+customisation.
+
+We'll try to update the current theme from orange/blue to a more red/green which
+tend to remind me of the holiday season, in the diff afer see how I change the
+brands colors from blue to red:
+
+```diff
+--- a/style/variables.css
++++ b/style/variables.css
+@@ -168 +168 @@                                                                  
+-  --jp-content-link-color: var(--md-blue-700);
++  --jp-content-link-color: var(--md-red-700);
+@@ -220,4 +220,4 @@                                                                  
+-  --jp-brand-color0: var(--md-blue-700);
+-  --jp-brand-color1: var(--md-blue-500);
+-  --jp-brand-color2: var(--md-blue-300);
+-  --jp-brand-color3: var(--md-blue-100);
++  --jp-brand-color0: var(--md-red-700);
++  --jp-brand-color1: var(--md-red-500);
++  --jp-brand-color2: var(--md-red-300);
++  --jp-brand-color3: var(--md-red-100);
+```
+
+This will affect most of the links ad many icons already. The input prompt in a
+notebook are still blue. Using my browser inspector I can find that this is
+controlled by the following which I change to red using one of the above
+variable.
+
+```
+@@ -274 +274 @@                                                                 .
+-  --jp-cell-inprompt-font-color: #307fc1;
++  --jp-cell-inprompt-font-color: var(--jp-brand-color1);
+```
+
+I'd like the "running notebook" dot in the filesystem browser to now be a
+snowman instead of a blue dot. Again using the inspector I can look a the css
+doing this and override it in my theme:
+
+
+```
+@@ -368,0 +369,26 @@                                                                 .
++
++.jp-DirListing-item.jp-mod-running .jp-DirListing-itemIcon:before {
++    content: '\2603'; /* snowman */
++    font-size: 10px;
++    position: absolute;
++    left: -8px;
++}
+```
+
+I also want the "notebook" and "json" file icons to be green, and the "shutdown
+kernel" button to be red:
+
+```
++g.jp-icon-warn0.jp-icon-selectable, g.jp-icon-warn1.jp-icon-selectable {
++    fill: var(--md-green-700);
++
++}
++
++button.jp-RunningSessions-itemShutdown.jp-mod-styled {
++    fill: var(--md-red-700);
++
++}
+```
+
+Let me also put images in the bottom left corner of many panels, I use a
+transparent white layer (FFFC gradient) on top of an image I do not forget to
+put in the `style/` directory, I can reference it from my css file:
+
+RIGHT NOW QS LOGO, BUT MAYBE USE A TREE, REINDEER...
+
+```
++.jp-Notebook, .jp-Launcher-body, .jp-DirListing-content {
++    background-image: linear-gradient(#FFFC,#FFFC),url(./logo.jpg);
++    background-repeat: no-repeat;
++    background-size: 120px 120px;
++    background-position: bottom left;
++}
+```
+
 
 
 
