@@ -215,7 +215,56 @@ RIGHT NOW QS LOGO, BUT MAYBE USE A TREE, REINDEER...
 +}
 ```
 
+## Design considerations 
+In the words of Jurassic Park’s Dr. Ian Malcolm, “Your scientists were so preoccupied with whether they could, 
+they didn't stop to think if they should.” And now that you can modify JupyterLab’s theme to your heart’s content, 
+here is some design advice to help keep you from accidentally creating a theme that visually destroys your 
+workspace like a rampaging tyrannosaurus rex.
 
+### JupyterLab Design System
+When making a theme, it’s likely you’ll want to change things that already exist in JupyterLab. Much of the UI relies 
+on relevant CSS variables with naming conventions (`--jp-ui-font-color3 ` or `--jp-elevation-z0`) to help you find 
+what you need. I think of the system like this:`--jp-region-contenttype-unit1`
+
+- The `--jp` prefix is a constant. 
+- The middle holds various details like what type of UI element it is for, if it is standard (no tag) or if it has a specific use. 
+- `region` is for variables that are only be used in a certain area of the UI .
+- The content type is something like `font` or `border`. It describes the variable based on its use. 
+- The `unit` is the smallest unit of the variable like a color, shadow, or spacing. It is labeled by a number when 
+there is more than one of that unit; `0`s are almost never used, and `1`s are some of the most frequently used. 
+- Whenever a variable name does not have one of these sections, that means it doesn’t have specific rules about 
+its use in that area.
+
+Common labels you might want to know:
+- `layout` is used for large areas of the interface, especially backgrounds. 
+- `inverse`  indicates the opposite color scale of the rest of the UI. For example in light mode, inverse `0` and `1` 
+are dark instead of light.
+- `elevation` and `z` is for shadows. While these might not be the main things you want to change, their unfamiliar 
+name might make them harder to find.
+- `font` is for variables tied to text. These have forms for color, size, and spacing of text. There are also variables 
+specific to different types of text and display modes, so you could have a theme that looks like the standard light 
+theme until you enter Presentation mode.
+
+### Color
+Less is more. Choosing a color palette of three or less hues can be easier to manage and make the whole interface 
+more cohesive since those colors will likely be repeated across the UI. Try it out; it might be surprising how just 
+changing a few color variables can create a very different JupyterLab.
+
+A color's value—or how light or dark it is—also determines contrast. Contrast is key to legibility and creating an 
+experience that includes low-vision users. [WCAG color contrast guidelines](https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG/Perceivable/Color_contrast) apply to text and graphic interactive 
+elements. There are many tools available, including [downloadable contrast checkers](https://www.paciellogroup.com/color-contrast-checker/) and [web app versions](https://userway.org/contrast/000000/ffffff).
+
+### Text
+JupyterLab is full of text, so this can be a place for major changes with very little code. You can easily change font, 
+color, spacing, and size. It's a good idea not have text below 10pt in size, or smaller than the default [`--jp-ui-font-size0`](https://github.com/jupyterlab/jupyterlab/blob/083c65d92686d23b813f0242fca5be3d8b6fae37/packages/theme-light-extension/style/variables.css#L107) (and it's an accessibility recommendation).
+
+### Icons
+JupyterLab's icons live in the [packages directory](https://github.com/jupyterlab/jupyterlab/tree/083c65d92686d23b813f0242fca5be3d8b6fae37/packages/theme-light-extension/style/icons) and are part 
+of or based on [Material Icons](https://material.io/resources/icons/?search=clos&icon=warning&style=round). If 
+you want to change or add icons and keep them matching, finding one from this system will fit best. The [Material Design system](https://material.io/design/iconography/system-icons.html) also points out some of their icon 
+design principles which are good to follow if you need to make custom icons that match with the rest. Use SVGs, 
+not PNGs, and remember to give it a [tooltip](https://en.wikipedia.org/wiki/Tooltip). Most of all, make sure to give it 
+an ARIA label (like [this recommendation](https://gomakethings.com/icon-accessibility-and-aria-label/)).
 
 
 # Awesome ! 
@@ -224,7 +273,6 @@ Here is the final result, JupyterLab-winter-2020 provided by QuanSight, feel
 free to modify it, and please suggest some themes you might like and share your
 in the comments. For example we'd love to see a "summer 2020 theme" for our southern hemisphere friends. 
 We will dive into how to distribute your themes and make it high quality in a later blog post.
-
 
 
 
