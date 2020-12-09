@@ -274,8 +274,8 @@ free to modify it, and please suggest some themes you might like and share your
 in the comments. For example we'd love to see a "summer 2020 theme" for our southern hemisphere friends. 
 We will dive into how to distribute your themes and make it high quality in a later blog post.
 
-
-
+---
+*This is part of a series of Jupyter tutorials. Find more [tutorials here](https://labs.quansight.org/categories/JupyterTutorials).*
 
 
 
