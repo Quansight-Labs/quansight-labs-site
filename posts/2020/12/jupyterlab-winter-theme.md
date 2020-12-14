@@ -1,9 +1,9 @@
 <!--
 .. title: JupyterLab Winter Theme
-.. slug: jupyterlab-winder-theme
+.. slug: jupyterlab-winter-theme
 .. date: 2020-12-01 09:00:00 UTC-00:00
 .. author: Matthias Bussonnier, Isabela Presedo Floyd, Eric Charles, Eric Kelley, Tony Fast
-.. tags: Labs, Jupyter, Theme, JupyterLab
+.. tags: Labs, Jupyter, Theme, JupyterLab, JupyterTutorials
 .. category:
 .. link:
 .. description:
@@ -255,6 +255,5 @@ notebooks !
 [![Screenshot of JupyterLab Christmas Theme](/images/jupyterlab-theme-christmas.png)](https://github.com/Quansight-Labs/jupyterlab-theme-christmas)
 ---
 *This is part of a series of Jupyter tutorials. Find more [tutorials here](https://labs.quansight.org/categories/JupyterTutorials).*
-
 
 
