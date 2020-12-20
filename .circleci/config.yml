@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/python:latest
+      - image: circleci/python:3.7
     steps:
       - checkout
       - run:
@@ -15,7 +15,7 @@ jobs:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
       - run:
           name: Install Nikola
-          command: sudo pip install nikola[extras]==8.0.4 commonmark
+          command: sudo pip install -r requirements.txt
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
           paths:
@@ -27,7 +27,7 @@ jobs:
           path: ./output/
   build_deploy:
     docker:
-      - image: circleci/python:latest
+      - image: circleci/python:3.7
     steps:
       - checkout
       - run:
@@ -39,7 +39,7 @@ jobs:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
       - run:
           name: Install Nikola
-          command: sudo pip install nikola[extras] commonmark
+          command: sudo pip install -r requirements.txt
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
           paths:
