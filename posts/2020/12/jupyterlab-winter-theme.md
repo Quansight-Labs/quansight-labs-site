@@ -1,5 +1,5 @@
 <!--
-.. title: JupyterLab Winter Theme
+.. title: Develop a JupyterLab Winter Theme
 .. slug: jupyterlab-winter-theme
 .. date: 2020-12-01 09:00:00 UTC-00:00
 .. author: Matthias Bussonnier, Isabela Presedo Floyd, Eric Charles, Eric Kelly, Tony Fast
@@ -77,7 +77,7 @@ be achieved with:
 $ pip install --pre \
   jupyterlab==3.0rc14 \
   jupyter_packaging \
-  cookiecutte
+  cookiecutter
 ``` 
 
 While we are at it we will need to install nodejs, as nodejs is _not_ a python
@@ -200,7 +200,8 @@ jupyter lab --watch
 Now you will see the theme available from the Settings menu.
 
 You can switch themes; but as you will see; the current theme is identical to
-the light-theme. Now is time to modify some values with a valid design.
+the light-theme. Now is time to modify some values in the `styles/variables.css` file
+with a valid design.
 
 ## Design Considerations
 
@@ -263,7 +264,7 @@ also points out some of their icon design principles which are good to follow if
 match with the rest. Use SVGs, not PNGs, and remember to give it a [tooltip](https://en.wikipedia.org/wiki/Tooltip). 
 Most of all, make sure to give it an ARIA label (like [this recommendation](https://gomakethings.com/icon-accessibility-and-aria-label/)).
 
-# Modifying some values
+# Modifying the Theme Variables
 
 After each modification the wath process will build the extension for you.
 
@@ -328,7 +329,7 @@ body[data-jp-theme-name="JupyterLab Winter"] .jp-DirListing-content {
 
 # Awesome!
 
-Here is the final result, JupyterLab-winter-2020 theme provided by QuanSight.  Feel
+Here is the final result, jupyterLab-theme-winter theme provided by QuanSight.  Feel
 free to modify it, and please suggest some themes you might like and share
 in the comments. For example we'd love to see a "summer 2020 theme" for our southern hemisphere friends. 
 We will dive into how to distribute your themes and make them high quality in a later blog post.
