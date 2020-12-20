@@ -10,8 +10,9 @@
 .. type: text
 -->
 
-JupyterLab 3.0 is about to be release/ has been released, it provides many 
-improvements to the extension system and, in particular, theming. 
+JupyterLab 3.0 is about to be release (??? has just been released) and provides many 
+improvements to the extension system. Theming is a way to extend JupyterLab and 
+benefits from those improvements.
 
 While theming is often disregarded as purely cosmetic endeavour it can greatly
 improve software. Theming can be great help for accessibility, and even the
@@ -28,7 +29,7 @@ Finally Theming can be a great way to express oneself, for example, by using
 a branded version of software that fits well into a context, or expressing one's artistic
 preferences or opinions. 
 
-In the following blog post(s), we will show you step-by-step how you can
+In the following blog post, we will show you step-by-step how you can
 develop a custom theme for JupyterLab, distribute it, and take the example of the
 JupyterLab-winter-2020 theme we release today to celebrate the end of 2020.
 
@@ -36,17 +37,18 @@ JupyterLab-winter-2020 theme we release today to celebrate the end of 2020.
 
 # JupyterLab and Themes
 
-JupyterLab customisation can be done via what are called Extensions.  All
+JupyterLab customisation can be done via what are called `Extensions`.  All
 behaviors and user interface elements of JupyterLab can be changed by providing
 extensions; this is true for elements that are added to JupyterLab, but also for
-the core components. A Theme is one of those extensions.  The default light and dark
+the core components. A Theme is one of those extensions. The default light and dark
 themes are always good examples to look at if you want to understand how to build
-a theme. 
+a theme.
 
 Generally all information about how extensions work in JupyterLab is applicable
 to a theme, though there are a number of optional steps and behaviors that are not
-necessary for themes. A lot of boilerplate can also be extracted, which
-makes creating most themes simpler that full-fledged extensions.
+necessary for themes, and a few configuration that are needed for themes.
+A lot of boilerplate can also be extracted, which makes creating most themes 
+simpler that full-fledged extensions.
 
 Let's first see what we are trying to accomplish in a screenshot of the "winter 2020" theme.
 You will have the option to choose this theme in the dropdown menu of JupyterLab:
@@ -55,7 +57,7 @@ You will have the option to choose this theme in the dropdown menu of JupyterLab
 
 To do so we'll need to:
 
-- Install JupyterLab (dev edition)
+- Install JupyterLab
 - Create a new theme extension
 - Install this extension
 - Switch to our new theme
@@ -68,13 +70,15 @@ and contribute.
 
 # Installing JupyterLab
 
-To get started you do [NOT?] need a development version of JupyterLab.  This can
+To get started you do not need a development version of JupyterLab.  This can
 be achieved with:
 
 ```bash
-$ conda install jupyterlab
+$ pip install --pre \
+  jupyterlab==3.0rc14 \
+  jupyter_packaging \
+  cookiecutte
 ``` 
-[The bullet list above states "dev edition".  Is this the correct install command?]
 
 While we are at it we will need to install nodejs, as nodejs is _not_ a python
 package you will need to use conda or another package manager. 
@@ -90,54 +94,123 @@ two hardest things in data science [I like this joke, but do you mean 'developme
 along with caching-results and off-by-one error, but it is
 critical to adoption and discoverability. 
 
-Now that you have your perfect name, create your project.  We suggest using cookiecutter:
+Now that you have your perfect name, create your project.  We suggest using the jupyterlab cookiecutter and, as prerequisite,
+install the jupyter_packaging library needed to develop extensions and the cookiecuter package that will create
+the initial boilerplate.
 
 ```bash
-$ pip install cookiecutter
-
-$ cookiecutter https://github.com/jupyterlab/theme-cookiecutter
-author_name []: Quansight Labs
-author_email []: contact@quansight.com
-extension_name [mytheme]: jupyterlab-theme-winter
-org_name [myorg]: quansight
-homepage []:
-project_short_description [A JupyterLab theme extension.]: A winter theme for jupyterlab
+$ pip install jupyter_packaging cookiecutter
 ```
 
-This has created the jupyterlab-winter-2020 directory [do you mean 'jupyterlab-theme-winter' directory?].  We can go to the directory and
+Normally we would [theme-cookiecutter](https://github.com/jupyterlab/theme-cookiecutter) but it is not
+yet updated for JupyterLab 3, now we fallback to the more generic 
+[extension-cookiecutter-ts](https://github.com/jupyterlab/extension-cookiecutter-ts) 
+and will highlight the specifics of a Theme extension compared to a standard one.
+
+```bash
+$ cookiecutter https://github.com/jupyterlab/extension-cookiecutter-ts --checkout 3.0
+author_name []: Quansight Labs
+python_name [myextension]: jupyterlab-theme-winter
+labextension_name [myextension]: @quansight-labs/jupyterlab-theme-winter
+project_short_description [A JupyterLab theme extension.]: A winter theme for jupyterlab
+has_server_extension [n]: 
+has_binder [n]: 
+repository [https://github.com/my_name/myextension]: 
+```
+
+This has created the `jupyterlab-theme-winter`.  We can go to the directory and
 immediately turn it into a git repository.
 
 ```bash
-$ cd jupyterlab-winter-2020/
+$ cd jupyterlab-theme-winter
 $ git init
 $ git add .
 $ git commit -am 'initial commit'
 ```
 
-# Building and installing our extensions
+# Building and Installing the Extension
 
-The readme of our new theme already contains some information on how to
-install this theme:
+JupyterLab 3 has focussed ot make extension authors life easier, and it has made a great
+job for it. As developer, you just need to run a single command to be up-and-running
+with your extension. You only need to do this once.
 
 ```bash
-npm install
-jupyter labextension link .
+jupyter labextension develop --overwrite
 ```
 
-You only need to do this one [once?]. 
+We are now ready for the development session. As we want to iterate fast, we will launch
+a watch process that compile continuously compile your extension on each of your changes
+and will make it available in the JupyterLab frotend.
 
-In a separate terminal you can now open JupyterLab and will see the theme available from the menu. 
+```bash
+jlpm watch
+```
+
+Remember, we have not created our boileplate from the theme cookicutter, so we need to 
+make sure we turn the code to a theme extension with the following 2 actions.
+
+First, replace the content of `src/index.ts` with the following content
+
+```js
+import {
+  JupyterFrontEnd,
+  JupyterFrontEndPlugin
+} from '@jupyterlab/application';
+
+import { IThemeManager } from '@jupyterlab/apputils';
+
+/**
+ * Initialization data for the @quansight-labs/jupyterlab-theme-winter extension.
+ */
+const extension: JupyterFrontEndPlugin<void> = {
+  id: '@quansight-labs/jupyterlab-theme-winter',
+  requires: [IThemeManager],
+  autoStart: true,
+  activate: (app: JupyterFrontEnd, manager: IThemeManager) => {
+    console.log('JupyterLab extension @quansight-labs/jupyterlab-theme-winter is activated!');
+    const style = '@quansight-labs/jupyterlab-theme-winter/index.css';
+    manager.register({
+      name: 'JupyterLab Winter',
+      isLight: true,
+      load: () => manager.loadCSS(style),
+      unload: () => Promise.resolve(undefined)
+    });
+  }
+};
+
+export default extension;
+```
+
+The in the `package.json`, add `"jupyterlab-theme"` to the list of keywords and ensure that the `jupyterlab` stanza looks like this.
+
+```json
+  "jupyterlab": { 
+    "extension": true,
+    "themePath": "style/index.css",
+    "outputDir": "jupyterlab_theme_winter/labextension"
+  }
+```
+
+In a separate terminal you can now start JupyterLab in watch mode.
+
+```bash
+jupyter lab --watch
+```
+
+Now you will see the theme available from the Settings menu.
 
 You can switch themes; but as you will see; the current theme is identical to
-the light-theme. Now is time to modify some values. 
+the light-theme. Now is time to modify some values with a valid design.
 
-## Design considerations 
+## Design Considerations
+
 In the words of Jurassic Park’s Dr. Ian Malcolm, “Your scientists were so preoccupied with whether they could, 
 they didn't stop to think if they should.” And now that you can modify JupyterLab’s theme to your heart’s content, 
 here is some design advice to help keep you from accidentally creating a theme that visually destroys your 
 workspace like a rampaging tyrannosaurus rex.
 
 ### JupyterLab Design System
+
 When making a theme, it’s likely you’ll want to change things that already exist in JupyterLab. Much of the UI relies 
 on relevant CSS variables with naming conventions (`--jp-ui-font-color3 ` or `--jp-elevation-z0`) to help you find 
 what you need. I think of the system like this:`--jp-region-contenttype-unit1`
@@ -163,6 +236,7 @@ specific to different types of text and display modes, so you could have a theme
 theme until you enter Presentation mode.
 
 ### Color
+
 Less is more. Choosing a color palette of three or fewer hues can be easier to manage and make the whole interface 
 more cohesive since those colors will likely be repeated across the UI. Try it out; it might be surprising how just 
 changing a few color variables can create a very different JupyterLab.
@@ -174,12 +248,14 @@ elements. There are many tools available, including [downloadable contrast check
 and [web app versions](https://userway.org/contrast/000000/ffffff).
 
 ### Text
+
 JupyterLab is full of text, so this can be a place for major changes with very little code. You can easily change font, 
 color, spacing, and size. It's a good idea not have text below 10pt in size, or smaller than the default 
 [`--jp-ui-font-size0`](https://github.com/jupyterlab/jupyterlab/blob/083c65d92686d23b813f0242fca5be3d8b6fae37/packages/theme-light-extension/style/variables.css#L107) 
 (and it's an accessibility recommendation).
 
 ### Icons
+
 JupyterLab's icons live in the [packages directory](https://github.com/jupyterlab/jupyterlab/tree/083c65d92686d23b813f0242fca5be3d8b6fae37/packages/theme-light-extension/style/icons) 
 and are part of or based on [Material Icons](https://material.io/resources/icons/?search=clos&icon=warning&style=round). 
 If you want to change or add icons and keep them matching, finding one from this system will fit best. The [Material Design system](https://material.io/design/iconography/system-icons.html) 
@@ -189,11 +265,7 @@ Most of all, make sure to give it an ARIA label (like [this recommendation](http
 
 # Modifying some values
 
-After each modification you will need to build the extension with 
-
-```bash
-npm run build; jupyter lab build
-```
+After each modification the wath process will build the extension for you.
 
 No need to stop and restart JupyterLab server; simply refresh the page.
 Now we are going to modify some values in the file `varaibles.css` in our
@@ -254,7 +326,7 @@ body[data-jp-theme-name="JupyterLab Winter"] .jp-DirListing-content {
  }
 ```
 
-# Awesome ! 
+# Awesome!
 
 Here is the final result, JupyterLab-winter-2020 theme provided by QuanSight.  Feel
 free to modify it, and please suggest some themes you might like and share
@@ -267,7 +339,7 @@ And as a bonus, a Christmas theme with more green-ish color and some lights shin
 at the bottom of your notebooks!
 
 [![Screenshot of JupyterLab Christmas Theme](/images/jupyterlab-theme-christmas.png)](https://github.com/Quansight-Labs/jupyterlab-theme-christmas)
+
 ---
+
 *This is part of a series of Jupyter tutorials. Find more [tutorials here](https://labs.quansight.org/categories/JupyterTutorials).*
-
-
