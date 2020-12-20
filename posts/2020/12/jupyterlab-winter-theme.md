@@ -1,7 +1,7 @@
 <!--
 .. title: Develop a JupyterLab Winter Theme
 .. slug: jupyterlab-winter-theme
-.. date: 2020-12-01 09:00:00 UTC-00:00
+.. date: 2020-12-21 09:00:00 UTC-00:00
 .. author: Matthias Bussonnier, Isabela Presedo Floyd, Eric Charles, Eric Kelly, Tony Fast
 .. tags: Labs, Jupyter, Theme, JupyterLab, JupyterTutorials
 .. category:
@@ -46,7 +46,7 @@ a theme.
 
 Generally all information about how extensions work in JupyterLab is applicable
 to a theme, though there are a number of optional steps and behaviors that are not
-necessary for themes, and a few configuration that are needed for themes.
+necessary for themes, and a few configurations that are needed for themes.
 A lot of boilerplate can also be extracted, which makes creating most themes 
 simpler that full-fledged extensions.
 
@@ -87,38 +87,39 @@ package you will need to use conda or another package manager.
 $ conda install nodejs
 ```
 
-# Creating a theme extension
+# Creating a Theme Extension
 
 Now is the hard part: you have an idea, you need a name. Naming is one of the
-two hardest things in data science [I like this joke, but do you mean 'development'?  I don't consider theming to be data science] 
-along with caching-results and off-by-one error, but it is
+two hardest things in development along with caching results and off-by-one errors, but it is
 critical to adoption and discoverability. 
 
-Now that you have your perfect name, create your project.  We suggest using the jupyterlab cookiecutter and, as prerequisite,
-install the jupyter_packaging library needed to develop extensions and the cookiecuter package that will create
-the initial boilerplate.
+Now that you have your perfect name, create your project.  We suggest using the jupyterlab `cookiecutter` to create the 
+initial boilerplate, and, as a prerequisite, install the `jupyter_packaging` library needed to develop extensions. 
+We won't actually create the boilerplate until farther below in this post.
 
 ```bash
 $ pip install jupyter_packaging cookiecutter
 ```
 
-Normally we would [theme-cookiecutter](https://github.com/jupyterlab/theme-cookiecutter) but it is not
-yet updated for JupyterLab 3, now we fallback to the more generic 
+Normally we would use [theme-cookiecutter](https://github.com/jupyterlab/theme-cookiecutter) but it is not
+yet updated for JupyterLab 3, so we fallback to the more generic 
 [extension-cookiecutter-ts](https://github.com/jupyterlab/extension-cookiecutter-ts) 
 and will highlight the specifics of a Theme extension compared to a standard one.
 
+Run `cookiecutter` and provide some information about your extension:
+
 ```bash
 $ cookiecutter https://github.com/jupyterlab/extension-cookiecutter-ts --checkout 3.0
-author_name []: Quansight Labs
+author_name []: My Name
 python_name [myextension]: jupyterlab-theme-winter
-labextension_name [myextension]: @quansight-labs/jupyterlab-theme-winter
+labextension_name [myextension]: @my-repo/jupyterlab-theme-winter
 project_short_description [A JupyterLab theme extension.]: A winter theme for jupyterlab
 has_server_extension [n]: 
 has_binder [n]: 
 repository [https://github.com/my_name/myextension]: 
 ```
 
-This has created the `jupyterlab-theme-winter`.  We can go to the directory and
+This has created the extension `jupyterlab-theme-winter`.  We can go to the directory and
 immediately turn it into a git repository.
 
 ```bash
@@ -130,8 +131,8 @@ $ git commit -am 'initial commit'
 
 # Building and Installing the Extension
 
-JupyterLab 3 has focussed ot make extension authors life easier, and it has made a great
-job for it. As developer, you just need to run a single command to be up-and-running
+JupyterLab 3 has focussed on make extension authors' lives easier, and it has done a great
+job of it. As a developer, you just need to run a single command to be up and running
 with your extension. You only need to do this once.
 
 ```bash
@@ -139,15 +140,15 @@ jupyter labextension develop --overwrite
 ```
 
 We are now ready for the development session. As we want to iterate fast, we will launch
-a watch process that compile continuously compile your extension on each of your changes
-and will make it available in the JupyterLab frotend.
+a watch process that continuously compiles your extension on each of your changes
+and will make it available in the JupyterLab frontend so that you can see the changes immediately.
 
 ```bash
 jlpm watch
 ```
 
-Remember, we have not created our boileplate from the theme cookicutter, so we need to 
-make sure we turn the code to a theme extension with the following 2 actions.
+Remember, we have not yet created our boileplate from the theme cookicutter, so we need to 
+make sure we turn the code into a theme extension with the following two actions.
 
 First, replace the content of `src/index.ts` with the following content
 
@@ -181,7 +182,7 @@ const extension: JupyterFrontEndPlugin<void> = {
 export default extension;
 ```
 
-The in the `package.json`, add `"jupyterlab-theme"` to the list of keywords and ensure that the `jupyterlab` stanza looks like this.
+Then in the `package.json`, add `"jupyterlab-theme"` to the list of keywords and ensure that the `jupyterlab` stanza looks like this.
 
 ```json
   "jupyterlab": { 
@@ -210,7 +211,7 @@ they didn't stop to think if they should.” And now that you can modify Jupyter
 here is some design advice to help keep you from accidentally creating a theme that visually destroys your 
 workspace like a rampaging tyrannosaurus rex.
 
-### JupyterLab Design System
+### JupyterLab design system
 
 When making a theme, it’s likely you’ll want to change things that already exist in JupyterLab. Much of the UI relies 
 on relevant CSS variables with naming conventions (`--jp-ui-font-color3 ` or `--jp-elevation-z0`) to help you find 
@@ -266,15 +267,15 @@ Most of all, make sure to give it an ARIA label (like [this recommendation](http
 
 # Modifying the Theme Variables
 
-After each modification the wath process will build the extension for you.
-
+After each modification the watch process will build the extension for you. 
 No need to stop and restart JupyterLab server; simply refresh the page.
-Now we are going to modify some values in the file `varaibles.css` in our
-project. This file controls many of the colors of Jupyterlab, and is a nice place
+
+Now we are going to modify some values in the file `variables.css` in our
+project. This file controls many of the colors of JupyterLab, and is a nice place
 to start to change the overall color scheme before doing more detailed
 customisation.
 
-We'll try to update the current theme from orange/blue to more blue-ish tones, 
+We'll try to update the current theme from orange and blue to more blue-ish tones, 
 which tend to remind me of the holiday
 season.  Afterward, in the `diff`, see how we changed some of the colors:
 
