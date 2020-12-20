@@ -192,7 +192,8 @@ Then in the `package.json`, add `"jupyterlab-theme"` to the list of keywords and
   }
 ```
 
-In a separate terminal you can now start JupyterLab in watch mode.
+In a separate terminal you can now start JupyterLab in watch mode. 
+(use a different terminal than the one you used for `jlpm watch`).
 
 ```bash
 jupyter lab --watch
