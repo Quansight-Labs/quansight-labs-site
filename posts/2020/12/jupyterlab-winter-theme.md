@@ -31,7 +31,7 @@ preferences or opinions.
 
 In the following blog post, we will show you step-by-step how you can
 develop a custom theme for JupyterLab, distribute it, and take the example of the
-jupyterlab-theme-winter theme we release today to celebrate the end of 2020.
+[jupyterlab-theme-winter]((https://github.com/Quansight-Labs/jupyterlab-theme-winter) theme we release today to celebrate the end of 2020.
 
 <!-- TEASER_END -->
 
@@ -53,7 +53,7 @@ simpler that full-fledged extensions.
 Let's first see what we are trying to accomplish in a screenshot of the "winter 2020" theme.
 You will have the option to choose this theme in the dropdown menu of JupyterLab:
 
-[ ![Screenshot of JupyterLab Winter Theme](/images/jupyterlab-theme-winter.png) ](/images/jupyterlab-theme-winter.png)
+[![Screenshot of JupyterLab Winter Theme](/images/jupyterlab-theme-winter.png)](https://github.com/Quansight-Labs/jupyterlab-theme-winter)
 
 To do so we'll need to:
 
@@ -74,10 +74,7 @@ To get started you do not need a development version of JupyterLab.  This can
 be achieved with:
 
 ```bash
-$ pip install --pre \
-  jupyterlab==3.0rc14 \
-  jupyter_packaging \
-  cookiecutter
+$ pip install --pre jupyterlab==3.0rc14 jupyter_packaging cookiecutter
 ``` 
 
 While we are at it we will need to install nodejs. Because nodejs is _not_ a
@@ -280,7 +277,7 @@ to start to change the overall color scheme before doing more detailed
 customisation.
 
 We'll try to update the current theme from orange and blue to more blue-ish tones, 
-which tend to remind me of the holiday
+which tend to remind us of the holiday
 season.  Afterward, in the `diff`, see how we changed some of the colors:
 
 ```diff
@@ -304,13 +301,12 @@ index f8c738f..9f39f14 100644
 @@ -118,10 +118,10 @@ all of MD as it is not optimized for dense, information rich UIs.
 ```
 
-I'd like the "running notebook" dot in the filesystem browser to be a
-snowman instead of a blue dot. Using the browser inspector, I can look a the CSS
+We'd like the "running notebook" dot in the filesystem browser to be a
+snowman instead of a blue dot. Using the browser inspector, we can look at the CSS
 doing this and override it in my theme:
 
-[Is the dot in the second line on the right side of this code block intentional?]
 ```diff
-@@ -368,0 +369,26 @@                                                                 .
+@@ -368,0 +369,26 @@                                                                  
 +
 +.jp-DirListing-item.jp-mod-running .jp-DirListing-itemIcon:before {
 +    content: '\2603'; /* snowman */
@@ -334,14 +330,14 @@ body[data-jp-theme-name="JupyterLab Winter"] .jp-DirListing-content {
 
 # Awesome!
 
-Here is the final result, jupyterLab-theme-winter theme provided by Quansight.  Feel
+[Here]((https://github.com/Quansight-Labs/jupyterlab-theme-winter)) is the final result, jupyterLab-theme-winter theme provided by Quansight.  Feel
 free to modify it, and please suggest some themes you might like and share
 in the comments. For example we'd love to see a "summer 2020 theme" for our Southern Hemisphere friends.
 We will dive into how to distribute your themes and make them high-quality in a later blog post.
 
 [![Screenshot of JupyterLab Winter Theme](/images/jupyterlab-theme-winter.png)](https://github.com/Quansight-Labs/jupyterlab-theme-winter)
 
-And as a bonus, a Christmas theme with more green-ish color and some lights shining [Are they really shining/sparkling or are they from a static image?] 
+And as a bonus, a [Christmas theme]((https://github.com/Quansight-Labs/jupyterlab-theme-christmas)) with more green-ish color and some lights shining 
 at the bottom of your notebooks!
 
 [![Screenshot of JupyterLab Christmas Theme](/images/jupyterlab-theme-christmas.png)](https://github.com/Quansight-Labs/jupyterlab-theme-christmas)
