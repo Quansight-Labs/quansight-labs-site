@@ -31,7 +31,7 @@ preferences or opinions.
 
 In the following blog post, we will show you step-by-step how you can
 develop a custom theme for JupyterLab, distribute it, and take the example of the
-JupyterLab-winter-2020 theme we release today to celebrate the end of 2020.
+jupyterlab-theme-winter theme we release today to celebrate the end of 2020.
 
 <!-- TEASER_END -->
 
