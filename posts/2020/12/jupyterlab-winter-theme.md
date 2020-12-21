@@ -10,7 +10,7 @@
 .. type: text
 -->
 
-JupyterLab 3.0 is about to be release and provides many 
+JupyterLab 3.0 is about to be released and provides many 
 improvements to the extension system. Theming is a way to extend JupyterLab and 
 benefits from those improvements.
 
