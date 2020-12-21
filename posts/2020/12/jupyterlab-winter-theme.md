@@ -14,15 +14,15 @@ JupyterLab 3.0 is about to be release and provides many
 improvements to the extension system. Theming is a way to extend JupyterLab and 
 benefits from those improvements.
 
-While theming is often disregarded as purely cosmetic endeavour it can greatly
-improve software. Theming can be great help for accessibility, and even the
-Jupyter team pays attention to making the default appearance accessibility aware by using
+While theming is often disregarded as a purely cosmetic endeavour, it can greatly
+improve software. Theming can be great help for accessibility, and the Jupyter team
+pays attention to making the default appearance accessibility-aware by using
 sufficient contrast.  For users with a high visual acuity you may also choose 
 to increase the information density.
 
 Theming can also be a great way to improve communication by increasing or
-decreasing emphasis of the user interface, which can be of use for teaching, or
-presentation. Theming may also help with security, for example, by having a clear
+decreasing emphasis of the user interface, which can be of use for teaching or
+presenting. Theming may also help with security, for example, by having a clear
 distinction between staging and production.
 
 Finally Theming can be a great way to express oneself, for example, by using
@@ -80,8 +80,8 @@ $ pip install --pre \
   cookiecutter
 ``` 
 
-While we are at it we will need to install nodejs, as nodejs is _not_ a python
-package you will need to use conda or another package manager. 
+While we are at it we will need to install nodejs. Because nodejs is _not_ a
+Python package you will need to use conda or another package manager.
 
 ```bash
 $ conda install nodejs
@@ -89,12 +89,13 @@ $ conda install nodejs
 
 # Creating a Theme Extension
 
-Now is the hard part: you have an idea, you need a name. Naming is one of the
-two hardest things in development along with caching results and off-by-one errors, but it is
-critical to adoption and discoverability. 
+Now the hard part: you have an idea, you need a name. Naming is one of the
+hardest things in development, along with caching results and off-by-one errors,
+but it is critical to adoption and discoverability.
 
-Now that you have your perfect name, create your project.  We suggest using the jupyterlab `cookiecutter` to create the 
-initial boilerplate, and, as a prerequisite, install the `jupyter_packaging` library needed to develop extensions. 
+Now that you have your perfect name, create your project. We suggest using
+the JupyterLab `cookiecutter` to create the initial boilerplate, and, as a
+prerequisite, install the `jupyter_packaging` library needed to develop extensions.
 We won't actually create the boilerplate until farther below in this post.
 
 ```bash
@@ -102,7 +103,7 @@ $ pip install jupyter_packaging cookiecutter
 ```
 
 Normally we would use [theme-cookiecutter](https://github.com/jupyterlab/theme-cookiecutter) but it is not
-yet updated for JupyterLab 3, so we fallback to the more generic 
+yet updated for JupyterLab 3, so we fall back to the more generic
 [extension-cookiecutter-ts](https://github.com/jupyterlab/extension-cookiecutter-ts) 
 and will highlight the specifics of a Theme extension compared to a standard one.
 
@@ -131,7 +132,7 @@ $ git commit -am 'initial commit'
 
 # Building and Installing the Extension
 
-JupyterLab 3 has focussed on make extension authors' lives easier, and it has done a great
+JupyterLab 3 has focused on make extension authors' lives easier, and it has done a great
 job of it. As a developer, you just need to run a single command to be up and running
 with your extension. You only need to do this once.
 
@@ -147,7 +148,7 @@ and will make it available in the JupyterLab frontend so that you can see the ch
 jlpm watch
 ```
 
-Remember, we have not yet created our boileplate from the theme cookicutter, so we need to 
+Remember, we have not yet created our boilerplate from the theme cookiecutter, so we need to
 make sure we turn the code into a theme extension with the following two actions.
 
 First, replace the content of `src/index.ts` with the following content
@@ -201,7 +202,7 @@ jupyter lab --watch
 Now you will see the theme available from the Settings menu.
 
 You can switch themes; but as you will see; the current theme is identical to
-the light-theme. Now is time to modify some values in the `styles/variables.css` file
+the light-theme. Now it's time to modify some values in the `styles/variables.css` file
 with a valid design.
 
 ## Design Considerations
@@ -215,7 +216,7 @@ workspace like a rampaging tyrannosaurus rex.
 
 When making a theme, it’s likely you’ll want to change things that already exist in JupyterLab. Much of the UI relies 
 on relevant CSS variables with naming conventions (`--jp-ui-font-color3 ` or `--jp-elevation-z0`) to help you find 
-what you need. I think of the system like this:`--jp-region-contenttype-unit1`
+what you need. Think of the system like this:`--jp-region-contenttype-unit1`
 
 - The `--jp` prefix is a constant. 
 - The middle holds various details like what type of UI element it is for, if it is standard (no tag) or if 
@@ -228,13 +229,16 @@ there is more than one of that unit; `0`s are almost never used, and `1`s are so
 its use in that area.
 
 Common labels you might want to know:
+
 - `layout` is used for large areas of the interface, especially backgrounds. 
-- `inverse`  indicates the opposite color scale of the rest of the UI. For example in light mode, inverse `0` and `1` 
-are dark instead of light.
-- `elevation` and `z` is for shadows. While these might not be the main things you want to change, their unfamiliar 
-name might make them harder to find.
-- `font` is for variables tied to text. These have forms for color, size, and spacing of text. There are also variables 
-specific to different types of text and display modes, so you could have a theme that looks like the standard light 
+- `inverse`  indicates the opposite color scale of the rest of the UI. For example in
+  light mode, inverse `0` and `1` are dark instead of light.
+- `elevation` and `z` are for shadows. While these might not be the main things
+  you want to change, their unfamiliar names might make them harder to find.
+- `font` is for variables tied to text. These have forms for color, size, and spacing of text.
+
+There are also variables specific to different types of text and display
+modes, so you could have a theme that looks like the standard light
 theme until you enter Presentation mode.
 
 ### Color
@@ -317,7 +321,7 @@ doing this and override it in my theme:
 ```
 
 We can also add backgrounds to many of the panels.  By adding a file `snowflakepatterns.svg` to our style directory,
-we can now refer to it from our file and add the following CSS to include snow flakes in the background of 
+we can now refer to it from our file and add the following CSS to include snowflakes in the background of
 our directory listing.
 
 ```css
@@ -330,10 +334,10 @@ body[data-jp-theme-name="JupyterLab Winter"] .jp-DirListing-content {
 
 # Awesome!
 
-Here is the final result, jupyterLab-theme-winter theme provided by QuanSight.  Feel
+Here is the final result, jupyterLab-theme-winter theme provided by Quansight.  Feel
 free to modify it, and please suggest some themes you might like and share
-in the comments. For example we'd love to see a "summer 2020 theme" for our southern hemisphere friends. 
-We will dive into how to distribute your themes and make them high quality in a later blog post.
+in the comments. For example we'd love to see a "summer 2020 theme" for our Southern Hemisphere friends.
+We will dive into how to distribute your themes and make them high-quality in a later blog post.
 
 [![Screenshot of JupyterLab Winter Theme](/images/jupyterlab-theme-winter.png)](https://github.com/Quansight-Labs/jupyterlab-theme-winter)
 
@@ -344,4 +348,4 @@ at the bottom of your notebooks!
 
 ---
 
-*This is part of a series of Jupyter tutorials. Find more [tutorials here](https://labs.quansight.org/categories/JupyterTutorials).*
+*This is part of a series of Jupyter tutorials. Find more [tutorials here](/categories/jupytertutorials).*
