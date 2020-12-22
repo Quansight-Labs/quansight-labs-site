@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Develop a JupyterLab Winter Theme | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2020/12/jupyterlab-winter-theme/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-163785882-1');
+</script><meta name="author" content="Matthias Bussonnier, Isabela Presedo Floyd, Eric Charles, Eric Kelly, Tony Fast">
+<link rel="prev" href="../../11/a-second-czi-grant-for-numpy-and-openblas/" title="A second CZI grant for NumPy and OpenBLAS" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="Develop a JupyterLab Winter Theme">
+<meta property="og:url" content="https://labs.quansight.org/blog/2020/12/jupyterlab-winter-theme/">
+<meta property="og:description" content="JupyterLab 3.0 is about to be released and provides many 
+improvements to the extension system. Theming is a way to extend JupyterLab and 
+benefits from those improvements.
+While theming is often disr">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-12-22T09:00:00Z">
+<meta property="article:tag" content="Jupyter">
+<meta property="article:tag" content="JupyterLab">
+<meta property="article:tag" content="JupyterTutorials">
+<meta property="article:tag" content="Labs">
+<meta property="article:tag" content="Theme">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+            <img src="../../../../images/quansight_labs_logo_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../" class="nav-link">Blog</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../team/" class="nav-link">Team</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../projects/" class="nav-link">Projects</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../about/" class="nav-link">About</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right"></ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name">
+                <a href="." class="u-url">Develop a JupyterLab Winter Theme</a>
+            </h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    <a class="u-url" href="../../../../authors/matthias-bussonnier-isabela-presedo-floyd-eric-charles-eric-kelly-tony-fast/">Matthias Bussonnier, Isabela Presedo Floyd, Eric Charles, Eric Kelly, Tony Fast</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2020-12-22T09:00:00Z" itemprop="datePublished" title="2020-12-22">2020-12-22</time></a>
+            </p>
+            
+
+        </div>
+        
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/jupyter/" rel="tag">Jupyter</a></li>
+            <li><a class="tag p-category" href="../../../../categories/jupyterlab/" rel="tag">JupyterLab</a></li>
+            <li><a class="tag p-category" href="../../../../categories/jupytertutorials/" rel="tag">JupyterTutorials</a></li>
+            <li><a class="tag p-category" href="../../../../categories/labs/" rel="tag">Labs</a></li>
+            <li><a class="tag p-category" href="../../../../categories/theme/" rel="tag">Theme</a></li>
+        </ul></header><div class="e-content entry-content" itemprop="articleBody text">
+        <div>
+<p>JupyterLab 3.0 is about to be released and provides many 
+improvements to the extension system. Theming is a way to extend JupyterLab and 
+benefits from those improvements.</p>
+<p>While theming is often disregarded as a purely cosmetic endeavour, it can greatly
+improve software. Theming can be great help for accessibility, and the Jupyter team
+pays attention to making the default appearance accessibility-aware by using
+sufficient contrast.  For users with a high visual acuity you may also choose 
+to increase the information density.</p>
+<p>Theming can also be a great way to improve communication by increasing or
+decreasing emphasis of the user interface, which can be of use for teaching or
+presenting. Theming may also help with security, for example, by having a clear
+distinction between staging and production.</p>
+<p>Finally Theming can be a great way to express oneself, for example, by using
+a branded version of software that fits well into a context, or expressing one's artistic
+preferences or opinions. </p>
+<p>In the following blog post, we will show you step-by-step how you can
+develop a custom theme for JupyterLab, distribute it, and take the example of the
+<a href="https://github.com/Quansight-Labs/jupyterlab-theme-winter">jupyterlab-theme-winter</a> theme we release today to celebrate the end of 2020.</p>
+<!-- TEASER_END -->
+
+<h2>JupyterLab and Themes</h2>
+<p>JupyterLab customisation can be done via what are called <code>Extensions</code>.  All
+behaviors and user interface elements of JupyterLab can be changed by providing
+extensions; this is true for elements that are added to JupyterLab, but also for
+the core components. A Theme is one of those extensions. The default light and dark
+themes are always good examples to look at if you want to understand how to build
+a theme.</p>
+<p>Generally all information about how extensions work in JupyterLab is applicable
+to a theme, though there are a number of optional steps and behaviors that are not
+necessary for themes, and a few configurations that are needed for themes.
+A lot of boilerplate can also be extracted, which makes creating most themes 
+simpler that full-fledged extensions.</p>
+<p>Let's first see what we are trying to accomplish in a screenshot of the "winter 2020" theme.
+You will have the option to choose this theme in the dropdown menu of JupyterLab:</p>
+<p><a href="https://github.com/Quansight-Labs/jupyterlab-theme-winter"><img alt="Screenshot of JupyterLab Winter Theme" src="../../../../images/jupyterlab-theme-winter.png"></a></p>
+<p>To do so we'll need to:</p>
+<ul>
+<li>Install JupyterLab</li>
+<li>Create a new theme extension</li>
+<li>Install this extension</li>
+<li>Switch to our new theme</li>
+<li>Progressively change the appearance of our JupyterLab components until we get
+  the desired outcome</li>
+</ul>
+<p>Optionally, once you are happy with the result, or would like to get feedback from the
+community, you can publish the theme so that people can <del>complain</del> suggest improvements
+and contribute. </p>
+<h2>Installing JupyterLab</h2>
+<p>To get started you do not need a development version of JupyterLab.  This can
+be achieved with:</p>
+<pre class="code literal-block"><span></span><code>$ pip install --pre <span class="nv">jupyterlab</span><span class="o">==</span><span class="m">3</span>.0rc14 jupyter_packaging cookiecutter
+</code></pre>
+
+
+<p>While we are at it we will need to install nodejs. Because nodejs is <em>not</em> a
+Python package you will need to use conda or another package manager.</p>
+<pre class="code literal-block"><span></span><code>$ conda install nodejs
+</code></pre>
+
+
+<h2>Creating a Theme Extension</h2>
+<p>Now the hard part: you have an idea, you need a name. Naming is one of the
+hardest things in development, along with caching results and off-by-one errors,
+but it is critical to adoption and discoverability.</p>
+<p>Now that you have your perfect name, create your project. We suggest using
+the JupyterLab <code>cookiecutter</code> to create the initial boilerplate, and, as a
+prerequisite, install the <code>jupyter_packaging</code> library needed to develop extensions.
+We won't actually create the boilerplate until farther below in this post.</p>
+<pre class="code literal-block"><span></span><code>$ pip install jupyter_packaging cookiecutter
+</code></pre>
+
+
+<p>Normally we would use <a href="https://github.com/jupyterlab/theme-cookiecutter">theme-cookiecutter</a> but it is not
+yet updated for JupyterLab 3, so we fall back to the more generic
+<a href="https://github.com/jupyterlab/extension-cookiecutter-ts">extension-cookiecutter-ts</a> 
+and will highlight the specifics of a Theme extension compared to a standard one.</p>
+<p>Run <code>cookiecutter</code> and provide some information about your extension:</p>
+<pre class="code literal-block"><span></span><code>$ cookiecutter https://github.com/jupyterlab/extension-cookiecutter-ts --checkout <span class="m">3</span>.0
+author_name <span class="o">[]</span>: My Name
+python_name <span class="o">[</span>myextension<span class="o">]</span>: jupyterlab-theme-winter
+labextension_name <span class="o">[</span>myextension<span class="o">]</span>: @my-repo/jupyterlab-theme-winter
+project_short_description <span class="o">[</span>A JupyterLab theme extension.<span class="o">]</span>: A winter theme <span class="k">for</span> jupyterlab
+has_server_extension <span class="o">[</span>n<span class="o">]</span>: 
+has_binder <span class="o">[</span>n<span class="o">]</span>: 
+repository <span class="o">[</span>https://github.com/my_name/myextension<span class="o">]</span>: 
+</code></pre>
+
+
+<p>This has created the extension <code>jupyterlab-theme-winter</code>.  We can go to the directory and
+immediately turn it into a git repository.</p>
+<pre class="code literal-block"><span></span><code>$ <span class="nb">cd</span> jupyterlab-theme-winter
+$ git init
+$ git add .
+$ git commit -am <span class="s1">'initial commit'</span>
+</code></pre>
+
+
+<h2>Building and Installing the Extension</h2>
+<p>JupyterLab 3 has focused on make extension authors' lives easier, and it has done a great
+job of it. As a developer, you just need to run a single command to be up and running
+with your extension. You only need to do this once.</p>
+<pre class="code literal-block"><span></span><code>jupyter labextension develop --overwrite
+</code></pre>
+
+
+<p>We are now ready for the development session. As we want to iterate fast, we will launch
+a watch process that continuously compiles your extension on each of your changes
+and will make it available in the JupyterLab frontend so that you can see the changes immediately.</p>
+<pre class="code literal-block"><span></span><code>jlpm watch
+</code></pre>
+
+
+<p>Remember, we have not yet created our boilerplate from the theme cookiecutter, so we need to
+make sure we turn the code into a theme extension with the following two actions.</p>
+<p>First, replace the content of <code>src/index.ts</code> with the following content</p>
+<pre class="code literal-block"><span></span><code><span class="kr">import</span> <span class="p">{</span>
+  <span class="nx">JupyterFrontEnd</span><span class="p">,</span>
+  <span class="nx">JupyterFrontEndPlugin</span>
+<span class="p">}</span> <span class="nx">from</span> <span class="s1">'@jupyterlab/application'</span><span class="p">;</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">IThemeManager</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@jupyterlab/apputils'</span><span class="p">;</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Initialization data for the @quansight-labs/jupyterlab-theme-winter extension.</span>
+<span class="cm"> */</span>
+<span class="kr">const</span> <span class="nx">extension</span><span class="o">:</span> <span class="nx">JupyterFrontEndPlugin</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">id</span><span class="o">:</span> <span class="s1">'@quansight-labs/jupyterlab-theme-winter'</span><span class="p">,</span>
+  <span class="nx">requires</span><span class="o">:</span> <span class="p">[</span><span class="nx">IThemeManager</span><span class="p">],</span>
+  <span class="nx">autoStart</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="nx">activate</span><span class="o">:</span> <span class="p">(</span><span class="nx">app</span><span class="o">:</span> <span class="nx">JupyterFrontEnd</span><span class="p">,</span> <span class="nx">manager</span><span class="o">:</span> <span class="nx">IThemeManager</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'JupyterLab extension @quansight-labs/jupyterlab-theme-winter is activated!'</span><span class="p">);</span>
+    <span class="kr">const</span> <span class="nx">style</span> <span class="o">=</span> <span class="s1">'@quansight-labs/jupyterlab-theme-winter/index.css'</span><span class="p">;</span>
+    <span class="nx">manager</span><span class="p">.</span><span class="nx">register</span><span class="p">({</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">'JupyterLab Winter'</span><span class="p">,</span>
+      <span class="nx">isLight</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">load</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">manager</span><span class="p">.</span><span class="nx">loadCSS</span><span class="p">(</span><span class="nx">style</span><span class="p">),</span>
+      <span class="nx">unload</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="kc">undefined</span><span class="p">)</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">extension</span><span class="p">;</span>
+</code></pre>
+
+
+<p>Then in the <code>package.json</code>, add <code>"jupyterlab-theme"</code> to the list of keywords and ensure that the <code>jupyterlab</code> stanza looks like this.</p>
+<pre class="code literal-block"><span></span><code>  <span class="s2">"jupyterlab"</span><span class="err">:</span> <span class="p">{</span> 
+    <span class="nt">"extension"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">"themePath"</span><span class="p">:</span> <span class="s2">"style/index.css"</span><span class="p">,</span>
+    <span class="nt">"outputDir"</span><span class="p">:</span> <span class="s2">"jupyterlab_theme_winter/labextension"</span>
+  <span class="p">}</span>
+</code></pre>
+
+
+<p>In a separate terminal you can now start JupyterLab in watch mode.</p>
+<pre class="code literal-block"><span></span><code>jupyter lab --watch
+</code></pre>
+
+
+<p>Now you will see the theme available from the Settings menu.</p>
+<p>You can switch themes; but as you will see; the current theme is identical to
+the light-theme. Now it's time to modify some values in the <code>styles/variables.css</code> file
+with a valid design.</p>
+<h3>Design Considerations</h3>
+<p>In the words of Jurassic Park’s Dr. Ian Malcolm, “Your scientists were so preoccupied with whether they could, 
+they didn't stop to think if they should.” And now that you can modify JupyterLab’s theme to your heart’s content, 
+here is some design advice to help keep you from accidentally creating a theme that visually destroys your 
+workspace like a rampaging tyrannosaurus rex.</p>
+<h4>JupyterLab design system</h4>
+<p>When making a theme, it’s likely you’ll want to change things that already exist in JupyterLab. Much of the UI relies 
+on relevant CSS variables with naming conventions (<code>--jp-ui-font-color3</code> or <code>--jp-elevation-z0</code>) to help you find 
+what you need. Think of the system like this:<code>--jp-region-contenttype-unit1</code></p>
+<ul>
+<li>The <code>--jp</code> prefix is a constant. </li>
+<li>The middle holds various details like what type of UI element it is for, if it is standard (no tag) or if 
+it has a specific use. </li>
+<li>
+<code>region</code> is for variables that are only be used in a certain area of the UI .</li>
+<li>The content type is something like <code>font</code> or <code>border</code>. It describes the variable based on its use. </li>
+<li>The <code>unit</code> is the smallest unit of the variable like a color, shadow, or spacing. It is labeled by a number when 
+there is more than one of that unit; <code>0</code>s are almost never used, and <code>1</code>s are some of the most frequently used. </li>
+<li>Whenever a variable name does not have one of these sections, that means it doesn’t have specific rules about 
+its use in that area.</li>
+</ul>
+<p>Common labels you might want to know:</p>
+<ul>
+<li>
+<code>layout</code> is used for large areas of the interface, especially backgrounds. </li>
+<li>
+<code>inverse</code>  indicates the opposite color scale of the rest of the UI. For example in
+  light mode, inverse <code>0</code> and <code>1</code> are dark instead of light.</li>
+<li>
+<code>elevation</code> and <code>z</code> are for shadows. While these might not be the main things
+  you want to change, their unfamiliar names might make them harder to find.</li>
+<li>
+<code>font</code> is for variables tied to text. These have forms for color, size, and spacing of text.</li>
+</ul>
+<p>There are also variables specific to different types of text and display
+modes, so you could have a theme that looks like the standard light
+theme until you enter Presentation mode.</p>
+<h4>Color</h4>
+<p>Less is more. Choosing a color palette of three or fewer hues can be easier to manage and make the whole interface 
+more cohesive since those colors will likely be repeated across the UI. Try it out; it might be surprising how just 
+changing a few color variables can create a very different JupyterLab.</p>
+<p>A color's value—or how light or dark it is—also determines contrast. Contrast is key to legibility and creating an 
+experience that includes low-vision users. <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/Understanding_WCAG/Perceivable/Color_contrast">WCAG color contrast guidelines</a> 
+apply to text and graphic interactive 
+elements. There are many tools available, including <a href="https://www.paciellogroup.com/color-contrast-checker/">downloadable contrast checkers</a> 
+and <a href="https://userway.org/contrast/000000/ffffff">web app versions</a>.</p>
+<h4>Text</h4>
+<p>JupyterLab is full of text, so this can be a place for major changes with very little code. You can easily change font, 
+color, spacing, and size. It's a good idea not have text below 10pt in size, or smaller than the default 
+<a href="https://github.com/jupyterlab/jupyterlab/blob/083c65d92686d23b813f0242fca5be3d8b6fae37/packages/theme-light-extension/style/variables.css#L107"><code>--jp-ui-font-size0</code></a> 
+(and it's an accessibility recommendation).</p>
+<h4>Icons</h4>
+<p>JupyterLab's icons live in the <a href="https://github.com/jupyterlab/jupyterlab/tree/083c65d92686d23b813f0242fca5be3d8b6fae37/packages/theme-light-extension/style/icons">packages directory</a> 
+and are part of or based on <a href="https://material.io/resources/icons/?search=clos&amp;icon=warning&amp;style=round">Material Icons</a>. 
+If you want to change or add icons and keep them matching, finding one from this system will fit best. The <a href="https://material.io/design/iconography/system-icons.html">Material Design system</a> 
+also points out some of their icon design principles which are good to follow if you need to make custom icons that 
+match with the rest. Use SVGs, not PNGs, and remember to give it a <a href="https://en.wikipedia.org/wiki/Tooltip">tooltip</a>. 
+Most of all, make sure to give it an ARIA label (like <a href="https://gomakethings.com/icon-accessibility-and-aria-label/">this recommendation</a>).</p>
+<h2>Modifying the Theme Variables</h2>
+<p>After each modification the watch process will build the extension for you. 
+No need to stop and restart JupyterLab server; simply refresh the page.</p>
+<p>Now we are going to modify some values in the file <code>variables.css</code> in our
+project. This file controls many of the colors of JupyterLab, and is a nice place
+to start to change the overall color scheme before doing more detailed
+customisation.</p>
+<p>We'll try to update the current theme from orange and blue to more blue-ish tones, 
+which tend to remind us of the holiday
+season.  Afterward, in the <code>diff</code>, see how we changed some of the colors:</p>
+<pre class="code literal-block"><span></span><code><span class="gh">diff --git a/style/variables.css b/style/variables.css</span>
+<span class="gh">index f8c738f..9f39f14 100644</span>
+<span class="gd">--- a/style/variables.css</span>
+<span class="gi">+++ b/style/variables.css</span>
+<span class="gu">@@ -87,9 +87,9 @@ all of MD as it is not optimized for dense, information rich UIs.</span>
+    */
+
+   --jp-border-width: 1px;
+<span class="gd">-  --jp-border-color0: var(--md-grey-400);</span>
+<span class="gd">-  --jp-border-color1: var(--md-grey-400);</span>
+<span class="gd">-  --jp-border-color2: var(--md-grey-300);</span>
+<span class="gi">+  --jp-border-color0: #168EA8;</span>
+<span class="gi">+  --jp-border-color1: #168EA8;</span>
+<span class="gi">+  --jp-border-color2: #93D3E1;</span>
+   --jp-border-color3: var(--md-grey-200);
+   --jp-border-radius: 2px;
+
+<span class="gu">@@ -118,10 +118,10 @@ all of MD as it is not optimized for dense, information rich UIs.</span>
+</code></pre>
+
+
+<p>We'd like the "running notebook" dot in the filesystem browser to be a
+snowman instead of a blue dot. Using the browser inspector, we can look at the CSS
+doing this and override it in my theme:</p>
+<pre class="code literal-block"><span></span><code><span class="gu">@@ -368,0 +369,26 @@                                                                  </span>
+<span class="gi">+</span>
+<span class="gi">+.jp-DirListing-item.jp-mod-running .jp-DirListing-itemIcon:before {</span>
+<span class="gi">+    content: '\2603'; /* snowman */</span>
+<span class="gi">+    font-size: 10px;</span>
+<span class="gi">+    position: absolute;</span>
+<span class="gi">+    left: -8px;</span>
+<span class="gi">+}</span>
+</code></pre>
+
+
+<p>We can also add backgrounds to many of the panels.  By adding a file <code>snowflakepatterns.svg</code> to our style directory,
+we can now refer to it from our file and add the following CSS to include snowflakes in the background of
+our directory listing.</p>
+<pre class="code literal-block"><span></span><code><span class="c">/* DirListing */</span>
+
+<span class="nt">body</span><span class="o">[</span><span class="nt">data-jp-theme-name</span><span class="o">=</span><span class="s2">"JupyterLab Winter"</span><span class="o">]</span> <span class="p">.</span><span class="nc">jp-DirListing-content</span> <span class="p">{</span>
+  <span class="k">background-image</span><span class="p">:</span> <span class="nb">url</span><span class="p">(</span><span class="s1">'./snowflakepattern.svg'</span><span class="p">);</span>
+ <span class="p">}</span>
+</code></pre>
+
+
+<h2>Awesome!</h2>
+<p><a href="https://github.com/Quansight-Labs/jupyterlab-theme-winter">Here</a> is the final result, jupyterLab-theme-winter theme provided by Quansight.  Feel
+free to modify it, and please suggest some themes you might like and share
+in the comments. For example we'd love to see a "summer 2020 theme" for our Southern Hemisphere friends.
+We will dive into how to distribute your themes and make them high-quality in a later blog post.</p>
+<p><a href="https://github.com/Quansight-Labs/jupyterlab-theme-winter"><img alt="Screenshot of JupyterLab Winter Theme" src="../../../../images/jupyterlab-theme-winter.png"></a></p>
+<p>And as a bonus, a <a href="https://github.com/Quansight-Labs/jupyterlab-theme-christmas">Christmas theme</a> with more green-ish color and some lights shining
+at the bottom of your notebooks!</p>
+<p><a href="https://github.com/Quansight-Labs/jupyterlab-theme-christmas"><img alt="Screenshot of JupyterLab Christmas Theme" src="../../../../images/jupyterlab-theme-christmas.png"></a></p>
+<hr>
+<p><em>This is part of a series of Jupyter tutorials. Find more <a href="../../../../categories/jupytertutorials">tutorials here</a>.</em></p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../../11/a-second-czi-grant-for-numpy-and-openblas/" rel="prev" title="A second CZI grant for NumPy and OpenBLAS">Previous post</a>
+            </li>
+
+            <li class="archive">
+                <a href="../../../../archive.html" rel="archive" title="Archive ">Archive</a>
+            </li>
+
+            <li class="next disabled">
+                <a rel="next">Next post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2020         <a href="../../../../team">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>

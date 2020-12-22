@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Mon, 23 Nov 2020 15:59:10 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>A second CZI grant for NumPy and OpenBLAS</title><link>https://labs.quansight.org/blog/2020/11/a-second-czi-grant-for-numpy-and-openblas/</link><dc:creator>Melissa Weber Mendonça</dc:creator><description>&lt;div&gt;&lt;p&gt;I am happy to announce that NumPy and OpenBLAS have once again been awarded a
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Tue, 22 Dec 2020 16:27:02 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Develop a JupyterLab Winter Theme</title><link>https://labs.quansight.org/blog/2020/12/jupyterlab-winter-theme/</link><dc:creator>Matthias Bussonnier, Isabela Presedo Floyd, Eric Charles, Eric Kelly, Tony Fast</dc:creator><description>&lt;div&gt;&lt;p&gt;JupyterLab 3.0 is about to be released and provides many 
+improvements to the extension system. Theming is a way to extend JupyterLab and 
+benefits from those improvements.&lt;/p&gt;
+&lt;p&gt;While theming is often disregarded as a purely cosmetic endeavour, it can greatly
+improve software. Theming can be great help for accessibility, and the Jupyter team
+pays attention to making the default appearance accessibility-aware by using
+sufficient contrast.  For users with a high visual acuity you may also choose 
+to increase the information density.&lt;/p&gt;
+&lt;p&gt;Theming can also be a great way to improve communication by increasing or
+decreasing emphasis of the user interface, which can be of use for teaching or
+presenting. Theming may also help with security, for example, by having a clear
+distinction between staging and production.&lt;/p&gt;
+&lt;p&gt;Finally Theming can be a great way to express oneself, for example, by using
+a branded version of software that fits well into a context, or expressing one's artistic
+preferences or opinions. &lt;/p&gt;
+&lt;p&gt;In the following blog post, we will show you step-by-step how you can
+develop a custom theme for JupyterLab, distribute it, and take the example of the
+&lt;a href="https://github.com/Quansight-Labs/jupyterlab-theme-winter"&gt;jupyterlab-theme-winter&lt;/a&gt; theme we release today to celebrate the end of 2020.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/12/jupyterlab-winter-theme/"&gt;Read more…&lt;/a&gt; (9 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Jupyter</category><category>JupyterLab</category><category>JupyterTutorials</category><category>Labs</category><category>Theme</category><guid>https://labs.quansight.org/blog/2020/12/jupyterlab-winter-theme/</guid><pubDate>Tue, 22 Dec 2020 09:00:00 GMT</pubDate></item><item><title>A second CZI grant for NumPy and OpenBLAS</title><link>https://labs.quansight.org/blog/2020/11/a-second-czi-grant-for-numpy-and-openblas/</link><dc:creator>Melissa Weber Mendonça</dc:creator><description>&lt;div&gt;&lt;p&gt;I am happy to announce that NumPy and OpenBLAS have once again been awarded a
 grant from the Chan Zuckerberg Initiative through
 &lt;a href="https://chanzuckerberg.com/newsroom/czi-awards-4-7-million-for-open-source-software-and-organizations-advancing-open-science/"&gt;Cycle 3 of the Essential Open Source Software for Science (EOSS) program&lt;/a&gt;.
 This new grant totaling $140,000 will fund part of our efforts to improve
@@ -89,14 +107,4 @@ on &lt;a href="https://anaconda.org/conda-forge/traitlets"&gt;conda-forge&lt;/a&
 (&lt;code&gt;.whl&lt;/code&gt;), and get byte for byte identical result to the wheels published on PyPI. This is a critical step toward being able
 to &lt;em&gt;trust&lt;/em&gt; your computing platforms, and a key component to improve efficiency of build and packaging platforms. It also
 potentially impacts fast conda environment creation for users. The following goes into some reasons for why you should care.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/08/ipython-reproducible-builds/"&gt;Read more…&lt;/a&gt; (5 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>IPython</category><category>Labs</category><category>packaging</category><category>reproducible-builds</category><guid>https://labs.quansight.org/blog/2020/08/ipython-reproducible-builds/</guid><pubDate>Mon, 24 Aug 2020 12:00:00 GMT</pubDate></item><item><title>Introducing Versioned HDF5</title><link>https://labs.quansight.org/blog/2020/08/introducing-versioned-hdf5/</link><dc:creator>Melissa Weber Mendonça</dc:creator><description>&lt;div&gt;&lt;p&gt;The problem of storing and manipulating large amounts of data is a challenge in
-many scientific computing and industry applications. One of the standard data
-models for this is &lt;a href="https://support.hdfgroup.org/HDF5/whatishdf5.html"&gt;HDF5&lt;/a&gt;,
-an open technology that implements a hierarchical structure (similar to a
-file-system structure) for storing large amounts of possibly heterogeneous data
-within a single file. Data in an HDF5 file is organized into &lt;em&gt;groups&lt;/em&gt; and
-&lt;em&gt;datasets&lt;/em&gt;; you can think about these as the folders and files in your local
-file system, respectively. You can also optionally store metadata associated
-with each item in a file, which makes this a self-describing and powerful data
-storage model.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/08/introducing-versioned-hdf5/"&gt;Read more…&lt;/a&gt; (3 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>h5py</category><category>HDF5</category><guid>https://labs.quansight.org/blog/2020/08/introducing-versioned-hdf5/</guid><pubDate>Fri, 21 Aug 2020 13:00:00 GMT</pubDate></item></channel></rss>
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/08/ipython-reproducible-builds/"&gt;Read more…&lt;/a&gt; (5 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>IPython</category><category>Labs</category><category>packaging</category><category>reproducible-builds</category><guid>https://labs.quansight.org/blog/2020/08/ipython-reproducible-builds/</guid><pubDate>Mon, 24 Aug 2020 12:00:00 GMT</pubDate></item></channel></rss>
