@@ -1,7 +1,7 @@
 <!--
 .. title: Develop a JupyterLab Winter Theme
 .. slug: jupyterlab-winter-theme
-.. date: 2020-12-21 09:00:00 UTC-00:00
+.. date: 2020-12-22 09:00:00 UTC-00:00
 .. author: Matthias Bussonnier, Isabela Presedo Floyd, Eric Charles, Eric Kelly, Tony Fast
 .. tags: Labs, Jupyter, Theme, JupyterLab, JupyterTutorials
 .. category:
@@ -31,7 +31,7 @@ preferences or opinions.
 
 In the following blog post, we will show you step-by-step how you can
 develop a custom theme for JupyterLab, distribute it, and take the example of the
-[jupyterlab-theme-winter]((https://github.com/Quansight-Labs/jupyterlab-theme-winter) theme we release today to celebrate the end of 2020.
+[jupyterlab-theme-winter](https://github.com/Quansight-Labs/jupyterlab-theme-winter) theme we release today to celebrate the end of 2020.
 
 <!-- TEASER_END -->
 
@@ -330,14 +330,14 @@ body[data-jp-theme-name="JupyterLab Winter"] .jp-DirListing-content {
 
 # Awesome!
 
-[Here]((https://github.com/Quansight-Labs/jupyterlab-theme-winter)) is the final result, jupyterLab-theme-winter theme provided by Quansight.  Feel
+[Here](https://github.com/Quansight-Labs/jupyterlab-theme-winter) is the final result, jupyterLab-theme-winter theme provided by Quansight.  Feel
 free to modify it, and please suggest some themes you might like and share
 in the comments. For example we'd love to see a "summer 2020 theme" for our Southern Hemisphere friends.
 We will dive into how to distribute your themes and make them high-quality in a later blog post.
 
 [![Screenshot of JupyterLab Winter Theme](/images/jupyterlab-theme-winter.png)](https://github.com/Quansight-Labs/jupyterlab-theme-winter)
 
-And as a bonus, a [Christmas theme]((https://github.com/Quansight-Labs/jupyterlab-theme-christmas)) with more green-ish color and some lights shining 
+And as a bonus, a [Christmas theme](https://github.com/Quansight-Labs/jupyterlab-theme-christmas) with more green-ish color and some lights shining
 at the bottom of your notebooks!
 
 [![Screenshot of JupyterLab Christmas Theme](/images/jupyterlab-theme-christmas.png)](https://github.com/Quansight-Labs/jupyterlab-theme-christmas)
