@@ -1,18 +1,18 @@
 ---
-name: daniel_althviz.png
-title: Daniel Althviz
-github: dalthviz
-projects: ['Spyder']
+name: tania_allard.jpg
+title: Tania Allard
+github: trallard
+projects: ['JupyterHub', 'NumFOCUS DISC']
+---
+name: ralf_gommers.jpg
+title: Ralf Gommers
+github: rgommers
+projects: ['NumPy', 'SciPy', 'data-apis.org']
 ---
 name: juanita_gomez.png
 title: Juanita Gomez
 github: juanis2112
 projects: ['Spyder']
----
-name: peter_bell.png
-title: Peter Bell
-github: peterbell10
-projects: ['SciPy', 'uarray']
 ---
 name: carlos_cordoba.png
 title: Carlos Cordoba
@@ -49,11 +49,6 @@ title: Hameer Abbasi
 github: hameerabbasi
 projects: ['NumPy', 'PyData/Sparse', 'uarray']
 ---
-name: saul_shanabrook.png
-title: Saul Shanabrook
-github: saulshanabrook
-projects: ['JupyterLab', 'metadsl']
----
 name: stephannie_jimenez.png
 title: Stephannie Jiménez
 github: steff456
@@ -68,11 +63,6 @@ name: marc_garcia.png
 title: Marc Garcia
 github: datapythonista
 projects: ['Ibis', 'pandas']
----
-name: ralf_gommers.png
-title: Ralf Gommers
-github: rgommers
-projects: ['NumPy', 'SciPy']
 ---
 name: mars_lee.png
 title: Mars Lee
@@ -109,6 +99,11 @@ title: Matthias Bussonnier
 github: Carreau
 projects: ['Jupyter', 'JupyterHub', 'IPython']
 ---
+name: peter_bell.png
+title: Peter Bell
+github: peterbell10
+projects: ['SciPy', 'uarray']
+---
 name: kim_pevey.jpg
 title: Kim Pevey
 github: kcpevey
@@ -124,6 +119,11 @@ title: Eric Charles
 github: echarles
 projects: ['Jupyter']
 ---
+name: daniel_althviz.png
+title: Daniel Althviz
+github: dalthviz
+projects: ['Spyder']
+---
 name: pam_wadhwa.jpeg
 title: Pam Wadhwa
 github: ppwadhwa
@@ -138,11 +138,6 @@ name: chris_ostrouchov.png
 title: Chris Ostrouchov
 github: costrouc
 projects: ['python-api-inspect']
----
-name: prasun_anand.png
-title: Prasun Anand
-github: prasunanand
-projects: ['Dask', 'uarray']
 ---
 name: anirrudh_krishnan.png
 title: Anirrudh Krishnan
