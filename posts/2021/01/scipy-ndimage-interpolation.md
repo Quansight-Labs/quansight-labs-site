@@ -1,5 +1,5 @@
 <!--
-.. title: SciPy Image Interpolation
+.. title: Making SciPy's Image Interpolation Consistent and Well Documented
 .. slug: scipy-ndimage-interpolation
 .. date: 2021-01-11 09:00:00 UTC-00:00
 .. author: Gregory Lee
@@ -17,28 +17,26 @@ SciPy's ndimage module provides a powerful set of general, n-dimensional image p
 
 ## Interpolation in scipy.ndimage
 
-In this post we will focus specifically on recent improvements that have been made to SciPy's [interpolation functions](https://docs.scipy.org/doc/scipy/reference/ndimage.html#interpolation). The image interpolation functions provided by `scipy.ndimage` include basic operations like shifts, rotations and resizing as well as more general coordinate transformations like affine transforms or warping. When the value of a coordinate location in the output image is to be determined, we must use information from nearby pixels in the input image to determine an appropriate value at this location. The accuracy of the interpolation depends upon the "order" parameter of these functions, which provides a tradeoff between higher speed for order 0 (nearest-neighbor) and order 1 (linear interpolation) vs. higher accuracy (order 2-5 spline interpolation). In general the interpolation operation will involve a weighted combination of `(order + 1) ** ndim` input image values to determine each value in the output image (here `ndim` corresponds to the spatial axes of the array). Readers interested in a technical overview of image interpolation methods are referred to the following review of [Linear Methods for Image Interpolation](http://www.ipol.im/pub/art/2011/g_lmii/) and the [Theory and Practice of Image B-Spline Interpolation](https://www.ipol.im/pub/art/2018/221/).
+In this blog post we will focus specifically on recent improvements that have been made to SciPy's [interpolation functions](https://docs.scipy.org/doc/scipy/reference/ndimage.html#interpolation). The image interpolation functions provided by `scipy.ndimage` include basic operations like shifts, rotations and resizing as well as more general coordinate transformations like affine transforms or warping. When the value of a coordinate location in the output image is to be determined, we must use information from nearby pixels in the input image to determine an appropriate value at this location. The accuracy of the interpolation depends upon the "order" parameter of these functions, which provides a tradeoff between higher speed for order 0 (nearest-neighbor) and order 1 (linear interpolation) vs. higher accuracy (order 2-5 spline interpolation). In general, the interpolation operation will involve a weighted combination of `(order + 1) ** ndim` input image values to determine each value in the output image (here `ndim` corresponds to the spatial axes of the array). Readers interested in a technical overview of image interpolation methods are referred to the following review of [Linear Methods for Image Interpolation](http://www.ipol.im/pub/art/2011/g_lmii/) and the [Theory and Practice of Image B-Spline Interpolation](https://www.ipol.im/pub/art/2018/221/).
 
 Aside from the choice of the interpolation order, when a coordinate outside the boundary of the original image is requested, we must decide how to determine a value for that coordinate. ndimage supports many such boundary modes, as selected via the `mode` parameter of each function. These include, for example, a periodic boundary ('wrap'), mirrored boundary ('mirror'), constant boundary, etc. Unfortunately the behavior of a subset of these modes either had bugs or did not operate in the manner a user might expect due to ambiguity of coordinate conventions used. Specifically, not all modes handled boundaries accurately for spline interpolation orders >= 2. Overall these various rough edges had resulted in more than a dozen issues reported over the past several years on SciPy's GitHub repository.
 
-A recent NumFOCUS small development grant awarded to the SciPy developers, allowed a dedicated effort to fix existing bugs in boundary handling as well improve the documentation of the behavior of these modes. This work has resulted in closing more than a dozen SciPy issues.
+A recent NumFOCUS small development grant awarded to the SciPy developers allowed a dedicated effort to fix existing bugs in boundary handling and improve the documentation of the behavior of these modes. The code underlying ndimage is in C for efficiency, but this code base is somewhat complicated due to it's general n-dimensional nature and flexible data type support. This complexity coupled with the lack of a dedicated maintainer for the ndimage module over the past 15 years, had led to a number of these issues being long unaddressed. The work carried out under this proposal resulted in closing more than a dozen such long-standing SciPy issues.
 
 ### Interpolation order example
 
 <!-- show an image for order = 0 vs. 1 vs. 3 vs. 5 -->
-An illustration of interpolation order is given for a
-[synthetic brain MRI](https://brainweb.bic.mni.mcgill.ca/) (only one axial slice of the 3D brain is displayed). At the left is a simulated volume at 2 mm resolution. We then use `scipy.ndimage.zoom` to upsample the volume by a factor fo 2.0 along all axes to give an interpolated image where each voxel is of size 1 x 1 x 1 mm.
+An illustration of interpolation order is given for a [synthetic brain MRI](https://brainweb.bic.mni.mcgill.ca/) (only one axial slice of the 3D brain is displayed). At the left is a simulated volume at 2 mm resolution. We then use `scipy.ndimage.zoom` to upsample the volume by a factor fo 2.0 along all axes to give an interpolated image where each voxel is of size 1 x 1 x 1 mm.
 
 ![Interpolation Example](/images/scipy-brainweb-example.png)
 
 Here we can see that nearest neighbor (order=0) gives a blocky appearance, while order=1 (trilinear interpolation) also has some loss of detail relative to order 3 spline interoplation. No interpolation method can perfectly recover the true 1 mm simulated image shown on the right, indicating that one cannot rely on interpolation alone as a method to reduce MRI exam time without a sacrifice in image quality.
 
-Further details of the digital MRI phantom use for this example have been
-described in the following publications: [1](https://doi.org/10.1109/42.712135), [2](https://doi.org/10.1109/42.816072).
+Further details of the digital MRI phantom use for this example have been described in the following publications: [1](https://doi.org/10.1109/42.712135), [2](https://doi.org/10.1109/42.816072).
 
 ### Coordinate conventions
 
-`scipy.ndimage` uses the convention that pixel centers fall on integer coordinate indices between `0` and `shape[axis] - 1` along each axis. Two potential coordinate conventions are diagrammed in 1D in the figure below.
+Although it was not previously well documented, `scipy.ndimage` uses the convention that pixel centers fall on integer coordinate indices between `0` and `shape[axis] - 1` along each axis. Two potential coordinate conventions are diagrammed in 1D in the figure below.
 
 ![Coordinate Conventions](/images/scipy-points-vs-grid.png)
 
@@ -48,12 +46,11 @@ Similarly the `scipy.ndimage.zoom` function has a new `grid_mode` option that, w
 
 ### New documentation of boundary handling behavior
 
-Documentation of the boundary modes has been improved, adding [illustrations for the behavior of all modes](https://docs.scipy.org/doc/scipy/reference/tutorial/ndimage.html) and cross-linking to these figures from each individual function's docstring.
+Documentation of the boundary modes has been improved, adding [illustrations for the behavior of all modes](https://docs.scipy.org/doc/scipy/reference/tutorial/ndimage.html#interpolation-boundary-handling) and cross-linking to these figures from each individual function's docstring. Additionally, the coordinate origin being at the center of a pixel is more clearly documented and the difference between a pixel vs. point data model is better described.
 
 ### Downstream Impact
 
 This work has enabled resolving bugs and simplifying `resize` code in scikit-image. GPU-based implementations of the changes implemented for SciPy 1.6 have also recently been merged into CuPy, and will be available in the upcoming CuPy 9.0.0 release.
-
 
 ### Acknowledgements
 
