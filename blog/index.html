@@ -14,7 +14,7 @@
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml">
 <link rel="canonical" href="https://labs.quansight.org/blog/">
 <link rel="icon" href="../favicon.ico" sizes="16x16">
-<link rel="next" href="index-4.html" type="text/html">
+<link rel="next" href="index-5.html" type="text/html">
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
    tex2jax: {
@@ -95,7 +95,35 @@ navbar-dark bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/01/welcoming-tania-allard-labs-codirector/" class="u-url">Welcoming Tania Allard as Quansight Labs co-director</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/01/scipy-ndimage-interpolation/" class="u-url">Making SciPy's Image Interpolation Consistent and Well Documented</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                <a href="../authors/gregory-lee/">Gregory Lee</a>
+            </span></p>
+            <p class="dateline">
+            <a href="2021/01/scipy-ndimage-interpolation/" rel="bookmark">
+            <time class="published dt-published" datetime="2021-01-22T14:00:00Z" itemprop="datePublished" title="2021-01-22">2021-01-22</time></a>
+            </p>
+        </div>
+            
+        <div>
+            
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../categories/labs/" rel="tag">Labs</a></li>
+            <li><a class="tag p-category" href="../categories/open-source/" rel="tag">Open-Source</a></li>
+            <li><a class="tag p-category" href="../categories/python/" rel="tag">Python</a></li>
+            <li><a class="tag p-category" href="../categories/scipy/" rel="tag">SciPy</a></li>
+        </ul>
+</div>
+    </header><div class="p-summary entry-summary">
+    <div>
+<h2>SciPy n-dimensional Image Processing</h2>
+<p>SciPy's ndimage module provides a powerful set of general, n-dimensional image processing operations, categorized into areas such as filtering, interpolation and morphology. Traditional image processing deals with 2D arrays of pixels, possibly with an additional array dimension of size 3 or 4 to represent color channel and transparency information. However, there are many scientific applications where we may want to work with more general arrays such as the 3D volumetric images produced by medical imaging methods like computed tomography (CT) or magnetic resonance imaging (MRI) or biological imaging approaches such as light sheet microscopy. Aside from spatial axes, such data may have additional axes representing other quantities such as time, color, spectral frequency or different contrasts. Functions in ndimage have been implemented in a general n-dimensional manner so that they can be applied across 2D, 3D or more dimensions. A more detailed overview of the module is available in the
+<a href="https://docs.scipy.org/doc/scipy/reference/tutorial/ndimage.html">SciPy ndimage tutorial</a>. SciPy's image functions are also used by downstream libraries such as <a href="https://scikit-image.org">scikit-image</a> to implement higher-level algorithms for things like image restoration, segmentation and registration.</p>
+<p class="more"><a href="2021/01/scipy-ndimage-interpolation/">Read more…</a></p>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/01/welcoming-tania-allard-labs-codirector/" class="u-url">Welcoming Tania Allard as Quansight Labs co-director</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 <a href="../authors/ralf-gommers/">Ralf Gommers</a>
@@ -435,44 +463,12 @@ This post is a general introduction of PyTorch-Ignite. It intends to give a brie
 </div>
 </div>
     </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2020/08/what-are-traitlets/" class="u-url">Traitlets - an introduction &amp; use in Jupyter configuration management</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                <a href="../authors/matthias-bussonnier-tony-fast/">Matthias Bussonnier, Tony Fast</a>
-            </span></p>
-            <p class="dateline">
-            <a href="2020/08/what-are-traitlets/" rel="bookmark">
-            <time class="published dt-published" datetime="2020-08-30T09:00:00Z" itemprop="datePublished" title="2020-08-30">2020-08-30</time></a>
-            </p>
-        </div>
-            
-        <div>
-            
-        <ul itemprop="keywords" class="tags">
-<li><a class="tag p-category" href="../categories/community/" rel="tag">community</a></li>
-            <li><a class="tag p-category" href="../categories/historical/" rel="tag">historical</a></li>
-            <li><a class="tag p-category" href="../categories/ipython/" rel="tag">IPython</a></li>
-            <li><a class="tag p-category" href="../categories/jupyter/" rel="tag">Jupyter</a></li>
-            <li><a class="tag p-category" href="../categories/labs/" rel="tag">Labs</a></li>
-            <li><a class="tag p-category" href="../categories/python/" rel="tag">Python</a></li>
-            <li><a class="tag p-category" href="../categories/traitlets/" rel="tag">traitlets</a></li>
-        </ul>
-</div>
-    </header><div class="p-summary entry-summary">
-    <div>
-<p>You have probably seen Traitlets in applications, you likely even use it. The package has nearly 5 million downloads
-on <a href="https://anaconda.org/conda-forge/traitlets">conda-forge</a> alone.</p>
-<h2>But, what is Traitlets ?</h2>
-<p>In this post we'll answer this question along with where Traitlets came from, its applications, and a bit of history.</p>
-<p class="more"><a href="2020/08/what-are-traitlets/">Read more…</a></p>
-</div>
-    </div>
     </article>
 </div>
 
         <ul class="pager postindexpager clearfix">
 <li class="previous">
-                <a href="index-4.html" rel="next">Older posts</a>
+                <a href="index-5.html" rel="next">Older posts</a>
             </li>
 
             <li class="archive">
