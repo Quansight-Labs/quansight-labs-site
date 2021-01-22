@@ -149,3 +149,8 @@ title: Tim George
 github: tgeorgeux
 projects: ['JupyterLab']
 ---
+name: gregory_lee.jpeg
+title: Gregory Lee
+github: grlee77
+projects: ['scikit-image', 'SciPy', 'PyWavelets', 'CuPy', 'PyFFTW']
+---
