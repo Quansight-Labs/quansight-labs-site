@@ -15,18 +15,18 @@
   margin-left: 0px;
 }
 header a{
-  color: #5d2e8c;
+  color: #613EA3;
 }
 
 header a:hover{
-  color: #8E5FBD
+  color: #A43A8F
 }
 .body-content a {
-  color: #5d2e8c
+  color: #613EA3
 }
 
 .body-content a:hover{
-  color: #8E5FBD
+  color: #A43A8F
 }
 
 .body-content a.badge{
@@ -39,7 +39,7 @@ header a:hover{
 
 /* NavBar Header CSS */
 .bg-dark{
-  background-color: #2c0848!important;
+  background-color: #613EA3!important;
 }
 .navbar-dark .navbar-nav{
   font-size: medium;
@@ -50,34 +50,35 @@ header a:hover{
   color: #FFF;
 } 
 .navbar-dark .navbar-nav .nav-link:hover{
-  color: #3bcd76;
+  color: #99C941;
 
 } 
 .navbar-dark .navbar-nav .active .nav-link{
-  color: #3bcd76;
+  color: #99C941;
 }
 #logo {
-  max-height: 50px;
+  max-height: 35px;
+  margin-top: 5px;
 }  
 #navbar-separator{
   background-color: #fff;
-  border-bottom: 5px solid #5D2E8C;
+  border-bottom: 5px solid #A43A8F;
 }
 
 /* Sub Headers CSS */
 .sub-header > h1{
   font-weight: bold;
   font-family: 'Franklin Gothic Large', sans-serif;
-  color: #868e96;
+  color: #999FA5;
   margin-bottom: 0px;
 }
 
 .sub-title{
-  color: #3bcd76;
+  color: #99C941;
 }
 
 .sub-underline{
-  background: #3bcd76;
+  background: #99C941;
   width: 120px;
   height: 10px;
 }
@@ -89,7 +90,7 @@ header a:hover{
 
 .fa-github-square {
   color: black;
-  color: #868e96;
+  color: #999FA5;
   position: relative;
   left: 30px;
   bottom: 30px;
