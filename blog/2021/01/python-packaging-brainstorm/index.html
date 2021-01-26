@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Python packaging in 2021 - pain points and bright spots | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2021/01/python-packaging-brainstorm/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-163785882-1');
+</script><meta name="author" content="Ralf Gommers">
+<link rel="prev" href="../scipy-ndimage-interpolation/" title="Making SciPy's Image Interpolation Consistent and Well Documented" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="Python packaging in 2021 - pain points and bright spots">
+<meta property="og:url" content="https://labs.quansight.org/blog/2021/01/python-packaging-brainstorm/">
+<meta property="og:description" content='At Quansight we have a weekly "Q-share" session on Fridays where everyone can
+share/demo things they have worked on, recently learned, or that simply seem
+interesting to share with their colleagues. T'>
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2021-01-24T04:00:00Z">
+<meta property="article:tag" content="Conda">
+<meta property="article:tag" content="conda-forge">
+<meta property="article:tag" content="CUDA">
+<meta property="article:tag" content="manylinux">
+<meta property="article:tag" content="packaging">
+<meta property="article:tag" content="pip">
+<meta property="article:tag" content="PyData">
+<meta property="article:tag" content="PyPI">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="setuptools">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+            <img src="../../../../images/quansight_labs_logo_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../" class="nav-link">Blog</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../team/" class="nav-link">Team</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../projects/" class="nav-link">Projects</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../about/" class="nav-link">About</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right"></ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name">
+                <a href="." class="u-url">Python packaging in 2021 - pain points and bright spots</a>
+            </h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    <a class="u-url" href="../../../../authors/ralf-gommers/">Ralf Gommers</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2021-01-24T04:00:00Z" itemprop="datePublished" title="2021-01-24">2021-01-24</time></a>
+            </p>
+            
+
+        </div>
+        
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/conda/" rel="tag">Conda</a></li>
+            <li><a class="tag p-category" href="../../../../categories/conda-forge/" rel="tag">conda-forge</a></li>
+            <li><a class="tag p-category" href="../../../../categories/cuda/" rel="tag">CUDA</a></li>
+            <li><a class="tag p-category" href="../../../../categories/manylinux/" rel="tag">manylinux</a></li>
+            <li><a class="tag p-category" href="../../../../categories/packaging/" rel="tag">packaging</a></li>
+            <li><a class="tag p-category" href="../../../../categories/pip/" rel="tag">pip</a></li>
+            <li><a class="tag p-category" href="../../../../categories/pydata/" rel="tag">PyData</a></li>
+            <li><a class="tag p-category" href="../../../../categories/pypi/" rel="tag">PyPI</a></li>
+            <li><a class="tag p-category" href="../../../../categories/python/" rel="tag">Python</a></li>
+            <li><a class="tag p-category" href="../../../../categories/setuptools/" rel="tag">setuptools</a></li>
+        </ul></header><div class="e-content entry-content" itemprop="articleBody text">
+        <div>
+<p>At Quansight we have a weekly "Q-share" session on Fridays where everyone can
+share/demo things they have worked on, recently learned, or that simply seem
+interesting to share with their colleagues. This can be about anything, from
+new utilities to low-level performance, from building inclusive communities
+to how to write better documentation, from UX design to what legal &amp;
+accounting does to support the business. This week I decided to try something
+different: hold a brainstorm on the state of Python packaging today.</p>
+<p>The ~30 participants were mostly from the PyData world, but not exclusively -
+it included people with backgrounds and preferences ranging from C, C++ and
+Fortran to JavaScript, R and DevOps - and with experience as end-users,
+packagers, library authors, and educators. This blog post contains the raw
+output of the 30-minute brainstorm (only cleaned up for textual issues) and
+my annotations on it (in italics) which capture some of the discussion during
+the session and links and context that may be helpful. I think it sketches a
+decent picture of the main pain points of Python packaging for users and
+developers interacting with the Python data and numerical computing ecosystem.</p>
+<!-- TEASER_END -->
+
+<p>The main intended audience for this post is maintainers working on
+packaging and distribution tools, and library authors needing to package
+their projects. Readers newer to Python packaging may want to start with the
+blog posts linked in the Conclusion section.</p>
+<h3>Topic 1: The pip/wheel/PyPI world</h3>
+<ul>
+<li>PyPI file size limit ... deep learning, CUDA 11</li>
+</ul>
+<p><em>RG: the default file size limit on PyPI is (I believe) 60 MB currently, which is not enough for many libraries with heavy dependencies. You must file an issue to ask for an exemption, which can take quite a while to be resolved because PyPI has only a few volunteers. See, e.g., <a href="https://github.com/pypa/pypi-support/issues/243">this issue where MXNet asks for a 1 GB limit</a>. The issue will get significantly worse with CUDA 11, which is several times larger than CUDA 10. Looking at for example <a href="https://pypi.org/project/torch/#files">PyTorch wheels</a>, which are already 776 MB now, that simply won't fit. When I asked one of the PyPI maintainers recently, the answer was "interesting - that will be a problem".</em></p>
+<ul>
+<li>Native dependencies for wheels<ul>
+<li>two proposed solutions: pynativelib, or spec to interface with outside packages</li>
+</ul>
+</li>
+</ul>
+<p><em>RG: what projects do with non-Python dependencies today is simply don't declare the dependency, and use either static linking or put the needed shared libraries into the wheel with name mangling. The <a href="https://mail.python.org/pipermail/wheel-builders/2016-April/000090.html">pynativelib</a> idea is technically feasible for simple scenarios, but will always be limited because of how pip, wheels and PyPI work. It's not in use today. The more sensible route seems to be to work out how to let packages interact with external package managers, and figure out what's out of scope completely. I'm not aware of significant work happening on this topic.</em></p>
+<ul>
+<li>ABI tags are limited: multi-CUDA options, multi-SIMD options</li>
+</ul>
+<p><em>RG: for packages with compiled code, ABI tags in the wheel filename can be used to specify certain properties, like what Python version, operating system or set of base libraries like glibc the wheel is for. Anything that doesn't have an ABI tag cannot be supported, though. Examples of unsupported features are CUDA version and CPU capabilities for SIMD instruction sets. Therefore projects can only make a single choice there for what they upload to PyPI; everything else must be hosted elsewhere.</em></p>
+<ul>
+<li>The rise of new (and old) architectures: Linux on ARM64, macOS M1, PowerPC, AIX, Z/OS</li>
+</ul>
+<p><em>RG: this is mostly a problem for library authors, who typically rely on public CI for each supported platform. When users clamour for macOS M1 support so they can make optimal use of their shiny new hardware, this puts maintainers in a difficult position - CI support appearing is likely to take many months still.</em></p>
+<ul>
+<li>Uniform install instructions for venv's cannot be given.</li>
+</ul>
+<p><em>RG: using virtual environments is good practice, but writing install instructions for them is very difficult because (a) there are too many tools and (b) activating environments is clunky and platform-specific (see, e.g., <a href="https://packaging.python.org/tutorials/installing-packages/#creating-virtual-environments">this section of the Python Packaging User Guide</a>).</em></p>
+<ul>
+<li>Setuptools incorporating distutils with a TBD new build API</li>
+</ul>
+<p><em>RG: <code>distutils</code> will be deprecated in Python 3.10 and removed in Python 3.12. This is likely good news in the long term, but for now it means building packages with nontrivial compiled dependencies is going to be unstable. See for example <a href="https://github.com/pypa/setuptools/issues/2372">this issue about <code>numpy.distutils</code> and <code>setuptools</code> interaction</a>.</em></p>
+<ul>
+<li>manylinux: Alpine Linux, and (maybe) the death of CentOS<ul>
+<li>Is musl compatible yet?</li>
+</ul>
+</li>
+</ul>
+<p><em>RG: I'm not sure if this is a major isssue. Right now Alpine Linux doesn't work with the <code>manylinux1/2010/2014</code> wheels on PyPI, because Alpine uses musl libc rather than glibc. The manylinux standard is based on CentOS, which is being discontinued. If that leads to growth of Alpine (perhaps not likely) then we'll be getting more users asking for wheels. Right now all we can say is "that's unsupported, sorry".</em></p>
+<ul>
+<li>Isolated builds with <code>pyproject.toml</code> are quite complicated to spec, and still unclear how that will hold up in the real world</li>
+</ul>
+<p><em>RG: Isolated builds are a good idea, but with ABI compatibility constraints one needs to deal with like when building against the NumPy C API, getting <code>pyproject.toml</code> right is complicated. See for example <a href="https://github.com/scipy/oldest-supported-numpy/blob/master/setup.cfg">the <code>oldest-supported-numpy</code> meta-package</a> to help with this.</em></p>
+<ul>
+<li>Filling out configuration is tedious</li>
+<li>Which freaking tool should I use!</li>
+<li>Reproducible builds! (practically impossible) – IPython is reproducible for both <code>.tar.gz</code> anf <code>.zip</code>, but needs custom post-process.</li>
+</ul>
+<p><em>RG: See <a href="https://labs.quansight.org/blog/2020/08/ipython-reproducible-builds/">this blog post from Matthias Bussonnier</a> for more on this topic.</em></p>
+<ul>
+<li>
+<code>setup.py</code> is dynamic making downstream packaging/automation much harder (including for conda) <ul>
+<li>Use <a href="http://flit.readthedocs.org/">flit</a> – completely static! </li>
+</ul>
+</li>
+</ul>
+<p><em>RG: For pure Python packages Flit is great indeed. For packages with compiled code, we'll be stuck with <code>setup.py</code> for a while longer, I'm afraid. It is what it is - this has gotten better already with <code>pyproject.toml</code> and it's not one of the biggest issues anymore imho.</em></p>
+<ul>
+<li>Lack of relocation tools in Windows, i.e., mangling a DLL name and change it on DLLs that depend on it</li>
+</ul>
+<p><em>RG: Probably a gap indeed, not 100% sure. <a href="https://github.com/njsmith/machomachomangler">Mach-O Mach-O mangler</a> supports Windows, but a Windows equivalent of <a href="https://github.com/pypa/auditwheel">auditwheel</a> and <a href="https://github.com/matthew-brett/delocate">delocate</a> seems to be missing.</em></p>
+<ul>
+<li>This world does not know that the conda world exists.</li>
+</ul>
+<p><em>RG: yeah, kinda. Devs do know conda and conda-forge exist, but as far as I can tell they do see the world as centered around PyPI, wheels and pip, and conda as one of many other package managers (next to Homebrew, Linux distros, Chocolatey, and so on). Which isn't quite right - PyData users now represent over half of all Python users, and the Conda ecosystem has specific capabilities related to that stack that are (and may remain) missing from PyPI/pip.</em></p>
+<ul>
+<li>Shipping JupyterLab 3.0 extensions without Node.js is kinda cool.</li>
+<li>Rust/Maturin to develop Python packages is nice.<ul>
+<li>The relocation of depending binaries must be done manually in some cases.</li>
+</ul>
+</li>
+</ul>
+<h3>Topic 2: The conda world</h3>
+<ul>
+<li>Conda itself is almost unmaintained</li>
+</ul>
+<p><em>RG: a quick peek at <a href="https://github.com/conda/conda/pulse">the conda repo</a> indeed shows declining activity. Hopefully the new Conda Community organization will help generate new energy for <code>conda</code> contributions.</em></p>
+<ul>
+<li>Mamba is still a little tricky/slow to install</li>
+</ul>
+<p><em>RG: this is definitely true if you start with conda; it can take minutes for conda to do the solve to install mamba and its dependencies from conda-forge. With the recently added <a href="https://github.com/conda-forge/miniforge#mambaforge">Mambaforge</a> installer that problem should be mostly solved now.</em></p>
+<ul>
+<li>No TensorFlow <ul>
+<li>Does conda-forge count?</li>
+</ul>
+</li>
+</ul>
+<p><em>RG: this is actually no longer true, the TensorFlow package in <code>defaults</code> is reasonably but not completely up to date (2.3.0 CPU and GPU packages at the moment, missing 2.3.1-2.4.1). In general it's a problem indeed that important packages like TensorFlow and PyTorch in <code>defaults</code> may be one or even more versions behind.</em></p>
+<ul>
+<li>Conda-forge is growing too large<ul>
+<li>In which respect?</li>
+</ul>
+</li>
+</ul>
+<p><em>RG: As discussed in <a href="https://www.anaconda.com/blog/how-we-made-conda-faster-4-7">this blog post on conda performance</a>, the more packages there are in a channel, the slower the conda solves get. Given the ever-growing size of conda-forge, conda is getting slower and slower when used with conda-forge.</em></p>
+<ul>
+<li>Why oh why are defaults and conda-forge still not using a 100% compatible toolchain??</li>
+</ul>
+<p><em>RG: This would be so helpful. Not being able to mix <code>defaults</code> and <code>conda-forge</code>, and users doing it anyway because they need packages from both, is a long-standing issue.</em></p>
+<ul>
+<li>Conda solves in CI often get really bogged down<ul>
+<li>Also conda is never the default in CI so you need to do quite a bit of manipulation on some platforms</li>
+</ul>
+</li>
+<li>Confusion in the community over the new Anaconda ToS</li>
+</ul>
+<p><em>RG: Anaconda has done the right thing here imho: make large institutional users pay if they use the <code>defaults</code> channel. Packaging is hard and labour-intensive, and having a sustainable revenue stream to offset the cost of packaging difficult libraries, maintaining core tooling like <code>conda-build</code>, and serving packages to millions of users is important. Conda-forge and all other channels are still completely free. Unfortunately Anaconda communicated that very poorly, which led to unnecessary confusion. See <a href="https://conda-forge.org/blog/posts/2020-11-20-anaconda-tos/">this blog posts from the conda-forge team</a> for more.</em></p>
+<ul>
+<li>There's no way to distinguish packages that provide the same binaries, e.g., <code>turbojpeg</code> vs. <code>libjpeg</code>, both package <code>libjpeg</code>
+</li>
+<li>Need to separate metadata (especially dependencies) from packages.</li>
+</ul>
+<p><em>RG: this to me seems like a much smaller issue than with PyPI. The comment was about the ability to patch metadata of published conda packages more easily.</em></p>
+<ul>
+<li>R community seems slow to adopt it</li>
+</ul>
+<p><em>RG: I've heard from R users before that conda felt a bit "foreign". In the discussion it was suggested that part of that is that conda is Python-based which can still bubble up to the surface on occasion. And that Mamba, which is written in C++, may find a more positive reception in the R community.</em></p>
+<ul>
+<li>End-to-end security?</li>
+</ul>
+<p><em>RG: <a href="https://puri.sm/">Purism</a> and <a href="https://puri.sm/posts/the-future-of-software-supply-chain-security/">this blog post from its devs about security in the software supply chain</a> were mentioned.</em></p>
+<h3>Topic 3: Other</h3>
+<ul>
+<li>The Conda and PyPA worlds still aren't talking to each other much.</li>
+</ul>
+<p><em>RG: It's great to see that both the PyPA team and the Conda community are getting better organized. There's now more funding for work on PyPI, Warehouse and Pip; the teams working on it have grown, there's good project management, roadmapping and even Pip user experience research going on. And the Conda community has set up a new organization to align on standards, incubate promising new projects. The next step will hopefully be more productive interactions between those two somewhat separate groups.</em></p>
+<ul>
+<li>
+<code>pip</code> and <code>conda</code> interaction still not great<ul>
+<li>I'd like a way to have "safe" (e.g., pure Python) packages so you can confidently mix them. <code>+100</code>
+</li>
+<li>The pip dependency resolver is not great yet and it also ends up with conflicts with conda.</li>
+</ul>
+</li>
+</ul>
+<p><em>RG: True. For doing serious scientific computing, data science and ML type work, you often need the combination, using <code>conda</code> for the core libraries, and filling in the gaps with <code>pip</code> for packages that are not packaged for conda or installing things from source.</em></p>
+<h3>Topic 4: There's always good news too</h3>
+<ul>
+<li>
+<a href="https://github.com/pypa/setuptools/pull/2544">The death of <code>easy_install</code></a>!!!</li>
+<li>Mambaforge</li>
+<li>macos-arm64 support in conda-forge</li>
+</ul>
+<p><em>RG: It'll be a while before we get wheels for core PyData packages, but conda-forge already has support, see <a href="https://conda-forge.org/blog/posts/2020-10-29-macos-arm64/">this blog post</a>.</em></p>
+<ul>
+<li>The new conda community umbrella org</li>
+<li>Pip and PyPI are now well-managed and have a nontrivial amount of funding</li>
+<li>Pip has a solver :) ; the solver is a "backtracking solver" because metadata on PyPI is incomplete :(</li>
+</ul>
+<h3>Bonus topic: A puzzle</h3>
+<p>A challenge with a prize for who posts the most concise correct solution by
+tomorrow (note, you do need a very fast internet connection for this): create
+a concise recipe for installing the latest versions of NumPy, TensorFlow,
+PyTorch, CuPy, Dask, JAX and MXNet in a single environment.</p>
+<p>👆🏼 This is a trick question I am sure </p>
+<p><em>RG: everyone had till the end of the next day to submit a solution. It turns out to be not so simple, the winning entry (with six out of seven packages, JAX is missing) came from Chris Ostrouchov - our local Nix evangelist:</em></p>
+<pre class="code literal-block"><span></span><code>$ nix-shell -I <span class="nv">nixpkgs</span><span class="o">=</span>https://github.com/nixos/nixpkgs/archive/986cf21c45b798c97f2424e17b819af3ecf8083e.tar.gz
+ -p python3Packages.numpy
+ python3Packages.tensorflow python3Packages.pytorch python3Packages.cupy python3Packages.dask python3Packages.mxnet
+</code></pre>
+
+
+<p><em>My solution:</em></p>
+<pre class="code literal-block"><span></span><code><span class="c1"># To create an environment with the most recent version of all mainstream</span>
+<span class="c1"># Python array/tensor libraries installed:</span>
+$ conda create -n many-libs <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.7
+$ conda activate many-libs
+$ conda install <span class="nv">cudatoolkit</span><span class="o">=</span><span class="m">10</span>.2
+$ pip install numpy torch jax jaxlib tensorflow mxnet cupy-cuda102 dask toolz sparse  <span class="c1"># you may need to turn off the resolver if you're on pip &gt;= 20.3.1</span>
+
+<span class="c1"># Conda doesn't manage to find a winning combination here; pip has a hard time</span>
+<span class="c1"># too and probably not all constraints are satisfied, but nothing crashes</span>
+<span class="c1"># and basic tests work as they are supposed to.</span>
+</code></pre>
+
+
+<h3>Conclusion</h3>
+<p>A lot of good things are happening in various places in the Python packaging world. We're in a better situation than several years ago. As the brainstorm content above shows there are challenges as well, but that has always been the case. If I could have just one wish, I'd wish for good program management across and coordination between the PyPA and Conda communities.</p>
+<p>This is my blog post though, so I get a few more wishes:</p>
+<ul>
+<li>Merging Conda and Mamba so they share a single installer and UX with two modes ('fast' and 'stable/legacy').</li>
+<li>Strictly enforced metadata correctness and manylinux compliance for new PyPI uploads. The stricter the better, see <a href="https://github.com/pypa/packaging-problems/issues/264">packaging-problems #264</a>.</li>
+<li>GPU hardware for conda-forge so it can test its GPU packages in CI.</li>
+<li>Consolidate the zoo of virtual environment tools (<code>venv</code>, <code>virtualenv</code>, <code>poetry</code>, <code>pipenv</code>, <code>pyenv</code>, <code>pyflow</code> - probably there are even more) so we can actually recommend one to users of our projects.</li>
+<li>Not having to think about problems around Fortran on Windows ever again.</li>
+</ul>
+<p>While I'm at it, let me also link to some of the most informative blog posts on the topic I know of and enjoyed reading over the years:</p>
+<ul>
+<li><a href="https://tarekziade.wordpress.com/2010/03/03/the-fate-of-distutils-pycon-summit-packaging-sprint-detailed-report/">Tarek Ziadé - The fate of Distutils - Pycon Summit + Packaging Sprint detailed report (2010)</a></li>
+<li><a href="http://technicaldiscovery.blogspot.com/2013/12/why-i-promote-conda.html">Travis Oliphant - Why I promote conda (2013)</a></li>
+<li><a href="https://jakevdp.github.io/blog/2016/08/25/conda-myths-and-misconceptions/">Jake VanderPlas - Conda: Myths and Misconceptions (2016)</a></li>
+<li><a href="https://wesmckinney.com/blog/conda-forge-centos-moment/">Wes McKinney - conda-forge and PyData's CentOS moment (2016)</a></li>
+<li><a href="https://caremad.io/posts/2016/05/powering-pypi/">Donald Stufft - Powering the Python Package Index (2016)</a></li>
+<li><a href="https://pav.iki.fi/blog/2017-10-08/pywingfortran.html#building-python-wheels-with-fortran-for-windows">Pauli Virtanen - Building Python wheels with Fortran for Windows (2017)</a></li>
+<li><a href="https://uwekorn.com/2019/09/15/how-we-build-apache-arrows-manylinux-wheels.html">Uwe Korn - How we build Apache Arrow's manylinux wheels (2019)</a></li>
+<li><a href="https://pradyunsg.me/blog/2020/03/27/pip-resolver-testing/">Pradyun Gedam - Testing the next-gen pip dependency resolver (2020)</a></li>
+<li><a href="https://pyfound.blogspot.com/2020/11/pip-20-3-new-resolver.html">Sumana Harihareswara - Releasing pip 20.3, featuring new dependency resolver (2020)</a></li>
+</ul>
+<p>I hope this sketches a useful picture of where we are today. If we missed any major issues (I'm sure we did), I'd love to hear them!</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../scipy-ndimage-interpolation/" rel="prev" title="Making SciPy's Image Interpolation Consistent and Well Documented">Previous post</a>
+            </li>
+
+            <li class="archive">
+                <a href="../../../../archive.html" rel="archive" title="Archive ">Archive</a>
+            </li>
+
+            <li class="next disabled">
+                <a rel="next">Next post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2021         <a href="../../../../team">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs (Posts about setuptools)</title><link>https://labs.quansight.org/</link><description></description><atom:link href="https://labs.quansight.org/categories/setuptools.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Tue, 26 Jan 2021 09:17:44 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Python packaging in 2021 - pain points and bright spots</title><link>https://labs.quansight.org/blog/2021/01/python-packaging-brainstorm/</link><dc:creator>Ralf Gommers</dc:creator><description>&lt;div&gt;&lt;p&gt;At Quansight we have a weekly "Q-share" session on Fridays where everyone can
+share/demo things they have worked on, recently learned, or that simply seem
+interesting to share with their colleagues. This can be about anything, from
+new utilities to low-level performance, from building inclusive communities
+to how to write better documentation, from UX design to what legal &amp;amp;
+accounting does to support the business. This week I decided to try something
+different: hold a brainstorm on the state of Python packaging today.&lt;/p&gt;
+&lt;p&gt;The ~30 participants were mostly from the PyData world, but not exclusively -
+it included people with backgrounds and preferences ranging from C, C++ and
+Fortran to JavaScript, R and DevOps - and with experience as end-users,
+packagers, library authors, and educators. This blog post contains the raw
+output of the 30-minute brainstorm (only cleaned up for textual issues) and
+my annotations on it (in italics) which capture some of the discussion during
+the session and links and context that may be helpful. I think it sketches a
+decent picture of the main pain points of Python packaging for users and
+developers interacting with the Python data and numerical computing ecosystem.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2021/01/python-packaging-brainstorm/"&gt;Read more…&lt;/a&gt; (11 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Conda</category><category>conda-forge</category><category>CUDA</category><category>manylinux</category><category>packaging</category><category>pip</category><category>PyData</category><category>PyPI</category><category>Python</category><category>setuptools</category><guid>https://labs.quansight.org/blog/2021/01/python-packaging-brainstorm/</guid><pubDate>Sun, 24 Jan 2021 04:00:00 GMT</pubDate></item></channel></rss>
