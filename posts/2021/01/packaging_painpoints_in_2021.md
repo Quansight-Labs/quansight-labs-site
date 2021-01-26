@@ -20,9 +20,9 @@ different: hold a brainstorm on the state of Python packaging today.
 
 The ~30 participants were mostly from the PyData world, but not exclusively -
 it included people with backgrounds and preferences ranging from C, C++ and
-Fortran to JavaScript, R and devops - and with experience as end users,
+Fortran to JavaScript, R and DevOps - and with experience as end-users,
 packagers, library authors, and educators. This blog post contains the raw
-output of the 30 minute brainstorm (only cleaned up for textual issues), and
+output of the 30-minute brainstorm (only cleaned up for textual issues) and
 my annotations on it (in italics) which capture some of the discussion during
 the session and links and context that may be helpful. I think it sketches a
 decent picture of the main pain points of Python packaging for users and
@@ -34,7 +34,7 @@ developers interacting with the Python data and numerical computing ecosystem.
 
 - PyPI file size limit ... deep learning, CUDA 11
 
-_RG: the default file size limit on PyPI is (I believe) 60 MB currently, which is not enough for many libraries with heavy dependencies. You must file an issue to ask for an exemption, which can take quite a while to be resolved because PyPI has only a few volunteers. See, e.g., [this issue where MXNet asks for a 1 GB limit](https://github.com/pypa/pypi-support/issues/243). The issue will get significantly worse with CUDA 11, which is several times larger than CUDA 10. Looking at for example [PyTorch wheels](https://pypi.org/project/torch/#files), which are already 776 MB now, that simply won't fit. When I asked one of the PyPI maintainers recently the answer was "interesting - that will be a problem"._
+_RG: the default file size limit on PyPI is (I believe) 60 MB currently, which is not enough for many libraries with heavy dependencies. You must file an issue to ask for an exemption, which can take quite a while to be resolved because PyPI has only a few volunteers. See, e.g., [this issue where MXNet asks for a 1 GB limit](https://github.com/pypa/pypi-support/issues/243). The issue will get significantly worse with CUDA 11, which is several times larger than CUDA 10. Looking at for example [PyTorch wheels](https://pypi.org/project/torch/#files), which are already 776 MB now, that simply won't fit. When I asked one of the PyPI maintainers recently, the answer was "interesting - that will be a problem"._
 
 - Native dependencies for wheels
     - two proposed solutions: pynativelib, or spec to interface with outside packages
@@ -43,7 +43,7 @@ _RG: what projects do with non-Python dependencies today is simply don't declare
 
 - ABI tags are limited: multi-CUDA options, multi-SIMD options
 
-_RG: for packages with compiled code, ABI tags in the wheel filename can be used to specify certain properties, like what Python version, operating system or set of base libraries like glibc the wheel is for. Anything that doesn't have an ABI tag cannot be supported though. Examples of unsupported features are CUDA version and CPU capabilities for SIMD instruction sets. Therefore projects can only make a single choice there for what they upload to PyPI; everything else must be hosted elsewhere._
+_RG: for packages with compiled code, ABI tags in the wheel filename can be used to specify certain properties, like what Python version, operating system or set of base libraries like glibc the wheel is for. Anything that doesn't have an ABI tag cannot be supported, though. Examples of unsupported features are CUDA version and CPU capabilities for SIMD instruction sets. Therefore projects can only make a single choice there for what they upload to PyPI; everything else must be hosted elsewhere._
 
 - The rise of new (and old) architectures: Linux on ARM64, macOS M1, PowerPC, AIX, Z/OS
 
@@ -75,7 +75,7 @@ _RG: See [this blog post from Matthias Bussonnier](https://labs.quansight.org/bl
 - `setup.py` is dynamic making downstream packaging/automation much harder (including for conda) 
     - Use [flit](http://flit.readthedocs.org/) – completely static! 
 
-_RG: For pure Python packages Flit is great indeed. For packages with compiled code, we'll be stuck with `setup.py` for a while longer I'm afraid. It is what it is - this has gotten better already with `pyproject.toml` and it's not one of the biggest issues anymore imho._
+_RG: For pure Python packages Flit is great indeed. For packages with compiled code, we'll be stuck with `setup.py` for a while longer, I'm afraid. It is what it is - this has gotten better already with `pyproject.toml` and it's not one of the biggest issues anymore imho._
 
 - Lack of relocation tools in Windows, i.e., mangling a DLL name and change it on DLLs that depend on it
 
@@ -143,7 +143,7 @@ _RG: It's great to see that both the PyPA team and the Conda community are getti
     - I'd like a way to have "safe" (e.g., pure Python) packages so you can confidently mix them. `+100`
     - The pip dependency resolver is not great yet and it also ends up with conflicts with conda.
 
-_RG: True. For doing serious scientific computing, data science and ML type work, you often need the combination. Using `conda` for the core libraries, and filling in the gaps with `pip` for packages that are not packaged for conda or installing things from source._
+_RG: True. For doing serious scientific computing, data science and ML type work, you often need the combination, using `conda` for the core libraries, and filling in the gaps with `pip` for packages that are not packaged for conda or installing things from source._
 
 
 ## topic 4: There's always good news too
