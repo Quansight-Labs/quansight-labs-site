@@ -30,6 +30,12 @@ developers interacting with the Python data and numerical computing ecosystem.
 
 <!-- TEASER_END -->
 
+The main intended audience for this post is maintainers working on
+packaging and distribution tools, and library authors needing to package
+their projects. Readers newer to Python packaging may want to start with the
+blog posts linked in the Conclusion section.
+
+
 ## Topic 1: The pip/wheel/PyPI world
 
 - PyPI file size limit ... deep learning, CUDA 11
