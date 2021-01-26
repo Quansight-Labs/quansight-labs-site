@@ -30,7 +30,7 @@ developers interacting with the Python data and numerical computing ecosystem.
 
 <!-- TEASER_END -->
 
-## topic 1: The pip/wheel/PyPI world
+## Topic 1: The pip/wheel/PyPI world
 
 - PyPI file size limit ... deep learning, CUDA 11
 
@@ -90,11 +90,11 @@ _RG: yeah, kinda. Devs do know conda and conda-forge exist, but as far as I can 
     - The relocation of depending binaries must be done manually in some cases.
 
 
-## topic 2: The conda world
+## Topic 2: The conda world
 
 - Conda itself is almost unmaintained
 
-_RG: a quick peek at [the conda repo](https://github.com/conda/conda/pulse) indeed shows declining activity. Hopefully the new conda_
+_RG: a quick peek at [the conda repo](https://github.com/conda/conda/pulse) indeed shows declining activity. Hopefully the new Conda Community organization will help generate new energy for `conda` contributions._
 
 - Mamba is still a little tricky/slow to install
 
@@ -133,7 +133,7 @@ _RG: I've heard from R users before that conda felt a bit "foreign". In the disc
 
 _RG: [Purism](https://puri.sm/) and [this blog post from its devs about security in the software supply chain](https://puri.sm/posts/the-future-of-software-supply-chain-security/) were mentioned._
 
-## topic 3: Other
+## Topic 3: Other
 
 - The Conda and PyPA worlds still aren't talking to each other much.
 
@@ -146,7 +146,7 @@ _RG: It's great to see that both the PyPA team and the Conda community are getti
 _RG: True. For doing serious scientific computing, data science and ML type work, you often need the combination, using `conda` for the core libraries, and filling in the gaps with `pip` for packages that are not packaged for conda or installing things from source._
 
 
-## topic 4: There's always good news too
+## Topic 4: There's always good news too
 
 - [The death of `easy_install`](https://github.com/pypa/setuptools/pull/2544)!!!
 - Mambaforge
@@ -159,7 +159,7 @@ _RG: It'll be a while before we get wheels for core PyData packages, but conda-f
 - Pip has a solver :) ; the solver is a "backtracking solver" because metadata on PyPI is incomplete :(
 
 
-## bonus topic: A puzzle
+## Bonus topic: A puzzle
 
 A challenge with a prize for who posts the most concise correct solution by
 tomorrow (note, you do need a very fast internet connection for this): create
