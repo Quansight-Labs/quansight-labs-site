@@ -2,13 +2,13 @@
     color: #FFF
 } 
 .nav-item.active > a{
-    color: #99C941
+    color: #3bcd76
 }
 #logo {
     max-height: 50px;
 }  
 .navbar{
-    background-color: #613EA3;
+    background-color: #2c0848;
 }
   
 .archive {
