@@ -142,7 +142,7 @@ TypeError: Too few arguments for function 'dyn_guvec'. Note that the pattern `ou
 
 ## Next steps
 
-In the future we would like to bring `@guvectorize` capabilities closer to the `@vectorize` one. For instance, currently it is not possible to call a guvectorize function from a jitted (`@jit`) function. Some work needs to be done towards this direction.
+In the future we would like to bring the `@guvectorize` capabilities closer to the `@vectorize` ones. For instance, currently it is not possible to call a guvectorize function from a jitted (`@jit`) function. Some work needs to be done in this direction.
 
 We would like to thank the [D.E. Shaw group](https://www.deshaw.com/) for sponsoring this work.
 
