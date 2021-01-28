@@ -21,7 +21,7 @@ Before, only the eager approach was supported. In this mode, users are required 
 
 ## NumPy Universal Functions
 
-NumPy introduces a type of function called Universal functions or ufuncs. Ufuncs are functions that operate on `ndarrays` element-by-element. [Examples](https://numpy.org/doc/stable/reference/ufuncs.html#available-ufuncs) of universal functions are `np.log` and `np.log2`, which compute the natural and base-2 logarithms, respectively. Alongside ufuncs, NumPy also introduces the notion of generalized ufuncs or gufuncs. While the former is limited to element-by-element operations, the latter supports sub-array by sub-array operations at a time.
+NumPy introduces a type of function called Universal functions or ufuncs. Ufuncs are functions that operate on `ndarrays` element-by-element. [Examples](https://numpy.org/doc/stable/reference/ufuncs.html#available-ufuncs) of universal functions are `np.log` and `np.log2`, which compute the natural and base-2 logarithms, respectively. Alongside ufuncs, NumPy also introduces the notion of generalized ufuncs or gufuncs. While the former is limited to element-by-element operations, the latter supports subarray-by-subarray operations.
 
 Creating new NumPy ufuncs is not an easy process and may require one to [write some C code](https://numpy.org/doc/stable/user/c-info.ufunc-tutorial.html). Numba extends the NumPy mechanism for registering and using (generalized) universal functions with two decorators: `@vectorize` and `@guvectorize`. Those decorators allow one to easily create universal functions from Python, leaving the gruntwork to Numba.
 
@@ -147,4 +147,3 @@ In the future we would like to bring `@guvectorize` capabilities closer to the `
 We would like to thank the [D.E. Shaw group](https://www.deshaw.com/) for sponsoring this work.
 
 ![https://www.deshaw.com](/images/sponsors/black_logo_417x125.png)
-
