@@ -1,5 +1,5 @@
 <!--
-.. title: Enhancements to the guvectorize decorator
+.. title: Enhancements to Numba's guvectorize decorator
 .. slug: enhancements-to-the-guvectorize-decorator
 .. date: 2021-01-20 08:00:00 UTC-00:00
 .. author: Guilherme Leobas
@@ -10,7 +10,7 @@
 .. type: text
 -->
 
-Starting on Numba 0.53, Numba will ship with an enhanced version of the `@guvectorize` decorator. Similar to the [@vectorize](https://numba.pydata.org/numba-doc/dev/user/vectorize.html#the-vectorize-decorator) decorator, [@guvectorize](https://numba.pydata.org/numba-doc/dev/user/vectorize.html#the-guvectorize-decorator) now has two modes of operation: 
+Starting from Numba 0.53, Numba will ship with an enhanced version of the `@guvectorize` decorator. Similar to the [@vectorize](https://numba.pydata.org/numba-doc/dev/user/vectorize.html#the-vectorize-decorator) decorator, [@guvectorize](https://numba.pydata.org/numba-doc/dev/user/vectorize.html#the-guvectorize-decorator) now has two modes of operation: 
 
 - Eager, or decoration-time compilation and
 - Lazy, or call-time compilation
@@ -35,18 +35,18 @@ import numpy as np
 @guvectorize([(int64[:], int64, int64[:])], '(n),()->(n)')
 def guvec(x, y, res):
     for i in range(x.shape[0]):
-        res[i] = x[i] + y
+        res[i] = x[x > i].sum() + y
 
 >>> x = np.arange(10).reshape(5, 2)
 >>> y = 10
 >>> res = np.zeros_like(x)
 >>> guvec(x, y, res)
 >>> res
-array([[10, 11],
-       [12, 13],
-       [14, 15],
-       [16, 17],
-       [18, 19]])
+array([[ 4,  3],
+       [ 8,  8],
+       [12, 12],
+       [16, 16],
+       [20, 20]])
 ```
 
 Notice that `guvectorize` functions don't return their result value. Instead, they have to have the return array passed as an argument.
@@ -80,7 +80,7 @@ In Numba 0.53, one can omit the first argument to build a dynamic generalized un
 @guvectorize('(n),()->(n)')
 def dyn_guvec(x, y, res):
     for i in range(x.shape[0]):
-        res[i] = x[i] + y
+        res[i] = x[x > i] + y
 
 >>> dyn_guvec
 <numba._GUFunc 'dyn_guvec'>
@@ -96,11 +96,11 @@ As one makes calls to `dyn_guvec`, new kernels will be generated for previously 
 >>> res = np.zeros_like(x)
 >>> dyn_guvec(x, y, res)
 >>> res
-array([[10, 11],
-       [12, 13],
-       [14, 15],
-       [16, 17],
-       [18, 19]])
+array([[ 4,  3],
+       [ 8,  8],
+       [12, 12],
+       [16, 16],
+       [20, 20]])
 >>> dyn_guvec.types
 ['ll->l']
 ```
@@ -124,11 +124,11 @@ In NumPy, it is fine to omit the output argument when calling a generalized ufun
 >>> a = np.arange(10).reshape(5, 2)
 >>> b = 10
 >>> guvec(a, b)
-array([[10, 11],
-       [12, 13],
-       [14, 15],
-       [16, 17],
-       [18, 19]])
+array([[ 4,  3],
+       [ 8,  8],
+       [12, 12],
+       [16, 16],
+       [20, 20]])
 ```
 
 The same is not possible in a dynamic ufunc. Numba would have to guess the output type and shape to correctly generate code based on the input and signature.
