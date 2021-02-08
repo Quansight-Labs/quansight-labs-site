@@ -256,6 +256,59 @@ auto loop = [&](char** data, const int64_t* strides, int64_t n) {
 iter.for_each(loop);
 ```
 
+### Helper functions
+
+There are many helper functions within PyTorch that can simplify the creation
+and execution of a `TensorIterator`. We cannot cover all of them in this blog
+post, so you would need to discover them on your own. However, let's discuss
+one of the most common ones:
+[`make_reduction`](https://github.com/pytorch/pytorch/blob/d9e6750759b78c68e7d98b80202c67bea7ba24ec/aten/src/ATen/native/ReduceOpsUtils.h#L196)
+
+`make_reduction` creates a `TensorIterator` specifically for a reduction
+operation with one input and one output. It handles all of the
+`TensorIteratorConfig` setup internally, so we don't need to write as much
+boiler-plate code.
+
+The following example uses `make_reduction` to create a `TensorIterator` which
+is used to calculate the sum reduction of a 2-D input across dimension 1. This
+is equivalent to `torch.sum(self, dim=1)` in Python. If we didn't use
+`make_reduction`, this code would be a bit more complex and more difficult to
+write.
+
+```cpp
+at::Tensor self = at::randn({10, 10});
+int64_t dim = 1;
+bool keepdim = false;
+
+// `make_reduction` will allocate result Tensor for us, so we
+// can leave it undefined
+at::Tensor result;
+
+auto iter = at::native::make_reduction(
+  "sum_reduce",
+  result,
+  self,
+  dim,
+  keepdim,
+  self.scalar_type());
+
+// Sum reduce data from input into output
+auto sum_reduce_loop = [](char** data, const int64_t* strides, int64_t n) {
+  auto* out_data = data[0];
+  auto* in_data = data[1];
+
+  *reinterpret_cast<float*>(out_data) = 0;
+
+  for (int i = 0; i < n; i++) {
+    // assume float data type for this example
+    *reinterpret_cast<float*>(out_data) += *reinterpret_cast<float*>(in_data);
+    in_data += strides[1];
+  }
+};
+
+iter.for_each(sum_reduce_loop);
+```
+
 # Conclusion
 
 This post was a very short introduction to what `TensorIterator` is actually
