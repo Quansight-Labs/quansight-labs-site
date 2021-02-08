@@ -17,7 +17,7 @@ C++ classes is
 a tensor, automatically parallelizing operations, while abstracting device and 
 data type details.
 
-In April 2020, Sameer wrote a blog article discussing [PyTorch TensorIterator Internals](../../2020/04/pytorch-tensoriterator-internals.html). Recently,
+In April 2020, Sameer wrote a blog article discussing [PyTorch TensorIterator Internals](/blog/2020/04/pytorch-tensoriterator-internals/index.html). Recently,
 however, the interface has changed significantly. This post describes how to
 use the current interface as of January 2021. Much of the information from the
 previous article is directly copied here, but with updated API calls and some
