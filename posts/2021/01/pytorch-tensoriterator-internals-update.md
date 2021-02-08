@@ -54,22 +54,23 @@ auto iter = iter_config.build();
 
 Iterations using `TensorIterator` can be classified as point-wise iterations or
 reduction iterations. This plays a fundamental role in how iterations using
-`TensorIterator` are parallelized - point-wise iterations can be freely
+`TensorIterator` are parallelized. Point-wise iterations can be freely
 parallelized along any dimension and grain size while reduction operations have
 to be either parallelized along dimensions that you're not iterating over or by
 performing bisect and reduce operations along the dimension being iterated.
-Parallelization can also happen using vectorized operations. Parallelization
-with vectorized operations can also be implemented.
+Note that for CUDA, it is possible to parallelize along the reduction
+dimension, but synchronizations are needed to avoid race conditions.
+Parallelization with vectorized operations can also be implemented.
 
 ## Iteration details
 
 The simplest iteration operation can be performed using the
-[`for_each`](https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/TensorIterator.cpp#L677)
+[`for_each`](https://github.com/pytorch/pytorch/blob/d9e6750759b78c68e7d98b80202c67bea7ba24ec/aten/src/ATen/TensorIterator.cpp#L677)
 function. This function has two overloads: one takes a function object which
 iterates over a single dimension (`loop_t`); the other takes a function object
 which iterates over two dimensions simultaneously (`loop2d_t`). Find their
 definitions
-[here](https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/TensorIterator.h#L246).
+[here](https://github.com/pytorch/pytorch/blob/d9e6750759b78c68e7d98b80202c67bea7ba24ec/aten/src/ATen/TensorIterator.h#L246).
 The simplest way of using `for_each` is to pass it a lambda of type `loop_t`
 (or `loop2d_t`).
 
@@ -112,9 +113,9 @@ auto copy_loop = [](char** data, const int64_t* strides, int64_t n) {
   auto* out_data = data[0];
   auto* in_data = data[1];
 
-  for (int i = 0; i < n; i++) {
+  for (int64_t i = 0; i < n; i++) {
     // assume float data type for this example
-    *reinterpret_cast<float*>(out_data) += *reinterpret_cast<float*>(in_data);
+    *reinterpret_cast<float*>(out_data) = *reinterpret_cast<float*>(in_data);
     out_data += strides[0];
     in_data += strides[1];
   }
@@ -154,7 +155,9 @@ at::native::cpu_kernel(iter, [] (float a, float b) -> float {
 
 Writing the kernel in this way ensures that the value returned by the lambda
 passed to `cpu_kernel` will populate the corresponding position in the target
-output tensor.
+output tensor, as long as the inputs strictly broadcast over the output--that
+is, if the output's shape is equal to or greater than the input shape in all
+dimensions.
 
 ### Setting tensor iteration dimensions
 
@@ -172,12 +175,12 @@ How exactly it computes the dimension to iterate over is something that should
 be properly understood in order to use `TensorIterator` effectively.
 
 When performing a reduction operation (see the `sum_out` code in
-[ReduceOps.cpp](https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/native/ReduceOps.cpp#L433)),
+[ReduceOps.cpp](https://github.com/pytorch/pytorch/blob/d9e6750759b78c68e7d98b80202c67bea7ba24ec/aten/src/ATen/native/ReduceOps.cpp#L517)),
 `TensorIterator` will figure out the dimensions that will be reduced depending
 on the shape of the input and output tensor, which determines how the input
 will be broadcast over the output. If you're performing a simple pointwise
 operation between two tensors (like a `addcmul` from
-[PointwiseOps.cpp](https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/native/PointwiseOps.cpp#L31))
+[PointwiseOps.cpp](https://github.com/pytorch/pytorch/blob/d9e6750759b78c68e7d98b80202c67bea7ba24ec/aten/src/ATen/native/PointwiseOps.cpp#L31))
 the iteration will happen over the entire tensor, without providing a choice of
 the dimension. This allows `TensorIterator` to freely parallelize the
 computation, without guaranteeing the order of execution, since it does not
@@ -189,7 +192,7 @@ the dimension to reduce but iterate over multiple non-reduced dimensions
 strides--one for the dimension being reduced and one for all other dimensions.
 Take a look at the following example of a somewhat simplified version of the
 [cumsum
-kernel](https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/native/cpu/ReduceOpsKernel.cpp#L47).
+kernel](https://github.com/pytorch/pytorch/blob/d9e6750759b78c68e7d98b80202c67bea7ba24ec/aten/src/ATen/native/cpu/ReduceOpsKernel.cpp#L67).
 
 For a 1-D input,
 [torch.cumsum](https://pytorch.org/docs/stable/generated/torch.cumsum.html?highlight=cumsum#torch.cumsum)
@@ -233,14 +236,15 @@ auto loop = [&](char** data, const int64_t* strides, int64_t n) {
   auto* result_data_bytes = data[0];
   const auto* self_data_bytes = data[1];
 
-  for (int64_t i = 0; i < n; ++i) {
+  for (int64_t vector_idx = 0; vector_idx < n; ++vector_idx) {
+
     // Calculate cumulative sum for each element of the vector
     auto cumulative_sum = (at::acc_type<float, false>) 0;
-    for (int64_t i = 0; i < self_dim_size; ++i) {
+    for (int64_t elem_idx = 0; elem_idx < self_dim_size; ++elem_idx) {
       const auto* self_data = reinterpret_cast<const float*>(self_data_bytes);
       auto* result_data = reinterpret_cast<float*>(result_data_bytes);
-      cumulative_sum += self_data[i * self_dim_stride];
-      result_data[i * result_dim_stride] = (float)cumulative_sum;
+      cumulative_sum += self_data[elem_idx * self_dim_stride];
+      result_data[elem_idx * result_dim_stride] = (float)cumulative_sum;
     }
 
     // Go to the next vector
@@ -258,7 +262,7 @@ This post was a very short introduction to what `TensorIterator` is actually
 capable of. If you want to learn more about how it works and what goes into
 things like collapsing the tensor size for optimizing memory access, a good
 place to start would be the `build()` function in
-[TensorIterator.cpp](https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/TensorIterator.cpp#L1255).
+[TensorIterator.cpp](https://github.com/pytorch/pytorch/blob/d9e6750759b78c68e7d98b80202c67bea7ba24ec/aten/src/ATen/TensorIterator.cpp#L1255).
 Also have a look at [this wiki
 page](https://github.com/pytorch/pytorch/wiki/How-to-use-TensorIterator) from
 the PyTorch team on using `TensorIterator.`
