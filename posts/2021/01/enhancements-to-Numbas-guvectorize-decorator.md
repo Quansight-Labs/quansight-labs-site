@@ -28,7 +28,6 @@ Creating new NumPy ufuncs is not an easy process and may require one to [write s
 For instance, consider the function `guvec`, which adds a scalar to every element in an array:
 
 ```python
-# examples taken from https://numba.pydata.org/numba-doc/latest/user/vectorize.html
 from numba import guvectorize, int64
 import numpy as np
 
