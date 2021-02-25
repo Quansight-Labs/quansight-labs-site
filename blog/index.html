@@ -95,7 +95,36 @@ navbar-dark bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/01/python-packaging-brainstorm/" class="u-url">Python packaging in 2021 - pain points and bright spots</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/02/enhancements-to-numba-guvectorize-decorator/" class="u-url">Enhancements to Numba's guvectorize decorator</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                <a href="../authors/guilherme-leobas/">Guilherme Leobas</a>
+            </span></p>
+            <p class="dateline">
+            <a href="2021/02/enhancements-to-numba-guvectorize-decorator/" rel="bookmark">
+            <time class="published dt-published" datetime="2021-02-25T08:00:00Z" itemprop="datePublished" title="2021-02-25">2021-02-25</time></a>
+            </p>
+        </div>
+            
+        <div>
+            
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../categories/labs/" rel="tag">Labs</a></li>
+            <li><a class="tag p-category" href="../categories/numba/" rel="tag">Numba</a></li>
+        </ul>
+</div>
+    </header><div class="p-summary entry-summary">
+    <div>
+<p>Starting from Numba 0.53, Numba will ship with an enhanced version of the <code>@guvectorize</code> decorator. Similar to the <a href="https://numba.pydata.org/numba-doc/dev/user/vectorize.html#the-vectorize-decorator">@vectorize</a> decorator, <a href="https://numba.pydata.org/numba-doc/dev/user/vectorize.html#the-guvectorize-decorator">@guvectorize</a> now has two modes of operation:</p>
+<ul>
+<li>Eager, or decoration-time compilation and</li>
+<li>Lazy, or call-time compilation</li>
+</ul>
+<p>Before, only the eager approach was supported. In this mode, users are required to provide a list of concrete supported types beforehand as its first argument. Now, this list can be omitted if desired and as one calls it, Numba dynamically generates new kernels for previously unsupported types.</p>
+<p class="more"><a href="2021/02/enhancements-to-numba-guvectorize-decorator/">Read more…</a></p>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/01/python-packaging-brainstorm/" class="u-url">Python packaging in 2021 - pain points and bright spots</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 <a href="../authors/ralf-gommers/">Ralf Gommers</a>
@@ -434,31 +463,6 @@ introduced the Versioned HDF5 library and described some of its features. In
 this post, we'll go into detail on how the underlying design of the library
 works on a technical level.</p>
 <p class="more"><a href="2020/09/design-of-the-versioned-hdf5-library/">Read more…</a></p>
-</div>
-    </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2020/09/versioned-hdf5-performance/" class="u-url">Performance of the Versioned HDF5 Library</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                <a href="../authors/melissa-weber-mendonca/">Melissa Weber Mendonça</a>
-            </span></p>
-            <p class="dateline">
-            <a href="2020/09/versioned-hdf5-performance/" rel="bookmark">
-            <time class="published dt-published" datetime="2020-09-11T06:00:00-05:00" itemprop="datePublished" title="2020-09-11">2020-09-11</time></a>
-            </p>
-        </div>
-            
-        <div>
-            
-        <ul itemprop="keywords" class="tags">
-<li><a class="tag p-category" href="../categories/h5py/" rel="tag">h5py</a></li>
-            <li><a class="tag p-category" href="../categories/hdf5/" rel="tag">HDF5</a></li>
-        </ul>
-</div>
-    </header><div class="p-summary entry-summary">
-    <div>
-<p>In several industry and science applications, a filesystem-like storage model such as <a href="https://www.hdfgroup.org/solutions/hdf5/">HDF5</a> is the more appropriate solution for manipulating large amounts of data. However, suppose that data changes over time. In that case, it's not obvious how to track those different versions, since HDF5 is a binary format and is not well suited for traditional version control systems and tools. </p>
-<p>In a <a href="https://labs.quansight.org/blog/2020/08/introducing-versioned-hdf5/">previous post</a>, we introduced the Versioned HDF5 library, which implements a mechanism for storing binary data sets in a versioned way that feels natural to users of other version control systems, and described some of its features. In this post, we'll show some of the performance analysis we did while developing the library, hopefully making the case that reading and writing versioned HDF5 files can be done with a nice, intuitive API while being as efficient as possible. The tests presented here show that using the Versioned HDF5 library results in reduced disk space usage, and further reductions in this area can be achieved with the use of HDF5/<a href="https://www.h5py.org">h5py</a>-provided compression algorithms. That only comes at a cost of &lt;10x file writing speed.</p>
-<p class="more"><a href="2020/09/versioned-hdf5-performance/">Read more…</a></p>
 </div>
     </div>
     </article>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enhancements to Numba's guvectorize decorator | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2021/02/enhancements-to-numba-guvectorize-decorator/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-163785882-1');
+</script><meta name="author" content="Guilherme Leobas">
+<link rel="prev" href="../../01/python-packaging-brainstorm/" title="Python packaging in 2021 - pain points and bright spots" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="Enhancements to Numba's guvectorize decorator">
+<meta property="og:url" content="https://labs.quansight.org/blog/2021/02/enhancements-to-numba-guvectorize-decorator/">
+<meta property="og:description" content="Starting from Numba 0.53, Numba will ship with an enhanced version of the @guvectorize decorator. Similar to the @vectorize decorator, @guvectorize now has two modes of operation:
+
+Eager, or decoratio">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2021-02-25T08:00:00Z">
+<meta property="article:tag" content="Labs">
+<meta property="article:tag" content="Numba">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+            <img src="../../../../images/QuansightLabs_logo_V1_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../" class="nav-link">Blog</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../team/" class="nav-link">Team</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../projects/" class="nav-link">Projects</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../about/" class="nav-link">About</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right"></ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name">
+                <a href="." class="u-url">Enhancements to Numba's guvectorize decorator</a>
+            </h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    <a class="u-url" href="../../../../authors/guilherme-leobas/">Guilherme Leobas</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2021-02-25T08:00:00Z" itemprop="datePublished" title="2021-02-25">2021-02-25</time></a>
+            </p>
+            
+
+        </div>
+        
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/labs/" rel="tag">Labs</a></li>
+            <li><a class="tag p-category" href="../../../../categories/numba/" rel="tag">Numba</a></li>
+        </ul></header><div class="e-content entry-content" itemprop="articleBody text">
+        <div>
+<p>Starting from Numba 0.53, Numba will ship with an enhanced version of the <code>@guvectorize</code> decorator. Similar to the <a href="https://numba.pydata.org/numba-doc/dev/user/vectorize.html#the-vectorize-decorator">@vectorize</a> decorator, <a href="https://numba.pydata.org/numba-doc/dev/user/vectorize.html#the-guvectorize-decorator">@guvectorize</a> now has two modes of operation:</p>
+<ul>
+<li>Eager, or decoration-time compilation and</li>
+<li>Lazy, or call-time compilation</li>
+</ul>
+<p>Before, only the eager approach was supported. In this mode, users are required to provide a list of concrete supported types beforehand as its first argument. Now, this list can be omitted if desired and as one calls it, Numba dynamically generates new kernels for previously unsupported types.</p>
+<!-- TEASER_END -->
+
+<h3>NumPy Universal Functions</h3>
+<p>NumPy has functions called Universal functions or ufuncs. Ufuncs are functions that operate on <code>ndarrays</code> element-by-element. <a href="https://numpy.org/doc/stable/reference/ufuncs.html#available-ufuncs">Examples</a> of universal functions are <code>np.log</code> and <code>np.log2</code>, which compute the natural and base-2 logarithms, respectively. Alongside ufuncs, NumPy also has the notion of generalized ufuncs or gufuncs. While the former is limited to element-by-element operations, the latter supports subarray-by-subarray operations.</p>
+<p>Creating new NumPy ufuncs is not an easy process and may require one to <a href="https://numpy.org/doc/stable/user/c-info.ufunc-tutorial.html">write some C code</a>. Numba extends the NumPy mechanism for registering and using (generalized) universal functions with two decorators: <code>@vectorize</code> and <code>@guvectorize</code>. Those decorators allow one to easily create universal functions from Python, leaving the grunt work to Numba.</p>
+<p>For instance, consider the function <code>guvec</code>, which adds a scalar to every element in an array:</p>
+<pre class="code literal-block"><span></span><code><span class="kn">from</span> <span class="nn">numba</span> <span class="kn">import</span> <span class="n">guvectorize</span><span class="p">,</span> <span class="n">int64</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="nd">@guvectorize</span><span class="p">([(</span><span class="n">int64</span><span class="p">[:],</span> <span class="n">int64</span><span class="p">,</span> <span class="n">int64</span><span class="p">[:])],</span> <span class="s1">'(n),()-&gt;(n)'</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">guvec</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">+</span> <span class="n">y</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">guvec</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">res</span>
+<span class="n">array</span><span class="p">([[</span> <span class="mi">4</span><span class="p">,</span>  <span class="mi">3</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mi">8</span><span class="p">,</span>  <span class="mi">8</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">]])</span>
+</code></pre>
+
+
+<p>Notice that <code>guvectorize</code> functions don't return their result value. Instead, they have to have the return array passed as an argument.</p>
+<p>Previously, to use this decorator, one would have to declare the argument types in advance. One can inspect the supported types through the <code>.types</code> property.</p>
+<pre class="code literal-block"><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">guvec</span>
+<span class="o">&lt;</span><span class="n">ufunc</span> <span class="s1">'guvec'</span><span class="o">&gt;</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">guvec</span><span class="o">.</span><span class="n">types</span>
+<span class="p">[</span><span class="s1">'ll-&gt;l'</span><span class="p">]</span>  <span class="c1"># l is a shorthand for int64</span>
+</code></pre>
+
+
+<p>The commands above also show that <code>guvec</code> is a NumPy ufunc and behaves like it. If one attempts to call it with non-supported argument types, it will fail with the following error message:</p>
+<pre class="code literal-block"><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">),</span> <span class="mi">10</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">guvec</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s2">"&lt;stdin&gt;"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">TypeError</span><span class="p">:</span> <span class="n">ufunc</span> <span class="s1">'guvec'</span> <span class="ow">not</span> <span class="n">supported</span> <span class="k">for</span> <span class="n">the</span> <span class="nb">input</span> <span class="n">types</span><span class="p">,</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">inputs</span> <span class="n">could</span> <span class="ow">not</span> <span class="n">be</span> <span class="n">safely</span> <span class="n">coerced</span> <span class="n">to</span> <span class="nb">any</span> <span class="n">supported</span> <span class="n">types</span> <span class="n">according</span> <span class="n">to</span> <span class="n">the</span> <span class="n">casting</span> <span class="n">rule</span> <span class="s1">''</span><span class="n">safe</span><span class="s1">''</span>
+</code></pre>
+
+
+<h3>Dynamic compilation</h3>
+<p>In Numba 0.53, one can omit the first argument to build a dynamic generalized universal function. For instance, consider the function <code>dyn_gufunc</code> below:</p>
+<pre class="code literal-block"><span></span><code><span class="nd">@guvectorize</span><span class="p">(</span><span class="s1">'(n),()-&gt;(n)'</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">dyn_guvec</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">res</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">y</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">dyn_guvec</span>
+<span class="o">&lt;</span><span class="n">numba</span><span class="o">.</span><span class="n">_GUFunc</span> <span class="s1">'dyn_guvec'</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">dyn_guvec</span><span class="o">.</span><span class="n">ufunc</span><span class="o">.</span><span class="n">types</span>
+<span class="p">[]</span>
+</code></pre>
+
+
+<p>As one makes calls to <code>dyn_guvec</code>, new kernels will be generated for previously unsupported input types. The following set of interactions will illustrate how dynamic compilation works for a dynamic generalized ufunc:</p>
+<pre class="code literal-block"><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">dyn_guvec</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">res</span>
+<span class="n">array</span><span class="p">([[</span> <span class="mi">4</span><span class="p">,</span>  <span class="mi">3</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mi">8</span><span class="p">,</span>  <span class="mi">8</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">]])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">dyn_guvec</span><span class="o">.</span><span class="n">types</span>
+<span class="p">[</span><span class="s1">'ll-&gt;l'</span><span class="p">]</span>
+</code></pre>
+
+
+<p>If this was a normal guvectorize function, one would have seen an exception complaining that the gufunc could not handle the given input. One can add additional loops by calling <code>dyn_guvec</code> with new types:</p>
+<pre class="code literal-block"><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">x_f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">y_f</span> <span class="o">=</span> <span class="mf">10.0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">res_f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x_f</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">dyn_guvec</span><span class="p">(</span><span class="n">x_f</span><span class="p">,</span> <span class="n">y_f</span><span class="p">,</span> <span class="n">res_f</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">dyn_guvec</span><span class="o">.</span><span class="n">types</span>  <span class="c1"># shorthand for dyn_guvec.ufunc.types</span>
+<span class="p">[</span><span class="s1">'ll-&gt;l'</span><span class="p">,</span> <span class="s1">'dd-&gt;d'</span><span class="p">]</span>
+</code></pre>
+
+
+<h3>Current limitations</h3>
+<p>In NumPy, it is fine to omit the output argument when calling a generalized ufunc.</p>
+<pre class="code literal-block"><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">guvec</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="n">array</span><span class="p">([[</span> <span class="mi">4</span><span class="p">,</span>  <span class="mi">3</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mi">8</span><span class="p">,</span>  <span class="mi">8</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">]])</span>
+</code></pre>
+
+
+<p>The same is not possible in a dynamic ufunc. Numba would have to guess the output type and shape to correctly generate code based on the input and signature.</p>
+<pre class="code literal-block"><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">dyn_guvec</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s2">"&lt;stdin&gt;"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+  <span class="n">File</span> <span class="s2">"path/to/numba/np/ufunc/gufunc.py"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">134</span><span class="p">,</span> <span class="ow">in</span> <span class="fm">__call__</span>
+    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+<span class="ne">TypeError</span><span class="p">:</span> <span class="n">Too</span> <span class="n">few</span> <span class="n">arguments</span> <span class="k">for</span> <span class="n">function</span> <span class="s1">'dyn_guvec'</span><span class="o">.</span> <span class="n">Note</span> <span class="n">that</span> <span class="n">the</span> <span class="n">pattern</span> <span class="sb">`out = gufunc(Arg1, Arg2, ..., ArgN)`</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">allowed</span><span class="o">.</span> <span class="n">Use</span> <span class="err">`</span><span class="n">gufunc</span><span class="p">(</span><span class="n">Arg1</span><span class="p">,</span> <span class="n">Arg2</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="n">ArgN</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span> <span class="n">instead</span><span class="o">.</span>
+</code></pre>
+
+
+<h3>Next steps</h3>
+<p>In the future we would like to bring the <code>@guvectorize</code> capabilities closer to the <code>@vectorize</code> ones. For instance, currently it is not possible to call a guvectorize function from a jitted (<code>@jit</code>) function. Some work needs to be done in this direction.</p>
+<p>We would like to thank the <a href="https://www.deshaw.com/">D. E. Shaw group</a> for sponsoring this work. The D. E. Shaw group collaborates with Quansight on numerous open source projects, including Numba, Dask and Project Jupyter.</p>
+<p><img alt="https://www.deshaw.com" src="../../../../images/sponsors/black_logo_417x125.png"></p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../../01/python-packaging-brainstorm/" rel="prev" title="Python packaging in 2021 - pain points and bright spots">Previous post</a>
+            </li>
+
+            <li class="archive">
+                <a href="../../../../archive.html" rel="archive" title="Archive ">Archive</a>
+            </li>
+
+            <li class="next disabled">
+                <a rel="next">Next post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2021         <a href="../../../../team">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>
