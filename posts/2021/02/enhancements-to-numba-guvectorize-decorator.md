@@ -1,7 +1,7 @@
 <!--
 .. title: Enhancements to Numba's guvectorize decorator
-.. slug: enhancements-to-the-guvectorize-decorator
-.. date: 2021-01-20 08:00:00 UTC-00:00
+.. slug: enhancements-to-numba-guvectorize-decorator
+.. date: 2021-02-25 08:00:00 UTC-00:00
 .. author: Guilherme Leobas
 .. tags: Labs, Numba
 .. category:
@@ -10,7 +10,7 @@
 .. type: text
 -->
 
-Starting from Numba 0.53, Numba will ship with an enhanced version of the `@guvectorize` decorator. Similar to the [@vectorize](https://numba.pydata.org/numba-doc/dev/user/vectorize.html#the-vectorize-decorator) decorator, [@guvectorize](https://numba.pydata.org/numba-doc/dev/user/vectorize.html#the-guvectorize-decorator) now has two modes of operation: 
+Starting from Numba 0.53, Numba will ship with an enhanced version of the `@guvectorize` decorator. Similar to the [@vectorize](https://numba.pydata.org/numba-doc/dev/user/vectorize.html#the-vectorize-decorator) decorator, [@guvectorize](https://numba.pydata.org/numba-doc/dev/user/vectorize.html#the-guvectorize-decorator) now has two modes of operation:
 
 - Eager, or decoration-time compilation and
 - Lazy, or call-time compilation
@@ -23,7 +23,7 @@ Before, only the eager approach was supported. In this mode, users are required 
 
 NumPy has functions called Universal functions or ufuncs. Ufuncs are functions that operate on `ndarrays` element-by-element. [Examples](https://numpy.org/doc/stable/reference/ufuncs.html#available-ufuncs) of universal functions are `np.log` and `np.log2`, which compute the natural and base-2 logarithms, respectively. Alongside ufuncs, NumPy also has the notion of generalized ufuncs or gufuncs. While the former is limited to element-by-element operations, the latter supports subarray-by-subarray operations.
 
-Creating new NumPy ufuncs is not an easy process and may require one to [write some C code](https://numpy.org/doc/stable/user/c-info.ufunc-tutorial.html). Numba extends the NumPy mechanism for registering and using (generalized) universal functions with two decorators: `@vectorize` and `@guvectorize`. Those decorators allow one to easily create universal functions from Python, leaving the grunt work to Numba. 
+Creating new NumPy ufuncs is not an easy process and may require one to [write some C code](https://numpy.org/doc/stable/user/c-info.ufunc-tutorial.html). Numba extends the NumPy mechanism for registering and using (generalized) universal functions with two decorators: `@vectorize` and `@guvectorize`. Those decorators allow one to easily create universal functions from Python, leaving the grunt work to Numba.
 
 For instance, consider the function `guvec`, which adds a scalar to every element in an array:
 
@@ -145,6 +145,6 @@ TypeError: Too few arguments for function 'dyn_guvec'. Note that the pattern `ou
 
 In the future we would like to bring the `@guvectorize` capabilities closer to the `@vectorize` ones. For instance, currently it is not possible to call a guvectorize function from a jitted (`@jit`) function. Some work needs to be done in this direction.
 
-We would like to thank the [D. E. Shaw group](https://www.deshaw.com/) for sponsoring this work. The D.E. Shaw group collaborates with Quansight on numerous open source projects, including Numba, Dask and Project Jupyter.
+We would like to thank the [D. E. Shaw group](https://www.deshaw.com/) for sponsoring this work. The D. E. Shaw group collaborates with Quansight on numerous open source projects, including Numba, Dask and Project Jupyter.
 
 ![https://www.deshaw.com](/images/sponsors/black_logo_417x125.png)
