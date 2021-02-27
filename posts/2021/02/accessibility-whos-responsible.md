@@ -32,7 +32,7 @@ and I love the sunflower emoji :sunflower:. It's nice to meet you!
 
 **Q:** What is accessibility?
 **A:** Accessibility is a term used to describe the practice of creating things in a way that 
-makes them usable for people disabilities.  I’m going to be talking mostly about web accessibility 
+makes them usable for people with disabilities.  I’m going to be talking mostly about web accessibility 
 since JupyterLab is a web app. If you're asking why you should care about accessibility, please 
 take a moment to read [why it matters](https://www.w3.org/WAI/fundamentals/accessibility-intro/#context) 
 (hint: there are ethical, legal, and business reasons to care). Inaccessible experiences can 
