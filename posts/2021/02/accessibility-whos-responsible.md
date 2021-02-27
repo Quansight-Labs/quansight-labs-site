@@ -30,6 +30,12 @@ I also spend time in the Jupyter ecosystem—especially around JupyterLab—thou
 only open source community you can find me in. I like to collect gargoyles, my hair is pink, 
 and I love the sunflower emoji :sunflower:. It's nice to meet you!
 
+**Q:** What is the Jupyter ecosystem and JupyterLab?
+**A:** [Project Jupyter](https://jupyter.org/) is an organization that produces open source software 
+and open standards. The Jupyter ecosystem is a term used to describe projects that are directly a 
+part of or support Project Jupyter. JupyterLab is a one of it’s primary projects and a staple for 
+the day to day work of many students, professionals, researchers, and more.
+
 **Q:** What is accessibility?
 **A:** Accessibility is a term used to describe the practice of creating things in a way that 
 makes them usable for people with disabilities.  I’m going to be talking mostly about web accessibility 
@@ -38,12 +44,6 @@ take a moment to read [why it matters](https://www.w3.org/WAI/fundamentals/acces
 (hint: there are ethical, legal, and business reasons to care). Inaccessible experiences can 
 have consequences from people not being able to get information they need to being unable to 
 pursue whole careers that rigidly require the use of inaccessible software (such as JupyterLab).
-
-**Q:** What is the Jupyter ecosystem and JupyterLab?
-**A:** [Project Jupyter](https://jupyter.org/) is an organization that produces open source software 
-and open standards. The Jupyter ecosystem is a term used to describe projects that are directly a 
-part of or support Project Jupyter. JupyterLab is a one of it’s primary projects and a staple for 
-the day to day work of many students, professionals, researchers, and more.
 
 **Q:** Who is responsible for making things accessible?
 **A:** I'm so glad you asked! Let's dive into that…
@@ -118,7 +118,7 @@ the community in my position given similar circumstances.
 
 Our first step in taking responsibility was setting up regular time to meet so we can check in and help 
 one another. Then we set reasonable goals and scoped the work: we decided to focus on JupyterLab rather 
-than multiple projects at once, address WCAG 2.1 standards in parts of JupyterLab we were already 
+than multiple projects at once, address [WCAG 2.1 standards](https://www.w3.org/TR/WCAG21/) in parts of JupyterLab we were already 
 working on, and follow up on past work that other community members began. This is just the beginning, 
 but I hope it was a helpful peek into the process we are trying out.
 ___
