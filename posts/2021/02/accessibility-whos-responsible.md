@@ -107,7 +107,7 @@ or accessibility features are being actively used. And in many cases, accessibil
 experience for all users and not just those they were designed for. Even if you aren’t convinced, I’d encourage 
 you to ask yourself why creating the user experience you want and making that experience accessible are mutually 
 exclusive. What are people missing out on if they can’t use your product? What are you missing out on if they 
-can’t use your product.
+can’t use your product?
 
 ### What could responsibility be like?
 With JupyterLab, it was just a matter of a few people who were willing to say they were tired of waiting and able 
