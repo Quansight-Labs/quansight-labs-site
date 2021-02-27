@@ -65,9 +65,9 @@ be someone else’s problem; at some point there is a person taking ownership of
 So who is responsible for making something accessible? Probably not the users, though feedback can be a 
 helpful step in making change. Certainly not the people that already can’t use the tool because it isn’t 
 accessible. But I personally think anyone who is part of making that tool is responsible for building and 
-maintaining its accessibility. Just as any user experience encompasses the whole of of a product, an 
+maintaining its accessibility. Just as any user experience encompasses the whole of a product, an 
 accessible experience does the same; this should be a consideration from within the product, to its 
-support/documentation, to any other interaction. A comprehensive team who think to ask questions like, 
+support/documentation, to any other interaction. A comprehensive team who thinks to ask questions like, 
 “how would I use this if I could only use my keyboard?” or “would I be able to get the same information if 
 I were colorblind?” are starting to hold themselves and their team accountable. Taking responsibility is 
 key to starting and sustaining change.
