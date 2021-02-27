@@ -123,7 +123,7 @@ working on, and follow up on past work that other community members began. This 
 but I hope it was a helpful peek into the process we are trying out.
 ___
 
-*This is a part of a series of blogs around making JupyterLab more accessible. You can read the 
+*This is part of a series of blogs around making JupyterLab more accessible. You can read the 
 [whole series here](https://labs.quansight.org/categories/JLabA11y).*
 
 *Interested in getting involved? Join our community via the JupyterLab accessibility meetings 
