@@ -13,7 +13,7 @@
 ## JupyterLab Accessibility Journey Part 1
 
 For the past few months I've been part of a group of people in the JupyterLab community 
-who've committed to to start chipping away at the many accessibility failings of JupyterLab. 
+who've committed to start chipping away at the many accessibility failings of JupyterLab. 
 I find this work is critical, fascinating, and a learning experience for everyone involved, 
 so I'm going to document my personal experience and lessons I've learned in a series of blog 
 posts. Welcome!
