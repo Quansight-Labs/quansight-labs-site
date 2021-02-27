@@ -58,7 +58,7 @@ three years it's been deemed "[ready for users](https://blog.jupyter.org/jupyter
 (I'm intentionally not mentioning other Jupyter projects to limit this post's scope.)
 
 Because for every time accessibility is brought up, I've also experienced a hesitance around taking 
-action. Even though I’ve never heard it explicitly said, the way I’ve seen this efforts get lost time and 
+action. Even though I’ve never heard it explicitly said, the way I’ve seen these efforts get lost time and 
 time again has come to mean this in my head: “accessibility is someone else’s problem.” But it can’t always 
 be someone else’s problem; at some point there is a person taking ownership of the work.
 
