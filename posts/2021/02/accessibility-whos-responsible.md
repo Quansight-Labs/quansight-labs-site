@@ -12,10 +12,10 @@
 
 ## JupyterLab Accessibility Journey Part 1
 
-For the past few months I've been part of a group of people in the JupyterLab community 
+For the past few months, I've been part of a group of people in the JupyterLab community 
 who've committed to start chipping away at the many accessibility failings of JupyterLab. 
-I find this work is critical, fascinating, and a learning experience for everyone involved, 
-so I'm going to document my personal experience and lessons I've learned in a series of blog 
+I find this work is critical, fascinating, and a learning experience for everyone involved. 
+So I'm going to document my personal experience and lessons I've learned in a series of blog 
 posts. Welcome!
 
 <!-- TEASER_END -->
@@ -24,17 +24,17 @@ Because this is the first of a series, I want to make sure we start with a good 
 Let me answer some questions you might be having.
 
 **Q:** Who are you?
-**A:** I'm Isabela, a UX/UI designer at [Quansight Labs](https://labs.quansight.org/) who 
+**A:** I'm Isabela, a UX/UI designer at [Quansight Labs](https://labs.quansight.org/), who 
 cares about accessibility and is fortunate to work somewhere where that is a respected concern. 
-I also spend time in the Jupyter ecosystem—especially around JupyterLab—though that is not the 
-only open source community you can find me in. I like to collect gargoyles, my hair is pink, 
+I also spend time in the Jupyter ecosystem—especially around JupyterLab —though that is not the 
+only open-source community you can find me in. I like to collect gargoyles, my hair is pink, 
 and I love the sunflower emoji :sunflower:. It's nice to meet you!
 
 **Q:** What is the Jupyter ecosystem and JupyterLab?
-**A:** [Project Jupyter](https://jupyter.org/) is an organization that produces open source software 
+**A:** [Project Jupyter](https://jupyter.org/) is an organization that produces open-source software 
 and open standards. The Jupyter ecosystem is a term used to describe projects that are directly a 
-part of or support Project Jupyter. JupyterLab is a one of it’s primary projects and a staple for 
-the day to day work of many students, professionals, researchers, and more.
+part of or support Project Jupyter. JupyterLab is one of it’s primary projects and a staple for 
+the day-to-day work of many students, professionals, researchers, and more.
 
 **Q:** What is accessibility?
 **A:** Accessibility is a term used to describe the practice of creating things in a way that 
@@ -42,7 +42,7 @@ makes them usable for people with disabilities.  I’m going to be talking mostl
 since JupyterLab is a web app. If you're asking why you should care about accessibility, please 
 take a moment to read [why it matters](https://www.w3.org/WAI/fundamentals/accessibility-intro/#context) 
 (hint: there are ethical, legal, and business reasons to care). Inaccessible experiences can 
-have consequences from people not being able to get information they need to being unable to 
+have consequences, from people not being able to get information they need to being unable to 
 pursue whole careers that rigidly require the use of inaccessible software (such as JupyterLab).
 
 **Q:** Who is responsible for making things accessible?
@@ -64,9 +64,9 @@ be someone else’s problem; at some point there is a person taking ownership of
 
 So who is responsible for making something accessible? Probably not the users, though feedback can be a 
 helpful step in making change. Certainly not the people that already can’t use the tool because it isn’t 
-accessible. But I personally think anyone who is part of making that tool is responsible for building and 
+accessible. But I, personally, think anyone who is part of making that tool is responsible for building and 
 maintaining its accessibility. Just as any user experience encompasses the whole of a product, an 
-accessible experience does the same; this should be a consideration from within the product, to its 
+accessible experience does the same. This should be a consideration from within the product, to its 
 support/documentation, to any other interaction. A comprehensive team who thinks to ask questions like, 
 “how would I use this if I could only use my keyboard?” or “would I be able to get the same information if 
 I were colorblind?” are starting to hold themselves and their team accountable. Taking responsibility is 
@@ -84,7 +84,7 @@ on the wide open internet, some even focused on beginners (some of my personal f
 [The A11y Project](https://www.a11yproject.com/resources) and 
 [MDN](https://developer.mozilla.org/en-US/docs/Learn/Accessibility/What_is_accessibility)). Of course, 
 it’s important to remember that learning will mean that you are likely to make mistakes and need to keep 
-iterating. This isn’t a one-and-done deal. And if you do have access to an expert, spending time to have 
+iterating. This isn’t a one-and-done deal. f you do have access to an expert, spending time to have 
 a foundation means they can help you tackle greater obstacles instead of just giving you the basics.
 
 **I don’t have time for another project!** 
@@ -116,7 +116,7 @@ an expert or with undivided obligations or even someone with all the skills to m
 think this is important to note because it seems to me that it could have just as easily been other members of 
 the community in my position given similar circumstances. 
 
-Our first step in taking responsibility was setting up regular time to meet so we can check in and help 
+Our first step in taking responsibility was setting up  a regular time to meet so we could check-in and help 
 one another. Then we set reasonable goals and scoped the work: we decided to focus on JupyterLab rather 
 than multiple projects at once, address [WCAG 2.1 standards](https://www.w3.org/TR/WCAG21/) in parts of JupyterLab we were already 
 working on, and follow up on past work that other community members began. This is just the beginning, 
