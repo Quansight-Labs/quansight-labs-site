@@ -140,6 +140,14 @@ NumPy ndarray can be used for wrapping arbitrary objects that implement the CPU 
 array([11, 21, 31, 41,  5])
 ```
 
+TODO: explain what happens when an object implements multiple protocols. NumPy
+will try them in this order:
+
+1. Buffer protocol
+2. `__array_interface__` (not sure without reading the code where `__array_struct__` goes here)
+3. `__array__`
+
+
 ### Performance
 
 As seen above, there are at least four ways to construct a NumPy ndarray view of objects implementing different protocols.
