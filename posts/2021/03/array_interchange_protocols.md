@@ -1,5 +1,5 @@
 <!--
-.. title: Guide to array and buffer protocols in Python
+.. title: Guide to array, tensor and buffer protocols in Python
 .. slug: array-interchange-protocols
 .. date: 2021-03-07 08:00:00 UTC-00:00
 .. author: Pearu Peterson, Ralf Gommers
@@ -16,7 +16,11 @@ We also indicate the overall usage of array interfaces in different Python libra
 
 This blog post is inspired by a [PyTorch issue 51156](https://github.com/pytorch/pytorch/issues/51156).
 
-## CPU Array Interface
+<!-- TEASER_END -->
+
+## Summary of protocols
+
+### CPU Array Interface
 
 [Array Interface (Version
 3)](https://numpy.org/doc/stable/reference/arrays.interface.html)
@@ -35,7 +39,7 @@ existence of the following attributes or methods:
   C-structure](https://numpy.org/doc/stable/reference/arrays.interface.html#object.__array_struct__).
 
 
-## CUDA Array Interface
+### CUDA Array Interface
 
 Numba introduces [CUDA Array Interface (Version 2)](https://numba.pydata.org/numba-doc/dev/cuda/cuda_array_interface.html)
 for GPU array-like objects. The implementation of the CUDA array
@@ -46,7 +50,7 @@ interface is defined by the existence of the attribute
 that holds the same information about an array-like object as `__array_interface__` except
 the data buffer address will point to GPU memory area.
 
-## Buffer Protocol
+### Buffer Protocol
 
 [PEP 3118 Buffer Protocol](https://www.python.org/dev/peps/pep-3118/) defines Python C/API
 for re-using data buffers of buffer-like objects.
@@ -54,7 +58,47 @@ The Buffer protocol can implemented for extension types using Python C/API but n
 this has been [requested and discussed but no solution yet](https://bugs.python.org/issue41285).
 In Python, the data buffers of extension types can be accessed using `memoryview` object.
 
-# Using array/buffer interfaces in the context of NumPy arrays
+
+### NumPy's `__array__` protocol
+
+TODO
+
+
+### DLPack
+
+TODO
+
+
+
+
+## Supported features
+
+TODO: this may be better as separate tables, or with more/less features listed:
+
+| *supports*                 | Python API | C API | CPU | CUDA | implementation independent | uint, int, float, complex | string | datetime | PyObject | bfloat16 |
+|----------------------------|:----------:|:-----:|:---:|:----:|----------------------------|---------------------------|--------|----------|----------|----------|
+| buffer protocol            |            |   Y   |  Y  |      | Y                          | Y                         | Y      | Y        | Y        |          |
+| `__array_interface__`      |      Y     |       |  Y  |      | Y                          | Y                         | Y      | Y        | Y        |          |
+| `__array_struct__`         |      Y     |   Y   |  Y  |      | Y                          | Y                         | Y      | Y        | Y        |          |
+| `__cuda_array_interface__` |      Y     |       |     |   Y  | Y                          | Y                         | Y      | Y        | Y        |          |
+| `__array__`                |            |       |  Y  |      |                            | Y                         |        | Y        | Y        |          |
+| DLPack                     |      Y     |   Y   |  Y  |   Y  | Y                          | Y                         |        |          |          | Y        |
+
+
+
+## Adoption
+
+TODO
+
+See, e.g.,:
+
+- https://numba.readthedocs.io/en/latest/cuda/cuda_array_interface.html#interoperability
+- https://github.com/data-apis/consortium-feedback/issues/1
+
+
+
+
+## Using array/buffer interfaces in the context of NumPy arrays
 
 NumPy ndarray object implements CPU Array Interface as well as Buffer Protocol for sharing its data buffers:
 
@@ -96,7 +140,7 @@ NumPy ndarray can be used for wrapping arbitrary objects that implement the CPU 
 array([11, 21, 31, 41,  5])
 ```
 
-## Performance
+### Performance
 
 As seen above, there are at least four ways to construct a NumPy ndarray view of objects implementing different protocols.
 Here follows a performance test for all these cases:
@@ -112,7 +156,7 @@ Here follows a performance test for all these cases:
 ```
 So, the Array Interface methods `__array_interface__`, `__array__`, `__array_struct__` are about 6, 5.5, 4.2 times slower than the Buffer Protocol, respectively.
 
-## Recommendations
+### Recommendations
 
 By default, `numpy.frombuffer(buf)` returns a NumPy ndarray with `dtype==numpy.float64` but discards `buf.format`.
 I think it would make sense to use the `buf.format` for determing the `dtype` of the `numpy.frombuffer` result, as
@@ -126,7 +170,7 @@ array([4.9e-324, 9.9e-324, 1.5e-323, 2.0e-323, 2.5e-323])
 array([1, 2, 3, 4, 5])
 ```
 
-# Using array/buffer interfaces in the context of PyTorch tensors
+## Using array/buffer interfaces in the context of PyTorch tensors
 
 The following examples use PyTorch version 1.9.0a0.
 
@@ -223,14 +267,7 @@ PyTorch Tensor object can be used for wrapping arbitrary objects that implement 
 tensor([   1,    2,    3,    4, 1005], device='cuda:0')
 ```
 
-## Recommendations
-
-1. Implement `torch.Tensor.__array_interface__` and `torch.Tensor.__array_struct__` attributes to fully support the CPU Array Interfaced.
-2. `torch.as_tensor(obj)` should succeed when `obj` implements the CPU Array Interface but is not NumPy ndarray nor PyTorch Tensor object.
-3. `torch.as_tensor(obj)` should use `device='cuda'` by default when `obj` implements the CUDA Array Interface. Currently, a CPU copy of a CUDA data buffer is returned from `torch.as_tensor(obj)` while it would be more natural to return a CUDA view of the CUDA data buffer, IMHO.
-4. `torch.as_tensor(buf)` should return a view of data buffer when `buf` is `memoryview` object. Currently, a copy of data buffer is made. BC alert!
-
-# The current usage of array interfaces in different Python libraries - an estimate.
+## The current usage of array interfaces in different Python libraries - an estimate.
 
 Many Python libraries have adopted the above mentioned array
 interfaces. We do not attempt to compose a complete list of such
@@ -278,3 +315,13 @@ Currently, PyTorch implements hooks for
 `__array_interface__` nor `__array_struct__`, although, workarounds exists
 when using NumPy ndarray as intermediate wrapper of data buffers (see above).
 
+
+## Recommendations
+
+TODO: there are trade-offs for different use cases. E.g.:
+
+- `__array__` is the only one you can implement as a consumer library in pure Python (but, needs
+  NumPy as a dependency)
+- `__array_interface__` is easy for custom objects to implement (but, not many
+  consumers other than NumPy)
+- DLPack is geared towards deep learning
