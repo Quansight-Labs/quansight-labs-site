@@ -16,6 +16,10 @@ We also indicate the overall usage of array interfaces in different Python libra
 
 This blog post is inspired by a [PyTorch issue 51156](https://github.com/pytorch/pytorch/issues/51156).
 
+TODO: rewrite the above a bit, and mention these are all zero-copy, in-process protocols. For serialization,
+see elsewhere (not sure where).
+
+
 <!-- TEASER_END -->
 
 ## Summary of protocols
