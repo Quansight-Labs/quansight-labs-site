@@ -1,7 +1,7 @@
 <!--
 .. title: Accessibility: Who's Responsible?
 .. slug: accessibility-whos-responsible
-.. date: 2021-02-28 08:00:00 UTC-00:00
+.. date: 2021-03-12 08:00:00 UTC-00:00
 .. author: Isabela Presedo-Floyd
 .. tags: JupyterLab, Accessibility, JLabA11y
 .. category:
@@ -9,6 +9,8 @@
 .. description:
 .. type: text
 -->
+
+![Fingers and question marks pointing in every direction](/../../../images/jlabaccess1.png)
 
 ## JupyterLab Accessibility Journey Part 1
 
@@ -84,7 +86,7 @@ on the wide open internet, some even focused on beginners (some of my personal f
 [The A11y Project](https://www.a11yproject.com/resources) and 
 [MDN](https://developer.mozilla.org/en-US/docs/Learn/Accessibility/What_is_accessibility)). Of course, 
 it’s important to remember that learning will mean that you are likely to make mistakes and need to keep 
-iterating. This isn’t a one-and-done deal. f you do have access to an expert, spending time to have 
+iterating. This isn’t a one-and-done deal. If you do have access to an expert, spending time to build 
 a foundation means they can help you tackle greater obstacles instead of just giving you the basics.
 
 **I don’t have time for another project!** 
@@ -104,10 +106,9 @@ to say about the number of people with disabilities.
 **I don’t want to make abled people’s experience different than it already is!**
 Depending on what you are doing, the changes might not be active or noticeable unless assistive technologies 
 or accessibility features are being actively used. And in many cases, accessibility features improve the 
-experience for all users and not just those they were designed for. Even if you aren’t convinced, I’d encourage 
-you to ask yourself why creating the user experience you want and making that experience accessible are mutually 
-exclusive. What are people missing out on if they can’t use your product? What are you missing out on if they 
-can’t use your product?
+experience for all users and not just those they were designed for (sometimes called the [curb cut effect](https://uxdesign.cc/the-curb-cut-effect-universal-design-b4e3d7da73f5)). Even if you aren’t convinced, I’d encourage you to ask yourself why creating the user 
+experience you want and making that experience accessible are mutually exclusive. What are people missing 
+out on if they can’t use your product? What are you missing out on if they can’t use your product?
 
 ### What could responsibility be like?
 With JupyterLab, it was just a matter of a few people who were willing to say they were tired of waiting and able 
@@ -121,6 +122,11 @@ one another. Then we set reasonable goals and scoped the work: we decided to foc
 than multiple projects at once, address [WCAG 2.1 standards](https://www.w3.org/TR/WCAG21/) in parts of JupyterLab we were already 
 working on, and follow up on past work that other community members began. This is just the beginning, 
 but I hope it was a helpful peek into the process we are trying out.
+
+### But wait, there's more!
+Deciding to make accessibility a priority in Jupyter spaces isn't where this work ends. Join me for the next post in this series 
+where I'll talk about my not-so-subtle panic at the amount of problems to be solved, how to move forwards in spite of panic, and 
+the four experience types in JupyterLab that we must address to be truly accessible.
 ___
 
 *This is part of a series of blogs around making JupyterLab more accessible. You can read the 
