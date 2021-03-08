@@ -64,6 +64,7 @@ Contact Us
 
 Key contacts:
 
-- Ralf Gommers, Director of Quansight Labs: rgommers@quansight.com
+- Tania Allard, Co-Director of Quansight Labs: tania.allard@quansight.com
+- Ralf Gommers, Co-Director of Quansight Labs: rgommers@quansight.com
 - Travis Oliphant, CEO of Quansight: travis@quansight.com
 - for commercial inquiries: sales@quansight.com
