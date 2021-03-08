@@ -31,16 +31,16 @@ see elsewhere (not sure where).
 defines a protocol for objects to re-use each other's data buffers.
 It was created in 2005 within the [NumPy](https://numpy.org/) project for CPU array-like
 objects. The implementation of the array interface is defined by the
-existence of the following attributes or methods:
+existence of the following attributes:
 
 - `__array_interface__` - a Python dictionary that contains the shape,
   the element type, and optionally, the data buffer address and the
   strides of an array-like object.
 
-- `__array__()` - a method returning NumPy ndarray view of an array-like object
-
 - `__array_struct__` - holds a pointer to [PyArrayInterface
-  C-structure](https://numpy.org/doc/stable/reference/arrays.interface.html#object.__array_struct__).
+  C-structure](https://numpy.org/doc/stable/reference/arrays.interface.html#object.__array_struct__)
+  which can mediate any data buffer implementation (say, written in
+  C/C++) to Python via NumPy ndarray object.
 
 
 ### CUDA Array Interface
@@ -65,15 +65,30 @@ In Python, the data buffers of extension types can be accessed using `memoryview
 
 ### NumPy's `__array__` protocol
 
-TODO
+NumPy ndarrays can be constructed from objects that implement
+[`__array__([dtype])`
+method](https://numpy.org/doc/stable/reference/generated/numpy.ndarray.__array__.html#numpy.ndarray.__array__). The
+`__array__` method returns a NumPy ndarray that may or [may
+not](https://numpy.org/doc/stable/user/basics.dispatch.html) be a view
+of the object's internal data buffer structure.
 
 
 ### DLPack
 
-TODO
+All the above mentioned protocols define sharing the data buffers of
+array-like objects without specifying a device where the raw-pointer
+values are valid addresses of device memory. The device is assumed to
+be fixed: CPU for the content of `__array_interface__`,
+`__array_struct__`, `__array__()`, and `memoryview` structures; CUDA
+for `__cuda_array_interface__`. With the emergence of various
+processor devices for solving HPC/ML problems, these protocols are
+essentially flawed in the systems with heterogeneous processor units.
 
-
-
+[DLPack](https://github.com/dmlc/dlpack/) introduces a in-memory
+structure for sharing the data buffers in a device aware way. For
+instance, the structure can currently hold the data buffers of the
+following device types: CPU, CUDA GPU, OpenCL, Vulkan GPU, Verilog,
+and ROCm GPU.
 
 ## Supported features
 
@@ -88,7 +103,23 @@ TODO: this may be better as separate tables, or with more/less features listed:
 | `__array__`                |            |       |  Y  |      |                            | Y                         |        | Y        | Y        |          |
 | DLPack                     |      Y     |   Y   |  Y  |   Y  | Y                          | Y                         |        |          |          | Y        |
 
+TODO: an alternative view of the above table:
 
+| *Protocols:*              | buffer protocol  | `__array_interface__` | `__array_struct__` | `__cuda_array_interface__` | NumPy `__array__()` | DLPack |
+|---------------------------|:----------------:|:---------------------:|:------------------:|:--------------------------:|:-------------------:|:------:|
+| Python API                |                  |           Y           |                    |             Y              |                     |        |
+| C API                     |        Y         |                       |          Y         |                            |                     |    Y   |
+| CPU                       |        Y         |           Y           |          Y         |                            |          Y          |    Y   |
+| CUDA                      |                  |                       |                    |             Y              |                     |    Y   |
+| Impl. independent         |        Y         |           Y           |          Y         |             Y              |                     |    Y   |
+| uint, int, float, complex |        Y         |           Y           |          Y         |             Y              |          Y          |    Y   |
+| bfloat16                  |                  |                       |                    |                            |                     |    Y   |
+| string                    |        Y         |           Y           |          Y         |             Y              |                     |        |
+| datetime                  |        Y         |           Y           |          Y         |             Y              |          Y          |        |
+| PyObject                  |        Y         |           Y           |          Y         |             Y              |          Y          |        |
+
+
+TODO: xnd/datashape
 
 ## Adoption
 
