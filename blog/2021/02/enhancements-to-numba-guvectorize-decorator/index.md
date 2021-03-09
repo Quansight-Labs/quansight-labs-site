@@ -146,5 +146,3 @@ TypeError: Too few arguments for function 'dyn_guvec'. Note that the pattern `ou
 In the future we would like to bring the `@guvectorize` capabilities closer to the `@vectorize` ones. For instance, currently it is not possible to call a guvectorize function from a jitted (`@jit`) function. Some work needs to be done in this direction.
 
 We would like to thank the [D. E. Shaw group](https://www.deshaw.com/) for sponsoring this work. The D. E. Shaw group collaborates with Quansight on numerous open source projects, including Numba, Dask and Project Jupyter.
-
-![https://www.deshaw.com](/images/sponsors/black_logo_417x125.png)
