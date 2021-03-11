@@ -14,8 +14,10 @@ jobs:
       - restore_cache:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
       - run:
-          name: Install Nikola
-          command: sudo pip install -r requirements.txt
+          name: Install Nikola, plugins
+          command: |
+            sudo pip install -r requirements.txt
+            nikola plugins -i localsearch
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
           paths:
@@ -38,8 +40,10 @@ jobs:
       - restore_cache:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
       - run:
-          name: Install Nikola
-          command: sudo pip install -r requirements.txt
+          name: Install Nikola, plugins
+          command: |
+            sudo pip install -r requirements.txt
+            nikola plugins -i localsearch
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
           paths:
