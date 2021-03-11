@@ -15,7 +15,7 @@ jobs:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
       - run:
           name: Install Nikola, plugins
-          command: make venv_nikola
+          command: make venv_nikola/bin/nikola
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
           paths:
@@ -39,7 +39,7 @@ jobs:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
       - run:
           name: Install Nikola, plugins
-          command: make venv_nikola
+          command: make venv_nikola/bin/nikola
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
           paths:
