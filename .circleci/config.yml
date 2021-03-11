@@ -17,7 +17,7 @@ jobs:
           name: Install Nikola, plugins
           command: |
             sudo pip install -r requirements.txt
-            nikola plugins -i localsearch
+            nikola plugin -i localsearch
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
           paths:
@@ -43,7 +43,7 @@ jobs:
           name: Install Nikola, plugins
           command: |
             sudo pip install -r requirements.txt
-            nikola plugins -i localsearch
+            nikola plugin -i localsearch
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
           paths:
