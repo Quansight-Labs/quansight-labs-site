@@ -47,7 +47,7 @@ pexpect==4.7.0
 phpserialize==1.3
 pickleshare==0.7.5
 piexif==1.1.3
-Pillow==7.1.0
+Pillow==8.1.1
 prometheus-client==0.7.1
 prompt-toolkit==2.0.9
 ptyprocess==0.6.0
