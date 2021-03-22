@@ -23,6 +23,12 @@ auto: venv_nikola/bin/nikola ## build and serve the website, autoupdate on chang
 clean:  venv_nikola/bin/nikola  ## clean the website, usually not needed at all
 	venv_nikola/bin/nikola clean
 
+build_direct:  ## build using the local python3, for Netlify deployment
+	@python3 -m pip install wheel
+	@python3 -m pip install -r requirements.txt
+	@python3 -m nikola plugin -i localsearch
+	@python3 -m nikola build
+
 # Add help text after each target name starting with '\#\#'
 help:   ## Show this help.
 	@echo "\nHelp for building the website, based on nikola"
