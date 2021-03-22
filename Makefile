@@ -8,7 +8,7 @@ all: build
 .PHONY: clean build help
 
 venv_nikola/bin/nikola:  ## create a virtualenv to build the website
-    @python3 -m pip install --upgrade pip
+	@python3 -m pip install --upgrade pip
 	@python3 -m venv ./venv_nikola
 	@venv_nikola/bin/python -m pip install wheel
 	@venv_nikola/bin/python -m pip install -r requirements.txt
