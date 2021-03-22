@@ -8,9 +8,10 @@ all: build
 .PHONY: clean build help
 
 venv_nikola/bin/nikola:  ## create a virtualenv to build the website
-	@python3 -mvenv ./venv_nikola
-	@venv_nikola/bin/python -mpip install wheel
-	@venv_nikola/bin/python -mpip install -r requirements.txt
+    @python3 -m pip install --upgrade pip
+	@python3 -m venv ./venv_nikola
+	@venv_nikola/bin/python -m pip install wheel
+	@venv_nikola/bin/python -m pip install -r requirements.txt
 	@venv_nikola/bin/nikola plugin -i localsearch
 
 build: venv_nikola/bin/nikola  ## build the website if needed, the result is in ./public
