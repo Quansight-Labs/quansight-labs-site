@@ -1,16 +1,16 @@
 <!--
 .. title: Accessibility: Who's Responsible?
 .. slug: accessibility-whos-responsible
-.. date: 2021-03-12 08:00:00 UTC-00:00
+.. date: 2021-03-25 08:00:00 UTC-00:00
 .. author: Isabela Presedo-Floyd
 .. tags: JupyterLab, Accessibility, JLabA11y
-.. category:
+.. category: JLabA11y
 .. link:
 .. description:
 .. type: text
 -->
 
-![Fingers and question marks pointing in every direction](/../../../images/jlabaccess1.png)
+![Fingers and question marks pointing in every direction](/images/jlabaccess1.png)
 
 ## JupyterLab Accessibility Journey Part 1
 
@@ -35,7 +35,7 @@ and I love the sunflower emoji :sunflower:. It's nice to meet you!
 **Q:** What is the Jupyter ecosystem and JupyterLab?
 **A:** [Project Jupyter](https://jupyter.org/) is an organization that produces open-source software 
 and open standards. The Jupyter ecosystem is a term used to describe projects that are directly a 
-part of or support Project Jupyter. JupyterLab is one of it’s primary projects and a staple for 
+part of or support Project Jupyter. JupyterLab is one of its primary projects and a staple for 
 the day-to-day work of many students, professionals, researchers, and more.
 
 **Q:** What is accessibility?
@@ -48,12 +48,13 @@ have consequences, from people not being able to get information they need to be
 pursue whole careers that rigidly require the use of inaccessible software (such as JupyterLab).
 
 **Q:** Who is responsible for making things accessible?
-**A:** I'm so glad you asked! Let's dive into that…
+**A:** I'm so glad you asked! Let's dive into that...
 
 ### How did we get here?
+
 The Jupyter ecosystem is full of people who care about accessibility. I know this because I've heard 
 people ask about accessibility in community meetings. I know this because I've read discussions about 
-accessibility on Github issues and PRs. I know this because the project has a 
+accessibility on Github issues and PRs. I know this because the project has a
 [repository](https://github.com/jupyter/accessibility/) devoted to organizing community accessibility 
 efforts. If this is the case, then why hasn't JupyterLab already been made more accessible in the past 
 three years it's been deemed "[ready for users](https://blog.jupyter.org/jupyterlab-is-ready-for-users-5a6f039b8906)?" 
@@ -83,13 +84,13 @@ different environments (not only JupyterLab) over the years.
 **I don’t know anything!**
 And that’s fine. You don’t have to be an expert! Fortunately, there are already a lot of resources out 
 on the wide open internet, some even focused on beginners (some of my personal favorites are at 
-[The A11y Project](https://www.a11yproject.com/resources) and 
+[The A11y Project](https://www.a11yproject.com/resources) and
 [MDN](https://developer.mozilla.org/en-US/docs/Learn/Accessibility/What_is_accessibility)). Of course, 
 it’s important to remember that learning will mean that you are likely to make mistakes and need to keep 
 iterating. This isn’t a one-and-done deal. If you do have access to an expert, spending time to build 
 a foundation means they can help you tackle greater obstacles instead of just giving you the basics.
 
-**I don’t have time for another project!** 
+**I don’t have time for another project!**
 Accessibility doesn’t have to be your only focus. JupyterLab sure isn’t the only project I am working on, 
 and it won’t be in the near future. Any progress is better than no progress, and several people doing even 
 a little work can add up faster than you might think. Besides, there’s a good chance you won’t even have 
@@ -115,9 +116,9 @@ With JupyterLab, it was just a matter of a few people who were willing to say th
 to spend time both learning what needed to be done as well as doing it. Speaking for myself, I did not come in as 
 an expert or with undivided obligations or even someone with all the skills to make changes that are needed. I 
 think this is important to note because it seems to me that it could have just as easily been other members of 
-the community in my position given similar circumstances. 
+the community in my position given similar circumstances.
 
-Our first step in taking responsibility was setting up  a regular time to meet so we could check-in and help 
+Our first step in taking responsibility was setting up a regular time to meet so we could check-in and help 
 one another. Then we set reasonable goals and scoped the work: we decided to focus on JupyterLab rather 
 than multiple projects at once, address [WCAG 2.1 standards](https://www.w3.org/TR/WCAG21/) in parts of JupyterLab we were already 
 working on, and follow up on past work that other community members began. This is just the beginning, 
@@ -130,7 +131,7 @@ the four experience types in JupyterLab that we must address to be truly accessi
 ___
 
 *This is part of a series of blogs around making JupyterLab more accessible. You can read the 
-[whole series here](https://labs.quansight.org/categories/JLabA11y).*
+[whole series here](/categories/jlaba11y).*
 
 *Interested in getting involved? Join our community via the JupyterLab accessibility meetings 
 listed every other week on the [Jupyter community calendar](https://jupyter.readthedocs.io/en/latest/community/content-community.html#jupyter-community-meetings).*
