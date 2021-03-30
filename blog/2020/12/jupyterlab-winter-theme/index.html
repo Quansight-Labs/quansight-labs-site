@@ -240,23 +240,23 @@ and will make it available in the JupyterLab frontend so that you can see the ch
 <p>Remember, we have not yet created our boilerplate from the theme cookiecutter, so we need to
 make sure we turn the code into a theme extension with the following two actions.</p>
 <p>First, replace the content of <code>src/index.ts</code> with the following content</p>
-<pre class="code literal-block"><span></span><code><span class="kr">import</span> <span class="p">{</span>
+<pre class="code literal-block"><span></span><code><span class="k">import</span> <span class="p">{</span>
   <span class="nx">JupyterFrontEnd</span><span class="p">,</span>
   <span class="nx">JupyterFrontEndPlugin</span>
 <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@jupyterlab/application'</span><span class="p">;</span>
 
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">IThemeManager</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@jupyterlab/apputils'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">IThemeManager</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">'@jupyterlab/apputils'</span><span class="p">;</span>
 
 <span class="cm">/**</span>
 <span class="cm"> * Initialization data for the @quansight-labs/jupyterlab-theme-winter extension.</span>
 <span class="cm"> */</span>
-<span class="kr">const</span> <span class="nx">extension</span><span class="o">:</span> <span class="nx">JupyterFrontEndPlugin</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span>
+<span class="kd">const</span> <span class="nx">extension</span><span class="o">:</span> <span class="nx">JupyterFrontEndPlugin</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">id</span><span class="o">:</span> <span class="s1">'@quansight-labs/jupyterlab-theme-winter'</span><span class="p">,</span>
   <span class="nx">requires</span><span class="o">:</span> <span class="p">[</span><span class="nx">IThemeManager</span><span class="p">],</span>
   <span class="nx">autoStart</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
   <span class="nx">activate</span><span class="o">:</span> <span class="p">(</span><span class="nx">app</span><span class="o">:</span> <span class="nx">JupyterFrontEnd</span><span class="p">,</span> <span class="nx">manager</span><span class="o">:</span> <span class="nx">IThemeManager</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'JupyterLab extension @quansight-labs/jupyterlab-theme-winter is activated!'</span><span class="p">);</span>
-    <span class="kr">const</span> <span class="nx">style</span> <span class="o">=</span> <span class="s1">'@quansight-labs/jupyterlab-theme-winter/index.css'</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">style</span> <span class="o">=</span> <span class="s1">'@quansight-labs/jupyterlab-theme-winter/index.css'</span><span class="p">;</span>
     <span class="nx">manager</span><span class="p">.</span><span class="nx">register</span><span class="p">({</span>
       <span class="nx">name</span><span class="o">:</span> <span class="s1">'JupyterLab Winter'</span><span class="p">,</span>
       <span class="nx">isLight</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
@@ -266,12 +266,12 @@ make sure we turn the code into a theme extension with the following two actions
   <span class="p">}</span>
 <span class="p">};</span>
 
-<span class="kr">export</span> <span class="k">default</span> <span class="nx">extension</span><span class="p">;</span>
+<span class="k">export</span> <span class="k">default</span> <span class="nx">extension</span><span class="p">;</span>
 </code></pre>
 
 
 <p>Then in the <code>package.json</code>, add <code>"jupyterlab-theme"</code> to the list of keywords and ensure that the <code>jupyterlab</code> stanza looks like this.</p>
-<pre class="code literal-block"><span></span><code>  <span class="s2">"jupyterlab"</span><span class="err">:</span> <span class="p">{</span> 
+<pre class="code literal-block"><span></span><code>  <span class="nt">"jupyterlab"</span><span class="p">:</span> <span class="p">{</span> 
     <span class="nt">"extension"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
     <span class="nt">"themePath"</span><span class="p">:</span> <span class="s2">"style/index.css"</span><span class="p">,</span>
     <span class="nt">"outputDir"</span><span class="p">:</span> <span class="s2">"jupyterlab_theme_winter/labextension"</span>

@@ -123,17 +123,17 @@ navbar-dark bg-dark
 
 <h3>What is <code>metadsl</code>?</h3>
 <pre class="code literal-block"><span></span><code><span class="k">class</span> <span class="nc">Number</span><span class="p">(</span><span class="n">metadsl</span><span class="o">.</span><span class="n">Expression</span><span class="p">):</span>
-   <span class="nd">@metadsl.expression</span>
+   <span class="nd">@metadsl</span><span class="o">.</span><span class="n">expression</span>
    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Number</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Number</span><span class="p">:</span>
        <span class="o">...</span>
 
-   <span class="nd">@metadsl.expression</span>
+   <span class="nd">@metadsl</span><span class="o">.</span><span class="n">expression</span>
    <span class="nd">@classmethod</span>
    <span class="k">def</span> <span class="nf">from_int</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Number</span><span class="p">:</span>
        <span class="o">...</span>
 
 
-<span class="nd">@metadsl.rule</span>
+<span class="nd">@metadsl</span><span class="o">.</span><span class="n">rule</span>
 <span class="k">def</span> <span class="nf">add_zero</span><span class="p">(</span><span class="n">y</span><span class="p">:</span> <span class="n">Number</span><span class="p">):</span>
    <span class="k">yield</span> <span class="n">Number</span><span class="o">.</span><span class="n">from_int</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="n">y</span>
    <span class="k">yield</span> <span class="n">y</span> <span class="o">+</span> <span class="n">Number</span><span class="o">.</span><span class="n">from_int</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">y</span>
@@ -157,7 +157,7 @@ navbar-dark bg-dark
 <h4>Mathematical soundness</h4>
 <p>Another person asked a good question after the presentation, "What if two rules match? Which gets chosen?" At the moment it's a manual process, where you define groups of rules that all should fire at the same time, so should be confluent and then put those groups in series. Like a number of compiler passes. However, we can't prove that two rules won't both match the same objects, leading to indeterminism, or that there are enough rules defined so that the result will actually be replaced, leading to an error. It would be nice to be able to say these things statically.</p>
 <p>For example, here is an optimization rule that should execute before, say, compiling to LLVM rules:</p>
-<pre class="code literal-block"><span></span><code><span class="nd">@metadsl.rule</span>
+<pre class="code literal-block"><span></span><code><span class="nd">@metadsl</span><span class="o">.</span><span class="n">rule</span>
 <span class="k">def</span> <span class="nf">add_zero</span><span class="p">(</span><span class="n">y</span><span class="p">:</span> <span class="n">Number</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Replace y + 0 with y</span>

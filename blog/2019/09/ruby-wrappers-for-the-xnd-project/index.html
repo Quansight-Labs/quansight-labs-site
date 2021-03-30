@@ -265,7 +265,7 @@ C API in any of your libraries.</p>
 <h3>Implementation</h3>
 <p>The Ruby wrapper is a wrapper over the libndtypes library. The <code>NDT</code> Ruby object is a wrapper
 over a C struct of type <code>NdtObject</code> that has the following definition:</p>
-<pre class="code literal-block"><span></span><code><span class="k">typedef</span> <span class="k">struct</span> <span class="n">NdtObject</span> <span class="p">{</span>
+<pre class="code literal-block"><span></span><code><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">NdtObject</span> <span class="p">{</span>
   <span class="k">const</span> <span class="n">ndt_t</span> <span class="o">*</span><span class="n">ndt</span><span class="p">;</span>                   <span class="cm">/* type */</span>
 <span class="p">}</span> <span class="n">NdtObject</span><span class="p">;</span>
 </code></pre>

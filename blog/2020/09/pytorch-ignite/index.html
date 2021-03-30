@@ -334,11 +334,11 @@ Successfully installed pytorch-ignite-0.4.1
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 <span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
-<span class="kn">from</span> <span class="nn">torch.optim</span> <span class="k">import</span> <span class="n">SGD</span>
-<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="k">import</span> <span class="n">DataLoader</span>
+<span class="kn">from</span> <span class="nn">torch.optim</span> <span class="kn">import</span> <span class="n">SGD</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span>
 
-<span class="kn">from</span> <span class="nn">torchvision.transforms</span> <span class="k">import</span> <span class="n">Compose</span><span class="p">,</span> <span class="n">ToTensor</span><span class="p">,</span> <span class="n">Normalize</span>
-<span class="kn">from</span> <span class="nn">torchvision.datasets</span> <span class="k">import</span> <span class="n">MNIST</span>
+<span class="kn">from</span> <span class="nn">torchvision.transforms</span> <span class="kn">import</span> <span class="n">Compose</span><span class="p">,</span> <span class="n">ToTensor</span><span class="p">,</span> <span class="n">Normalize</span>
+<span class="kn">from</span> <span class="nn">torchvision.datasets</span> <span class="kn">import</span> <span class="n">MNIST</span>
 
 <span class="c1"># transform to normalize the data</span>
 <span class="n">transform</span> <span class="o">=</span> <span class="n">Compose</span><span class="p">([</span><span class="n">ToTensor</span><span class="p">(),</span> <span class="n">Normalize</span><span class="p">((</span><span class="mf">0.1307</span><span class="p">,),</span> <span class="p">(</span><span class="mf">0.3081</span><span class="p">,))])</span>
@@ -353,7 +353,7 @@ Successfully installed pytorch-ignite-0.4.1
 
 <span class="c1"># Define a class of CNN model (as you want)</span>
 <span class="k">class</span> <span class="nc">Net</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
@@ -405,7 +405,7 @@ Successfully installed pytorch-ignite-0.4.1
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.engine</span> <span class="k">import</span> <span class="n">Engine</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.engine</span> <span class="kn">import</span> <span class="n">Engine</span>
 
 <span class="k">def</span> <span class="nf">train_step</span><span class="p">(</span><span class="n">engine</span><span class="p">,</span> <span class="n">batch</span><span class="p">):</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>
@@ -500,7 +500,7 @@ fire_event(Events.COMPLETED)</code></pre>
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.engine</span> <span class="k">import</span> <span class="n">Events</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.engine</span> <span class="kn">import</span> <span class="n">Events</span>
 
 <span class="c1"># Show a message when the training begins</span>
 <span class="nd">@trainer</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="n">Events</span><span class="o">.</span><span class="n">STARTED</span><span class="p">)</span>
@@ -544,7 +544,7 @@ fire_event(Events.COMPLETED)</code></pre>
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.metrics</span> <span class="k">import</span> <span class="n">Accuracy</span><span class="p">,</span> <span class="n">Loss</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.metrics</span> <span class="kn">import</span> <span class="n">Accuracy</span><span class="p">,</span> <span class="n">Loss</span>
 
 <span class="c1"># Accuracy and loss metrics are defined</span>
 <span class="n">val_metrics</span> <span class="o">=</span> <span class="p">{</span>
@@ -577,7 +577,7 @@ fire_event(Events.COMPLETED)</code></pre>
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.metrics</span> <span class="k">import</span> <span class="n">Precision</span><span class="p">,</span> <span class="n">Recall</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.metrics</span> <span class="kn">import</span> <span class="n">Precision</span><span class="p">,</span> <span class="n">Recall</span>
 
 <span class="c1"># Build F1 score</span>
 <span class="n">precision</span> <span class="o">=</span> <span class="n">Precision</span><span class="p">(</span><span class="n">average</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -608,7 +608,7 @@ fire_event(Events.COMPLETED)</code></pre>
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.engine</span> <span class="k">import</span> <span class="n">create_supervised_evaluator</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.engine</span> <span class="kn">import</span> <span class="n">create_supervised_evaluator</span>
 
 <span class="c1"># Define another evaluator with default validation function and attach metrics</span>
 <span class="n">train_evaluator</span> <span class="o">=</span> <span class="n">create_supervised_evaluator</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="n">val_metrics</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">"cuda"</span><span class="p">)</span>
@@ -688,7 +688,7 @@ fire_event(Events.COMPLETED)</code></pre>
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.contrib.handlers</span> <span class="k">import</span> <span class="n">ProgressBar</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.contrib.handlers</span> <span class="kn">import</span> <span class="n">ProgressBar</span>
 
 <span class="n">ProgressBar</span><span class="p">()</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">trainer</span><span class="p">,</span> <span class="n">output_transform</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">{</span><span class="s1">'batch loss'</span><span class="p">:</span> <span class="n">x</span><span class="p">})</span>
 </pre></div>
@@ -715,7 +715,7 @@ fire_event(Events.COMPLETED)</code></pre>
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.handlers</span> <span class="k">import</span> <span class="n">ModelCheckpoint</span><span class="p">,</span> <span class="n">global_step_from_engine</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.handlers</span> <span class="kn">import</span> <span class="n">ModelCheckpoint</span><span class="p">,</span> <span class="n">global_step_from_engine</span>
 
 <span class="c1"># Score function to select relevant metric, here f1</span>
 <span class="k">def</span> <span class="nf">score_function</span><span class="p">(</span><span class="n">engine</span><span class="p">):</span>
@@ -756,7 +756,7 @@ fire_event(Events.COMPLETED)</code></pre>
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.contrib.handlers</span> <span class="k">import</span> <span class="n">TensorboardLogger</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.contrib.handlers</span> <span class="kn">import</span> <span class="n">TensorboardLogger</span>
 
 <span class="c1"># Define a Tensorboard logger</span>
 <span class="n">tb_logger</span> <span class="o">=</span> <span class="n">TensorboardLogger</span><span class="p">(</span><span class="n">log_dir</span><span class="o">=</span><span class="s2">"quick-start-mnist-output"</span><span class="p">)</span>
@@ -885,10 +885,10 @@ fire_event(Events.COMPLETED)</code></pre>
 
  
  
-<div id="05cab6e7-8e96-4955-a62f-ba6ec1d0acd5"></div>
+<div id="1d59d22a-d259-41ac-9034-edce0e26e05f"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#05cab6e7-8e96-4955-a62f-ba6ec1d0acd5');
+var element = $('#1d59d22a-d259-41ac-9034-edce0e26e05f');
 </script><script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "9cf4a3960d9c4c31a775cf19c00fddd2", "version_major": 2, "version_minor": 0}
 </script>
@@ -918,10 +918,10 @@ var element = $('#05cab6e7-8e96-4955-a62f-ba6ec1d0acd5');
 
  
  
-<div id="9c726943-3129-49c5-bc69-542e588ee2d1"></div>
+<div id="f3e45e24-96d1-4ff2-b1b1-2eb04a63af09"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#9c726943-3129-49c5-bc69-542e588ee2d1');
+var element = $('#f3e45e24-96d1-4ff2-b1b1-2eb04a63af09');
 </script><script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "435204a5d8294b9faf37e86a2a2c6106", "version_major": 2, "version_minor": 0}
 </script>
@@ -951,10 +951,10 @@ var element = $('#9c726943-3129-49c5-bc69-542e588ee2d1');
 
  
  
-<div id="412f6751-c4f1-438d-b9da-5763f979e913"></div>
+<div id="a080d572-f0dd-40ff-8776-9d952816ea56"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#412f6751-c4f1-438d-b9da-5763f979e913');
+var element = $('#a080d572-f0dd-40ff-8776-9d952816ea56');
 </script><script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "2bf732207a604791b52f75e2c7acde77", "version_major": 2, "version_minor": 0}
 </script>
@@ -984,10 +984,10 @@ var element = $('#412f6751-c4f1-438d-b9da-5763f979e913');
 
  
  
-<div id="5934b617-1882-4c97-9b2f-39f3894ef8a9"></div>
+<div id="be5e6929-4268-4e10-82be-955359d806b4"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#5934b617-1882-4c97-9b2f-39f3894ef8a9');
+var element = $('#be5e6929-4268-4e10-82be-955359d806b4');
 </script><script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "a4ee6eaef1b34de3a18a48008b0f574b", "version_major": 2, "version_minor": 0}
 </script>
@@ -1017,10 +1017,10 @@ var element = $('#5934b617-1882-4c97-9b2f-39f3894ef8a9');
 
  
  
-<div id="5bbb1292-fe67-493a-98b0-1fd8a1246679"></div>
+<div id="5cac5495-55ff-41c6-a864-0671453c82a6"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#5bbb1292-fe67-493a-98b0-1fd8a1246679');
+var element = $('#5cac5495-55ff-41c6-a864-0671453c82a6');
 </script><script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "4be1c90dbd704ebfb5291fdd2ca25ca9", "version_major": 2, "version_minor": 0}
 </script>
@@ -1081,10 +1081,10 @@ Training completed!
 
 
 
-<div id="29391ece-0768-4643-acbc-c34ee46e00ed"></div>
+<div id="3cdc9d97-d0b9-446b-860a-c6e5470ef25a"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#29391ece-0768-4643-acbc-c34ee46e00ed');
+var element = $('#3cdc9d97-d0b9-446b-860a-c6e5470ef25a');
 
         (async () => {
             const url = await google.colab.kernel.proxyPort(6006, {"cache": true});
@@ -1196,7 +1196,7 @@ var element = $('#29391ece-0768-4643-acbc-c34ee46e00ed');
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.engine</span> <span class="k">import</span> <span class="n">Engine</span><span class="p">,</span> <span class="n">Events</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.engine</span> <span class="kn">import</span> <span class="n">Engine</span><span class="p">,</span> <span class="n">Events</span>
 
 
 <span class="n">trainer</span> <span class="o">=</span> <span class="n">Engine</span><span class="p">(</span><span class="k">lambda</span> <span class="n">e</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="kc">None</span><span class="p">)</span>
@@ -1498,7 +1498,7 @@ let's define new events related to backward and optimizer step calls. This can h
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.engine</span> <span class="k">import</span> <span class="n">EventEnum</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">ignite.engine</span> <span class="kn">import</span> <span class="n">EventEnum</span>
 
 
 <span class="k">class</span> <span class="nc">BackpropEvents</span><span class="p">(</span><span class="n">EventEnum</span><span class="p">):</span>
@@ -1624,7 +1624,7 @@ let's define new events related to backward and optimizer step calls. This can h
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">ignite.metrics</span> <span class="k">import</span> <span class="n">Accuracy</span>
+<span class="kn">from</span> <span class="nn">ignite.metrics</span> <span class="kn">import</span> <span class="n">Accuracy</span>
 
 <span class="n">acc</span> <span class="o">=</span> <span class="n">Accuracy</span><span class="p">()</span>
 
@@ -1700,7 +1700,7 @@ After 2nd update, accuracy= 0.625
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">ignite.metrics</span> <span class="k">import</span> <span class="n">Accuracy</span>
+<span class="kn">from</span> <span class="nn">ignite.metrics</span> <span class="kn">import</span> <span class="n">Accuracy</span>
 
 <span class="n">acc</span> <span class="o">=</span> <span class="n">Accuracy</span><span class="p">()</span>
 <span class="n">error</span> <span class="o">=</span> <span class="mf">100.0</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">acc</span><span class="p">)</span> 
@@ -1820,8 +1820,8 @@ application code:</p>
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 <span class="kn">import</span> <span class="nn">torch.optim</span> <span class="k">as</span> <span class="nn">optim</span>
 
-<span class="kn">from</span> <span class="nn">ignite.engine</span> <span class="k">import</span> <span class="n">create_supervised_trainer</span><span class="p">,</span> <span class="n">create_supervised_evaluator</span><span class="p">,</span> <span class="n">Events</span>
-<span class="kn">from</span> <span class="nn">ignite.metrics</span> <span class="k">import</span> <span class="n">Accuracy</span>
+<span class="kn">from</span> <span class="nn">ignite.engine</span> <span class="kn">import</span> <span class="n">create_supervised_trainer</span><span class="p">,</span> <span class="n">create_supervised_evaluator</span><span class="p">,</span> <span class="n">Events</span>
+<span class="kn">from</span> <span class="nn">ignite.metrics</span> <span class="kn">import</span> <span class="n">Accuracy</span>
 <span class="kn">import</span> <span class="nn">ignite.contrib.engines.common</span> <span class="k">as</span> <span class="nn">common</span>
 
 <span class="n">train_data</span> <span class="o">=</span> <span class="p">[[</span><span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">))]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
@@ -1894,10 +1894,10 @@ application code:</p>
 
  
  
-<div id="4bea828f-f4fe-4b1a-bcea-38996434b9ea"></div>
+<div id="1bfe1612-4ab3-407d-a1fc-ec7b35b28f9d"></div>
 <div class="output_subarea output_widget_view ">
 <script type="text/javascript">
-var element = $('#4bea828f-f4fe-4b1a-bcea-38996434b9ea');
+var element = $('#1bfe1612-4ab3-407d-a1fc-ec7b35b28f9d');
 </script><script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "ef6ae183108243b8b758fe7f4f05fe79", "version_major": 2, "version_minor": 0}
 </script>
@@ -2064,13 +2064,13 @@ drwxr-xr-x 1 root root 4096 Aug 31 11:27 ..
 <p>In addition, methods like <code>auto_model()</code>, <code>auto_optim()</code> and <code>auto_dataloader()</code> help to adapt in a transparent way the provided model, optimizer and data loaders to an existing configuration:</p>
 <div class="highlight"><pre><span></span><span class="c1"># main.py</span>
 
-<span class="kn">import</span> <span class="nn">ignite.distributed</span> <span class="kn">as</span> <span class="nn">idist</span>
+<span class="kn">import</span> <span class="nn">ignite.distributed</span> <span class="k">as</span> <span class="nn">idist</span>
 
 <span class="k">def</span> <span class="nf">training</span><span class="p">(</span><span class="n">local_rank</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
-    <span class="k">print</span><span class="p">(</span><span class="n">idist</span><span class="o">.</span><span class="n">get_rank</span><span class="p">(),</span> <span class="s2">": run with config:"</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="s2">"- backend="</span><span class="p">,</span> <span class="n">idist</span><span class="o">.</span><span class="n">backend</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">idist</span><span class="o">.</span><span class="n">get_rank</span><span class="p">(),</span> <span class="s2">": run with config:"</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="s2">"- backend="</span><span class="p">,</span> <span class="n">idist</span><span class="o">.</span><span class="n">backend</span><span class="p">())</span>
 
-    <span class="n">train_loader</span> <span class="o">=</span> <span class="n">idist</span><span class="o">.</span><span class="n">auto_dataloader</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">train_loader</span> <span class="o">=</span> <span class="n">idist</span><span class="o">.</span><span class="n">auto_dataloader</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="c1"># batch size, num_workers and sampler are automatically adapted to existing configuration</span>
     <span class="c1"># ...</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">resnet50</span><span class="p">()</span>
