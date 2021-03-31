@@ -14,15 +14,15 @@ jobs:
       - restore_cache:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
       - run:
-          name: Install Nikola
-          command: sudo pip install -r requirements.txt
+          name: Install Nikola, plugins
+          command: make venv_nikola/bin/nikola
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
           paths:
             - "$HOME/.cache/pip"
       - run:
           name: Build site with Nikola
-          command: nikola build
+          command: make build
       - store_artifacts:
           path: ./output/
   build_deploy:
@@ -38,15 +38,15 @@ jobs:
       - restore_cache:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
       - run:
-          name: Install Nikola
-          command: sudo pip install -r requirements.txt
+          name: Install Nikola, plugins
+          command: make venv_nikola/bin/nikola
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
           paths:
             - "$HOME/.cache/pip"
       - run:
           name: Build site with Nikola
-          command: nikola build
+          command: make build
       - run:
           name: Deploy to GitHub Pages
           command: |
@@ -55,6 +55,7 @@ jobs:
               git config --global user.email 'circleci@invalid'
               git pull --all
               git remote add deploy https://${GITHUB_TOKEN}@github.com/Quansight-Labs/quansight-labs-site.git
+              source venv_nikola/bin/activate
               nikola github_deploy -m 'Nikola auto deploy [ci skip]'
             fi
 

@@ -266,7 +266,7 @@ NEW_POST_DATE_PATH_FORMAT = '%Y/%m'
 # Nikola supports logo display.  If you have one, you can put the URL here.
 # Final output is <img src="LOGO_URL" id="logo" alt="BLOG_TITLE">.
 # The URL may be relative to the site root.
-LOGO_URL = '/images/quansight_labs_logo_white.png'
+LOGO_URL = '/images/QuansightLabs_logo_V1_white.png'
 
 # If you want to hide the title of your website (for example, if your logo
 # already contains the text), set this to False.
@@ -1281,3 +1281,19 @@ GLOBAL_CONTEXT = {}
 # GLOBAL_CONTEXT as parameter when the template is about to be
 # rendered
 GLOBAL_CONTEXT_FILLER = []
+
+# localsearch
+SEARCH_FORM = """
+<form class="navbar-form navbar-left" action="/search" role="search">
+    <div class="form-group">
+        <input type="text" class="form-control" id="tipue_search_input" name="q" placeholder="Search&hellip;" autocomplete="off">
+    </div>
+    <input type="submit" value="Local Search" style="visibility: hidden;">
+    <!-- button type="submit" class="btn btn-default">Submit</button -->
+</form>
+"""
+
+EXTRA_HEAD_DATA = """
+<link rel="stylesheet" type="text/css" href="/assets/css/tipuesearch.css">
+"""
+

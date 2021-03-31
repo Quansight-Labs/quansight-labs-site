@@ -61,7 +61,7 @@ order: 9
 ---
 name: sparse.png
 eurl: https://sparse.pydata.org/en/latest/index.html
-title: PyData Sparse 
+title: PyData Sparse
 description: Sparse arrays, or arrays that are mostly empty or filled with zeros, are common in many scientific applications. To save space we often avoid storing these arrays in traditional dense formats, and instead choose different data structures. Our choice of data structure can significantly affect our storage and computational costs when working with these arrays. Sparse implements sparse arrays of arbitrary dimension on top of numpy and scipy.sparse. It generalizes the scipy.sparse.coo_matrix and scipy.sparse.dok_matrix layouts, but extends beyond just rows and columns to an arbitrary number of dimensions.
 order: 10
 ---
@@ -73,13 +73,13 @@ order: 11
 ---
 name: ibis.svg
 eurl: https://docs.ibis-project.org/
-title: Ibis 
+title: Ibis
 description: Ibis is a toolbox to bridge the gap between local Python environments (like pandas and scikit-learn) and remote storage and execution systems like Hadoop components (like HDFS, Impala, Hive, Spark) and SQL databases (Postgres, etc.). Its goal is to simplify analytical workflows and make you more productive.
 order: 12
 ---
 name: uarray.png
 eurl: https://uarray.org/en/latest/
-title: Uarray 
+title: Uarray
 description: <code>uarray</code> is a backend system for Python that allows you to separately define an API, along with backends that contain separate implementations of that API.
 order: 13
 ---
@@ -100,4 +100,10 @@ eurl: http://holoviz.org/
 title: HoloViz
 description: HoloViz is a coordinated effort to make browser-based data visualization in Python easier to use, easier to learn, and more powerful.
 order: 16
+---
+name: ndindex.svg
+eurl: https://quansight-labs.github.io/ndindex/
+title: ndindex
+description: ndindex is a library that allows representing and manipulating objects that can be valid indices to numpy arrays, i.e., slices, integers, ellipses, None, integer and boolean arrays, and tuples thereof.
+order: 17
 ---
