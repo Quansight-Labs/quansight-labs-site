@@ -1,7 +1,7 @@
 <!--
 .. title: PyTorch TensorIterator Internals (TensorIteratorConfig Update)
 .. slug: pytorch-tensoriterator-internals-update
-.. date: 2021-04-01 13:22:00 UTC-06:00
+.. date: 2021-04-01 11:00:00 UTC-06:00
 .. author: Kurt Mohler
 .. tags: 
 .. category: 
