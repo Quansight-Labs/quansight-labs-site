@@ -23,6 +23,8 @@ use the current interface as of January 2021. Much of the information from the
 previous article is directly copied here, but with updated API calls and some
 extra details.
 
+<!-- TEASER_END -->
+
 All of the code examples below can be compiled and run in [this GitHub
 repo](https://github.com/kurtamohler/pytorch-TensorIterator-examples).
 
