@@ -1,7 +1,7 @@
 <!--
-.. title: PyTorch TensorIterator Internals (TensorIteratorConfig Update)
+.. title: PyTorch TensorIterator Internals - 2021 Update
 .. slug: pytorch-tensoriterator-internals-update
-.. date: 2021-04-08 15:15:00 UTC-06:00
+.. date: 2021-04-09 11:15:00 UTC-06:00
 .. author: Kurt Mohler
 .. tags: 
 .. category: 
@@ -19,7 +19,7 @@ data type details.
 
 In April 2020, Sameer wrote a blog article discussing [PyTorch TensorIterator Internals](/blog/2020/04/pytorch-tensoriterator-internals/index.html). Recently,
 however, the interface has changed significantly. This post describes how to
-use the current interface as of January 2021. Much of the information from the
+use the current interface as of April 2021. Much of the information from the
 previous article is directly copied here, but with updated API calls and some
 extra details.
 
