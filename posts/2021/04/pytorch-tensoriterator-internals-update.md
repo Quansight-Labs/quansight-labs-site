@@ -1,12 +1,12 @@
 <!--
 .. title: PyTorch TensorIterator Internals (TensorIteratorConfig Update)
 .. slug: pytorch-tensoriterator-internals-update
-.. date: 2021-04-08 15:15:00 UTC-06:00
+.. date: 2021-04-09 08:00:00 UTC-06:00
 .. author: Kurt Mohler
-.. tags: 
-.. category: 
-.. link: 
-.. description: 
+.. tags:
+.. category:
+.. link:
+.. description:
 .. type: text
 -->
 
@@ -14,10 +14,11 @@ For contributors to the PyTorch codebase, one of the most commonly encountered
 C++ classes is
 [`TensorIterator`](https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/TensorIterator.h).
 `TensorIterator` offers a standardized way to iterate over elements of
-a tensor, automatically parallelizing operations, while abstracting device and 
+a tensor, automatically parallelizing operations, while abstracting device and
 data type details.
 
-In April 2020, Sameer wrote a blog article discussing [PyTorch TensorIterator Internals](/blog/2020/04/pytorch-tensoriterator-internals/index.html). Recently,
+In April 2020, Sameer Deshmukh wrote a blog article discussing
+[PyTorch TensorIterator Internals](/blog/2020/04/pytorch-tensoriterator-internals/index.html). Recently,
 however, the interface has changed significantly. This post describes how to
 use the current interface as of January 2021. Much of the information from the
 previous article is directly copied here, but with updated API calls and some
@@ -39,7 +40,7 @@ a `TensorIterator` that has the specified settings. `TensorIterator` is
 immutable, so once it is created, its configuration cannot be changed.
 
 In the following example, a tensor named `out` is configured as the output
-tensor and `a` and `b` are the input tensors. Calling `build` creates the 
+tensor and `a` and `b` are the input tensors. Calling `build` creates the
 `TensorIterator` object from the specified configuration.
 
 ``` cpp
