@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PyTorch TensorIterator Internals - 2021 Update | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2021/04/pytorch-tensoriterator-internals-update/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><link rel="stylesheet" type="text/css" href="../../../../assets/css/tipuesearch.css">
+<meta name="author" content="Kurt Mohler">
+<link rel="prev" href="../../03/accessibility-whos-responsible/" title="Accessibility: Who's Responsible?" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="PyTorch TensorIterator Internals - 2021 Update">
+<meta property="og:url" content="https://labs.quansight.org/blog/2021/04/pytorch-tensoriterator-internals-update/">
+<meta property="og:description" content="For contributors to the PyTorch codebase, one of the most commonly encountered
+C++ classes is
+TensorIterator.
+TensorIterator offers a standardized way to iterate over elements of
+a tensor, automatical">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2021-04-09T08:00:00-06:00">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+            <img src="../../../../images/QuansightLabs_logo_V1_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../" class="nav-link">Blog</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../team/" class="nav-link">Team</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../projects/" class="nav-link">Projects</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../about/" class="nav-link">About</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS</a>
+
+                
+            </li>
+</ul>
+<form class="navbar-form navbar-left" action="../../../../search" role="search">
+    <div class="form-group">
+        <input type="text" class="form-control" id="tipue_search_input" name="q" placeholder="Search…" autocomplete="off">
+</div>
+    <input type="submit" value="Local Search" style="visibility: hidden;"><!-- button type="submit" class="btn btn-default">Submit</button -->
+</form>
+
+
+            <ul class="navbar-nav navbar-right"></ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name">
+                <a href="." class="u-url">PyTorch TensorIterator Internals - 2021 Update</a>
+            </h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    <a class="u-url" href="../../../../authors/kurt-mohler/">Kurt Mohler</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2021-04-09T08:00:00-06:00" itemprop="datePublished" title="2021-04-09">2021-04-09</time></a>
+            </p>
+            
+
+        </div>
+        
+
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+        <div>
+<p>For contributors to the PyTorch codebase, one of the most commonly encountered
+C++ classes is
+<a href="https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/TensorIterator.h"><code>TensorIterator</code></a>.
+<code>TensorIterator</code> offers a standardized way to iterate over elements of
+a tensor, automatically parallelizing operations, while abstracting device and
+data type details.</p>
+<p>In April 2020, Sameer Deshmukh wrote a blog article discussing
+<a href="../../../2020/04/pytorch-tensoriterator-internals/index.html">PyTorch TensorIterator Internals</a>. Recently,
+however, the interface has changed significantly. This post describes how to
+use the current interface as of April 2021. Much of the information from the
+previous article is directly copied here, but with updated API calls and some
+extra details.</p>
+<!-- TEASER_END -->
+
+<p>All of the code examples below can be compiled and run in <a href="https://github.com/kurtamohler/pytorch-TensorIterator-examples">this GitHub
+repo</a>.</p>
+<h2>Basics of TensorIterator and TensorIteratorConfig</h2>
+<p>In order to create a <code>TensorIterator</code>, a <code>TensorIteratorConfig</code> must be created
+first. <code>TensorIteratorConfig</code> specifies the input and output tensors that will
+be iterated over, whether all tensors are expected to share the same data type
+and device, and a handful of other settings. After setting up the
+configuration, we can call <code>TensorIteratorConfig::build()</code> to obtain
+a <code>TensorIterator</code> that has the specified settings. <code>TensorIterator</code> is
+immutable, so once it is created, its configuration cannot be changed.</p>
+<p>In the following example, a tensor named <code>out</code> is configured as the output
+tensor and <code>a</code> and <code>b</code> are the input tensors. Calling <code>build</code> creates the
+<code>TensorIterator</code> object from the specified configuration.</p>
+<pre class="code literal-block"><span></span><code><span class="n">at</span><span class="o">::</span><span class="n">TensorIteratorConfig</span> <span class="n">iter_config</span><span class="p">;</span>
+<span class="n">iter_config</span>
+  <span class="p">.</span><span class="n">add_output</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+  <span class="p">.</span><span class="n">add_input</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+  <span class="p">.</span><span class="n">add_input</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+
+<span class="k">auto</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">iter_config</span><span class="p">.</span><span class="n">build</span><span class="p">();</span>
+</code></pre>
+
+
+<h2>Performing iterations</h2>
+<p>Iterations using <code>TensorIterator</code> can be classified as point-wise iterations or
+reduction iterations. This plays a fundamental role in how iterations using
+<code>TensorIterator</code> are parallelized. Point-wise iterations can be freely
+parallelized along any dimension and grain size while reduction operations have
+to be either parallelized along dimensions that you're not iterating over or by
+performing bisect and reduce operations along the dimension being iterated.
+Note that for CUDA, it is possible to parallelize along the reduction
+dimension, but synchronizations are needed to avoid race conditions.
+Parallelization with vectorized operations can also be implemented.</p>
+<h3>Iteration details</h3>
+<p>The simplest iteration operation can be performed using the
+<a href="https://github.com/pytorch/pytorch/blob/d9e6750759b78c68e7d98b80202c67bea7ba24ec/aten/src/ATen/TensorIterator.cpp#L677"><code>for_each</code></a>
+function. This function has two overloads: one takes a function object which
+iterates over a single dimension (<code>loop_t</code>); the other takes a function object
+which iterates over two dimensions simultaneously (<code>loop2d_t</code>). Find their
+definitions
+<a href="https://github.com/pytorch/pytorch/blob/d9e6750759b78c68e7d98b80202c67bea7ba24ec/aten/src/ATen/TensorIterator.h#L246">here</a>.
+The simplest way of using <code>for_each</code> is to pass it a lambda of type <code>loop_t</code>
+(or <code>loop2d_t</code>).</p>
+<p>In the example below, the <code>char** data</code> argument of the <code>copy_loop</code> function
+(which is an instance of the <code>loop_t</code> lambda) contains a <code>char*</code> pointer for
+each of the tensors, in the order that they are specified in the
+<code>TensorIteratorConfig</code>. To make the implementation agnostic of any particular
+data type, the pointer is typecast to <code>char</code>, so we can access it as an array
+of bytes.</p>
+<p>The second argument is <code>const int64_t* strides</code>, which is an array containing
+the strides of each tensor in the dimension that you're iterating over. We can
+add this stride to the pointer received in order to reach the next element in
+the tensor. The last argument is <code>int64_t n</code> which is the size of the dimension
+being iterated over.</p>
+<p><code>for_each</code> implicitly parallelizes the operation by executing <code>copy_loop</code> in
+parallel if the number of iterations is more than the value of
+<code>internal::GRAIN_SIZE</code>, which is a value that is determined as the 'right
+amount' of data to iterate over in order to gain a significant speedup using
+multi-threaded execution. If you want to explicitly specify that your operation
+<em>must</em> run in serial, then use the <code>serial_for_each</code> loop.</p>
+<pre class="code literal-block"><span></span><code><span class="n">at</span><span class="o">::</span><span class="n">TensorIteratorConfig</span> <span class="n">iter_config</span><span class="p">;</span>
+<span class="n">iter_config</span>
+  <span class="p">.</span><span class="n">add_output</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+  <span class="p">.</span><span class="n">add_input</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+  <span class="c1">// call if output was already allocated</span>
+  <span class="p">.</span><span class="n">resize_outputs</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span>
+
+  <span class="c1">// call if inputs/outputs have different types</span>
+  <span class="p">.</span><span class="n">check_all_same_dtype</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+
+<span class="k">auto</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">iter_config</span><span class="p">.</span><span class="n">build</span><span class="p">();</span>
+
+<span class="c1">// Copies data from input into output</span>
+<span class="k">auto</span> <span class="n">copy_loop</span> <span class="o">=</span> <span class="p">[](</span><span class="kt">char</span><span class="o">**</span> <span class="n">data</span><span class="p">,</span> <span class="k">const</span> <span class="kt">int64_t</span><span class="o">*</span> <span class="n">strides</span><span class="p">,</span> <span class="kt">int64_t</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">auto</span><span class="o">*</span> <span class="n">out_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="k">auto</span><span class="o">*</span> <span class="n">in_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int64_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// assume float data type for this example</span>
+    <span class="o">*</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">out_data</span><span class="p">)</span> <span class="o">=</span> <span class="o">*</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">in_data</span><span class="p">);</span>
+    <span class="n">out_data</span> <span class="o">+=</span> <span class="n">strides</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="n">in_data</span> <span class="o">+=</span> <span class="n">strides</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="n">iter</span><span class="p">.</span><span class="n">for_each</span><span class="p">(</span><span class="n">copy_loop</span><span class="p">);</span>
+</code></pre>
+
+
+<h4>Using kernels for iterations</h4>
+<p>Frequently we want to create a kernel that applies a simple point-wise function
+onto entire tensors. <code>TensorIterator</code> provides various such generic kernels
+that can be used for iterating over the elements of a tensor without having to
+worry about the stride, data type of the operands or details of the
+parallelism.</p>
+<p>For example, say we want to build a function that performs the point-wise
+addition of two tensors and stores the result in a third tensor. We can use the
+<code>cpu_kernel</code> function. Note that in this example we assume a tensor of <code>float</code>,
+but you can use one of the <code>AT_DISPATCH_ALL_TYPES*</code> macros to support multiple
+data types.</p>
+<pre class="code literal-block"><span></span><code><span class="n">at</span><span class="o">::</span><span class="n">TensorIteratorConfig</span> <span class="n">iter_config</span><span class="p">;</span>
+<span class="n">iter_config</span>
+  <span class="p">.</span><span class="n">add_output</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+  <span class="p">.</span><span class="n">add_input</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+  <span class="p">.</span><span class="n">add_input</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+
+<span class="k">auto</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">iter_config</span><span class="p">.</span><span class="n">build</span><span class="p">();</span>
+
+<span class="c1">// Element-wise add</span>
+<span class="n">at</span><span class="o">::</span><span class="n">native</span><span class="o">::</span><span class="n">cpu_kernel</span><span class="p">(</span><span class="n">iter</span><span class="p">,</span> <span class="p">[]</span> <span class="p">(</span><span class="kt">float</span> <span class="n">a</span><span class="p">,</span> <span class="kt">float</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">float</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre>
+
+
+<p>Writing the kernel in this way ensures that the value returned by the lambda
+passed to <code>cpu_kernel</code> will populate the corresponding position in the target
+output tensor, as long as the inputs strictly broadcast over the output--that
+is, if the output's shape is equal to or greater than the input shape in all
+dimensions.</p>
+<h4>Setting tensor iteration dimensions</h4>
+<p>The value of the sizes and strides will determine which dimension of the tensor
+you will iterate over. <code>TensorIterator</code> performs optimizations to make sure
+that at least most of the iterations happen on contiguous data to take
+advantage of hierarchical cache-based memory architectures (think dimension
+coalescing and reordering for maximum data locality).</p>
+<p>A multi-dimensional tensor has a stride value for each dimension. So the stride
+that <code>TensorIterator</code> needs to use will be different depending on which
+dimension you want to iterate over. <code>TensorIterator</code> directly computes the
+strides that get passed into the loop by itself within the <code>build()</code> function.
+How exactly it computes the dimension to iterate over is something that should
+be properly understood in order to use <code>TensorIterator</code> effectively.</p>
+<p>When performing a reduction operation (see the <code>sum_out</code> code in
+<a href="https://github.com/pytorch/pytorch/blob/d9e6750759b78c68e7d98b80202c67bea7ba24ec/aten/src/ATen/native/ReduceOps.cpp#L517">ReduceOps.cpp</a>),
+<code>TensorIterator</code> will figure out the dimensions that will be reduced depending
+on the shape of the input and output tensor, which determines how the input
+will be broadcast over the output. If you're performing a simple pointwise
+operation between two tensors (like a <code>addcmul</code> from
+<a href="https://github.com/pytorch/pytorch/blob/d9e6750759b78c68e7d98b80202c67bea7ba24ec/aten/src/ATen/native/PointwiseOps.cpp#L31">PointwiseOps.cpp</a>)
+the iteration will happen over the entire tensor, without providing a choice of
+the dimension. This allows <code>TensorIterator</code> to freely parallelize the
+computation, without guaranteeing the order of execution, since it does not
+matter anyway.</p>
+<p>For something like a cumulative sum operation, where you want be able to choose
+the dimension to reduce but iterate over multiple non-reduced dimensions
+(possibly in parallel), you must be careful to take into account two different
+strides--one for the dimension being reduced and one for all other dimensions.
+Take a look at the following example of a somewhat simplified version of the
+<a href="https://github.com/pytorch/pytorch/blob/d9e6750759b78c68e7d98b80202c67bea7ba24ec/aten/src/ATen/native/cpu/ReduceOpsKernel.cpp#L67">cumsum
+kernel</a>.</p>
+<p>For a 1-D input,
+<a href="https://pytorch.org/docs/stable/generated/torch.cumsum.html?highlight=cumsum#torch.cumsum">torch.cumsum</a>
+calculates the sum of all elements from the beginning of the vector up to and
+including each position in the input. A 2-D input is treated as a list of
+vectors, and the cumulative sum is calculated for each vector. Higher
+dimensional inputs follow the same logic--everything is just a list of 1-D
+vectors.  So to implement a cumulative sum, we must take into account two
+different strides: the stride between elements in a vector (<code>result_dim_stride</code>
+and <code>self_dim_stride</code> in the example below) and the stride between each vector
+(<code>strides[0]</code> and <code>strides[1]</code> in the example below).</p>
+<pre class="code literal-block"><span></span><code><span class="c1">// A cumulative sum's output is the same size as the input</span>
+<span class="n">at</span><span class="o">::</span><span class="n">Tensor</span> <span class="n">result</span> <span class="o">=</span> <span class="n">at</span><span class="o">::</span><span class="n">empty_like</span><span class="p">(</span><span class="n">self</span><span class="p">);</span>
+
+<span class="n">at</span><span class="o">::</span><span class="n">TensorIteratorConfig</span> <span class="n">iter_config</span><span class="p">;</span>
+<span class="k">auto</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">iter_config</span>
+  <span class="p">.</span><span class="n">check_all_same_dtype</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span>
+  <span class="p">.</span><span class="n">resize_outputs</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span>
+  <span class="p">.</span><span class="n">declare_static_shape</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">sizes</span><span class="p">(),</span> <span class="cm">/*squash_dim=*/</span><span class="n">dim</span><span class="p">)</span>
+  <span class="p">.</span><span class="n">add_output</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+  <span class="p">.</span><span class="n">add_input</span><span class="p">(</span><span class="n">self</span><span class="p">)</span>
+  <span class="p">.</span><span class="n">build</span><span class="p">();</span>
+
+<span class="c1">// Size of dimension to calculate the cumulative sum across</span>
+<span class="kt">int64_t</span> <span class="n">self_dim_size</span> <span class="o">=</span> <span class="n">at</span><span class="o">::</span><span class="n">native</span><span class="o">::</span><span class="n">ensure_nonempty_size</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">dim</span><span class="p">);</span>
+
+<span class="c1">// These strides indicate number of memory-contiguous elements, not bytes,</span>
+<span class="c1">// between each successive element in dimension `dim`.</span>
+<span class="k">auto</span> <span class="n">result_dim_stride</span> <span class="o">=</span> <span class="n">at</span><span class="o">::</span><span class="n">native</span><span class="o">::</span><span class="n">ensure_nonempty_stride</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">dim</span><span class="p">);</span>
+<span class="k">auto</span> <span class="n">self_dim_stride</span> <span class="o">=</span> <span class="n">at</span><span class="o">::</span><span class="n">native</span><span class="o">::</span><span class="n">ensure_nonempty_stride</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">dim</span><span class="p">);</span>
+
+<span class="k">auto</span> <span class="n">loop</span> <span class="o">=</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">char</span><span class="o">**</span> <span class="n">data</span><span class="p">,</span> <span class="k">const</span> <span class="kt">int64_t</span><span class="o">*</span> <span class="n">strides</span><span class="p">,</span> <span class="kt">int64_t</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// There are `n` individual vectors that span across dimension `dim`, so</span>
+  <span class="c1">// `n` is equal to the number of elements in `self` divided by the size of</span>
+  <span class="c1">// dimension `dim`.</span>
+
+  <span class="c1">// These are the byte strides that separate each vector that spans across</span>
+  <span class="c1">// dimension `dim`</span>
+  <span class="k">auto</span><span class="o">*</span> <span class="n">result_data_bytes</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="k">const</span> <span class="k">auto</span><span class="o">*</span> <span class="n">self_data_bytes</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int64_t</span> <span class="n">vector_idx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">vector_idx</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">vector_idx</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// Calculate cumulative sum for each element of the vector</span>
+    <span class="k">auto</span> <span class="n">cumulative_sum</span> <span class="o">=</span> <span class="p">(</span><span class="n">at</span><span class="o">::</span><span class="n">acc_type</span><span class="o">&lt;</span><span class="kt">float</span><span class="p">,</span> <span class="nb">false</span><span class="o">&gt;</span><span class="p">)</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int64_t</span> <span class="n">elem_idx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">elem_idx</span> <span class="o">&lt;</span> <span class="n">self_dim_size</span><span class="p">;</span> <span class="o">++</span><span class="n">elem_idx</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">const</span> <span class="k">auto</span><span class="o">*</span> <span class="n">self_data</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="kt">float</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">self_data_bytes</span><span class="p">);</span>
+      <span class="k">auto</span><span class="o">*</span> <span class="n">result_data</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">result_data_bytes</span><span class="p">);</span>
+      <span class="n">cumulative_sum</span> <span class="o">+=</span> <span class="n">self_data</span><span class="p">[</span><span class="n">elem_idx</span> <span class="o">*</span> <span class="n">self_dim_stride</span><span class="p">];</span>
+      <span class="n">result_data</span><span class="p">[</span><span class="n">elem_idx</span> <span class="o">*</span> <span class="n">result_dim_stride</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">cumulative_sum</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Go to the next vector</span>
+    <span class="n">result_data_bytes</span> <span class="o">+=</span> <span class="n">strides</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="n">self_data_bytes</span> <span class="o">+=</span> <span class="n">strides</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="n">iter</span><span class="p">.</span><span class="n">for_each</span><span class="p">(</span><span class="n">loop</span><span class="p">);</span>
+</code></pre>
+
+
+<h4>Helper functions</h4>
+<p>There are many helper functions within PyTorch that can simplify the creation
+and execution of a <code>TensorIterator</code>. We cannot cover all of them in this blog
+post, so you would need to discover them on your own. However, let's discuss
+one of the most common ones:
+<a href="https://github.com/pytorch/pytorch/blob/d9e6750759b78c68e7d98b80202c67bea7ba24ec/aten/src/ATen/native/ReduceOpsUtils.h#L196"><code>make_reduction</code></a></p>
+<p><code>make_reduction</code> creates a <code>TensorIterator</code> specifically for a reduction
+operation with one input and one output. It handles all of the
+<code>TensorIteratorConfig</code> setup internally, so we don't need to write as much
+boiler-plate code.</p>
+<p>The following example uses <code>make_reduction</code> to create a <code>TensorIterator</code> which
+is used to calculate the sum reduction of a 2-D input across dimension 1. This
+is equivalent to <code>torch.sum(self, dim=1)</code> in Python. If we didn't use
+<code>make_reduction</code>, this code would be a bit more complex and more difficult to
+write.</p>
+<p>In this example, as opposed to the previous examples, we do not need to advance
+the <code>out_data</code> pointer. In fact, the value of <code>strides[0]</code> in this case is <code>0</code>.
+The reason for this is that the <code>TensorIterator</code> generated by <code>make_reduction</code>
+was initialized with <code>is_reduction(true)</code>, and when <code>for_each</code> is called,
+<code>sum_reduce_loop</code> is executed once per element of the output tensor. Thus,
+<code>sum_reduce_loop</code> only needs to iterate across the input data, adding each
+input element to the corresponding reduced output element. The operation is
+thread-safe as well, so the <code>for_each</code> call is free to split up individual
+<code>sum_reduce_loop</code> executions across multiple threads to parallelize the
+calculation.</p>
+<pre class="code literal-block"><span></span><code><span class="n">at</span><span class="o">::</span><span class="n">Tensor</span> <span class="n">self</span> <span class="o">=</span> <span class="n">at</span><span class="o">::</span><span class="n">randn</span><span class="p">({</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">});</span>
+<span class="kt">int64_t</span> <span class="n">dim</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kt">bool</span> <span class="n">keepdim</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+
+<span class="c1">// `make_reduction` will allocate result tensor for us, so we</span>
+<span class="c1">// can leave it undefined</span>
+<span class="n">at</span><span class="o">::</span><span class="n">Tensor</span> <span class="n">result</span><span class="p">;</span>
+
+<span class="k">auto</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">at</span><span class="o">::</span><span class="n">native</span><span class="o">::</span><span class="n">make_reduction</span><span class="p">(</span>
+  <span class="s">"sum_reduce"</span><span class="p">,</span>
+  <span class="n">result</span><span class="p">,</span>
+  <span class="n">self</span><span class="p">,</span>
+  <span class="n">dim</span><span class="p">,</span>
+  <span class="n">keepdim</span><span class="p">,</span>
+  <span class="n">self</span><span class="p">.</span><span class="n">scalar_type</span><span class="p">());</span>
+
+<span class="c1">// Sum reduce data from input into output</span>
+<span class="k">auto</span> <span class="n">sum_reduce_loop</span> <span class="o">=</span> <span class="p">[](</span><span class="kt">char</span><span class="o">**</span> <span class="n">data</span><span class="p">,</span> <span class="k">const</span> <span class="kt">int64_t</span><span class="o">*</span> <span class="n">strides</span><span class="p">,</span> <span class="kt">int64_t</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">auto</span><span class="o">*</span> <span class="n">out_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="k">auto</span><span class="o">*</span> <span class="n">in_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+
+  <span class="n">assert</span><span class="p">(</span><span class="n">strides</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">);</span>
+
+  <span class="o">*</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">out_data</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int64_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// assume float data type for this example</span>
+    <span class="o">*</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">out_data</span><span class="p">)</span> <span class="o">+=</span> <span class="o">*</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">in_data</span><span class="p">);</span>
+    <span class="n">in_data</span> <span class="o">+=</span> <span class="n">strides</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="n">iter</span><span class="p">.</span><span class="n">for_each</span><span class="p">(</span><span class="n">sum_reduce_loop</span><span class="p">);</span>
+</code></pre>
+
+
+<h2>Conclusion</h2>
+<p>This post was a very short introduction to what <code>TensorIterator</code> is actually
+capable of. If you want to learn more about how it works and what goes into
+things like collapsing the tensor size for optimizing memory access, a good
+place to start would be the <code>build()</code> function in
+<a href="https://github.com/pytorch/pytorch/blob/d9e6750759b78c68e7d98b80202c67bea7ba24ec/aten/src/ATen/TensorIterator.cpp#L1255">TensorIterator.cpp</a>.
+Also have a look at <a href="https://github.com/pytorch/pytorch/wiki/How-to-use-TensorIterator">this wiki
+page</a> from
+the PyTorch team on using <code>TensorIterator.</code></p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../../03/accessibility-whos-responsible/" rel="prev" title="Accessibility: Who's Responsible?">Previous post</a>
+            </li>
+
+            <li class="archive">
+                <a href="../../../../archive.html" rel="archive" title="Archive ">Archive</a>
+            </li>
+
+            <li class="next disabled">
+                <a rel="next">Next post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2021         <a href="../../../../team">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>

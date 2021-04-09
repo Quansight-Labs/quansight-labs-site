@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Fri, 09 Apr 2021 14:04:07 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Accessibility: Who's Responsible?</title><link>https://labs.quansight.org/blog/2021/03/accessibility-whos-responsible/</link><dc:creator>Isabela Presedo-Floyd</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;img alt="Fingers and question marks pointing in every direction" src="https://labs.quansight.org/images/jlabaccess1.png"&gt;&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Fri, 09 Apr 2021 17:28:50 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>PyTorch TensorIterator Internals - 2021 Update</title><link>https://labs.quansight.org/blog/2021/04/pytorch-tensoriterator-internals-update/</link><dc:creator>Kurt Mohler</dc:creator><description>&lt;div&gt;&lt;p&gt;For contributors to the PyTorch codebase, one of the most commonly encountered
+C++ classes is
+&lt;a href="https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/TensorIterator.h"&gt;&lt;code&gt;TensorIterator&lt;/code&gt;&lt;/a&gt;.
+&lt;code&gt;TensorIterator&lt;/code&gt; offers a standardized way to iterate over elements of
+a tensor, automatically parallelizing operations, while abstracting device and
+data type details.&lt;/p&gt;
+&lt;p&gt;In April 2020, Sameer Deshmukh wrote a blog article discussing
+&lt;a href="https://labs.quansight.org/blog/2020/04/pytorch-tensoriterator-internals/index.html"&gt;PyTorch TensorIterator Internals&lt;/a&gt;. Recently,
+however, the interface has changed significantly. This post describes how to
+use the current interface as of April 2021. Much of the information from the
+previous article is directly copied here, but with updated API calls and some
+extra details.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2021/04/pytorch-tensoriterator-internals-update/"&gt;Read more…&lt;/a&gt; (8 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><guid>https://labs.quansight.org/blog/2021/04/pytorch-tensoriterator-internals-update/</guid><pubDate>Fri, 09 Apr 2021 14:00:00 GMT</pubDate></item><item><title>Accessibility: Who's Responsible?</title><link>https://labs.quansight.org/blog/2021/03/accessibility-whos-responsible/</link><dc:creator>Isabela Presedo-Floyd</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;img alt="Fingers and question marks pointing in every direction" src="https://labs.quansight.org/images/jlabaccess1.png"&gt;&lt;/p&gt;
 &lt;h3&gt;JupyterLab Accessibility Journey Part 1&lt;/h3&gt;
 &lt;p&gt;For the past few months, I've been part of a group of people in the JupyterLab community 
 who've committed to start chipping away at the many accessibility failings of JupyterLab. 
@@ -95,30 +107,4 @@ In this post, we'll explore Ibis's ability to answer questions about data using 
 the &lt;a href="https://en.wikipedia.org/wiki/Apache_Hadoop#HDFS"&gt;Hadoop distributed file system&lt;/a&gt; and &lt;a href="https://pypi.org/project/pyspark/"&gt;PySpark&lt;/a&gt;. More backends were added later as Ibis became a general tool for data queries.&lt;/p&gt;
 &lt;p&gt;Throughout the rest of this post, we'll highlight the ability of Ibis to generically prescribe
 query expressions across different data storage systems.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/11/the-ibis-backends/"&gt;Read more…&lt;/a&gt; (3 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Ibis</category><category>OmniSci</category><category>Pandas</category><category>SQL</category><guid>https://labs.quansight.org/blog/2020/11/the-ibis-backends/</guid><pubDate>Fri, 13 Nov 2020 06:00:00 GMT</pubDate></item><item><title>Manylinux1 is obsolete, manylinux2010 is almost EOL, what is next?</title><link>https://labs.quansight.org/blog/2020/11/manylinux1-is-obsolete-manylinux2010-is-almost-eol-what-is-next/</link><dc:creator>Matti Picus</dc:creator><description>&lt;div&gt;&lt;p&gt;The basic installation format for users who install packages via &lt;code&gt;pip&lt;/code&gt; is
-the wheel format. Wheel names are composed of four parts: a
-package-name-and-version tag (which can be further broken down), a Python tag,
-an ABI tag, and a platform tag. More information on the tags can be found in
-&lt;a href="https://www.python.org/dev/peps/pep-0425"&gt;PEP 425&lt;/a&gt;.  So a package like NumPy
-will be available on PyPI as &lt;code&gt;numpy-1.19.2-cp36-cp36m-win_amd64.whl&lt;/code&gt; for 64-bit
-windows and &lt;code&gt;numpy-1.19.2-cp36-cp36m-macosx_10_9_x86_64.whl&lt;/code&gt; for macOS. Note
-that only the plaform tag &lt;code&gt;win_amd64&lt;/code&gt; or &lt;code&gt;macosx_10_9_x86_64&lt;/code&gt; differs. &lt;/p&gt;
-&lt;p&gt;But what about Linux? There is no single, vendor controlled, "Linux platform"
-e.g., Ubuntu, RedHat, Fedora, Debian, FreeBSD all package software at slightly
-different versions. What most Linux distributions do have in common is the
-glibc runtime library, and a smattering of various additional system libraries.
-So it is possible to define a least common denominator (LCD) of software
-expected to be on a Linux platform (exceptions apply, e.g. non-glibc
-distributions).&lt;/p&gt;
-&lt;p&gt;The decision to converge on a LCD common platform gave birth to the
-&lt;a href="https://www.python.org/dev/peps/pep-0513/"&gt;manylinux1&lt;/a&gt; standard. Going back
-to our example, numpy is available as
-&lt;code&gt;numpy-1.19.2-cp36-cp36m-manylinux1_x86_64.whl&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;The first manylinux standard, manylinux1, was based on CentOS5 which has &lt;a href="https://endoflife.software/operating-systems/linux/centos"&gt;been
-obsolete&lt;/a&gt; since
-March 2017. The subsequent manylinux2010 standard is based on CentOS6, which
-will hit end-of-life in December 2020. The manylinux2014 standard still has some
-breathing room. Based on CentOS7, it will reach end-of-life in July 2024.&lt;/p&gt;
-&lt;p&gt;So what is next for &lt;code&gt;manylinux&lt;/code&gt;, and what &lt;code&gt;manylinux&lt;/code&gt; should users and package
-maintainers use?&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/11/manylinux1-is-obsolete-manylinux2010-is-almost-eol-what-is-next/"&gt;Read more…&lt;/a&gt; (3 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>manylinux</category><category>packaging</category><category>pip</category><guid>https://labs.quansight.org/blog/2020/11/manylinux1-is-obsolete-manylinux2010-is-almost-eol-what-is-next/</guid><pubDate>Thu, 12 Nov 2020 19:00:06 GMT</pubDate></item></channel></rss>
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/11/the-ibis-backends/"&gt;Read more…&lt;/a&gt; (3 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Ibis</category><category>OmniSci</category><category>Pandas</category><category>SQL</category><guid>https://labs.quansight.org/blog/2020/11/the-ibis-backends/</guid><pubDate>Fri, 13 Nov 2020 06:00:00 GMT</pubDate></item></channel></rss>
