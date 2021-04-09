@@ -294,9 +294,9 @@ at::Tensor self = at::randn({10, 10, 10});
 int64_t dim = 1;
 bool keepdim = false;
 
-// `make_reduction` will allocate result tensor for us, so we
-// can leave it undefined
-at::Tensor result;
+// `make_reduction` will resize result tensor for us, so we
+// can set its size to (0)
+at::Tensor result = at::empty({0}, self.options());
 
 auto iter = at::native::make_reduction(
   "sum_reduce",
