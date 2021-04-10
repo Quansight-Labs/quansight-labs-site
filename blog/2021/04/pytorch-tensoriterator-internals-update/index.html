@@ -372,9 +372,9 @@ calculation.</p>
 <span class="kt">int64_t</span> <span class="n">dim</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 <span class="kt">bool</span> <span class="n">keepdim</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
 
-<span class="c1">// `make_reduction` will allocate result tensor for us, so we</span>
-<span class="c1">// can leave it undefined</span>
-<span class="n">at</span><span class="o">::</span><span class="n">Tensor</span> <span class="n">result</span><span class="p">;</span>
+<span class="c1">// `make_reduction` will resize result tensor for us, so we</span>
+<span class="c1">// can set its size to (0)</span>
+<span class="n">at</span><span class="o">::</span><span class="n">Tensor</span> <span class="n">result</span> <span class="o">=</span> <span class="n">at</span><span class="o">::</span><span class="n">empty</span><span class="p">({</span><span class="mi">0</span><span class="p">},</span> <span class="n">self</span><span class="p">.</span><span class="n">options</span><span class="p">());</span>
 
 <span class="k">auto</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">at</span><span class="o">::</span><span class="n">native</span><span class="o">::</span><span class="n">make_reduction</span><span class="p">(</span>
   <span class="s">"sum_reduce"</span><span class="p">,</span>
