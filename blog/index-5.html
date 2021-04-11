@@ -98,7 +98,44 @@ navbar-dark bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2020/11/manylinux1-is-obsolete-manylinux2010-is-almost-eol-what-is-next/" class="u-url">Manylinux1 is obsolete, manylinux2010 is almost EOL, what is next?</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2020/11/the-ibis-backends/" class="u-url">Querying multiple backends with Ibis</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                <a href="../authors/tony-fast-kim-pevey/">Tony Fast, Kim Pevey</a>
+            </span></p>
+            <p class="dateline">
+            <a href="2020/11/the-ibis-backends/" rel="bookmark">
+            <time class="published dt-published" datetime="2020-11-13T00:00:00-06:00" itemprop="datePublished" title="2020-11-13">2020-11-13</time></a>
+            </p>
+        </div>
+            
+        <div>
+            
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../categories/ibis/" rel="tag">Ibis</a></li>
+            <li><a class="tag p-category" href="../categories/omnisci/" rel="tag">OmniSci</a></li>
+            <li><a class="tag p-category" href="../categories/pandas/" rel="tag">Pandas</a></li>
+            <li><a class="tag p-category" href="../categories/sql/" rel="tag">SQL</a></li>
+        </ul>
+</div>
+    </header><div class="p-summary entry-summary">
+    <div>
+<p>In <a href="https://labs.quansight.org/blog/2020/06/ibis-an-idiomatic-flavor-of-sql-for-python-programmers/">our recent Ibis post</a>, we discussed querying &amp; retrieving data using a familiar <a href="http://pandas.pydata.org/">Pandas</a>-like interface.
+That discussion focused on the fluent API that <a href="https://www.ibis-project.org/">Ibis</a> provides to query structure from a SQLite database—in particular, using a single specific backend.
+In this post, we'll explore Ibis's ability to answer questions about data using two different Ibis backends.</p>
+<pre class="code literal-block"><span></span><code><span class="kn">import</span> <span class="nn">ibis.omniscidb</span><span class="o">,</span> <span class="nn">dask</span><span class="o">,</span> <span class="nn">intake</span><span class="o">,</span> <span class="nn">sqlalchemy</span><span class="o">,</span> <span class="nn">pandas</span><span class="o">,</span> <span class="nn">pyarrow</span> <span class="k">as</span> <span class="nn">arrow</span><span class="o">,</span> <span class="nn">altair</span><span class="o">,</span> <span class="nn">h5py</span> <span class="k">as</span> <span class="nn">hdf5</span>
+</code></pre>
+
+
+<h3>Ibis in the scientific Python ecosystem</h3>
+<p>Before we delve into the technical details of using Ibis, we'll consider Ibis in the greater historical context of the scientific Python ecosystem. It was started by Wes McKinney, the creator of Pandas, as way to query information on
+the <a href="https://en.wikipedia.org/wiki/Apache_Hadoop#HDFS">Hadoop distributed file system</a> and <a href="https://pypi.org/project/pyspark/">PySpark</a>. More backends were added later as Ibis became a general tool for data queries.</p>
+<p>Throughout the rest of this post, we'll highlight the ability of Ibis to generically prescribe
+query expressions across different data storage systems.</p>
+<p class="more"><a href="2020/11/the-ibis-backends/">Read more…</a></p>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2020/11/manylinux1-is-obsolete-manylinux2010-is-almost-eol-what-is-next/" class="u-url">Manylinux1 is obsolete, manylinux2010 is almost EOL, what is next?</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 <a href="../authors/matti-picus/">Matti Picus</a>
