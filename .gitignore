@@ -56,4 +56,3 @@ output/
 themes/*
 !themes/quansightlabs/
 venv_nikola/
-plugins/

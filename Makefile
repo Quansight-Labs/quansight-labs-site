@@ -14,8 +14,8 @@ venv_nikola/bin/nikola:  ## create a virtualenv to build the website
 	@venv_nikola/bin/python -m pip install -r requirements.txt
 	@venv_nikola/bin/nikola plugin -i localsearch
 
-build: venv_nikola/bin/nikola  ## build the website if needed, the result is in ./public
-	venv_nikola/bin/nikola build
+build: ## build the website if needed, the result is in ./output
+	nikola build
 
 auto: venv_nikola/bin/nikola ## build and serve the website, autoupdate on changes
 	venv_nikola/bin/nikola auto -a 0.0.0.0
@@ -23,11 +23,8 @@ auto: venv_nikola/bin/nikola ## build and serve the website, autoupdate on chang
 clean:  venv_nikola/bin/nikola  ## clean the website, usually not needed at all
 	venv_nikola/bin/nikola clean
 
-build_direct:  ## build using the local python3, for Netlify deployment
-	@python3 -m pip install wheel
-	@python3 -m pip install -r requirements.txt
-	@python3 -m nikola plugin -i localsearch
-	@python3 -m nikola build
+build_direct:  ## build for Netlify deployment
+	nikola build
 
 # Add help text after each target name starting with '\#\#'
 help:   ## Show this help.
