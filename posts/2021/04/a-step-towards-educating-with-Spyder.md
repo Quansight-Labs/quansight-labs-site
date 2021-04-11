@@ -55,7 +55,7 @@ code using Spyder’s code analysis and profiler, etc.
 
 Our last workshop will demonstrate how to create a plugin for Spyder, which, 
 thanks to our new API in [Spyder 5](https://github.com/spyder-ide/spyder/releases/tag/v5.0.0), 
-released in the last few days, will allow users to easily customize and 
+released in April 2021, will allow users to easily customize and 
 extend Spyder’s interface with new menus, toolbars, widgets or panes in order 
 to adapt it to their own needs...
 
