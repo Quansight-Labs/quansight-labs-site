@@ -24,11 +24,11 @@ simple way inside Spyder to create and share interactive tutorials on topics
 relevant to scientific research. Unfortunately, we didn’t get this funding, 
 but we didn’t let this great idea die.
 
-<!-- TEASER_END -->
-
 We submitted a second proposal to the [Python Software Foundation](https://www.python.org/psf/) 
 from which we were awarded $4000. For me, this is the perfect opportunity for 
 us to take the first step towards using Spyder for education.
+
+<!-- TEASER_END -->
 
 ## What the project is about
 
