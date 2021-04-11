@@ -3,7 +3,7 @@
 .. slug: a-step-towards-educating-with-Spyder
 .. date: 2021-04-11 08:00:00 UTC-06:00
 .. author: Juanita Gomez
-.. tags:
+.. tags: Spyder, community, grant, funding
 .. category:
 .. link:
 .. description:
