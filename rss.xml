@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Sun, 11 Apr 2021 19:25:04 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>A step towards educating with Spyder </title><link>https://labs.quansight.org/blog/2021/04/a-step-towards-educating-with-Spyder/</link><dc:creator>Juanita Gomez</dc:creator><description>&lt;div&gt;&lt;p&gt;As a community manager in the Spyder team, I have been looking for ways of 
-involving more users in the community and making Spyder useful for a larger 
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Sun, 11 Apr 2021 20:10:39 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>A step towards educating with Spyder</title><link>https://labs.quansight.org/blog/2021/04/a-step-towards-educating-with-spyder/</link><dc:creator>Juanita Gomez</dc:creator><description>&lt;div&gt;&lt;p&gt;As a community manager in the Spyder team, I have been looking for ways of
+involving more users in the community and making Spyder useful for a larger
 number of people. With this, a new idea came: Education.&lt;/p&gt;
-&lt;p&gt;For the past months, we have been wondering with the team whether Spyder 
-could also serve as a teaching-learning platform, especially in this era 
-where remote instruction has become necessary. We submitted a proposal to the 
-Essential Open Source Software for Science (EOSS) program of the Chan 
-Zuckerberg Initiative, during its third cycle, with the idea of providing a 
-simple way inside Spyder to create and share interactive tutorials on topics 
-relevant to scientific research. Unfortunately, we didn’t get this funding, 
+&lt;p&gt;For the past months, we have been wondering with the team whether Spyder
+could also serve as a teaching-learning platform, especially in this era
+where remote instruction has become necessary. We submitted a proposal to the
+Essential Open Source Software for Science (EOSS) program of the Chan
+Zuckerberg Initiative, during its third cycle, with the idea of providing a
+simple way inside Spyder to create and share interactive tutorials on topics
+relevant to scientific research. Unfortunately, we didn’t get this funding,
 but we didn’t let this great idea die.&lt;/p&gt;
-&lt;p&gt;We submitted a second proposal to the &lt;a href="https://www.python.org/psf/"&gt;Python Software Foundation&lt;/a&gt; 
-from which we were awarded $4000. For me, this is the perfect opportunity for 
+&lt;p&gt;We submitted a second proposal to the &lt;a href="https://www.python.org/psf/"&gt;Python Software Foundation&lt;/a&gt;
+from which we were awarded $4000. For me, this is the perfect opportunity for
 us to take the first step towards using Spyder for education.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2021/04/a-step-towards-educating-with-Spyder/"&gt;Read more…&lt;/a&gt; (2 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>community</category><category>funding</category><category>grant</category><category>Spyder</category><guid>https://labs.quansight.org/blog/2021/04/a-step-towards-educating-with-Spyder/</guid><pubDate>Sun, 11 Apr 2021 14:00:00 GMT</pubDate></item><item><title>PyTorch TensorIterator Internals - 2021 Update</title><link>https://labs.quansight.org/blog/2021/04/pytorch-tensoriterator-internals-update/</link><dc:creator>Kurt Mohler</dc:creator><description>&lt;div&gt;&lt;p&gt;For contributors to the PyTorch codebase, one of the most commonly encountered
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2021/04/a-step-towards-educating-with-spyder/"&gt;Read more…&lt;/a&gt; (2 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>community</category><category>funding</category><category>grant</category><category>Spyder</category><guid>https://labs.quansight.org/blog/2021/04/a-step-towards-educating-with-spyder/</guid><pubDate>Sun, 11 Apr 2021 14:00:00 GMT</pubDate></item><item><title>PyTorch TensorIterator Internals - 2021 Update</title><link>https://labs.quansight.org/blog/2021/04/pytorch-tensoriterator-internals-update/</link><dc:creator>Kurt Mohler</dc:creator><description>&lt;div&gt;&lt;p&gt;For contributors to the PyTorch codebase, one of the most commonly encountered
 C++ classes is
 &lt;a href="https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/TensorIterator.h"&gt;&lt;code&gt;TensorIterator&lt;/code&gt;&lt;/a&gt;.
 &lt;code&gt;TensorIterator&lt;/code&gt; offers a standardized way to iterate over elements of
