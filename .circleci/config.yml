@@ -14,15 +14,15 @@ jobs:
       - restore_cache:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
       - run:
-          name: Install Nikola, plugins
-          command: make venv_nikola/bin/nikola
+          name: Install Nikola
+          command: sudo pip install -r requirements.txt
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
           paths:
             - "$HOME/.cache/pip"
       - run:
           name: Build site with Nikola
-          command: make build
+          command: nikola build
       - store_artifacts:
           path: ./output/
   build_deploy:
@@ -38,15 +38,15 @@ jobs:
       - restore_cache:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
       - run:
-          name: Install Nikola, plugins
-          command: make venv_nikola/bin/nikola
+          name: Install Nikola
+          command: sudo pip install -r requirements.txt 
       - save_cache:
           key: deps1-{{ .Branch }}-{{ checksum "conf.py" }}
           paths:
             - "$HOME/.cache/pip"
       - run:
           name: Build site with Nikola
-          command: make build
+          command: nikola build
       - run:
           name: Deploy to GitHub Pages
           command: |
