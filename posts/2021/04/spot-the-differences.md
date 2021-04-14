@@ -108,7 +108,7 @@ issues to make [tooltips more legible](https://github.com/spyder-ide/ux-improvem
 blue was already being used for much of Spyder’s interface. It got more 
 complicated when we found out how many colors were hard coded across multiple 
 files or defined by an external project. Eventually, the problem changed from 
-the color contrast of tool tips to an unsustainable approach for managing 
+the color contrast of tool tips to an [unsustainable approach for managing 
 color](https://github.com/spyder-ide/ux-improvements/issues/13) across the two default Spyder themes rooted in a non-Spyder repo. Work 
 at each step did build up into a larger solution, but it’s worth noting that 
 it isn’t what we set out to do in the first place. 
