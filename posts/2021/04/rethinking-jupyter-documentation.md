@@ -7,6 +7,7 @@
 .. link: 
 .. description: 
 .. type: markdown
+.. author: Matthias Bussonnier
 -->
 
 Jupyter Notebook first release was 8 years ago – under the IPython Notebook
@@ -17,41 +18,44 @@ Pandas dataframes with as html tables, to more recent [Scikit-learn model](https
 
 Today I want to look into a topic that has not evolved much since, and I believe
 could use an upgrade. Accessing interactive Documentation when in a Jupyter
-session, and what it could become.
+session, and what it could become. At the end I'll link to my current prototype
+if you are adventurous.
 
 <!-- TEASER_END -->
 
 # The current limitation for users
 
 The current documentation of IPython and Jupyter come in a few forms, but mostly
-have the same limitation. 
+have the same limitation.
 The typical way to reach for help is to use the `?` operator. Depending on
 the frontend you are using it will bring a pager, or a panel that will display
-some information about the current object. Here is the documentation for
-``numpy.linspace``
-
-
-<img alt="numpy.linspace help in IPython" src="/images/2021/04/numpy-linspace-current.png" width="600px" >
+some information about the current object.
 
 It can show some information about the current object (signature, file,
-sub/super classes) and the raw DocString of the object. 
+sub/super classes) and the raw DocString of the object.
 
-You can scroll around but that's about it wether in terminal or Notebooks.
+You can scroll around but that's about it whether in terminal or Notebooks.
 
-Compare it to the same documentation on the numpy website:
+Compare it to the same documentation on the numpy website.
 
-<img alt="numpy.linspace on numpy.org" src="/images/2021/04/numpy-linspace-website.png" width="600px" >
+
+<img alt="numpy.linspace on numpy.org" src="/images/2021/04/numpy-linspace-compare.png" >
+
+On the left is the documentation for numpy when visiting https://numpy.org; on
+the right what you get in Jupyter Lab (or similar in a terminal).
 
 Compared to online documentation viewed from within jupyter, the documentation is:
 
- - Hard to read, 
+ - Hard to read,
  - Has no navigation
  - RST Directives have not been interpreted.
  - No inline graph, no rendered math.
 
+
 There is also no access to non-docstring based documentation, **no narrative**,
-**no tutorials**, **no image gallery or examples**, no search, no syntax highlighting, no way to
-interact or modify documentation to test effects of parameters.
+**no tutorials**, **no image gallery or examples**, no search, no syntax
+highlighting, no way to interact or modify documentation to test effects of
+parameters.
 
 # Limitation for authors
 
@@ -73,7 +77,7 @@ You can use :py:func:`np.einsum('i->', a) <numpy.einsum>` ...
 ```
 
 This also lead to long discussion about which syntax to use in advance area,
-like formulas in [Sympy's docstrings](https://github.com/sympy/sympy/issues/14964). 
+like formulas in [Sympy's docstrings](https://github.com/sympy/sympy/issues/14964).
 
 Many project have to implement dynamic docstrings; for example to include all
 the parameter a function or class, would pass down using ``**kwargs``, (search
@@ -111,7 +115,7 @@ Jupyter) can display documentation. It works both in terminal (IPython) and
 browser context (notebook, JupyterLab, Spyder) with proper rendering, and currently
 understand most directives; it could be customized to understand any new ones:
 
-<img alt="papyri1" src="/images/2021/04/papyri-1.png" width="600px" >
+<img alt="papyri1" src="/images/2021/04/papyri-1.png" class='center' >
 
 Above is the (terminal) documentation of `scipy.polynomial.lagfit`, see how the
 single backticks are properly understood and refer to known parameters, it
@@ -122,18 +126,20 @@ For that matter technically this does not care as to whether the DocString is
 written in RST or Markdown; though I need to implement the later part. I believe
 though that some maintainers would be quite
 
-<img alt="papyri navigation" src="/images/2021/04/papyri-nav.gif" width="600px" >
+<img alt="papyri navigation" src="/images/2021/04/papyri-nav.gif" class='center' >
 
 It support navigation – here in terminal – where clicking or pressing enter on a
 link would bring you to the target page. In above gif you can see that many
 token of code example are also automatically type-inferred (thanks [Jedi](https://github.com/davidhalter/jedi)), and
 can also be clicked to navigate to their corresponding page.
 
-<img alt="papyri terminal-fig" src="/images/2021/04/papyri-terminal-fig.png" width="600px" >
+<img alt="papyri terminal-fig" src="/images/2021/04/papyri-terminal-fig.png" class='center' >
 
 Images are included, even in terminal when they are not inline but replaced by
-a button to open them in your preferred viewer (see the `Open with quicklook in
-above scrrenshot).
+a button to open them in your preferred viewer (see the `Open with quicklook` in
+above screenshot).
+
+# The future
 
 
 I'm working on a number of other features, in particular :
@@ -141,7 +147,7 @@ I'm working on a number of other features, in particular :
  - rendering of narrative docs – for which I have a prototype,
  - automatic indexing of all the figures and plots –  working but slow right now.
  - proper cross library reference and indexing without the need for intersphinx.
- 
+
     - It is possible from the `numpy.linspace` page to see all page that
       reference it, or use it in an example (see previous image).
 
@@ -165,16 +171,20 @@ For now I've submitted a [Letter of intent to CZI EOSS
 4](https://docs.google.com/document/d/1hk-Ww7pUwnoHINNhDeP9UOPvNEemAFe-pohK5dCtZPs/edit?usp=sharing)
 in an attempt to get some of that work funded to land in IPython, and if you
 have any interest in contributing or want something like that for your library,
-feel free to reach out. 
+feel free to reach out.
 
-You can find the repository [here](https://github.com/Carreau/papyri), 
+You can find the repository [on my GitHub account](https://github.com/Carreau/papyri),
 it's still in pre-alpha stage. It is still quite unstable with too many hard
 coded values to my taste, and need some polish to be considered usable for production.
 I've focused my effort for now mostly on terminal rendering – a jupyter notebook
-or lab extensions woudl be welcome. So if you are adventurous and like to work
+or lab extensions would be welcome. So if you are adventurous and like to work
 from the cutting (or even bleeding) edge, please feel free to try it out and
 open issues/pull request.
 
-It also need to be better documented [sic], I'm hoping to use papyri itset to
-document papyri; but it needs to be a bitmore mature for that.
+It also need to be better documented [sic], I'm hoping to use papyri itself to
+document papyri; but it needs to be a bit more mature for that.
+
+Stay tune for more news, I'll try to explain how it works in more details in a
+follow-up post, and discuss some of the advantages (and draw back) this project
+has.
 
