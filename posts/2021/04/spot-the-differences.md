@@ -18,7 +18,7 @@ as **Juanita**, and those lead by Isabela Presedo-Floyd are marked as
 
 ## What did we do?*
 
-**[Juanita]** Spyder was created 10 years ago and it has had the 
+**[Juanita]** [Spyder](https://www.spyder-ide.org/) was created 10 years ago and it has had the 
 contributions of a great number of developers who have written code, proposed 
 ideas, opened issues and tested PRs in order to build a piece of Spyder on 
 their own. We (Spyder’s team) have been lucky to have such a great community 
@@ -34,7 +34,7 @@ survey a couple of months ago and realized that some of the most common
 feedback from users is related to its interface (very crowded, not 
 consistent, many colors). This is the reason why we decided to start a joint 
 project with Isabela, (who we consider now part of Spyder’s team) called 
-Spyder 5!!!
+[Spyder 5](https://github.com/spyder-ide/spyder/releases/tag/v5.0.0)!!!
 
 <!-- TEASER_END -->
 
@@ -50,7 +50,7 @@ and to make it easier to use.
 buttons to meet accessibility recommendations.
 - A new set of icons to ensure a consistent style.
 
-##How did we do it? (conversation)
+## How did we do it?
 
 ### 1. First impressions
 
@@ -77,7 +77,7 @@ feedback that Isabela gave us. Then, I grouped this information into
 categories depending on whether the comments were about the interface, in 
 general, or if they were about a specific pane. Once we agreed on a relevant 
 problem that we wanted to address, I opened an issue on a new repo that we 
-created in the Spyder’s organization called “ux-improvements.”
+created in the Spyder’s organization called “[ux-improvements](https://github.com/spyder-ide/ux-improvements/issues).”
 
 **[Isabela]** In fact, that wasn’t even the first set of documents we were 
 working with; I had a whole table, numbering system, and document I was 
@@ -103,13 +103,13 @@ made sense to start thinking about those big picture issues first.
 
 **[Isabela]** When prioritizing the audit feedback for Spyder 5, each pass 
 seemed to get to a deeper layer of the problem. For example, what started as 
-issues to make tooltips more legible and improve the variable explorer’s 
-color coding soon became the realization that we weren’t sure exactly what 
+issues to make [tooltips more legible](https://github.com/spyder-ide/ux-improvements/issues/2) and improve the variable explorer’s 
+[color coding](https://github.com/spyder-ide/ux-improvements/issues/7) soon became the realization that we weren’t sure exactly what 
 blue was already being used for much of Spyder’s interface. It got more 
 complicated when we found out how many colors were hard coded across multiple 
 files or defined by an external project. Eventually, the problem changed from 
 the color contrast of tool tips to an unsustainable approach for managing 
-color across the two default Spyder themes rooted in a non-Spyder repo. Work 
+color](https://github.com/spyder-ide/ux-improvements/issues/13) across the two default Spyder themes rooted in a non-Spyder repo. Work 
 at each step did build up into a larger solution, but it’s worth noting that 
 it isn’t what we set out to do in the first place. 
 
@@ -122,11 +122,11 @@ on our Github issues?
 
 **[Isabela]** First things first, it isn’t actually witchcraft even if it 
 looks magical from the outside. How I work depends somewhat on what problem 
-e are trying to solve, so let’s use the design of custom icons for Spyder 5 
+e are trying to solve, so let’s use the design of [custom icons](https://github.com/spyder-ide/ux-improvements/issues/33#issuecomment-776376943) for Spyder 5 
 as an example. Once I had a defined list of icons to work on, I needed to 
 spend time making progress on my own. Research on best practices for the 
 relevant area of design is where I started; in this case, I knew we were 
-going to be working with Material Design Icons’ specifications. After that, 
+going to be working with [Material Design Icons’](https://materialdesignicons.com/) specifications. After that, 
 I did a combination of pen-and-paper sketching and working digitally based on 
 the existing icons in Spyder and Material Design Icons while I kept note of 
 the pros and cons for different directions. I also collected design elements 
@@ -143,14 +143,14 @@ discussed the options together.
 
 **[Juanita]** After many discussions, mock-ups, and meetings, decisions had 
 been made. It was time to implement! A big part of the improvements were made 
-in QDarkStyleSheet where we did the new palette and color system for both the 
+in [QDarkStyleSheet](https://github.com/ColinDuquesnoy/QDarkStyleSheet/) where we did the new palette and color system for both the 
 dark and light themes of Spyder. In my opinion, this was the hardest part of 
 the process since it involved getting familiar with the code first and then, 
 trying and trying again changing lines of code to change the color or style 
 of buttons, tabs, toolbars, borders, etc… 
 
 The other problem that I ran into, was trying to meet the designs’ 
-specifications. Specially, when working with the toolbars, figuring the right 
+specifications. Specially, when working with the [toolbars](https://github.com/spyder-ide/ux-improvements/issues/28), figuring the right 
 number for the pixels of margins and sizes was a challenge. I tried several 
 values before finding one that closely matched the proposed mock-up only to 
 realize later that “pixels” was not the best unit for the specifications. I 
