@@ -1,7 +1,7 @@
 <!-- 
 .. title: Rethinking Jupyter Interactive Documentation
 .. slug: rethinking-jupyter-documentation
-.. date: 2021-03-30 11:59 UTC
+.. date: 2021-04-12 11:59 UTC
 .. tags: Python, Open-Source, documentation
 .. category: 
 .. link: 
