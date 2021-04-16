@@ -29,8 +29,8 @@ analyze until now.
 
 When Isabela joined Quansight, we realized that we had an opportunity of 
 improving Spyder’s interface with her help. We thought her skill set was 
-everything we needed to make Spyder’s UI better. We conducted a community 
-survey a couple of months ago and realized that some of the most common 
+everything we needed to make Spyder’s UI better.  So we started by reviewing the results of a community survey
+ from a few months ago and realized that some of the most common 
 feedback from users is related to its interface (very crowded, not 
 consistent, many colors). This is why we decided to start a joint 
 project with Isabela, (who we consider now part of the Spyder team) called 
@@ -162,7 +162,7 @@ new set of icons. It was an arduous task, more than we all expected, but at
 the end we were all very happy with the results and thankful to Isabela for 
 helping us to give a new face to Spyder. 
 
-## What did we get?
+## What's the final result?
 
 **[Isabela]** Individually, the colors, toolbars, and icons may feel like 
 small adjustments, but those are some of the elements that make up most of 
@@ -206,7 +206,7 @@ and complicated.
 **[Isabela]** 
 
 - Don’t be afraid of asking questions even when you think you understand the 
-problem because every bit of information can be useful to understanding what 
+problem because every bit of information can be useful to better grasping what 
 hurts or helps users.
 - Always take the time to review what you might think is obvious with the 
 rest of the team. It’s easy to forget about what you know when you are 
