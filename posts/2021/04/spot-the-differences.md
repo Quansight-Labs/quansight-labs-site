@@ -21,9 +21,9 @@ as **Juanita**, and those lead by Isabela Presedo-Floyd are marked as
 **[Juanita]** [Spyder](https://www.spyder-ide.org/) was created 10 years ago and it has had the 
 contributions of a great number of developers who have written code, proposed 
 ideas, opened issues and tested PRs in order to build a piece of Spyder on 
-their own. We (Spyder’s team) have been lucky to have such a great community 
+their own. We (the Spyder team) have been lucky to have such a great community 
 of people contributing, but this is the first time that we decided to ask for 
-help from an UX/UI expert! Having the help of this great amount of people has 
+help from an UX/UI expert! Why? You might wonder. Having the help of this great amount of people has 
 resulted in inconsistencies around Spyder’s interface which we didn’t stop to 
 analyze until now. 
 
@@ -32,8 +32,8 @@ improving Spyder’s interface with her help. We thought her skill set was
 everything we needed to make Spyder’s UI better. We conducted a community 
 survey a couple of months ago and realized that some of the most common 
 feedback from users is related to its interface (very crowded, not 
-consistent, many colors). This is the reason why we decided to start a joint 
-project with Isabela, (who we consider now part of Spyder’s team) called 
+consistent, many colors). This is why we decided to start a joint 
+project with Isabela, (who we consider now part of the Spyder team) called 
 [Spyder 5](https://github.com/spyder-ide/spyder/releases/tag/v5.0.0)!!!
 
 <!-- TEASER_END -->
@@ -94,7 +94,7 @@ tool to keep up with all the plans for the future!
 **[Isabela]** Juanita did wonderful work tracking our progress through issues 
 and keeping us all accountable, but we were still left with a long list of 
 issues to triage—long enough that it wasn’t all getting in Spyder 5. To have 
-the greatest impact on the Spyder, we started with the issues that had 
+the greatest impact on Spyder, we started with the issues that had 
 influence on Spyder as a whole. Toolbars, icons, and colors are something y
 ou will always encounter from the first impression to the most recent, so it 
 made sense to start thinking about those big picture issues first.
@@ -142,7 +142,7 @@ discussed the options together.
 ### 6. Mockups Vs Reality
 
 **[Juanita]** After many discussions, mock-ups, and meetings, decisions had 
-been made. It was time to implement! A big part of the improvements were made 
+made and we were ready to move onto the implementation phase. A big part of the improvements were made 
 in [QDarkStyleSheet](https://github.com/ColinDuquesnoy/QDarkStyleSheet/) where we did the new palette and color system for both the 
 dark and light themes of Spyder. In my opinion, this was the hardest part of 
 the process since it involved getting familiar with the code first and then, 
