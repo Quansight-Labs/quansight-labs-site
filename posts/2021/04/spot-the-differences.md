@@ -141,7 +141,7 @@ discussed the options together.
 
 ### 6. Mockups Vs Reality
 
-**[Juanita]** After many discussions, mock-ups, and meetings, decisions had 
+**[Juanita]** After many discussions, mock-ups, and meetings, decisions were
 made and we were ready to move onto the implementation phase. A big part of the improvements were made 
 in [QDarkStyleSheet](https://github.com/ColinDuquesnoy/QDarkStyleSheet/) where we did the new palette and color system for both the 
 dark and light themes of Spyder. In my opinion, this was the hardest part of 
