@@ -137,7 +137,7 @@ as I built them so that I could make more consistent, accurate designs faster
 as I worked. For the icons, this included things like letters, rounded 
 corners, and templates for the size and spacing of elements. Finally, I 
 compared options side by side and tried them out in the interface to evaluate 
-what designs were strong enough to bring to the rest of the team. Then we 
+what designs were strong enough to bring them to the rest of the team. Then we 
 discussed the options together.
 
 ![Spyder 5 icon mockups](/images/spyder5-wipicons.png)
