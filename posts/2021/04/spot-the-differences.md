@@ -18,7 +18,7 @@ process of improving Spyder's UI with this release. Portions lead by Juanita
 Gomez are marked as **Juanita**, and those lead by Isabela Presedo-Floyd are 
 marked as **Isabela**.
 
-## What did we do?*
+## What did we do?
 
 **[Juanita]** [Spyder](https://www.spyder-ide.org/) was created more than 10 
 years ago and it has had the contributions of a great number of developers 
