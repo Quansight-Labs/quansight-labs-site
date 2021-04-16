@@ -21,7 +21,7 @@ marked as **Isabela**.
 ## What did we do?*
 
 **[Juanita]** [Spyder](https://www.spyder-ide.org/) was created more than 10 
-years ago and it has had the  contributions of a great number of developers 
+years ago and it has had the contributions of a great number of developers 
 who have written code, proposed ideas, opened issues and tested PRs in order 
 to build a piece of Spyder on their own. We (the Spyder team) have been lucky 
 to have such a great community of people contributing throughout the years, 
@@ -170,7 +170,7 @@ helping us to give a new face to Spyder.
 
 **[Isabela]** Individually, the colors, toolbars, and icons may feel like 
 small adjustments, but those are some of the elements that make up most of 
-Spyder.  When they are together, those small adjustments set the mood in the 
+Spyder. When they are together, those small adjustments set the mood in the 
 interface; they are more noticeable, and rooted in the Spyder UI many people 
 are already familiar with. While the changes may feel obvious when they are 
 new, they are also chosen to create consistent patterns across interactions 
