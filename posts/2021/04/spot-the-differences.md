@@ -12,29 +12,32 @@
 
 ![Spyder 5 versus Spyder 4](/images/spyder5-header.png)
 
-*This blog post is a conversation. Portions lead by Juanita Gomez are marked 
-as **Juanita**, and those lead by Isabela Presedo-Floyd are marked as 
-**Isabela**.*
+In case you missed it, Spyder 5 was released at the beginning of April! This 
+blog post is a conversation attempting to document the long and complex 
+process of improving Spyder's UI with this release. Portions lead by Juanita 
+Gomez are marked as **Juanita**, and those lead by Isabela Presedo-Floyd are 
+marked as **Isabela**.
 
 ## What did we do?*
 
-**[Juanita]** [Spyder](https://www.spyder-ide.org/) was created more than 10 years ago and it has had the 
-contributions of a great number of developers who have written code, proposed 
-ideas, opened issues and tested PRs in order to build a piece of Spyder on 
-their own. We (the Spyder team) have been lucky to have such a great community 
-of people contributing throughout the years, but this is the first time that we decided to ask for 
-help from an UX/UI expert! Why? You might wonder. Having the contributions of this great amount of people has 
-resulted in inconsistencies around Spyder’s interface which we didn’t stop to 
-analyze until now. 
+**[Juanita]** [Spyder](https://www.spyder-ide.org/) was created more than 10 
+years ago and it has had the  contributions of a great number of developers 
+who have written code, proposed ideas, opened issues and tested PRs in order 
+to build a piece of Spyder on their own. We (the Spyder team) have been lucky 
+to have such a great community of people contributing throughout the years, 
+but this is the first time that we decided to ask for help from an UX/UI 
+expert! Why? You might wonder. Having the contributions of this great amount 
+of people has resulted in inconsistencies around Spyder’s interface which we 
+didn’t stop to analyze until now. 
 
 When Isabela joined Quansight, we realized that we had an opportunity of 
 improving Spyder’s interface with her help. We thought her skill set was 
-everything we needed to make Spyder’s UI better.  So we started by reviewing the results of a community survey
- from a few months ago and realized that some of the most common 
-feedback from users is related to its interface (very crowded, not 
-consistent, many colors). This is why we decided to start a joint 
-project with Isabela, (who we consider now part of the Spyder team) called 
-[Spyder 5](https://github.com/spyder-ide/spyder/releases/tag/v5.0.0)!!!
+everything we needed to make Spyder’s UI better.  So we started by reviewing 
+the results of a community survey from a few months ago and realized that 
+some of the most common feedback from users is related to its interface 
+(very crowded, not consistent, many colors). This is why we decided to start 
+a joint project with Isabela, (who we consider now part of the Spyder team) 
+called [Spyder 5](https://github.com/spyder-ide/spyder/releases/tag/v5.0.0)!!!
 
 <!-- TEASER_END -->
 
@@ -142,8 +145,9 @@ discussed the options together.
 ### 6. Mockups Vs Reality
 
 **[Juanita]** After many discussions, mock-ups, and meetings, decisions were
-made and we were ready to move onto the implementation phase. A big part of the improvements were made 
-in [QDarkStyleSheet](https://github.com/ColinDuquesnoy/QDarkStyleSheet/) where we did the new palette and color system for both the 
+made and we were ready to move onto the implementation phase. A big part of 
+the improvements were made in [QDarkStyleSheet](https://github.com/ColinDuquesnoy/QDarkStyleSheet/) 
+where we did the new palette and color system for both the 
 dark and light themes of Spyder. In my opinion, this was the hardest part of 
 the process since it involved getting familiar with the code first and then, 
 trying and trying again changing lines of code to change the color or style 
