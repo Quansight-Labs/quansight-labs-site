@@ -119,7 +119,7 @@ it isn’t what we set out to do in the first place.
 ### 5. What witchcraft does Isabela do in the background?
 
 **[Juanita]** One of the most important parts of the process was designing 
-the mock ups for the new ideas that we came up with for the interface which  
+the mock ups for the new ideas that we came up with for the interface which 
 is definitely not our expertise. So... how did the designs magically appear 
 on our Github issues?
 
@@ -142,9 +142,9 @@ discussed the options together.
 
 ![Spyder 5 icon mockups](/images/spyder5-wipicons.png)
 
-### 6. Mockups Vs Reality
+### 6. Mock ups Vs Reality
 
-**[Juanita]** After many discussions, mock-ups, and meetings, decisions were
+**[Juanita]** After many discussions, mock ups, and meetings, decisions were
 made and we were ready to move onto the implementation phase. A big part of 
 the improvements were made in [QDarkStyleSheet](https://github.com/ColinDuquesnoy/QDarkStyleSheet/) 
 where we did the new palette and color system for both the 
@@ -156,7 +156,7 @@ of buttons, tabs, toolbars, borders, etc…
 The other problem that I ran into, was trying to meet the designs’ 
 specifications. Specially, when working with the [toolbars](https://github.com/spyder-ide/ux-improvements/issues/28), figuring the right 
 number for the pixels of margins and sizes was a challenge. I tried several 
-values before finding one that closely matched the proposed mock-up only to 
+values before finding one that closely matched the proposed mock up only to 
 realize later that “pixels” was not the best unit for the specifications. I 
 ended up using “em” since it was more consistent across operating systems.
 Isabela, Stephanie and Carlos were part of this process as well. Between the 
