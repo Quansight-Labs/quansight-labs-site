@@ -18,12 +18,12 @@ as **Juanita**, and those lead by Isabela Presedo-Floyd are marked as
 
 ## What did we do?*
 
-**[Juanita]** [Spyder](https://www.spyder-ide.org/) was created 10 years ago and it has had the 
+**[Juanita]** [Spyder](https://www.spyder-ide.org/) was created more than 10 years ago and it has had the 
 contributions of a great number of developers who have written code, proposed 
 ideas, opened issues and tested PRs in order to build a piece of Spyder on 
 their own. We (the Spyder team) have been lucky to have such a great community 
-of people contributing, but this is the first time that we decided to ask for 
-help from an UX/UI expert! Why? You might wonder. Having the help of this great amount of people has 
+of people contributing throughout the years, but this is the first time that we decided to ask for 
+help from an UX/UI expert! Why? You might wonder. Having the contributions of this great amount of people has 
 resulted in inconsistencies around Spyder’s interface which we didn’t stop to 
 analyze until now. 
 
@@ -39,7 +39,7 @@ project with Isabela, (who we consider now part of the Spyder team) called
 <!-- TEASER_END -->
 
 This version was in development for over a year and was finally released on 
-April 1st. It has great new features that we hope will benefit our users 
+April 2nd. It has some nice new features that we hope will benefit our users 
 greatly. Most of these are focused on improving Spyder’s interface and 
 usability, which we did thanks to Isabela’s help. The 3 main UX features 
 implemented in this release were:
@@ -71,7 +71,7 @@ was intimidating and went through several phases.
 
 **[Juanita]** The first phase was discussing all the problems that Isabela 
 found in weekly meetings with Carlos, the Spyder maintainer, and Stephanie, 
-a core developer for Spyder. I created a Google drive document (which we 
+another Spyder core developer. I created a Google drive document (which we 
 ended up calling “The Nightmare document”) in which I collected most of the 
 feedback that Isabela gave us. Then, I grouped this information into 
 categories depending on whether the comments were about the interface, in 
@@ -95,8 +95,8 @@ tool to keep up with all the plans for the future!
 and keeping us all accountable, but we were still left with a long list of 
 issues to triage—long enough that it wasn’t all getting in Spyder 5. To have 
 the greatest impact on Spyder, we started with the issues that had 
-influence on Spyder as a whole. Toolbars, icons, and colors are something y
-ou will always encounter from the first impression to the most recent, so it 
+influence on Spyder as a whole. Toolbars, icons, and colors are something
+you will always encounter from the first impression to the most recent, so it 
 made sense to start thinking about those big picture issues first.
 
 ### 4. Digging deeper into the dark hole
@@ -122,7 +122,7 @@ on our Github issues?
 
 **[Isabela]** First things first, it isn’t actually witchcraft even if it 
 looks magical from the outside. How I work depends somewhat on what problem 
-e are trying to solve, so let’s use the design of [custom icons](https://github.com/spyder-ide/ux-improvements/issues/33#issuecomment-776376943) for Spyder 5 
+we are trying to solve, so let’s use the design of [custom icons](https://github.com/spyder-ide/ux-improvements/issues/33#issuecomment-776376943) for Spyder 5 
 as an example. Once I had a defined list of icons to work on, I needed to 
 spend time making progress on my own. Research on best practices for the 
 relevant area of design is where I started; in this case, I knew we were 
