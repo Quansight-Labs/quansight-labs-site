@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spot the differences: what is new in Spyder 5? | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2021/04/spot-the-diffenrences/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><link rel="stylesheet" type="text/css" href="../../../../assets/css/tipuesearch.css">
+<meta name="author" content="Isabela Presedo-Floyd and Juanita Gomez">
+<link rel="prev" href="../a-step-towards-educating-with-spyder/" title="A step towards educating with Spyder" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="Spot the differences: what is new in Spyder 5?">
+<meta property="og:url" content="https://labs.quansight.org/blog/2021/04/spot-the-diffenrences/">
+<meta property="og:description" content="In case you missed it, Spyder 5 was released at the beginning of April! This 
+blog post is a conversation attempting to document the long and complex 
+process of improving Spyder's UI with this releas">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2021-04-16T08:00:00-06:00">
+<meta property="article:tag" content="release">
+<meta property="article:tag" content="Spyder">
+<meta property="article:tag" content="UX/UI">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+            <img src="../../../../images/QuansightLabs_logo_V1_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../" class="nav-link">Blog</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../team/" class="nav-link">Team</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../projects/" class="nav-link">Projects</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../about/" class="nav-link">About</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS</a>
+
+                
+            </li>
+</ul>
+<form class="navbar-form navbar-left" action="../../../../search" role="search">
+    <div class="form-group">
+        <input type="text" class="form-control" id="tipue_search_input" name="q" placeholder="Search…" autocomplete="off">
+</div>
+    <input type="submit" value="Local Search" style="visibility: hidden;"><!-- button type="submit" class="btn btn-default">Submit</button -->
+</form>
+
+
+            <ul class="navbar-nav navbar-right"></ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name">
+                <a href="." class="u-url">Spot the differences: what is new in Spyder 5?</a>
+            </h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    <a class="u-url" href="../../../../authors/isabela-presedo-floyd-and-juanita-gomez/">Isabela Presedo-Floyd and Juanita Gomez</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2021-04-16T08:00:00-06:00" itemprop="datePublished" title="2021-04-16">2021-04-16</time></a>
+            </p>
+            
+
+        </div>
+        
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/release/" rel="tag">release</a></li>
+            <li><a class="tag p-category" href="../../../../categories/spyder/" rel="tag">Spyder</a></li>
+            <li><a class="tag p-category" href="../../../../categories/uxui/" rel="tag">UX/UI</a></li>
+        </ul></header><div class="e-content entry-content" itemprop="articleBody text">
+        <div>
+<p><img alt="Spyder 5 versus Spyder 4" src="../../../../images/spyder5-header.png"></p>
+<p>In case you missed it, Spyder 5 was released at the beginning of April! This 
+blog post is a conversation attempting to document the long and complex 
+process of improving Spyder's UI with this release. Portions lead by Juanita 
+Gomez are marked as <strong>Juanita</strong>, and those lead by Isabela Presedo-Floyd are 
+marked as <strong>Isabela</strong>.</p>
+<h3>What did we do?</h3>
+<p><strong>[Juanita]</strong> <a href="https://www.spyder-ide.org/">Spyder</a> was created more than 10 
+years ago and it has had the contributions of a great number of developers 
+who have written code, proposed ideas, opened issues and tested PRs in order 
+to build a piece of Spyder on their own. We (the Spyder team) have been lucky 
+to have such a great community of people contributing throughout the years, 
+but this is the first time that we decided to ask for help from an UX/UI 
+expert! Why? You might wonder. Having the contributions of this great amount 
+of people has resulted in inconsistencies around Spyder’s interface which we 
+didn’t stop to analyze until now. </p>
+<p>When Isabela joined Quansight, we realized that we had an opportunity of 
+improving Spyder’s interface with her help. We thought her skill set was 
+everything we needed to make Spyder’s UI better.  So we started by reviewing 
+the results of a community survey from a few months ago and realized that 
+some of the most common feedback from users is related to its interface 
+(very crowded, not consistent, many colors). This is why we decided to start 
+a joint project with Isabela, (who we consider now part of the Spyder team) 
+called <a href="https://github.com/spyder-ide/spyder/releases/tag/v5.0.0">Spyder 5</a>!!!</p>
+<!-- TEASER_END -->
+
+<p>This version was in development for over a year and was finally released on 
+April 2nd. It has some nice new features that we hope will benefit our users 
+greatly. Most of these are focused on improving Spyder’s interface and 
+usability, which we did thanks to Isabela’s help. The 3 main UX features 
+implemented in this release were:</p>
+<ul>
+<li>A brand new color palette designed to bring greater consistency to the UI 
+and to make it easier to use.</li>
+<li>The redesign of our toolbars by adjusting the margins and sizes of all the 
+buttons to meet accessibility recommendations.</li>
+<li>A new set of icons to ensure a consistent style.</li>
+</ul>
+<h3>How did we do it?</h3>
+<h4>1. First impressions</h4>
+<p><strong>[Isabela]</strong> I find collaboration usually starts with three things: 
+discovering and stating a problem, asking why, and figuring out the best ways 
+to communicate with each other. For me, this is a design problem on it’s own, 
+especially when starting to work with a new team like I was with Spyder. For 
+this project, I was asked to audit Spyder for any UX/UI issues and report 
+back. Because I have a habit of pushing every button in an interface, I ended 
+up having a lot (maybe too much) feedback to pass on. One of the things I 
+remember most about opening Spyder for the first time was having three dialogs 
+pop up immediately. That’s really not the first impression you want to give, 
+and I remember talking to Juanita about that right away. Figuring out how to 
+state problems as simply and clearly to a group of people I didn’t know yet 
+was intimidating and went through several phases.</p>
+<h4>2. From the “nightmare document” to the issue tracker</h4>
+<p><strong>[Juanita]</strong> The first phase was discussing all the problems that Isabela 
+found in weekly meetings with Carlos, the Spyder maintainer, and Stephanie, 
+another Spyder core developer. I created a Google drive document (which we 
+ended up calling “The Nightmare document”) in which I collected most of the 
+feedback that Isabela gave us. Then, I grouped this information into 
+categories depending on whether the comments were about the interface, in 
+general, or if they were about a specific pane. Once we agreed on a relevant 
+problem that we wanted to address, I opened an issue on a new repo that we 
+created in the Spyder’s organization called “<a href="https://github.com/spyder-ide/ux-improvements/issues">ux-improvements</a>.”</p>
+<p><strong>[Isabela]</strong> In fact, that wasn’t even the first set of documents we were 
+working with; I had a whole table, numbering system, and document I was 
+trying to handle before. But it was Juanita that turned them into Github 
+issues.</p>
+<h4>3. Sorting out the nightmare</h4>
+<p><strong>[Juanita]</strong> Since we ended up with more than 30 issues, we had to start a 
+“triaging phase.” We had to label, triage, organize, and prioritize issues 
+according to “urgency” and importance. This issue tracker became our main 
+tool to keep up with all the plans for the future!</p>
+<p><strong>[Isabela]</strong> Juanita did wonderful work tracking our progress through issues 
+and keeping us all accountable, but we were still left with a long list of 
+issues to triage—long enough that it wasn’t all getting in Spyder 5. To have 
+the greatest impact on Spyder, we started with the issues that had 
+influence on Spyder as a whole. Toolbars, icons, and colors are something
+you will always encounter from the first impression to the most recent, so it 
+made sense to start thinking about those big picture issues first.</p>
+<h4>4. Digging deeper into the dark hole</h4>
+<p><strong>[Isabela]</strong> When prioritizing the audit feedback for Spyder 5, each pass 
+seemed to get to a deeper layer of the problem. For example, what started as 
+issues to make <a href="https://github.com/spyder-ide/ux-improvements/issues/2">tooltips more legible</a> and improve the variable explorer’s 
+<a href="https://github.com/spyder-ide/ux-improvements/issues/7">color coding</a> soon became the realization that we weren’t sure exactly what 
+blue was already being used for much of Spyder’s interface. It got more 
+complicated when we found out how many colors were hard coded across multiple 
+files or defined by an external project. Eventually, the problem changed from 
+the color contrast of tool tips to an <a href="https://github.com/spyder-ide/ux-improvements/issues/13">unsustainable approach for managing 
+color</a> across the two default Spyder themes rooted in a non-Spyder repo. Work 
+at each step did build up into a larger solution, but it’s worth noting that 
+it isn’t what we set out to do in the first place. </p>
+<h4>5. What witchcraft does Isabela do in the background?</h4>
+<p><strong>[Juanita]</strong> One of the most important parts of the process was designing 
+the mock ups for the new ideas that we came up with for the interface which 
+is definitely not our expertise. So... how did the designs magically appear 
+on our Github issues?</p>
+<p><strong>[Isabela]</strong> First things first, it isn’t actually witchcraft even if it 
+looks magical from the outside. How I work depends somewhat on what problem 
+we are trying to solve, so let’s use the design of <a href="https://github.com/spyder-ide/ux-improvements/issues/33#issuecomment-776376943">custom icons</a> for Spyder 5 
+as an example. Once I had a defined list of icons to work on, I needed to 
+spend time making progress on my own. Research on best practices for the 
+relevant area of design is where I started; in this case, I knew we were 
+going to be working with <a href="https://materialdesignicons.com/">Material Design Icons’</a> specifications. After that, 
+I did a combination of pen-and-paper sketching and working digitally based on 
+the existing icons in Spyder and Material Design Icons while I kept note of 
+the pros and cons for different directions. I also collected design elements 
+as I built them so that I could make more consistent, accurate designs faster 
+as I worked. For the icons, this included things like letters, rounded 
+corners, and templates for the size and spacing of elements. Finally, I 
+compared options side by side and tried them out in the interface to evaluate 
+what designs were strong enough to bring them to the rest of the team. Then we 
+discussed the options together.</p>
+<p><img alt="Spyder 5 icon mockups" src="../../../../images/spyder5-wipicons.png"></p>
+<h4>6. Mock ups Vs Reality</h4>
+<p><strong>[Juanita]</strong> After many discussions, mock ups, and meetings, decisions were
+made and we were ready to move onto the implementation phase. A big part of 
+the improvements were made in <a href="https://github.com/ColinDuquesnoy/QDarkStyleSheet/">QDarkStyleSheet</a> 
+where we did the new palette and color system for both the 
+dark and light themes of Spyder. In my opinion, this was the hardest part of 
+the process since it involved getting familiar with the code first and then, 
+trying and trying again changing lines of code to change the color or style 
+of buttons, tabs, toolbars, borders, etc… </p>
+<p>The other problem that I ran into, was trying to meet the designs’ 
+specifications. Specially, when working with the <a href="https://github.com/spyder-ide/ux-improvements/issues/28">toolbars</a>, figuring the right 
+number for the pixels of margins and sizes was a challenge. I tried several 
+values before finding one that closely matched the proposed mock up only to 
+realize later that “pixels” was not the best unit for the specifications. I 
+ended up using “em” since it was more consistent across operating systems.
+Isabela, Stephanie and Carlos were part of this process as well. Between the 
+four of us we managed to implement all the changes that we had planned for 
+Spyder 5, the new color palette, the complete redesign of toolbars and the 
+new set of icons. It was an arduous task, more than we all expected, but at 
+the end we were all very happy with the results and thankful to Isabela for 
+helping us to give a new face to Spyder. </p>
+<h3>What's the final result?</h3>
+<p><strong>[Isabela]</strong> Individually, the colors, toolbars, and icons may feel like 
+small adjustments, but those are some of the elements that make up most of 
+Spyder. When they are together, those small adjustments set the mood in the 
+interface; they are more noticeable, and rooted in the Spyder UI many people 
+are already familiar with. While the changes may feel obvious when they are 
+new, they are also chosen to create consistent patterns across interactions 
+that can become more comfortable over time. Spyder’s default dark and light 
+modes, for example, used to use a different set of UI elements between modes. 
+Now they both use the same elements and it is only the colors that change. 
+This makes it easier for users to jump into a familiar interface and take 
+what they know from working in one space to another. For contributors, it 
+gives a more clear UI pattern for them to follow in their own work.</p>
+<h4>Before and after (Dark theme)</h4>
+<p><img alt="Spyder 5 vs Spyder 4 dark theme" src="../../../../images/spyder5-comparedark.png"></p>
+<h4>Before and after (Light theme)</h4>
+<p><img alt="Spyder 5 vs Spyder 4 light theme" src="../../../../images/spyder5-comparelight.png"></p>
+<h3>What did we learn :)?</h3>
+<p><strong>[Isabela]</strong> From developing new skills to working as a team for the first 
+time, I think we both took a lot from this process. Here are some lessons that 
+stood out to us.</p>
+<p><strong>[Juanita]</strong> </p>
+<ul>
+<li>Sometimes it is better to try some of the ideas during the process, than 
+having long discussions about an idea and implementing at the end. In some 
+cases you end up realizing that things don’t look as good as you thought they 
+would, or that some are not even possible.</li>
+<li>One of the most important parts of the design process is to get yourself in 
+the users’ shoes. At the end, they are the reason why we work to improve 
+things constantly.</li>
+<li>Occasionally, less is more. Simple and consistent is better than crowded 
+and complicated. </li>
+</ul>
+<p><strong>[Isabela]</strong> </p>
+<ul>
+<li>Don’t be afraid of asking questions even when you think you understand the 
+problem because every bit of information can be useful to better grasping what 
+hurts or helps users.</li>
+<li>Always take the time to review what you might think is obvious with the 
+rest of the team. It’s easy to forget about what you know when you are 
+working with people who have different skills than you.</li>
+</ul>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../a-step-towards-educating-with-spyder/" rel="prev" title="A step towards educating with Spyder">Previous post</a>
+            </li>
+
+            <li class="archive">
+                <a href="../../../../archive.html" rel="archive" title="Archive ">Archive</a>
+            </li>
+
+            <li class="next disabled">
+                <a rel="next">Next post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2021         <a href="../../../../team">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>

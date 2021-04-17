@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Sun, 11 Apr 2021 20:10:39 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>A step towards educating with Spyder</title><link>https://labs.quansight.org/blog/2021/04/a-step-towards-educating-with-spyder/</link><dc:creator>Juanita Gomez</dc:creator><description>&lt;div&gt;&lt;p&gt;As a community manager in the Spyder team, I have been looking for ways of
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs</title><link>https://labs.quansight.org/</link><description>Quansight Labs site: blog, development and project overview</description><atom:link href="https://labs.quansight.org/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Sat, 17 Apr 2021 08:51:57 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Spot the differences: what is new in Spyder 5?</title><link>https://labs.quansight.org/blog/2021/04/spot-the-diffenrences/</link><dc:creator>Isabela Presedo-Floyd and Juanita Gomez</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;img alt="Spyder 5 versus Spyder 4" src="https://labs.quansight.org/images/spyder5-header.png"&gt;&lt;/p&gt;
+&lt;p&gt;In case you missed it, Spyder 5 was released at the beginning of April! This 
+blog post is a conversation attempting to document the long and complex 
+process of improving Spyder's UI with this release. Portions lead by Juanita 
+Gomez are marked as &lt;strong&gt;Juanita&lt;/strong&gt;, and those lead by Isabela Presedo-Floyd are 
+marked as &lt;strong&gt;Isabela&lt;/strong&gt;.&lt;/p&gt;
+&lt;h3&gt;What did we do?&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;[Juanita]&lt;/strong&gt; &lt;a href="https://www.spyder-ide.org/"&gt;Spyder&lt;/a&gt; was created more than 10 
+years ago and it has had the contributions of a great number of developers 
+who have written code, proposed ideas, opened issues and tested PRs in order 
+to build a piece of Spyder on their own. We (the Spyder team) have been lucky 
+to have such a great community of people contributing throughout the years, 
+but this is the first time that we decided to ask for help from an UX/UI 
+expert! Why? You might wonder. Having the contributions of this great amount 
+of people has resulted in inconsistencies around Spyder’s interface which we 
+didn’t stop to analyze until now. &lt;/p&gt;
+&lt;p&gt;When Isabela joined Quansight, we realized that we had an opportunity of 
+improving Spyder’s interface with her help. We thought her skill set was 
+everything we needed to make Spyder’s UI better.  So we started by reviewing 
+the results of a community survey from a few months ago and realized that 
+some of the most common feedback from users is related to its interface 
+(very crowded, not consistent, many colors). This is why we decided to start 
+a joint project with Isabela, (who we consider now part of the Spyder team) 
+called &lt;a href="https://github.com/spyder-ide/spyder/releases/tag/v5.0.0"&gt;Spyder 5&lt;/a&gt;!!!&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2021/04/spot-the-diffenrences/"&gt;Read more…&lt;/a&gt; (8 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>release</category><category>Spyder</category><category>UX/UI</category><guid>https://labs.quansight.org/blog/2021/04/spot-the-diffenrences/</guid><pubDate>Fri, 16 Apr 2021 14:00:00 GMT</pubDate></item><item><title>A step towards educating with Spyder</title><link>https://labs.quansight.org/blog/2021/04/a-step-towards-educating-with-spyder/</link><dc:creator>Juanita Gomez</dc:creator><description>&lt;div&gt;&lt;p&gt;As a community manager in the Spyder team, I have been looking for ways of
 involving more users in the community and making Spyder useful for a larger
 number of people. With this, a new idea came: Education.&lt;/p&gt;
 &lt;p&gt;For the past months, we have been wondering with the team whether Spyder
@@ -94,19 +118,4 @@ This new grant totaling $140,000 will fund part of our efforts to improve
 usability and sustainability in both projects and is excellent news for the
 scientific computing community, which will certainly benefit from this work
 downstream.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/11/a-second-czi-grant-for-numpy-and-openblas/"&gt;Read more…&lt;/a&gt; (4 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>CZI</category><category>funding</category><category>grant</category><category>NumPy</category><category>OpenBLAS</category><guid>https://labs.quansight.org/blog/2020/11/a-second-czi-grant-for-numpy-and-openblas/</guid><pubDate>Thu, 19 Nov 2020 17:29:55 GMT</pubDate></item><item><title>Introduction to Design in Open Source</title><link>https://labs.quansight.org/blog/2020/11/introduction-to-design-in-open-source/</link><dc:creator>Tim George and Isabela Presedo-Floyd</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;em&gt;This blog post is a conversation. Portions lead by Tim George are marked with
-&lt;/em&gt;&lt;em&gt;TG&lt;/em&gt;&lt;em&gt;, and those lead by Isabela Presedo-Floyd are marked with &lt;/em&gt;&lt;em&gt;IPF&lt;/em&gt;&lt;em&gt;.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;TG:&lt;/strong&gt; When I speak with other designers, one common theme I see concerning why
-they chose this career path is they want to make a difference in the world. We
-design because we imagine a better world and we want to help make it real. Part
-of the reason we design as a career is we're unable to go through life without
-designing; we're always thinking about how things are and how they could be
-better. This ethos also exists in many open-source communities. It seems like it
-ought to be an ideal match.&lt;/p&gt;
-&lt;p&gt;So what's the disconnect? I'm still exploring that myself, but after a few years
-in open source I want to share my observations, experiences, and hope for a
-stronger collaboration between design and development. I don't think I have a
-complete solution, and some days I'm not even sure I grasp the entire problem.
-What I hope is to say that which often goes unsaid in these spaces: design and
-development skills in open source coexist precariously.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/11/introduction-to-design-in-open-source/"&gt;Read more…&lt;/a&gt; (10 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>design</category><category>Open-Source</category><category>User Experience</category><category>UX</category><guid>https://labs.quansight.org/blog/2020/11/introduction-to-design-in-open-source/</guid><pubDate>Wed, 18 Nov 2020 05:00:30 GMT</pubDate></item></channel></rss>
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/11/a-second-czi-grant-for-numpy-and-openblas/"&gt;Read more…&lt;/a&gt; (4 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>CZI</category><category>funding</category><category>grant</category><category>NumPy</category><category>OpenBLAS</category><guid>https://labs.quansight.org/blog/2020/11/a-second-czi-grant-for-numpy-and-openblas/</guid><pubDate>Thu, 19 Nov 2020 17:29:55 GMT</pubDate></item></channel></rss>
