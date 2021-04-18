@@ -1,0 +1,33 @@
+# https://github.com/chabad360/hugo-gh-pages
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  nikola_build:
+    runs-on: ubuntu-latest
+    name: 'Build pages'
+    steps:
+    - name: Check out
+      uses: actions/checkout@v2
+    - name: Setup Python
+      uses: actions/setup-python@v2
+    - name: Install dependencies
+      run: python -m pip install -r requirements.txt ghp-import`
+    - name: Build
+      run: nikola build
+    - name: Deploy
+      if: github.ref == 'refs/heads/main'
+      shell: bash
+      # -m : commit message
+      # -p : push the branch
+      # -f : force the push to the repo
+      # -r : use this git remote for the push
+      # -b : use this branch to commit/push to
+      # <directory> : should match the OUTPUT_DIR from conf.py, 'output' by default
+      run: ghp-import -m"Automatic push by ghp-import" -f -p -r origin -b gh-pages output
+
+
