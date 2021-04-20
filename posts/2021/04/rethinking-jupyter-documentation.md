@@ -41,10 +41,12 @@ Compare it to the same documentation on the numpy website.
 
 <img alt="numpy.linspace on numpy.org" src="/images/2021/04/numpy-linspace-compare.png" >
 
-On the left is the documentation for numpy when visiting https://numpy.org; on
-the right what you get in Jupyter Lab (or similar in a terminal).
+On the left is the documentation for numpy when visiting https://numpy.org. Let's
+call that "rendered documentation". On the right what you get in Jupyter Lab or
+in the IPython or regular Python REPL, let's cal that "help documentation" since
+it is typically reached via `identifer?` or `help(identifier)`
 
-Compared to online documentation viewed from within jupyter, the documentation is:
+Compared to rendered documentation, the help documentation is:
 
  - Hard to read,
  - Has no navigation
@@ -69,8 +71,8 @@ often preferred:
 You can use ``np.einsum('i->', a)`` ...
 ```
 
-While the longer form that would provide an helpful link in Sphinx rendered
-docs, it is shun as difficult to read.
+If the longer form, which makes the reference into a link when viewing rendered
+documentation, it is difficult to read when shown as help documentation:
 
 ```rst
 You can use :py:func:`np.einsum('i->', a) <numpy.einsum>` ...
@@ -98,7 +100,7 @@ While Sphinx and related project are great at offering hosted HTML
 documentation; extensive usage of those make interactive documentation harder to
 consume;
 
-While It is possible to [run Sphinx on the fly when rendering
+While it is possible to [run Sphinx on the fly when rendering
 docstrings](https://github.com/spyder-ide/docrepr), most Sphinx features
 only work when building a full project, with the proper configuration and
 extension and can be computationally intensive. This make running Sphinx locally
@@ -181,10 +183,9 @@ or lab extensions would be welcome. So if you are adventurous and like to work
 from the cutting (or even bleeding) edge, please feel free to try it out and
 open issues/pull request.
 
-It also need to be better documented [sic], I'm hoping to use papyri itself to
+It also need to be better documented (pun intended), I'm hoping to use papyri itself to
 document papyri; but it needs to be a bit more mature for that.
 
 Stay tune for more news, I'll try to explain how it works in more details in a
 follow-up post, and discuss some of the advantages (and draw back) this project
 has.
-
