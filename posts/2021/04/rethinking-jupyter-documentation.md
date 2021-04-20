@@ -126,7 +126,8 @@ the rendering of the math even in terminal.
 
 For that matter technically this does not care as to whether the DocString is
 written in RST or Markdown; though I need to implement the later part. I believe
-though that some maintainers would be quite
+though that some maintainers would be quite happy to use markdown whose syntax
+more users are familiar with.
 
 <img alt="papyri navigation" src="/images/2021/04/papyri-nav.gif" class='center' >
 
