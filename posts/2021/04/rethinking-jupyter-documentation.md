@@ -161,7 +161,7 @@ deprecated directives, and custom coloration/syntax), though haven't started
 working on these, and I have some ideas on how this could be uses to provide
 translations as well.
 
-Right now is it now as fast as efficient as I would like to – though it's faster
+Right now is it not as fast as efficient as I would like to – though it's faster
 than running sphinx on the fly – but required some ahead of time processing. And
 crash in many places; It can render most of the documentation of scipy, numpy,
 xarray, IPython and scikit image.
