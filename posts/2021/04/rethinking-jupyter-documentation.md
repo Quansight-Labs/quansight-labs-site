@@ -150,9 +150,9 @@ I'm working on a number of other features, in particular :
  - rendering of narrative docs – for which I have a prototype,
  - automatic indexing of all the figures and plots –  working but slow right now.
  - proper cross library reference and indexing without the need for intersphinx.
-
-    - It is possible from the `numpy.linspace` page to see all page that
-      reference it, or use it in an example (see previous image).
+   for example It is possible from the `numpy.linspace` page to see all page that
+   reference it, or use `numpy.linspace` in their example section
+   (see previous image).
 
 And many others, like showing a graph of the local references between functions,
 search, and preference configurability. I think this could also support many
