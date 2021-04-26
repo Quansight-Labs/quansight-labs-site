@@ -65,20 +65,22 @@
 							<g>
 								<g>
 									<g>
-										<defs>
-											<polygon id="SVGID_1_" points="89.3,313.2 48.6,290.1 48.6,385.1 64.9,375.7 64.9,349 77.2,356 77,337.8 64.9,330.7 
-												64.9,320.1 89.3,334.3 											"/>
-										</defs>
-										<clipPath id="SVGID_2_">
-											<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
-										</clipPath>
-										<g class="st6">
-											
-												<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="0.6" y1="-1129.1741" x2="100.3" y2="-1129.1741" gradientTransform="matrix(1 0 0 -1 0 -791.7241)">
-												<stop  offset="0" style="stop-color:#FF6F00"/>
-												<stop  offset="1" style="stop-color:#FFA800"/>
-											</linearGradient>
-											<path class="st7" d="M0.6,289.7h99.7v95.5H0.6V289.7z"/>
+										<g>
+											<defs>
+												<polygon id="SVGID_1_" points="89.3,313.2 48.6,290.1 48.6,385.1 64.9,375.7 64.9,349 77.2,356 77,337.8 64.9,330.7 
+													64.9,320.1 89.3,334.3 												"/>
+											</defs>
+											<clipPath id="SVGID_2_">
+												<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+											</clipPath>
+											<g class="st6">
+												
+													<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="0.6" y1="2153.1741" x2="100.3" y2="2153.1741" gradientTransform="matrix(1 0 0 1 0 -1815.7241)">
+													<stop  offset="0" style="stop-color:#FF6F00"/>
+													<stop  offset="1" style="stop-color:#FFA800"/>
+												</linearGradient>
+												<path class="st7" d="M0.6,289.7h99.7v95.5H0.6V289.7z"/>
+											</g>
 										</g>
 									</g>
 								</g>
@@ -98,19 +100,21 @@
 							<g>
 								<g>
 									<g>
-										<defs>
-											<polygon id="SVGID_4_" points="4.4,313.2 45,290.1 45,385.1 28.8,375.7 28.8,320.1 4.4,334.3 											"/>
-										</defs>
-										<clipPath id="SVGID_5_">
-											<use xlink:href="#SVGID_4_"  style="overflow:visible;"/>
-										</clipPath>
-										<g class="st8">
-											
-												<linearGradient id="SVGID_6_" gradientUnits="userSpaceOnUse" x1="0" y1="-1129.1741" x2="99.7" y2="-1129.1741" gradientTransform="matrix(1 0 0 -1 0 -791.7241)">
-												<stop  offset="0" style="stop-color:#FF6F00"/>
-												<stop  offset="1" style="stop-color:#FFA800"/>
-											</linearGradient>
-											<path class="st9" d="M0,289.7h99.7v95.5H0V289.7z"/>
+										<g>
+											<defs>
+												<polygon id="SVGID_4_" points="4.4,313.2 45,290.1 45,385.1 28.8,375.7 28.8,320.1 4.4,334.3 												"/>
+											</defs>
+											<clipPath id="SVGID_5_">
+												<use xlink:href="#SVGID_4_"  style="overflow:visible;"/>
+											</clipPath>
+											<g class="st8">
+												
+													<linearGradient id="SVGID_6_" gradientUnits="userSpaceOnUse" x1="0" y1="2153.1741" x2="99.7" y2="2153.1741" gradientTransform="matrix(1 0 0 1 0 -1815.7241)">
+													<stop  offset="0" style="stop-color:#FF6F00"/>
+													<stop  offset="1" style="stop-color:#FFA800"/>
+												</linearGradient>
+												<path class="st9" d="M0,289.7h99.7v95.5H0V289.7z"/>
+											</g>
 										</g>
 									</g>
 								</g>
@@ -178,7 +182,7 @@
 		<image style="overflow:visible;enable-background:new    ;" width="251" height="146" id="Layer_0_4_" xlink:href="jax.png"  transform="matrix(0.6828 0 0 0.6828 576.8497 287.8)">
 	</image>
 </g>
-<image style="overflow:visible;enable-background:new    ;" width="1052" height="500" xlink:href="Quansight_Logo.png"  transform="matrix(0.4278 0 0 0.4278 -18 -27.2)">
+<image style="overflow:visible;enable-background:new    ;" width="1052" height="500" xlink:href="Quansight_Logo.png"  transform="matrix(0.4753 0 0 0.4753 -41.9772 -29.0713)">
 </image>
 <g id="OMhLVf.tif">
 	
