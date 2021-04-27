@@ -24,6 +24,8 @@ clean:  venv_nikola/bin/nikola  ## clean the website, usually not needed at all
 	venv_nikola/bin/nikola clean
 
 build_direct:  ## build for Netlify deployment
+	echo "DEPLOY_FUTURE = True" >> conf.py
+	echo "FUTURE_IS_NOW = True" >> conf.py
 	nikola build
 
 # Add help text after each target name starting with '\#\#'
