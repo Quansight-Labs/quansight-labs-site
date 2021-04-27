@@ -39,7 +39,7 @@ You can scroll around but that's about it whether in terminal or Notebooks.
 Compare it to the same documentation on the numpy website.
 
 
-<img alt="numpy.linspace on numpy.org" src="/images/2021/04/numpy-linspace-compare.png" >
+<img alt="numpy.linspace on numpy.org" src="/images/2021/05/numpy-linspace-compare.png" >
 
 On the left is the documentation for numpy when visiting https://numpy.org. Let's
 call that "rendered documentation". On the right what you get in Jupyter Lab or
@@ -117,7 +117,7 @@ Jupyter) can display documentation. It works both in terminal (IPython) and
 browser context (notebook, JupyterLab, Spyder) with proper rendering, and currently
 understand most directives; it could be customized to understand any new ones:
 
-<img alt="papyri1" src="/images/2021/04/papyri-1.png" class='center' >
+<img alt="papyri1" src="/images/2021/05/papyri-1.png" class='center' >
 
 Above is the (terminal) documentation of `scipy.polynomial.lagfit`, see how the
 single backticks are properly understood and refer to known parameters, it
@@ -129,14 +129,14 @@ written in RST or Markdown; though I need to implement the later part. I believe
 though that some maintainers would be quite happy to use markdown whose syntax
 more users are familiar with.
 
-<img alt="papyri navigation" src="/images/2021/04/papyri-nav.gif" class='center' >
+<img alt="papyri navigation" src="/images/2021/05/papyri-nav.gif" class='center' >
 
 It support navigation – here in terminal – where clicking or pressing enter on a
 link would bring you to the target page. In above gif you can see that many
 token of code example are also automatically type-inferred (thanks [Jedi](https://github.com/davidhalter/jedi)), and
 can also be clicked to navigate to their corresponding page.
 
-<img alt="papyri terminal-fig" src="/images/2021/04/papyri-terminal-fig.png" class='center' >
+<img alt="papyri terminal-fig" src="/images/2021/05/papyri-terminal-fig.png" class='center' >
 
 Images are included, even in terminal when they are not inline but replaced by
 a button to open them in your preferred viewer (see the `Open with quicklook` in
