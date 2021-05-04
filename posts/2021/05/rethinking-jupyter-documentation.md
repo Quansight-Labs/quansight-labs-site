@@ -78,17 +78,17 @@ documentation, it is difficult to read when shown as help documentation:
 You can use :py:func:`np.einsum('i->', a) <numpy.einsum>` ...
 ```
 
-This also lead to long discussion about which syntax to use in advance area,
+This also lead to long discussions about which syntax to use in advance area,
 like formulas in [Sympy's docstrings](https://github.com/sympy/sympy/issues/14964).
 
-Many project have to implement dynamic docstrings; for example to include all
+Many projects have to implement dynamic docstrings; for example to include all
 the parameter a function or class, would pass down using ``**kwargs``, (search
 matplotlib source for `_kwdoc` , or pandas DataFrame for example).
 
 This can make it relatively difficult for authors and contributors to properly
 maintain and provide comprehensive docs.
 
-I'm not sure I can completely predict all effects this has on how library
+I'm not sure I can completely predict all the side effects this has on how library
 maintainers write docs; but I believe there is also a strong opportunity for a
 tools to help there. See for example [vélin](https://github.com/Carreau/velin)
 which attempts to auto reformat and fix common NumyDoc's format mistakes and
@@ -162,7 +162,7 @@ working on these, and I have some ideas on how this could be uses to provide
 translations as well.
 
 Right now is it not as fast as efficient as I would like to – though it's faster
-than running sphinx on the fly – but required some ahead of time processing. And
+than running Sphinx on the fly – but required some ahead of time processing. And
 crash in many places; It can render most of the documentation of scipy, numpy,
 xarray, IPython and scikit image.
 
@@ -187,6 +187,6 @@ open issues/pull request.
 It also need to be better documented (pun intended), I'm hoping to use papyri itself to
 document papyri; but it needs to be a bit more mature for that.
 
-Stay tune for more news, I'll try to explain how it works in more details in a
+Stay tuned for more news, I'll try to explain how it works in more details in a
 follow-up post, and discuss some of the advantages (and draw back) this project
 has.
