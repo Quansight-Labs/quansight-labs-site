@@ -41,7 +41,7 @@ Compare it to the same documentation on the numpy website.
 
 <img alt="numpy.linspace on numpy.org" src="/images/2021/05/numpy-linspace-compare.png" >
 
-On the left is the documentation for numpy when visiting https://numpy.org. Let's
+On the left is the documentation for numpy when visiting [the NumPy website](https://numpy.org). Let's
 call that "rendered documentation". On the right what you get in Jupyter Lab or
 in the IPython or regular Python REPL, let's cal that "help documentation" since
 it is typically reached via `identifer?` or `help(identifier)`
@@ -78,11 +78,11 @@ documentation, it is difficult to read when shown as help documentation:
 You can use :py:func:`np.einsum('i->', a) <numpy.einsum>` ...
 ```
 
-This also lead to long discussions about which syntax to use in advance area,
+This also leads to long discussions about which syntax to use in advance areas,
 like formulas in [Sympy's docstrings](https://github.com/sympy/sympy/issues/14964).
 
 Many projects have to implement dynamic docstrings; for example to include all
-the parameter a function or class, would pass down using ``**kwargs``, (search
+the parameter a function or class would pass down using ``**kwargs`` (search
 matplotlib source for `_kwdoc` , or pandas DataFrame for example).
 
 This can make it relatively difficult for authors and contributors to properly
@@ -90,32 +90,32 @@ maintain and provide comprehensive docs.
 
 I'm not sure I can completely predict all the side effects this has on how library
 maintainers write docs; but I believe there is also a strong opportunity for a
-tools to help there. See for example [vélin](https://github.com/Carreau/velin)
-which attempts to auto reformat and fix common NumyDoc's format mistakes and
+tool to help there. See for example [vélin](https://github.com/Carreau/velin)
+which attempts to auto reformat and fix common NumPyDoc's format mistakes and
 typos – but that's a subject of a future post.
 
 # Stuck between a Rock and a Hard place
 
-While Sphinx and related project are great at offering hosted HTML
-documentation; extensive usage of those make interactive documentation harder to
-consume;
+While Sphinx and related projects are great at offering hosted HTML
+documentation, extensive usage of those make interactive documentation harder to
+consume.
 
 While it is possible to [run Sphinx on the fly when rendering
 docstrings](https://github.com/spyder-ide/docrepr), most Sphinx features
 only work when building a full project, with the proper configuration and
-extension and can be computationally intensive. This make running Sphinx locally
+extension and can be computationally intensive. This makes running Sphinx locally
 impractical.
 
-Hosted website often may not reflect locally installed version of the
-libraries and requires careful linking, deprecation and narrative around
+Hosted websites often may not reflect the locally installed version of the
+libraries and require careful linking, deprecation and narrative around
 platform or version specific features.
 
 # This is fixable
 
-For the past few month I've been working on rewriting how IPython (and hence
+For the past few months I've been working on rewriting how IPython (and hence
 Jupyter) can display documentation. It works both in terminal (IPython) and
 browser context (notebook, JupyterLab, Spyder) with proper rendering, and currently
-understand most directives; it could be customized to understand any new ones:
+understands most directives; it could be customized to understand any new ones:
 
 <img alt="papyri1" src="/images/2021/05/papyri-1.png" class='center' >
 
@@ -131,7 +131,7 @@ more users are familiar with.
 
 <img alt="papyri navigation" src="/images/2021/05/papyri-nav.gif" class='center' >
 
-It support navigation – here in terminal – where clicking or pressing enter on a
+It supports navigation – here in terminal – where clicking or pressing enter on a
 link would bring you to the target page. In above gif you can see that many
 token of code example are also automatically type-inferred (thanks [Jedi](https://github.com/davidhalter/jedi)), and
 can also be clicked to navigate to their corresponding page.
@@ -150,7 +150,7 @@ I'm working on a number of other features, in particular :
  - rendering of narrative docs – for which I have a prototype,
  - automatic indexing of all the figures and plots –  working but slow right now.
  - proper cross library reference and indexing without the need for intersphinx.
-   for example It is possible from the `numpy.linspace` page to see all page that
+   For example, It is possible from the `numpy.linspace` page to see all pages that
    reference it, or use `numpy.linspace` in their example section
    (see previous image).
 
@@ -158,17 +158,17 @@ And many others, like showing a graph of the local references between functions,
 search, and preference configurability. I think this could also support many
 other desirable features, like user preferences (hide/show type annotation,
 deprecated directives, and custom coloration/syntax), though haven't started
-working on these, and I have some ideas on how this could be uses to provide
+working on these, and I have some ideas on how this could be used to provide
 translations as well.
 
-Right now is it not as fast as efficient as I would like to – though it's faster
-than running Sphinx on the fly – but required some ahead of time processing. And
-crash in many places; It can render most of the documentation of scipy, numpy,
-xarray, IPython and scikit image.
+Right now, is it not as fast and efficient as I would like to – though it's faster
+than running Sphinx on the fly – but requires some ahead of time processing. And it
+crashes in many places; it can render most of the documentation of Scipy, NumPy,
+xarray, IPython and scikit-image.
 
-I though encourage you to think about what features you are missing when using
-documentation from withing Jupyter and let me know. I hope this could becomme a
-nice addition to sphinx when consulting documentation from within Jupyter.
+I encourage you to think about what features you are missing when using
+documentation from within Jupyter and let me know. I hope this could become a
+nice addition to Sphinx when consulting documentation from within Jupyter.
 
 For now I've submitted a [Letter of intent to CZI EOSS
 4](https://docs.google.com/document/d/1hk-Ww7pUwnoHINNhDeP9UOPvNEemAFe-pohK5dCtZPs/edit?usp=sharing)
@@ -179,12 +179,12 @@ feel free to reach out.
 You can find the repository [on my GitHub account](https://github.com/Carreau/papyri),
 it's still in pre-alpha stage. It is still quite unstable with too many hard
 coded values to my taste, and need some polish to be considered usable for production.
-I've focused my effort for now mostly on terminal rendering – a jupyter notebook
-or lab extensions would be welcome. So if you are adventurous and like to work
+I've focused my effort for now mostly on terminal rendering – a Jupyter notebook
+or JupyterLab extension would be welcome. So if you are adventurous and like to work
 from the cutting (or even bleeding) edge, please feel free to try it out and
 open issues/pull request.
 
-It also need to be better documented (pun intended), I'm hoping to use papyri itself to
+It also needs to be better documented (pun intended), I'm hoping to use papyri itself to
 document papyri; but it needs to be a bit more mature for that.
 
 Stay tuned for more news, I'll try to explain how it works in more details in a
