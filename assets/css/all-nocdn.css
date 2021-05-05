@@ -7814,9 +7814,7 @@ button.close {
 
 .postindex {
   max-width: 750px;
-  text-align: justify;
-  #margin-right: auto;
-  #margin-left: auto;
+  text-align: left;
 }
 
 div.prompt {
