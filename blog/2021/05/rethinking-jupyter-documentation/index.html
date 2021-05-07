@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rethinking Jupyter Interactive Documentation | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2021/05/rethinking-jupyter-documentation/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><link rel="stylesheet" type="text/css" href="../../../../assets/css/tipuesearch.css">
+<meta name="author" content="Matthias Bussonnier">
+<link rel="prev" href="../../04/spot-the-diffenrences/" title="Spot the differences: what is new in Spyder 5?" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="Rethinking Jupyter Interactive Documentation">
+<meta property="og:url" content="https://labs.quansight.org/blog/2021/05/rethinking-jupyter-documentation/">
+<meta property="og:description" content="Jupyter Notebook first release was 8 years ago – under the IPython Notebook
+name at the time. Even if notebooks were not invented by Jupyter; they were
+definitely democratized by it. Being Web powered">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2021-05-07T00:01:00Z">
+<meta property="article:tag" content="documentation">
+<meta property="article:tag" content="Open-Source">
+<meta property="article:tag" content="Python">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+            <img src="../../../../images/QuansightLabs_logo_V1_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../" class="nav-link">Blog</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../team/" class="nav-link">Team</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../projects/" class="nav-link">Projects</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../about/" class="nav-link">About</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS</a>
+
+                
+            </li>
+</ul>
+<form class="navbar-form navbar-left" action="../../../../search" role="search">
+    <div class="form-group">
+        <input type="text" class="form-control" id="tipue_search_input" name="q" placeholder="Search…" autocomplete="off">
+</div>
+    <input type="submit" value="Local Search" style="visibility: hidden;"><!-- button type="submit" class="btn btn-default">Submit</button -->
+</form>
+
+
+            <ul class="navbar-nav navbar-right"></ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-markdown h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name">
+                <a href="." class="u-url">Rethinking Jupyter Interactive Documentation</a>
+            </h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    <a class="u-url" href="../../../../authors/matthias-bussonnier/">Matthias Bussonnier</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2021-05-07T00:01:00Z" itemprop="datePublished" title="2021-05-07">2021-05-07</time></a>
+            </p>
+            
+
+        </div>
+        
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/documentation/" rel="tag">documentation</a></li>
+            <li><a class="tag p-category" href="../../../../categories/open-source/" rel="tag">Open-Source</a></li>
+            <li><a class="tag p-category" href="../../../../categories/python/" rel="tag">Python</a></li>
+        </ul></header><div class="e-content entry-content" itemprop="articleBody text">
+        <div>
+<p>Jupyter Notebook first release was 8 years ago – under the IPython Notebook
+name at the time. Even if notebooks were not invented by Jupyter; they were
+definitely democratized by it. Being Web powered allowed development of many
+changes in the Datascience world. Objects now often expose rich representation; from
+Pandas dataframes with as html tables, to more recent <a href="https://github.com/scikit-learn/scikit-learn/pull/14180">Scikit-learn model</a>.</p>
+<p>Today I want to look into a topic that has not evolved much since, and I believe
+could use an upgrade. Accessing interactive Documentation when in a Jupyter
+session, and what it could become. At the end I'll link to my current prototype
+if you are adventurous.</p>
+<!-- TEASER_END -->
+
+<h2>The current limitation for users</h2>
+<p>The current documentation of IPython and Jupyter come in a few forms, but mostly
+have the same limitation.
+The typical way to reach for help is to use the <code>?</code> operator. Depending on
+the frontend you are using it will bring a pager, or a panel that will display
+some information about the current object.</p>
+<p>It can show some information about the current object (signature, file,
+sub/super classes) and the raw DocString of the object.</p>
+<p>You can scroll around but that's about it whether in terminal or Notebooks.</p>
+<p>Compare it to the same documentation on the NumPy website.</p>
+<p><img alt="numpy.linspace on numpy.org" src="../../../../images/2021/05/numpy-linspace-compare.png"></p>
+<p>On the left is the documentation for NumPy when visiting <a href="https://numpy.org">the NumPy website</a>. Let's
+call that "rendered documentation". On the right what you get in Jupyter Lab or
+in the IPython or regular Python REPL, let's cal that "help documentation" since
+it is typically reached via <code>identifier?</code> or <code>help(identifier)</code></p>
+<p>Compared to rendered documentation, the help documentation is:</p>
+<ul>
+<li>Hard to read,</li>
+<li>Has no navigation,</li>
+<li>RST Directives have not been interpreted,</li>
+<li>No inline graphs, no rendered math.</li>
+</ul>
+<p>There is also no access to non-docstring based documentation, <strong>no narrative</strong>,
+<strong>no tutorials</strong>, <strong>no image gallery or examples</strong>, no search, no syntax
+highlighting, no way to interact or modify documentation to test effects of
+parameters.</p>
+<h2>Limitation for authors</h2>
+<p>Due to Jupyter and IPython limitations to display documentation I believe
+authors are often contained to document functions.</p>
+<p>Syntax in docstrings is often kept simple for readability, this first version is
+often preferred:</p>
+<pre class="code literal-block"><span></span><code>You can use <span class="s">``np.einsum('i-&gt;', a)``</span> ...
+</code></pre>
+
+
+<p>In the longer form, which makes the reference into a link when viewing rendered
+documentation, it is difficult to read when shown as help documentation:</p>
+<pre class="code literal-block"><span></span><code>You can use <span class="na">:py:func:</span><span class="nv">`np.einsum('i-&gt;', a) &lt;numpy.einsum&gt;`</span> ...
+</code></pre>
+
+
+<p>This also leads to long discussions about which syntax to use in advanced areas,
+like formulas in <a href="https://github.com/sympy/sympy/issues/14964">Sympy's docstrings</a>.</p>
+<p>Many projects have to implement dynamic docstrings; for example to include all
+the parameters a function or class would pass down using <code>**kwargs</code> (search
+the matplotlib source code for <code>_kwdoc</code> for example, or look at the <code>pandas.DataFrame</code> implementation).</p>
+<p>This can make it relatively difficult for authors and contributors to properly
+maintain and provide comprehensive docs.</p>
+<p>I'm not sure I can completely predict all the side effects this has on how library
+maintainers write docs; but I believe there is also a strong opportunity for a
+tool to help there. See for example <a href="https://github.com/Carreau/velin">vélin</a>
+which attempts to auto reformat and fix common NumPyDoc's format mistakes and
+typos – but that's a subject of a future post.</p>
+<h2>Stuck between a Rock and a Hard place</h2>
+<p>While Sphinx and related projects are great at offering hosted HTML
+documentation, extensive usage of those makes interactive documentation harder
+to consume.</p>
+<p>While it is possible to <a href="https://github.com/spyder-ide/docrepr">run Sphinx on the fly when rendering
+docstrings</a>, most Sphinx features
+only work when building a full project, with the proper configuration and
+extension, and can be computationally intensive. This makes running Sphinx locally
+impractical.</p>
+<p>Hosted websites often may not reflect the locally installed version of the
+libraries and require careful linking, deprecation and narrative around
+platform or version specific features.</p>
+<h2>This is fixable</h2>
+<p>For the past few months I've been working on rewriting how IPython (and hence
+Jupyter) can display documentation. It works both in terminal (IPython) and
+browser context (notebook, JupyterLab, Spyder) with proper rendering, and currently
+understands most directives; it could be customized to understand any new ones:</p>
+<p><img alt="papyri1" src="../../../../images/2021/05/papyri-1.png" class="center"></p>
+<p>Above is the (terminal) documentation of <code>scipy.polynomial.lagfit</code>, see how the
+single backticks are properly understood and refer to known parameters, it
+detected that  <code>`n`</code> is incorrect as it should have double backticks; notice
+the rendering of the math even in terminal.</p>
+<p>For that matter technically this does not care as to whether the DocString is
+written in RST or Markdown; though I need to implement the latter part. I believe
+though that some maintainers would be quite happy to use Markdown, the syntax
+of which more users are familiar with.</p>
+<p><img alt="papyri navigation" src="../../../../images/2021/05/papyri-nav.gif" class="center"></p>
+<p>It supports navigation – here in a terminal – where clicking or pressing enter on a
+link would bring you to the target page. In the above gif you can see that many
+tokens of the code example are also automatically type-inferred (thanks <a href="https://github.com/davidhalter/jedi">Jedi</a>), and
+can also be clicked on to navigate to their corresponding page.</p>
+<p><img alt="papyri terminal-fig" src="../../../../images/2021/05/papyri-terminal-fig.png" class="center"></p>
+<p>Images are included, even in the terminal when they are not inline but replaced by
+a button to open them in your preferred viewer (see the <code>Open with quicklook</code> in
+the above screenshot).</p>
+<h2>The future</h2>
+<p>I'm working on a number of other features, in particular:</p>
+<ul>
+<li>rendering of narrative docs – for which I have a prototype,</li>
+<li>automatic indexing of all the figures and plots –  working but slow right now,</li>
+<li>proper cross-library referencing and indexing without the need for intersphinx.
+   For example, it is possible from the <code>numpy.linspace</code> page to see all pages that
+   reference it, or use <code>numpy.linspace</code> in their example section
+   (see previous image).</li>
+</ul>
+<p>And many others, like showing a graph of the local references between functions,
+search, and preference configurability. I think this could also support many
+other desirable features, like user preferences (hide/show type annotation,
+deprecated directives, and custom color/syntax highlighting) - though I haven't started
+working on these. I do have some ideas on how this could be used to provide
+translations as well.</p>
+<p>Right now, is it not as fast and efficient as I would like to – though it's faster
+than running Sphinx on the fly – but requires some ahead of time processing. And it
+crashes in many places; it can render most of the documentation of SciPy, NumPy,
+xarray, IPython and scikit-image.</p>
+<p>I encourage you to think about what features you are missing when using
+documentation from within Jupyter and let me know. I hope this could become a
+nice addition to Sphinx when consulting documentation from within Jupyter.</p>
+<p>For now I've submitted a <a href="https://docs.google.com/document/d/1hk-Ww7pUwnoHINNhDeP9UOPvNEemAFe-pohK5dCtZPs/edit?usp=sharing">Letter of intent to CZI EOSS
+4</a>
+in an attempt to get some of that work funded to land in IPython, and if you
+have any interest in contributing or want something like that for your library,
+feel free to reach out.</p>
+<p>You can find the repository <a href="https://github.com/Carreau/papyri">on my GitHub account</a>,
+it's still in pre-alpha stage. It is still quite unstable with too many hard
+coded values to my taste, and needs some polish to be considered usable for production.
+I've focused my effort for now mostly on terminal rendering – a Jupyter notebook
+or JupyterLab extension would be welcome. So if you are adventurous and like to work
+from the cutting (or even bleeding) edge, please feel free to try it out and
+open issues/pull request.</p>
+<p>It also needs to be better documented (pun intended), I'm hoping to use papyri itself to
+document papyri; but it needs to be a bit more mature for that.</p>
+<p>Stay tuned for more news, I'll try to explain how it works in more detail in a
+follow-up post, and discuss some of the advantages (and drawbacks) this project
+has.</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../../04/spot-the-diffenrences/" rel="prev" title="Spot the differences: what is new in Spyder 5?">Previous post</a>
+            </li>
+
+            <li class="archive">
+                <a href="../../../../archive.html" rel="archive" title="Archive ">Archive</a>
+            </li>
+
+            <li class="next disabled">
+                <a rel="next">Next post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2021         <a href="../../../../team">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>
