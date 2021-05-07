@@ -36,22 +36,22 @@ sub/super classes) and the raw DocString of the object.
 
 You can scroll around but that's about it whether in terminal or Notebooks.
 
-Compare it to the same documentation on the numpy website.
+Compare it to the same documentation on the NumPy website.
 
 
 <img alt="numpy.linspace on numpy.org" src="/images/2021/05/numpy-linspace-compare.png" >
 
-On the left is the documentation for numpy when visiting [the NumPy website](https://numpy.org). Let's
+On the left is the documentation for NumPy when visiting [the NumPy website](https://numpy.org). Let's
 call that "rendered documentation". On the right what you get in Jupyter Lab or
 in the IPython or regular Python REPL, let's cal that "help documentation" since
-it is typically reached via `identifer?` or `help(identifier)`
+it is typically reached via `identifier?` or `help(identifier)`
 
 Compared to rendered documentation, the help documentation is:
 
  - Hard to read,
- - Has no navigation
- - RST Directives have not been interpreted.
- - No inline graph, no rendered math.
+ - Has no navigation,
+ - RST Directives have not been interpreted,
+ - No inline graphs, no rendered math.
 
 
 There is also no access to non-docstring based documentation, **no narrative**,
@@ -71,19 +71,19 @@ often preferred:
 You can use ``np.einsum('i->', a)`` ...
 ```
 
-If the longer form, which makes the reference into a link when viewing rendered
+In the longer form, which makes the reference into a link when viewing rendered
 documentation, it is difficult to read when shown as help documentation:
 
 ```rst
 You can use :py:func:`np.einsum('i->', a) <numpy.einsum>` ...
 ```
 
-This also leads to long discussions about which syntax to use in advance areas,
+This also leads to long discussions about which syntax to use in advanced areas,
 like formulas in [Sympy's docstrings](https://github.com/sympy/sympy/issues/14964).
 
 Many projects have to implement dynamic docstrings; for example to include all
-the parameter a function or class would pass down using ``**kwargs`` (search
-matplotlib source for `_kwdoc` , or pandas DataFrame for example).
+the parameters a function or class would pass down using ``**kwargs`` (search
+the matplotlib source code for `_kwdoc` for example, or look at the ``pandas.DataFrame`` implementation).
 
 This can make it relatively difficult for authors and contributors to properly
 maintain and provide comprehensive docs.
@@ -97,13 +97,13 @@ typos – but that's a subject of a future post.
 # Stuck between a Rock and a Hard place
 
 While Sphinx and related projects are great at offering hosted HTML
-documentation, extensive usage of those make interactive documentation harder to
-consume.
+documentation, extensive usage of those makes interactive documentation harder
+to consume.
 
 While it is possible to [run Sphinx on the fly when rendering
 docstrings](https://github.com/spyder-ide/docrepr), most Sphinx features
 only work when building a full project, with the proper configuration and
-extension and can be computationally intensive. This makes running Sphinx locally
+extension, and can be computationally intensive. This makes running Sphinx locally
 impractical.
 
 Hosted websites often may not reflect the locally installed version of the
@@ -125,45 +125,45 @@ detected that  `` `n` `` is incorrect as it should have double backticks; notice
 the rendering of the math even in terminal.
 
 For that matter technically this does not care as to whether the DocString is
-written in RST or Markdown; though I need to implement the later part. I believe
-though that some maintainers would be quite happy to use markdown whose syntax
-more users are familiar with.
+written in RST or Markdown; though I need to implement the latter part. I believe
+though that some maintainers would be quite happy to use Markdown, the syntax
+of which more users are familiar with.
 
 <img alt="papyri navigation" src="/images/2021/05/papyri-nav.gif" class='center' >
 
-It supports navigation – here in terminal – where clicking or pressing enter on a
-link would bring you to the target page. In above gif you can see that many
-token of code example are also automatically type-inferred (thanks [Jedi](https://github.com/davidhalter/jedi)), and
-can also be clicked to navigate to their corresponding page.
+It supports navigation – here in a terminal – where clicking or pressing enter on a
+link would bring you to the target page. In the above gif you can see that many
+tokens of the code example are also automatically type-inferred (thanks [Jedi](https://github.com/davidhalter/jedi)), and
+can also be clicked on to navigate to their corresponding page.
 
 <img alt="papyri terminal-fig" src="/images/2021/05/papyri-terminal-fig.png" class='center' >
 
-Images are included, even in terminal when they are not inline but replaced by
+Images are included, even in the terminal when they are not inline but replaced by
 a button to open them in your preferred viewer (see the `Open with quicklook` in
-above screenshot).
+the above screenshot).
 
 # The future
 
 
-I'm working on a number of other features, in particular :
+I'm working on a number of other features, in particular:
 
  - rendering of narrative docs – for which I have a prototype,
- - automatic indexing of all the figures and plots –  working but slow right now.
- - proper cross library reference and indexing without the need for intersphinx.
-   For example, It is possible from the `numpy.linspace` page to see all pages that
+ - automatic indexing of all the figures and plots –  working but slow right now,
+ - proper cross-library referencing and indexing without the need for intersphinx.
+   For example, it is possible from the `numpy.linspace` page to see all pages that
    reference it, or use `numpy.linspace` in their example section
    (see previous image).
 
 And many others, like showing a graph of the local references between functions,
 search, and preference configurability. I think this could also support many
 other desirable features, like user preferences (hide/show type annotation,
-deprecated directives, and custom coloration/syntax), though haven't started
-working on these, and I have some ideas on how this could be used to provide
+deprecated directives, and custom color/syntax highlighting) - though I haven't started
+working on these. I do have some ideas on how this could be used to provide
 translations as well.
 
 Right now, is it not as fast and efficient as I would like to – though it's faster
 than running Sphinx on the fly – but requires some ahead of time processing. And it
-crashes in many places; it can render most of the documentation of Scipy, NumPy,
+crashes in many places; it can render most of the documentation of SciPy, NumPy,
 xarray, IPython and scikit-image.
 
 I encourage you to think about what features you are missing when using
@@ -178,7 +178,7 @@ feel free to reach out.
 
 You can find the repository [on my GitHub account](https://github.com/Carreau/papyri),
 it's still in pre-alpha stage. It is still quite unstable with too many hard
-coded values to my taste, and need some polish to be considered usable for production.
+coded values to my taste, and needs some polish to be considered usable for production.
 I've focused my effort for now mostly on terminal rendering – a Jupyter notebook
 or JupyterLab extension would be welcome. So if you are adventurous and like to work
 from the cutting (or even bleeding) edge, please feel free to try it out and
@@ -187,6 +187,6 @@ open issues/pull request.
 It also needs to be better documented (pun intended), I'm hoping to use papyri itself to
 document papyri; but it needs to be a bit more mature for that.
 
-Stay tuned for more news, I'll try to explain how it works in more details in a
-follow-up post, and discuss some of the advantages (and draw back) this project
+Stay tuned for more news, I'll try to explain how it works in more detail in a
+follow-up post, and discuss some of the advantages (and drawbacks) this project
 has.
