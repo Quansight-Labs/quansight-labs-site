@@ -26,7 +26,6 @@ jobs:
           git config --global user.name 'GithubAction'
           git config --global user.email 'githubaction@invalid'
           git pull --all
-          git remote add deploy https://${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git
+          git remote add deploy https://github.com/$GITHUB_REPOSITORY.git
           nikola github_deploy -m 'Nikola auto deploy [ci skip]'
-
 
