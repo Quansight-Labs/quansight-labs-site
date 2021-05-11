@@ -1293,7 +1293,7 @@ SEARCH_FORM = """
 </form>
 """
 
-EXTRA_HEAD_DATA = """
+EXTRA_HEAD_DATA += """
 <link rel="stylesheet" type="text/css" href="/assets/css/tipuesearch.css">
 """
 
