@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - master
+  schedule:
+      # * 6:37 every day – 37 just to not trigger exactly at 6:30 like many other;
+      # 6 is a bit before the beginning of the day in the US.
+      - cron:  '6 37 * * *'
 
 jobs:
   nikola_build:
@@ -27,5 +31,5 @@ jobs:
           git config --global user.email 'githubaction@invalid'
           git pull --all
           git remote add deploy https://github.com/$GITHUB_REPOSITORY.git
-          nikola github_deploy -m 'Nikola auto deploy [ci skip]'
+          nikola github_deploy -m 'Nikola github auto deploy [ci skip]'
 
