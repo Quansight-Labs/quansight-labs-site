@@ -10,6 +10,12 @@
 .. type: text
 -->
 
+The history section of this post is still relevant, but `TensorIterator`'s
+interface has changed significantly. For an update on the new API, please check
+out [this new blog
+post](/blog/2021/04/pytorch-tensoriterator-internals-update/index.html).
+{: .alert .alert-warning}
+
 PyTorch is one of the leading frameworks for deep learning. Its core data
 structure is `Tensor`, a multi-dimensional array implementation with many
 advanced features like auto-differentiation. PyTorch is a massive

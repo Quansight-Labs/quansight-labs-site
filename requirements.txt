@@ -28,7 +28,7 @@ jsonschema==3.0.2
 jupyter-client==5.3.4
 jupyter-core==4.6.1
 Logbook==1.4.3.post1
-lxml==4.6.2
+lxml==4.6.3
 Mako==1.1.0
 Markdown==3.2.2
 MarkupSafe==1.1.1
@@ -59,7 +59,7 @@ pyrsistent==0.15.4
 PyRSS2Gen==1.1
 python-dateutil==2.8.0
 pytz==2019.2
-PyYAML==5.1.2
+PyYAML==5.4
 pyzmq==18.1.0
 requests==2.22.0
 ruamel.yaml==0.16.4
@@ -74,7 +74,7 @@ tornado==6.0.3
 traitlets==4.3.2
 typogrify==2.0.7
 Unidecode==1.1.1
-urllib3==1.25.3
+urllib3==1.25.8
 watchdog==0.9.0
 wcwidth==0.1.7
 webencodings==0.5.1

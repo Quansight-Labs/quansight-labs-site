@@ -1,0 +1,34 @@
+name: Deploy built master on gh-pages
+
+on:
+  push:
+    branches:
+      - master
+  schedule:
+      # * 10:37 every day – 37 just to not trigger exactly at 10:30 like many other;
+      #  10:37 UTC is 6:30am EST is a bit before the beginning of the day in the US,
+      - cron:  '37 10  * * *' 
+
+jobs:
+  nikola_build:
+    runs-on: ubuntu-latest
+    name: 'Build pages'
+    steps:
+    - name: Check out
+      uses: actions/checkout@v2
+    - name: Setup Python
+      uses: actions/setup-python@v2
+    - name: Install dependencies
+      run: python -m pip install -r requirements.txt
+    - name: Build
+      run: nikola build
+    - name: Deploy
+      if: github.ref == 'refs/heads/master'
+      shell: bash
+      run: |
+          set -eou pipefail
+          git config --global user.name 'GithubAction'
+          git config --global user.email 'githubaction@invalid'
+          git pull --all
+          git remote add deploy https://github.com/$GITHUB_REPOSITORY.git
+          nikola github_deploy -m 'Nikola github auto deploy [ci skip]'
