@@ -52,6 +52,7 @@ on the user-contributor-maintainer spectrum said are the basics of what they
 care about in JupyterLab.
 
 Users want to:
+
 - Use JupyterLab to read or navigate documents.
 - Use JupyterLab to edit and run documents. To edit a document, users need to
 be able to navigate where they want to edit, so the read-only experience is a
@@ -59,12 +60,14 @@ prerequisite.
 - Know what things they can do in JupyterLab and get help on how to do it.
 
 Contributors want to:
+
 - Gain enough understanding of a JupyterLab in order to work with it.
 - Understand the expectations of their contributions and how to meet them. In
 this case, they would want to know that they need to think about accessibility
 and how to consider that.
 
 Maintainers want to:
+
 - Ensure that JupyterLab is both progressing and relatively stable.
 - Promote sustainable growth for a project that doesn’t overwrite past efforts.
 Automation can be helpful because maintainers are usually strapped for time.
