@@ -4,9 +4,6 @@
 .nav-item.active > a{
     color: #3bcd76
 }
-#logo {
-    max-height: 50px;
-}  
 .navbar{
     background-color: #2c0848;
 }
