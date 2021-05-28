@@ -64,6 +64,8 @@
 %endif
 %if post.previewimage:
     <meta property="og:image" content="${url_replacer(permalink, post.previewimage, lang, 'absolute')}">
+%else:
+    <meta property="og:image" content="${url_replacer(permalink, '/images/QuansightLabs_logo_V2.png', lang, 'absolute')}">
 %endif
 <meta property="og:type" content="article">
 ### Will only work with Pintrest and breaks everywhere else who expect a [Facebook] URI.
@@ -92,6 +94,11 @@
     <meta name="twitter:creator:id" content="${twitter_card['creator:id']}">
     %elif 'creator' in twitter_card:
     <meta name="twitter:creator" content="${twitter_card['creator']}">
+    %endif
+    %if post.previewimage:
+        <meta property="twitter:image" content="${url_replacer(permalink, post.previewimage, lang, 'absolute')}">
+    %else:
+        <meta property="twitter:image" content="${url_replacer(permalink, '/images/QuansightLabs_logo_V2.png', lang, 'absolute')}">
     %endif
 %endif
 </%def>
