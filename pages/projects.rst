@@ -4,7 +4,8 @@
 .. tags: 
 .. category: 
 .. link: 
-.. description: Projects
+.. subtitle: Projects
+.. description: See Our Projects we are actively working on
 .. type: text
 
 

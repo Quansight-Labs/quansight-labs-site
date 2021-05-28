@@ -4,7 +4,8 @@
 .. tags: 
 .. category:
 .. link: 
-.. description: Us
+.. subtitle: Us
+.. description: The mission of Quansight Labs is to sustain and grow community-driven open source projects and ecosystems, with a focus on the core of the PyData stack and on tools and digital infrastructure for data science, ML/AI, and scientific computing.
 .. type: text
 
 
