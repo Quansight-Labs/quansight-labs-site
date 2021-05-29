@@ -4,7 +4,8 @@
 .. tags: 
 .. category: 
 .. link: 
-.. description: Team
+.. subtitle: Team
+.. description: Meet Our Team
 .. type: text
 
 .. gallery:: team gallery_directive_team.tmpl
