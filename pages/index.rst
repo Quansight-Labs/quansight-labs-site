@@ -4,7 +4,8 @@
 .. tags:
 .. category:
 .. link:
-.. description: Labs
+.. subtitle: Labs
+.. description: Quansight Labs is a public-benefit division of Quansight created to provide a home for a “PyData Core Team” which consists of developers, community managers, designers, and writers who create and maintain open-source technology around all aspects of scientific and data science workflows.
 .. type: text
 
 Quansight Labs is a public-benefit division of Quansight created to provide a

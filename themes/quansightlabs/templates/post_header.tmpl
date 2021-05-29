@@ -4,10 +4,10 @@
 
 <%def name="html_title()">
 %if title and not post.meta('hidetitle'):
-    %if description :
+    %if post.meta('subtitle') :
             <div class="sub-header">
                 <h1>
-                    ${post.title()|h}<span class="sub-title"> ${post.description()|h}</span>
+                    ${post.title()|h}<span class="sub-title"> ${post.meta('subtitle')|h}</span>
                 </h1>
                 <div class="sub-underline"> </div>
             </div>
