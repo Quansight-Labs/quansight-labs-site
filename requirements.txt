@@ -74,7 +74,7 @@ tornado==6.0.3
 traitlets==4.3.2
 typogrify==2.0.7
 Unidecode==1.1.1
-urllib3==1.25.8
+urllib3==1.26.5
 watchdog==0.9.0
 wcwidth==0.1.7
 webencodings==0.5.1
