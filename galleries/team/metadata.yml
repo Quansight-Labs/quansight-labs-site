@@ -44,11 +44,6 @@ title: Tony Fast
 github: tonyfast
 projects: ['Holoviz', 'Jupyter']
 ---
-name: hameer_abbasi.jpg
-title: Hameer Abbasi
-github: hameerabbasi
-projects: ['NumPy', 'PyData/Sparse', 'uarray']
----
 name: stephannie_jimenez.png
 title: Stephannie Jiménez
 github: steff456
@@ -144,13 +139,23 @@ title: Anirrudh Krishnan
 github: anirrudh
 projects: ['mtypes']
 ---
-name: tim_george.png
-title: Tim George
-github: tgeorgeux
-projects: ['JupyterLab']
----
 name: gregory_lee.jpeg
 title: Gregory Lee
 github: grlee77
 projects: ['scikit-image', 'SciPy', 'PyWavelets', 'CuPy', 'PyFFTW']
+---
+name: jaime_rodriguez.jpeg
+title: Jaime Rodriguez Guerra
+github: jaimergp
+projects: ['conda-forge']
+---
+name: thomas_fan.jpg
+title: Thomas J. Fan
+github: thomasjpfan
+projects: ['scikit-learn']
+---
+name: gagandeep_singh.jpeg
+title: Gagandeep Singh
+github: czgdp1807
+projects: ['SymPy', 'LFortran', 'NumPy']
 ---
