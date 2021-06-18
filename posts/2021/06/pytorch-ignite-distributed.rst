@@ -6,9 +6,9 @@
 .. link:
 .. description: Distributed code with PyTorch-Ignite
 .. type: text
-.. previewimage: images/pytorch-ignite/ignite_logo_mixed.png
+.. previewimage: /images/pytorch-ignite/ignite_logo_mixed.png
 
-.. image:: images/pytorch-ignite/ignite_logo_mixed.png
+.. image:: /images/pytorch-ignite/ignite_logo_mixed.png
    :alt: PyTorch-Ignite logo
 
 Authors: `François Cokelaer <https://github.com/fco-dv>`__,
@@ -653,12 +653,11 @@ PyTorch-Ignite - Torch native Distributed Data Parallel - Horovod - XLA/TPUs
    </embed>
 
 .. note::
-  You can also mix the usage of ``idist`` with other
-  distributed APIs as below:
+
+  You can also mix the usage of ``idist`` with other distributed APIs as below:
 
    .. code:: python
-
-      # PyTorch DDP + Ignite
+   
       dist.init_process_group(backend, store=..., world_size=world_size, rank=rank)
 
       rank = idist.get_rank()
