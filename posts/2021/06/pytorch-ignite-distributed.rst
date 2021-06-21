@@ -375,279 +375,33 @@ PyTorch-Ignite - Torch native Distributed Data Parallel - Horovod - XLA/TPUs
    <embed> 
       <div>
          <table>
-         <tr>
-         <th>PyTorch-Ignite <a href="https://github.com/pytorch-ignite/idist-snippets/blob/master/ignite_idist.py">Source Code</a></th>
-         <th>PyTorch DDP <a href="https://github.com/pytorch-ignite/idist-snippets/blob/master/torch_native.py">Source Code</a></th>
-         </tr>
-         <tr>
-         <td>
-         <pre><code>
-         def training(rank, config):
-
-            # Specific ignite.distributed
-            device = idist.device()
-   
-            # Data preparation:
-            dataset = ...
-   
-            # Specific ignite.distributed
-            train_loader = idist.auto_dataloader(dataset, batch_size=config["batch_size"])
-   
-            # Model, criterion, optimizer setup
-            model = idist.auto_model(wide_resnet50_2(num_classes=100))
-            criterion = NLLLoss()
-            optimizer = idist.auto_optim(SGD(model.parameters(), lr=0.01))
-   
-            ...
-            
-            def train_step(engine, batch):
-   
-               data = batch[0].to(device)
-               target = batch[1].to(device)
-               ...
-               output = model(data)
-               ...
-               loss_val = ...
-               
-               return loss_val
-   
-            # Running the _train_step function on whole batch_data iterable only once
-            trainer = Engine(_train_step)
-   
-            # Specific Pytorch-Ignite
-            trainer.run(train_loader, max_epochs=1)
-         if __name__ == "__main__":
-            parser = argparse.ArgumentParser("Pytorch Ignite - idist")
-            parser.add_argument("--backend", type=str, default="nccl")
-            parser.add_argument("--nproc_per_node", type=int)
-        
-            ...
-         # Specific ignite.distributed
-         with idist.Parallel(backend=args_parsed.backend, **spawn_kwargs) as parallel:
-            parallel.run(training, config)
-
-         </code></pre>
-         </td>
-         <td>
-         <pre><code>
-         def training(rank, world_size, backend, config):
-
-            # Specific torch.distributed
-            dist.init_process_group(
-               backend, init_method="tcp://0.0.0.0:2233", world_size=world_size, rank=rank
-            )
-      
-            torch.cuda.set_device(rank)
-      
-            # Data preparation
-            dataset = ...
-      
-            # Specific torch.distributed
-            train_sampler = torch.utils.data.distributed.DistributedSampler(dataset)
-      
-            train_loader = torch.utils.data.DataLoader(
-               dataset,
-               batch_size=int(config["batch_size"] / world_size),
-               num_workers=1,
-               sampler=train_sampler,
-            )
-      
-            # Model, criterion, optimizer setup
-            model = wide_resnet50_2(num_classes=100).cuda()
-            criterion = NLLLoss()
-            optimizer = SGD(model.parameters(), lr=0.01)
-      
-            # Specific torch.distributed
-            model = DDP(model, device_ids=[rank])
-      
-            ...
-      
-            def train_step(batch_idx, data, target):
-      
-               data = data.cuda()
-               target = target.cuda()
-               ...
-               output = model(data)
-               ...
-               loss_val = ...
-               
-               return loss_val
-      
-            # Running _train_step for n_epochs
-            n_epochs = 1
-            for epoch in range(n_epochs):
-               for batch_idx, (data, target) in enumerate(train_loader):
-                  _train_step(batch_idx, data, target)
-      
-            # Specific torch.distributed
-            dist.destroy_process_group()
-            
-      
-         if __name__ == "__main__":
-            parser = argparse.ArgumentParser("Torch Native - DDP")
-            parser.add_argument("--backend", type=str, default="nccl")
-            parser.add_argument("--nproc_per_node", type=int, default=2)
-            
-            ...
-      
-            args = (args_parsed.nproc_per_node, args_parsed.backend, config)
-      
-            # Specific torch.distributed
-            start_processes(
-               training, args=args, nprocs=args_parsed.nproc_per_node, start_method="spawn"
-            )
-     
-         </code></pre>
-
-         </td>
-         </tr>
-         <tr>
-         <th>Horovod <a href="https://github.com/pytorch-ignite/idist-snippets/blob/master/torch_horovod.py">Source Code</a></th>
-         <th>Torch XLA <a href="https://github.com/pytorch-ignite/idist-snippets/blob/master/torch_xla_native.py">Source Code</a></th>
-         </tr>
-         <tr>
-         <td>
-
-         <pre><code>
-         def training(world_size, backend, config):
-            # Specific hvd
-            hvd.init()
-      
-            # Pin GPU to be used to process local rank (one GPU per process)
-            # Specific hvd
-            torch.cuda.set_device(hvd.local_rank())
-            
-            # Data preparation
-            dataset = ...
-      
-            # Specific hvd
-            train_sampler = torch.utils.data.distributed.DistributedSampler(
-               dataset, num_replicas=hvd.size(), rank=hvd.rank()
-            )
-      
-            train_loader = torch.utils.data.DataLoader(
-               dataset,
-               batch_size=int(config["batch_size"] / hvd.size()),
-               num_workers=1,
-               sampler=train_sampler,
-            )
-      
-            # Model, criterion, optimizer setup
-            model = wide_resnet50_2(num_classes=100)
-            model.cuda()
-            criterion = NLLLoss()
-            optimizer = SGD(model.parameters(), lr=0.001)
-      
-            # Specific hvd
-            # Add Horovod Distributed Optimizer
-            optimizer = hvd.DistributedOptimizer(
-               optimizer, named_parameters=model.named_parameters()
-            )
-      
-            # Specific hvd
-            # Broadcast parameters from rank 0 to all other processes.
-            hvd.broadcast_parameters(model.state_dict(), root_rank=0)
-      
-            ...
-      
-            def train_step(batch_idx, data, target):
-      
-               data, target = data.cuda(), target.cuda()
-               ...
-               output = model(data)
-               ...
-               loss_val = ...
-      
-               return loss_val
-      
-            # Running _train_step for n_epochs
-            n_epochs = 1
-            for epoch in range(n_epochs):
-               for batch_idx, (data, target) in enumerate(train_loader):
-                  _train_step(batch_idx, data, target)
-      
-            # Specific hvd
-            hvd.shutdown()
-      
-      
-         if __name__ == "__main__":
-            parser = argparse.ArgumentParser("Torch Native - Horovod")
-            parser.add_argument("--backend", type=str, default="gloo")
-            parser.add_argument("--nproc_per_node", type=int, default=2)
-      
-            ...
-      
-            args = (args_parsed.nproc_per_node, args_parsed.backend, config)
-      
-            # Specific hvd
-            run(training, args=args, use_gloo=True, np=args_parsed.nproc_per_node)
-      
-         </code></pre>
-         </td>
-         <td>
-         <pre><code>
-         def training(rank, world_size, backend, config):
-            # Specific xla
-            device = xm.xla_device()
-      
-            # Data preparation
-            dataset = ...
-      
-            # Specific xla
-            train_sampler = torch.utils.data.distributed.DistributedSampler(
-               dataset, num_replicas=xm.xrt_world_size(), rank=xm.get_ordinal(),
-            )
-            train_loader = torch.utils.data.DataLoader(
-               dataset,
-               batch_size=int(config["batch_size"] / xm.xrt_world_size()),
-               num_workers=1,
-               sampler=train_sampler,
-            )
-      
-            # Specific xla
-            para_loader = pl.MpDeviceLoader(train_loader, device)
-      
-            # Model, criterion, optimizer setup
-            model = wide_resnet50_2(num_classes=100).to(device)
-            criterion = NLLLoss()
-            optimizer = SGD(model.parameters(), lr=0.01)
-      
-            ...
-      
-            def train_step(batch_idx, data, target):
-      
-               data = data
-               target = target
-               ...
-               output = model(data)
-               ...
-               loss_val = ...
-               
-               xm.optimizer_step(optimizer)
-               
-               return loss_val
-      
-            # Running _train_step for n_epochs
-            n_epochs = 1
-            for epoch in range(n_epochs):
-               for batch_idx, (data, target) in enumerate(para_loader):
-                  _train_step(batch_idx, data, target)
-      
-      
-         if __name__ == "__main__":
-            parser = argparse.ArgumentParser("Torch Native - XLA")
-            parser.add_argument("--backend", type=str, default="xla-tpu")
-            parser.add_argument("--nproc_per_node", type=int, default=8)
-      
-            ...
-            
-            args = (args_parsed.nproc_per_node, args_parsed.backend, config)
-            # Specific xla
-            xmp.spawn(training, args=args, nprocs=args_parsed.nproc_per_node)
-     
-         </code></pre>
-         </td>
-         </tr>
+            <tr>
+               <th style="text-align:center; padding: 0;">
+                  <h3><b><u>PyTorch-Ignite</u></b></h3></th>
+               <th style="text-align:center; padding: 0;">
+                  <h3><b><u>PyTorch DDP</u></b></h3></th>
+            </tr>
+            <tr>
+               <td style="text-align:center; padding: 0;"> <a href="https://github.com/pytorch-ignite/idist-snippets/blob/master/ignite_idist.py"><h3>Source Code</h3></a> </th>
+               <td style="text-align:center; padding: 0;"> <a href="https://github.com/pytorch-ignite/idist-snippets/blob/master/torch_native.py"><h3>Source Code</h3></a> </th>
+            </tr>
+            <tr>
+               <td colspan="2"> <img src="/images/pytorch-ignite/ignite_vs_ddp_whole.jpg"> </td>
+            </tr>
+            <tr>
+               <th style="text-align:center;">
+                  <h3><b><u>Horovod</u></b></h3></th>
+               <th style="text-align:center;">
+                  <h3><b><u>Torch XLA</u></b></h3></th>
+            </tr>
+            <tr>
+               <td style="text-align:center;"> <a href="https://github.com/pytorch-ignite/idist-snippets/blob/master/torch_horovod.py"><h3>Source Code</h3></a> </th>
+               <td style="text-align:center;"> <a href="https://github.com/pytorch-ignite/idist-snippets/blob/master/torch_xla_native.py"><h3>Source Code</h3></a> </th>
+            </tr>
+            <tr>
+               <td> <img src="/images/pytorch-ignite/horovod_snippet_whole.png"> </td>
+               <td> <img src="/images/pytorch-ignite/xla_snippet_whole.png"> </td>
+            </tr>
          </table>
       </div>
    </embed>
