@@ -2,13 +2,16 @@
 name: numpylogo.svg
 eurl: https://numpy.org/
 title: NumPy
-description: "NumPy is the fundamental package for scientific computing with Python. It contains among other things: a powerful N-dimensional array object, sophisticated (broadcasting) functions, tools for integrating C/C++ and Fortran code, and useful linear algebra, Fourier transform, and random number capabilities."
+description: "<p> NumPy is the fundamental package for scientific computing with Python. It contains among other things: a powerful N-dimensional array object, sophisticated (broadcasting) functions, tools for integrating C/C++ and Fortran code, and useful linear algebra, Fourier transform, and random number capabilities. </p> <p> Quansight Labs helps support and shape the NumPy community by providing grant administration for the CZI EOSS program and directly funding maintainers to do technical and community work. As a result of this support, NumPy has also recently seen the launch of a new website and the establishment of both a website and a documentation team. </p>"
+
 order: 0
 ---
 name: jupyterlab.svg
 eurl: https://jupyterlab.readthedocs.io/en/stable/getting_started/overview.html
 title: JupyterLab
-description: JupyterLab is a next-generation web-based user interface for Project Jupyter. JupyterLab enables you to work with documents and activities such as Jupyter notebooks, text editors, terminals, and custom components in a flexible, integrated, and extensible manner.
+description: <p>JupyterLab is a next-generation web-based user interface for Project Jupyter. JupyterLab enables you to work with documents and activities such as Jupyter notebooks, text editors, terminals, and custom components in a flexible, integrated, and extensible manner.</p> <p>By supporting the work of maintainers, designers, and community organizers, Quansight Labs has assisted the JupyterLab community in improving accessibility and enabling internationalization for JupyterLab. The Jupyter Working Group (JWG), also supported by Labs, has been working on new functional and technical ideas for Jupyter in general. Finally, innovation projects like the Extensions Manager and the Real Time Collaboration for JupyterLab are funded via Labs. This work has been supported by both a Community Work Order from Kite and a CZI grant administered by Quansight Labs.</p>
+
+
 order: 1
 ---
 name: conda-forge.png
@@ -20,13 +23,13 @@ order: 2
 name: dask.png
 eurl: https://dask.org/
 title: Dask
-description:  Dask natively scales Python! Dask provides advanced parallelism for analytics, enabling performance at scale for the tools you love.
+description:  <p>Dask natively scales Python! Dask provides advanced parallelism for analytics, enabling performance at scale for the tools you love.</p> <p>Quansight Labs, with a sponsorship by D. E. Shaw, helps maintain and develop new features for Dask.</p>
 order: 3
 ---
 name: spyder.svg
 eurl: https://www.spyder-ide.org
 title: Spyder IDE
-description:  Spyder is a powerful scientific environment written in Python, for Python, and designed by and for scientists, engineers and data analysts. It offers a unique combination of the advanced editing, analysis, debugging, and profiling functionality of a comprehensive development tool with the data exploration, interactive execution, deep inspection, and beautiful visualization capabilities of a scientific package.
+description:  <p>Spyder is a powerful scientific environment written in Python, for Python, and designed by and for scientists, engineers and data analysts. It offers a unique combination of the advanced editing, analysis, debugging, and profiling functionality of a comprehensive development tool with the data exploration, interactive execution, deep inspection, and beautiful visualization capabilities of a scientific package.</p> <p>The Spyder project is currently supported by two Community Work Orders from Kite and TDK-Micronas through Quansight Labs, which enables a team of maintainers to work on technical issues, documentation, and community building. In addition, through the interactions between different communities enabled by Labs, several improvements around UX/UI, accessibility, design, packaging, and documentation have been ongoing.</p>
 order: 4
 ---
 name: scipy.png
@@ -38,7 +41,7 @@ order: 5
 name: zarr.png
 eurl: https://zarr.readthedocs.io/en/stable/
 title: Zarr
-description: Zarr is a Python package providing an implementation of chunked, compressed, N-dimensional arrays.
+description: <p>Zarr is a format for the storage of chunked, compressed, N-dimensional arrays + metadata, compatible and optimized for multiple storage Backend (S3, HPC, Google Cloud storage…), and thought for parallels reads and writes. It is used in a variety of fields, from climate science to biology to store from single images to petabytes datasets and their metadata.</p> <p>Quansight Labs has been working with the Zarr core team to write a new specification, which strives to be more language agnostic, contain a smaller core of functionality, and have built-in support for extensibility. We are also working with our partners at D.E. Shaw Group to bring optimizations to Zarr, like the ability to partially decompress and/or read data chunks in order to improve specific workflow. Zarr has also benefited from a CZI grant supported by Labs.</p>
 order: 6
 ---
 name: jupyterhub.svg
@@ -50,7 +53,7 @@ order: 7
 name: numba-blue-horizontal-rgb.svg
 eurl: http://numba.pydata.org/
 title: Numba
-description:  Numba makes Python code fast! Numba is an open source JIT compiler that translates a subset of Python and NumPy code into fast machine code.
+description:  <p>Numba makes Python code fast! Numba is an open source JIT compiler that translates a subset of Python and NumPy code into fast machine code.</p><p>Both D. E. Shaw and Zurich have been sponsoring work on Numba, with a focus on implementing new features and providing support for advanced usages of the package.</p>
 order: 8
 ---
 name: sympy.png
@@ -74,7 +77,7 @@ order: 11
 name: ibis.svg
 eurl: https://docs.ibis-project.org/
 title: Ibis
-description: Ibis is a toolbox to bridge the gap between local Python environments (like pandas and scikit-learn) and remote storage and execution systems like Hadoop components (like HDFS, Impala, Hive, Spark) and SQL databases (Postgres, etc.). Its goal is to simplify analytical workflows and make you more productive.
+description: <p>Ibis is a toolbox to bridge the gap between local Python environments (like pandas and scikit-learn) and remote storage and execution systems like Hadoop components (like HDFS, Impala, Hive, Spark) and SQL databases (Postgres, etc.). Its goal is to simplify analytical workflows and make you more productive.</p> <p>With support from OmniSci, Quansight Labs helps Ibis by providing technical work and facilitating collaboration between Ibis and other related projects, bringing better integration and helping plan new features and allocate resources to improve the project.</p>
 order: 12
 ---
 name: uarray.png
@@ -106,4 +109,5 @@ eurl: https://quansight-labs.github.io/ndindex/
 title: ndindex
 description: ndindex is a library that allows representing and manipulating objects that can be valid indices to numpy arrays, i.e., slices, integers, ellipses, None, integer and boolean arrays, and tuples thereof.
 order: 17
+
 ---
