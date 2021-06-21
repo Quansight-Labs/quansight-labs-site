@@ -119,56 +119,23 @@ distributed model instantiation:
 
 .. raw:: html
 
-   <embed> 
+   <embed>
       <div>
          <table>
-         <tr>
-         <th>PyTorch-Ignite</th>
-         <th>PyTorch DDP</th>
-         </tr>
-         <tr>
-         <td>
-         <pre><code>
-         # Specific ignite.distributed
-         model = idist.auto_model(wide_resnet50_2(num_classes=100))
-         </code></pre>
-         </td>
-         <td>
-         <pre><code>
-         model = wide_resnet50_2(num_classes=100).cuda()
-
-         # Specific torch.distributed
-         model = DDP(model, device_ids=[rank])
-         </code></pre>
-
-         </td>
-         </tr>
-         <tr>
-         <th>Horovod</th>
-         <th>Torch XLA</th>
-         </tr>
-         <tr>
-         <td>
-
-         <pre><code>
-         model = wide_resnet50_2(num_classes=100).cuda()
-
-         # Specific hvd
-         # Broadcast parameters from rank 0 to all other processes.
-         hvd.broadcast_parameters(model.state_dict(), root_rank=0)
-         </code></pre>
-         </td>
-         <td>
-
-         <pre><code>
-         # Specific xla
-         device = xm.xla_device()
-
-         # Model, criterion, optimizer setup
-         model = wide_resnet50_2(num_classes=100).to(device)
-         </code></pre>
-         </td>
-         </tr>
+            <tr>
+               <th style="text-align:center;">PyTorch-Ignite</th>
+               <th style="text-align:center;">PyTorch DDP</th>
+            </tr>
+            <tr>
+               <td colspan="2"> <img src="/images/pytorch-ignite/ignite_vs_ddp_automodel.png"> </td>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Horovod</th>
+               <th style="text-align:center;">Torch XLA</th>
+            </tr>
+            <tr>
+               <td colspan="2"><img src="/images/pytorch-ignite/horovod_vs_xla_automodel.png"> </td>
+            </tr>
          </table>
       </div>
    </embed>
@@ -198,58 +165,23 @@ snippets for distributed optimizer instantiation:
 
 .. raw:: html
 
-   <embed> 
+   <embed>
       <div>
          <table>
-         <tr>
-         <th>PyTorch-Ignite</th>
-         <th>PyTorch DDP</th>
-         </tr>
-         <tr>
-         <td>
-         <pre><code>
-         # Specific ignite.distributed
-         optimizer = idist.auto_optim(SGD(model.parameters(), lr=0.01))
-
-         optimizer.step()
-         </code></pre>
-         </td>
-         <td>
-         <pre><code>
-         optimizer = SGD(model.parameters(), lr=0.01)
-
-         optimizer.step()
-         </code></pre>
-
-         </td>
-         </tr>
-         <tr>
-         <th>Horovod</th>
-         <th>Torch XLA</th>
-         </tr>
-         <tr>
-         <td>
-
-         <pre><code>
-         optimizer = SGD(model.parameters(), lr=0.001)
-
-         # Specific hvd
-         # Add Horovod Distributed Optimizer
-         optimizer = hvd.DistributedOptimizer(
-            optimizer, named_parameters=model.named_parameters()
-         )
-
-         optimizer.step()
-         </code></pre>
-         </td>
-         <td>
-         <pre><code>
-         optimizer = SGD(model.parameters(), lr=0.01)
-
-         xm.optimizer_step(optimizer)
-         </code></pre>
-         </td>
-         </tr>
+            <tr>
+               <th style="text-align:center;">PyTorch-Ignite</th>
+               <th style="text-align:center;">PyTorch DDP</th>
+            </tr>
+            <tr>
+               <td colspan="2"> <img src="/images/pytorch-ignite/ignite_vs_ddp_autooptim.png"> </td>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Horovod</th>
+               <th style="text-align:center;">Torch XLA</th>
+            </tr>
+            <tr>
+               <td colspan="2"><img src="/images/pytorch-ignite/horovod_vs_xla_autooptim.png"> </td>
+            </tr>
          </table>
       </div>
    </embed>
@@ -268,74 +200,23 @@ step:
 
 .. raw:: html
 
-   <embed> 
+   <embed>
       <div>
          <table>
-         <tr>
-         <th>PyTorch-Ignite</th>
-         <th>PyTorch DDP</th>
-         </tr>
-         <tr>
-         <td>
-         <pre><code>
-         # Specific ignite.distributed
-         train_loader = idist.auto_dataloader(dataset, batch_size=config["batch_size"])
-         </code></pre>
-         </td>
-         <td>
-         <pre><code>
-         # Specific torch.distributed
-         train_sampler = torch.utils.data.distributed.DistributedSampler(dataset)
-
-         train_loader = torch.utils.data.DataLoader(
-            dataset,
-            batch_size=int(config["batch_size"] / world_size),
-            num_workers=1,
-            sampler=train_sampler,
-         )
-         </code></pre>
-
-         </td>
-         </tr>
-         <tr>
-         <th>Horovod</th>
-         <th>Torch XLA</th>
-         </tr>
-         <tr>
-         <td>
-
-         <pre><code>
-         # Specific hvd
-         train_sampler = torch.utils.data.distributed.DistributedSampler(
-            dataset, num_replicas=hvd.size(), rank=hvd.rank()
-         )
-
-         train_loader = torch.utils.data.DataLoader(
-            dataset,
-            batch_size=int(config["batch_size"] / hvd.size()),
-            num_workers=1,
-            sampler=train_sampler,
-         )
-         </code></pre>
-         </td>
-         <td>
-         <pre><code>
-         # Specific xla
-         train_sampler = torch.utils.data.distributed.DistributedSampler(
-             dataset, num_replicas=xm.xrt_world_size(), rank=xm.get_ordinal(),
-         )
-         train_loader = torch.utils.data.DataLoader(
-             dataset,
-             batch_size=int(config["batch_size"] / xm.xrt_world_size()),
-             num_workers=1,
-             sampler=train_sampler,
-         )
-      
-         # Specific xla
-         para_loader = pl.MpDeviceLoader(train_loader, device)
-         </code></pre>
-         </td>
-         </tr>
+            <tr>
+               <th style="text-align:center;">PyTorch-Ignite</th>
+               <th style="text-align:center;">PyTorch DDP</th>
+            </tr>
+            <tr>
+               <td colspan="2"> <img src="/images/pytorch-ignite/ignite_vs_ddp_autodataloader.png"> </td>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Horovod</th>
+               <th style="text-align:center;">Torch XLA</th>
+            </tr>
+            <tr>
+               <td colspan="2"><img src="/images/pytorch-ignite/horovod_vs_xla_autodataloader.png"> </td>
+            </tr>
          </table>
       </div>
    </embed>
@@ -386,7 +267,7 @@ PyTorch-Ignite - Torch native Distributed Data Parallel - Horovod - XLA/TPUs
                <td style="text-align:center; padding: 0;"> <a href="https://github.com/pytorch-ignite/idist-snippets/blob/master/torch_native.py"><h3>Source Code</h3></a> </th>
             </tr>
             <tr>
-               <td colspan="2"> <img src="/images/pytorch-ignite/ignite_vs_ddp_whole.jpg"> </td>
+               <td colspan="2"> <img src="/images/pytorch-ignite/ignite_vs_ddp_whole.png"> </td>
             </tr>
             <tr>
                <th style="text-align:center;">
@@ -399,8 +280,8 @@ PyTorch-Ignite - Torch native Distributed Data Parallel - Horovod - XLA/TPUs
                <td style="text-align:center;"> <a href="https://github.com/pytorch-ignite/idist-snippets/blob/master/torch_xla_native.py"><h3>Source Code</h3></a> </th>
             </tr>
             <tr>
-               <td> <img src="/images/pytorch-ignite/horovod_snippet_whole.png"> </td>
-               <td> <img src="/images/pytorch-ignite/xla_snippet_whole.png"> </td>
+               <td> <img src="/images/pytorch-ignite/horovod_whole.png"> </td>
+               <td> <img src="/images/pytorch-ignite/xla_whole.png"> </td>
             </tr>
          </table>
       </div>
@@ -408,10 +289,10 @@ PyTorch-Ignite - Torch native Distributed Data Parallel - Horovod - XLA/TPUs
 
 .. note::
 
-  You can also mix the usage of ``idist`` with other distributed APIs as below:
-
-   .. code:: python
+   You can also mix the usage of ``idist`` with other distributed APIs as below:
    
+   .. code:: python
+
       dist.init_process_group(backend, store=..., world_size=world_size, rank=rank)
 
       rank = idist.get_rank()
