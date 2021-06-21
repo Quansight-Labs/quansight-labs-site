@@ -127,14 +127,14 @@ distributed model instantiation:
                <th style="text-align:center;">PyTorch DDP</th>
             </tr>
             <tr>
-               <td colspan="2"> <img src="/images/pytorch-ignite/ignite_vs_ddp_automodel.png"> </td>
+               <td colspan="2"> <img src="/images/pytorch-ignite/distributed-made-easy-with-ignite/ignite_vs_ddp_automodel.png"> </td>
             </tr>
             <tr>
                <th style="text-align:center;">Horovod</th>
                <th style="text-align:center;">Torch XLA</th>
             </tr>
             <tr>
-               <td colspan="2"><img src="/images/pytorch-ignite/horovod_vs_xla_automodel.png"> </td>
+               <td colspan="2"><img src="/images/pytorch-ignite/distributed-made-easy-with-ignite/horovod_vs_xla_automodel.png"> </td>
             </tr>
          </table>
       </div>
@@ -173,14 +173,14 @@ snippets for distributed optimizer instantiation:
                <th style="text-align:center;">PyTorch DDP</th>
             </tr>
             <tr>
-               <td colspan="2"> <img src="/images/pytorch-ignite/ignite_vs_ddp_autooptim.png"> </td>
+               <td colspan="2"> <img src="/images/pytorch-ignite/distributed-made-easy-with-ignite/ignite_vs_ddp_autooptim.png"> </td>
             </tr>
             <tr>
                <th style="text-align:center;">Horovod</th>
                <th style="text-align:center;">Torch XLA</th>
             </tr>
             <tr>
-               <td colspan="2"><img src="/images/pytorch-ignite/horovod_vs_xla_autooptim.png"> </td>
+               <td colspan="2"><img src="/images/pytorch-ignite/distributed-made-easy-with-ignite/horovod_vs_xla_autooptim.png"> </td>
             </tr>
          </table>
       </div>
@@ -208,14 +208,14 @@ step:
                <th style="text-align:center;">PyTorch DDP</th>
             </tr>
             <tr>
-               <td colspan="2"> <img src="/images/pytorch-ignite/ignite_vs_ddp_autodataloader.png"> </td>
+               <td colspan="2"> <img src="/images/pytorch-ignite/distributed-made-easy-with-ignite/ignite_vs_ddp_autodataloader.png"> </td>
             </tr>
             <tr>
                <th style="text-align:center;">Horovod</th>
                <th style="text-align:center;">Torch XLA</th>
             </tr>
             <tr>
-               <td colspan="2"><img src="/images/pytorch-ignite/horovod_vs_xla_autodataloader.png"> </td>
+               <td colspan="2"><img src="/images/pytorch-ignite/distributed-made-easy-with-ignite/horovod_vs_xla_autodataloader.png"> </td>
             </tr>
          </table>
       </div>
@@ -267,7 +267,7 @@ PyTorch-Ignite - Torch native Distributed Data Parallel - Horovod - XLA/TPUs
                <td style="text-align:center; padding: 0;"> <a href="https://github.com/pytorch-ignite/idist-snippets/blob/master/torch_native.py"><h3>Source Code</h3></a> </th>
             </tr>
             <tr>
-               <td colspan="2"> <img src="/images/pytorch-ignite/ignite_vs_ddp_whole.png"> </td>
+               <td colspan="2"> <img src="/images/pytorch-ignite/distributed-made-easy-with-ignite/ignite_vs_ddp_whole.png"> </td>
             </tr>
             <tr>
                <th style="text-align:center;">
@@ -280,8 +280,8 @@ PyTorch-Ignite - Torch native Distributed Data Parallel - Horovod - XLA/TPUs
                <td style="text-align:center;"> <a href="https://github.com/pytorch-ignite/idist-snippets/blob/master/torch_xla_native.py"><h3>Source Code</h3></a> </th>
             </tr>
             <tr>
-               <td> <img src="/images/pytorch-ignite/horovod_whole.png"> </td>
-               <td> <img src="/images/pytorch-ignite/xla_whole.png"> </td>
+               <td> <img src="/images/pytorch-ignite/distributed-made-easy-with-ignite/horovod_whole.png"> </td>
+               <td> <img src="/images/pytorch-ignite/distributed-made-easy-with-ignite/xla_whole.png"> </td>
             </tr>
          </table>
       </div>
@@ -364,7 +364,7 @@ With horovodrun
 
    horovodrun -np 4 -H hostname1:2,hostname2:2 python ignite_idist.py --backend horovod
 
-.. warning::
+.. note::
    
    In order to run this example and to avoid the installation procedure, you can pull one of PyTorch-Ignite's `docker image with pre-installed Horovod <https://github.com/pytorch/ignite/blob/master/docker/hvd/Dockerfile.hvd-base>`__. It will include Horovod with ``gloo`` controller and ``nccl`` support.
 
