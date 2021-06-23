@@ -130,6 +130,9 @@ distributed model instantiation:
                <td colspan="2"> <img src="/images/pytorch-ignite/distributed-made-easy-with-ignite/ignite_vs_ddp_automodel.png"> </td>
             </tr>
             <tr>
+               <td>&nbsp;</td>
+            </tr>
+            <tr>
                <th style="text-align:center;">Horovod</th>
                <th style="text-align:center;">Torch XLA</th>
             </tr>
@@ -140,8 +143,10 @@ distributed model instantiation:
       </div>
    </embed>
 
-Additionally, it is also compatible with
-`NVIDIA/apex <https://github.com/NVIDIA/apex>`__
+
+| 
+
+Additionally, it is also compatible with `NVIDIA/apex <https://github.com/NVIDIA/apex>`__
 
 .. code:: python
 
@@ -176,6 +181,9 @@ snippets for distributed optimizer instantiation:
                <td colspan="2"> <img src="/images/pytorch-ignite/distributed-made-easy-with-ignite/ignite_vs_ddp_autooptim.png"> </td>
             </tr>
             <tr>
+               <td>&nbsp;</td>
+            </tr>
+            <tr>
                <th style="text-align:center;">Horovod</th>
                <th style="text-align:center;">Torch XLA</th>
             </tr>
@@ -185,6 +193,8 @@ snippets for distributed optimizer instantiation:
          </table>
       </div>
    </embed>
+
+|
 
 -  `auto_dataloader() <https://pytorch.org/ignite/distributed.html#ignite.distributed.auto.auto_dataloader>`__
 
@@ -209,6 +219,9 @@ step:
             </tr>
             <tr>
                <td colspan="2"> <img src="/images/pytorch-ignite/distributed-made-easy-with-ignite/ignite_vs_ddp_autodataloader.png"> </td>
+            </tr>
+            <tr>
+               <td>&nbsp;</td>
             </tr>
             <tr>
                <th style="text-align:center;">Horovod</th>
