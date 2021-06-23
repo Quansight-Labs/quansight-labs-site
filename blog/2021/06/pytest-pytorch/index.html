@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Working with pytest on PyTorch | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2021/06/pytest-pytorch/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-163785882-1');
+</script><link rel="stylesheet" type="text/css" href="../../../../assets/css/tipuesearch.css">
+<meta name="author" content="Philip Meier">
+<meta property="description" content="Prerequisites
+
+
+
+
+To run the code in this post yourself, make sure you have torch, ipytest&gt;0.9, and the plugin to be introduced pytest-pytorch installed.
+
+
+
+
+
+
+
+
+pip install torch 'ipytest&gt;0.9' pytest">
+<link rel="prev" href="../../05/putting-out-the-fire/" title="Putting out the fire: Where do we start with accessibility in JupyterLab?" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="Working with pytest on PyTorch">
+<meta property="og:url" content="https://labs.quansight.org/blog/2021/06/pytest-pytorch/">
+<meta property="og:description" content="Prerequisites
+
+
+
+
+To run the code in this post yourself, make sure you have torch, ipytest&gt;0.9, and the plugin to be introduced pytest-pytorch installed.
+
+
+
+
+
+
+
+
+pip install torch 'ipytest&gt;0.9' pytest">
+<meta property="og:image" content="https://labs.quansight.org/images/QuansightLabs_logo_V2.png">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2021-06-23T18:35:06Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@quansightai">
+<meta property="twitter:image" content="https://labs.quansight.org/images/QuansightLabs_logo_V2.png">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+            <img src="../../../../images/QuansightLabs_logo_V1_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../" class="nav-link">Blog</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../team/" class="nav-link">Team</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../projects/" class="nav-link">Projects</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../about/" class="nav-link">About</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS</a>
+
+                
+            </li>
+</ul>
+<form class="navbar-form navbar-left" action="../../../../search" role="search">
+    <div class="form-group">
+        <input type="text" class="form-control" id="tipue_search_input" name="q" placeholder="Search…" autocomplete="off">
+</div>
+    <input type="submit" value="Local Search" style="visibility: hidden;"><!-- button type="submit" class="btn btn-default">Submit</button -->
+</form>
+
+
+            <ul class="navbar-nav navbar-right"></ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name">
+                <a href="." class="u-url">Working with pytest on PyTorch</a>
+            </h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    <a class="u-url" href="../../../../authors/philip-meier/">Philip Meier</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2021-06-23T18:35:06Z" itemprop="datePublished" title="2021-06-23">2021-06-23</time></a>
+            </p>
+            
+
+        </div>
+        
+
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+        <div>
+<details><summary>Prerequisites</summary><p>
+</p>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To run the code in this post yourself, make sure you have <a href="https://pypi.org/project/torch/"><code>torch</code></a>, <a href="https://pypi.org/project/ipytest/"><code>ipytest&gt;0.9</code></a>, and the plugin to be introduced <a href="https://github.com/Quansight/pytest-pytorch"><code>pytest-pytorch</code></a> installed.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>pip install torch 'ipytest&gt;0.9' pytest-pytorch</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Before we start testing, we need to configure <a href="https://github.com/chmp/ipytest"><code>ipytest</code></a>. We use the <a href="https://github.com/chmp/ipytest#ipytestautoconfig"><code>ipytest.autoconfig()</code></a> as base and add some <a href="https://docs.pytest.org/en/stable/reference.html#command-line-flags"><code>pytest</code> CLI flags</a> in order to get a concise output.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">ipytest</span>
+
+<span class="n">ipytest</span><span class="o">.</span><span class="n">autoconfig</span><span class="p">(</span><span class="n">defopts</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">default_flags</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"--quiet"</span><span class="p">,</span> <span class="s2">"--disable-warnings"</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_configure_ipytest</span><span class="p">(</span><span class="o">*</span><span class="n">additional_flags</span><span class="p">,</span> <span class="n">collect_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">addopts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">default_flags</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">collect_only</span><span class="p">:</span>
+        <span class="n">addopts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"--collect-only"</span><span class="p">)</span>
+    <span class="n">addopts</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">additional_flags</span><span class="p">)</span>
+    
+    <span class="n">ipytest</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">addopts</span><span class="o">=</span><span class="n">addopts</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">enable_pytest_pytorch</span><span class="p">(</span><span class="n">collect_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">_configure_ipytest</span><span class="p">(</span><span class="n">collect_only</span><span class="o">=</span><span class="n">collect_only</span><span class="p">)</span>
+    
+<span class="k">def</span> <span class="nf">disable_pytest_pytorch</span><span class="p">(</span><span class="n">collect_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">_configure_ipytest</span><span class="p">(</span><span class="s2">"--disable-pytest-pytorch"</span><span class="p">,</span> <span class="n">collect_only</span><span class="o">=</span><span class="n">collect_only</span><span class="p">)</span>
+    
+<span class="n">disable_pytest_pytorch</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</details><div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If you work on <a href="https://pytorch.org">PyTorch</a> and like <a href="https://pytest.org"><code>pytest</code></a> you may have noticed that you cannot run some tests in the test suite using the default <a href="https://pytest.org"><code>pytest</code></a> double colon syntax <code>{MODULE}::TestFoo::test_bar</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">run_pytest</span>[clean] {MODULE}::TestFoo::test_bar
+
+from torch.testing._internal.common_utils import TestCase
+from torch.testing._internal.common_device_type import instantiate_device_type_tests
+
+
+class TestFoo(TestCase):
+    def test_bar(self, device):
+        assert False, "Don't worry, this is supposed to happen!"
+
+    
+instantiate_device_type_tests(TestFoo, globals(), only_for=["cpu"])
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+1 warning in 0.01s
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>ERROR: not found: /home/user/tmp35zsok9u.py::TestFoo::test_bar
+(no name '/home/user/tmp35zsok9u.py::TestFoo::test_bar' in any of [&lt;Module tmp35zsok9u.py&gt;])
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If the absence of this very basic <a href="https://pytest.org"><code>pytest</code></a> feature has ever been the source of frustration for you, you don't need to worry anymore. By installing the <a href="https://github.com/Quansight/pytest-pytorch"><code>pytest-pytorch</code></a> plugin with</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>pip install pytest-pytorch</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>or</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>conda install -c conda-forge pytest-pytorch</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>you get the default <a href="https://pytest.org"><code>pytest</code></a> experience back even if your workflow involves running tests from within your IDE!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<!-- TEASER_END -->
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">enable_pytest_pytorch</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">run_pytest</span> {MODULE}::TestFoo::test_bar
+                
+pass
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>F                                                                        [100%]
+=================================== FAILURES ===================================
+___________________________ TestFooCPU.test_bar_cpu ____________________________
+
+self = &lt;__main__.TestFooCPU testMethod=test_bar_cpu&gt;, device = 'cpu'
+
+    def test_bar(self, device):
+&gt;       assert False, "Don't worry, this is supposed to happen!"
+E       AssertionError: Don't worry, this is supposed to happen!
+E       assert False
+
+&lt;ipython-input-2-f22a5e9e7b30&gt;:7: AssertionError
+=========================== short test summary info ============================
+FAILED tmpt8c1r46_.py::TestFooCPU::test_bar_cpu - AssertionError: Don't worry...
+1 failed, 1 warning in 0.17s
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As you can see, with <a href="https://github.com/Quansight/pytest-pytorch"><code>pytest-pytorch</code></a> enabled, <a href="https://pytest.org"><code>pytest</code></a> ran the correct test but collected it under a different name. In this post we are going to find out why this is happening and what <a href="https://github.com/Quansight/pytest-pytorch"><code>pytest-pytorch</code></a> does to make your life easier.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="PyTorch-test-generation">
+<a href="https://pytorch.org">PyTorch</a> test generation<a class="anchor-link" href="#PyTorch-test-generation">¶</a>
+</h3>
+<p><a href="https://pytorch.org">PyTorch</a> has an extensive test suite with a lot of <a href="https://github.com/pytorch/pytorch/wiki/Running-and-writing-tests-in-PyTorch-1.9">configuration options and auto-generated tests</a>. Internally, <a href="https://pytorch.org">PyTorch</a> uses a <code>TestCase</code> class that is derived from <a href="https://docs.python.org/3/library/unittest.html#unittest.TestCase"><code>unittest.TestCase</code></a>. In the first part of the post we are going to explore how the auto-generation of tests works in the <a href="https://pytorch.org">PyTorch</a> test suite and how they are collected by <a href="https://pytest.org"><code>pytest</code></a>.</p>
+<p>In its default definition <a href="https://pytorch.org">PyTorch</a>'s <code>TestCase</code> behaves exactly like its base class with regards to test collection.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">disable_pytest_pytorch</span><span class="p">(</span><span class="n">collect_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">run_pytest</span>[clean] {MODULE}
+
+from torch.testing._internal.common_utils import TestCase
+
+
+class TestFoo(TestCase):
+    def test_bar(self):
+        pass
+
+    def test_baz(self):
+        pass
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>tmpy90fpw2t.py::TestFoo::test_bar
+tmpy90fpw2t.py::TestFoo::test_baz
+
+2 tests collected in 0.04s
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Device-parametrization">Device parametrization<a class="anchor-link" href="#Device-parametrization">¶</a>
+</h4>
+<p>Most <code>TestCase</code>'s use additional configuration, though. In <a href="https://pytorch.org">PyTorch</a>, most operations can be performed on other <code>device</code>'s than the CPU, for example a GPU. Thus, to <a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">not repeat yourself</a> by writing the same test for multiple <code>device</code>'s, the possible devices are used as parameters for the test. In <a href="https://pytorch.org">PyTorch</a> this is done with the <code>instantiate_device_type_tests</code> function.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">run_pytest</span>[clean] {MODULE}
+
+from torch.testing._internal.common_utils import TestCase
+from torch.testing._internal.common_device_type import instantiate_device_type_tests
+
+
+class TestFoo(TestCase):
+    def test_bar(self, device):
+        pass
+
+    def test_baz(self, device):
+        pass
+
+    
+instantiate_device_type_tests(TestFoo, globals(), only_for=["cpu", "cuda"])
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>tmpyt_bxm9e.py::TestFooCPU::test_bar_cpu
+tmpyt_bxm9e.py::TestFooCPU::test_baz_cpu
+tmpyt_bxm9e.py::TestFooCUDA::test_bar_cuda
+tmpyt_bxm9e.py::TestFooCUDA::test_baz_cuda
+
+4 tests collected in 0.01s
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As the name implies, <code>instantiate_device_type_tests</code> uses the passed test case as template to instantiate new test cases from it for the different <code>device</code>'s. In this process the names of test cases as well as its test functions are changed:</p>
+<ul>
+<li>The test case is namespaced by postfixing the <code>device</code> name in uppercase letters (<code>TestFoo</code> ⟶ <code>TestFooCPU</code>)</li>
+<li>Each test function is namespaced by postfixing the <code>device</code> name in lower case letters and an additional underscore as separator (<code>test_bar</code> ⟶ <code>test_bar_cpu</code>)</li>
+</ul>
+<p>After the instatiation, the current tested <code>device</code> is supplied to each test function.</p>
+<p>We are glossing over many details here, two of which I should at least mention:</p>
+<ol>
+<li>Although it looks like only the test functions need to be parametrized, the parametrized test cases perform different setup and teardown on a per-<code>device</code> basis.</li>
+<li>There are many decorators available that allow to adapt the <code>device</code> parametrization on a per-function basis.</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Data-type-parametrization">Data type parametrization<a class="anchor-link" href="#Data-type-parametrization">¶</a>
+</h4>
+<p>In the same spirit as the <code>device</code> parametrizations, most <a href="https://pytorch.org">PyTorch</a> operators support a <a href="https://pytorch.org/docs/stable/tensor_attributes.html#torch-dtype">plethora of data types</a> (<code>dtype</code>'s in short). We can parametrize a test function with the <code>@dtypes</code> decorator, after which the <code>dtype</code> is available as parameter. Note that we can only use the <code>@dtypes</code> decorator if templating is enabled, which means that we have to use <code>instantiate_device_type_tests</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">run_pytest</span>[clean] {MODULE}
+
+import torch
+
+from torch.testing._internal.common_utils import TestCase
+from torch.testing._internal.common_device_type import (
+    instantiate_device_type_tests,
+    dtypes,
+)
+
+
+class TestFoo(TestCase):
+    @dtypes(torch.int32, torch.float32)
+    def test_bar(self, device, dtype):
+        pass
+
+
+instantiate_device_type_tests(TestFoo, globals(), only_for="cpu")
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>tmpttnibud4.py::TestFooCPU::test_bar_cpu_float32
+tmpttnibud4.py::TestFooCPU::test_bar_cpu_int32
+
+2 tests collected in 0.01s
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Similar to the device parametrization, the <code>dtype</code> name is postfixed to the name of the test function after the <code>device</code> (<code>test_bar</code> ⟶ <code>test_bar_cpu_float32</code>). Since there is no need for special setup or teardown on a per-<code>dtype</code> basis, the test case is not instatiatied for different <code>dtype</code>'s (<code>TestFoo</code> ⟶ <code>TestFooCPU</code>).</p>
+<p>Again, there are more decorators available for granular control, but they go beyond the scope of this post.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Operator-parametrization">Operator parametrization<a class="anchor-link" href="#Operator-parametrization">¶</a>
+</h4>
+<p>A recent addition to the <a href="https://pytorch.org">PyTorch</a> test suite is the <code>OpInfo</code> class. It carries the meta data of an operator such as per-<code>device</code> supported <code>dtype</code>'s or an optional reference function from another library. Going through all options would facilitate a blog post on its own, so we are going to stick to the basics here.</p>
+<p><code>OpInfo</code>'s enable even less duplicated code. For example, the test structure for checking an operator against a reference implementation is operator-agnostic. To parametrize a test function, we use the <code>@ops</code> decorator. We define our own <code>op_db</code> here, but in the <a href="https://pytorch.org">PyTorch</a> test suite there are pre-defined databases, for different operator types such as unary or binary operators. Again, note that we can only use the <code>@ops</code> decorator if templating is enabled, which means that we have to use <code>instantiate_device_type_tests</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">run_pytest</span>[clean] {MODULE}
+
+import torch
+
+from torch.testing import _dispatch_dtypes
+from torch.testing._internal.common_device_type import (
+    instantiate_device_type_tests,
+    ops,
+)
+from torch.testing._internal.common_methods_invocations import OpInfo
+from torch.testing._internal.common_utils import TestCase
+
+
+op_db = [
+    OpInfo("add", dtypesIfCPU=_dispatch_dtypes([torch.int32])), 
+    OpInfo("sub", dtypesIfCPU=_dispatch_dtypes([torch.float32])),
+]
+
+
+class TestFoo(TestCase):
+    @ops(op_db)
+    def test_bar(self, device, dtype, op):
+        pass
+
+
+instantiate_device_type_tests(TestFoo, globals(), only_for="cpu")
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>tmpe119_vdl.py::TestFooCPU::test_bar_add_cpu_int32
+tmpe119_vdl.py::TestFooCPU::test_bar_sub_cpu_float32
+
+2 tests collected in 0.04s
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In contrast to the <code>dtype</code>, the <code>op</code> name is placed before the <code>device</code> identifier in the name of a test function (<code>test_bar</code> ⟶ <code>test_bar_add_cpu_int32</code>). Still, no special setup or teardown is needed on a per-<code>op</code> basis, so the test case is only instantiated for the <code>device</code> (<code>TestFoo</code> ⟶ <code>TestFooCPU</code>).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id='pytest-"equivalent"'>
+<a href="https://pytest.org"><code>pytest</code></a> "equivalent"<a class="anchor-link" href="#pytest-%22equivalent%22">¶</a>
+</h4>
+<p>From a <a href="https://pytest.org"><code>pytest</code></a> perspective, the <a href="https://pytorch.org">PyTorch</a> test generation is "equivalent" to using the <code>@pytest.mark.parametrize</code> decorator. Of course this ignores all the gory details, which makes it seem easier than it is. Still, it might be a good mental analogy for someone coming from a <a href="https://pytest.org"><code>pytest</code></a> background.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">run_pytest</span>[clean] {MODULE}
+
+import pytest
+
+import torch
+
+
+@pytest.mark.parametrize("device", ["cpu"])
+class TestFoo:
+    @pytest.mark.parametrize("dtype", [pytest.param(torch.float32, id="float32")])
+    @pytest.mark.parametrize("op", ["add", "sub"])
+    def test_bar(self, device, dtype, op):
+        pass
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>tmp8_w7dn68.py::TestFoo::test_bar[add-float32-cpu]
+tmp8_w7dn68.py::TestFoo::test_bar[sub-float32-cpu]
+
+2 tests collected in 0.00s
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>So far we looked at the test generation in the <a href="https://pytorch.org">PyTorch</a> test suite and how the tests are collected by <a href="https://pytest.org"><code>pytest</code></a>. Although <a href="https://pytorch.org">PyTorch</a> uses a different parametrization scheme than <a href="https://pytest.org"><code>pytest</code></a>, it is 100% compatible. The problems only materialize if you want select a specific test case or test function rather than say a whole module or the complete test suite.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="PyTorch-test-selection-with-pytest">
+<a href="https://pytorch.org">PyTorch</a> test selection with <a href="https://pytest.org"><code>pytest</code></a><a class="anchor-link" href="#PyTorch-test-selection-with-pytest">¶</a>
+</h3>
+<p>As we observed above, <a href="https://pytest.org"><code>pytest</code></a>'s default double colon <code>::</code> notation, does not work on tests instantiated by <a href="https://pytorch.org">PyTorch</a>'s test suite.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">run_pytest</span>[clean] {MODULE}::TestFoo::test_bar
+
+from torch.testing._internal.common_utils import TestCase
+from torch.testing._internal.common_device_type import instantiate_device_type_tests
+
+
+class TestFoo(TestCase):
+    def test_bar(self, device):
+        pass
+    
+    def test_baz(self, device):
+        pass
+
+    
+instantiate_device_type_tests(TestFoo, globals(), only_for=["cpu"])
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+no tests collected in 0.01s
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>ERROR: not found: /home/user/tmpg1b9f42o.py::TestFoo::test_bar
+(no name '/home/user/tmpg1b9f42o.py::TestFoo::test_bar' in any of [&lt;Module tmpg1b9f42o.py&gt;])
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Equipped with the knowledge we gathered about the instantiation, it is easy to see why this is happening.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">run_pytest</span> {MODULE}
+
+pass
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>tmpo9kwbe9q.py::TestFooCPU::test_bar_cpu
+tmpo9kwbe9q.py::TestFooCPU::test_baz_cpu
+
+2 tests collected in 0.01s
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://pytest.org"><code>pytest</code></a> searches for the test case <code>TestFoo</code> with the test function <code>test_bar</code>, but can't find them, because <code>instantiate_device_type_tests</code> renamed them to <code>TestFooCPU</code> and <code>test_bar_cpu</code>. However, the test is selectable by its new, instantiated name <code>{MODULE}::TestFooCPU::test_bar_cpu</code></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">run_pytest</span> {MODULE}::TestFooCPU::test_bar_cpu
+                
+pass
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>tmp_i0_ha5r.py::TestFooCPU::test_bar_cpu
+
+1 test collected in 0.04s
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>From a convenience standpoint this is not optimal, because we need to remember the naming scheme. Furthermore, we can only select a specific parametrization rather than running a test case or a test function against all available parametrizations. The usual way around this is to rely on the <a href="https://docs.pytest.org/en/stable/reference.html#command-line-flags"><code>pytest</code> <code>-k</code> flag</a> to do a pattern matching.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">run_pytest</span> {MODULE} -k "TestFoo and test_bar"
+                
+pass
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>tmp633i_bea.py::TestFooCPU::test_bar_cpu
+
+1/2 tests collected (1 deselected) in 0.01s
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In contrast to the default <a href="https://pytest.org"><code>pytest</code></a> practice we need to include the names of the test case and test function in the pattern rather than only the parametrization we want to select. This brings its own set of problems with it, for example if test cases or test functions use names that build on top of each other. Since the selection pattern does not support regular expression matching, it can get verbose and confusing.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">run_pytest</span>[clean] {MODULE} -k "TestFoo and not TestFooBar and test_spam and not test_spam_ham"
+
+from torch.testing._internal.common_utils import TestCase
+from torch.testing._internal.common_device_type import instantiate_device_type_tests
+
+class TestFoo(TestCase):
+    def test_spam(self, device):
+        pass
+    
+    def test_spam_ham(self, device):
+        pass
+
+    
+instantiate_device_type_tests(TestFoo, globals(), only_for="cpu")
+    
+    
+class TestFooBar(TestCase):
+    def test_spam(self, device):
+        pass
+
+
+instantiate_device_type_tests(TestFooBar, globals(), only_for="cpu")
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>tmpzoevi0fu.py::TestFooCPU::test_spam_cpu
+
+1/3 tests collected (2 deselected) in 0.01s
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="pytest-pytorch">
+<a href="https://github.com/Quansight/pytest-pytorch"><code>pytest-pytorch</code></a><a class="anchor-link" href="#pytest-pytorch">¶</a>
+</h4>
+<p>Introducing: <a href="https://github.com/Quansight/pytest-pytorch"><code>pytest-pytorch</code></a>. After its installation and without any configuration, we get the default <a href="https://pytest.org"><code>pytest</code></a> experience back. Thus, even in complicated naming situations we can simply select a test with the double colon notation <code>{MODULE}::TestFoo::test_spam</code></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">enable_pytest_pytorch</span><span class="p">(</span><span class="n">collect_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">run_pytest</span> {MODULE}::TestFoo::test_spam
+                
+pass
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>tmpalkh4ddp.py::TestFooCPU::test_spam_cpu
+
+1 test collected in 0.05s
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Of course we can still use the <a href="https://docs.pytest.org/en/stable/reference.html#command-line-flags"><code>pytest</code> <code>-k</code> flag</a> to select a specific parametrization.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">run_pytest</span>[clean] {MODULE}::TestFoo::test_bar -k "cuda"
+
+from torch.testing._internal.common_utils import TestCase
+from torch.testing._internal.common_device_type import instantiate_device_type_tests
+
+
+class TestFoo(TestCase):
+    def test_bar(self, device):
+        pass
+
+    
+instantiate_device_type_tests(TestFoo, globals(), only_for=["cpu", "cuda"])
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>tmp6av_zpy3.py::TestFooCUDA::test_bar_cuda
+
+1/2 tests collected (1 deselected) in 0.02s
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Handwaving over details <a href="https://github.com/Quansight/pytest-pytorch"><code>pytest-pytorch</code></a> achieves this by hooking into <a href="https://pytest.org"><code>pytest</code></a>'s test collection and performing the matching of the instantiated to the template name for you. If that sounds intruiging, have a look at the <a href="https://github.com/Quansight/pytest-pytorch">GitHub repository</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="IDEs-with-pytest-support">IDEs with <a href="https://pytest.org"><code>pytest</code></a> support<a class="anchor-link" href="#IDEs-with-pytest-support">¶</a>
+</h4>
+<p>Another use case for <a href="https://github.com/Quansight/pytest-pytorch"><code>pytest-pytorch</code></a> are modern Python IDEs such as <a href="https://www.jetbrains.com/help/pycharm/pytest.html#run-pytest-test">PyCharm</a> or <a href="https://code.visualstudio.com/docs/python/testing#_run-tests">VSCode</a> with built-in <a href="https://pytest.org"><code>pytest</code></a> support. Within such an IDE you can run a test by clicking a button next to its definition without dropping into a terminal. Doing this, you also get the comfort of the IDE including the debugger.</p>
+<p>This feature relies on the test selection with the default <a href="https://pytest.org"><code>pytest</code></a> syntax, which, as we have seen above, does not work well with the <a href="https://pytorch.org">PyTorch</a> test suite. You could fiddle with your IDEs default test runner config or you could simply install <a href="https://github.com/Quansight/pytest-pytorch"><code>pytest-pytorch</code></a> to make it work out of the box.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">¶</a>
+</h3>
+<p>In this post we took a look at how the <a href="https://pytorch.org">PyTorch</a> test suite auto-generates <code>device</code>-, <code>dtype</code>-, and even operator-agnostic tests. Although it uses a different scheme than <a href="https://pytest.org"><code>pytest</code></a>, the tests can still be collected and run by it. The compatibility breaks down, if one tries to use the default <a href="https://pytest.org"><code>pytest</code></a> selection notation. To overcome this and in turn enhance the developer experience we introduced the <a href="https://github.com/Quansight/pytest-pytorch"><code>pytest-pytorch</code></a> plugin. It can for example be used to regain out-of-the-box <a href="https://pytest.org"><code>pytest</code></a> support in modern IDEs when working on <a href="https://pytorch.org">PyTorch</a>.</p>
+
+</div>
+</div>
+</div>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../../05/putting-out-the-fire/" rel="prev" title="Putting out the fire: Where do we start with accessibility in JupyterLab?">Previous post</a>
+            </li>
+
+            <li class="archive">
+                <a href="../../../../archive.html" rel="archive" title="Archive ">Archive</a>
+            </li>
+
+            <li class="next disabled">
+                <a rel="next">Next post</a>
+            </li>
+        </ul></nav></aside><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha384-3lJUsx1TJHt7BA4udB5KPnDrlkO8T6J6v/op7ui0BbCjvZ9WqV4Xm6DTP6kQ/iBH" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script></article><!--End of body content--><footer id="footer">
+            Contents © 2021         <a href="../../../../team">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>

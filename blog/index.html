@@ -103,7 +103,219 @@ navbar-dark bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/05/putting-out-the-fire/" class="u-url">Putting out the fire: Where do we start with accessibility in JupyterLab?</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/06/pytest-pytorch/" class="u-url">Working with pytest on PyTorch</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                <a href="../authors/philip-meier/">Philip Meier</a>
+            </span></p>
+            <p class="dateline">
+            <a href="2021/06/pytest-pytorch/" rel="bookmark">
+            <time class="published dt-published" datetime="2021-06-23T18:35:06Z" itemprop="datePublished" title="2021-06-23">2021-06-23</time></a>
+            </p>
+        </div>
+            
+        <div>
+            
+
+        </div>
+    </header><div class="p-summary entry-summary">
+    <div>
+<details><summary>Prerequisites</summary><p>
+</p>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To run the code in this post yourself, make sure you have <a href="https://pypi.org/project/torch/"><code>torch</code></a>, <a href="https://pypi.org/project/ipytest/"><code>ipytest&gt;0.9</code></a>, and the plugin to be introduced <a href="https://github.com/Quansight/pytest-pytorch"><code>pytest-pytorch</code></a> installed.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>pip install torch 'ipytest&gt;0.9' pytest-pytorch</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Before we start testing, we need to configure <a href="https://github.com/chmp/ipytest"><code>ipytest</code></a>. We use the <a href="https://github.com/chmp/ipytest#ipytestautoconfig"><code>ipytest.autoconfig()</code></a> as base and add some <a href="https://docs.pytest.org/en/stable/reference.html#command-line-flags"><code>pytest</code> CLI flags</a> in order to get a concise output.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">ipytest</span>
+
+<span class="n">ipytest</span><span class="o">.</span><span class="n">autoconfig</span><span class="p">(</span><span class="n">defopts</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">default_flags</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"--quiet"</span><span class="p">,</span> <span class="s2">"--disable-warnings"</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_configure_ipytest</span><span class="p">(</span><span class="o">*</span><span class="n">additional_flags</span><span class="p">,</span> <span class="n">collect_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">addopts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">default_flags</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">collect_only</span><span class="p">:</span>
+        <span class="n">addopts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">"--collect-only"</span><span class="p">)</span>
+    <span class="n">addopts</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">additional_flags</span><span class="p">)</span>
+    
+    <span class="n">ipytest</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">addopts</span><span class="o">=</span><span class="n">addopts</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">enable_pytest_pytorch</span><span class="p">(</span><span class="n">collect_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">_configure_ipytest</span><span class="p">(</span><span class="n">collect_only</span><span class="o">=</span><span class="n">collect_only</span><span class="p">)</span>
+    
+<span class="k">def</span> <span class="nf">disable_pytest_pytorch</span><span class="p">(</span><span class="n">collect_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">_configure_ipytest</span><span class="p">(</span><span class="s2">"--disable-pytest-pytorch"</span><span class="p">,</span> <span class="n">collect_only</span><span class="o">=</span><span class="n">collect_only</span><span class="p">)</span>
+    
+<span class="n">disable_pytest_pytorch</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</details><div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If you work on <a href="https://pytorch.org">PyTorch</a> and like <a href="https://pytest.org"><code>pytest</code></a> you may have noticed that you cannot run some tests in the test suite using the default <a href="https://pytest.org"><code>pytest</code></a> double colon syntax <code>{MODULE}::TestFoo::test_bar</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">run_pytest</span>[clean] {MODULE}::TestFoo::test_bar
+
+from torch.testing._internal.common_utils import TestCase
+from torch.testing._internal.common_device_type import instantiate_device_type_tests
+
+
+class TestFoo(TestCase):
+    def test_bar(self, device):
+        assert False, "Don't worry, this is supposed to happen!"
+
+    
+instantiate_device_type_tests(TestFoo, globals(), only_for=["cpu"])
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+1 warning in 0.01s
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>ERROR: not found: /home/user/tmp35zsok9u.py::TestFoo::test_bar
+(no name '/home/user/tmp35zsok9u.py::TestFoo::test_bar' in any of [&lt;Module tmp35zsok9u.py&gt;])
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If the absence of this very basic <a href="https://pytest.org"><code>pytest</code></a> feature has ever been the source of frustration for you, you don't need to worry anymore. By installing the <a href="https://github.com/Quansight/pytest-pytorch"><code>pytest-pytorch</code></a> plugin with</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>pip install pytest-pytorch</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>or</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>conda install -c conda-forge pytest-pytorch</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>you get the default <a href="https://pytest.org"><code>pytest</code></a> experience back even if your workflow involves running tests from within your IDE!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p class="more"><a href="2021/06/pytest-pytorch/">Read more…</a></p>
+</div>
+</div>
+</div>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/05/putting-out-the-fire/" class="u-url">Putting out the fire: Where do we start with accessibility in JupyterLab?</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 <a href="../authors/isabela-presedo-floyd/">Isabela Presedo-Floyd</a>
@@ -422,40 +634,6 @@ developers interacting with the Python data and numerical computing ecosystem.</
 <p class="more"><a href="2021/01/scipy-ndimage-interpolation/">Read more…</a></p>
 </div>
     </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/01/welcoming-tania-allard-labs-codirector/" class="u-url">Welcoming Tania Allard as Quansight Labs co-director</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                <a href="../authors/ralf-gommers/">Ralf Gommers</a>
-            </span></p>
-            <p class="dateline">
-            <a href="2021/01/welcoming-tania-allard-labs-codirector/" rel="bookmark">
-            <time class="published dt-published" datetime="2021-01-04T08:00:00Z" itemprop="datePublished" title="2021-01-04">2021-01-04</time></a>
-            </p>
-        </div>
-            
-        <div>
-            
-        <ul itemprop="keywords" class="tags">
-<li><a class="tag p-category" href="../categories/labs/" rel="tag">Labs</a></li>
-        </ul>
-</div>
-    </header><div class="p-summary entry-summary">
-    <div>
-<p><img alt="Photo Tania Allard" src="../galleries/team/tania_allard.jpg"></p>
-<p>Today I'm incredibly excited to welcome Tania Allard to Quansight as
-Co-Director of Quansight Labs. Tania (<a href="https://github.com/trallard">GitHub</a>,
-<a href="https://twitter.com/ixek/">Twitter</a>, <a href="https://www.bitsandchips.me/">personal
-site</a>) is a well-known and prolific PyData
-community member. In the past few years she has been involved as a conference
-organizer (JupyterCon, SciPy, PyJamas, PyCon UK, PyCon LatAm, JuliaCon and
-more), as a community builder (PyLadies, NumFOCUS, RForwards), as a
-contributor to Matplotlib and Jupyter, and as a regular speaker and mentor.
-She also brings relevant experience in both industry and academia - she joins
-us from Microsoft where she was a senior developer advocate, and has a PhD in
-computational modelling.</p>
-<p class="more"><a href="2021/01/welcoming-tania-allard-labs-codirector/">Read more…</a></p>
-</div>
-    </div>
     </article>
 </div>
 
@@ -472,7 +650,18 @@ computational modelling.</p>
                 <a rel="next">Newer posts</a>
             </li>
         </ul>
-<!--End of body content--><footer id="footer">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha384-3lJUsx1TJHt7BA4udB5KPnDrlkO8T6J6v/op7ui0BbCjvZ9WqV4Xm6DTP6kQ/iBH" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--End of body content--><footer id="footer">
             Contents © 2021         <a href="../team">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             
             
