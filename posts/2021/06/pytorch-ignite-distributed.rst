@@ -89,7 +89,7 @@ handle it without any changes to the code, in particular:
 
 -  `torch.distributed.launch <https://pytorch.org/docs/stable/distributed.html#launch-utility>`__
 
--  `horovdrun <https://horovod.readthedocs.io/en/stable/running_include.html>`__
+-  `horovodrun <https://horovod.readthedocs.io/en/stable/running_include.html>`__
 
 -  `slurm <https://slurm.schedmd.com/>`__
 
@@ -246,7 +246,7 @@ Examples
 
 The code snippets below highlight the API's specificities of each of the
 distributed backends on the same use case as compared to the ``idist``
-API. Torch native code is available for DDP, Horovod, and for XLA/TPU
+API. PyTorch native code is available for DDP, Horovod, and for XLA/TPU
 devices.
 
 PyTorch-Ignite's unified code snippet can be run with the standard Torch
@@ -383,7 +383,7 @@ With horovodrun
 
    .. code:: bash
 
-      docker run --gpus all -it -v $PWD:/workspace/project --network=host --shm-size 16G pytorchignite/hvd-vision:latest /bin/bash
+      docker run --gpus all -it -v $PWD:/project pytorchignite/hvd-vision:latest /bin/bash
       cd project
 
 With slurm
@@ -451,9 +451,9 @@ Next Steps
    `Discord <https://discord.com/invite/djZtm3EmKj>`__.
 
 -  PyTorch-Ignite is currently maintained by a team of volunteers and we
-   are looking for more contibutors.
-   `Here <https://github.com/pytorch/ignite/blob/master/CONTRIBUTING.md>`__
-   is how you can contribute.
+   are looking for more contributors.
+   See `CONTRIBUTING.md <https://github.com/pytorch/ignite/blob/master/CONTRIBUTING.md>`__
+   for how you can contribute.
 
 -  Keep updated with all PyTorch-Ignite news by following us on
    `Twitter <https://twitter.com/pytorch_ignite>`__ and
