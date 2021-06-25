@@ -1,6 +1,6 @@
 .. title: Distributed Training Made Easy with PyTorch-Ignite
 .. slug: distributed-made-easy-with-ignite
-.. date: 2021-06-18 8:00:00 UTC
+.. date: 2021-06-28 8:00:00 UTC
 .. author: Victor Fomin
 .. tags: Deep Learning, Machine Learning, PyTorch-Ignite, PyTorch, Horovod, SLURM, PyTorch XLA, PyTorch DDP, Distributed
 .. link:
