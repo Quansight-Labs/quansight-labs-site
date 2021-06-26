@@ -1,9 +1,4 @@
 ---
-name: pandas.svg
-eurl: https://pandas.pydata.org/
-title: pandas
-description: <b>pandas</b> is a fast, powerful, flexible and easy to use open source data analysis and manipulation tool, built on top of the Python programming language.
----
 name: xarray.png
 eurl: https://xarray.pydata.org/en/stable/
 title: xarray
@@ -18,9 +13,4 @@ name: bokeh.svg
 eurl: https://docs.bokeh.org/en/latest/index.html
 title: bokeh
 description: Bokeh is an interactive visualization library for modern web browsers. It provides elegant, concise construction of versatile graphics, and affords high-performance interactivity over large or streaming datasets. Bokeh can help anyone who would like to quickly and easily make interactive plots, dashboards, and data applications.
----
-name: scikit-learn.png
-eurl: https://scikit-learn.org/stable/
-title: scikit-learn
-description: <code>Scikit-learn</code> is an open source machine learning library that supports supervised and unsupervised learning. It also provides various tools for model fitting, data preprocessing, model selection and evaluation, and many other utilities.
 ---
