@@ -14,7 +14,7 @@
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml">
 <link rel="canonical" href="https://labs.quansight.org/blog/">
 <link rel="icon" href="../favicon.ico" sizes="16x16">
-<link rel="next" href="index-5.html" type="text/html">
+<link rel="next" href="index-6.html" type="text/html">
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
    tex2jax: {
@@ -103,7 +103,48 @@ navbar-dark bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/06/pytest-pytorch/" class="u-url">Working with pytest on PyTorch</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/06/distributed-made-easy-with-ignite/" class="u-url">Distributed Training Made Easy with PyTorch-Ignite</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                <a href="../authors/victor-fomin/">Victor Fomin</a>
+            </span></p>
+            <p class="dateline">
+            <a href="2021/06/distributed-made-easy-with-ignite/" rel="bookmark">
+            <time class="published dt-published" datetime="2021-06-28T08:00:00Z" itemprop="datePublished" title="2021-06-28">2021-06-28</time></a>
+            </p>
+        </div>
+            
+        <div>
+            
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../categories/deep-learning/" rel="tag">Deep Learning</a></li>
+            <li><a class="tag p-category" href="../categories/distributed/" rel="tag">Distributed</a></li>
+            <li><a class="tag p-category" href="../categories/horovod/" rel="tag">Horovod</a></li>
+            <li><a class="tag p-category" href="../categories/machine-learning/" rel="tag">Machine Learning</a></li>
+            <li><a class="tag p-category" href="../categories/pytorch/" rel="tag">PyTorch</a></li>
+            <li><a class="tag p-category" href="../categories/pytorch-ddp/" rel="tag">PyTorch DDP</a></li>
+            <li><a class="tag p-category" href="../categories/pytorch-xla/" rel="tag">PyTorch XLA</a></li>
+            <li><a class="tag p-category" href="../categories/pytorch-ignite/" rel="tag">PyTorch-Ignite</a></li>
+            <li><a class="tag p-category" href="../categories/slurm/" rel="tag">SLURM</a></li>
+        </ul>
+</div>
+    </header><div class="p-summary entry-summary">
+    <div>
+<img alt="PyTorch-Ignite logo" src="../images/pytorch-ignite/ignite_logo_mixed.png"><p>Authors: <a class="reference external" href="https://github.com/fco-dv">François Cokelaer</a>,
+<a class="reference external" href="https://github.com/Priyansi">Priyansi</a>, <a class="reference external" href="https://github.com/sdesrozis/">Sylvain
+Desroziers</a>, <a class="reference external" href="https://github.com/vfdev-5">Victor
+Fomin</a></p>
+<p>Writing <a class="reference external" href="https://en.wikipedia.org/wiki/Agnostic_(data)">agnostic</a>
+<a class="reference external" href="https://pytorch.org/tutorials/beginner/dist_overview.html">distributed
+code</a> that
+supports different platforms, hardware configurations (GPUs, TPUs) and
+communication frameworks is tedious. In this blog, we will discuss how
+<a class="reference external" href="https://pytorch.org/ignite/">PyTorch-Ignite</a> solves this problem
+with minimal code change.</p>
+<p class="more"><a href="2021/06/distributed-made-easy-with-ignite/">Read more…</a></p>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/06/pytest-pytorch/" class="u-url">Working with pytest on PyTorch</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 <a href="../authors/philip-meier/">Philip Meier</a>
@@ -606,40 +647,12 @@ developers interacting with the Python data and numerical computing ecosystem.</
 <p class="more"><a href="2021/01/python-packaging-brainstorm/">Read more…</a></p>
 </div>
     </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/01/scipy-ndimage-interpolation/" class="u-url">Making SciPy's Image Interpolation Consistent and Well Documented</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                <a href="../authors/gregory-lee/">Gregory Lee</a>
-            </span></p>
-            <p class="dateline">
-            <a href="2021/01/scipy-ndimage-interpolation/" rel="bookmark">
-            <time class="published dt-published" datetime="2021-01-22T14:00:00Z" itemprop="datePublished" title="2021-01-22">2021-01-22</time></a>
-            </p>
-        </div>
-            
-        <div>
-            
-        <ul itemprop="keywords" class="tags">
-<li><a class="tag p-category" href="../categories/labs/" rel="tag">Labs</a></li>
-            <li><a class="tag p-category" href="../categories/open-source/" rel="tag">Open-Source</a></li>
-            <li><a class="tag p-category" href="../categories/python/" rel="tag">Python</a></li>
-            <li><a class="tag p-category" href="../categories/scipy/" rel="tag">SciPy</a></li>
-        </ul>
-</div>
-    </header><div class="p-summary entry-summary">
-    <div>
-<h2>SciPy n-dimensional Image Processing</h2>
-<p>SciPy's ndimage module provides a powerful set of general, n-dimensional image processing operations, categorized into areas such as filtering, interpolation and morphology. Traditional image processing deals with 2D arrays of pixels, possibly with an additional array dimension of size 3 or 4 to represent color channel and transparency information. However, there are many scientific applications where we may want to work with more general arrays such as the 3D volumetric images produced by medical imaging methods like computed tomography (CT) or magnetic resonance imaging (MRI) or biological imaging approaches such as light sheet microscopy. Aside from spatial axes, such data may have additional axes representing other quantities such as time, color, spectral frequency or different contrasts. Functions in ndimage have been implemented in a general n-dimensional manner so that they can be applied across 2D, 3D or more dimensions. A more detailed overview of the module is available in the
-<a href="https://docs.scipy.org/doc/scipy/reference/tutorial/ndimage.html">SciPy ndimage tutorial</a>. SciPy's image functions are also used by downstream libraries such as <a href="https://scikit-image.org">scikit-image</a> to implement higher-level algorithms for things like image restoration, segmentation and registration.</p>
-<p class="more"><a href="2021/01/scipy-ndimage-interpolation/">Read more…</a></p>
-</div>
-    </div>
     </article>
 </div>
 
         <ul class="pager postindexpager clearfix">
 <li class="previous">
-                <a href="index-5.html" rel="next">Older posts</a>
+                <a href="index-6.html" rel="next">Older posts</a>
             </li>
 
             <li class="archive">

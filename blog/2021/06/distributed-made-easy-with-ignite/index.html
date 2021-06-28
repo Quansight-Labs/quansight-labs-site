@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Distributed code with PyTorch-Ignite">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Distributed Training Made Easy with PyTorch-Ignite | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2021/06/distributed-made-easy-with-ignite/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+   tex2jax: {
+       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
+       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+   },
+   displayAlign: 'center', // Change this to 'center' to center equations.
+   "HTML-CSS": {
+       styles: {'.MathJax_Display': {"margin": 0}}
+   }
+});
+</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-163785882-1');
+</script><link rel="stylesheet" type="text/css" href="../../../../assets/css/tipuesearch.css">
+<meta name="author" content="Victor Fomin">
+<link rel="prev" href="../pytest-pytorch/" title="Working with pytest on PyTorch" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="Distributed Training Made Easy with PyTorch-Ignite">
+<meta property="og:url" content="https://labs.quansight.org/blog/2021/06/distributed-made-easy-with-ignite/">
+<meta property="og:description" content="Distributed code with PyTorch-Ignite">
+<meta property="og:image" content="https://labs.quansight.org/images/pytorch-ignite/ignite_logo_mixed.png">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2021-06-28T08:00:00Z">
+<meta property="article:tag" content="Deep Learning">
+<meta property="article:tag" content="Distributed">
+<meta property="article:tag" content="Horovod">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="PyTorch">
+<meta property="article:tag" content="PyTorch DDP">
+<meta property="article:tag" content="PyTorch XLA">
+<meta property="article:tag" content="PyTorch-Ignite">
+<meta property="article:tag" content="SLURM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@quansightai">
+<meta property="twitter:image" content="https://labs.quansight.org/images/pytorch-ignite/ignite_logo_mixed.png">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="https://labs.quansight.org/">
+            <img src="../../../../images/QuansightLabs_logo_V1_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../" class="nav-link">Blog</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../team/" class="nav-link">Team</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../projects/" class="nav-link">Projects</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../about/" class="nav-link">About</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS</a>
+
+                
+            </li>
+</ul>
+<form class="navbar-form navbar-left" action="../../../../search" role="search">
+    <div class="form-group">
+        <input type="text" class="form-control" id="tipue_search_input" name="q" placeholder="Search…" autocomplete="off">
+</div>
+    <input type="submit" value="Local Search" style="visibility: hidden;"><!-- button type="submit" class="btn btn-default">Submit</button -->
+</form>
+
+
+            <ul class="navbar-nav navbar-right"></ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name">
+                <a href="." class="u-url">Distributed Training Made Easy with PyTorch-Ignite</a>
+            </h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    <a class="u-url" href="../../../../authors/victor-fomin/">Victor Fomin</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2021-06-28T08:00:00Z" itemprop="datePublished" title="2021-06-28">2021-06-28</time></a>
+            </p>
+            
+
+        </div>
+        
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/deep-learning/" rel="tag">Deep Learning</a></li>
+            <li><a class="tag p-category" href="../../../../categories/distributed/" rel="tag">Distributed</a></li>
+            <li><a class="tag p-category" href="../../../../categories/horovod/" rel="tag">Horovod</a></li>
+            <li><a class="tag p-category" href="../../../../categories/machine-learning/" rel="tag">Machine Learning</a></li>
+            <li><a class="tag p-category" href="../../../../categories/pytorch/" rel="tag">PyTorch</a></li>
+            <li><a class="tag p-category" href="../../../../categories/pytorch-ddp/" rel="tag">PyTorch DDP</a></li>
+            <li><a class="tag p-category" href="../../../../categories/pytorch-xla/" rel="tag">PyTorch XLA</a></li>
+            <li><a class="tag p-category" href="../../../../categories/pytorch-ignite/" rel="tag">PyTorch-Ignite</a></li>
+            <li><a class="tag p-category" href="../../../../categories/slurm/" rel="tag">SLURM</a></li>
+        </ul></header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<img alt="PyTorch-Ignite logo" src="../../../../images/pytorch-ignite/ignite_logo_mixed.png"><p>Authors: <a class="reference external" href="https://github.com/fco-dv">François Cokelaer</a>,
+<a class="reference external" href="https://github.com/Priyansi">Priyansi</a>, <a class="reference external" href="https://github.com/sdesrozis/">Sylvain
+Desroziers</a>, <a class="reference external" href="https://github.com/vfdev-5">Victor
+Fomin</a></p>
+<p>Writing <a class="reference external" href="https://en.wikipedia.org/wiki/Agnostic_(data)">agnostic</a>
+<a class="reference external" href="https://pytorch.org/tutorials/beginner/dist_overview.html">distributed
+code</a> that
+supports different platforms, hardware configurations (GPUs, TPUs) and
+communication frameworks is tedious. In this blog, we will discuss how
+<a class="reference external" href="https://pytorch.org/ignite/">PyTorch-Ignite</a> solves this problem
+with minimal code change.</p>
+<!-- TEASER_END -->
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#prerequisites" id="id3">Prerequisites</a></p></li>
+<li><p><a class="reference internal" href="#introduction" id="id4">Introduction</a></p></li>
+<li>
+<p><a class="reference internal" href="#id1" id="id5">🔥 Pytorch-Ignite Unified Distributed API</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id6">🔍 Focus on the helper <code class="docutils literal">auto_*</code> methods:</a></p></li>
+</ul>
+</li>
+<li>
+<p><a class="reference internal" href="#examples" id="id7">Examples</a></p>
+<ul>
+<li><p><a class="reference internal" href="#pytorch-ignite-torch-native-distributed-data-parallel-horovod-xla-tpus" id="id8">PyTorch-Ignite - Torch native Distributed Data Parallel - Horovod - XLA/TPUs</a></p></li>
+</ul>
+</li>
+<li>
+<p><a class="reference internal" href="#running-distributed-code" id="id9">Running Distributed Code</a></p>
+<ul>
+<li><p><a class="reference internal" href="#with-torch-multiprocessing-spawn" id="id10">With <code class="docutils literal">torch.multiprocessing.spawn</code></a></p></li>
+<li>
+<p><a class="reference internal" href="#with-distributed-launchers" id="id11">With Distributed launchers</a></p>
+<ul>
+<li><p><a class="reference internal" href="#with-torch-distributed-launch" id="id12">With torch.distributed.launch</a></p></li>
+<li><p><a class="reference internal" href="#with-horovodrun" id="id13">With horovodrun</a></p></li>
+<li><p><a class="reference internal" href="#with-slurm" id="id14">With slurm</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><a class="reference internal" href="#closing-remarks" id="id15">Closing Remarks</a></p>
+<ul>
+<li><p><a class="reference internal" href="#references" id="id16">References</a></p></li>
+<li><p><a class="reference internal" href="#next-steps" id="id17">Next Steps</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="prerequisites">
+<h2><a class="toc-backref" href="#id3">Prerequisites</a></h2>
+<p>This blog assumes you have some knowledge about:</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://pytorch.org/docs/stable/distributed.html#basics">PyTorch's distributed
+package</a>,
+the
+<a class="reference external" href="https://pytorch.org/docs/stable/distributed.html#backends">backends</a>
+and <a class="reference external" href="https://pytorch.org/docs/stable/distributed.html#collective-functions">collective
+functions</a>
+it provides. In this blog, we will focus on <a class="reference external" href="https://pytorch.org/tutorials/intermediate/ddp_tutorial.html">distributed data
+parallel
+code</a>.</p></li>
+<li><p><a class="reference external" href="https://pytorch.org/ignite/">PyTorch-Ignite</a>. Refer to this
+<a class="reference external" href="https://labs.quansight.org/blog/2020/09/pytorch-ignite/">blog</a>
+for a quick high-level overview.</p></li>
+</ol>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id4">Introduction</a></h2>
+<p><a class="reference external" href="https://github.com/pytorch/ignite">PyTorch-Ignite's</a>
+<a class="reference external" href="https://pytorch.org/ignite/distributed.html">ignite.distributed</a>
+(<code class="docutils literal">idist</code>) submodule introduced in version <a class="reference external" href="https://github.com/pytorch/ignite/releases/tag/v0.4.0.post1">v0.4.0 (July
+2020)</a>
+quickly turns single-process code into its data distributed version.</p>
+<p>Thus, you will now be able to run the same version of the code across
+all supported backends seamlessly:</p>
+<ul class="simple">
+<li><p>backends from native torch distributed configuration:
+<a class="reference external" href="https://github.com/NVIDIA/nccl">nccl</a>,
+<a class="reference external" href="https://github.com/facebookincubator/gloo">gloo</a>,
+<a class="reference external" href="https://www.open-mpi.org/">mpi</a></p></li>
+<li><p><a class="reference external" href="https://horovod.readthedocs.io/en/stable/">Horovod</a> framework
+with <code class="docutils literal">gloo</code> or <code class="docutils literal">nccl</code> communication backend</p></li>
+<li><p>XLA on TPUs via <a class="reference external" href="https://github.com/pytorch/xla">pytorch/xla</a></p></li>
+</ul>
+<p>In this blog post we will compare PyTorch-Ignite's API with torch
+native's distributed code and highlight the differences and ease of use
+of the former. We will also show how Ignite's <code class="docutils literal">auto_*</code> methods
+automatically make your code compatible with the aforementioned
+distributed backends so that you only have to bring your own model,
+optimizer and data loader objects.</p>
+<p>Code snippets, as well as commands for running all the scripts, are
+provided in a separate
+<a class="reference external" href="https://github.com/pytorch-ignite/idist-snippets">repository</a>.</p>
+<p>Then we will also cover several ways of spawning processes via torch
+native <code class="docutils literal">torch.multiprocessing.spawn</code> and also via multiple distributed
+launchers in order to highlight how Pytorch-Ignite's <code class="docutils literal">idist</code> can
+handle it without any changes to the code, in particular:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pytorch.org/docs/stable/multiprocessing.html#torch.multiprocessing.spawn">torch.multiprocessing.spawn</a></p></li>
+<li><p><a class="reference external" href="https://pytorch.org/docs/stable/distributed.html#launch-utility">torch.distributed.launch</a></p></li>
+<li><p><a class="reference external" href="https://horovod.readthedocs.io/en/stable/running_include.html">horovodrun</a></p></li>
+<li><p><a class="reference external" href="https://slurm.schedmd.com/">slurm</a></p></li>
+</ul>
+<p>More information on launchers experiments can be found
+<a class="reference external" href="https://github.com/sdesrozis/why-ignite">here</a>.</p>
+</div>
+<div class="section" id="id1">
+<span id="pytorch-ignite-unified-distributed-api"></span><h2><a class="toc-backref" href="#id5">🔥 Pytorch-Ignite Unified Distributed API</a></h2>
+<p>We need to write different code for different distributed backends. This
+can be tedious especially if you would like to run your code on
+different hardware configurations. Pytorch-Ignite's <code class="docutils literal">idist</code> will do
+all the work for you, owing to the high-level helper methods.</p>
+<div class="section" id="id2">
+<span id="focus-on-the-helper-auto-methods"></span><h3><a class="toc-backref" href="#id6">🔍 Focus on the helper <code class="docutils literal">auto_*</code> methods:</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pytorch.org/ignite/distributed.html#ignite.distributed.auto.auto_model">auto_model()</a></p></li>
+</ul>
+<p>This method adapts the logic for non-distributed and available
+distributed configurations. Here are the equivalent code snippets for
+distributed model instantiation:</p>
+<embed><div>
+      <table>
+<tr>
+<th style="text-align:center;">PyTorch-Ignite</th>
+            <th style="text-align:center;">PyTorch DDP</th>
+         </tr>
+<tr>
+<td colspan="2"> <img src="../../../../images/pytorch-ignite/distributed-made-easy-with-ignite/ignite_vs_ddp_automodel.png">
+</td>
+         </tr>
+<tr>
+<td> </td>
+         </tr>
+<tr>
+<th style="text-align:center;">Horovod</th>
+            <th style="text-align:center;">Torch XLA</th>
+         </tr>
+<tr>
+<td colspan="2"><img src="../../../../images/pytorch-ignite/distributed-made-easy-with-ignite/horovod_vs_xla_automodel.png"></td>
+         </tr>
+</table>
+</div>
+</embed><div class="line-block">
+<div class="line"><br></div>
+</div>
+<p>Additionally, it is also compatible with <a class="reference external" href="https://github.com/NVIDIA/apex">NVIDIA/apex</a></p>
+<pre class="code python"><a name="rest_code_2eb3a02179ff4304a1222f796a5463f5-1"></a><span class="n">model</span><span class="p">,</span> <span class="n">optimizer</span> <span class="o">=</span> <span class="n">amp</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">opt_level</span><span class="o">=</span><span class="n">opt_level</span><span class="p">)</span>
+<a name="rest_code_2eb3a02179ff4304a1222f796a5463f5-2"></a><span class="n">model</span> <span class="o">=</span> <span class="n">idist</span><span class="o">.</span><span class="n">auto_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre>
+<p>and <a class="reference external" href="https://pytorch.org/docs/stable/amp.html">Torch native AMP</a></p>
+<pre class="code python"><a name="rest_code_c8e757526aa646ee88addcf863269a5a-1"></a><span class="n">model</span> <span class="o">=</span> <span class="n">idist</span><span class="o">.</span><span class="n">auto_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<a name="rest_code_c8e757526aa646ee88addcf863269a5a-2"></a>
+<a name="rest_code_c8e757526aa646ee88addcf863269a5a-3"></a><span class="k">with</span> <span class="n">autocast</span><span class="p">():</span>
+<a name="rest_code_c8e757526aa646ee88addcf863269a5a-4"></a>    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pytorch.org/ignite/distributed.html#ignite.distributed.auto.auto_model">auto_optim()</a></p></li>
+</ul>
+<p>This method adapts the optimizer logic for non-distributed and available
+distributed configurations seamlessly. Here are the equivalent code
+snippets for distributed optimizer instantiation:</p>
+<embed><div>
+      <table>
+<tr>
+<th style="text-align:center;">PyTorch-Ignite</th>
+            <th style="text-align:center;">PyTorch DDP</th>
+         </tr>
+<tr>
+<td colspan="2"> <img src="../../../../images/pytorch-ignite/distributed-made-easy-with-ignite/ignite_vs_ddp_autooptim.png">
+</td>
+         </tr>
+<tr>
+<td> </td>
+         </tr>
+<tr>
+<th style="text-align:center;">Horovod</th>
+            <th style="text-align:center;">Torch XLA</th>
+         </tr>
+<tr>
+<td colspan="2"><img src="../../../../images/pytorch-ignite/distributed-made-easy-with-ignite/horovod_vs_xla_autooptim.png"></td>
+         </tr>
+</table>
+</div>
+</embed><div class="line-block">
+<div class="line"><br></div>
+</div>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pytorch.org/ignite/distributed.html#ignite.distributed.auto.auto_dataloader">auto_dataloader()</a></p></li>
+</ul>
+<p>This method adapts the data loading logic for non-distributed and
+available distributed configurations seamlessly on target devices.</p>
+<p>Additionally, <code class="docutils literal">auto_dataloader()</code> automatically scales the batch size
+according to the distributed configuration context resulting in a
+general way of loading sample batches on multiple devices.</p>
+<p>Here are the equivalent code snippets for the distributed data loading
+step:</p>
+<embed><div>
+      <table>
+<tr>
+<th style="text-align:center;">PyTorch-Ignite</th>
+            <th style="text-align:center;">PyTorch DDP</th>
+         </tr>
+<tr>
+<td colspan="2"> <img src="../../../../images/pytorch-ignite/distributed-made-easy-with-ignite/ignite_vs_ddp_autodataloader.png">
+</td>
+         </tr>
+<tr>
+<td> </td>
+         </tr>
+<tr>
+<th style="text-align:center;">Horovod</th>
+            <th style="text-align:center;">Torch XLA</th>
+         </tr>
+<tr>
+<td colspan="2"><img src="../../../../images/pytorch-ignite/distributed-made-easy-with-ignite/horovod_vs_xla_autodataloader.png"></td>
+         </tr>
+</table>
+</div>
+</embed><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Additionally, <code class="docutils literal">idist</code> provides collective operations like
+<code class="docutils literal">all_reduce</code>, <code class="docutils literal">all_gather</code>, and <code class="docutils literal">broadcast</code> that can be used
+with all supported distributed frameworks. Please, see <a class="reference external" href="https://pytorch.org/ignite/distributed.html#ignite-distributed-utils">our
+documentation</a>
+for more details.</p>
+</div>
+</div>
+</div>
+<div class="section" id="examples">
+<h2><a class="toc-backref" href="#id7">Examples</a></h2>
+<p>The code snippets below highlight the API's specificities of each of the
+distributed backends on the same use case as compared to the <code class="docutils literal">idist</code>
+API. PyTorch native code is available for DDP, Horovod, and for XLA/TPU
+devices.</p>
+<p>PyTorch-Ignite's unified code snippet can be run with the standard PyTorch
+backends like <code class="docutils literal">gloo</code> and <code class="docutils literal">nccl</code> and also with Horovod and XLA for
+TPU devices. Note that the code is less verbose, however, the user still
+has full control of the training loop.</p>
+<p>The following examples are introductory. For a more robust,
+production-grade example that uses PyTorch-Ignite, refer
+<a class="reference external" href="https://github.com/pytorch/ignite/tree/master/examples/contrib/cifar10">here</a>.</p>
+<p>The complete source code of these experiments can be found
+<a class="reference external" href="https://github.com/pytorch-ignite/idist-snippets">here</a>.</p>
+<div class="section" id="pytorch-ignite-torch-native-distributed-data-parallel-horovod-xla-tpus">
+<h3><a class="toc-backref" href="#id8">PyTorch-Ignite - Torch native Distributed Data Parallel - Horovod - XLA/TPUs</a></h3>
+<embed><div>
+      <table>
+<tr>
+<th style="text-align:center; padding: 0;">
+               <h4><b><u>PyTorch-Ignite</u></b></h4>
+</th>
+            <th style="text-align:center; padding: 0;">
+               <h4><b><u>PyTorch DDP</u></b></h4>
+</th>
+         </tr>
+<tr>
+<td style="text-align:center; padding: 0;"> <a href="https://github.com/pytorch-ignite/idist-snippets/blob/master/ignite_idist.py"><h4>Source Code</h4></a> 
+            </td>
+<td style="text-align:center; padding: 0;"> <a href="https://github.com/pytorch-ignite/idist-snippets/blob/master/torch_native.py"><h4>Source Code</h4></a> 
+         </td>
+</tr>
+<tr>
+<td colspan="2"> <img src="../../../../images/pytorch-ignite/distributed-made-easy-with-ignite/ignite_vs_ddp_whole.png">
+</td>
+         </tr>
+<tr>
+<th style="text-align:center;">
+               <h4><b><u>Horovod</u></b></h4>
+</th>
+            <th style="text-align:center;">
+               <h4><b><u>Torch XLA</u></b></h4>
+</th>
+         </tr>
+<tr>
+<td style="text-align:center;"> <a href="https://github.com/pytorch-ignite/idist-snippets/blob/master/torch_horovod.py"><h4>Source Code</h4></a> 
+            </td>
+<td style="text-align:center;"> <a href="https://github.com/pytorch-ignite/idist-snippets/blob/master/torch_xla_native.py"><h4>Source Code</h4></a> 
+         </td>
+</tr>
+<tr>
+<td> <img src="../../../../images/pytorch-ignite/distributed-made-easy-with-ignite/horovod_whole.png">
+</td>
+            <td> <img src="../../../../images/pytorch-ignite/distributed-made-easy-with-ignite/xla_whole.png">
+</td>
+         </tr>
+</table>
+</div>
+</embed><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can also mix the usage of <code class="docutils literal">idist</code> with other distributed APIs as below:</p>
+<pre class="code python"><a name="rest_code_94a7666a89d046c8802614a7ac4b649f-1"></a><span class="n">dist</span><span class="o">.</span><span class="n">init_process_group</span><span class="p">(</span><span class="n">backend</span><span class="p">,</span> <span class="n">store</span><span class="o">=...</span><span class="p">,</span> <span class="n">world_size</span><span class="o">=</span><span class="n">world_size</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="n">rank</span><span class="p">)</span>
+<a name="rest_code_94a7666a89d046c8802614a7ac4b649f-2"></a>
+<a name="rest_code_94a7666a89d046c8802614a7ac4b649f-3"></a><span class="n">rank</span> <span class="o">=</span> <span class="n">idist</span><span class="o">.</span><span class="n">get_rank</span><span class="p">()</span>
+<a name="rest_code_94a7666a89d046c8802614a7ac4b649f-4"></a><span class="n">ws</span> <span class="o">=</span> <span class="n">idist</span><span class="o">.</span><span class="n">get_world_size</span><span class="p">()</span>
+<a name="rest_code_94a7666a89d046c8802614a7ac4b649f-5"></a><span class="n">model</span> <span class="o">=</span> <span class="n">idist</span><span class="o">.</span><span class="n">auto_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<a name="rest_code_94a7666a89d046c8802614a7ac4b649f-6"></a>
+<a name="rest_code_94a7666a89d046c8802614a7ac4b649f-7"></a><span class="n">dist</span><span class="o">.</span><span class="n">destroy_process_group</span><span class="p">()</span>
+</pre>
+</div>
+</div>
+</div>
+<div class="section" id="running-distributed-code">
+<h2><a class="toc-backref" href="#id9">Running Distributed Code</a></h2>
+<div class="line-block">
+<div class="line">PyTorch-Ignite's <code class="docutils literal">idist</code> also unifies the distributed codes
+launching method and makes the distributed configuration setup easier
+with the
+<a class="reference external" href="https://pytorch.org/ignite/distributed.html#ignite.distributed.launcher.Parallel">ignite.distributed.launcher.Parallel (idist Parallel)</a>
+context manager.</div>
+<div class="line">This context manager has the capability to either spawn
+<code class="docutils literal">nproc_per_node</code> (passed as a script argument) child processes and
+initialize a processing group according to the provided backend or use
+tools like <code class="docutils literal">torch.distributed.launch</code>, <code class="docutils literal">slurm</code>, <code class="docutils literal">horovodrun</code> by
+initializing the processing group given the <code class="docutils literal">backend</code> argument only
+in a general way.</div>
+</div>
+<div class="section" id="with-torch-multiprocessing-spawn">
+<h3><a class="toc-backref" href="#id10">With <code class="docutils literal">torch.multiprocessing.spawn</code></a></h3>
+<p>In this case <code class="docutils literal">idist Parallel</code> is using the native torch
+<code class="docutils literal">torch.multiprocessing.spawn</code> method under the hood in order to run
+the distributed configuration. Here <code class="docutils literal">nproc_per_node</code> is passed as a
+spawn argument.</p>
+<ul class="simple">
+<li><p>Running multiple distributed configurations with one code. Source:
+<a class="reference external" href="https://github.com/pytorch-ignite/idist-snippets/blob/master/ignite_idist.py">ignite_idist.py</a>:</p></li>
+</ul>
+<pre class="code bash"><a name="rest_code_38feb09dff604b6096ed7ad0af96cf98-1"></a><span class="c1"># Running with gloo</span>
+<a name="rest_code_38feb09dff604b6096ed7ad0af96cf98-2"></a>python -u ignite_idist.py --nproc_per_node <span class="m">2</span> --backend gloo
+<a name="rest_code_38feb09dff604b6096ed7ad0af96cf98-3"></a>
+<a name="rest_code_38feb09dff604b6096ed7ad0af96cf98-4"></a><span class="c1"># Running with nccl</span>
+<a name="rest_code_38feb09dff604b6096ed7ad0af96cf98-5"></a>python -u ignite_idist.py --nproc_per_node <span class="m">2</span> --backend nccl
+<a name="rest_code_38feb09dff604b6096ed7ad0af96cf98-6"></a>
+<a name="rest_code_38feb09dff604b6096ed7ad0af96cf98-7"></a><span class="c1"># Running with horovod with gloo controller ( gloo or nccl support )</span>
+<a name="rest_code_38feb09dff604b6096ed7ad0af96cf98-8"></a>python -u ignite_idist.py --backend horovod --nproc_per_node <span class="m">2</span>
+<a name="rest_code_38feb09dff604b6096ed7ad0af96cf98-9"></a>
+<a name="rest_code_38feb09dff604b6096ed7ad0af96cf98-10"></a><span class="c1"># Running on xla/tpu</span>
+<a name="rest_code_38feb09dff604b6096ed7ad0af96cf98-11"></a>python -u ignite_idist.py --backend xla-tpu --nproc_per_node <span class="m">8</span> --batch_size <span class="m">32</span>
+</pre>
+</div>
+<div class="section" id="with-distributed-launchers">
+<h3><a class="toc-backref" href="#id11">With Distributed launchers</a></h3>
+<p>PyTorch-Ignite's <code class="docutils literal">idist Parallel</code> context manager is also compatible
+with multiple distributed launchers.</p>
+<div class="section" id="with-torch-distributed-launch">
+<h4><a class="toc-backref" href="#id12">With torch.distributed.launch</a></h4>
+<p>Here we are using the <code class="docutils literal">torch.distributed.launch</code> script in order to
+spawn the processes:</p>
+<pre class="code bash"><a name="rest_code_61184516d03146bfb681475dd1b95483-1"></a>python -m torch.distributed.launch --nproc_per_node <span class="m">2</span> --use_env ignite_idist.py --backend gloo
+</pre>
+</div>
+<div class="section" id="with-horovodrun">
+<h4><a class="toc-backref" href="#id13">With horovodrun</a></h4>
+<pre class="code bash"><a name="rest_code_ad26dd4d7f8041b49bafefe7e7b2cd2b-1"></a>horovodrun -np <span class="m">4</span> -H hostname1:2,hostname2:2 python ignite_idist.py --backend horovod
+</pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In order to run this example and to avoid the installation procedure, you can pull one of PyTorch-Ignite's <a class="reference external" href="https://github.com/pytorch/ignite/blob/master/docker/hvd/Dockerfile.hvd-base">docker image with pre-installed Horovod</a>. It will include Horovod with <code class="docutils literal">gloo</code> controller and <code class="docutils literal">nccl</code> support.</p>
+<pre class="code bash"><a name="rest_code_0e7418c8f8344cc590e79f5316e903a3-1"></a>docker run --gpus all -it -v <span class="nv">$PWD</span>:/project pytorchignite/hvd-vision:latest /bin/bash
+<a name="rest_code_0e7418c8f8344cc590e79f5316e903a3-2"></a><span class="nb">cd</span> project
+</pre>
+</div>
+</div>
+<div class="section" id="with-slurm">
+<h4><a class="toc-backref" href="#id14">With slurm</a></h4>
+<p>The same result can be achieved by using <code class="docutils literal">slurm</code> without any
+modification to the code:</p>
+<pre class="code bash"><a name="rest_code_3dd940eef0f84281bc1743d2b1efb8ce-1"></a>srun --nodes<span class="o">=</span><span class="m">2</span>
+<a name="rest_code_3dd940eef0f84281bc1743d2b1efb8ce-2"></a>     --ntasks-per-node<span class="o">=</span><span class="m">2</span>
+<a name="rest_code_3dd940eef0f84281bc1743d2b1efb8ce-3"></a>     --job-name<span class="o">=</span>pytorch-ignite
+<a name="rest_code_3dd940eef0f84281bc1743d2b1efb8ce-4"></a>     --time<span class="o">=</span><span class="m">00</span>:01:00
+<a name="rest_code_3dd940eef0f84281bc1743d2b1efb8ce-5"></a>     --partition<span class="o">=</span>gpgpu
+<a name="rest_code_3dd940eef0f84281bc1743d2b1efb8ce-6"></a>     --gres<span class="o">=</span>gpu:2
+<a name="rest_code_3dd940eef0f84281bc1743d2b1efb8ce-7"></a>     --mem<span class="o">=</span>10G
+<a name="rest_code_3dd940eef0f84281bc1743d2b1efb8ce-8"></a>     python ignite_idist.py --backend nccl
+</pre>
+<p>or using <code class="docutils literal">sbatch script.bash</code> with the script file <code class="docutils literal">script.bash</code>:</p>
+<pre class="code shell"><a name="rest_code_830f92f995624354be8236cc950d1e42-1"></a><span class="ch">#!/bin/bash</span>
+<a name="rest_code_830f92f995624354be8236cc950d1e42-2"></a><span class="c1">#SBATCH --job-name=pytorch-ignite</span>
+<a name="rest_code_830f92f995624354be8236cc950d1e42-3"></a><span class="c1">#SBATCH --output=slurm_%j.out</span>
+<a name="rest_code_830f92f995624354be8236cc950d1e42-4"></a><span class="c1">#SBATCH --nodes=2</span>
+<a name="rest_code_830f92f995624354be8236cc950d1e42-5"></a><span class="c1">#SBATCH --ntasks-per-node=2</span>
+<a name="rest_code_830f92f995624354be8236cc950d1e42-6"></a><span class="c1">#SBATCH --time=00:01:00</span>
+<a name="rest_code_830f92f995624354be8236cc950d1e42-7"></a><span class="c1">#SBATCH --partition=gpgpu</span>
+<a name="rest_code_830f92f995624354be8236cc950d1e42-8"></a><span class="c1">#SBATCH --gres=gpu:2</span>
+<a name="rest_code_830f92f995624354be8236cc950d1e42-9"></a><span class="c1">#SBATCH --mem=10G</span>
+<a name="rest_code_830f92f995624354be8236cc950d1e42-10"></a>
+<a name="rest_code_830f92f995624354be8236cc950d1e42-11"></a>srun python ignite_idist.py --backend nccl
+</pre>
+</div>
+</div>
+</div>
+<div class="section" id="closing-remarks">
+<h2><a class="toc-backref" href="#id15">Closing Remarks</a></h2>
+<p>As we saw through the above examples, managing multiple configurations
+and specifications for distributed computing has never been easier. In
+just a few lines we can parallelize and execute code wherever it is
+while maintaining control and simplicity.</p>
+<div class="section" id="references">
+<h3><a class="toc-backref" href="#id16">References</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/pytorch-ignite/idist-snippets/">idist-snippets</a>:
+complete code used in this post.</p></li>
+<li><p><a class="reference external" href="https://github.com/sdesrozis/why-ignite">why-ignite</a>: examples
+with distributed data parallel: native pytorch, pytorch-ignite,
+slurm.</p></li>
+<li><p><a class="reference external" href="https://github.com/pytorch/ignite/tree/master/examples/contrib/cifar10">CIFAR10
+example</a>
+of distributed training on CIFAR10 with muliple configurations: 1 or
+multiple GPUs, multiple nodes and GPUs, TPUs.</p></li>
+</ul>
+</div>
+<div class="section" id="next-steps">
+<h3><a class="toc-backref" href="#id17">Next Steps</a></h3>
+<ul class="simple">
+<li><p>If you want to learn more about PyTorch-Ignite or have any further
+queries, here is our <a class="reference external" href="https://github.com/pytorch/ignite">GitHub</a>,
+<a class="reference external" href="https://pytorch.org/ignite/">documentation</a> and
+<a class="reference external" href="https://discord.com/invite/djZtm3EmKj">Discord</a>.</p></li>
+<li><p>PyTorch-Ignite is currently maintained by a team of volunteers and we
+are looking for more contributors.
+See <a class="reference external" href="https://github.com/pytorch/ignite/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a>
+for how you can contribute.</p></li>
+<li><p>Keep updated with all PyTorch-Ignite news by following us on
+<a class="reference external" href="https://twitter.com/pytorch_ignite">Twitter</a> and
+<a class="reference external" href="https://facebook.com/PyTorch-Ignite-Community-105837321694508">Facebook</a>.</p></li>
+</ul>
+</div>
+</div>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/deep-learning/" rel="tag">Deep Learning</a></li>
+            <li><a class="tag p-category" href="../../../../categories/distributed/" rel="tag">Distributed</a></li>
+            <li><a class="tag p-category" href="../../../../categories/horovod/" rel="tag">Horovod</a></li>
+            <li><a class="tag p-category" href="../../../../categories/machine-learning/" rel="tag">Machine Learning</a></li>
+            <li><a class="tag p-category" href="../../../../categories/pytorch/" rel="tag">PyTorch</a></li>
+            <li><a class="tag p-category" href="../../../../categories/pytorch-ddp/" rel="tag">PyTorch DDP</a></li>
+            <li><a class="tag p-category" href="../../../../categories/pytorch-xla/" rel="tag">PyTorch XLA</a></li>
+            <li><a class="tag p-category" href="../../../../categories/pytorch-ignite/" rel="tag">PyTorch-Ignite</a></li>
+            <li><a class="tag p-category" href="../../../../categories/slurm/" rel="tag">SLURM</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../pytest-pytorch/" rel="prev" title="Working with pytest on PyTorch">Previous post</a>
+            </li>
+
+            <li class="archive">
+                <a href="../../../../archive.html" rel="archive" title="Archive ">Archive</a>
+            </li>
+
+            <li class="next disabled">
+                <a rel="next">Next post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2021         <a href="../../../../team">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>
