@@ -249,7 +249,7 @@ distributed backends on the same use case as compared to the ``idist``
 API. PyTorch native code is available for DDP, Horovod, and for XLA/TPU
 devices.
 
-PyTorch-Ignite's unified code snippet can be run with the standard Torch
+PyTorch-Ignite's unified code snippet can be run with the standard PyTorch
 backends like ``gloo`` and ``nccl`` and also with Horovod and XLA for
 TPU devices. Note that the code is less verbose, however, the user still
 has full control of the training loop.
