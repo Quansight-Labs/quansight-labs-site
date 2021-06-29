@@ -1,7 +1,7 @@
 <!--
 .. title: Better Jupyter Interactive Sessions with Pyflyby
 .. slug: better-interactive-jupyter-sessions-with-pyflyby
-.. date: 2021-07-01 08:00:00 UTC-00:00
+.. date: 2021-08-02 10:00:00 UTC-00:00
 .. author: Matthias Bussonnier, Aaron Meurer, 
 .. tags: Labs, Pyflyby, Deshaw
 .. category:
@@ -53,7 +53,7 @@ Python.  Pyflyby provide a number of utilities and extensions that make day to d
 with Python faster or simpler.
 
 ![gif of pyflyby in action, IPython is opened, typing cos(arange(10)) automatically import arange and cos from numpy
-before executing the code.](/images/2021/07/pfb-autoimport.gif)
+before executing the code.](/images/2021/08/pfb-autoimport.gif)
 
 ## Autoimport
 
@@ -82,7 +82,7 @@ Of course with the `jupyterlab-pyflyby` extension, not only will the imports be
 executed, but those imports will be inserted in the first cell of your notebook. 
 
 ![pyflyby-jupyterlab animation, executing the second cell with missing imports still import those and insert them in the
-first cell](/images/2021/07/jlpfb.gif)
+first cell](/images/2021/08/jlpfb.gif)
 
 ## tidy-import
 
@@ -147,7 +147,7 @@ $ py 'plot(scipy.stats.norm.pdf(linspace(-5, 5), 0, 1))'
 [<matplotlib.lines.Line2D object at 0x132981940>]
 ```
 
-![using pyflyby from bash to plot with matplotlib with above snippet, at matplotlib widow is open and show the plot.](/images/2021/07/py-exec-matplotlib.png)
+![using pyflyby from bash to plot with matplotlib with above snippet, at matplotlib widow is open and show the plot.](/images/2021/08/py-exec-matplotlib.png)
 
 `find-import` can be useful to find the function you are looking for in many
 libraries by returning the relevant import.
