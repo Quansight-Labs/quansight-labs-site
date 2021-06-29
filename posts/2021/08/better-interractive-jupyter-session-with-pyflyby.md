@@ -1,7 +1,7 @@
 <!--
 .. title: Better Jupyter Interactive Sessions with Pyflyby
 .. slug: better-interactive-jupyter-sessions-with-pyflyby
-.. date: 2021-08-02 10:00:00 UTC-00:00
+.. date: 2021-08-09 10:00:00 UTC-00:00
 .. author: Matthias Bussonnier, Aaron Meurer, 
 .. tags: Labs, Pyflyby, Deshaw
 .. category:
