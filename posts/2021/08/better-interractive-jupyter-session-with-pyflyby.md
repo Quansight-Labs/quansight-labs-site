@@ -41,7 +41,7 @@ code.](/images/2021/08/pfb-autoimport.gif)
 
 ## Autoimport
 
-One of pyflyby’s key capabilities is automatic importing of commonly used
+One of pyflyby's key capabilities is automatic importing of commonly used
 modules and objects, leading to simpler, faster, and less disruptive coding. In
 a new session, for example, one can type:
 
@@ -57,7 +57,7 @@ correct import, and confirm with a clear message:
 [PYFLYBY] from numpy import sin
 ```
 
-pyflyby will do the same when running a command line file via
+Pyflyby will also do so when running a command line file via
 the `py` executable replacing python.
 
 With the jupyterlab-pyflyby extension, imports will be executed and inserted in
@@ -106,7 +106,7 @@ manipulating and executing Python code. (Please refer to pyflyby's
 [README](https://github.com/deshaw/pyflyby) for additional information.)
 
 `py` is one such example. It is a flexible tool that can be used either to start
-IPython or to execute commands quickly from the developer’s shell without the
+IPython or to execute commands quickly from the developer's shell without the
 need for imports. It supports a range of syntax options, allowing for quick
 calculation and graph plotting.
 
@@ -164,7 +164,7 @@ science-focused libraries. For example:
 
 # Conclusion
 
-Pyflyby’s utilities are designed to improve developer efficiency and materially
+Pyflyby's utilities are designed to improve developer efficiency and materially
 reduce the impact of interruption on productivity. Its value, however, is
 broader than that. Pyflyby expands what is capable within the Python ecosystem
 and has helped identify a number of limitations and bugs in Python and IPython
