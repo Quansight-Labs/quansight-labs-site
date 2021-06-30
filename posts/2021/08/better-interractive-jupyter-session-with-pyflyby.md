@@ -1,8 +1,8 @@
 <!--
-.. title: Better Jupyter Interactive Sessions with Pyflyby
-.. slug: better-interactive-jupyter-sessions-with-pyflyby
-.. date: 2021-08-07 10:00:00 UTC-00:00
-.. author: Matthias Bussonnier, Aaron Meurer, 
+.. title: Pyflyby: Improving Efficiency of Jupyter Interactive Sessions
+.. slug: pyflyby-improving-efficiency-of-jupyter-interactive-sessions
+.. date: 2021-08-13 10:00:00 UTC-00:00
+.. author: Matthias Bussonnier, Aaron Meurer,
 .. tags: Labs, Pyflyby, Deshaw
 .. category:
 .. link:
@@ -10,65 +10,47 @@
 .. type: text
 -->
 
-Few things hinder productivity more than interruption.  When you are deep in
-a complex analysis and a notification, random thought, or unrelated error pops up, 
-your train of thought can get lost.  This can be a frustrating experience.
+Interruption hinder productivity more than interruption. A notification, random
+realization, or unrelated error can derail one's train of thought when deep in a
+complex analysis – a frustrating experience.
 
-Forgetting an import statement in an interactive session in Jupyter is one of
-those experiences. This is especially frustrating when using typical
-abbreviations, like `np`, `pd`, `plt` where to the human reader it is obvious
-what is meant, but not to the computer. The time-to-first-plot, and the 
-ability to quickly cleanup one's notebook afterward are critical to an enjoyable 
-and efficient workflow. 
+In the software development context, forgetting to import a statement in an
+interactive Jupyter session is such and experience. This can be especially
+frustrating when using typical abbreviations, like `np`, `pd`, `plt`, where the
+meaning is obvious to the human reader, but not to the computer. The
+time-to-first-plot, and ability to quickly cleanup one's notebook afterward
+are critical to an enjoyable and efficient workflow.
 
-In this blogpost we'll present to you
-[pyflyby](https://github.com/deshaw/pyflyby), a project and an extension to
-IPython and [JupyterLab](https://github.com/deshaw/jupyterlab-pyflyby), which,
-among many things, will automatically insert imports for you and tidy your
-python files and notebooks. 
+In this blogpost we present [pyflyby](https://github.com/deshaw/pyflyby), a
+project and an extension to IPython and
+[JupyterLab](https://github.com/deshaw/jupyterlab-pyflyby), that, among many
+things, automatically inserts imports and tidies Python files and notebooks.
 
 <!-- TEASER_END -->
 
-# How to get pyflyby
-
-If you are the [TL:DR;](https://en.wikipedia.org/wiki/Wikipedia:Too_long;_didn%27t_read) kind, 
-head [here](https://github.com/deshaw/pyflyby), and if you are a terminal IPython user:
-
-```
-$ pip install pyflyby 
-$ py pyflyby.install_in_ipython_config_file
-```
-
-You can now use IPython as usual, but you don't need to write most of the import statements.  Read on
-for more.
-
-JupyterLab users can also install [the JupyterLab
-Extension](https://github.com/deshaw/jupyterlab-pyflyby) which is notebook
-aware, enabling even more features. 
 
 # What is pyflyby?
 
-Pyflyby is a set of tools to improve interactive and non-interactive workflows in
-Python.  Pyflyby provide a number of utilities and extensions that make day to day work
-with Python faster or simpler.
+Pyflyby is a set of tools designed to improve interactive and non-interactive
+workflows in Python. Pyflyby provides a number of utilities and extensions aimed
+at making day-to-day work in Python faster and simpler.
 
-![gif of pyflyby in action, IPython is opened, typing cos(arange(10)) automatically import arange and cos from numpy
-before executing the code.](/images/2021/08/pfb-autoimport.gif)
+![gif of pyflyby in action, IPython is opened, typing cos(arange(10))
+automatically import arange and cos from numpy before executing the
+code.](/images/2021/08/pfb-autoimport.gif)
 
 ## Autoimport
 
-As you see in the introduction gif, one of the
-capabilities of Pyflyby is to automatically import modules and objects that are
-commonly used, leading to simpler, faster and less disruptive coding. In a new
-session this lets you for example type:
+One of pyflyby’s key capabilities is automatic importing of commonly used
+modules and objects, leading to simpler, faster, and less disruptive coding. In
+a new session, for example, one can type:
 
 ```python
 sin(arange(10))
 ```
 
-And Pyflyby will hook into the execution mechanism of Python, execute the
-correct import when necessary, and inform you of it with a message (Explicit is better than
-implicit):
+Pyflyby will then hook into the execution mechanism of Python, execute the
+correct import, and confirm with a clear message:
 
 ```text
 [PYFLYBY] from numpy import arange
@@ -78,25 +60,28 @@ implicit):
 pyflyby will do the same when running a command line file via
 the `py` executable replacing python.
 
-Of course with the `jupyterlab-pyflyby` extension, not only will the imports be
-executed, but those imports will be inserted in the first cell of your notebook. 
+With the jupyterlab-pyflyby extension, imports will be executed and inserted in
+the first cell of one's notebook:
 
-![pyflyby-jupyterlab animation, executing the second cell with missing imports still import those and insert them in the
-first cell](/images/2021/08/jlpfb.gif)
+
+![pyflyby-jupyterlab animation, executing the second cell with missing imports
+still import those and insert them in the first cell](/images/2021/08/jlpfb.gif)
 
 ## tidy-import
 
-Being able to seamlessly import the right libraries while exploring is useful.  
-So is having scripts and notebooks with explicit and correct imports. 
+In addition to the extension that can seamlessly import the right libraries
+while exploring, another pyflyby feature helps to maintain scripts and notebooks
+with explicit and correct imports.
 
-Pyflyby expose the `tidy-import` command line tool to gather, insert, and format
-imports in python files. This is similar to
+Pyflyby displays the `tidy-import` command line tool to gather, insert, and
+format imports in Python files. This is similar to tools such as
 [black](https://pypi.org/project/black/) and
-[isort](https://pypi.org/project/isort/) but with different styling options; though
-neither of those are able to infer missing imports, which Pyflyby does.
+[isort](https://pypi.org/project/isort/), but with different styling options and
+with the ability to infer missing imports.
 
-`tidy-import` would thus include the imports to pandas and matplotlib, like in the
-following example, and ask you whether to update the file.
+
+`tidy-import` includes the imports to pandas and matplotlib, as in the example
+below, and queries whether to update the file:
 
 ```diff
 $ tidy-imports example.py
@@ -116,18 +101,20 @@ Replace example.py? [y/N]
 
 ## Other utilities
 
-Pyflyby contains a number of other utilities to make it convenient to
-manipulate or execute python code.  Refer to Pyflyby's 
-[README](https://github.com/deshaw/pyflyby) for more information.
+Pyflyby contains a number of other utilities to improve the efficiency of
+manipulating and executing Python code. (Please refer to pyflyby's
+[README](https://github.com/deshaw/pyflyby) for additional information.)
 
-`py` is just one of my preferred ones. It is a Swiss Army Knife to either start
-IPython or quickly execute commands from my shell without the need for imports. 
-It supports many syntax options, allowing for quick calculation and making graphs. 
+`py` is one such example. It is a flexible tool that can be used either to start
+IPython or to execute commands quickly from the developer’s shell without the
+need for imports. It supports a range of syntax options, allowing for quick
+calculation and graph plotting.
 
-- Without any parameters, it will start IPython with the Pyflyby extension
-  activated.
-- With space-separated arguments, it will try to interpret them as Python
-  function calls with the right imports.
+ - Without any parameters, `py` will start IPython with the pyflyby extension
+   activated.
+ - With space-separated arguments, `py` will attempt to interpret each argument
+   as a Python function call with the right imports:
+
 
 ```bash
 $ py np.random.normal 0 1
@@ -136,7 +123,7 @@ $ py np.random.normal 0 1
 -0.027577422117386
 ```
 
-- or run a python expression when more control over the values is necessary:
+- When more control over values is necessary, `py` will run a Python expression:
 
 ```bash
 $ py 'plot(scipy.stats.norm.pdf(linspace(-5, 5), 0, 1))'
@@ -149,51 +136,54 @@ $ py 'plot(scipy.stats.norm.pdf(linspace(-5, 5), 0, 1))'
 
 ![using pyflyby from bash to plot with matplotlib with above snippet, at matplotlib widow is open and show the plot.](/images/2021/08/py-exec-matplotlib.png)
 
-`find-import` can be useful to find the function you are looking for in many
-libraries by returning the relevant import.
+`find-import` , another utility available in pyflyby, can be deployed to find a
+particular function across many libraries by returning the relevant import.  For
+example:
 
 ```bash
 $ find-import norm
 from scipy.stats.distributions import norm
 ```
 
-# Highly technical with a wide Python supported codebase
+# Notes on pyflyby codebase
 
-If you are looking for an atypical codebase to learn about new datastructures or
-programming paradigms, the [Pyflyby
-codebase](https://github.com/deshaw/pyflyby) is worth looking into. You will
-find that its use of modules and programing concepts are rarely found in
-more classical data science focused libraries. For example:
+The [Pyflyby codebase](https://github.com/deshaw/pyflyby) provides a window into
+advanced data structures and programming paradigms. Its use of modules and
+programming concepts are unusual relative to those found in more classical data
+science-focused libraries. For example:
 
- - Pyflyby will do some non-trivial manipulation of the Python Abstract Syntax
-   Tree (AST). The Python AST represents the code you write in the form of a
-   tree, and Pyflyby uses it to find the missing imports and insert them. This
-   is a feat in itself, but Pyflyby manages to do so even with the Python AST's
-   exact representation changing with almost every minor release. 
+ - Pyflyby will conduct non-trivial manipulation of the Python Abstract Syntax
+   Tree (AST), which represents code written in tree form. Pyflyby uses AST to
+   find and insert missing imports, and it does so even as AST's exact
+   representation changes with almost every minor release.
 
- - Pyflyby also exposes some programing paradigms that might not be familiar to
-   everyone. There I discovered [Aspect-Oriented
-   programming](https://en.wikipedia.org/wiki/Aspect-oriented_programming), which
-   also shows some of the flexibility of the Python programming model.
+ - Pyflyby demonstrates the use of  [Aspect-Oriented
+   programming](https://en.wikipedia.org/wiki/Aspect-oriented_programming),
+   which highlights the flexibility of the Python programming model.
 
-# Contribution to the wider ecosystem
-
-While Pyflyby is itself a really useful project, its impact goes beyond this. 
-It pushes the limits of what is done with the Python ecosystem and has found 
-many limitations and bugs in Python and IPython through the years.  Fixing those bugs is a
-[non-zero-sum game](https://en.wikipedia.org/wiki/Zero-sum_game) and has taken
-time.
 
 # Conclusion
 
-Pyflyby is not only a tool worth using, it is in a rare category in
-which you wonder how you were able to work without it. 
+Pyflyby’s utilities are designed to improve developer efficiency and materially
+reduce the impact of interruption on productivity. Its value, however, is
+broader than that. Pyflyby expands what is capable within the Python ecosystem
+and has helped identify a number of limitations and bugs in Python and IPython
+over time.
 
-It has also not only been
-created and maintained by highly qualified and efficient developers, but by a
-team that understands the technical and sociological challenges of Open Source.
-They are also not afraid to take the long and difficult road when it's the right
-thing for the community.
+# How to get pyflyby
+
+Pyflyby is available on [GitHub](https://github.com/deshaw/pyflyby) or, for
+terminal IPython users:
+
+```
+$ pip install pyflyby
+$ py pyflyby.install_in_ipython_config_file
+```
+
+JupyterLab users can also install [the JupyterLab
+Extension](https://github.com/deshaw/jupyterlab-pyflyby), which is
+notebook-aware and enables even more features.
+
 
 # Acknowledgements
 
