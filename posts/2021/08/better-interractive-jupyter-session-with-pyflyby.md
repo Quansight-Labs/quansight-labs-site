@@ -1,7 +1,7 @@
 <!--
 .. title: Pyflyby: Improving Efficiency of Jupyter Interactive Sessions
 .. slug: pyflyby-improving-efficiency-of-jupyter-interactive-sessions
-.. date: 2021-08-13 10:00:00 UTC-00:00
+.. date: 2021-08-07 10:00:00 UTC-00:00
 .. author: Matthias Bussonnier, Aaron Meurer,
 .. tags: Labs, Pyflyby, Deshaw
 .. category:
