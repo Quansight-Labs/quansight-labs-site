@@ -14,3 +14,13 @@ eurl: https://docs.bokeh.org/en/latest/index.html
 title: bokeh
 description: Bokeh is an interactive visualization library for modern web browsers. It provides elegant, concise construction of versatile graphics, and affords high-performance interactivity over large or streaming datasets. Bokeh can help anyone who would like to quickly and easily make interactive plots, dashboards, and data applications.
 ---
+name: dask.png
+eurl: https://dask.org/
+title: Dask
+description:  <p>Dask natively scales Python! Dask provides advanced parallelism for analytics, enabling performance at scale for the tools you love.</p>
+---
+name: holoviz_logo.svg
+eurl: http://holoviz.org/
+title: HoloViz
+description: HoloViz is a coordinated effort to make browser-based data visualization in Python easier to use, easier to learn, and more powerful.
+---
