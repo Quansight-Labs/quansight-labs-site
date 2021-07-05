@@ -19,6 +19,11 @@ Projects we aim to support
 
 .. gallery:: new_projects
 
+Projects we used to support
+###########################
+
+.. gallery:: previous_projects
+
 .. raw:: html
 
     <div class="row align-center">

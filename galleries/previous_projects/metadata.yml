@@ -1,0 +1,11 @@
+---
+name: metadsl.png
+eurl: https://uarray.org/en/latest/
+title: metadsl
+description: <i>Domain Specific Languages Embedded in Python</i> <br> <i>metadsl</i> inserts a layer between calling a function and computing its result, so that we can build up a bunch of calls, transform them, and then execute them all at once.
+---
+name: xnd.png
+eurl: https://xnd.io/
+title: XND
+description: We are building XND to recreate the foundations of NumPy as a number of smaller libraries, combining the lessons learned in the past twenty years of array computing in Python with the needs of newer applications. This is not a replacement of NumPy. Eventually, NumPy could use XND as could Pandas, Dask, and other libraries.
+---

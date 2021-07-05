@@ -80,70 +80,58 @@ title: Uarray
 description: <code>uarray</code> is a backend system for Python that allows you to separately define an API, along with backends that contain separate implementations of that API.
 order: 12
 ---
-name: metadsl.png
-eurl: https://uarray.org/en/latest/
-title: metadsl
-description: <i>Domain Specific Languages Embedded in Python</i> <br> <i>metadsl</i> inserts a layer between calling a function and computing its result, so that we can build up a bunch of calls, transform them, and then execute them all at once.
-order: 13
----
-name: xnd.png
-eurl: https://xnd.io/
-title: XND
-description: We are building XND to recreate the foundations of NumPy as a number of smaller libraries, combining the lessons learned in the past twenty years of array computing in Python with the needs of newer applications. This is not a replacement of NumPy. Eventually, NumPy could use XND as could Pandas, Dask, and other libraries.
-order: 14
----
 name: ndindex.svg
 eurl: https://quansight-labs.github.io/ndindex/
 title: ndindex
 description: ndindex is a library that allows representing and manipulating objects that can be valid indices to numpy arrays, i.e., slices, integers, ellipses, None, integer and boolean arrays, and tuples thereof.
-order: 15
+order: 13
 ---
 name: pandas.svg
 eurl: https://pandas.pydata.org/
 title: pandas
 description: <b>pandas</b> is a fast, powerful, flexible and easy to use open source data analysis and manipulation tool, built on top of the Python programming language.
-order: 16
+order: 14
 ---
 name: scikit-learn.png
 eurl: https://scikit-learn.org/stable/
 title: scikit-learn
 description: <code>Scikit-learn</code> is an open source machine learning library that supports supervised and unsupervised learning. It also provides various tools for model fitting, data preprocessing, model selection and evaluation, and many other utilities.
-order: 17
+order: 15
 ---
 name: scikit-image.png
 eurl: https://scikit-image.org
 title: scikit-image
 description: <p> <code>Scikit-image</code> scikit-image is the open source image processing toolkit of scientific Python. It proposes a collection of algorithms which address the various image processing tasks encountered in science (denoising, segmentation, feature extraction).</p> <p> With support from a CZI grant, Quansight Labs is helping maintain and develop new features for scikit-image. In addition to technical work, Labs promotes collaboration and communication between maintainers from different scientific Python projects and scikit-image, which helps coordinate work between these projects.
-order: 18
+order: 16
 ---
 name: ipython.png
 eurl: https://ipython.org
 title: ipython
 description: <p> Ipython is the interactive shell you likely have used at the terminal, as well as the library that provides the default Python kernel for Jupyter.</p> <p> Thanks to the D. E. Shaw Group sponsorship, Quansight Labs has been able to maintain and bring a number of new features to IPython and related projects. This work has enabled better support for debugging and a refactoring of the API to allow extensions like <a href="[https://github.com/deshaw/pyflyby](https://github.com/deshaw/pyflyby)">pyflyby</a> to automatically import modules when necessary. The Jupyter Kernel is also seeing improvements with work on inplace-restart for HPC systems, and an investigation into bringing the debugger protocol introduced by <a href="[https://github.com/jupyter-xeus/xeus-python](https://github.com/jupyter-xeus/xeus-python)">Xeus-Python</a> from the QuantStack Team into ipykernel. </p> 
-order: 19
+order: 17
 ---
 name: cython.png
 eurl: https://cython.org
 title: cython
 description: <p> Cython is an optimising static compiler for both the Python programming language and the extended Cython programming language (based on Pyrex). It makes writing C extensions for Python as easy as Python itself.
-order: 20
+order: 18
 ---
 name: data-apis.png
 eurl: https://data-apis.org
 title: Data API Standards
 description: <p> The Consortium for Python Data API Standards aims to tackle the fragmentation in the current multidimensional array (tensor) and dataframe libraries by developing API standards for arrays and dataframes. </p> <p> With support from Intel, Microsoft, Google Research, and D. E.  Shaw, a team of developers at Quansight Labs are working on this project to grow the Consortium into an organization to facilitate cross-project and cross-ecosystem alignment on APIs, data exchange mechanisms, and related topics. </p>
-order: 21
+order: 19
 ---
 name: napari.png
 eurl: https://napari.org
 title: Napari
 description: napari is a fast, interactive, multi-dimensional image viewer for Python. It’s designed for browsing, annotating, and analyzing large multi-dimensional images. It’s built on top of Qt (for the GUI), vispy (for performant GPU-based rendering), and the scientific Python stack (numpy, scipy).
-order: 22
+order: 20
 ---
 name: stdlib.svg
 eurl: https://github.com/stdlib-js/stdlib
 title: stdlib.js
 description: stdlib is a standard library for JavaScript and Node.js, with an emphasis on numerical and scientific computing applications. The library provides a collection of robust, high performance libraries for mathematics, statistics, data processing, streams, and more and includes many of the utilities you would expect from a standard library.
-order: 23
+order: 21
 ---
 
