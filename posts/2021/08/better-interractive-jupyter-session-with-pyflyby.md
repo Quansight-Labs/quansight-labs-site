@@ -15,7 +15,7 @@ realization, or unrelated error can derail one's train of thought when deep in a
 complex analysis – a frustrating experience.
 
 In the software development context, forgetting to import a statement in an
-interactive Jupyter session is such and experience. This can be especially
+interactive Jupyter session is such an experience. This can be especially
 frustrating when using typical abbreviations, like `np`, `pd`, `plt`, where the
 meaning is obvious to the human reader, but not to the computer. The
 time-to-first-plot, and ability to quickly cleanup one's notebook afterward
@@ -149,7 +149,7 @@ from scipy.stats.distributions import norm
 
 The [Pyflyby codebase](https://github.com/deshaw/pyflyby) provides a window into
 advanced data structures and programming paradigms. Its use of modules and
-programming concepts are unusual relative to those found in more classical data
+programming concepts is unusual relative to those found in more classical data
 science-focused libraries. For example:
 
  - Pyflyby will conduct non-trivial manipulation of the Python Abstract Syntax
@@ -166,7 +166,7 @@ science-focused libraries. For example:
 
 Pyflyby's utilities are designed to improve developer efficiency and materially
 reduce the impact of interruption on productivity. Its value, however, is
-broader than that. Pyflyby expands what is capable within the Python ecosystem
+broader than that. Pyflyby expands what one is capable of doing within the Python ecosystem
 and has helped identify a number of limitations and bugs in Python and IPython
 over time.
 
@@ -189,7 +189,6 @@ notebook-aware and enables even more features.
 
 Pyflyby was created by Karl Chen and is supported by the [D. E. Shaw
 group](https://www.deshaw.com/) in collaboration with [Quansight](https://www.quansight.com).
-
 
 
 
