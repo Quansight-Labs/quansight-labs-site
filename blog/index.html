@@ -103,7 +103,44 @@ navbar-dark bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/06/distributed-made-easy-with-ignite/" class="u-url">Distributed Training Made Easy with PyTorch-Ignite</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/07/pyflyby-improving-efficiency-of-jupyter-interactive-sessions/" class="u-url">Pyflyby: Improving Efficiency of Jupyter Interactive Sessions</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                <a href="../authors/matthias-bussonnier-aaron-meurer/">Matthias Bussonnier, Aaron Meurer,</a>
+            </span></p>
+            <p class="dateline">
+            <a href="2021/07/pyflyby-improving-efficiency-of-jupyter-interactive-sessions/" rel="bookmark">
+            <time class="published dt-published" datetime="2021-07-07T10:00:00Z" itemprop="datePublished" title="2021-07-07">2021-07-07</time></a>
+            </p>
+        </div>
+            
+        <div>
+            
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../categories/deshaw/" rel="tag">Deshaw</a></li>
+            <li><a class="tag p-category" href="../categories/labs/" rel="tag">Labs</a></li>
+            <li><a class="tag p-category" href="../categories/pyflyby/" rel="tag">Pyflyby</a></li>
+        </ul>
+</div>
+    </header><div class="p-summary entry-summary">
+    <div>
+<p>Interruption hinder productivity more than interruption. A notification, random
+realization, or unrelated error can derail one's train of thought when deep in a
+complex analysis – a frustrating experience.</p>
+<p>In the software development context, forgetting to import a statement in an
+interactive Jupyter session is such an experience. This can be especially
+frustrating when using typical abbreviations, like <code>np</code>, <code>pd</code>, <code>plt</code>, where the
+meaning is obvious to the human reader, but not to the computer. The
+time-to-first-plot, and ability to quickly cleanup one's notebook afterward
+are critical to an enjoyable and efficient workflow.</p>
+<p>In this blogpost we present <a href="https://github.com/deshaw/pyflyby">pyflyby</a>, a
+project and an extension to IPython and
+<a href="https://github.com/deshaw/jupyterlab-pyflyby">JupyterLab</a>, that, among many
+things, automatically inserts imports and tidies Python files and notebooks.</p>
+<p class="more"><a href="2021/07/pyflyby-improving-efficiency-of-jupyter-interactive-sessions/">Read more…</a></p>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/06/distributed-made-easy-with-ignite/" class="u-url">Distributed Training Made Easy with PyTorch-Ignite</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 <a href="../authors/victor-fomin/">Victor Fomin</a>
@@ -598,53 +635,6 @@ posts. Welcome!</p>
 </ul>
 <p>Before, only the eager approach was supported. In this mode, users are required to provide a list of concrete supported types beforehand as its first argument. Now, this list can be omitted if desired and as one calls it, Numba dynamically generates new kernels for previously unsupported types.</p>
 <p class="more"><a href="2021/02/enhancements-to-numba-guvectorize-decorator/">Read more…</a></p>
-</div>
-    </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/01/python-packaging-brainstorm/" class="u-url">Python packaging in 2021 - pain points and bright spots</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                <a href="../authors/ralf-gommers/">Ralf Gommers</a>
-            </span></p>
-            <p class="dateline">
-            <a href="2021/01/python-packaging-brainstorm/" rel="bookmark">
-            <time class="published dt-published" datetime="2021-01-24T04:00:00Z" itemprop="datePublished" title="2021-01-24">2021-01-24</time></a>
-            </p>
-        </div>
-            
-        <div>
-            
-        <ul itemprop="keywords" class="tags">
-<li><a class="tag p-category" href="../categories/conda/" rel="tag">Conda</a></li>
-            <li><a class="tag p-category" href="../categories/conda-forge/" rel="tag">conda-forge</a></li>
-            <li><a class="tag p-category" href="../categories/cuda/" rel="tag">CUDA</a></li>
-            <li><a class="tag p-category" href="../categories/manylinux/" rel="tag">manylinux</a></li>
-            <li><a class="tag p-category" href="../categories/packaging/" rel="tag">packaging</a></li>
-            <li><a class="tag p-category" href="../categories/pip/" rel="tag">pip</a></li>
-            <li><a class="tag p-category" href="../categories/pydata/" rel="tag">PyData</a></li>
-            <li><a class="tag p-category" href="../categories/pypi/" rel="tag">PyPI</a></li>
-            <li><a class="tag p-category" href="../categories/python/" rel="tag">Python</a></li>
-            <li><a class="tag p-category" href="../categories/setuptools/" rel="tag">setuptools</a></li>
-        </ul>
-</div>
-    </header><div class="p-summary entry-summary">
-    <div>
-<p>At Quansight we have a weekly "Q-share" session on Fridays where everyone can
-share/demo things they have worked on, recently learned, or that simply seem
-interesting to share with their colleagues. This can be about anything, from
-new utilities to low-level performance, from building inclusive communities
-to how to write better documentation, from UX design to what legal &amp;
-accounting does to support the business. This week I decided to try something
-different: hold a brainstorm on the state of Python packaging today.</p>
-<p>The ~30 participants were mostly from the PyData world, but not exclusively -
-it included people with backgrounds and preferences ranging from C, C++ and
-Fortran to JavaScript, R and DevOps - and with experience as end-users,
-packagers, library authors, and educators. This blog post contains the raw
-output of the 30-minute brainstorm (only cleaned up for textual issues) and
-my annotations on it (in italics) which capture some of the discussion during
-the session and links and context that may be helpful. I think it sketches a
-decent picture of the main pain points of Python packaging for users and
-developers interacting with the Python data and numerical computing ecosystem.</p>
-<p class="more"><a href="2021/01/python-packaging-brainstorm/">Read more…</a></p>
 </div>
     </div>
     </article>
