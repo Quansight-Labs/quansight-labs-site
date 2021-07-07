@@ -1,6 +1,7 @@
 name: Deploy built master on gh-pages
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
