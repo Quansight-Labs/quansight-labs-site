@@ -10,7 +10,7 @@
 .. type: text
 -->
 
-Interruption hinder productivity more than interruption. A notification, random
+Few things hinder productivity more than interruption. A notification, random
 realization, or unrelated error can derail one's train of thought when deep in a
 complex analysis – a frustrating experience.
 
@@ -60,7 +60,7 @@ correct import, and confirm with a clear message:
 Pyflyby will also do so when running a command line file via
 the `py` executable replacing python.
 
-With the jupyterlab-pyflyby extension, imports will be executed and inserted in
+With the [jupyterlab-pyflyby](https://github.com/deshaw/jupyterlab-pyflyby) extension, imports will be executed and inserted in
 the first cell of one's notebook:
 
 
