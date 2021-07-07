@@ -11,23 +11,12 @@
 <link href="../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../rss.xml">
 <link rel="canonical" href="https://labs.quansight.org/blog/index-6.html">
 <link rel="icon" href="../favicon.ico" sizes="16x16">
 <link rel="prev" href="." type="text/html">
 <link rel="next" href="index-5.html" type="text/html">
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-   tex2jax: {
-       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
-       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
-   },
-   displayAlign: 'center', // Change this to 'center' to center equations.
-   "HTML-CSS": {
-       styles: {'.MathJax_Display': {"margin": 0}}
-   }
-});
-</script><!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
+<!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -41,10 +30,11 @@ MathJax.Hub.Config({
 <!-- Menubar -->
 
 <nav class="navbar navbar-expand-md static-top mb-4
-navbar-dark bg-dark
+navbar-dark
+bg-dark
 "><div class="container">
 <!-- This keeps the margins nice -->
-        <a class="navbar-brand" href="https://labs.quansight.org/">
+        <a class="navbar-brand" href="../">
             <img src="../images/QuansightLabs_logo_V1_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -107,7 +97,7 @@ navbar-dark bg-dark
     <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/01/python-packaging-brainstorm/" class="u-url">Python packaging in 2021 - pain points and bright spots</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                <a href="../authors/ralf-gommers/">Ralf Gommers</a>
+                    <a href="../authors/ralf-gommers/">Ralf Gommers</a>
             </span></p>
             <p class="dateline">
             <a href="2021/01/python-packaging-brainstorm/" rel="bookmark">
@@ -154,7 +144,7 @@ developers interacting with the Python data and numerical computing ecosystem.</
     </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/01/scipy-ndimage-interpolation/" class="u-url">Making SciPy's Image Interpolation Consistent and Well Documented</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                <a href="../authors/gregory-lee/">Gregory Lee</a>
+                    <a href="../authors/gregory-lee/">Gregory Lee</a>
             </span></p>
             <p class="dateline">
             <a href="2021/01/scipy-ndimage-interpolation/" rel="bookmark">
@@ -207,9 +197,7 @@ developers interacting with the Python data and numerical computing ecosystem.</
         <script src="../assets/js/all-nocdn.js"></script><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
-        captions: function(element) {
-            return element.getElementsByTagName('img')[0].alt;
-    }});
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
     </script>
 </body>
 </html>

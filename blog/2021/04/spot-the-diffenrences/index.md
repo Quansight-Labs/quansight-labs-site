@@ -2,7 +2,7 @@
 .. title: Spot the differences: what is new in Spyder 5?
 .. slug: spot-the-diffenrences
 .. date: 2021-04-16 08:00:00 UTC-06:00
-.. author: Isabela Presedo-Floyd and Juanita Gomez
+.. author: Isabela Presedo-Floyd, Juanita Gomez
 .. tags: Spyder, UX/UI, release
 .. category:
 .. link:

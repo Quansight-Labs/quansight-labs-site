@@ -11,21 +11,10 @@
 <link href="../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS" href="../rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../rss.xml">
 <link rel="canonical" href="https://labs.quansight.org/authors/">
 <link rel="icon" href="../favicon.ico" sizes="16x16">
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-   tex2jax: {
-       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
-       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
-   },
-   displayAlign: 'center', // Change this to 'center' to center equations.
-   "HTML-CSS": {
-       styles: {'.MathJax_Display': {"margin": 0}}
-   }
-});
-</script><!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
+<!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -39,10 +28,11 @@ MathJax.Hub.Config({
 <!-- Menubar -->
 
 <nav class="navbar navbar-expand-md static-top mb-4
-navbar-dark bg-dark
+navbar-dark
+bg-dark
 "><div class="container">
 <!-- This keeps the margins nice -->
-        <a class="navbar-brand" href="https://labs.quansight.org/">
+        <a class="navbar-brand" href="../">
             <img src="../images/QuansightLabs_logo_V1_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -103,12 +93,13 @@ navbar-dark bg-dark
             <li><a class="reference badge" href="christopher-ostrouchov/">Christopher Ostrouchov</a></li>
             <li><a class="reference badge" href="daniel-althviz/">Daniel Althviz</a></li>
             <li><a class="reference badge" href="edgar-margffoy-tuay/">Edgar Margffoy-Tuay</a></li>
+            <li><a class="reference badge" href="eric-charles/">Eric Charles</a></li>
+            <li><a class="reference badge" href="eric-kelly/">Eric Kelly</a></li>
             <li><a class="reference badge" href="gonzalo-pena-castellanos/">Gonzalo Peña-Castellanos</a></li>
             <li><a class="reference badge" href="gregory-lee/">Gregory Lee</a></li>
             <li><a class="reference badge" href="guilherme-leobas/">Guilherme Leobas</a></li>
             <li><a class="reference badge" href="hameer-abbasi/">Hameer Abbasi</a></li>
             <li><a class="reference badge" href="isabela-presedo-floyd/">Isabela Presedo-Floyd</a></li>
-            <li><a class="reference badge" href="isabela-presedo-floyd-and-juanita-gomez/">Isabela Presedo-Floyd and Juanita Gomez</a></li>
             <li><a class="reference badge" href="ivan-ogasawara/">Ivan Ogasawara</a></li>
             <li><a class="reference badge" href="james-bourbeau/">James Bourbeau</a></li>
             <li><a class="reference badge" href="juanita-gomez/">Juanita Gomez</a></li>
@@ -117,9 +108,6 @@ navbar-dark bg-dark
             <li><a class="reference badge" href="kurt-mohler/">Kurt Mohler</a></li>
             <li><a class="reference badge" href="mars-lee/">Mars Lee</a></li>
             <li><a class="reference badge" href="matthias-bussonnier/">Matthias Bussonnier</a></li>
-            <li><a class="reference badge" href="matthias-bussonnier-aaron-meurer/">Matthias Bussonnier, Aaron Meurer,</a></li>
-            <li><a class="reference badge" href="matthias-bussonnier-isabela-presedo-floyd-eric-charles-eric-kelly-tony-fast/">Matthias Bussonnier, Isabela Presedo Floyd, Eric Charles, Eric Kelly, Tony Fast</a></li>
-            <li><a class="reference badge" href="matthias-bussonnier-tony-fast/">Matthias Bussonnier, Tony Fast</a></li>
             <li><a class="reference badge" href="matti-picus/">Matti Picus</a></li>
             <li><a class="reference badge" href="melissa-mendonca/">Melissa Mendonça</a></li>
             <li><a class="reference badge" href="melissa-weber-mendonca/">Melissa Weber Mendonça</a></li>
@@ -129,9 +117,8 @@ navbar-dark bg-dark
             <li><a class="reference badge" href="sameer-deshmukh-v0dro/">Sameer Deshmukh (@v0dro)</a></li>
             <li><a class="reference badge" href="saul-shanabrook/">Saul Shanabrook</a></li>
             <li><a class="reference badge" href="stephannie-jimenez/">Stephannie Jimenez</a></li>
-            <li><a class="reference badge" href="tim-george-and-isabela-presedo-floyd/">Tim George and Isabela Presedo-Floyd</a></li>
+            <li><a class="reference badge" href="tim-george/">Tim George</a></li>
             <li><a class="reference badge" href="tony-fast/">Tony Fast</a></li>
-            <li><a class="reference badge" href="tony-fast-kim-pevey/">Tony Fast, Kim Pevey</a></li>
             <li><a class="reference badge" href="victor-fomin/">Victor Fomin</a></li>
     </ul>
 <!--End of body content--><footer id="footer">
@@ -146,9 +133,7 @@ navbar-dark bg-dark
         <script src="../assets/js/all-nocdn.js"></script><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
-        captions: function(element) {
-            return element.getElementsByTagName('img')[0].alt;
-    }});
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
     </script>
 </body>
 </html>

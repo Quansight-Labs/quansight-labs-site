@@ -10,28 +10,17 @@
 <link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../../../rss.xml">
 <link rel="canonical" href="https://labs.quansight.org/blog/2020/12/jupyterlab-winter-theme/">
 <link rel="icon" href="../../../../favicon.ico" sizes="16x16">
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-   tex2jax: {
-       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
-       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
-   },
-   displayAlign: 'center', // Change this to 'center' to center equations.
-   "HTML-CSS": {
-       styles: {'.MathJax_Display': {"margin": 0}}
-   }
-});
-</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
+<!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
   gtag('config', 'UA-163785882-1');
 </script><link rel="stylesheet" type="text/css" href="../../../../assets/css/tipuesearch.css">
-<meta name="author" content="Matthias Bussonnier, Isabela Presedo Floyd, Eric Charles, Eric Kelly, Tony Fast">
+<meta name="author" content="Matthias Bussonnier, Isabela Presedo-Floyd, Eric Charles, Eric Kelly, Tony Fast">
 <meta property="description" content="JupyterLab 3.0 is about to be released and provides many 
 improvements to the extension system. Theming is a way to extend JupyterLab and 
 benefits from those improvements.
@@ -64,10 +53,11 @@ While theming is often disr">
 <!-- Menubar -->
 
 <nav class="navbar navbar-expand-md static-top mb-4
-navbar-dark bg-dark
+navbar-dark
+bg-dark
 "><div class="container">
 <!-- This keeps the margins nice -->
-        <a class="navbar-brand" href="https://labs.quansight.org/">
+        <a class="navbar-brand" href="../../../../">
             <img src="../../../../images/QuansightLabs_logo_V1_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -121,7 +111,11 @@ navbar-dark bg-dark
 
         <div class="metadata">
             <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
-                    <a class="u-url" href="../../../../authors/matthias-bussonnier-isabela-presedo-floyd-eric-charles-eric-kelly-tony-fast/">Matthias Bussonnier, Isabela Presedo Floyd, Eric Charles, Eric Kelly, Tony Fast</a>
+                         <a class="u-url" href="../../../../authors/matthias-bussonnier/">Matthias Bussonnier</a>
+                         <a class="u-url" href="../../../../authors/isabela-presedo-floyd/">Isabela Presedo-Floyd</a>
+                         <a class="u-url" href="../../../../authors/eric-charles/">Eric Charles</a>
+                         <a class="u-url" href="../../../../authors/eric-kelly/">Eric Kelly</a>
+                         <a class="u-url" href="../../../../authors/tony-fast/">Tony Fast</a>
             </span></p>
             <p class="dateline">
             <a href="." rel="bookmark">
@@ -453,9 +447,7 @@ at the bottom of your notebooks!</p>
         <script src="../../../../assets/js/all-nocdn.js"></script><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
-        captions: function(element) {
-            return element.getElementsByTagName('img')[0].alt;
-    }});
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
     </script>
 </body>
 </html>

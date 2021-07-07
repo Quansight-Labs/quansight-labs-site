@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs (Posts by Isabela Presedo-Floyd)</title><link>https://labs.quansight.org/</link><description></description><atom:link href="https://labs.quansight.org/authors/isabela-presedo-floyd.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Wed, 07 Jul 2021 17:33:04 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Putting out the fire: Where do we start with accessibility in JupyterLab?</title><link>https://labs.quansight.org/blog/2021/05/putting-out-the-fire/</link><dc:creator>Isabela Presedo-Floyd</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;img alt="Multiple fires in an alternating pattern" src="https://labs.quansight.org/images/jlabaccess2.png"&gt;&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quansight Labs (Posts by Isabela Presedo-Floyd)</title><link>https://labs.quansight.org/</link><description></description><atom:link href="https://labs.quansight.org/authors/isabela-presedo-floyd.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:info@quansight.com"&gt;Quansight Labs Team&lt;/a&gt; </copyright><lastBuildDate>Wed, 07 Jul 2021 20:37:39 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Putting out the fire: Where do we start with accessibility in JupyterLab?</title><link>https://labs.quansight.org/blog/2021/05/putting-out-the-fire/</link><dc:creator>Isabela Presedo-Floyd</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;img alt="Multiple fires in an alternating pattern" src="https://labs.quansight.org/images/jlabaccess2.png"&gt;&lt;/p&gt;
 &lt;h3&gt;JupyterLab Accessibility Journey Part 2&lt;/h3&gt;
 &lt;p&gt;I want to be honest with you, I started asking accessibility questions
 in JupyterLab spaces while filled with anxiety. Anxiety that I was shouting
@@ -7,14 +7,71 @@ into the void and no one else would work on accessibility with me. Anxiety
 that I didn’t have the skills or energy or knowledge to back up what I
 wanted to do. Anxiety that I was going to do it wrong and make JupyterLab
 even more inaccessible. Sometimes I still feel that way.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2021/05/putting-out-the-fire/"&gt;Read more…&lt;/a&gt; (6 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Accessibility</category><category>JLabA11y</category><category>JupyterLab</category><guid>https://labs.quansight.org/blog/2021/05/putting-out-the-fire/</guid><pubDate>Tue, 25 May 2021 08:00:00 GMT</pubDate></item><item><title>Accessibility: Who's Responsible?</title><link>https://labs.quansight.org/blog/2021/03/accessibility-whos-responsible/</link><dc:creator>Isabela Presedo-Floyd</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;img alt="Fingers and question marks pointing in every direction" src="https://labs.quansight.org/images/jlabaccess1.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2021/05/putting-out-the-fire/"&gt;Read more…&lt;/a&gt; (6 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Accessibility</category><category>JLabA11y</category><category>JupyterLab</category><guid>https://labs.quansight.org/blog/2021/05/putting-out-the-fire/</guid><pubDate>Tue, 25 May 2021 08:00:00 GMT</pubDate></item><item><title>Spot the differences: what is new in Spyder 5?</title><link>https://labs.quansight.org/blog/2021/04/spot-the-diffenrences/</link><dc:creator>Isabela Presedo-Floyd, Juanita Gomez</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;img alt="Spyder 5 versus Spyder 4" src="https://labs.quansight.org/images/spyder5-header.png"&gt;&lt;/p&gt;
+&lt;p&gt;In case you missed it, Spyder 5 was released at the beginning of April! This 
+blog post is a conversation attempting to document the long and complex 
+process of improving Spyder's UI with this release. Portions lead by Juanita 
+Gomez are marked as &lt;strong&gt;Juanita&lt;/strong&gt;, and those lead by Isabela Presedo-Floyd are 
+marked as &lt;strong&gt;Isabela&lt;/strong&gt;.&lt;/p&gt;
+&lt;h3&gt;What did we do?&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;[Juanita]&lt;/strong&gt; &lt;a href="https://www.spyder-ide.org/"&gt;Spyder&lt;/a&gt; was created more than 10 
+years ago and it has had the contributions of a great number of developers 
+who have written code, proposed ideas, opened issues and tested PRs in order 
+to build a piece of Spyder on their own. We (the Spyder team) have been lucky 
+to have such a great community of people contributing throughout the years, 
+but this is the first time that we decided to ask for help from an UX/UI 
+expert! Why? You might wonder. Having the contributions of this great amount 
+of people has resulted in inconsistencies around Spyder’s interface which we 
+didn’t stop to analyze until now. &lt;/p&gt;
+&lt;p&gt;When Isabela joined Quansight, we realized that we had an opportunity of 
+improving Spyder’s interface with her help. We thought her skill set was 
+everything we needed to make Spyder’s UI better.  So we started by reviewing 
+the results of a community survey from a few months ago and realized that 
+some of the most common feedback from users is related to its interface 
+(very crowded, not consistent, many colors). This is why we decided to start 
+a joint project with Isabela, (who we consider now part of the Spyder team) 
+called &lt;a href="https://github.com/spyder-ide/spyder/releases/tag/v5.0.0"&gt;Spyder 5&lt;/a&gt;!!!&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2021/04/spot-the-diffenrences/"&gt;Read more…&lt;/a&gt; (8 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>release</category><category>Spyder</category><category>UX/UI</category><guid>https://labs.quansight.org/blog/2021/04/spot-the-diffenrences/</guid><pubDate>Fri, 16 Apr 2021 14:00:00 GMT</pubDate></item><item><title>Accessibility: Who's Responsible?</title><link>https://labs.quansight.org/blog/2021/03/accessibility-whos-responsible/</link><dc:creator>Isabela Presedo-Floyd</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;img alt="Fingers and question marks pointing in every direction" src="https://labs.quansight.org/images/jlabaccess1.png"&gt;&lt;/p&gt;
 &lt;h3&gt;JupyterLab Accessibility Journey Part 1&lt;/h3&gt;
 &lt;p&gt;For the past few months, I've been part of a group of people in the JupyterLab community 
 who've committed to start chipping away at the many accessibility failings of JupyterLab. 
 I find this work is critical, fascinating, and a learning experience for everyone involved. 
 So I'm going to document my personal experience and lessons I've learned in a series of blog 
 posts. Welcome!&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2021/03/accessibility-whos-responsible/"&gt;Read more…&lt;/a&gt; (6 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Accessibility</category><category>JLabA11y</category><category>JupyterLab</category><guid>https://labs.quansight.org/blog/2021/03/accessibility-whos-responsible/</guid><pubDate>Thu, 25 Mar 2021 08:00:00 GMT</pubDate></item><item><title>Designing with and for developers</title><link>https://labs.quansight.org/blog/2020/08/designing-with-and-for-developers/</link><dc:creator>Isabela Presedo-Floyd</dc:creator><description>&lt;div&gt;&lt;p&gt;Open source is notorious for lack of design presence, enough so that my search
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2021/03/accessibility-whos-responsible/"&gt;Read more…&lt;/a&gt; (6 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Accessibility</category><category>JLabA11y</category><category>JupyterLab</category><guid>https://labs.quansight.org/blog/2021/03/accessibility-whos-responsible/</guid><pubDate>Thu, 25 Mar 2021 08:00:00 GMT</pubDate></item><item><title>Develop a JupyterLab Winter Theme</title><link>https://labs.quansight.org/blog/2020/12/jupyterlab-winter-theme/</link><dc:creator>Matthias Bussonnier, Isabela Presedo-Floyd, Eric Charles, Eric Kelly, Tony Fast</dc:creator><description>&lt;div&gt;&lt;p&gt;JupyterLab 3.0 is about to be released and provides many 
+improvements to the extension system. Theming is a way to extend JupyterLab and 
+benefits from those improvements.&lt;/p&gt;
+&lt;p&gt;While theming is often disregarded as a purely cosmetic endeavour, it can greatly
+improve software. Theming can be great help for accessibility, and the Jupyter team
+pays attention to making the default appearance accessibility-aware by using
+sufficient contrast.  For users with a high visual acuity you may also choose 
+to increase the information density.&lt;/p&gt;
+&lt;p&gt;Theming can also be a great way to improve communication by increasing or
+decreasing emphasis of the user interface, which can be of use for teaching or
+presenting. Theming may also help with security, for example, by having a clear
+distinction between staging and production.&lt;/p&gt;
+&lt;p&gt;Finally Theming can be a great way to express oneself, for example, by using
+a branded version of software that fits well into a context, or expressing one's artistic
+preferences or opinions. &lt;/p&gt;
+&lt;p&gt;In the following blog post, we will show you step-by-step how you can
+develop a custom theme for JupyterLab, distribute it, and take the example of the
+&lt;a href="https://github.com/Quansight-Labs/jupyterlab-theme-winter"&gt;jupyterlab-theme-winter&lt;/a&gt; theme we release today to celebrate the end of 2020.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/12/jupyterlab-winter-theme/"&gt;Read more…&lt;/a&gt; (9 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>Jupyter</category><category>JupyterLab</category><category>JupyterTutorials</category><category>Labs</category><category>Theme</category><guid>https://labs.quansight.org/blog/2020/12/jupyterlab-winter-theme/</guid><pubDate>Tue, 22 Dec 2020 09:00:00 GMT</pubDate></item><item><title>Introduction to Design in Open Source</title><link>https://labs.quansight.org/blog/2020/11/introduction-to-design-in-open-source/</link><dc:creator>Tim George, Isabela Presedo-Floyd</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;em&gt;This blog post is a conversation. Portions lead by Tim George are marked with
+&lt;/em&gt;&lt;em&gt;TG&lt;/em&gt;&lt;em&gt;, and those lead by Isabela Presedo-Floyd are marked with &lt;/em&gt;&lt;em&gt;IPF&lt;/em&gt;&lt;em&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;TG:&lt;/strong&gt; When I speak with other designers, one common theme I see concerning why
+they chose this career path is they want to make a difference in the world. We
+design because we imagine a better world and we want to help make it real. Part
+of the reason we design as a career is we're unable to go through life without
+designing; we're always thinking about how things are and how they could be
+better. This ethos also exists in many open-source communities. It seems like it
+ought to be an ideal match.&lt;/p&gt;
+&lt;p&gt;So what's the disconnect? I'm still exploring that myself, but after a few years
+in open source I want to share my observations, experiences, and hope for a
+stronger collaboration between design and development. I don't think I have a
+complete solution, and some days I'm not even sure I grasp the entire problem.
+What I hope is to say that which often goes unsaid in these spaces: design and
+development skills in open source coexist precariously.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://labs.quansight.org/blog/2020/11/introduction-to-design-in-open-source/"&gt;Read more…&lt;/a&gt; (10 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>design</category><category>Open-Source</category><category>User Experience</category><category>UX</category><guid>https://labs.quansight.org/blog/2020/11/introduction-to-design-in-open-source/</guid><pubDate>Wed, 18 Nov 2020 05:00:30 GMT</pubDate></item><item><title>Designing with and for developers</title><link>https://labs.quansight.org/blog/2020/08/designing-with-and-for-developers/</link><dc:creator>Isabela Presedo-Floyd</dc:creator><description>&lt;div&gt;&lt;p&gt;Open source is notorious for lack of design presence, enough so that my search
 to prove this fact has turned up nearly nothing. There’s many ways that such a
 gap in community might manifest, but one that I never anticipated was working
 with developers that had never interacted with a designer before.&lt;/p&gt;

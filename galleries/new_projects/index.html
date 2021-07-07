@@ -10,21 +10,10 @@
 <link href="../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../rss.xml">
 <link rel="canonical" href="https://labs.quansight.org/galleries/new_projects/">
 <link rel="icon" href="../../favicon.ico" sizes="16x16">
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-   tex2jax: {
-       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
-       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
-   },
-   displayAlign: 'center', // Change this to 'center' to center equations.
-   "HTML-CSS": {
-       styles: {'.MathJax_Display': {"margin": 0}}
-   }
-});
-</script><!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -40,6 +29,7 @@ MathJax.Hub.Config({
         position: absolute;
     }
 </style>
+<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -47,10 +37,11 @@ MathJax.Hub.Config({
 <!-- Menubar -->
 
 <nav class="navbar navbar-expand-md static-top mb-4
-navbar-dark bg-dark
+navbar-dark
+bg-dark
 "><div class="container">
 <!-- This keeps the margins nice -->
-        <a class="navbar-brand" href="https://labs.quansight.org/">
+        <a class="navbar-brand" href="../../">
             <img src="../../images/QuansightLabs_logo_V1_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -109,23 +100,23 @@ navbar-dark bg-dark
 <ul class="thumbnails">
 <li>
 <a href="pandas.svg" class="thumbnail image-reference" title="pandas">
-            <img src="pandas.thumbnail.svg" alt="pandas"></a>
+            <img src="pandas.thumbnail.svg" alt="pandas" loading="lazy"></a>
         </li>
 <li>
 <a href="xarray.png" class="thumbnail image-reference" title="xarray">
-            <img src="xarray.thumbnail.png" alt="xarray"></a>
+            <img src="xarray.thumbnail.png" alt="xarray" loading="lazy"></a>
         </li>
 <li>
 <a href="matplotlib.svg" class="thumbnail image-reference" title="matplotlib">
-            <img src="matplotlib.thumbnail.svg" alt="matplotlib"></a>
+            <img src="matplotlib.thumbnail.svg" alt="matplotlib" loading="lazy"></a>
         </li>
 <li>
 <a href="bokeh.svg" class="thumbnail image-reference" title="bokeh">
-            <img src="bokeh.thumbnail.svg" alt="bokeh"></a>
+            <img src="bokeh.thumbnail.svg" alt="bokeh" loading="lazy"></a>
         </li>
 <li>
 <a href="scikit-learn.png" class="thumbnail image-reference" title="scikit-learn">
-            <img src="scikit-learn.thumbnail.png" alt="scikit-learn"></a>
+            <img src="scikit-learn.thumbnail.png" alt="scikit-learn" loading="lazy"></a>
 </li>
 </ul>
 </noscript>
@@ -149,9 +140,7 @@ window.addEventListener('resize', function(){renderGallery(jsonContent, thumbnai
 </script><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
-        captions: function(element) {
-            return element.getElementsByTagName('img')[0].alt;
-    }});
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
     </script>
 </body>
 </html>

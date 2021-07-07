@@ -10,21 +10,10 @@
 <link href="../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../rss.xml">
 <link rel="canonical" href="https://labs.quansight.org/authors/isabela-presedo-floyd/">
 <link rel="icon" href="../../favicon.ico" sizes="16x16">
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-   tex2jax: {
-       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
-       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
-   },
-   displayAlign: 'center', // Change this to 'center' to center equations.
-   "HTML-CSS": {
-       styles: {'.MathJax_Display': {"margin": 0}}
-   }
-});
-</script><!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -39,10 +28,11 @@ MathJax.Hub.Config({
 <!-- Menubar -->
 
 <nav class="navbar navbar-expand-md static-top mb-4
-navbar-dark bg-dark
+navbar-dark
+bg-dark
 "><div class="container">
 <!-- This keeps the margins nice -->
-        <a class="navbar-brand" href="https://labs.quansight.org/">
+        <a class="navbar-brand" href="../../">
             <img src="../../images/QuansightLabs_logo_V1_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -105,7 +95,16 @@ navbar-dark bg-dark
 <time class="listdate" datetime="2021-05-25T08:00:00Z" title="2021-05-25">2021-05-25</time><a href="../../blog/2021/05/putting-out-the-fire/" class="listtitle">Putting out the fire: Where do we start with accessibility in JupyterLab?</a>
 </li>
                 <li>
+<time class="listdate" datetime="2021-04-16T08:00:00-06:00" title="2021-04-16">2021-04-16</time><a href="../../blog/2021/04/spot-the-diffenrences/" class="listtitle">Spot the differences: what is new in Spyder 5?</a>
+</li>
+                <li>
 <time class="listdate" datetime="2021-03-25T08:00:00Z" title="2021-03-25">2021-03-25</time><a href="../../blog/2021/03/accessibility-whos-responsible/" class="listtitle">Accessibility: Who's Responsible?</a>
+</li>
+                <li>
+<time class="listdate" datetime="2020-12-22T09:00:00Z" title="2020-12-22">2020-12-22</time><a href="../../blog/2020/12/jupyterlab-winter-theme/" class="listtitle">Develop a JupyterLab Winter Theme</a>
+</li>
+                <li>
+<time class="listdate" datetime="2020-11-18T00:00:30-05:00" title="2020-11-18">2020-11-18</time><a href="../../blog/2020/11/introduction-to-design-in-open-source/" class="listtitle">Introduction to Design in Open Source</a>
 </li>
                 <li>
 <time class="listdate" datetime="2020-08-05T12:13:42-08:42" title="2020-08-05">2020-08-05</time><a href="../../blog/2020/08/designing-with-and-for-developers/" class="listtitle">Designing with and for developers</a>
@@ -122,9 +121,7 @@ navbar-dark bg-dark
         <script src="../../assets/js/all-nocdn.js"></script><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
-        captions: function(element) {
-            return element.getElementsByTagName('img')[0].alt;
-    }});
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
     </script>
 </body>
 </html>

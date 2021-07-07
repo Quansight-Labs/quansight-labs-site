@@ -10,28 +10,17 @@
 <link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS" href="../../../../rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../../../rss.xml">
 <link rel="canonical" href="https://labs.quansight.org/blog/2020/11/introduction-to-design-in-open-source/">
 <link rel="icon" href="../../../../favicon.ico" sizes="16x16">
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-   tex2jax: {
-       inlineMath: [ ['$','$'], ["\\(","\\)"], ],
-       displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
-   },
-   displayAlign: 'center', // Change this to 'center' to center equations.
-   "HTML-CSS": {
-       styles: {'.MathJax_Display': {"margin": 0}}
-   }
-});
-</script><!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
+<!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
   gtag('config', 'UA-163785882-1');
 </script><link rel="stylesheet" type="text/css" href="../../../../assets/css/tipuesearch.css">
-<meta name="author" content="Tim George and Isabela Presedo-Floyd">
+<meta name="author" content="Tim George, Isabela Presedo-Floyd">
 <meta property="description" content="This blog post is a conversation. Portions lead by Tim George are marked with
 TG, and those lead by Isabela Presedo-Floyd are marked with IPF.
 TG: When I speak with other designers, one common theme I">
@@ -61,10 +50,11 @@ TG: When I speak with other designers, one common theme I">
 <!-- Menubar -->
 
 <nav class="navbar navbar-expand-md static-top mb-4
-navbar-dark bg-dark
+navbar-dark
+bg-dark
 "><div class="container">
 <!-- This keeps the margins nice -->
-        <a class="navbar-brand" href="https://labs.quansight.org/">
+        <a class="navbar-brand" href="../../../../">
             <img src="../../../../images/QuansightLabs_logo_V1_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -118,7 +108,8 @@ navbar-dark bg-dark
 
         <div class="metadata">
             <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
-                    <a class="u-url" href="../../../../authors/tim-george-and-isabela-presedo-floyd/">Tim George and Isabela Presedo-Floyd</a>
+                         <a class="u-url" href="../../../../authors/tim-george/">Tim George</a>
+                         <a class="u-url" href="../../../../authors/isabela-presedo-floyd/">Isabela Presedo-Floyd</a>
             </span></p>
             <p class="dateline">
             <a href="." rel="bookmark">
@@ -363,9 +354,7 @@ Inconsistency is confusing and can break user trust both short and long term.</p
         <script src="../../../../assets/js/all-nocdn.js"></script><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
-        captions: function(element) {
-            return element.getElementsByTagName('img')[0].alt;
-    }});
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
     </script>
 </body>
 </html>
