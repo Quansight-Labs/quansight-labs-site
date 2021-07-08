@@ -166,9 +166,7 @@ That means we can affirm that the method is sensitive enough to detect performan
 more! This is good enough for our project and, in fact, some projects might even be happy with a threshold of `2.0`.
 
 > If you are curious about how we automatically downloaded the artifacts, parsed the output, and plotted
-> the performance ratios, check the Jupyter Notebook [here](#).
-
-<!-- TODO: Clean the notebook and update the gist -->
+> the performance ratios, check the Jupyter Notebook [here](https://gist.github.com/jaimergp/aa4f059c14e394c4089b320cb8b51b1a).
 
 # Can we make it run faster without losing accuracy?
 
