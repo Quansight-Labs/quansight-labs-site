@@ -225,11 +225,11 @@ At first sight, those clouds look very spread! The number of false positives is 
 Let's take a look at the three strategies now. The main columns are **runtime** and **%FP**
 (percentage of false positives). We want the smallest %FP at the shortest runtime.
 
-| Strategy        | Runtime | %FP   | Min  | Max  | Mean | Std  |
+| Strategy        | Runtime  &nbsp;| %FP  | Min  | Max  | Mean &nbsp;| Std  |
 |-----------------|---------|-------|------|------|------|------|
-| Default         | 1h55    | 3.7%  | 0.51 | 1.36 | 1.00 | 0.05 |
-| No interleaving | 1h39    | 9.99% | 0.43 | 1.50 | 0.99 | 0.07 |
-| Single pass     | 1h07    | 12.5% | 0.51 | 2.76 | 1.01 | 0.07 |
+| Default         | 1h55    | 3.7%  | 0.51 &nbsp;| 1.36 | 1.00 | 0.05 |
+| No interleaving &nbsp;| 1h39    | 9.99% &nbsp;| 0.43 | 1.50 | 0.99 | 0.07 |
+| Single pass     | 1h07    | 12.5% | 0.51 | 2.76 &nbsp;| 1.01 | 0.07 |
 
 <br />
 
