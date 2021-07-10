@@ -11,7 +11,7 @@
 .. previewimage: /images/pytorch-ignite/code-generator/code-generator-preview.png
 -->
 
-[![Code Generator v0.2.0 demo](https://raw.githubusercontent.com/pytorch-ignite/code-generator/main/src/assets/code-generator-demo.gif)](https://code-generator.netlify.app)
+[![Code Generator v0.2.0 demo](https://raw.githubusercontent.com/pytorch-ignite/code-generator/main/src/assets/code-generator-demo.gif)](https://code-generator.pytorch-ignite.ai/)
 
 Authors: [Jeff Yang](https://github.com/ydcjeff), [Taras Savchyn](https://github.com/trsvchn), [Priyansi](https://github.com/Priyansi), [Victor Fomin](https://github.com/vfdev-5)
 
@@ -33,7 +33,7 @@ In this release, we are using a new application development stack to enhance the
 
 ### Getting Started
 
-The best way to "ignite your training pipeline" is to visit Code Generator's [homepage](https://code-generator.netlify.app/) and select your task's template by clicking on the "Getting Started" button.
+The best way to "ignite your training pipeline" is to visit Code Generator's [homepage](https://code-generator.pytorch-ignite.ai/) and select your task's template by clicking on the "Getting Started" button.
 
 You can choose a template from a list of templates located on the left in the **Templates** tab. The app will start to render the template with the preconfigured default settings. You will see all the generated files with the rendered code on the right in different tabs as in a regular IDE. The current state of the configurations is reflected partially in the config YAML file.
 
