@@ -144,7 +144,7 @@ ratio of the measurements between the two commits. Since they are identical in t
 ideally they should be all `1.0`. We know this will not happen, but maybe the errors are not that big
 and stay like that regardless the time of the day or the day of the week.
 
-After some days collecting data points, these are the results:
+After collecting data points for 16 days, these are the results:
 
 ![Reliability of benchmarks in GitHub Actions](/images/2021/08/github-actions-benchmark.png)
 
@@ -161,7 +161,7 @@ of those vertical clouds include 75 points, one per benchmark test. Ideally, the
 But! We do see some bigger deviations at certain times! How is that possible? Well, that's our error!
 These outliers are the ones that would concern us because they can be interpreted as **false positives**.
 In other words: `asv` would report a performance regression, when in fact there's none. However,
-in the observed measurements, the outliers were always within `y ∈ (0.66, 1.5)`.
+in the observed measurements, the outliers were always within `y ∈ (0.5, 1.4)`.
 That means we can affirm that the method is sensitive enough to detect performance regressions of 50% or
 more! This is good enough for our project and, in fact, some projects might even be happy with a threshold of `2.0`.
 
@@ -324,6 +324,8 @@ to let the maintainers decide when to do it on demand.
 
 * [scikit-image/scikit-image #5424](https://github.com/scikit-image/scikit-image/pull/5424): The PR where
   all this was implemented.
+* [Analysis notebook](https://gist.github.com/jaimergp/aa4f059c14e394c4089b320cb8b51b1a): The code used
+  to analyze the benchmarking data.
 * [asv.readthedocs.io](https://asv.readthedocs.io): The official documentation for `asv`.
 * [Building an Open Source, Continuous Benchmark System](https://wolfv.medium.com/building-an-open-source-continuous-benchmark-system-717839093962)
 * [Conbench: Language-independent Continuous Benchmarking Tool, by Ursa Labs](https://ursalabs.org/blog/announcing-conbench/)
@@ -332,5 +334,10 @@ to let the maintainers decide when to do it on demand.
 
 # Acknowledgements
 
-Thanks Gregory Lee, Stéfan van der Walt and Juan Nunez-Iglesias for their enthusiastic and useful feedback!
-The plots look that pretty thanks to comments provided by John Lee.
+Thanks Gregory Lee, Stéfan van der Walt and Juan Nunez-Iglesias for their enthusiastic and useful feedback
+in the PR! The plots look that pretty thanks to comments provided by John Lee. Gregory Lee and Gonzalo
+Peña-Castellanos provided valuable comments and suggestions for this post.
+
+This work was funded by the Chan-Zuckerberg Institute (CZI) as part of an
+[Essential Open Source Software for Science](https://chanzuckerberg.com/eoss/proposals/gpu-acceleration-rapid-releases-and-biomedical-examples-for-scikit-image/)
+grant.
