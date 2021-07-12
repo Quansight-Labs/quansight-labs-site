@@ -80,7 +80,7 @@ _try_.
 `scikit-image`, the project that commissioned this task, uses
 [Airspeed Velocity](https://asv.readthedocs.io/), or `asv`, for their benchmark tests.
 
-`asv`'s main feature is being able to track performance measurements overtime in a JSON database and generate
+`asv`'s main feature is being able to track performance measurements over time in a JSON database and generate
 beautiful dashboards that can be published to a static site server like GitHub Pages. For
 an example, look at the reports for `pandas` at their [speed.pydata.org](https://pandas.pydata.org/speed/pandas/)
 website.
@@ -115,13 +115,13 @@ without reducing the accuracy of the measurements?
 
 # Are CI services reliable enough for benchmarking?
 
-We saw above that CI services are not designed for this kind of tasks, but with some workarounds
+We saw above that CI services are not designed for this kind of task, but with some workarounds
 they might be good enough. However, how can be sure? As data-driven scientists, we say let's run
 an experiment!
 
 ## The setup
 
-Our experiment is data-drive, so we need to generate some data first. This is our strategy:
+Our experiment is data-driven, so we need to generate some data first. This is our strategy:
 
 * We will benchmark and compare two commits that are exactly the same in terms of tested code.
 * Under ideal conditions, we should see that the performance ratio between the two commits is 1.0.
@@ -227,9 +227,9 @@ Let's take a look at the three strategies now. The main columns are **runtime** 
 
 | Strategy        | Runtime  &nbsp;| %FP  | Min  | Max  | Mean &nbsp;| Std  |
 |-----------------|---------|-------|------|------|------|------|
-| Default         | 1h55    | 3.7%  | 0.51 &nbsp;| 1.36 | 1.00 | 0.05 |
-| No interleaving &nbsp;| 1h39    | 9.99% &nbsp;| 0.43 | 1.50 | 0.99 | 0.07 |
-| Single pass     | 1h07    | 12.5% | 0.51 | 2.76 &nbsp;| 1.01 | 0.07 |
+| Default         | 1h55    | 3.7  | 0.51 &nbsp;| 1.36 | 1.00 | 0.05 |
+| No interleaving &nbsp;| 1h39    | 9.99 &nbsp;| 0.43 | 1.50 | 0.99 | 0.07 |
+| Single pass     | 1h07    | 12.5 | 0.51 | 2.76 &nbsp;| 1.01 | 0.07 |
 
 <br />
 
@@ -332,5 +332,5 @@ to let the maintainers decide when to do it on demand.
 
 # Acknowledgements
 
-Thanks Gregory Lee, Stefan van der Walt and Juan Nunez-Iglesias for their enthusiastic and useful feedback!
+Thanks Gregory Lee, Stéfan van der Walt and Juan Nunez-Iglesias for their enthusiastic and useful feedback!
 The plots look that pretty thanks to comments provided by John Lee.
