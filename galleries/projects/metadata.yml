@@ -77,7 +77,7 @@ order: 11
 name: uarray.png
 eurl: https://uarray.org/en/latest/
 title: Uarray
-description: <code>uarray</code> is a backend system for Python that allows you to separately define an API, along with backends that contain separate implementations of that API.
+description: <code>uarray</code> is a dispatching library for Python that allows you to define APIs that can be implemented by multiple backends and dispatched based on the function arguments. <code>uarray</code> is funded by Quansight Labs.
 order: 12
 ---
 name: ndindex.svg
@@ -134,4 +134,3 @@ title: stdlib.js
 description: stdlib is a standard library for JavaScript and Node.js, with an emphasis on numerical and scientific computing applications. The library provides a collection of robust, high performance libraries for mathematics, statistics, data processing, streams, and more and includes many of the utilities you would expect from a standard library.
 order: 21
 ---
-
