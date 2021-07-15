@@ -134,3 +134,8 @@ title: stdlib.js
 description: stdlib is a standard library for JavaScript and Node.js, with an emphasis on numerical and scientific computing applications. The library provides a collection of robust, high performance libraries for mathematics, statistics, data processing, streams, and more and includes many of the utilities you would expect from a standard library.
 order: 21
 ---
+name: elegy.png
+eurl: https://pypi.org/project/elegy/
+title: Elegy
+description: Elegy is a framework-agnostic Trainer interface for Deep Learning in the Jax ecosystem. It provides a Keras-like high-level API that makes it very easy to do common tasks and a functional Pytorch Lightning-like low-level API that provides maximal flexibility when needed.
+order: 22
