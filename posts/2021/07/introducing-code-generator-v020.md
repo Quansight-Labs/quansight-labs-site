@@ -1,11 +1,11 @@
 <!--
 .. title: Introducing PyTorch-Ignite's Code Generator v0.2.0
 .. slug: introducing-code-generator-v020
-.. date: 2021-07-08 14:50:33 UTC-05:00.
+.. date: 2021-07-16 14:50:33 UTC-05:00.
 .. author: Victor Fomin
 .. tags: Code Generator, Deep Learning, Machine Learning, PyTorch-Ignite, PyTorch
-.. category: 
-.. link: 
+.. category:
+.. link:
 .. description: Overview of the key features and updates of the Code Generator v0.2.0 project release
 .. type: text
 .. previewimage: /images/pytorch-ignite/code-generator/code-generator-preview.png
@@ -45,7 +45,7 @@ Start adjusting the code in the template by visiting different tabs on the left 
 - **Handlers**: To set up Checkpointing, Termination on NaNs, Early Stopping, etc
 - **Loggers**: To configure Logging
 
-Once you choose the appropriate settings, press the "Download" or "Open in Colab" button at the top to export generated code as a zip archive or a notebook, and follow any given additional steps. The resulting archive contains generated files bundled together. The `requirements.txt` file contains all the required dependencies, and the `README` contains all the necessary information for launching the script. 
+Once you choose the appropriate settings, press the "Download" or "Open in Colab" button at the top to export generated code as a zip archive or a notebook, and follow any given additional steps. The resulting archive contains generated files bundled together. The `requirements.txt` file contains all the required dependencies, and the `README` contains all the necessary information for launching the script.
 
 You are now ready to add in your data and model and run the code!
 
