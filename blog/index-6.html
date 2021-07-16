@@ -94,7 +94,36 @@ bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/01/python-packaging-brainstorm/" class="u-url">Python packaging in 2021 - pain points and bright spots</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/02/enhancements-to-numba-guvectorize-decorator/" class="u-url">Enhancements to Numba's guvectorize decorator</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    <a href="../authors/guilherme-leobas/">Guilherme Leobas</a>
+            </span></p>
+            <p class="dateline">
+            <a href="2021/02/enhancements-to-numba-guvectorize-decorator/" rel="bookmark">
+            <time class="published dt-published" datetime="2021-02-25T08:00:00Z" itemprop="datePublished" title="2021-02-25">2021-02-25</time></a>
+            </p>
+        </div>
+            
+        <div>
+            
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../categories/labs/" rel="tag">Labs</a></li>
+            <li><a class="tag p-category" href="../categories/numba/" rel="tag">Numba</a></li>
+        </ul>
+</div>
+    </header><div class="p-summary entry-summary">
+    <div>
+<p>Starting from Numba 0.53, Numba will ship with an enhanced version of the <code>@guvectorize</code> decorator. Similar to the <a href="https://numba.pydata.org/numba-doc/dev/user/vectorize.html#the-vectorize-decorator">@vectorize</a> decorator, <a href="https://numba.pydata.org/numba-doc/dev/user/vectorize.html#the-guvectorize-decorator">@guvectorize</a> now has two modes of operation:</p>
+<ul>
+<li>Eager, or decoration-time compilation and</li>
+<li>Lazy, or call-time compilation</li>
+</ul>
+<p>Before, only the eager approach was supported. In this mode, users are required to provide a list of concrete supported types beforehand as its first argument. Now, this list can be omitted if desired and as one calls it, Numba dynamically generates new kernels for previously unsupported types.</p>
+<p class="more"><a href="2021/02/enhancements-to-numba-guvectorize-decorator/">Read more…</a></p>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/01/python-packaging-brainstorm/" class="u-url">Python packaging in 2021 - pain points and bright spots</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                     <a href="../authors/ralf-gommers/">Ralf Gommers</a>

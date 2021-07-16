@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Overview of the key features and updates of the Code Generator v0.2.0 project release">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Introducing PyTorch-Ignite's Code Generator v0.2.0 | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2021/07/introducing-code-generator-v020/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-163785882-1');
+</script><link rel="stylesheet" type="text/css" href="../../../../assets/css/tipuesearch.css">
+<meta name="author" content="Victor Fomin">
+<meta property="description" content="Authors: Jeff Yang, Taras Savchyn, Priyansi, Victor Fomin
+Along with the PyTorch-Ignite 0.4.5 release, we are excited to announce the new release of the web application for generating PyTorch-Ignite's">
+<link rel="prev" href="../pyflyby-improving-efficiency-of-jupyter-interactive-sessions/" title="Pyflyby: Improving Efficiency of Jupyter Interactive Sessions" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="Introducing PyTorch-Ignite's Code Generator v0.2.0">
+<meta property="og:url" content="https://labs.quansight.org/blog/2021/07/introducing-code-generator-v020/">
+<meta property="og:description" content="Overview of the key features and updates of the Code Generator v0.2.0 project release">
+<meta property="og:image" content="https://labs.quansight.org/images/pytorch-ignite/code-generator/code-generator-preview.png">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2021-07-16T14:50:33-05:00">
+<meta property="article:tag" content="Code Generator">
+<meta property="article:tag" content="Deep Learning">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="PyTorch">
+<meta property="article:tag" content="PyTorch-Ignite">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@quansightai">
+<meta property="twitter:image" content="https://labs.quansight.org/images/pytorch-ignite/code-generator/code-generator-preview.png">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark
+bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="../../../../">
+            <img src="../../../../images/QuansightLabs_logo_V1_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../" class="nav-link">Blog</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../team/" class="nav-link">Team</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../projects/" class="nav-link">Projects</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../about/" class="nav-link">About</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS</a>
+
+                
+            </li>
+</ul>
+<form class="navbar-form navbar-left" action="../../../../search" role="search">
+    <div class="form-group">
+        <input type="text" class="form-control" id="tipue_search_input" name="q" placeholder="Search…" autocomplete="off">
+</div>
+    <input type="submit" value="Local Search" style="visibility: hidden;"><!-- button type="submit" class="btn btn-default">Submit</button -->
+</form>
+
+
+            <ul class="navbar-nav navbar-right"></ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name">
+                <a href="." class="u-url">Introducing PyTorch-Ignite's Code Generator v0.2.0</a>
+            </h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                         <a class="u-url" href="../../../../authors/victor-fomin/">Victor Fomin</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2021-07-16T14:50:33-05:00" itemprop="datePublished" title="2021-07-16">2021-07-16</time></a>
+            </p>
+            
+
+        </div>
+        
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/code-generator/" rel="tag">Code Generator</a></li>
+            <li><a class="tag p-category" href="../../../../categories/deep-learning/" rel="tag">Deep Learning</a></li>
+            <li><a class="tag p-category" href="../../../../categories/machine-learning/" rel="tag">Machine Learning</a></li>
+            <li><a class="tag p-category" href="../../../../categories/pytorch/" rel="tag">PyTorch</a></li>
+            <li><a class="tag p-category" href="../../../../categories/pytorch-ignite/" rel="tag">PyTorch-Ignite</a></li>
+        </ul></header><div class="e-content entry-content" itemprop="articleBody text">
+        <div>
+<p><a href="https://code-generator.pytorch-ignite.ai/"><img alt="Code Generator v0.2.0 demo" src="https://raw.githubusercontent.com/pytorch-ignite/code-generator/main/src/assets/code-generator-demo.gif"></a></p>
+<p>Authors: <a href="https://github.com/ydcjeff">Jeff Yang</a>, <a href="https://github.com/trsvchn">Taras Savchyn</a>, <a href="https://github.com/Priyansi">Priyansi</a>, <a href="https://github.com/vfdev-5">Victor Fomin</a></p>
+<p>Along with the <a href="https://github.com/pytorch/ignite/releases/tag/v0.4.5">PyTorch-Ignite 0.4.5 release</a>, we are excited to announce the new release of the web application for generating PyTorch-Ignite's training pipelines. This blog post is an overview of the key features and updates of the <a href="https://github.com/pytorch-ignite/code-generator/releases/tag/v0.2.0">Code Generator v0.2.0 project release</a>.</p>
+<!-- TEASER_END -->
+
+<h3>Deep Learning As a Routine</h3>
+<p>In deep learning applications, neural networks are typically accompanied by code to preprocess the input and output data, visualize the results, define proper training and evaluation pipelines, and more. A significant part of this supporting code consists of reusable components, like data loaders, training loops, logging, and tracking. Therefore, deep learning practitioners usually organize their boilerplate codebases into collections of reusable components to speed up development.</p>
+<p>PyTorch-Ignite is one such practical solution, a high-level library from the PyTorch ecosystem for training neural networks designed to simplify workflow development while maintaining maximum control, flexibility, and reproducibility. PyTorch-Ignite feels like a natural extension to PyTorch.</p>
+<h3>Ignite Your Training Pipelines</h3>
+<p>PyTorch-Ignite's Code Generator is an open-source tool developed to boost your training pipeline's scripts, carefully designed by PyTorch-Ignite's contributors to promote PyTorch-Ignite's best practices. The application has a user-friendly and intuitive web interface, simple enough for day-to-day use, and it is an excellent choice for quickly generating a custom templates for training PyTorch models.</p>
+<p>In this release, we are using a new application development stack to enhance the user experience tenfold. For UI, we switched to a JavaScript stack. The PyTorch and PyTorch-Ignite specific generated code remains the same.</p>
+<h4>Getting Started</h4>
+<p>The best way to "ignite your training pipeline" is to visit Code Generator's <a href="https://code-generator.pytorch-ignite.ai/">homepage</a> and select your task's template by clicking on the "Getting Started" button.</p>
+<p>You can choose a template from a list of templates located on the left in the <strong>Templates</strong> tab. The app will start to render the template with the preconfigured default settings. You will see all the generated files with the rendered code on the right in different tabs as in a regular IDE. The current state of the configurations is reflected partially in the config YAML file.</p>
+<p>Currently, we offer four customizable templates for widely used deep learning tasks: Vision classification and segmentation, Text classification, and DCGAN.</p>
+<p>Start adjusting the code in the template by visiting different tabs on the left side:</p>
+<ul>
+<li>
+<strong>Training</strong>: To turn on Distributed training</li>
+<li>
+<strong>Handlers</strong>: To set up Checkpointing, Termination on NaNs, Early Stopping, etc</li>
+<li>
+<strong>Loggers</strong>: To configure Logging</li>
+</ul>
+<p>Once you choose the appropriate settings, press the "Download" or "Open in Colab" button at the top to export generated code as a zip archive or a notebook, and follow any given additional steps. The resulting archive contains generated files bundled together. The <code>requirements.txt</code> file contains all the required dependencies, and the <code>README</code> contains all the necessary information for launching the script.</p>
+<p>You are now ready to add in your data and model and run the code!</p>
+<h3>I Want To Contribute!</h3>
+<p>We encourage open source contributors from both frontend and data science communities to collaborate on the project. If you are interested, please visit the <a href="https://github.com/pytorch-ignite/code-generator/blob/main/CONTRIBUTING.md">Contribution Guide</a>. If you have any questions, do not hesitate to ask them on our <a href="https://discord.com/invite/djZtm3EmKj">Discord</a>. Here are some <a href="https://github.com/pytorch-ignite/code-generator/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22">good first issues</a>.</p>
+<h3>Next Steps</h3>
+<p>In future releases, we plan to extend our template store and add more features, for example, configuration systems, data loaders, datasets and models, optimizers, and schedulers. We will continue improving the app's reliability and usability. To stay in touch, follow us on <a href="https://twitter.com/pytorch_ignite">Twitter</a> and <a href="https://facebook.com/PyTorch-Ignite-Community-105837321694508">Facebook</a>. We would love to get your feedback on the project.</p>
+<h3>Acknowledgements</h3>
+<p>The development of this project is supported by a NumFOCUS Small Development Grant. We are very grateful to them for this support!</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../pyflyby-improving-efficiency-of-jupyter-interactive-sessions/" rel="prev" title="Pyflyby: Improving Efficiency of Jupyter Interactive Sessions">Previous post</a>
+            </li>
+
+            <li class="archive">
+                <a href="../../../../archive.html" rel="archive" title="Archive ">Archive</a>
+            </li>
+
+            <li class="next disabled">
+                <a rel="next">Next post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2021         <a href="../../../../team">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
+    </script>
+</body>
+</html>

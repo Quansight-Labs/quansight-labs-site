@@ -93,7 +93,36 @@ bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/07/pyflyby-improving-efficiency-of-jupyter-interactive-sessions/" class="u-url">Pyflyby: Improving Efficiency of Jupyter Interactive Sessions</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/07/introducing-code-generator-v020/" class="u-url">Introducing PyTorch-Ignite's Code Generator v0.2.0</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    <a href="../authors/victor-fomin/">Victor Fomin</a>
+            </span></p>
+            <p class="dateline">
+            <a href="2021/07/introducing-code-generator-v020/" rel="bookmark">
+            <time class="published dt-published" datetime="2021-07-16T14:50:33-05:00" itemprop="datePublished" title="2021-07-16">2021-07-16</time></a>
+            </p>
+        </div>
+            
+        <div>
+            
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../categories/code-generator/" rel="tag">Code Generator</a></li>
+            <li><a class="tag p-category" href="../categories/deep-learning/" rel="tag">Deep Learning</a></li>
+            <li><a class="tag p-category" href="../categories/machine-learning/" rel="tag">Machine Learning</a></li>
+            <li><a class="tag p-category" href="../categories/pytorch/" rel="tag">PyTorch</a></li>
+            <li><a class="tag p-category" href="../categories/pytorch-ignite/" rel="tag">PyTorch-Ignite</a></li>
+        </ul>
+</div>
+    </header><div class="p-summary entry-summary">
+    <div>
+<p><a href="https://code-generator.pytorch-ignite.ai/"><img alt="Code Generator v0.2.0 demo" src="https://raw.githubusercontent.com/pytorch-ignite/code-generator/main/src/assets/code-generator-demo.gif"></a></p>
+<p>Authors: <a href="https://github.com/ydcjeff">Jeff Yang</a>, <a href="https://github.com/trsvchn">Taras Savchyn</a>, <a href="https://github.com/Priyansi">Priyansi</a>, <a href="https://github.com/vfdev-5">Victor Fomin</a></p>
+<p>Along with the <a href="https://github.com/pytorch/ignite/releases/tag/v0.4.5">PyTorch-Ignite 0.4.5 release</a>, we are excited to announce the new release of the web application for generating PyTorch-Ignite's training pipelines. This blog post is an overview of the key features and updates of the <a href="https://github.com/pytorch-ignite/code-generator/releases/tag/v0.2.0">Code Generator v0.2.0 project release</a>.</p>
+<p class="more"><a href="2021/07/introducing-code-generator-v020/">Read more…</a></p>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/07/pyflyby-improving-efficiency-of-jupyter-interactive-sessions/" class="u-url">Pyflyby: Improving Efficiency of Jupyter Interactive Sessions</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                     <a href="../authors/matthias-bussonnier/">Matthias Bussonnier</a>
@@ -598,35 +627,6 @@ I find this work is critical, fascinating, and a learning experience for everyon
 So I'm going to document my personal experience and lessons I've learned in a series of blog 
 posts. Welcome!</p>
 <p class="more"><a href="2021/03/accessibility-whos-responsible/">Read more…</a></p>
-</div>
-    </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/02/enhancements-to-numba-guvectorize-decorator/" class="u-url">Enhancements to Numba's guvectorize decorator</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                    <a href="../authors/guilherme-leobas/">Guilherme Leobas</a>
-            </span></p>
-            <p class="dateline">
-            <a href="2021/02/enhancements-to-numba-guvectorize-decorator/" rel="bookmark">
-            <time class="published dt-published" datetime="2021-02-25T08:00:00Z" itemprop="datePublished" title="2021-02-25">2021-02-25</time></a>
-            </p>
-        </div>
-            
-        <div>
-            
-        <ul itemprop="keywords" class="tags">
-<li><a class="tag p-category" href="../categories/labs/" rel="tag">Labs</a></li>
-            <li><a class="tag p-category" href="../categories/numba/" rel="tag">Numba</a></li>
-        </ul>
-</div>
-    </header><div class="p-summary entry-summary">
-    <div>
-<p>Starting from Numba 0.53, Numba will ship with an enhanced version of the <code>@guvectorize</code> decorator. Similar to the <a href="https://numba.pydata.org/numba-doc/dev/user/vectorize.html#the-vectorize-decorator">@vectorize</a> decorator, <a href="https://numba.pydata.org/numba-doc/dev/user/vectorize.html#the-guvectorize-decorator">@guvectorize</a> now has two modes of operation:</p>
-<ul>
-<li>Eager, or decoration-time compilation and</li>
-<li>Lazy, or call-time compilation</li>
-</ul>
-<p>Before, only the eager approach was supported. In this mode, users are required to provide a list of concrete supported types beforehand as its first argument. Now, this list can be omitted if desired and as one calls it, Numba dynamically generates new kernels for previously unsupported types.</p>
-<p class="more"><a href="2021/02/enhancements-to-numba-guvectorize-decorator/">Read more…</a></p>
 </div>
     </div>
     </article>
