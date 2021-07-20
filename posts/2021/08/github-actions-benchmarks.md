@@ -25,7 +25,8 @@ Every job runs in a separate VM instance with frequent updates and shared resour
 looks like it would just be a very expensive random number generator.
 
 Well, it turns out that there _is_ a sensible way to do it: **relative benchmarking**.
-And we know it works because we have been collecting stability data points for a month.
+And we know it works because we have been collecting stability data points for several
+weeks.
 
 <!-- TEASER_END -->
 
@@ -47,9 +48,9 @@ That way we can understand how to work around some of the apparent limitations:
 | ------------------------- | -------------- |
 | runs on the same hardware every time | provide a different (standardized) machine for each run |
 | runs on dedicated hardware | run on shared resources |
-| is run on stable OS configurations | update their VM images often |
+| runs on a frozen OS configuration | update their VM images often |
 | requires renting or acquiring such hardware | are free |
-| requires authentication mechanisms | implement auth out of the box |
+| requires authentication mechanisms | implement authentication out of the box |
 | requires hardware that can be abused through public PRs &nbsp; | are designed for public PRs |
 
 <br />
@@ -62,13 +63,13 @@ What if we only want to detect regressions introduced in a PR? Or in the current
 the last release? We do not need absolute measurements, just a way to _compare_ two commits in
 a reliable way. This is exactly what we meant by _relative benchmarking_.
 
-The idea is to run the benchmarking suite in the same CI job, twice, once for each commit. This
+The idea is to run the benchmarking suite in the same CI job for the two commits we are comparing. This
 way, we guarantee we are using the exact same machine and configuration for both. By doing this, we
 are essentially canceling out the background noise and can estimate the performance _ratio_ of
 the two commits.
 
 There are some gotchas, though. Benchmark suites can take long to run, and running them twice
-makes it even worse. This opens an even larger window for other CI jobs to pollute our
+makes it even worse. This opens an even larger time window for other CI jobs to pollute our
 measurements with resource-intensive tasks that happen to be running at the same time.
 To minimize these effects, benchmarking tools run the tests several times in different
 schedules and apply some statistics to correct for the inevitable deviations. Or, at least,
@@ -97,8 +98,8 @@ This sounds like exactly what we are looking for! Let's break down how it works:
 involves compiled libraries (as is the case with `scikit-image`), this can be a lengthy
 process!
 2. The default configuration will run the benchmark in two interleaved passes, with several
-repeats each. This is done to account for the unavoidable deviations from ideality caused
-from co-running processes, as mentioned above.
+repeats each. In other words, `asv` will run the suite four times (`A->B->A->B`)! This is done to account
+for the unavoidable deviations from ideality caused from co-running processes, as mentioned above.
 3. The statistics for each commit are gathered and a report table is presented. The ratio
 of each test is computed and, if it is greater than a certain threshold (`1.2` by default)
 an error is emitted.
@@ -116,17 +117,17 @@ without reducing the accuracy of the measurements?
 # Are CI services reliable enough for benchmarking?
 
 We saw above that CI services are not designed for this kind of task, but with some workarounds
-they might be good enough. However, how can be sure? As data-driven scientists, we say let's run
+they might be good enough. However, how can we be sure? As data-driven scientists, we say let's run
 an experiment!
 
 ## The setup
 
-Our experiment is data-driven, so we need to generate some data first. This is our strategy:
+If our experiment is data-driven, we should generate some data first. This is our strategy:
 
 * We will benchmark and compare two commits that are exactly the same in terms of tested code.
-* Under ideal conditions, we should see that the performance ratio between the two commits is 1.0.
+* Under ideal conditions, we should see that the performance ratio between the two commits is `1.0`.
 In other words, performance should be the same. Of course, these are not ideal conditions, so
-some kind of error is expected. We want to see if it stays reliably under an acceptable threshold.
+some kind of error is expected. We just want it to stay reliably under an acceptable threshold.
 * We will implement a GitHub Actions workflow that will run every six hours (four times a day) and
 collect results for a week or more. This will help us account for two things:
     * Accumulate sufficient data points to answer our question.
@@ -158,7 +159,7 @@ with colored patches for easier visual analysis. In the Y axis, we plot the perf
 of those vertical clouds include 75 points, one per benchmark test. Ideally, they should all fall at
 `y=1`. Of course, not all of them are there, but a surprising amount of them do!
 
-But! We do see some bigger deviations at certain times! How is that possible? Well, that's our error!
+But! We do see some bigger deviations at certain times! How is that possible? Well, that's the error we were talking about!
 These outliers are the ones that would concern us because they can be interpreted as **false positives**.
 In other words: `asv` would report a performance regression, when in fact there's none. However,
 in the observed measurements, the outliers were always within `y ∈ (0.5, 1.4)`.
@@ -242,7 +243,7 @@ In short, we will stick to the default strategy for accuracy but need to investi
 to make it run in less time.
 
 > We also considered running several single-pass replicas in parallel using different GitHub
-> Actions jobs. In theory, a false positive could be detected by detecting the value of the
+> Actions jobs. In theory, a false positive could be spotted by comparing the values of the
 > failing tests in the other replicas. Only true positives would reliably appear in all
 > replicas. However, this consumes more CI resources (compilation happens several times)
 > and is noisier from the maintainer perspective, who would need to check all replicas.
@@ -250,13 +251,13 @@ to make it run in less time.
 
 # Speeding up compilation times
 
-So far we have only looked at speeding up the benchmark running parts themselves, but we saw
+So far we have only looked at speeding up the benchmark suite itself, but we saw
 earlier that `asv` will also spend some time setting up virtual environments and installing the
-project. Since, installing `scikit-learn` involves compiling some extensions, this is can add up
+project. Since installing `scikit-learn` involves compiling some extensions, this can add up
 to a non-trivial amount of time.
 
-To accelerate the creation of the virtual environments, which in our case relies on `conda`, we
-replaced the `conda` calls with the a faster implementation called `mamba`. We rely on an `asv`
+To accelerate the creation of the virtual environments, which in our case uses `conda`, we
+replaced the `conda` calls with a faster implementation called `mamba`. We rely on an `asv`
 implementation detail: to find `conda`, `asv` will first check the value of the `CONDA_EXE`
 environment variable. This is normally set by `conda activate <env>`, but we
 [overwrite it with the path to `mamba`](https://github.com/scikit-image/scikit-image/blob/main/.github/workflows/benchmarks.yml#L77)
@@ -267,23 +268,23 @@ will not change in a given PR, we can use `ccache` to keep the unchanged librari
 the [workflow file](https://github.com/scikit-image/scikit-image/blob/main/.github/workflows/benchmarks.yml#L36-L56)
 to see how it can be implemented on GitHub Actions.
 
-These two actions brought the average running time down to around 1h20min. Not bad!
+These two changes together brought the average running time down to around 1h 20min. Not bad!
 
 
 # Run it on demand!
 
 Benchmarks do not need to run for every single commit pushed to a PR. In fact, that's probably
-a waste of resources. Instead, we'd want the maintainers to run the benchmarks on demand, whenever
+a waste of resources. Instead, we'd like the maintainers to run the benchmarks on demand, whenever
 needed during the PR lifetime.
 
 GitHub Actions offers different kinds of events that will trigger a worklow. By default the
-`on.pull_request` event is configured to act on three triggers: `[opened, reopened, synchronize]`.
-In practice, this means every push or after closing+opening the PR. However, there are
+`on.pull_request` trigger is configured to act on three event types: `[opened, reopened, synchronize]`.
+In practice, this means after every push or after closing+opening the PR. However, there are
 [more triggers](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request)!
 
 Of all the choices, we settled for `labeled`. This means that the workflow will be triggered whenever
 the PR is tagged with a label. To specify which label(s) are able to trigger the workflow, you can use
-an `if` close at the `job` level, [like this](https://github.com/scikit-image/scikit-image/blob/2fa66e5/.github/workflows/benchmarks.yml#L10):
+an `if` clause at the `job` level, [like this](https://github.com/scikit-image/scikit-image/blob/2fa66e5/.github/workflows/benchmarks.yml#L10):
 
 ```yaml
 name: Benchmark
@@ -305,7 +306,7 @@ well as a manual trigger! It is also restricted to authorized users (triaging pe
 need to fiddle with authentication tokens or similar complications.
 
 There is one gotcha, though: the checks UI will be appended to the last push event panel, which can be confusing
-if more commits have been added to the PR since you added the label. Ideally, the checks UI panel would be
+if more commits have been added to the PR since the label was added. Ideally, the checks UI panel would be
 added next to the _@user added the run-benchmark label_ message. Maybe in a
 [future update](https://twitter.com/jaime_rgp/status/1412419232340627467)?
 
@@ -315,7 +316,7 @@ added next to the _@user added the run-benchmark label_ message. Maybe in a
 We have seen that GitHub Actions is indeed good enough to perform relative benchmarking in a reliable way
 as long as several passes are averaged together (default behaviour in `asv continuous`). This takes a bit
 more time but you can speed it up a bit with `mamba` and `ccache` for compiled libraries. Even in that case,
-it is probably overkill to run it for every push event, so we are using the `pull_request.labeled` trigger
+it is probably overkill to run it for every push event, so we are using the `on.pull_request.labeled` trigger
 to let the maintainers decide when to do it on demand.
 
 ---
