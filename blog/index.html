@@ -93,7 +93,45 @@ bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/07/introducing-code-generator-v020/" class="u-url">Introducing PyTorch-Ignite's Code Generator v0.2.0</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/07/moving-scipy-to-meson/" class="u-url">Moving SciPy to the Meson build system</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    <a href="../authors/ralf-gommers/">Ralf Gommers</a>
+            </span></p>
+            <p class="dateline">
+            <a href="2021/07/moving-scipy-to-meson/" rel="bookmark">
+            <time class="published dt-published" datetime="2021-07-25T18:00:00Z" itemprop="datePublished" title="2021-07-25">2021-07-25</time></a>
+            </p>
+        </div>
+            
+        <div>
+            
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../categories/build/" rel="tag">build</a></li>
+            <li><a class="tag p-category" href="../categories/labs/" rel="tag">Labs</a></li>
+            <li><a class="tag p-category" href="../categories/meson/" rel="tag">Meson</a></li>
+            <li><a class="tag p-category" href="../categories/packaging/" rel="tag">packaging</a></li>
+            <li><a class="tag p-category" href="../categories/scipy/" rel="tag">SciPy</a></li>
+        </ul>
+</div>
+    </header><div class="p-summary entry-summary">
+    <div>
+<p>Let's start with an announcement: <em><strong>SciPy now builds with
+<a href="https://mesonbuild.com/">Meson</a> on Linux, and the full test suite passes!</strong></em></p>
+<p>This is a pretty exciting milestone, and good news for SciPy maintainers and
+contributors - they can look forward to much faster builds and a more
+pleasant development experience. So how fast is it? Currently the build takes
+about 1min 50s (a ~4x improvement) on my 3 year old 12-core Intel CPU
+(i9-7920X @ 2.90GHz):</p>
+<p><img alt="Profiling result of a parallel build of SciPy with Meson" src="../images/2021/07/ninjabuild_tracing_12jobs.png"></p>
+<p><em>Profiling result of a parallel build (12 jobs) of SciPy with Meson. Visualization created with <a href="https://github.com/nico/ninjatracing/blob/master/ninjatracing">ninjatracing</a> and <a href="https://ui.perfetto.dev">Perfetto</a>.</em></p>
+<p>As you can see from the tracing results, building a single C++ file
+(<code>bsr.cxx</code>, which is one of SciPy's sparse matrix formats) takes over 90
+seconds. So the 1min 50 sec build time is close to optimal - the only ways to improve it are major surgery on that C++ code, or buying a faster CPU.</p>
+<p class="more"><a href="2021/07/moving-scipy-to-meson/">Read more…</a></p>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/07/introducing-code-generator-v020/" class="u-url">Introducing PyTorch-Ignite's Code Generator v0.2.0</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                     <a href="../authors/victor-fomin/">Victor Fomin</a>
@@ -596,37 +634,6 @@ use the current interface as of April 2021. Much of the information from the
 previous article is directly copied here, but with updated API calls and some
 extra details.</p>
 <p class="more"><a href="2021/04/pytorch-tensoriterator-internals-update/">Read more…</a></p>
-</div>
-    </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/03/accessibility-whos-responsible/" class="u-url">Accessibility: Who's Responsible?</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                    <a href="../authors/isabela-presedo-floyd/">Isabela Presedo-Floyd</a>
-            </span></p>
-            <p class="dateline">
-            <a href="2021/03/accessibility-whos-responsible/" rel="bookmark">
-            <time class="published dt-published" datetime="2021-03-25T08:00:00Z" itemprop="datePublished" title="2021-03-25">2021-03-25</time></a>
-            </p>
-        </div>
-            
-        <div>
-            
-        <ul itemprop="keywords" class="tags">
-<li><a class="tag p-category" href="../categories/accessibility/" rel="tag">Accessibility</a></li>
-            <li><a class="tag p-category" href="../categories/jlaba11y/" rel="tag">JLabA11y</a></li>
-            <li><a class="tag p-category" href="../categories/jupyterlab/" rel="tag">JupyterLab</a></li>
-        </ul>
-</div>
-    </header><div class="p-summary entry-summary">
-    <div>
-<p><img alt="Fingers and question marks pointing in every direction" src="../images/jlabaccess1.png"></p>
-<h3>JupyterLab Accessibility Journey Part 1</h3>
-<p>For the past few months, I've been part of a group of people in the JupyterLab community 
-who've committed to start chipping away at the many accessibility failings of JupyterLab. 
-I find this work is critical, fascinating, and a learning experience for everyone involved. 
-So I'm going to document my personal experience and lessons I've learned in a series of blog 
-posts. Welcome!</p>
-<p class="more"><a href="2021/03/accessibility-whos-responsible/">Read more…</a></p>
 </div>
     </div>
     </article>

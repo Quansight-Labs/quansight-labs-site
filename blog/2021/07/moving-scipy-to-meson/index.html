@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moving SciPy to the Meson build system | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2021/07/moving-scipy-to-meson/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-163785882-1');
+</script><link rel="stylesheet" type="text/css" href="../../../../assets/css/tipuesearch.css">
+<meta name="author" content="Ralf Gommers">
+<meta property="description" content="Let's start with an announcement: SciPy now builds with
+Meson on Linux, and the full test suite passes!
+This is a pretty exciting milestone, and good news for SciPy maintainers and
+contributors - they">
+<link rel="prev" href="../introducing-code-generator-v020/" title="Introducing PyTorch-Ignite's Code Generator v0.2.0" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="Moving SciPy to the Meson build system">
+<meta property="og:url" content="https://labs.quansight.org/blog/2021/07/moving-scipy-to-meson/">
+<meta property="og:description" content="Let's start with an announcement: SciPy now builds with
+Meson on Linux, and the full test suite passes!
+This is a pretty exciting milestone, and good news for SciPy maintainers and
+contributors - they">
+<meta property="og:image" content="https://labs.quansight.org/images/QuansightLabs_logo_V2.png">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2021-07-25T18:00:00Z">
+<meta property="article:tag" content="build">
+<meta property="article:tag" content="Labs">
+<meta property="article:tag" content="Meson">
+<meta property="article:tag" content="packaging">
+<meta property="article:tag" content="SciPy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@quansightai">
+<meta property="twitter:image" content="https://labs.quansight.org/images/QuansightLabs_logo_V2.png">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark
+bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="../../../../">
+            <img src="../../../../images/QuansightLabs_logo_V1_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../" class="nav-link">Blog</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../team/" class="nav-link">Team</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../projects/" class="nav-link">Projects</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../about/" class="nav-link">About</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS</a>
+
+                
+            </li>
+</ul>
+<form class="navbar-form navbar-left" action="../../../../search" role="search">
+    <div class="form-group">
+        <input type="text" class="form-control" id="tipue_search_input" name="q" placeholder="Search…" autocomplete="off">
+</div>
+    <input type="submit" value="Local Search" style="visibility: hidden;"><!-- button type="submit" class="btn btn-default">Submit</button -->
+</form>
+
+
+            <ul class="navbar-nav navbar-right"></ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name">
+                <a href="." class="u-url">Moving SciPy to the Meson build system</a>
+            </h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                         <a class="u-url" href="../../../../authors/ralf-gommers/">Ralf Gommers</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2021-07-25T18:00:00Z" itemprop="datePublished" title="2021-07-25">2021-07-25</time></a>
+            </p>
+            
+
+        </div>
+        
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/build/" rel="tag">build</a></li>
+            <li><a class="tag p-category" href="../../../../categories/labs/" rel="tag">Labs</a></li>
+            <li><a class="tag p-category" href="../../../../categories/meson/" rel="tag">Meson</a></li>
+            <li><a class="tag p-category" href="../../../../categories/packaging/" rel="tag">packaging</a></li>
+            <li><a class="tag p-category" href="../../../../categories/scipy/" rel="tag">SciPy</a></li>
+        </ul></header><div class="e-content entry-content" itemprop="articleBody text">
+        <div>
+<p>Let's start with an announcement: <em><strong>SciPy now builds with
+<a href="https://mesonbuild.com/">Meson</a> on Linux, and the full test suite passes!</strong></em></p>
+<p>This is a pretty exciting milestone, and good news for SciPy maintainers and
+contributors - they can look forward to much faster builds and a more
+pleasant development experience. So how fast is it? Currently the build takes
+about 1min 50s (a ~4x improvement) on my 3 year old 12-core Intel CPU
+(i9-7920X @ 2.90GHz):</p>
+<p><img alt="Profiling result of a parallel build of SciPy with Meson" src="../../../../images/2021/07/ninjabuild_tracing_12jobs.png"></p>
+<p><em>Profiling result of a parallel build (12 jobs) of SciPy with Meson. Visualization created with <a href="https://github.com/nico/ninjatracing/blob/master/ninjatracing">ninjatracing</a> and <a href="https://ui.perfetto.dev">Perfetto</a>.</em></p>
+<p>As you can see from the tracing results, building a single C++ file
+(<code>bsr.cxx</code>, which is one of SciPy's sparse matrix formats) takes over 90
+seconds. So the 1min 50 sec build time is close to optimal - the only ways to improve it are major surgery on that C++ code, or buying a faster CPU.</p>
+<!-- TEASER_END -->
+
+<h3>Why move to Meson, and why now?</h3>
+<p>In Python 3.10 <code>distutils</code> will be deprecated and in Python 3.12 it will be
+removed (see <a href="https://www.python.org/dev/peps/pep-0632/">PEP 632</a>). SciPy
+uses <code>numpy.distutils</code> and <code>setuptools</code> as its build system, so the removal
+of <code>distutils</code> from the Python standard library would have a major impact on
+SciPy - and even more on <code>numpy.distutils</code>, which directly extends
+<code>distutils</code>. That PEP was written almost a year ago, and at the time my first
+instinct was to wait until <code>setuptools</code> integrated <code>distutils</code> (which the
+<code>setuptools</code> maintainers still plan to do, with a cleaned up API) and then
+update <code>numpy.distutils</code> for that change. That would also require moving
+parts of <code>numpy.distutils</code> into <code>setuptools</code>, like Fortran support (see
+<a href="https://github.com/pypa/setuptools/issues/2372">setuptools/issues/2372</a> for
+more details). It has become clear though that this will be a really slow and
+painful process - after almost a year, the vendored <code>distutils</code> still hasn't
+been re-enabled inside <code>setuptools</code>.</p>
+<p>The other driver was that SciPy development has become more painful over
+time. SciPy contains C, C++, Fortran and Cython code, exports C and Cython
+APIs, has complex dependencies (see diagram below) and does a lot of code
+generation. The growing amount of C++ and Cython code has increased build
+times. CI systems frequently time out because build plus test suite run takes
+close to 60 minutes (the limit on several free-for-open-source CI offerings).
+Working on compiled code is cumbersome and slow, to the point where a couple
+of other maintainers have told me it's a blocker for them to work on new
+features. Finally, debugging build issues is quite difficult - <code>distutils</code>
+doesn't really have a design, so every other extension just monkey patches
+things as needed. Earlier in the year I spent half a day hunting a build
+problem through four (!) different projects that all modified how extensions
+are built.</p>
+<p>Those things together made me realize that it's time to move to a better
+build system - if we are forced to do a lot of work because of PEP 632
+anyway, then now is the time. That left the question: which build system?
+Really there were only two viable candidates: CMake and Meson. After some
+experimentation, I had a strong preference for Meson for two main reasons: it
+has <em>great</em> <a href="https://mesonbuild.com/">documentation</a> (unlike CMake), and it's
+easy to contribute to (it is ~25,000 lines of clean Python code, compared to
+~1,000,000 lines of C/C++ for CMake). Given that there are very few Python
+projects using either CMake or Meson, good docs and an easy to understand
+code base are very important - we're going to have to contribute! CMake has a
+larger user base, as well as better Python integration than Meson via
+<a href="https://scikit-build.readthedocs.io/">scikit-build</a> right now. But to me
+that was less important. Also, scikit-build still depends on <code>setuptools</code> and
+one of the goals of this exercise is to get away from distutils/setuptools
+completely and use only a modern build system and Python packaging standards
+like PEP 517, 518 and 621 to interact with <code>pip</code> and other Python packaging
+tools.</p>
+<p>So in February I wrote
+<a href="https://github.com/scipy/scipy/issues/13615">an RFC titled "switch to Meson as a build system"</a>,
+and after positive feedback started working on this project.</p>
+<p><img src="../../../../images/2021/07/scipy_build_dependencies.png" alt="Diagram of SciPy's build and runtime dependencies" width="600"></p>
+<p><em>SciPy's external build and runtime dependencies. Vendored dependencies (e.g.,
+SuperLU, ARPACK, large parts of Boost, Uarray, HiGHS, Qhull, PocketFFT, etc.)
+aren't shown.</em></p>
+<h3>Some of the benefits of building with Meson</h3>
+<p>Let's start with the biggest benefit: Meson is very fast.</p>
+<pre class="code literal-block"><span></span><code>$ <span class="nb">time</span> meson setup build
+...
+<span class="c1"># Output: ~50 lines of useful configure info</span>
+
+real    0m3.765s
+user    0m5.718s
+sys     0m4.456s
+
+$ <span class="nb">time</span> ninja -C build -j <span class="m">12</span>
+...
+<span class="c1"># Output: ~25 lines of build output, only relevant compiler warnings</span>
+<span class="o">[</span><span class="m">1311</span>/1311<span class="o">]</span> Linking target scipy/sparse/sparsetools/_sparsetools.cpython-39-x86_64-linux-gnu.so
+
+real    1m48.058s
+user    19m58.007s
+sys     2m4.746s
+</code></pre>
+
+
+<p>Compare this with the <code>numpy.distutils</code> based build:</p>
+<pre class="code literal-block"><span></span><code>$ <span class="nb">export</span> <span class="nv">NPY_NUM_BUILD_JOBS</span><span class="o">=</span><span class="m">12</span>  <span class="c1"># parallelize over files for a single .so</span>
+$ <span class="nb">time</span> python setup.py build_ext --inplace -j <span class="m">12</span>  <span class="c1"># parallelize .pyx -&gt; .c/cxx</span>
+...
+<span class="c1"># Output: ~17,000 lines of build output, mostly noise.</span>
+<span class="c1">#         Relevant warnings are effectively impossible to spot.</span>
+
+real    6m56.364s
+user    13m15.175s
+sys     0m39.141s
+</code></pre>
+
+
+<p>So the Meson build is about 4x faster. The main reason <code>numpy.distutils</code> is
+slow is that parallelism is limited - there are hard to fix race conditions
+that prevent running <code>build_ext</code> completely in parallel. Another reason is
+that it just goes around invoking compilers directly in a fairly ad-hoc
+fashion, while Meson uses <a href="https://ninja-build.org/">Ninja</a> as a backend.
+Ninja is about as fast as it gets.</p>
+<p>What we can also see is that we now get a clean build log. This is part of
+the reason it took a while to get to this point - every single compiler
+warning was either silenced in the <code>meson.build</code> files or fixed in SciPy's
+<code>master</code> branch.</p>
+<h4>Better debugging of build issues</h4>
+<p>One very nice improvement is that you don't actually have to run the build
+anymore to figure out how an extension is built exactly. To look at compiler
+flags, include paths, and other information relevant to how a target is
+built, simple run <code>meson introspect build/ -i --targets</code> to obtain a JSON
+representation like this:</p>
+<pre class="code literal-block"><span></span><code><span class="p">{</span>
+    <span class="nt">"name"</span><span class="p">:</span> <span class="s2">"_sparsetools.cpython-39-x86_64-linux-gnu"</span><span class="p">,</span>
+    <span class="nt">"id"</span><span class="p">:</span> <span class="s2">"c534037@@_sparsetools.cpython-39-x86_64-linux-gnu@sha"</span><span class="p">,</span>
+    <span class="nt">"type"</span><span class="p">:</span> <span class="s2">"shared module"</span><span class="p">,</span>
+    <span class="nt">"defined_in"</span><span class="p">:</span> <span class="s2">"/home/rgommers/code/bldscipy/scipy/sparse/sparsetools/meson.build"</span><span class="p">,</span>
+    <span class="nt">"filename"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">"/home/rgommers/code/bldscipy/build/scipy/sparse/sparsetools/_sparsetools.cpython-39-x86_64-linux-gnu.so"</span>
+    <span class="p">],</span>
+    <span class="nt">"build_by_default"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">"target_sources"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">"language"</span><span class="p">:</span> <span class="s2">"cpp"</span><span class="p">,</span>
+            <span class="nt">"compiler"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"/home/rgommers/anaconda3/envs/scipy-meson/bin/x86_64-conda-linux-gnu-c++"</span>
+            <span class="p">],</span>
+            <span class="nt">"parameters"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"-I/home/rgommers/code/bldscipy/build/scipy/sparse/sparsetools/_sparsetools.cpython-39-x86_64-linux-gnu.so.p"</span><span class="p">,</span>
+                <span class="s2">"-I/home/rgommers/code/bldscipy/build/scipy/sparse/sparsetools"</span><span class="p">,</span>
+                <span class="s2">"-I/home/rgommers/code/bldscipy/scipy/sparse/sparsetools"</span><span class="p">,</span>
+                <span class="s2">"-I/home/rgommers/anaconda3/envs/scipy-meson/lib/python3.9/site-packages/numpy/core/include"</span><span class="p">,</span>
+                <span class="s2">"-I/home/rgommers/anaconda3/envs/scipy-meson/include/python3.9"</span><span class="p">,</span>
+                <span class="s2">"-fdiagnostics-color=always"</span><span class="p">,</span>
+                <span class="s2">"-D_FILE_OFFSET_BITS=64"</span><span class="p">,</span>
+                <span class="s2">"-Wall"</span><span class="p">,</span>
+                <span class="s2">"-Winvalid-pch"</span><span class="p">,</span>
+                <span class="s2">"-Wnon-virtual-dtor"</span><span class="p">,</span>
+                <span class="s2">"-std=c++14"</span><span class="p">,</span>
+                <span class="s2">"-O2"</span><span class="p">,</span>
+                <span class="s2">"-g"</span><span class="p">,</span>
+                <span class="s2">"-fvisibility-inlines-hidden"</span><span class="p">,</span>
+                <span class="s2">"-std=c++17"</span><span class="p">,</span>
+                <span class="s2">"-fmessage-length=0"</span><span class="p">,</span>
+                <span class="s2">"-march=nocona"</span><span class="p">,</span>
+                <span class="s2">"-mtune=haswell"</span><span class="p">,</span>
+                <span class="s2">"-ftree-vectorize"</span><span class="p">,</span>
+                <span class="s2">"-fPIC"</span><span class="p">,</span>
+                <span class="s2">"-fstack-protector-strong"</span><span class="p">,</span>
+                <span class="s2">"-fno-plt"</span><span class="p">,</span>
+                <span class="s2">"-O2"</span><span class="p">,</span>
+                <span class="s2">"-ffunction-sections"</span><span class="p">,</span>
+                <span class="s2">"-pipe"</span><span class="p">,</span>
+                <span class="s2">"-isystem"</span><span class="p">,</span>
+                <span class="s2">"/home/rgommers/anaconda3/envs/scipy-meson/include"</span><span class="p">,</span>
+                <span class="s2">"-DNDEBUG"</span><span class="p">,</span>
+                <span class="s2">"-D_FORTIFY_SOURCE=2"</span><span class="p">,</span>
+                <span class="s2">"-O2"</span><span class="p">,</span>
+                <span class="s2">"-isystem"</span><span class="p">,</span>
+                <span class="s2">"/home/rgommers/anaconda3/envs/scipy-meson/include"</span><span class="p">,</span>
+                <span class="s2">"-fPIC"</span><span class="p">,</span>
+                <span class="s2">"-DNPY_NO_DEPRECATED_API=NPY_1_9_API_VERSION"</span>
+            <span class="p">],</span>
+            <span class="nt">"sources"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"/home/rgommers/code/bldscipy/scipy/sparse/sparsetools/bsr.cxx"</span><span class="p">,</span>
+                <span class="s2">"/home/rgommers/code/bldscipy/scipy/sparse/sparsetools/csc.cxx"</span><span class="p">,</span>
+                <span class="s2">"/home/rgommers/code/bldscipy/scipy/sparse/sparsetools/csr.cxx"</span><span class="p">,</span>
+                <span class="s2">"/home/rgommers/code/bldscipy/scipy/sparse/sparsetools/other.cxx"</span><span class="p">,</span>
+                <span class="s2">"/home/rgommers/code/bldscipy/scipy/sparse/sparsetools/sparsetools.cxx"</span>
+            <span class="p">],</span>
+            <span class="nt">"generated_sources"</span><span class="p">:</span> <span class="p">[]</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">"extra_files"</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="nt">"subproject"</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nt">"installed"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">"install_filename"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">"/usr/local/lib/python3.9/site-packages/scipy/sparse/_sparsetools.cpython-39-x86_64-linux-gnu.so"</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
+
+
+<p>This helps quickly pinpointing mistakes in your <code>meson.build</code> files. In
+addition, debugging potential issues in Meson itself, the generated
+<code>ninja.build</code> file is fairly readable too - its syntax is simple enough that
+missing dependencies can be found easily (e.g., <code>scipy.cluster</code> extensions
+depend on <code>scipy.linalg.cython_linalg</code>, and that dependency must be declared
+correctly).</p>
+<h4>Other benefits</h4>
+<p>Other significant benefits include:</p>
+<ol>
+<li>Cross-compiling will become possible. For years we've told people <em>"sorry,
+   <code>distutils</code> wasn't really made for cross-compiling, let us know if you
+   have any luck".</em> As a result we've completely ignored users on some exotic
+   platforms, and also spent a lot of time fighting with different CI systems
+   to do native builds. For example, we will likely want to cross-compile to
+   <code>aarch64</code> rather than struggle with underpowered ARM hardware on Travis
+   CI.</li>
+<li>Developers can use multiple builds at the same time. Because Meson builds
+   are out-of-tree by design, it is now easy to have for example a GCC build,
+   a Clang build, and a Python debug build in parallel in the same repo.</li>
+<li>More development tools work out of the box, e.g.
+   <a href="https://ccache.dev/"><code>ccache</code></a> will just be picked up if it's installed,
+   no configuration needed. I also managed to get
+   <a href="https://clang.llvm.org/docs/AddressSanitizer.html">AddressSanitizer</a> to
+   work with only a few small tweaks.</li>
+<li>Build definitions are easier to understand and modify. Not everything is
+   easier, but common tasks like setting a compiler flag depending on some
+   condition (like "the compiler supports this flag") certainly are:</li>
+</ol>
+<pre class="code literal-block"><span></span><code><span class="c1"># meson.build</span>
+<span class="n">thread_dep</span> <span class="o">=</span> <span class="n">dependency</span><span class="p">(</span><span class="s1">'threads'</span><span class="p">,</span> <span class="n">required</span> <span class="p">:</span> <span class="n">false</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">thread_dep</span><span class="o">.</span><span class="n">found</span><span class="p">()</span>
+  <span class="n">pocketfft_threads</span> <span class="o">=</span> <span class="s1">'-DPOCKETFFT_PTHREADS'</span>
+<span class="n">endif</span>
+
+<span class="n">py3</span><span class="o">.</span><span class="n">extension_module</span><span class="p">(</span><span class="s1">'pypocketfft'</span><span class="p">,</span>
+  <span class="s1">'pypocketfft.cxx'</span><span class="p">,</span>
+  <span class="n">cpp_args</span><span class="p">:</span> <span class="n">pocketfft_threads</span><span class="p">,</span>
+  <span class="n">include_directories</span><span class="p">:</span> <span class="n">inc_pybind11</span><span class="p">,</span>
+  <span class="n">dependencies</span><span class="p">:</span> <span class="p">[</span><span class="n">py3_dep</span><span class="p">,</span> <span class="n">thread_dep</span><span class="p">],</span>
+  <span class="n">gnu_symbol_visibility</span><span class="p">:</span> <span class="s1">'hidden'</span><span class="p">,</span>
+  <span class="n">install</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+  <span class="n">subdir</span><span class="p">:</span> <span class="s1">'scipy/fft/_pocketfft'</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre>
+
+
+<p>compared with:</p>
+<pre class="code literal-block"><span></span><code><span class="c1"># setup.py</span>
+<span class="k">def</span> <span class="nf">pre_build_hook</span><span class="p">(</span><span class="n">build_ext</span><span class="p">,</span> <span class="n">ext</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">scipy._build_utils.compiler_helper</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">set_cxx_flags_hook</span><span class="p">,</span> <span class="n">try_add_flag</span><span class="p">,</span> <span class="n">try_compile</span><span class="p">,</span> <span class="n">has_flag</span><span class="p">)</span>
+    <span class="n">cc</span> <span class="o">=</span> <span class="n">build_ext</span><span class="o">.</span><span class="n">_cxx_compiler</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">ext</span><span class="o">.</span><span class="n">extra_compile_args</span>
+
+    <span class="n">set_cxx_flags_hook</span><span class="p">(</span><span class="n">build_ext</span><span class="p">,</span> <span class="n">ext</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cc</span><span class="o">.</span><span class="n">compiler_type</span> <span class="o">==</span> <span class="s1">'msvc'</span><span class="p">:</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">'/EHsc'</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Use pthreads if available</span>
+        <span class="n">has_pthreads</span> <span class="o">=</span> <span class="n">try_compile</span><span class="p">(</span><span class="n">cc</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="s1">'#include &lt;pthread.h&gt;</span><span class="se">\n</span><span class="s1">'</span>
+                                   <span class="s1">'int main(int argc, char **argv) </span><span class="si">{}</span><span class="s1">'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">has_pthreads</span><span class="p">:</span>
+            <span class="n">ext</span><span class="o">.</span><span class="n">define_macros</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s1">'POCKETFFT_PTHREADS'</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">has_flag</span><span class="p">(</span><span class="n">cc</span><span class="p">,</span> <span class="s1">'-pthread'</span><span class="p">):</span>
+                <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">'-pthread'</span><span class="p">)</span>
+                <span class="n">ext</span><span class="o">.</span><span class="n">extra_link_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">'-pthread'</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"Build failed: System has pthreads header "</span>
+                                   <span class="s2">"but could not compile with -pthread option"</span><span class="p">)</span>
+
+        <span class="c1"># Don't export library symbols</span>
+        <span class="n">try_add_flag</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">cc</span><span class="p">,</span> <span class="s1">'-fvisibility=hidden'</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">configuration</span><span class="p">(</span><span class="n">parent_package</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span> <span class="n">top_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">Configuration</span><span class="p">(</span><span class="s1">'_pocketfft'</span><span class="p">,</span> <span class="n">parent_package</span><span class="p">,</span> <span class="n">top_path</span><span class="p">)</span>
+    <span class="n">ext</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">add_extension</span><span class="p">(</span><span class="s1">'pypocketfft'</span><span class="p">,</span>
+                               <span class="n">sources</span><span class="o">=</span><span class="p">[</span><span class="s1">'pypocketfft.cxx'</span><span class="p">],</span>
+                               <span class="n">depends</span><span class="o">=</span><span class="p">[</span><span class="s1">'pocketfft_hdronly.h'</span><span class="p">],</span>
+                               <span class="n">include_dirs</span><span class="o">=</span><span class="n">include_dirs</span><span class="p">,</span>
+                               <span class="n">language</span><span class="o">=</span><span class="s1">'c++'</span><span class="p">)</span>
+    <span class="n">ext</span><span class="o">.</span><span class="n">_pre_build_hook</span> <span class="o">=</span> <span class="n">pre_build_hook</span>
+</code></pre>
+
+
+<h3>Some key Meson design principles</h3>
+<p>Meson is a well-designed build system, and both the
+<a href="https://mesonbuild.com/">docs</a> and <a href="https://mesonbuild.com/Videos.html">a number of talks by Meson devs on
+YouTube</a> do a great job at explaining
+that design. So I won't try and give a full picture here. However, there are
+a few things that are particularly important and would have helped me to
+fully grasp when I started on this project. So let's have a look at those.</p>
+<p><em>Builds must be out-of-tree.</em> Meson will not allow building inside your existing
+source tree - and that includes code generation. There are good reasons for
+this, but when coming from <code>distutils</code> it may bite you. For example, if you
+have a script to generate Cython <code>.pyx</code> and <code>.pxd</code> files (quite common in
+SciPy), those files cannot be placed next to the template, they must go into
+a build directory (the one we chose with <code>meson setup &lt;builddir&gt;</code>).</p>
+<p><em>Meson is not Turing-complete, and not extensible via APIs.</em> What this means is
+that if something is not supported in Meson itself, you cannot just write a
+bit of Python code to hack around the problem. Instead, you must add it in
+Meson itself. If that takes too long, just fork Meson and use your fork until
+your feature is merged upstream. This <em>seems</em> painful, but it guarantees that
+people don't just copy around changes from project to project and long-term
+maintainability deteriorates. Instead, the philosophy is to fix things once
+for all users.</p>
+<p><em>All source files and targets must be listed explicitly.</em> This means that if you
+build a single Python extension from 50 Fortran files, you must list all 50
+files names. This is not really a problem in practice, but it can be a little
+verbose. Using a few helper snippets to generate file listings in IPython
+saves time:</p>
+<pre class="code literal-block"><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)):</span>
+<span class="o">...</span>     <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'.f'</span><span class="p">):</span>
+<span class="o">...</span>         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  '</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">',"</span><span class="p">)</span>
+<span class="o">...</span> 
+  <span class="s1">'dgamln.f'</span><span class="p">,</span>
+  <span class="s1">'zabs.f'</span><span class="p">,</span>
+  <span class="o">...</span>
+</code></pre>
+
+
+<p><em>Meson has an imperative DSL with immutable objects.</em> The syntax of the DSL is
+inspired by Python, and is easy to read. Objects - which can be dependencies,
+generated files, built extensions, etc. - being immutable makes things easy
+to debug, but in some cases it can restrict what you can do. For example,
+this code for building all <code>scipy.sparse.csgraph</code> extensions is quite
+elegant, but the <code>foreach</code> pattern will not work if the <code>.pyx</code> files are
+generated. This is because they'd then be objects created by <code>custom_target</code>,
+and there is no syntax to give them unique names within the <code>foreach</code> loop -
+this cost me some time to figure out:</p>
+<pre class="code literal-block"><span></span><code><span class="n">pyx_files</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">[</span><span class="s1">'_flow'</span><span class="p">,</span> <span class="s1">'_flow.pyx'</span><span class="p">],</span>
+  <span class="p">[</span><span class="s1">'_matching'</span><span class="p">,</span> <span class="s1">'_matching.pyx'</span><span class="p">],</span>
+  <span class="p">[</span><span class="s1">'_min_spanning_tree'</span><span class="p">,</span> <span class="s1">'_min_spanning_tree.pyx'</span><span class="p">],</span>
+  <span class="p">[</span><span class="s1">'_reordering'</span><span class="p">,</span> <span class="s1">'_reordering.pyx'</span><span class="p">],</span>
+  <span class="p">[</span><span class="s1">'_shortest_path'</span><span class="p">,</span> <span class="s1">'_shortest_path.pyx'</span><span class="p">],</span>
+  <span class="p">[</span><span class="s1">'_tools'</span><span class="p">,</span> <span class="s1">'_tools.pyx'</span><span class="p">],</span>
+  <span class="p">[</span><span class="s1">'_traversal'</span><span class="p">,</span> <span class="s1">'_traversal.pyx'</span><span class="p">],</span>
+<span class="p">]</span>
+
+<span class="n">foreach</span> <span class="n">pyx_file</span> <span class="p">:</span> <span class="n">pyx_files</span>
+  <span class="n">py3</span><span class="o">.</span><span class="n">extension_module</span><span class="p">(</span><span class="n">pyx_file</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">pyx_file</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="n">include_directories</span> <span class="p">:</span> <span class="n">inc_np</span><span class="p">,</span>
+    <span class="n">dependencies</span> <span class="p">:</span> <span class="n">py3_dep</span><span class="p">,</span>
+    <span class="n">install</span> <span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="n">subdir</span> <span class="p">:</span> <span class="s1">'scipy/sparse/csgraph'</span><span class="p">)</span>
+<span class="n">endforeach</span>
+</code></pre>
+
+
+<p><em>Meson uses <code>pkg-config</code> for discovering dependencies.</em> This means certain
+things "just work". E.g., <code>blas = dependency('openblas')</code> followed by using
+<code>dependencies: blas</code> to build the <code>scipy.linalg._fblas</code> extension worked on
+the first try for me - definitely did not expect that.</p>
+<p><em>There is one escape hatch to do things Meson does not natively support: <code>custom_target</code>.</em>
+As long you list its source files and outputs, you can invoke Python scripts
+through <code>custom_target</code>. This is how the SciPy build invokes <code>numpy.f2py</code>,
+Pythran and <code>cython --cplus</code> (Meson's Cython support is brand new, and only
+supports targeting C if you give a <code>.pyx</code> file to <code>py3.extension_module</code>
+right now).</p>
+<h3>The sharp bits</h3>
+<p>Not everything was smooth sailing. Here are a few of the most important
+issues I ran into:</p>
+<ol>
+<li>Cython + generated sources. This was by far the most time-consuming topic.
+   Cython's <code>cimport</code> mechanism relies on the complete source tree. For
+   example, not having a <code>__init__.py</code> file two directories up from where the
+   <code>.pyx</code> file that you are building lives changes the C code that Cython
+   generates. The full source tree layout matters for Cython. Cython was
+   largely designed around in-tree builds, and Meson only allows you to
+   generate files out-of-tree. This necessitates hacks like writing scripts
+   or invoking <code>cp</code> to copy over many <code>__init__.py</code> and <code>.pxi|.pxd</code> files.
+   And then more hacks to ensure those files are respected as dependencies by
+   Ninja.</li>
+<li>SciPy is a tangled mess - there are 17 <code>scipy.xxx</code> submodules and almost all
+   of them depend on each other. So we could only start running tests after
+   the Meson build was close to 100% complete. We have had issues in SciPy
+   with import cycles before, and I'm now surprised we didn't have more
+   issues in the past.</li>
+<li>One feature I missed in Meson: installing generated files with
+   <a href="https://mesonbuild.com/Python-module.html#install_sources"><code>py3.install_sources</code></a>
+   is not allowed. One can specify <code>install: true</code> in <code>custom_target</code>, but it
+   is a bit hacky to make that recognize the correct Python-specific install
+   directory and it's then not possible to generate say 10 files and only
+   install two of those (I ran into this multiple times, typically with
+   Cython again where we need the <code>.pyx</code> and <code>.pxi</code> files at build time, and
+   the <code>.pxd</code> files also at runtime).</li>
+<li>You must use <code>--prefix</code> when using <code>meson setup</code>. If you don't, Meson just
+   ignores with which Python interpreter you built and simply installs to the
+   default <code>/usr/local/lib/</code>, asking for elevated permissions if needed.
+   Meson doesn't know it's building a Python package (we've just told it in
+   the <code>project</code> definition that we're building C, C++, Cython and Fortran
+   code) so from the Meson perspective this is normal. It's not a major
+   issue, however I have forgotten to add <code>--prefix=$PWD/installdir</code> often
+   enough that it's a point of friction. The plan is to solve this by writing
+   a <code>dev.py</code> CLI wrapper, similar to SciPy's <code>runtests.py</code>.</li>
+</ol>
+<h3>Next steps for SciPy and beyond</h3>
+<p>Right now the Meson support lives in my fork of SciPy. If you'd like to play
+with it, see
+<a href="https://github.com/rgommers/scipy/blob/meson/MESON_BUILD.md">rgommers/scipy/MESON_BUILD.md</a>.
+There's a lot left to do before we can declary victory and make Meson the
+default build system. The most important topics are:</p>
+<ul>
+<li>support for macOS (should be easy) and Windows (probably tricky),</li>
+<li>implementing support for MKL and other BLAS/LAPACK libraries in Meson,</li>
+<li>making the BLAS/LAPACK library to use user-configurable, and</li>
+<li>building wheels and sdists.</li>
+</ul>
+<p>For more details, see <a href="https://github.com/rgommers/scipy/issues/22">the tracking issue</a>
+and <a href="https://mail.python.org/pipermail/scipy-dev/2021-July/024931.html">my proposal on the scipy-dev list to use some SciPy project funds to
+help accelerate build and CI improvements</a>.</p>
+<p>When I started this endeavour, I wasn't yet completely sure using Meson was
+going to work out. However I did know that if building SciPy was successful,
+Meson will work for pretty much any other scientific Python project. We have
+about two years left before <code>distutils</code> disappears, and my hope is that we
+can retire <code>numpy.distutils</code> over that time frame. Projects which don't have
+complex build requirements (i.e. just Cython, or maybe a few C extensions)
+should be fine to simply use <code>setuptools</code>. And those projects which do have
+complex builds can move to Meson, or to scikit-build if they prefer CMake.</p>
+<p>There are a lot of technical reasons to argue for or against using any build
+system. However, why I'm convinced Meson is a great choice for both SciPy and
+other projects is: <strong>Meson is a pleasure to use</strong>. It "feels right". That's a
+rare thing to say about a build system - I've certainly not heard anyone say
+this about <code>numpy.distutils</code> or <code>setuptools</code>. Nor about CMake. We have had
+two other alternative build systems before in NumPy and SciPy: first NumScons
+(based on Scons) and then Bento (based on Waf). Both were created by <a href="https://github.com/cournape">David
+Cournapeau</a>; NumScons in 2008 and Bento in 2011.
+Bento/Waf was most similar to Meson, and it made working on SciPy so much
+better that I maintained it until 2018 - but it never made the transition to
+Python 3. Yes, I stayed with Python 2.7 until 2018 specifically so I could
+use Bento rather than distutils - nothing in Python 3.x was interesting
+enough that it was worth dealing with distutils on a daily basis.
+Unfortunately Waf was not a stable enough project to build on, and Bento was
+a one-person project. Meson is even better than Waf and is well-maintained,
+so we can finally have a single <em>nice</em> build system.</p>
+<p>This project has consumed a lot of nights and weekends to get it to this
+point. I wouldn't have gotten this far in five months without some very
+important contributions though. <a href="https://github.com/dcbaker">Dylan Baker</a>,
+one of the Meson maintainers, implemented Cython support in Meson
+impressively quickly after my <em>"<a href="https://github.com/mesonbuild/meson/issues/8693">Treating Cython like a
+language?</a>"</em> proposal. That
+was a real life saver - using <code>custom_target</code> for every Cython extension
+would have been very tedious. My colleague <a href="https://github.com/czgdp1807/">Gagandeep
+Singh</a> added Meson support for some of the
+largest SciPy modules (<code>optimize</code>, <code>stats</code>, <code>spatial</code>, <code>interpolate</code>,
+<code>sparse.linalg</code>). <a href="https://github.com/Smit-create/">Smit Lunagariya</a>, who
+started an internship with SciPy earlier this month, added support for the
+<code>signal</code> and <code>misc</code> submodules, and is fixing build warnings and bugs in
+SciPy that the Meson build made visible. <a href="https://github.com/jpakkane/">Jussi
+Pakkanen</a> (the Meson project leader), offered
+encouraging advice early on. <a href="https://gitlab.com/thiblahute">Thibault
+Saunier</a> implemented preliminary support for
+PEP 621 in <code>mesonpep517</code>. <a href="https://github.com/FRidh/">Frederik Rietdijk</a> sent
+me a PR to demonstrate building SciPy with Meson and Nix. And many fellow
+SciPy maintainers and others gave positive feedback on my proposals to try
+adopting Meson. In short, it takes a village to switch build systems - thanks
+to everyone who is participating in this effort!</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../introducing-code-generator-v020/" rel="prev" title="Introducing PyTorch-Ignite's Code Generator v0.2.0">Previous post</a>
+            </li>
+
+            <li class="archive">
+                <a href="../../../../archive.html" rel="archive" title="Archive ">Archive</a>
+            </li>
+
+            <li class="next disabled">
+                <a rel="next">Next post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2021         <a href="../../../../team">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
+    </script>
+</body>
+</html>
