@@ -1,7 +1,7 @@
 <!--
 .. title: Moving SciPy to the Meson build system
 .. slug: moving-scipy-to-meson
-.. date: 2021-07-25 09:00:00 UTC-00:00
+.. date: 2021-07-25 18:00:00 UTC-00:00
 .. author: Ralf Gommers
 .. tags: Labs, SciPy, Meson, build, packaging
 .. category:
@@ -16,16 +16,16 @@ Let's start with an announcement: _**SciPy now builds with
 This is a pretty exciting milestone, and good news for SciPy maintainers and
 contributors - they can look forward to much faster builds and a more
 pleasant development experience. So how fast is it? Currently the build takes
-about 1min 50s on my 3 year old 12-core Intel CPU (i9-7920X @ 2.90GHz):
+about 1min 50s (a ~4x improvement) on my 3 year old 12-core Intel CPU
+(i9-7920X @ 2.90GHz):
 
 ![Profiling result of a parallel build of SciPy with Meson](/images/2021/07/ninjabuild_tracing_12jobs.png)
 
 *Profiling result of a parallel build (12 jobs) of SciPy with Meson. Visualization created with [ninjatracing](https://github.com/nico/ninjatracing/blob/master/ninjatracing) and [Perfetto](https://ui.perfetto.dev).*
 
 As you can see from the tracing results, building a single C++ file
-(`bsr.cxx`, one of SciPy's sparse matrix formats) takes over 90 seconds. So
-short of major surgery on that C++ code or buying a newer CPU, the 1min 50sec
-is close to optimal.
+(`bsr.cxx`, which is one of SciPy's sparse matrix formats) takes over 90
+seconds. So the 1min 50 sec build time is close to optimal - the only ways to improve it are major surgery on that C++ code, or buying a faster CPU.
 
 <!-- TEASER_END -->
 
@@ -39,8 +39,8 @@ SciPy - and even more on `numpy.distutils`, which directly extends
 `distutils`. That PEP was written almost a year ago, and at the time my first
 instinct was to wait until `setuptools` integrated `distutils` (which the
 `setuptools` maintainers still plan to do, with a cleaned up API) and then
-update `numpy.disutils` for that change. That would also require moving parts
-of `numpy.distutils` into `setuptools`, like Fortran support (see
+update `numpy.distutils` for that change. That would also require moving
+parts of `numpy.distutils` into `setuptools`, like Fortran support (see
 [setuptools/issues/2372](https://github.com/pypa/setuptools/issues/2372) for
 more details). It has become clear though that this will be a really slow and
 painful process - after almost a year, the vendored `distutils` still hasn't
@@ -115,22 +115,23 @@ sys     2m4.746s
 Compare this with the `numpy.distutils` based build:
 
 ```bash
-$ time python setup.py build_ext --inplace -j 12
+$ export NPY_NUM_BUILD_JOBS=12  # parallelize over files for a single .so
+$ time python setup.py build_ext --inplace -j 12  # parallelize .pyx -> .c/cxx
 ...
 # Output: ~17,000 lines of build output, mostly noise.
 #         Relevant warnings are effectively impossible to spot.
 
-real    7m26.631s
-user    13m35.152s
-sys     1m1.605s
+real    6m56.364s
+user    13m15.175s
+sys     0m39.141s
 ```
 
-So the Meson build is over 4x faster. The main reason `numpy.distutils` is
+So the Meson build is about 4x faster. The main reason `numpy.distutils` is
 slow is that parallelism is limited - there are hard to fix race conditions
-that prevent running `build_ext` in parallel. Another reason is that it just
-goes around invoking compilers directly in a fairly ad-hoc fashion, while
-Meson uses [Ninja](https://ninja-build.org/) as a backend. Ninja is about as
-fast as it gets.
+that prevent running `build_ext` completely in parallel. Another reason is
+that it just goes around invoking compilers directly in a fairly ad-hoc
+fashion, while Meson uses [Ninja](https://ninja-build.org/) as a backend.
+Ninja is about as fast as it gets.
 
 What we can also see is that we now get a clean build log. This is part of
 the reason it took a while to get to this point - every single compiler
@@ -217,9 +218,9 @@ representation like this:
 This helps quickly pinpointing mistakes in your `meson.build` files. In
 addition, debugging potential issues in Meson itself, the generated
 `ninja.build` file is fairly readable too - its syntax is simple enough that
-for example missing dependencies can be found (e.g., `scipy.cluster`
-extensions depend on `scipy.linalg.cython_linalg`, and that dependency must
-be declared correctly).
+missing dependencies can be found easily (e.g., `scipy.cluster` extensions
+depend on `scipy.linalg.cython_linalg`, and that dependency must be declared
+correctly).
 
 ### Other benefits
 
@@ -228,16 +229,18 @@ Other significant benefits include:
 1. Cross-compiling will become possible. For years we've told people *"sorry,
    `distutils` wasn't really made for cross-compiling, let us know if you
    have any luck".* As a result we've completely ignored users on some exotic
-   platforms (doing native ), and also spent a lot of time fighting with
-   different CI systems to do native builds. For example, we will likely want
-   to cross-compile to `aarch64` rather than struggle with underpowered ARM
-   hardware on Travis CI.
+   platforms, and also spent a lot of time fighting with different CI systems
+   to do native builds. For example, we will likely want to cross-compile to
+   `aarch64` rather than struggle with underpowered ARM hardware on Travis
+   CI.
 2. Developers can use multiple builds at the same time. Because Meson builds
    are out-of-tree by design, it is now easy to have for example a GCC build,
    a Clang build, and a Python debug build in parallel in the same repo.
-3. More development tools work out of the box, e.g. `ccache` will just be
-   picked up if it's installed, no configuration needed. I also managed to
-   get ASAN to work with only a few small tweaks.
+3. More development tools work out of the box, e.g.
+   [`ccache`](https://ccache.dev/) will just be picked up if it's installed,
+   no configuration needed. I also managed to get
+   [AddressSanitizer](https://clang.llvm.org/docs/AddressSanitizer.html) to
+   work with only a few small tweaks.
 4. Build definitions are easier to understand and modify. Not everything is
    easier, but common tasks like setting a compiler flag depending on some
    condition (like "the compiler supports this flag") certainly are:
@@ -304,11 +307,12 @@ def configuration(parent_package='', top_path=None):
 
 ## Some key Meson design principles
 
-Meson is a well-designed build systems, and both the docs and a number of
-talks by Meson devs on YouTube do a great job at explaining that design. So I
-won't try and give a full picture here. However, there are a few things that
-are particularly important and would have helped me to fully grasp when I
-started on this project. So let's have a look at those.
+Meson is a well-designed build system, and both the
+[docs](https://mesonbuild.com/) and [a number of talks by Meson devs on
+YouTube](https://mesonbuild.com/Videos.html) do a great job at explaining
+that design. So I won't try and give a full picture here. However, there are
+a few things that are particularly important and would have helped me to
+fully grasp when I started on this project. So let's have a look at those.
 
 *Builds must be out-of-tree.* Meson will not allow building inside your existing
 source tree - and that includes code generation. There are good reasons for
@@ -326,7 +330,7 @@ people don't just copy around changes from project to project and long-term
 maintainability deteriorates. Instead, the philosophy is to fix things once
 for all users.
 
-*All source files and targets must be list explicitly.* This means that if you
+*All source files and targets must be listed explicitly.* This means that if you
 build a single Python extension from 50 Fortran files, you must list all 50
 files names. This is not really a problem in practice, but it can be a little
 verbose. Using a few helper snippets to generate file listings in IPython
@@ -400,17 +404,18 @@ issues I ran into:
    And then more hacks to ensure those files are respected as dependencies by
    Ninja.
 2. SciPy is a tangled mess - there are 17 `scipy.xxx` submodules and almost all
-   of them depend on each other. So with a few exceptions, the tests only ran
-   once almost all submodules built with Meson. We have had issues in SciPy
+   of them depend on each other. So we could only start running tests after
+   the Meson build was close to 100% complete. We have had issues in SciPy
    with import cycles before, and I'm now surprised we didn't have more
    issues in the past.
 3. One feature I missed in Meson: installing generated files with
-   `py3.install_sources` is not allowed. One can specify `install: true` in
-   `custom_target`, but it is a bit hacky to make that recognize the correct
-   Python-specific install directory and it's then not possible to generate
-   say 10 files and only install two of those (I ran into this multiple
-   times, typically with Cython again where we need the `.pyx` and `.pxi`
-   files at build time, and the `.pxd` files also at runtime).
+   [`py3.install_sources`](https://mesonbuild.com/Python-module.html#install_sources)
+   is not allowed. One can specify `install: true` in `custom_target`, but it
+   is a bit hacky to make that recognize the correct Python-specific install
+   directory and it's then not possible to generate say 10 files and only
+   install two of those (I ran into this multiple times, typically with
+   Cython again where we need the `.pyx` and `.pxi` files at build time, and
+   the `.pxd` files also at runtime).
 4. You must use `--prefix` when using `meson setup`. If you don't, Meson just
    ignores with which Python interpreter you built and simply installs to the
    default `/usr/local/lib/`, asking for elevated permissions if needed.
