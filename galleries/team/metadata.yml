@@ -162,5 +162,5 @@ projects: ['SymPy', 'LFortran', 'NumPy']
 name: saul_shanabrook.jpeg
 title: Saul Shanabrook
 github: saulshanabrook
-projects: ['Vega', 'Jupyter']
+projects: ['Vega', 'Jupyter', 'metadsl']
 ---
