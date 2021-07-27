@@ -75,8 +75,8 @@ larger user base, as well as better Python integration than Meson via
 that was less important. Also, scikit-build still depends on `setuptools` and
 one of the goals of this exercise is to get away from distutils/setuptools
 completely and use only a modern build system and Python packaging standards
-like PEP 517, 518 and 621 to interact with `pip` and other Python packaging
-tools.
+(i.e. `pyproject.toml`-based builds) to interact with `pip` and other Python
+packaging tools.
 
 So in February I wrote
 [an RFC titled "switch to Meson as a build system"](https://github.com/scipy/scipy/issues/13615),
@@ -339,7 +339,7 @@ saves time:
 >>> for f in sorted(os.listdir('.')):
 ...     if f.endswith('.f'):
 ...         print(f"  '{f}',")
-... 
+...
   'dgamln.f',
   'zabs.f',
   ...
