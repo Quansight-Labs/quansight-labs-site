@@ -185,8 +185,8 @@ larger user base, as well as better Python integration than Meson via
 that was less important. Also, scikit-build still depends on <code>setuptools</code> and
 one of the goals of this exercise is to get away from distutils/setuptools
 completely and use only a modern build system and Python packaging standards
-like PEP 517, 518 and 621 to interact with <code>pip</code> and other Python packaging
-tools.</p>
+(i.e. <code>pyproject.toml</code>-based builds) to interact with <code>pip</code> and other Python
+packaging tools.</p>
 <p>So in February I wrote
 <a href="https://github.com/scipy/scipy/issues/13615">an RFC titled "switch to Meson as a build system"</a>,
 and after positive feedback started working on this project.</p>
@@ -430,7 +430,7 @@ saves time:</p>
 <pre class="code literal-block"><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)):</span>
 <span class="o">...</span>     <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'.f'</span><span class="p">):</span>
 <span class="o">...</span>         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  '</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">',"</span><span class="p">)</span>
-<span class="o">...</span> 
+<span class="o">...</span>
   <span class="s1">'dgamln.f'</span><span class="p">,</span>
   <span class="s1">'zabs.f'</span><span class="p">,</span>
   <span class="o">...</span>
