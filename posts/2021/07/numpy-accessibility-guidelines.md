@@ -6,7 +6,7 @@ text
 -->
 
 ![A large eye is placed over two bar graphs. Two silhouettes of heads are also
-overlaid the bar graphs.](images/2021/07/numpy-accessibility/header_image.png)
+overlaid the bar graphs.](/images/2021/07/numpy-accessibility/header_image.png)
 _Header illustration by author, Mars Lee_
 
 Numpy is now foundational to Python scientific computing. Our efforts reach
@@ -19,7 +19,7 @@ documentation up to modern accessibility standards.
 ![The Venn diagram shows 2 intersecting circles, one labeled '10 million NumPy
 users' and the other labeled '15% of human population is disabled'. The area of
 intersection is labeled '1,500,000 disabled NumPy
-users.](images/2021/07/numpy-accessibility/venn_diagram.png)
+users.](/images/2021/07/numpy-accessibility/venn_diagram.png)
 
 As NumPy is early in the dependency chain, it has a huge install base. It is
 estimated that there are 10 million users of NumPy. Taking together another
@@ -58,7 +58,7 @@ term over the other.
 
 ![A comic about how everyone benefits from accessibility. The example is about
 having a situational disability and being provided accommodations to overcome
-it.](images/2021/07/numpy-accessibility/situation_disability.png) [_External
+it.](/images/2021/07/numpy-accessibility/situation_disability.png) [_External
 link to the above illustration's full
 transcription_](https://gist.githubusercontent.com/MarsBarLee/4f5f30ede8631dec8fd9fcd0526aa065/raw/6ab7e61cec2dc173a84b04cec246fde6b2841d81/situation_disability.png)
 
@@ -83,12 +83,12 @@ keyboard shortcuts.
 
 ![A comic about how different people respond to the same barrier. The example
 here is about graphs with colors that are inaccessible for people with
-deuteranopia.](images/2021/07/numpy-accessibility/disability_not_recognized.png)
+deuteranopia.](/images/2021/07/numpy-accessibility/disability_not_recognized.png)
 [_External link to the above illustration's full
 transcription_](https://gist.githubusercontent.com/MarsBarLee/8beffb99b2f0976a42a97d68bb89f8d2/raw/fb20ffc54bd19e1b0e6cb12873a89734cfda23ae/disability_not_recognized.png)
 
 ![A graph illustrating how the world can be inaccessible for people with
-deuteranopia.](images/2021/07/numpy-accessibility/color_deficiency.png)
+deuteranopia.](/images/2021/07/numpy-accessibility/color_deficiency.png)
 [_External link to the above illustration's full
 transcription_](https://gist.githubusercontent.com/MarsBarLee/eae9824bf76b3ea89d719e61e2f1e078/raw/faed346caedebd666a87dbbe734ec092ecde368e/color_deficiency.png)
 
@@ -102,7 +102,7 @@ altogether.
 
 ![A table of the different types of disabilities. It provides examples of
 situational, permanent and temporary
-disabilities.](images/2021/07/numpy-accessibility/types_of_disabilities.png)
+disabilities.](/images/2021/07/numpy-accessibility/types_of_disabilities.png)
 [_External link to the above illustration's full
 transcription_](https://gist.githubusercontent.com/MarsBarLee/69172dd5083e7aaaaf7789ef2143befc/raw/2ebd6071dc72118e810e67bab217c94d9b0469dd/types_of_disabilities.png)
 
@@ -130,7 +130,7 @@ disabilities.
 
 ![A graph on the different compliance levels. Different contrast ratios between
 text and background to show how low contrast is less
-accessible.](images/2021/07/numpy-accessibility/compliance_levels.png)
+accessible.](/images/2021/07/numpy-accessibility/compliance_levels.png)
 [_External link to the above illustration's full
 transcription_](https://gist.githubusercontent.com/MarsBarLee/e7b0586e082063e98130509f1ccedbd4/raw/530e3bb7a545b74404f0716626f307be0bd32761/compliance_levels.png)
 
@@ -151,7 +151,7 @@ for the many mathematical graphs.
 
 ![A screenshot of the NumPy.org main page with an overlay of the WAVE
 accessibility review tool. Sections of the NumPy website are highlighted by the
-tool.](images/2021/07/numpy-accessibility/wave_extension.png)
+tool.](/images/2021/07/numpy-accessibility/wave_extension.png)
 
 Unfortunately, there was no way to review multiple pages at the same time with
 the WAVE tool’s free plan. There are several hundred pages in the NumPy
