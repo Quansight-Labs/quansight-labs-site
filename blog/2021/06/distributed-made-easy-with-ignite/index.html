@@ -280,14 +280,14 @@ distributed model instantiation:</p>
 <div class="line"><br></div>
 </div>
 <p>Additionally, it is also compatible with <a class="reference external" href="https://github.com/NVIDIA/apex">NVIDIA/apex</a></p>
-<pre class="code python"><a name="rest_code_da018017ca624711a310b56dbd956e8d-1"></a><span class="n">model</span><span class="p">,</span> <span class="n">optimizer</span> <span class="o">=</span> <span class="n">amp</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">opt_level</span><span class="o">=</span><span class="n">opt_level</span><span class="p">)</span>
-<a name="rest_code_da018017ca624711a310b56dbd956e8d-2"></a><span class="n">model</span> <span class="o">=</span> <span class="n">idist</span><span class="o">.</span><span class="n">auto_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<pre class="code python"><a name="rest_code_38e4a7b5440a42449555bd5317e6ed4c-1"></a><span class="n">model</span><span class="p">,</span> <span class="n">optimizer</span> <span class="o">=</span> <span class="n">amp</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">opt_level</span><span class="o">=</span><span class="n">opt_level</span><span class="p">)</span>
+<a name="rest_code_38e4a7b5440a42449555bd5317e6ed4c-2"></a><span class="n">model</span> <span class="o">=</span> <span class="n">idist</span><span class="o">.</span><span class="n">auto_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 </pre>
 <p>and <a class="reference external" href="https://pytorch.org/docs/stable/amp.html">Torch native AMP</a></p>
-<pre class="code python"><a name="rest_code_472d2208e34c4256b6accfd5292a7bac-1"></a><span class="n">model</span> <span class="o">=</span> <span class="n">idist</span><span class="o">.</span><span class="n">auto_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
-<a name="rest_code_472d2208e34c4256b6accfd5292a7bac-2"></a>
-<a name="rest_code_472d2208e34c4256b6accfd5292a7bac-3"></a><span class="k">with</span> <span class="n">autocast</span><span class="p">():</span>
-<a name="rest_code_472d2208e34c4256b6accfd5292a7bac-4"></a>    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<pre class="code python"><a name="rest_code_4efc56d884de4416ba6be1822a290d68-1"></a><span class="n">model</span> <span class="o">=</span> <span class="n">idist</span><span class="o">.</span><span class="n">auto_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<a name="rest_code_4efc56d884de4416ba6be1822a290d68-2"></a>
+<a name="rest_code_4efc56d884de4416ba6be1822a290d68-3"></a><span class="k">with</span> <span class="n">autocast</span><span class="p">():</span>
+<a name="rest_code_4efc56d884de4416ba6be1822a290d68-4"></a>    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre>
 <ul class="simple">
 <li><p><a class="reference external" href="https://pytorch.org/ignite/distributed.html#ignite.distributed.auto.auto_model">auto_optim()</a></p></li>
@@ -424,13 +424,13 @@ production-grade example that uses PyTorch-Ignite, refer
 </embed><div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>You can also mix the usage of <code class="docutils literal">idist</code> with other distributed APIs as below:</p>
-<pre class="code python"><a name="rest_code_61eab2bfdc644fbf964d0f3b32962616-1"></a><span class="n">dist</span><span class="o">.</span><span class="n">init_process_group</span><span class="p">(</span><span class="n">backend</span><span class="p">,</span> <span class="n">store</span><span class="o">=...</span><span class="p">,</span> <span class="n">world_size</span><span class="o">=</span><span class="n">world_size</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="n">rank</span><span class="p">)</span>
-<a name="rest_code_61eab2bfdc644fbf964d0f3b32962616-2"></a>
-<a name="rest_code_61eab2bfdc644fbf964d0f3b32962616-3"></a><span class="n">rank</span> <span class="o">=</span> <span class="n">idist</span><span class="o">.</span><span class="n">get_rank</span><span class="p">()</span>
-<a name="rest_code_61eab2bfdc644fbf964d0f3b32962616-4"></a><span class="n">ws</span> <span class="o">=</span> <span class="n">idist</span><span class="o">.</span><span class="n">get_world_size</span><span class="p">()</span>
-<a name="rest_code_61eab2bfdc644fbf964d0f3b32962616-5"></a><span class="n">model</span> <span class="o">=</span> <span class="n">idist</span><span class="o">.</span><span class="n">auto_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
-<a name="rest_code_61eab2bfdc644fbf964d0f3b32962616-6"></a>
-<a name="rest_code_61eab2bfdc644fbf964d0f3b32962616-7"></a><span class="n">dist</span><span class="o">.</span><span class="n">destroy_process_group</span><span class="p">()</span>
+<pre class="code python"><a name="rest_code_21d76aadc6474fc5a7ee35976383efab-1"></a><span class="n">dist</span><span class="o">.</span><span class="n">init_process_group</span><span class="p">(</span><span class="n">backend</span><span class="p">,</span> <span class="n">store</span><span class="o">=...</span><span class="p">,</span> <span class="n">world_size</span><span class="o">=</span><span class="n">world_size</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="n">rank</span><span class="p">)</span>
+<a name="rest_code_21d76aadc6474fc5a7ee35976383efab-2"></a>
+<a name="rest_code_21d76aadc6474fc5a7ee35976383efab-3"></a><span class="n">rank</span> <span class="o">=</span> <span class="n">idist</span><span class="o">.</span><span class="n">get_rank</span><span class="p">()</span>
+<a name="rest_code_21d76aadc6474fc5a7ee35976383efab-4"></a><span class="n">ws</span> <span class="o">=</span> <span class="n">idist</span><span class="o">.</span><span class="n">get_world_size</span><span class="p">()</span>
+<a name="rest_code_21d76aadc6474fc5a7ee35976383efab-5"></a><span class="n">model</span> <span class="o">=</span> <span class="n">idist</span><span class="o">.</span><span class="n">auto_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<a name="rest_code_21d76aadc6474fc5a7ee35976383efab-6"></a>
+<a name="rest_code_21d76aadc6474fc5a7ee35976383efab-7"></a><span class="n">dist</span><span class="o">.</span><span class="n">destroy_process_group</span><span class="p">()</span>
 </pre>
 </div>
 </div>
@@ -460,17 +460,17 @@ spawn argument.</p>
 <li><p>Running multiple distributed configurations with one code. Source:
 <a class="reference external" href="https://github.com/pytorch-ignite/idist-snippets/blob/master/ignite_idist.py">ignite_idist.py</a>:</p></li>
 </ul>
-<pre class="code bash"><a name="rest_code_dd318e1e561f4f49b4be972c396536aa-1"></a><span class="c1"># Running with gloo</span>
-<a name="rest_code_dd318e1e561f4f49b4be972c396536aa-2"></a>python -u ignite_idist.py --nproc_per_node <span class="m">2</span> --backend gloo
-<a name="rest_code_dd318e1e561f4f49b4be972c396536aa-3"></a>
-<a name="rest_code_dd318e1e561f4f49b4be972c396536aa-4"></a><span class="c1"># Running with nccl</span>
-<a name="rest_code_dd318e1e561f4f49b4be972c396536aa-5"></a>python -u ignite_idist.py --nproc_per_node <span class="m">2</span> --backend nccl
-<a name="rest_code_dd318e1e561f4f49b4be972c396536aa-6"></a>
-<a name="rest_code_dd318e1e561f4f49b4be972c396536aa-7"></a><span class="c1"># Running with horovod with gloo controller ( gloo or nccl support )</span>
-<a name="rest_code_dd318e1e561f4f49b4be972c396536aa-8"></a>python -u ignite_idist.py --backend horovod --nproc_per_node <span class="m">2</span>
-<a name="rest_code_dd318e1e561f4f49b4be972c396536aa-9"></a>
-<a name="rest_code_dd318e1e561f4f49b4be972c396536aa-10"></a><span class="c1"># Running on xla/tpu</span>
-<a name="rest_code_dd318e1e561f4f49b4be972c396536aa-11"></a>python -u ignite_idist.py --backend xla-tpu --nproc_per_node <span class="m">8</span> --batch_size <span class="m">32</span>
+<pre class="code bash"><a name="rest_code_6680d91c852b4fca8bc64c5f40d40b76-1"></a><span class="c1"># Running with gloo</span>
+<a name="rest_code_6680d91c852b4fca8bc64c5f40d40b76-2"></a>python -u ignite_idist.py --nproc_per_node <span class="m">2</span> --backend gloo
+<a name="rest_code_6680d91c852b4fca8bc64c5f40d40b76-3"></a>
+<a name="rest_code_6680d91c852b4fca8bc64c5f40d40b76-4"></a><span class="c1"># Running with nccl</span>
+<a name="rest_code_6680d91c852b4fca8bc64c5f40d40b76-5"></a>python -u ignite_idist.py --nproc_per_node <span class="m">2</span> --backend nccl
+<a name="rest_code_6680d91c852b4fca8bc64c5f40d40b76-6"></a>
+<a name="rest_code_6680d91c852b4fca8bc64c5f40d40b76-7"></a><span class="c1"># Running with horovod with gloo controller ( gloo or nccl support )</span>
+<a name="rest_code_6680d91c852b4fca8bc64c5f40d40b76-8"></a>python -u ignite_idist.py --backend horovod --nproc_per_node <span class="m">2</span>
+<a name="rest_code_6680d91c852b4fca8bc64c5f40d40b76-9"></a>
+<a name="rest_code_6680d91c852b4fca8bc64c5f40d40b76-10"></a><span class="c1"># Running on xla/tpu</span>
+<a name="rest_code_6680d91c852b4fca8bc64c5f40d40b76-11"></a>python -u ignite_idist.py --backend xla-tpu --nproc_per_node <span class="m">8</span> --batch_size <span class="m">32</span>
 </pre>
 </div>
 <div class="section" id="with-distributed-launchers">
@@ -481,18 +481,18 @@ with multiple distributed launchers.</p>
 <h4><a class="toc-backref" href="#id12">With torch.distributed.launch</a></h4>
 <p>Here we are using the <code class="docutils literal">torch.distributed.launch</code> script in order to
 spawn the processes:</p>
-<pre class="code bash"><a name="rest_code_da1a3dbf633746e9be5b6b886018eddd-1"></a>python -m torch.distributed.launch --nproc_per_node <span class="m">2</span> --use_env ignite_idist.py --backend gloo
+<pre class="code bash"><a name="rest_code_69b1fb928a58446e80d583b4eba0e48e-1"></a>python -m torch.distributed.launch --nproc_per_node <span class="m">2</span> --use_env ignite_idist.py --backend gloo
 </pre>
 </div>
 <div class="section" id="with-horovodrun">
 <h4><a class="toc-backref" href="#id13">With horovodrun</a></h4>
-<pre class="code bash"><a name="rest_code_263d95ece19f402289f65d25194691a1-1"></a>horovodrun -np <span class="m">4</span> -H hostname1:2,hostname2:2 python ignite_idist.py --backend horovod
+<pre class="code bash"><a name="rest_code_967548912e2e4f6599471fb8bd6a81d7-1"></a>horovodrun -np <span class="m">4</span> -H hostname1:2,hostname2:2 python ignite_idist.py --backend horovod
 </pre>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In order to run this example and to avoid the installation procedure, you can pull one of PyTorch-Ignite's <a class="reference external" href="https://github.com/pytorch/ignite/blob/master/docker/hvd/Dockerfile.hvd-base">docker image with pre-installed Horovod</a>. It will include Horovod with <code class="docutils literal">gloo</code> controller and <code class="docutils literal">nccl</code> support.</p>
-<pre class="code bash"><a name="rest_code_afbc108e36fe430ca19875f0dde72e3a-1"></a>docker run --gpus all -it -v <span class="nv">$PWD</span>:/project pytorchignite/hvd-vision:latest /bin/bash
-<a name="rest_code_afbc108e36fe430ca19875f0dde72e3a-2"></a><span class="nb">cd</span> project
+<pre class="code bash"><a name="rest_code_7d47310c8dbb420292ff292ca1480f89-1"></a>docker run --gpus all -it -v <span class="nv">$PWD</span>:/project pytorchignite/hvd-vision:latest /bin/bash
+<a name="rest_code_7d47310c8dbb420292ff292ca1480f89-2"></a><span class="nb">cd</span> project
 </pre>
 </div>
 </div>
@@ -500,27 +500,27 @@ spawn the processes:</p>
 <h4><a class="toc-backref" href="#id14">With slurm</a></h4>
 <p>The same result can be achieved by using <code class="docutils literal">slurm</code> without any
 modification to the code:</p>
-<pre class="code bash"><a name="rest_code_2bd2b71601554d7a91a5a00ddc651c4c-1"></a>srun --nodes<span class="o">=</span><span class="m">2</span>
-<a name="rest_code_2bd2b71601554d7a91a5a00ddc651c4c-2"></a>     --ntasks-per-node<span class="o">=</span><span class="m">2</span>
-<a name="rest_code_2bd2b71601554d7a91a5a00ddc651c4c-3"></a>     --job-name<span class="o">=</span>pytorch-ignite
-<a name="rest_code_2bd2b71601554d7a91a5a00ddc651c4c-4"></a>     --time<span class="o">=</span><span class="m">00</span>:01:00
-<a name="rest_code_2bd2b71601554d7a91a5a00ddc651c4c-5"></a>     --partition<span class="o">=</span>gpgpu
-<a name="rest_code_2bd2b71601554d7a91a5a00ddc651c4c-6"></a>     --gres<span class="o">=</span>gpu:2
-<a name="rest_code_2bd2b71601554d7a91a5a00ddc651c4c-7"></a>     --mem<span class="o">=</span>10G
-<a name="rest_code_2bd2b71601554d7a91a5a00ddc651c4c-8"></a>     python ignite_idist.py --backend nccl
+<pre class="code bash"><a name="rest_code_70a688abe0cb41e8ace412db8f7ae0c0-1"></a>srun --nodes<span class="o">=</span><span class="m">2</span>
+<a name="rest_code_70a688abe0cb41e8ace412db8f7ae0c0-2"></a>     --ntasks-per-node<span class="o">=</span><span class="m">2</span>
+<a name="rest_code_70a688abe0cb41e8ace412db8f7ae0c0-3"></a>     --job-name<span class="o">=</span>pytorch-ignite
+<a name="rest_code_70a688abe0cb41e8ace412db8f7ae0c0-4"></a>     --time<span class="o">=</span><span class="m">00</span>:01:00
+<a name="rest_code_70a688abe0cb41e8ace412db8f7ae0c0-5"></a>     --partition<span class="o">=</span>gpgpu
+<a name="rest_code_70a688abe0cb41e8ace412db8f7ae0c0-6"></a>     --gres<span class="o">=</span>gpu:2
+<a name="rest_code_70a688abe0cb41e8ace412db8f7ae0c0-7"></a>     --mem<span class="o">=</span>10G
+<a name="rest_code_70a688abe0cb41e8ace412db8f7ae0c0-8"></a>     python ignite_idist.py --backend nccl
 </pre>
 <p>or using <code class="docutils literal">sbatch script.bash</code> with the script file <code class="docutils literal">script.bash</code>:</p>
-<pre class="code shell"><a name="rest_code_ab4c4e2750704ad2b306f80d467e6095-1"></a><span class="ch">#!/bin/bash</span>
-<a name="rest_code_ab4c4e2750704ad2b306f80d467e6095-2"></a><span class="c1">#SBATCH --job-name=pytorch-ignite</span>
-<a name="rest_code_ab4c4e2750704ad2b306f80d467e6095-3"></a><span class="c1">#SBATCH --output=slurm_%j.out</span>
-<a name="rest_code_ab4c4e2750704ad2b306f80d467e6095-4"></a><span class="c1">#SBATCH --nodes=2</span>
-<a name="rest_code_ab4c4e2750704ad2b306f80d467e6095-5"></a><span class="c1">#SBATCH --ntasks-per-node=2</span>
-<a name="rest_code_ab4c4e2750704ad2b306f80d467e6095-6"></a><span class="c1">#SBATCH --time=00:01:00</span>
-<a name="rest_code_ab4c4e2750704ad2b306f80d467e6095-7"></a><span class="c1">#SBATCH --partition=gpgpu</span>
-<a name="rest_code_ab4c4e2750704ad2b306f80d467e6095-8"></a><span class="c1">#SBATCH --gres=gpu:2</span>
-<a name="rest_code_ab4c4e2750704ad2b306f80d467e6095-9"></a><span class="c1">#SBATCH --mem=10G</span>
-<a name="rest_code_ab4c4e2750704ad2b306f80d467e6095-10"></a>
-<a name="rest_code_ab4c4e2750704ad2b306f80d467e6095-11"></a>srun python ignite_idist.py --backend nccl
+<pre class="code shell"><a name="rest_code_b3d43e78d7c54a2cb6f659eb55724177-1"></a><span class="ch">#!/bin/bash</span>
+<a name="rest_code_b3d43e78d7c54a2cb6f659eb55724177-2"></a><span class="c1">#SBATCH --job-name=pytorch-ignite</span>
+<a name="rest_code_b3d43e78d7c54a2cb6f659eb55724177-3"></a><span class="c1">#SBATCH --output=slurm_%j.out</span>
+<a name="rest_code_b3d43e78d7c54a2cb6f659eb55724177-4"></a><span class="c1">#SBATCH --nodes=2</span>
+<a name="rest_code_b3d43e78d7c54a2cb6f659eb55724177-5"></a><span class="c1">#SBATCH --ntasks-per-node=2</span>
+<a name="rest_code_b3d43e78d7c54a2cb6f659eb55724177-6"></a><span class="c1">#SBATCH --time=00:01:00</span>
+<a name="rest_code_b3d43e78d7c54a2cb6f659eb55724177-7"></a><span class="c1">#SBATCH --partition=gpgpu</span>
+<a name="rest_code_b3d43e78d7c54a2cb6f659eb55724177-8"></a><span class="c1">#SBATCH --gres=gpu:2</span>
+<a name="rest_code_b3d43e78d7c54a2cb6f659eb55724177-9"></a><span class="c1">#SBATCH --mem=10G</span>
+<a name="rest_code_b3d43e78d7c54a2cb6f659eb55724177-10"></a>
+<a name="rest_code_b3d43e78d7c54a2cb6f659eb55724177-11"></a>srun python ignite_idist.py --backend nccl
 </pre>
 </div>
 </div>
