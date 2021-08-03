@@ -17,7 +17,7 @@ order: 1
 name: conda-forge.png
 eurl: https://conda-forge.org/
 title: conda-forge
-description: conda-forge is a community effort that provides conda packages for a wide range of software.
+description: <p>conda-forge is a community-led collection of recipes, build infrastructures and distributions for the conda package manager.</p> <p>Quansight Labs uses conda-forge packages extensively in its projects, with a focus on reproducibility and reliability. Some of its contributions involve the maintenance of the automation infrastructure and GPU builds machinery.</p>
 order: 2
 ---
 name: spyder.svg
@@ -59,13 +59,12 @@ order: 8
 name: sparse.png
 eurl: https://sparse.pydata.org/en/latest/index.html
 title: PyData Sparse
-description: Sparse arrays, or arrays that are mostly empty or filled with zeros, are common in many scientific applications. To save space we often avoid storing these arrays in traditional dense formats, and instead choose different data structures. Our choice of data structure can significantly affect our storage and computational costs when working with these arrays. Sparse implements sparse arrays of arbitrary dimension on top of numpy and scipy.sparse. It generalizes the scipy.sparse.coo_matrix and scipy.sparse.dok_matrix layouts, but extends beyond just rows and columns to an arbitrary number of dimensions.
-order: 9
+description: <p> Sparse is a library that implements n-dimensional sparse arrays in Python. It follows the NumPy array interface and is compatible with projects such as Scipy.sparse, Dask, and Xarray.</p> <p> Quansight Labs is helping maintain and develop new features for Sparse while also supporting mentoring for students to contribute to the project as well. </p>
 ---
 name: ignite_logo.svg
 eurl: https://github.com/pytorch/ignite
 title: PyTorch Ignite
-description: Ignite is a high-level library to help with training and evaluating neural networks in PyTorch flexibly and transparently.
+description: <p>PyTorch-Ignite is a High-level library to help with training and evaluating neural networks in PyTorch flexibly and transparently.</p> <p>PyTorch-Ignite being part of Labs benefits from Labs' community, supports PyTorch-Ignite's sustainability, and accelerates development of the project that users rely on.</p>
 order: 10
 ---
 name: ibis.svg
@@ -83,7 +82,7 @@ order: 12
 name: ndindex.svg
 eurl: https://quansight-labs.github.io/ndindex/
 title: ndindex
-description: ndindex is a library that allows representing and manipulating objects that can be valid indices to numpy arrays, i.e., slices, integers, ellipses, None, integer and boolean arrays, and tuples thereof.
+description: <p> ndindex is a library that allows representing and manipulating objects that can be valid indices to numpy arrays, i.e., slices, integers, ellipses, None, integer and boolean arrays, and tuples thereof.</p> <p> Thanks to the D. E. Shaw Group sponsorship, Quansight Labs has been able to maintain ndindex which came from their Versioned HDF5 work.</p>
 order: 13
 ---
 name: pandas.svg
@@ -95,7 +94,7 @@ order: 14
 name: scikit-learn.png
 eurl: https://scikit-learn.org/stable/
 title: scikit-learn
-description: <code>Scikit-learn</code> is an open source machine learning library that supports supervised and unsupervised learning. It also provides various tools for model fitting, data preprocessing, model selection and evaluation, and many other utilities.
+description: <p><code>Scikit-learn</code> is an open source machine learning library that supports supervised and unsupervised learning. It also provides various tools for model fitting, data preprocessing, model selection and evaluation, and many other utilities.</p> <p>Quansight is supporting scikit-learn by sponsoring new features implementation, maintenance and project planning with the help of CZI and Nasa Grants.</p>
 order: 15
 ---
 name: scikit-image.png
@@ -113,7 +112,7 @@ order: 17
 name: cython.png
 eurl: https://cython.org
 title: cython
-description: <p> Cython is an optimising static compiler for both the Python programming language and the extended Cython programming language (based on Pyrex). It makes writing C extensions for Python as easy as Python itself.
+description: <p> Cython is an optimising static compiler for both the Python programming language and the extended Cython programming language (based on Pyrex). It makes writing C extensions for Python as easy as Python itself.</p> <p>Quansight is sponsoring work to get an HPy backend into Cython</p>
 order: 18
 ---
 name: data-apis.png
