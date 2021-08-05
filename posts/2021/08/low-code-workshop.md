@@ -63,7 +63,7 @@ For reinforcement, the facilitator will share their screen to demonstrate the pr
 Together the new and old contributors work together to make changes to relevant files to improve their quality. 
 These changes are made using Github's suggest changes feature that allows authors to make single line changes to code; a workflow perfect for alt text.
 
-### group review
+### Group review
 
 Over 40 minutes several contributors can make quite a few commits. 
 The project contributor shares their screen to review the suggestions made over the course of the event. 
