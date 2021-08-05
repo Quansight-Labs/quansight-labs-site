@@ -93,7 +93,7 @@ resulting in a collaborative commit to mainline with the help of @krassowski and
 We consider this event a success because we were able to remove `git` as a technical barrier to entry and support changes from multiple authors.
 
 
-### `numpy` documentation new comers meeting
+### [NumPy documentation](https://numpy.org/doc/stable/) new comers meeting
 
 Our fledgling experience in one event made us *sort of* confident this could work for other projects. 
 So we contacted our `numpy` accessibility allies @melissawm and @marsbarlee to test this event at their numpy new comer's meeting.
@@ -114,4 +114,3 @@ The event's collaborative hands-on format offers time for the community to inter
 
 Please reach out to us if you or your project are interested in running event like this. 
 We'd love to hear about how this process can work for your events and project's perspective.
-
