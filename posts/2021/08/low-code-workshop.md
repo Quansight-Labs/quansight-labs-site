@@ -106,7 +106,8 @@ This involves looking at examples and looking at the image context.
 
 The progress from the `numpy` new comer's meeting can be seen in this issue https://github.com/melissawm/numpy/pull/27 .
 
-A highlight, to us, is that we provided opportunities for both long time `numpy` fans and high school students a chance to see themselves in history of such a foundational tool like `numpy`. 
+A highlight, to us, is that we provided opportunities for both long time NumPy fans and high
+school students a chance to see themselves in history of such a foundational tool like NumPy. 
 Moreover, attendees were still adding alt text contributions after the event concluded.
 
 
