@@ -96,7 +96,9 @@ We consider this event a success because we were able to remove `git` as a techn
 ### [NumPy documentation](https://numpy.org/doc/stable/) new comers meeting
 
 Our fledgling experience in one event made us *sort of* confident this could work for other projects. 
-So we contacted our `numpy` accessibility allies @melissawm and @marsbarlee to test this event at their numpy new comer's meeting.
+So we contacted our NumPy accessibility allies @melissawm and @marsbarlee to test this
+hypothesis at the NumPy new comer's meeting, which [happens every other
+Thursday](http://numpy-discussion.10968.n7.nabble.com/Newcomer-s-Hour-td49226.html).
 
 During the `numpy`, @marsbarlee provided a valuable [slideshow on how to write alt-text for scientific diagrams](https://docs.google.com/presentation/d/150vhbpGrtAc3ALhrS1a07lhEKCgevAY3ITh-4eCndDk/edit?usp=sharing). 
 This involves looking at examples and looking at the image context.
