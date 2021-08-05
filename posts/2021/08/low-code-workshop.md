@@ -95,7 +95,7 @@ We consider this event a success because we were able to remove `git` as a techn
 
 ### [NumPy documentation](https://numpy.org/doc/stable/) new comers meeting
 
-Our fledgling experience in one event made us *sort of* confident this could work for other projects. 
+Our fledgling experience in the Jupyter event made us *sort of* confident this could work for other projects. 
 So we contacted our NumPy accessibility allies @melissawm and @marsbarlee to test this
 hypothesis at the NumPy new comer's meeting, which [happens every other
 Thursday](http://numpy-discussion.10968.n7.nabble.com/Newcomer-s-Hour-td49226.html).
