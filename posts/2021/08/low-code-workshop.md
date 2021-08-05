@@ -1,6 +1,6 @@
 <!--
-.. title: Low-code contributions through github
-.. slug: low-code-contributions-through-github
+.. title: Low-code contributions through Github
+.. slug: low-code-contributions-through-Github
 .. date: 2021-08-10 18:00:00 UTC-00:00
 .. author: Isabela Presedo-Floyd, Mars Lee, Melissa Weber Mendonça, Tony Fast
 .. tags: Jupyter, NumPy, Accessibility
@@ -11,7 +11,7 @@
 -->
 
 
-# Low-code contributions through github
+# Low-code contributions through Github
 
 Healthy, inclusive communities are critical to impactful open source projects. 
 A challenge for established projects is that the history and implicit technical debt increase the barrier to contribute to significant portions of code base.
@@ -19,10 +19,10 @@ The literacy of large code bases happens over time through incremental contribut
 
 At quansight labs, we are motivated to provide opportunities for new contributor's to experience open source community work regardless of their software literacy. 
 Community workshops are a common format for onboarding, but sometimes the outcome can be less than satisfactory for participants and organizers. 
-In these workshops, there are implicit challenges that need to be overcome to contribute to projects revision history like `git` or setting up development environments. 
+In these workshops, there are implicit challenges that need to be overcome to contribute to projects revision history like Git or setting up development environments. 
 
 Our goal with the following low-code workshop is to offer a way for folks to join a projects contributors list without the technical overhead. 
-To acheive this we'll discuss a format that relies solely on the github web interface.
+To acheive this we'll discuss a format that relies solely on the Github web interface.
 
 ## Case study - collaboratively improving the accessibility of images in documentation
 
@@ -45,7 +45,7 @@ Each event relies on a single pull request managed by a project contributor.
 We recommend using a fork to reduce noise to other contributors because we gonna be loud for an hour. 
 
 Before the event the contributor makes a pull request identifying files that need changes related to the prompt, some projects may have rendered documentation that would also help guide the contributions. 
-The attendees will use these files to recommend changes to the code landing their aliases in the github history. 
+The attendees will use these files to recommend changes to the code landing their aliases in the Github history. 
 The facilitator will add an agenda for the event with learning materials that will prepare folks for the event.
 
 ### The crash course
@@ -61,7 +61,7 @@ For reinforcement, the facilitator will share their screen to demonstrate the pr
 ### Group work
 
 Together the new and old contributors work together to make changes to relevant files to improve their quality. 
-These changes are made using github's suggest changes feature that allows authors to make single line changes to code; a workflow perfect for alt text.
+These changes are made using Github's suggest changes feature that allows authors to make single line changes to code; a workflow perfect for alt text.
 
 ### group review
 
@@ -79,15 +79,15 @@ Their last job is to submit the pull request to the mainline project and see the
 
 Everyone loves an underdog story. 
 What follows are there triumphs of some open source allies who thought they could run an hour sprint that allowed multiple folks to contribute to an open source project. 
-Believe it or not, we weren't lying to ourselves and others. Below we highlight our successes with running low-code sprints in `jupyter` and `numpy`.
+Believe it or not, we weren't lying to ourselves and others. Below we highlight our successes with running low-code sprints in Jupyter and NumPy.
 
 ### Jupyter accessibility group
 
-There is a small group of the jupyter community focused on the improving the accessibility of jupyterlab and orbitting projects. 
-We meet every other work to add small patches and fixes. currently, we're in the process of organizing workshops to advocate for accessibility and improve the quality of the entire jupyter experience for disabled scientists.
+There is a small group of the Jupyter community focused on the improving the accessibility of JupyterLab and orbitting projects. 
+We meet every other work to add small patches and fixes. currently, we're in the process of organizing workshops to advocate for accessibility and improve the quality of the entire Jupyter experience for disabled scientists.
 
-On an off week, between our normal syncs, we tested a low-code format for folks to participate in the jupyter project. 
-During an hour, four people included in the project by suggesting changes to alt text for images in the `jupyterlab` documentation (https://github.com/isabela-pf/jupyterlab/pull/1), 
+On an off week, between our normal syncs, we tested a low-code format for folks to participate in the Jupyter project. 
+During an hour, four people included in the project by suggesting changes to alt text for images in the JupyterLab documentation (https://github.com/isabela-pf/jupyterlab/pull/1), 
 resulting in a collaborative commit to mainline with the help of @krassowski and @isabela-pf as champions for the shared work.(https://github.com/jupyterlab/jupyterlab/pull/10670)
 
 We consider this event a success because we were able to remove `git` as a technical barrier to entry and support changes from multiple authors.
