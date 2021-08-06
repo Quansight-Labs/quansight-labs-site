@@ -13,13 +13,13 @@
    :alt: Reliability of benchmarks in GitHub Actions
 -->
 
-![Reliability of benchmarks in GitHub Actions. This 2D plots shows a 16-day timeseries in the X axis.
+![Reliability of benchmarks in GitHub Actions. This 2D plot shows a 16-day timeseries in the X axis.
   Each data point in the X axis corresponds to a cloud of 75 measurements (one per benchmark test).
   The y-axis spread of each cloud corresponds to the performance ratio. Ideal measurements would have
   a performance ratio of 1.0, since both runs returned the exact same performance. In practice this
-  does not happen and we can observe ratios between 0.6 and 1.5. The configuration depicted in this
-  particular plot shows that while there is an observable y-spread, it is small enough to be considered
-  sensitive to performance regressions of more than 50%.](/images/2021/08/github-actions-benchmark.png)
+  does not happen and we can observe ratios between 0.6 and 1.5. This plot shows that while there
+  is an observable y-spread, it is small enough to be considered sensitive to performance
+  regressions of more than 50%.](/images/2021/08/github-actions-benchmark.png)
 
 Benchmarking software is a tricky business. For robust results, you need dedicated
 hardware that only runs the benchmarking suite under controlled conditions. No other
@@ -153,13 +153,13 @@ and stay like that regardless the time of the day or the day of the week.
 
 After collecting data points for 16 days, these are the results:
 
-![Reliability of benchmarks in GitHub Actions. This 2D plots shows a 16-day timeseries in the X axis.
+![Reliability of benchmarks in GitHub Actions. This 2D plot shows a 16-day timeseries in the X axis.
   Each data point in the X axis corresponds to a cloud of 75 measurements (one per benchmark test).
   The y-axis spread of each cloud corresponds to the performance ratio. Ideal measurements would have
   a performance ratio of 1.0, since both runs returned the exact same performance. In practice this
-  does not happen and we can observe ratios between 0.5 and 1.5. The configuration depicted in this
-  particular plot shows that while there is an observable y-spread, it is small enough to be considered
-  sensitive to performance regressions of more than 50%.](/images/2021/08/github-actions-benchmark.png)
+  does not happen and we can observe ratios between 0.5 and 1.5. This plot shows that while there is
+  an observable y-spread, it is small enough to be considered sensitive to performance regressions
+  of more than 50%.](/images/2021/08/github-actions-benchmark.png)
 
 * Average time taken: 1h55min
 * Minimum and maximum ratios observed: 0.51, 1.36
@@ -212,13 +212,13 @@ These are the results!
 Disabling process interleaving should be faster and maybe the accuracy loss is not that bad. But...
 how bad? Here are the results:
 
-![Reliability of benchmarks in GitHub Actions, no interleaving. This 2D plots shows a 16-day timeseries in the X axis.
-  Each data point in the X axis corresponds to a cloud of 75 measurements (one per benchmark test).
-  The y-axis spread of each cloud corresponds to the performance ratio. Ideal measurements would have
-  a performance ratio of 1.0, since both runs returned the exact same performance. In practice this
-  does not happen. With no interleaving, the vertical spread is more evident, with several clouds
-  spreading beyond the desired interval. One particular outlier happened on the first Saturday,
-  with half the cloud below 0.75.](/images/2021/08/github-actions-benchmark-no-interleaving.png)
+![Reliability of benchmarks in GitHub Actions, no interleaving. With no interleaving, the vertical
+  spread is more evident, with several clouds spreading beyond the desired interval.
+  One particular outlier happened on the first Saturday, with half the cloud below 0.75.
+  This 2D plot shows a 16-day timeseries in the X axis. Each data point in the X axis corresponds
+  to a cloud of 75 measurements (one per benchmark test). The y-axis spread of each cloud corresponds
+  to the performance ratio. Ideal measurements would have a performance ratio of 1.0, since both
+  runs returned the exact same performance. In practice this does not happen.](/images/2021/08/github-actions-benchmark-no-interleaving.png)
 
 * Average time taken: 1h39min
 * Minimum and maximum ratios observed: 0.43, 1.5
@@ -230,14 +230,14 @@ how bad? Here are the results:
 In this configuration, we expect a drastic 50% running time reduction, since we will only do one pass
 per commit, instead of two. However, the accuracy loss might be too dramatic... Let's see!
 
-![Reliability of benchmarks in GitHub Actions, single pass. This 2D plots shows a 16-day timeseries in the X axis.
+![Reliability of benchmarks in GitHub Actions, single pass. With a single process, the y-spread is
+  significantly wider. Some data points can be observed even beyond a ratio of 2.5,
+  and the overall visual spread is larger; i.e. the clouds are taller than in the ideal case of
+  having a small, contained cloud at 1.0. This 2D plot shows a 16-day timeseries in the X axis.
   Each data point in the X axis corresponds to a cloud of 75 measurements (one per benchmark test).
   The y-axis spread of each cloud corresponds to the performance ratio. Ideal measurements would have
   a performance ratio of 1.0, since both runs returned the exact same performance. In practice this
-  does not happen. With a single process, the y-spread is significantly wider. Some data points can
-  be observed even beyond a ratio of 2.5 (it should be 1.0!), and the overall visual spread is
-  larger; i.e. the clouds are taller than in the ideal case of having a small, contained cloud at 1.0.
-  ](/images/2021/08/github-actions-benchmark-single-process.png)
+  does not happen.](/images/2021/08/github-actions-benchmark-single-process.png)
 
 * Average time taken: 1h7min
 * Minimum and maximum ratios observed: 0.51, 2.76
@@ -361,8 +361,8 @@ to let the maintainers decide when to do it on demand.
 # Acknowledgements
 
 Thanks Gregory Lee, Stéfan van der Walt and Juan Nunez-Iglesias for their enthusiastic and useful feedback
-in the PR! The plots look that pretty thanks to comments provided by John Lee. Gregory Lee and Gonzalo
-Peña-Castellanos provided valuable comments and suggestions for this post.
+in the PR! The plots look that pretty thanks to comments provided by John Lee. Gregory Lee, Gonzalo
+Peña-Castellanos and Isabela Presedo-Floyd provided super valuable comments and suggestions for this post.
 
 This work was funded by the Chan-Zuckerberg Institute (CZI) as part of an
 [Essential Open Source Software for Science](https://chanzuckerberg.com/eoss/proposals/gpu-acceleration-rapid-releases-and-biomedical-examples-for-scikit-image/)
