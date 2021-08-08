@@ -22,7 +22,7 @@ Community workshops are a common format for onboarding, but sometimes the outcom
 In these workshops, there are implicit challenges that need to be overcome to contribute to projects revision history like Git or setting up development environments. 
 
 Our goal with the following low-code workshop is to offer a way for folks to join a projects contributors list without the technical overhead. 
-To acheive this we'll discuss a format that relies solely on the Github web interface.
+To achieve this we'll discuss a format that relies solely on the GitHub web interface.
 
 ## Case study - collaboratively improving the accessibility of images in documentation
 
