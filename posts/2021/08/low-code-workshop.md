@@ -113,7 +113,7 @@ Moreover, attendees were still adding alt text contributions after the event con
 
 ## Conclusion
 
-Using Github's suggested change system is a way to support low-code, single-line contributions to different open source code bases. 
+Using GitHub's suggested change system is a way to support low-code, single-line contributions to different open source code bases. 
 The event's collaborative hands-on format offers time for the community to interact in a meaningful way and see the fruits of their labor immediately.
 
 Please reach out to us if you or your project are interested in running event like this. 
