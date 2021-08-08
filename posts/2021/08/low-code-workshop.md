@@ -61,7 +61,7 @@ For reinforcement, the facilitator will share their screen to demonstrate the pr
 ### Group work
 
 Together the new and old contributors work together to make changes to relevant files to improve their quality. 
-These changes are made using Github's suggest changes feature that allows authors to make single line changes to code; a workflow perfect for alt text.
+These changes are made using GitHub's suggest changes feature that allows authors to make single line changes to code; a workflow perfect for alt text.
 
 ### Group review
 
