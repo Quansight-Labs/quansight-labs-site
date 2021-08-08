@@ -45,7 +45,7 @@ Each event relies on a single pull request managed by a project contributor.
 We recommend using a fork to reduce noise to other contributors because we gonna be loud for an hour. 
 
 Before the event the contributor makes a pull request identifying files that need changes related to the prompt, some projects may have rendered documentation that would also help guide the contributions. 
-The attendees will use these files to recommend changes to the code landing their aliases in the Github history. 
+The attendees will use these files to recommend changes to the code landing their aliases in the GitHub history. 
 The facilitator will add an agenda for the event with learning materials that will prepare folks for the event.
 
 ### The crash course
