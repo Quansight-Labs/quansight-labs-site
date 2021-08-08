@@ -11,7 +11,7 @@
 -->
 
 
-# Low-code contributions through Github
+# Low-code contributions through GitHub
 
 Healthy, inclusive communities are critical to impactful open source projects. 
 A challenge for established projects is that the history and implicit technical debt increase the barrier to contribute to significant portions of code base.
