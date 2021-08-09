@@ -36,7 +36,7 @@ Each event lasts an hour with the following format:
 5. a short review of the submissions by the core contributor
 6. final review by the core contributor to submit a final pull request
 
-Accessibility is a focus for many members of quansight labs team so we've chosen this prompt to begin testing these workshops. 
+Accessibility is a focus for many members of Quansight Labs team so we've chosen this prompt to begin testing these workshops. 
 We'd love to hear about other prompts that may be good for low-code contributions.
 
 ### Pre-meeting preparation
