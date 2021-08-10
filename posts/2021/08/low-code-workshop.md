@@ -17,7 +17,7 @@ Healthy, inclusive communities are critical to impactful open source projects.
 A challenge for established projects is that the history and implicit technical debt increase the barrier to contribute to significant portions of code base.
 The literacy of large code bases happens over time through incremental contributions, and we'll discuss a format that can help people begin this journey.
 
-At Quansight Labs, we are motivated to provide opportunities for new contributor's to experience open source community work regardless of their software literacy. 
+At Quansight Labs, we are motivated to provide opportunities for new contributors to experience open source community work regardless of their software literacy. 
 Community workshops are a common format for onboarding, but sometimes the outcome can be less than satisfactory for participants and organizers. 
 In these workshops, there are implicit challenges that need to be overcome to contribute to projects revision history like Git or setting up development environments. 
 
