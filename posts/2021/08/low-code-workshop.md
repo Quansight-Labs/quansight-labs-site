@@ -83,7 +83,7 @@ Believe it or not, we weren't lying to ourselves and others. Below we highlight 
 
 ### Jupyter accessibility group
 
-There is a small group of the Jupyter community focused on the improving the accessibility of JupyterLab and orbitting projects. 
+There is a small group of the Jupyter community focused on the improving the accessibility of JupyterLab and orbiting projects. 
 We meet every other work to add small patches and fixes. currently, we're in the process of organizing workshops to advocate for accessibility and improve the quality of the entire Jupyter experience for disabled scientists.
 
 On an off week, between our normal syncs, we tested a low-code format for folks to participate in the Jupyter project. 
