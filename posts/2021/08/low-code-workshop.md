@@ -84,7 +84,7 @@ Believe it or not, we weren't lying to ourselves and others. Below we highlight 
 ### Jupyter accessibility group
 
 There is a small group of the Jupyter community focused on the improving the accessibility of JupyterLab and orbiting projects. 
-We meet every other work to add small patches and fixes. currently, we're in the process of organizing workshops to advocate for accessibility and improve the quality of the entire Jupyter experience for disabled scientists.
+We meet every other work to add small patches and fixes. Currently, we're in the process of organizing workshops to advocate for accessibility and improve the quality of the entire Jupyter experience for disabled scientists.
 
 On an off week, between our normal syncs, we tested a low-code format for folks to participate in the Jupyter project. 
 During an hour, four people were included in the project by suggesting changes to alt text for images in the JupyterLab documentation (https://github.com/isabela-pf/jupyterlab/pull/1), 
