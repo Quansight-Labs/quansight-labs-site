@@ -97,7 +97,7 @@ We consider this event a success because we were able to remove `git` as a techn
 
 Our fledgling experience in the Jupyter event made us *sort of* confident this could work for other projects. 
 So we contacted our NumPy accessibility allies @melissawm and @marsbarlee to test this
-hypothesis at the NumPy new comer's meeting, which [happens every other
+hypothesis at the NumPy newcomer's meeting, which [happens every other
 Thursday](http://numpy-discussion.10968.n7.nabble.com/Newcomer-s-Hour-td49226.html).
 
 During the meeting, @marsbarlee provided a valuable [slideshow on how to write alt-text for
