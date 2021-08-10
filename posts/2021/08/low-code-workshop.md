@@ -19,7 +19,7 @@ The literacy of large code bases happens over time through incremental contribut
 
 At Quansight Labs, we are motivated to provide opportunities for new contributors to experience open source community work regardless of their software literacy. 
 Community workshops are a common format for onboarding, but sometimes the outcome can be less than satisfactory for participants and organizers. 
-In these workshops, there are implicit challenges that need to be overcome to contribute to projects revision history like Git or setting up development environments. 
+In these workshops, there are implicit challenges that need to be overcome to contribute to projects' revision history like Git or setting up development environments. 
 
 Our goal with the following low-code workshop is to offer a way for folks to join a projects contributors list without the technical overhead. 
 To achieve this we'll discuss a format that relies solely on the GitHub web interface.
