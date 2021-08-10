@@ -100,7 +100,7 @@ So we contacted our NumPy accessibility allies @melissawm and @marsbarlee to tes
 hypothesis at the NumPy newcomer's meeting, which [happens every other
 Thursday](http://numpy-discussion.10968.n7.nabble.com/Newcomer-s-Hour-td49226.html).
 
-During the meeting, @marsbarlee provided a valuable [slideshow on how to write alt-text for
+During the meeting, @marsbarlee provided a valuable [slideshow on how to write alt text for
 scientific diagrams](https://docs.google.com/presentation/d/150vhbpGrtAc3ALhrS1a07lhEKCgevAY3ITh-4eCndDk/edit?usp=sharing). 
 This involves looking at examples and looking at the image context.
 
