@@ -55,7 +55,7 @@ This short talk is important to prepare folks for the topic, to support contribu
 
 ### Introduction to the pull request 
 
-To kick off the work, the core developer walks us through the pull request they've prepared and introduce to the different files. 
+To kick off the work, the core developer walks us through the pull request they've prepared and introduces different files. 
 For reinforcement, the facilitator will share their screen to demonstrate the process of recommending changes to files in a pull request.
 
 ### Group work
