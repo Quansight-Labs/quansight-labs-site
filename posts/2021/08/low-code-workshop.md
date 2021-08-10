@@ -104,7 +104,7 @@ During the meeting, @marsbarlee provided a valuable [slideshow on how to write a
 scientific diagrams](https://docs.google.com/presentation/d/150vhbpGrtAc3ALhrS1a07lhEKCgevAY3ITh-4eCndDk/edit?usp=sharing). 
 This involves looking at examples and looking at the image context.
 
-The progress from the NumPy new comer's meeting can be seen in this issue https://github.com/melissawm/numpy/pull/27 .
+The progress from the NumPy newcomer's meeting can be seen in this issue https://github.com/melissawm/numpy/pull/27 .
 
 A highlight, to us, is that we provided opportunities for both long time NumPy fans and high
 school students a chance to see themselves in history of such a foundational tool like NumPy. 
