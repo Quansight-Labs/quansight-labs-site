@@ -71,7 +71,7 @@ This portion becomes a critique to review the different contributions made.
 
 ### Bringing everything home
 
-All of the work we talked about happened on a contributors fork. 
+All of the work we talked about happened on a contributor's fork. 
 They now have a pull request will a gaggle of contributors. 
 Their last job is to submit the pull request to the mainline project and see the work accepted into the code base.
 
