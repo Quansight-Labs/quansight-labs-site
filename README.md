@@ -11,6 +11,20 @@ Note that for Jupyter notebook posts the post metadata (title, author, slug, dat
 
 To not show the whole post but only the first bit and then `read more ...`, use `<!-- TEASER_END -->` (either in plain Markdown or in a Markdown cell in a notebook).
 
+## Scheduling a post
+
+The future post schedule is available as a [Google Spreadsheet accessible only
+to Quansight
+Employees](https://docs.google.com/spreadsheets/d/1UyKeiM0elXKrhY5BeG3CHB13ydeqUjnv02oyN1NrKqk/edit#gid=0),
+you can use it to lookup next free spot.
+
+The website rebuilds itself everyday (look into the GitHub action Cron), thus if
+you set the date on the metadata of your post and merge the Pull-Request, the
+post will be published on given day.
+
+The PR preview system does show Future blog post, so no need to put a fake date when issuing a PR.
+
+
 ## Build information
 
 To set up a development environment: in a new conda env or virtualenv:
