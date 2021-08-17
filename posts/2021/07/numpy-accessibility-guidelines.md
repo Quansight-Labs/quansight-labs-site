@@ -156,7 +156,7 @@ tool.](/images/2021/07/numpy-accessibility/wave_extension.png)
 Unfortunately, there was no way to review multiple pages at the same time with
 the WAVE tool’s free plan. There are several hundred pages in the NumPy
 documentation and when converted to print, it is equivalent to nearly 2000
-physical paper pages.Going through each page of documentation individually would
+physical paper pages. Going through each page of documentation individually would
 be daunting and time-consuming. 
 
 We also tried combining the automated WAVE tool with real human feedback. We
