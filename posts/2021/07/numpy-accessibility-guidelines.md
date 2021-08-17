@@ -38,7 +38,7 @@ This small team started with Melissa Weber Mendonça and me, Mars Lee. Our
 previous skills and projects varied from working on documentation, front-end
 code, grant-writing, community work, software maintenance, and consulting work.
 
-We were very inspired by JupyterLab's big strides forward in accessibility this
+We were very inspired by JupyterLab's strides forward in accessibility this
 year. In the open-source ecosystem, accessibility is often considered
 low-priority, scary or someone else’s job. If JupyterLab could do it, so could
 NumPy. We decided to take this on.
