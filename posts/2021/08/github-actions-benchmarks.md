@@ -1,6 +1,6 @@
 <!--
 .. title: Is GitHub Actions suitable for running benchmarks?
-.. date: 2021-08-30 00:01 UTC
+.. date: 2021-08-17 00:01 UTC
 .. slug: github-actions-benchmarks
 .. tags: github-actions, Open-Source, continuous-integration, performance
 .. category:
@@ -80,7 +80,6 @@ measurements with resource-intensive tasks that happen to be running at the same
 To minimize these effects, benchmarking tools run the tests several times in different
 schedules and apply some statistics to correct for the inevitable deviations. Or, at least,
 _try_.
-
 
 # Relative performance measurements with Airspeed Velocity
 
@@ -295,7 +294,6 @@ to see how it can be implemented on GitHub Actions.
 
 These two changes together brought the average running time down to around 1h 20min. Not bad!
 
-
 # Run it on demand!
 
 Benchmarks do not need to run for every single commit pushed to a PR. In fact, that's probably
@@ -334,7 +332,6 @@ There is one gotcha, though: the checks UI will be appended to the last push eve
 if more commits have been added to the PR since the label was added. Ideally, the checks UI panel would be
 added next to the _@user added the run-benchmark label_ message. Maybe in a
 [future update](https://twitter.com/jaime_rgp/status/1412419232340627467)?
-
 
 # TLDR
 
