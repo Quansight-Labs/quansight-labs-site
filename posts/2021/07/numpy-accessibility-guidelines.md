@@ -92,7 +92,7 @@ deuteranopia.](/images/2021/07/numpy-accessibility/color_deficiency.png)
 [_External link to the above illustration's full
 transcription_](https://gist.githubusercontent.com/MarsBarLee/eae9824bf76b3ea89d719e61e2f1e078/raw/faed346caedebd666a87dbbe734ec092ecde368e/color_deficiency.png)
 
-Yet sometimes there seems to be no recognition of  our disability nor any
+Yet sometimes there seems to be no recognition of our disability nor any
 obvious solutions. A color-blind user may not be able to read a scientific
 diagram due to its red-green color scheme. The more tech-savvy of us may find
 hack-y workarounds, such as downloading a browser extension that adjusts our
