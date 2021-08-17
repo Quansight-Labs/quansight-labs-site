@@ -1,6 +1,6 @@
 <!--
 .. title: Is GitHub Actions suitable for running benchmarks?
-.. date: 2021-08-17 00:01 UTC
+.. date: 2021-08-18 00:01 UTC
 .. slug: github-actions-benchmarks
 .. tags: github-actions, Open-Source, continuous-integration, performance
 .. category:
