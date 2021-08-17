@@ -23,7 +23,7 @@ users.](/images/2021/07/numpy-accessibility/venn_diagram.png)
 
 As NumPy is early in the dependency chain, it has a huge install base. It is
 estimated that there are 10 million users of NumPy. Taking together another
-estimate that 15% of the human population disabled ([World Health
+estimate that 15% of the human population is disabled ([World Health
 Organization](https://www.who.int/disabilities/world_report/2011/report.pdf)),
 it is estimated that at least 1,500,000 NumPy users have a disability. Over a
 million users deserve an accessible NumPy website and documentation.
