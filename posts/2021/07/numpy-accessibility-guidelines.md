@@ -120,7 +120,7 @@ accessible.
 
 **Starting with Guidelines**
 
-We began our journey by referring to the guidelines set by[ W3, the ‘Web
+We began our journey by referring to the guidelines set by[ W3, the Web
 Accessibility Initiative](https://www.w3.org/), the main international standards
 organization for the Internet.
 
