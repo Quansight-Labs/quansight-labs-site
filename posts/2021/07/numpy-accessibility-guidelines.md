@@ -28,7 +28,7 @@ Organization](https://www.who.int/disabilities/world_report/2011/report.pdf)),
 it is estimated that at least 1,500,000 NumPy users have a disability. Over a
 million users deserve an accessible NumPy website and documentation.
 
-In response to this, a small team started working on making NumPy’s more
+In response to this, a small team started working on making NumPy more
 accessible, specifically its website and documentation. They weren’t experts in
 accessible technology. In fact, they feared that they didn’t know enough. Yet
 they strongly believed that accessible technology is a right every person should
