@@ -145,7 +145,7 @@ Using these guidelines, we started by reviewing the website and documentation in
 a determined but ultimately piece-meal approach. We started with the ‘[WAVE Web
 Accessibility Evaluation Tool](https://wave.webaim.org/)’. It is a free browser
 extension that scans a page and categorizes shortcomings based on the above
-mentioned W3 guidelines. We aimed to fix specific fixes, such as creating more
+mentioned W3 guidelines. We aimed to fix specific issues, such as creating more
 color contrast between the text and background and adding alt-text, specifically
 for the many mathematical graphs.
 
