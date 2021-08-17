@@ -62,7 +62,7 @@ it.](/images/2021/07/numpy-accessibility/situation_disability.png) [_External
 link to the above illustration's full
 transcription_](https://gist.githubusercontent.com/MarsBarLee/4f5f30ede8631dec8fd9fcd0526aa065/raw/6ab7e61cec2dc173a84b04cec246fde6b2841d81/situation_disability.png)
 
-First, who needs accessibility? Your first answer might be ‘for people with
+First, who needs accessibility? Your first answer might be ‘people with
 disabilities’ but ultimately everyone benefits from having accessible
 technology.
 
