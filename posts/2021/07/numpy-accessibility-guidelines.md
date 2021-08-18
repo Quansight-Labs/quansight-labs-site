@@ -57,7 +57,7 @@ topic. Additionally, a note on terminology- the terms ‘users with a disability
 and ‘disabled user’ are used interchangeably, and some people may prefer one
 term over the other.
 
-**Who needs accessibility? **
+## Who needs accessibility?
 
 ![A comic about how everyone benefits from accessibility. The example is about
 having a situational disability and being provided accommodations to overcome
@@ -121,7 +121,7 @@ disabilities face everyday. We can extend that relief, that exhilarating feeling
 of ‘A-ha, yes, I can use this!’ to everyone by making technology more
 accessible.
 
-**Starting with Guidelines**
+## Starting with Guidelines
 
 We began our journey by referring to the guidelines set by[ W3, the Web
 Accessibility Initiative](https://www.w3.org/), the main international standards
@@ -142,7 +142,7 @@ changing the color of the text. This is just one guideline: there are many more
 guidelines such as more accessible images and audio. However, these ‘low-hanging
 fruit’ styling fixes seemed like a good place to start.
 
-**Determined but piece-meal beginnings**
+## Determined but piece-meal beginnings
 
 Using these guidelines, we started by reviewing the website and documentation in
 a determined but ultimately piece-meal approach. We started with the ‘[WAVE Web
