@@ -93,7 +93,55 @@ bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/07/moving-scipy-to-meson/" class="u-url">Moving SciPy to the Meson build system</a></h1>
+    <article class="h-entry post-markdown" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/08/github-actions-benchmarks/" class="u-url">Is GitHub Actions suitable for running benchmarks?</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    <a href="../authors/jaime-rodriguez-guerra/">Jaime Rodríguez-Guerra</a>
+            </span></p>
+            <p class="dateline">
+            <a href="2021/08/github-actions-benchmarks/" rel="bookmark">
+            <time class="published dt-published" datetime="2021-08-18T00:01:00Z" itemprop="datePublished" title="2021-08-18">2021-08-18</time></a>
+            </p>
+                <p class="commentline">
+        
+        <a href="2021/08/github-actions-benchmarks/#utterances-thread">Comments</a>
+
+
+        </p>
+</div>
+            
+        <div>
+            
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../categories/continuous-integration/" rel="tag">continuous-integration</a></li>
+            <li><a class="tag p-category" href="../categories/github-actions/" rel="tag">github-actions</a></li>
+            <li><a class="tag p-category" href="../categories/open-source/" rel="tag">Open-Source</a></li>
+            <li><a class="tag p-category" href="../categories/performance/" rel="tag">performance</a></li>
+        </ul>
+</div>
+    </header><div class="p-summary entry-summary">
+    <div>
+<p><img alt="Reliability of benchmarks in GitHub Actions. This 2D plot shows a 16-day timeseries in the X axis.
+  Each data point in the X axis corresponds to a cloud of 75 measurements (one per benchmark test).
+  The y-axis spread of each cloud corresponds to the performance ratio. Ideal measurements would have
+  a performance ratio of 1.0, since both runs returned the exact same performance. In practice this
+  does not happen and we can observe ratios between 0.6 and 1.5. This plot shows that while there
+  is an observable y-spread, it is small enough to be considered sensitive to performance
+  regressions of more than 50%." src="../images/2021/08/github-actions-benchmark.png"></p>
+<p>Benchmarking software is a tricky business. For robust results, you need dedicated
+hardware that only runs the benchmarking suite under controlled conditions. No other
+processes! No OS updates! Nothing else! Even then, you might find out that CPU throttling,
+thermal regulation and other issues can introduce noise in your measurements.</p>
+<p>So, how are we even trying to do it on a CI provider like GitHub Actions?
+Every job runs in a separate VM instance with frequent updates and shared resources. It
+looks like it would just be a very expensive random number generator.</p>
+<p>Well, it turns out that there <em>is</em> a sensible way to do it: <strong>relative benchmarking</strong>.
+And we know it works because we have been collecting stability data points for several
+weeks.</p>
+<p class="more"><a href="2021/08/github-actions-benchmarks/">Read more…</a></p>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/07/moving-scipy-to-meson/" class="u-url">Moving SciPy to the Meson build system</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                     <a href="../authors/ralf-gommers/">Ralf Gommers</a>
@@ -656,44 +704,6 @@ but we didn’t let this great idea die.</p>
 from which we were awarded $4000. For me, this is the perfect opportunity for
 us to take the first step towards using Spyder for education.</p>
 <p class="more"><a href="2021/04/a-step-towards-educating-with-spyder/">Read more…</a></p>
-</div>
-    </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/04/pytorch-tensoriterator-internals-update/" class="u-url">PyTorch TensorIterator Internals - 2021 Update</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                    <a href="../authors/kurt-mohler/">Kurt Mohler</a>
-            </span></p>
-            <p class="dateline">
-            <a href="2021/04/pytorch-tensoriterator-internals-update/" rel="bookmark">
-            <time class="published dt-published" datetime="2021-04-09T08:00:00-06:00" itemprop="datePublished" title="2021-04-09">2021-04-09</time></a>
-            </p>
-                <p class="commentline">
-        
-        <a href="2021/04/pytorch-tensoriterator-internals-update/#utterances-thread">Comments</a>
-
-
-        </p>
-</div>
-            
-        <div>
-            
-
-        </div>
-    </header><div class="p-summary entry-summary">
-    <div>
-<p>For contributors to the PyTorch codebase, one of the most commonly encountered
-C++ classes is
-<a href="https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/TensorIterator.h"><code>TensorIterator</code></a>.
-<code>TensorIterator</code> offers a standardized way to iterate over elements of
-a tensor, automatically parallelizing operations, while abstracting device and
-data type details.</p>
-<p>In April 2020, Sameer Deshmukh wrote a blog article discussing
-<a href="2020/04/pytorch-tensoriterator-internals/index.html">PyTorch TensorIterator Internals</a>. Recently,
-however, the interface has changed significantly. This post describes how to
-use the current interface as of April 2021. Much of the information from the
-previous article is directly copied here, but with updated API calls and some
-extra details.</p>
-<p class="more"><a href="2021/04/pytorch-tensoriterator-internals-update/">Read more…</a></p>
 </div>
     </div>
     </article>

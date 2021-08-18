@@ -94,7 +94,45 @@ bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/03/accessibility-whos-responsible/" class="u-url">Accessibility: Who's Responsible?</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/04/pytorch-tensoriterator-internals-update/" class="u-url">PyTorch TensorIterator Internals - 2021 Update</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    <a href="../authors/kurt-mohler/">Kurt Mohler</a>
+            </span></p>
+            <p class="dateline">
+            <a href="2021/04/pytorch-tensoriterator-internals-update/" rel="bookmark">
+            <time class="published dt-published" datetime="2021-04-09T08:00:00-06:00" itemprop="datePublished" title="2021-04-09">2021-04-09</time></a>
+            </p>
+                <p class="commentline">
+        
+        <a href="2021/04/pytorch-tensoriterator-internals-update/#utterances-thread">Comments</a>
+
+
+        </p>
+</div>
+            
+        <div>
+            
+
+        </div>
+    </header><div class="p-summary entry-summary">
+    <div>
+<p>For contributors to the PyTorch codebase, one of the most commonly encountered
+C++ classes is
+<a href="https://github.com/pytorch/pytorch/blob/master/aten/src/ATen/TensorIterator.h"><code>TensorIterator</code></a>.
+<code>TensorIterator</code> offers a standardized way to iterate over elements of
+a tensor, automatically parallelizing operations, while abstracting device and
+data type details.</p>
+<p>In April 2020, Sameer Deshmukh wrote a blog article discussing
+<a href="2020/04/pytorch-tensoriterator-internals/index.html">PyTorch TensorIterator Internals</a>. Recently,
+however, the interface has changed significantly. This post describes how to
+use the current interface as of April 2021. Much of the information from the
+previous article is directly copied here, but with updated API calls and some
+extra details.</p>
+<p class="more"><a href="2021/04/pytorch-tensoriterator-internals-update/">Read more…</a></p>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2021/03/accessibility-whos-responsible/" class="u-url">Accessibility: Who's Responsible?</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                     <a href="../authors/isabela-presedo-floyd/">Isabela Presedo-Floyd</a>

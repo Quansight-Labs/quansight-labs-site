@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Is GitHub Actions suitable for running benchmarks? | Quansight Labs</title>
+<link href="../../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../../../rss.xml">
+<link rel="canonical" href="https://labs.quansight.org/blog/2021/08/github-actions-benchmarks/">
+<link rel="icon" href="../../../../favicon.ico" sizes="16x16">
+<!--[if lt IE 9]><script src="../../../../assets/js/html5.js"></script><![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-163785882-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-163785882-1');
+</script><link rel="stylesheet" type="text/css" href="../../../../assets/css/tipuesearch.css">
+<meta name="author" content="Jaime Rodríguez-Guerra">
+<meta property="description" content="Benchmarking software is a tricky business. For robust results, you need dedicated
+hardware that only runs the benchmarking suite under controlled conditions. No other
+processes! No OS updates! Nothin">
+<link rel="prev" href="../../07/moving-scipy-to-meson/" title="Moving SciPy to the Meson build system" type="text/html">
+<meta property="og:site_name" content="Quansight Labs">
+<meta property="og:title" content="Is GitHub Actions suitable for running benchmarks?">
+<meta property="og:url" content="https://labs.quansight.org/blog/2021/08/github-actions-benchmarks/">
+<meta property="og:description" content="Benchmarking software is a tricky business. For robust results, you need dedicated
+hardware that only runs the benchmarking suite under controlled conditions. No other
+processes! No OS updates! Nothin">
+<meta property="og:image" content="https://labs.quansight.org/images/2021/08/github-actions-benchmark.png">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2021-08-18T00:01:00Z">
+<meta property="article:tag" content="continuous-integration">
+<meta property="article:tag" content="github-actions">
+<meta property="article:tag" content="Open-Source">
+<meta property="article:tag" content="performance">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@quansightai">
+<meta property="twitter:image" content="https://labs.quansight.org/images/2021/08/github-actions-benchmark.png">
+<link rel="stylesheet" href="../../../../assets/css/quansightlabs.css">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark
+bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="../../../../">
+            <img src="../../../../images/QuansightLabs_logo_V1_white.png" alt="Quansight Labs" id="logo" class="d-inline-block align-top"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../" class="nav-link">Blog</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../team/" class="nav-link">Team</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../projects/" class="nav-link">Projects</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../about/" class="nav-link">About</a>
+                </li>
+<li class="nav-item">
+<a href="../../../../rss.xml" class="nav-link">RSS</a>
+
+                
+            </li>
+</ul>
+<form class="navbar-form navbar-left" action="../../../../search" role="search">
+    <div class="form-group">
+        <input type="text" class="form-control" id="tipue_search_input" name="q" placeholder="Search…" autocomplete="off">
+</div>
+    <input type="submit" value="Local Search" style="visibility: hidden;"><!-- button type="submit" class="btn btn-default">Submit</button -->
+</form>
+
+
+            <ul class="navbar-nav navbar-right"></ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-markdown h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name">
+                <a href="." class="u-url">Is GitHub Actions suitable for running benchmarks?</a>
+            </h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                         <a class="u-url" href="../../../../authors/jaime-rodriguez-guerra/">Jaime Rodríguez-Guerra</a>
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2021-08-18T00:01:00Z" itemprop="datePublished" title="2021-08-18">2021-08-18</time></a>
+            </p>
+                <p class="commentline">
+        
+        <a href="#utterances-thread">Comments</a>
+
+
+            
+
+        </p>
+</div>
+        
+        <ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../../categories/continuous-integration/" rel="tag">continuous-integration</a></li>
+            <li><a class="tag p-category" href="../../../../categories/github-actions/" rel="tag">github-actions</a></li>
+            <li><a class="tag p-category" href="../../../../categories/open-source/" rel="tag">Open-Source</a></li>
+            <li><a class="tag p-category" href="../../../../categories/performance/" rel="tag">performance</a></li>
+        </ul></header><div class="e-content entry-content" itemprop="articleBody text">
+        <div>
+<p><img alt="Reliability of benchmarks in GitHub Actions. This 2D plot shows a 16-day timeseries in the X axis.
+  Each data point in the X axis corresponds to a cloud of 75 measurements (one per benchmark test).
+  The y-axis spread of each cloud corresponds to the performance ratio. Ideal measurements would have
+  a performance ratio of 1.0, since both runs returned the exact same performance. In practice this
+  does not happen and we can observe ratios between 0.6 and 1.5. This plot shows that while there
+  is an observable y-spread, it is small enough to be considered sensitive to performance
+  regressions of more than 50%." src="../../../../images/2021/08/github-actions-benchmark.png"></p>
+<p>Benchmarking software is a tricky business. For robust results, you need dedicated
+hardware that only runs the benchmarking suite under controlled conditions. No other
+processes! No OS updates! Nothing else! Even then, you might find out that CPU throttling,
+thermal regulation and other issues can introduce noise in your measurements.</p>
+<p>So, how are we even trying to do it on a CI provider like GitHub Actions?
+Every job runs in a separate VM instance with frequent updates and shared resources. It
+looks like it would just be a very expensive random number generator.</p>
+<p>Well, it turns out that there <em>is</em> a sensible way to do it: <strong>relative benchmarking</strong>.
+And we know it works because we have been collecting stability data points for several
+weeks.</p>
+<!-- TEASER_END -->
+
+<h2>Good benchmarking on shared resources?</h2>
+<p>Speed-critical projects use benchmark suites to track performance over time and detect
+regressions from commit to commit. For these measurements to be useful, they need to
+be comparable and hence use the exact same conditions for each data point. Guaranteeing
+this in absolute manners can be a daunting task, but there are ways around it.</p>
+<p>Instead of going through all the complications involved in renting or acquiring dedicated
+hardware, setting up credentials and monitoring costs, we hoped we could use the same free
+cloud resources normally used for CI tests. Ideally, GitHub Actions.</p>
+<p>Let's compare the requirements for good benchmarks and the features provided by CI services.
+That way we can understand how to work around some of the apparent limitations:</p>
+<table>
+<thead><tr>
+<th>A good benchmark suite...</th>
+<th>CI services...</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>runs on the same hardware every time</td>
+<td>provide a different (standardized) machine for each run</td>
+</tr>
+<tr>
+<td>runs on dedicated hardware</td>
+<td>run on shared resources</td>
+</tr>
+<tr>
+<td>runs on a frozen OS configuration</td>
+<td>update their VM images often</td>
+</tr>
+<tr>
+<td>requires renting or acquiring such hardware</td>
+<td>are free</td>
+</tr>
+<tr>
+<td>requires authentication mechanisms</td>
+<td>implement authentication out of the box</td>
+</tr>
+<tr>
+<td>requires hardware that can be abused through public PRs  </td>
+<td>are designed for public PRs</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>Looking at that table we see that CI services are attractive because of the cost and setup, but
+fail to provide some of the essential quality factors for reliable benchmarking. That is, if
+we want to track performance over time and compare absolute measurements directly.</p>
+<p>What if we only want to detect regressions introduced in a PR? Or in the current commit against
+the last release? We do not need absolute measurements, just a way to <em>compare</em> two commits in
+a reliable way. This is exactly what we meant by <em>relative benchmarking</em>.</p>
+<p>The idea is to run the benchmarking suite in the same CI job for the two commits we are comparing. This
+way, we guarantee we are using the exact same machine and configuration for both. By doing this, we
+are essentially canceling out the background noise and can estimate the performance <em>ratio</em> of
+the two commits.</p>
+<p>There are some gotchas, though. Benchmark suites can take long to run, and running them twice
+makes it even worse. This opens an even larger time window for other CI jobs to pollute our
+measurements with resource-intensive tasks that happen to be running at the same time.
+To minimize these effects, benchmarking tools run the tests several times in different
+schedules and apply some statistics to correct for the inevitable deviations. Or, at least,
+<em>try</em>.</p>
+<h2>Relative performance measurements with Airspeed Velocity</h2>
+<p><code>scikit-image</code>, the project that commissioned this task, uses
+<a href="https://asv.readthedocs.io/">Airspeed Velocity</a>, or <code>asv</code>, for their benchmark tests.</p>
+<p><code>asv</code>'s main feature is being able to track performance measurements over time in a JSON database and generate
+beautiful dashboards that can be published to a static site server like GitHub Pages. For
+an example, look at the reports for <code>pandas</code> at their <a href="https://pandas.pydata.org/speed/pandas/">speed.pydata.org</a>
+website.</p>
+<p><code>asv</code> <em>also</em> has a special subcommand named <code>continuous</code>, which might provide the
+functionally we needed. The help message says:</p>
+<blockquote>
+<p>Run a side-by-side comparison of two commits for continuous integration.</p>
+</blockquote>
+<p>This sounds like exactly what we are looking for! Let's break down how it works:</p>
+<ol>
+<li>When we run <code>asv continuous A B</code>, <code>asv</code> will create at least two<sup>†</sup> virtual environments
+(one per commit) and install revisions A and B in those, respectively. If the project
+involves compiled libraries (as is the case with <code>scikit-image</code>), this can be a lengthy
+process!</li>
+<li>The default configuration will run the benchmark in two interleaved passes, with several
+repeats each. In other words, <code>asv</code> will run the suite four times (<code>A-&gt;B-&gt;A-&gt;B</code>)! This is done to account
+for the unavoidable deviations from ideality caused from co-running processes, as mentioned above.</li>
+<li>The statistics for each commit are gathered and a report table is presented. The ratio
+of each test is computed and, if it is greater than a certain threshold (<code>1.2</code> by default)
+an error is emitted.</li>
+</ol>
+<blockquote>
+<p><sup>†</sup><code>asv</code> supports the notion of a configuration matrix, so you can test your code under
+different environments; e.g. NumPy versions, Python interpreters, etc.</p>
+</blockquote>
+<p>For the benchmark suite of <code>scikit-image</code> as of June/July 2021, this ends up taking up to two hours.
+This raises two questions we will answer in the following sections:</p>
+<ol>
+<li>Although we are trying hard to reduce measurement errors, is that enough? Are these measurements reliable?</li>
+<li>Two hours might be too long. Are there any settings we can tune to reduce the runtime
+without reducing the accuracy of the measurements?</li>
+</ol>
+<h2>Are CI services reliable enough for benchmarking?</h2>
+<p>We saw above that CI services are not designed for this kind of task, but with some workarounds
+they might be good enough. However, how can we be sure? As data-driven scientists, we say let's run
+an experiment!</p>
+<h3>The setup</h3>
+<p>If our experiment is data-driven, we should generate some data first. This is our strategy:</p>
+<ul>
+<li>We will benchmark and compare two commits that are exactly the same in terms of tested code.</li>
+<li>Under ideal conditions, we should see that the performance ratio between the two commits is <code>1.0</code>.
+In other words, performance should be the same. Of course, these are not ideal conditions, so
+some kind of error is expected. We just want it to stay reliably under an acceptable threshold.</li>
+<li>We will implement a GitHub Actions workflow that will run every six hours (four times a day) and
+collect results for a week or more. This will help us account for two things:<ul>
+<li>Accumulate sufficient data points to answer our question.</li>
+<li>Account for time factors like different days of the week (e.g. weekday vs weekend),
+  or the time of the day (3am vs 3pm).</li>
+</ul>
+</li>
+<li>The workflow will upload the benchmark results as artifacts we can download and process locally
+  with a Jupyter Notebook.</li>
+</ul>
+<blockquote>
+<p>Check the <a href="https://github.com/jaimergp/scikit-image/blob/main/.github/workflows/benchmarks-cron.yml">GitHub Actions workflow in this fork</a>!</p>
+</blockquote>
+<h3>The results</h3>
+<p>To measure the stability of the different benchmark runs we will be looking at the performance
+ratio of the measurements between the two commits. Since they are identical in terms of tested code,
+ideally they should be all <code>1.0</code>. We know this will not happen, but maybe the errors are not that big
+and stay like that regardless the time of the day or the day of the week.</p>
+<p>After collecting data points for 16 days, these are the results:</p>
+<p><img alt="Reliability of benchmarks in GitHub Actions. This 2D plot shows a 16-day timeseries in the X axis.
+  Each data point in the X axis corresponds to a cloud of 75 measurements (one per benchmark test).
+  The y-axis spread of each cloud corresponds to the performance ratio. Ideal measurements would have
+  a performance ratio of 1.0, since both runs returned the exact same performance. In practice this
+  does not happen and we can observe ratios between 0.5 and 1.5. This plot shows that while there is
+  an observable y-spread, it is small enough to be considered sensitive to performance regressions
+  of more than 50%." src="../../../../images/2021/08/github-actions-benchmark.png"></p>
+<ul>
+<li>Average time taken: 1h55min</li>
+<li>Minimum and maximum ratios observed: 0.51, 1.36</li>
+<li>Mean and standard deviation of ratios: 1.00, 0.05</li>
+<li>Proportion of false positives: 4/108 = 3.7%</li>
+</ul>
+<p>In the X axis you can see the different runs, sorted by date and time. Days of the week are grouped
+with colored patches for easier visual analysis. In the Y axis, we plot the performance ratio. Each
+of those vertical clouds include 75 points, one per benchmark test. Ideally, they should all fall at
+<code>y=1</code>. Of course, not all of them are there, but a surprising amount of them do!</p>
+<p>But! We do see some bigger deviations at certain times! How is that possible? Well, that's the error we were talking about!
+These outliers are the ones that would concern us because they can be interpreted as <strong>false positives</strong>.
+In other words: <code>asv</code> would report a performance regression, when in fact there's none. However,
+in the observed measurements, the outliers were always within <code>y ∈ (0.5, 1.4)</code>.
+That means we can affirm that the method is sensitive enough to detect performance regressions of 50% or
+more! This is good enough for our project and, in fact, some projects might even be happy with a threshold of <code>2.0</code>.</p>
+<blockquote>
+<p>If you are curious about how we automatically downloaded the artifacts, parsed the output, and plotted
+the performance ratios, check the Jupyter Notebook <a href="https://gist.github.com/jaimergp/aa4f059c14e394c4089b320cb8b51b1a">here</a>.</p>
+</blockquote>
+<h2>Can we make it run faster without losing accuracy?</h2>
+<p>We just found out that this approach is sensitive enough <em>but</em> it takes two hours to run. Is it possible
+to reduce that time without sacrificing sensitivity? We need to remember that <code>asv</code> is running several
+passes and repeats to reduce the measurement error, but maybe some of those default counter-measures
+are not needed. Namely:</p>
+<ul>
+<li>
+<p>The benchmark runs with <code>--interleave-processes</code>, but it can be disabled with <code>--no-interleave-processes</code>.
+The help message for this flag says:</p>
+<blockquote>
+<p>Interleave benchmarks with multiple processes across commits. This can avoid measurement biases
+from commit ordering, can take longer.</p>
+</blockquote>
+<p>How much longer? Does it help keep error under control? We should measure that.</p>
+</li>
+<li>
+<p>By default, all tests are run several times, with different schedules. There are two
+<a href="https://asv.readthedocs.io/en/stable/benchmarks.html#timing-benchmarks">benchmark attributes</a>
+that govern these settings: <code>processes</code> and <code>repeat</code>. <code>processes</code> defaults to <code>2</code>, which means that
+the full suite will be run twice per commit. If we only do one pass (<code>processes=1</code>), we will reduce
+the running time in half, but will we lose too much accuracy?</p>
+</li>
+</ul>
+<p>To answer both questions, we added more entries to the data collection workflow shown above by
+<a href="https://github.com/jaimergp/scikit-image/blob/e561996/.github/workflows/benchmarks-cron.yml#L14-L23">parameterizing the <code>asv</code> command-line options</a>.</p>
+<p>These are the results!</p>
+<h3>No process interleaving</h3>
+<p>Disabling process interleaving should be faster and maybe the accuracy loss is not that bad. But...
+how bad? Here are the results:</p>
+<p><img alt="Reliability of benchmarks in GitHub Actions, no interleaving. With no interleaving, the vertical
+  spread is more evident, with several clouds spreading beyond the desired interval.
+  One particular outlier happened on the first Saturday, with half the cloud below 0.75.
+  This 2D plot shows a 16-day timeseries in the X axis. Each data point in the X axis corresponds
+  to a cloud of 75 measurements (one per benchmark test). The y-axis spread of each cloud corresponds
+  to the performance ratio. Ideal measurements would have a performance ratio of 1.0, since both
+  runs returned the exact same performance. In practice this does not happen." src="../../../../images/2021/08/github-actions-benchmark-no-interleaving.png"></p>
+<ul>
+<li>Average time taken: 1h39min</li>
+<li>Minimum and maximum ratios observed: 0.43, 1.5</li>
+<li>Mean and standard deviation of ratios: 0.99, 0.07</li>
+<li>Proportion of false positives: 6/66 = 9.99%</li>
+</ul>
+<h3>Single-pass with <code>processes=1</code>
+</h3>
+<p>In this configuration, we expect a drastic 50% running time reduction, since we will only do one pass
+per commit, instead of two. However, the accuracy loss might be too dramatic... Let's see!</p>
+<p><img alt="Reliability of benchmarks in GitHub Actions, single pass. With a single process, the y-spread is
+  significantly wider. Some data points can be observed even beyond a ratio of 2.5,
+  and the overall visual spread is larger; i.e. the clouds are taller than in the ideal case of
+  having a small, contained cloud at 1.0. This 2D plot shows a 16-day timeseries in the X axis.
+  Each data point in the X axis corresponds to a cloud of 75 measurements (one per benchmark test).
+  The y-axis spread of each cloud corresponds to the performance ratio. Ideal measurements would have
+  a performance ratio of 1.0, since both runs returned the exact same performance. In practice this
+  does not happen." src="../../../../images/2021/08/github-actions-benchmark-single-process.png"></p>
+<ul>
+<li>Average time taken: 1h7min</li>
+<li>Minimum and maximum ratios observed: 0.51, 2.76</li>
+<li>Mean and standard deviation of ratios: 1.01, 0.07</li>
+<li>Proportion of false positives: 8/64 = 12.5%</li>
+</ul>
+<p>At first sight, those clouds look very spread! The number of false positives is also larger.</p>
+<h3>Summary of the strategies</h3>
+<p>Let's take a look at the three strategies now. The main columns are <strong>runtime</strong> and <strong>%FP</strong>
+(percentage of false positives). We want the smallest %FP at the shortest runtime.</p>
+<table>
+<thead><tr>
+<th>Strategy</th>
+<th>Runtime   </th>
+<th>%FP</th>
+<th>Min</th>
+<th>Max</th>
+<th>Mean  </th>
+<th>Std</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Default</td>
+<td>1h55</td>
+<td>3.7</td>
+<td>0.51  </td>
+<td>1.36</td>
+<td>1.00</td>
+<td>0.05</td>
+</tr>
+<tr>
+<td>No interleaving  </td>
+<td>1h39</td>
+<td>9.99  </td>
+<td>0.43</td>
+<td>1.50</td>
+<td>0.99</td>
+<td>0.07</td>
+</tr>
+<tr>
+<td>Single pass</td>
+<td>1h07</td>
+<td>12.5</td>
+<td>0.51</td>
+<td>2.76  </td>
+<td>1.01</td>
+<td>0.07</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>Unsurprisingly, the default strategy (two passes, interleaved) is the most accurate, but also
+the most time consuming. Disabling process interleaving helps reduce the average runtime 16min
+but the false positives increased to more than double! Using a single pass brought the runtime
+down to an hour, but multiplied the false positives by almost four.</p>
+<p>In short, we will stick to the default strategy for accuracy but need to investigate other ways
+to make it run in less time.</p>
+<blockquote>
+<p>We also considered running several single-pass replicas in parallel using different GitHub
+Actions jobs. In theory, a false positive could be spotted by comparing the values of the
+failing tests in the other replicas. Only true positives would reliably appear in all
+replicas. However, this consumes more CI resources (compilation happens several times)
+and is noisier from the maintainer perspective, who would need to check all replicas.
+Not to mention that more replicas increase the chances for more false positives!</p>
+</blockquote>
+<h2>Speeding up compilation times</h2>
+<p>So far we have only looked at speeding up the benchmark suite itself, but we saw
+earlier that <code>asv</code> will also spend some time setting up virtual environments and installing the
+project. Since installing <code>scikit-learn</code> involves compiling some extensions, this can add up
+to a non-trivial amount of time.</p>
+<p>To accelerate the creation of the virtual environments, which in our case uses <code>conda</code>, we
+replaced the <code>conda</code> calls with a faster implementation called <code>mamba</code>. We rely on an <code>asv</code>
+implementation detail: to find <code>conda</code>, <code>asv</code> will first check the value of the <code>CONDA_EXE</code>
+environment variable. This is normally set by <code>conda activate &lt;env&gt;</code>, but we
+<a href="https://github.com/scikit-image/scikit-image/blob/main/.github/workflows/benchmarks.yml#L77">overwrite it with the path to <code>mamba</code></a>
+to have <code>asv</code> use it instead.</p>
+<p>The second optimization is leveraging the use of a compiler cache. Since most of the modules
+will not change in a given PR, we can use <code>ccache</code> to keep the unchanged libraries around. Check
+the <a href="https://github.com/scikit-image/scikit-image/blob/main/.github/workflows/benchmarks.yml#L36-L56">workflow file</a>
+to see how it can be implemented on GitHub Actions.</p>
+<p>These two changes together brought the average running time down to around 1h 20min. Not bad!</p>
+<h2>Run it on demand!</h2>
+<p>Benchmarks do not need to run for every single commit pushed to a PR. In fact, that's probably
+a waste of resources. Instead, we'd like the maintainers to run the benchmarks on demand, whenever
+needed during the PR lifetime.</p>
+<p>GitHub Actions offers different kinds of events that will trigger a worklow. By default the
+<code>on.pull_request</code> trigger is configured to act on three event types: <code>[opened, reopened, synchronize]</code>.
+In practice, this means after every push or after closing+opening the PR. However, there are
+<a href="https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request">more triggers</a>!</p>
+<p>Of all the choices, we settled for <code>labeled</code>. This means that the workflow will be triggered whenever
+the PR is tagged with a label. To specify which label(s) are able to trigger the workflow, you can use
+an <code>if</code> clause at the <code>job</code> level, <a href="https://github.com/scikit-image/scikit-image/blob/2fa66e5/.github/workflows/benchmarks.yml#L10">like this</a>:</p>
+<pre class="code literal-block"><span></span><code><span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Benchmark</span>
+
+<span class="nt">on</span><span class="p">:</span>
+  <span class="nt">pull_request</span><span class="p">:</span>
+    <span class="nt">types</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">labeled</span><span class="p p-Indicator">]</span>
+
+<span class="nt">jobs</span><span class="p">:</span>
+  <span class="nt">benchmark</span><span class="p">:</span>
+    <span class="nt">if</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">${{ github.event.label.name == 'run-benchmark' &amp;&amp; github.event_name == 'pull_request' }}</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Linux</span>
+    <span class="nt">runs-on</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ubuntu-20.04</span>
+    <span class="l l-Scalar l-Scalar-Plain">...</span>
+</code></pre>
+
+
+<p>In this example, the PR will only get triggered if the label is named <code>run-benchmark</code>. This works surprisingly
+well as a manual trigger! It is also restricted to authorized users (triaging permissions or above), so no
+need to fiddle with authentication tokens or similar complications.</p>
+<p>There is one gotcha, though: the checks UI will be appended to the last push event panel, which can be confusing
+if more commits have been added to the PR since the label was added. Ideally, the checks UI panel would be
+added next to the <em>@user added the run-benchmark label</em> message. Maybe in a
+<a href="https://twitter.com/jaime_rgp/status/1412419232340627467">future update</a>?</p>
+<h2>TLDR</h2>
+<p>We have seen that GitHub Actions is indeed good enough to perform relative benchmarking in a reliable way
+as long as several passes are averaged together (default behaviour in <code>asv continuous</code>). This takes a bit
+more time but you can speed it up a bit with <code>mamba</code> and <code>ccache</code> for compiled libraries. Even in that case,
+it is probably overkill to run it for every push event, so we are using the <code>on.pull_request.labeled</code> trigger
+to let the maintainers decide when to do it on demand.</p>
+<hr>
+<h2>Useful references</h2>
+<ul>
+<li>
+<a href="https://github.com/scikit-image/scikit-image/pull/5424">scikit-image/scikit-image #5424</a>: The PR where
+  all this was implemented.</li>
+<li>
+<a href="https://gist.github.com/jaimergp/aa4f059c14e394c4089b320cb8b51b1a">Analysis notebook</a>: The code used
+  to analyze the benchmarking data.</li>
+<li>
+<a href="https://asv.readthedocs.io">asv.readthedocs.io</a>: The official documentation for <code>asv</code>.</li>
+<li><a href="https://wolfv.medium.com/building-an-open-source-continuous-benchmark-system-717839093962">Building an Open Source, Continuous Benchmark System</a></li>
+<li><a href="https://ursalabs.org/blog/announcing-conbench/">Conbench: Language-independent Continuous Benchmarking Tool, by Ursa Labs</a></li>
+<li><a href="https://speed.pypy.org/">PyPy Speed</a></li>
+<li><a href="http://pandas.pydata.org/speed/pandas/">Pandas Speed</a></li>
+</ul>
+<h2>Acknowledgements</h2>
+<p>Thanks Gregory Lee, Stéfan van der Walt and Juan Nunez-Iglesias for their enthusiastic and useful feedback
+in the PR! The plots look that pretty thanks to comments provided by John Lee. Gregory Lee, Gonzalo
+Peña-Castellanos and Isabela Presedo-Floyd provided super valuable comments and suggestions for this post.</p>
+<p>This work was funded by the Chan-Zuckerberg Institute (CZI) as part of an
+<a href="https://chanzuckerberg.com/eoss/proposals/gpu-acceleration-rapid-releases-and-biomedical-examples-for-scikit-image/">Essential Open Source Software for Science</a>
+grant.</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../../07/moving-scipy-to-meson/" rel="prev" title="Moving SciPy to the Meson build system">Previous post</a>
+            </li>
+
+            <li class="archive">
+                <a href="../../../../archive.html" rel="archive" title="Archive ">Archive</a>
+            </li>
+
+            <li class="next disabled">
+                <a rel="next">Next post</a>
+            </li>
+        </ul></nav></aside><section class="comments hidden-print"><h2>Comments</h2>
+        
+        
+        <div data-title="Is GitHub Actions suitable for running benchmarks?" id="utterances-thread"></div>
+        <script src="https://utteranc.es/client.js" repo="Quansight-Labs/quansight-labs-site" issue-term="title" label="utterances" theme="github-light" crossorigin="anonymous"></script></section></article><!--End of body content--><footer id="footer">
+            Contents © 2021         <a href="../../../../team">Quansight Labs Team</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
+    </script>
+</body>
+</html>
