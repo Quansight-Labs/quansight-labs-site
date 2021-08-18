@@ -22,10 +22,13 @@ intersection is labeled '1,500,000 disabled NumPy
 users.](/images/2021/07/numpy-accessibility/venn_diagram.png)
 
 As NumPy is early in the dependency chain, it has a huge install base. It is
-estimated that there are 10 million users of NumPy. Taking together another
-estimate that 15% of the human population is disabled ([World Health
-Organization](https://www.who.int/disabilities/world_report/2011/report.pdf)),
-it is estimated that at least 1,500,000 NumPy users have a disability. Over a
+estimated that there are 10 million users of NumPy. Around 15% of the general
+human population disabled. ([World Health
+Organization](https://www.who.int/disabilities/world_report/2011/report.pdf)).
+Even if we assume that the rate of disabled scientists is less than
+15%([National Science
+Foundation](https://www.ncses.nsf.gov/pubs/nsf19304/data)), such as 5%, that
+would still put the number of NumPy users with a disability at 500,000. Half a
 million users deserve an accessible NumPy website and documentation.
 
 In response to this, a small team started working on making NumPy more
@@ -83,12 +86,12 @@ keyboard shortcuts.
 
 ![A comic about how different people respond to the same barrier. The example
 here is about graphs with colors that are inaccessible for people with
-deuteranopia.](/images/2021/07/numpy-accessibility/disability_not_recognized.png)
+deuteranopia, red-green color blindness.](/images/2021/07/numpy-accessibility/disability_not_recognized.png)
 [_External link to the above illustration's full
 transcription_](https://gist.githubusercontent.com/MarsBarLee/8beffb99b2f0976a42a97d68bb89f8d2/raw/fb20ffc54bd19e1b0e6cb12873a89734cfda23ae/disability_not_recognized.png)
 
 ![A graph illustrating how the world can be inaccessible for people with
-deuteranopia.](/images/2021/07/numpy-accessibility/color_deficiency.png)
+deuteranopia, red-green color blindness.](/images/2021/07/numpy-accessibility/color_deficiency.png)
 [_External link to the above illustration's full
 transcription_](https://gist.githubusercontent.com/MarsBarLee/eae9824bf76b3ea89d719e61e2f1e078/raw/faed346caedebd666a87dbbe734ec092ecde368e/color_deficiency.png)
 
