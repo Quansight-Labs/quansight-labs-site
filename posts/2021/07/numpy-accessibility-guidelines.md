@@ -1,8 +1,13 @@
 <!--
-.. title: Making Numpy Accessible: Guidelines and Tools .. slug:
-numpy-accessibility-guidelines .. date: 2021-07-27 12:39:34 UTC-05:00 .. author:
-Mars Lee .. tags: Accessibility, NumPy .. category: .. link: .. description: .. type:
-text
+.. title: Making Numpy Accessible: Guidelines and Tools
+.. slug: numpy-accessibility-guidelines
+.. date: 2021-07-27 12:39:34 UTC-05:00
+.. author: Mars Lee
+.. tags: Accessibility, NumPy
+.. category:
+.. link:
+.. description:
+.. type: text
 -->
 
 ![A large eye is placed over two bar graphs. Two silhouettes of heads are also
@@ -47,7 +52,7 @@ low-priority, scary or someone else’s job. If JupyterLab could do it, so could
 NumPy. We decided to take this on.
 
 Making NumPy accessible is something that should have started a long time ago.
-However it  never quite started, mostly due to a lack of knowledge. Not everyone
+However it never quite started, mostly due to a lack of knowledge. Not everyone
 knows what accessible technology is, who it benefits, what guidelines to use or
 how to implement them. With all these gaps in knowledge, it can be intimidating
 to even start this conversation.
@@ -71,7 +76,7 @@ technology.
 
 This is because accessibility is about making technology accessible to the full
 range of human experience. Disabilities can affect sight, hearing, cognition and
-physical motion. 
+physical motion.
 
 Through this lens, we’ve all been at least situationally disabled. We’ve all
 been to websites with small, hard to read text. Maybe you’ve had a broken mouse
@@ -82,7 +87,6 @@ We have felt the frustration of the world not working the way you need it to. We
 have felt relief in finding commonly built-in solutions, such as increasing our
 browsers' text size, turning on captions or learning to switch tabs with
 keyboard shortcuts.
-
 
 ![A comic about how different people respond to the same barrier. The example
 here is about graphs with colors that are inaccessible for people with
@@ -160,7 +164,7 @@ Unfortunately, there was no way to review multiple pages at the same time with
 the WAVE tool’s free plan. There are several hundred pages in the NumPy
 documentation and when converted to print, it is equivalent to nearly 2000
 physical paper pages. Going through each page of documentation individually would
-be daunting and time-consuming. 
+be daunting and time-consuming.
 
 We also tried combining the automated WAVE tool with real human feedback. We
 reviewed pre-existing Github issues in the NumPy.org repository tagged with
@@ -174,7 +178,7 @@ could be reviewed at once by experts.
 
 Now that we understood why we should care about accessibility, the different
 types of disabilities, guidelines and basic tools, we thought this next step
-would be easy. However, it isn’t as straightforward as we thought. 
+would be easy. However, it isn’t as straightforward as we thought.
 
 Stay tuned! The next blog post in this series will talk about what types of
 audits we considered, the shortcomings of our method and getting help from other
