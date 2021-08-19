@@ -164,3 +164,8 @@ title: Saul Shanabrook
 github: saulshanabrook
 projects: ['Vega', 'Jupyter', 'metadsl']
 ---
+name: filipe_lains.png
+title: Filipe Laíns
+github: FFY00
+projects: ['pypa/build', 'CPython', 'importlib_resources']
+---
