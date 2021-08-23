@@ -41,6 +41,7 @@ To build the site, and have it auto-update when you edit content:
 
 ## Deployment
 
-Submit pull requests first, those get run on [CloudFare Pages](https://developers.cloudflare.com/pages/) and you can see a build preview by clicking on the `details` link at the bottom.
+Once you submit a Pull Request a build of the site will be triggered on [CloudFare Pages](https://developers.cloudflare.com/pages/). The CloudFare Pages bot will add a comment to your Pull Request with the link to the preview URL.
+If the build fails or you need to see more details about it click on the **Show all checks** link in the checks section and then in **Details**.
 
 ![Build previews](images/readme-build-previews.png)
