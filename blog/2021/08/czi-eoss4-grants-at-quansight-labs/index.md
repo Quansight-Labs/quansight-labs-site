@@ -7,8 +7,7 @@
 .. link:
 .. description:
 .. type: markdown
-.. author: Thomas Fan, Aaron Meurer,Melissa Mendonça,Tania Allard, Matthias Bussonnier, Isabela Presedo-Floyd, Ralf
-Gommers, Travis Oliphant
+.. author: Thomas Fan, Aaron Meurer,Melissa Mendonça,Tania Allard, Matthias Bussonnier, Isabela Presedo-Floyd, Ralf Gommers, Travis Oliphant
 -->
 
 Here, at Quansight Labs, our goal is to work on sustaining the future of Open Source. We make sure we can live up to that goal by spending a significant amount of time working on impactful and critical infrastructure and projects within the Scientific Ecosystem.
@@ -24,7 +23,7 @@ Today, we are thrilled to announce that the team at Quansight Labs [has been awa
 ## Maintenance & Extension of Scikit-learn: Machine Learning in Python
 **PI: Thomas Fan**
 
-This proposal aims to decrease the maintenance backlog of scikit-learn and increase responsiveness to issues and new pull-requests. The team expects that reducing the number of open issues and response and pull-request review timelines will increase community and contributor engagement in the long run. 
+This proposal aims to decrease the maintenance backlog of scikit-learn and increase responsiveness to issues and new pull-requests. The team expects that reducing the number of open issues and response and pull-request review timelines will increase community and contributor engagement in the long run.
 
 In addition to day-to-day maintenance, this grant will also enable the  scikit-learn team to focus on adding new features, such as:
 
@@ -62,7 +61,7 @@ Lastly, Aaron Meurer will focus on improving the high-level documentation of Sym
 ## Advancing an inclusive culture in the scientific Python ecosystem
 **PI: Melissa Mendonça**
 
- This joint proposal from [NumPy](https://numpy.org/), [SciPy](https://scipy.org/), [Matplotlib](https://matplotlib.org/), and [Pandas](https://pandas.pydata.org/) was submitted as part of a supplemental program called [Essential Open Source Software Diversity & Inclusion](https://cziscience.medium.com/advancing-diversity-and-inclusion-in-scientific-open-source-eaabe6a5488b). 
+ This joint proposal from [NumPy](https://numpy.org/), [SciPy](https://scipy.org/), [Matplotlib](https://matplotlib.org/), and [Pandas](https://pandas.pydata.org/) was submitted as part of a supplemental program called [Essential Open Source Software Diversity & Inclusion](https://cziscience.medium.com/advancing-diversity-and-inclusion-in-scientific-open-source-eaabe6a5488b).
 Melissa Mendonça will lead this effort as the PI and include 1-2 maintainers of each project to help set priorities and guide the work, targeted towards Diversity, Equity and Inclusion (DEI).
 
 This grant will help create two Contributor Experience Lead positions, which will involve a mixture of technical and community work with a particular focus on DEI.
@@ -79,10 +78,10 @@ Another goal of this project is to align documentation across the involved proje
 
 [CZI proposal page](https://chanzuckerberg.com/eoss/proposals/advancing-an-inclusive-culture-in-the-scientific-python-ecosystem/)
 
-## Inclusive and Accessible Scientific Computing in the Jupyter Ecosystem 
-**PI: Tania Allard** 
+## Inclusive and Accessible Scientific Computing in the Jupyter Ecosystem
+**PI: Tania Allard**
 
-A critical aspect of open-source Scientific Computing is to enable projects to be accessible to all users. This grant was awarded to Jupyter with Tania as PI and Isabela Presedo-Floyd and Tony Fast as other named Quansight Labs members on the proposal to address existing accessibility issues within the Jupyter Ecosystem. 
+A critical aspect of open-source Scientific Computing is to enable projects to be accessible to all users. This grant was awarded to Jupyter with Tania as PI and Isabela Presedo-Floyd and Tony Fast as other named Quansight Labs members on the proposal to address existing accessibility issues within the Jupyter Ecosystem.
 
 This grant aims to build tools and standards to boost accessibility across the PyData ecosystem for disabled users during the next two years. The team aims to achieve this by setting an example with [JupyterLab](https://github.com/jupyterlab/jupyterlab) in three ways:
 
@@ -101,7 +100,7 @@ This proposal focuses on a significant overhaul of the Jupyter and IPython inter
 
 The current framework is limited to displaying raw docstrings. It does not support the complete set of features a website builder like Sphinx exposes. These limitations negatively impact documentation and library authors' ability to write in docstrings to be still understandable and, at the same time, pushes libraries to complex performance issues affecting solutions like dynamic docstrings.
 
-The team has already [prototyped and presented previously](https://labs.quansight.org/blog/2021/05/rethinking-jupyter-documentation/) ways to improve the Jupyter documentation experience. 
+The team has already [prototyped and presented previously](https://labs.quansight.org/blog/2021/05/rethinking-jupyter-documentation/) ways to improve the Jupyter documentation experience.
 Therefore, through this grant, the team will make this implementation possible across the PyData ecosystem so that everyone can have access to rich documentation directly from Jupyter and other IDEs.
 
 [CZI proposal page](https://chanzuckerberg.com/eoss/proposals/papyri-better-documentation-for-the-scientific-ecosystem-in-jupyter/)
