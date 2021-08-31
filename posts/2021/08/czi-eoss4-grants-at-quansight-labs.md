@@ -19,6 +19,8 @@ CZI’s Essential Open Source Software for Science program supports software mai
 
 Today, we are thrilled to announce that the team at Quansight Labs [has been awarded](https://chanzuckerberg.com/newsroom/czi-awards-16-million-for-foundational-open-source-software-tools-essential-to-biomedicine/) five EOSS Cycle 4 grants to work on several projects within the PyData ecosystem. This post will introduce the successful grantees and their objectives for these two-year long grants.
 
+<!-- TEASER_END -->
+
 ## Maintenance & Extension of Scikit-learn: Machine Learning in Python
 **PI: Thomas Fan**
 
