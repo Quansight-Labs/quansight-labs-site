@@ -2,7 +2,7 @@
 .. title: File management improvements in Spyder4
 .. slug: File-management-improvements-in-Spyder4
 .. date: 2019-11-12 12:00:00 UTC-05:00
-.. author: Juanita Gomez & Gonzalo Peña
+.. author: Juanita Gomez, Gonzalo Peña
 .. tags: Labs, Spyder
 .. category: 
 .. link: 
