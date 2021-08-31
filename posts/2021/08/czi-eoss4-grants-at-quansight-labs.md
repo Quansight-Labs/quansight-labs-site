@@ -62,7 +62,7 @@ Lastly, Aaron Meurer will focus on improving the high-level documentation of Sym
 ## Advancing an inclusive culture in the scientific Python ecosystem
 **PI: Melissa Mendonça**
 
- This joint proposal from [NumPy](https://numpy.org/), [SciPy](https://scipy.org/), [Matplotlib](https://matplotlib.org/), and [Pandas](https://pandas.pydata.org/) was submitted as part of a supplemental program called Essential Open Source Software Diversity & Inclusion. 
+ This joint proposal from [NumPy](https://numpy.org/), [SciPy](https://scipy.org/), [Matplotlib](https://matplotlib.org/), and [Pandas](https://pandas.pydata.org/) was submitted as part of a supplemental program called [Essential Open Source Software Diversity & Inclusion](https://cziscience.medium.com/advancing-diversity-and-inclusion-in-scientific-open-source-eaabe6a5488b). 
 Melissa Mendonça will lead this effort as the PI and include 1-2 maintainers of each project to help set priorities and guide the work, targeted towards Diversity, Equity and Inclusion (DEI).
 
 This grant will help create two Contributor Experience Lead positions, which will involve a mixture of technical and community work with a particular focus on DEI.
