@@ -7,7 +7,7 @@
 .. link:
 .. description:
 .. type: markdown
-.. author: Thomas Fan, Aaron Meurer,Melissa Mendonça,Tania Allard, Matthias Bussonnier, Isabela Presedo-Floyd, Ralf Gommers, Travis Oliphant
+.. author: Thomas Fan, Aaron Meurer,Melissa Weber Mendonça,Tania Allard, Matthias Bussonnier, Isabela Presedo-Floyd, Ralf Gommers, Travis Oliphant
 -->
 
 Here, at Quansight Labs, our goal is to work on sustaining the future of Open Source. We make sure we can live up to that goal by spending a significant amount of time working on impactful and critical infrastructure and projects within the Scientific Ecosystem.
