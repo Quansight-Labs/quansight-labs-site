@@ -65,7 +65,7 @@
 %if post.previewimage:
     <meta property="og:image" content="${url_replacer(permalink, post.previewimage, lang, 'absolute')}">
 %else:
-    <meta property="og:image" content="${url_replacer(permalink, '/images/QuansightLabs_logo_V2.png', lang, 'absolute')}">
+    <meta property="og:image" content="${url_replacer(permalink, '/images/QuansightLabs_logo_V2_rect.png', lang, 'absolute')}">
 %endif
 <meta property="og:type" content="article">
 ### Will only work with Pintrest and breaks everywhere else who expect a [Facebook] URI.
@@ -98,7 +98,7 @@
     %if post.previewimage:
         <meta property="twitter:image" content="${url_replacer(permalink, post.previewimage, lang, 'absolute')}">
     %else:
-        <meta property="twitter:image" content="${url_replacer(permalink, '/images/QuansightLabs_logo_V2.png', lang, 'absolute')}">
+        <meta property="twitter:image" content="${url_replacer(permalink, '/images/QuansightLabs_logo_V2_rect.png', lang, 'absolute')}">
     %endif
 %endif
 </%def>
