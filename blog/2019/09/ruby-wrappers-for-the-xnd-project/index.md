@@ -2,7 +2,7 @@
 .. title: Ruby wrappers for the XND project
 .. slug: ruby-wrappers-for-the-xnd-project
 .. date: 2019-09-15 00:32:00 UTC-05:00
-.. author: Sameer Deshmukh (@v0dro)
+.. author: Sameer Deshmukh
 .. tags: 
 .. category: 
 .. link: 

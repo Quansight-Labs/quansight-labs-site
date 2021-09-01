@@ -2,7 +2,7 @@
 .. title: Documentation as a way to build Community
 .. slug: documentation-as-a-way-to-build-community
 .. date: 2020-03-14 07:25:55 UTC-05:00
-.. author: Melissa Mendonça
+.. author: Melissa Weber Mendonça
 .. tags: Labs, NumPy
 .. category: 
 .. link: 
