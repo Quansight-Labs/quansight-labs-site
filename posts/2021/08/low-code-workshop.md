@@ -1,7 +1,7 @@
 <!--
 .. title: Low-code contributions through GitHub
 .. slug: low-code-contributions-through-GitHub
-.. date: 2021-08-10 18:00:00 UTC-00:00
+.. date: 2021-09-08 18:00:00 UTC-00:00
 .. author: Isabela Presedo-Floyd, Mars Lee, Melissa Weber Mendonça, Tony Fast
 .. tags: Jupyter, NumPy, Accessibility
 .. category:
