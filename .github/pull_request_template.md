@@ -5,7 +5,8 @@ Thank you for submitting a blog post! We want to make sure content produced for 
 
 Text styling
 - [ ] The blog is written with [plain language](https://www.plainlanguage.gov/guidelines/) (where relevant).
-- [ ] If there are headers, they use the proper header tags in order to do so.
+- [ ] If there are headers, they use the proper header tags in order to do so (with only one level-one header).
+- [ ] All links describe where they link to (for example, check the [Quansight labs website](https://labs.quansight.org/)).
 - [ ] Any kind of styling that the author uses (for example, bold for emphasis) is consistent throughout the blog.
 
 Non-text content
