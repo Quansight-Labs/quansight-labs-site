@@ -24,6 +24,7 @@ In these workshops, there are implicit challenges that need to be overcome to co
 Our goal with the following low-code workshop is to offer a way for folks to join a project's contributors list without the technical overhead. 
 To achieve this we'll discuss a format that relies solely on the GitHub web interface.
 
+<!-- TEASER_END -->
 ## Case study - collaboratively improving the accessibility of images in documentation
 
 Our successful experiments are based on having new and seasoned contributors work together to add alternative text representations to images in project documentation. 
