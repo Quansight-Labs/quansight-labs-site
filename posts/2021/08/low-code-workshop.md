@@ -103,7 +103,9 @@ Thursday](http://numpy-discussion.10968.n7.nabble.com/Newcomer-s-Hour-td49226.ht
 
 During the first meeting, @marsbarlee provided a valuable [slideshow on how to write alt text for
 scientific diagrams](https://docs.google.com/presentation/d/150vhbpGrtAc3ALhrS1a07lhEKCgevAY3ITh-4eCndDk/edit?usp=sharing). 
-This involves looking at examples and looking at the image context.
+Writing alt-text for scientific diagrams in the documentation poses a unique challenge, as conventional advice for writing alt-text is not sufficient. Abstract concepts such as mathematics can be difficult to describe visually.
+
+ We tackled this in the workshop by comparing different examples, such as how writing alt-text for a Venn Diagram differs from writing for a bar chart. We also took cue from the surrounding context of the diagram, such as the code comments, to find the most relevant information to visually describe.
 
 The progress from the NumPy newcomer's meeting can be seen in this issue https://github.com/melissawm/numpy/pull/27 .
 
