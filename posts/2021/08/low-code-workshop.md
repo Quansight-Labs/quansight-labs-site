@@ -108,7 +108,13 @@ Writing alt-text for scientific diagrams in the documentation poses a unique cha
  We tackled this in the workshop by comparing different examples, such as how writing alt-text for a Venn Diagram differs from writing for a bar chart. We also took cue from the surrounding context of the diagram, such as the code comments, to find the most relevant information to visually describe.
 
 The progress from the NumPy newcomer's meeting can be seen in this issue https://github.com/melissawm/numpy/pull/27 .
+Melissa led the second iteration of this event to complete more alt text in the main NumPy documentation as well as beginning to cover [NumPy tutorials](https://numpy.org/numpy-tutorials/) with a new group of people. By hosting a workshop with another project, we saw the similar yet different challenges NumPy faced compared to Jupyter,
 
+By working on the NumPy tutorials, which are originally written as Jupyter notebooks, we faced new questions, such as how to handle rendered live charts, which are not in still images formats such as JPEG. We faced other types of media, such as cell input and outputs.
+
+We used a variety of markup languages, including reST, Markdown and HTML, each with it's own quirks and slight variation in implementing alt-text.
+
+In these two workshops, the community gathered together to create more accessible documentation across the open-source space, one contribution at a time.
 A highlight, to us, is that we provided opportunities for both long time NumPy fans and high
 school students to see themselves in history of such a foundational tool like NumPy. 
 Moreover, attendees were still adding alt text contributions after the event concluded.
