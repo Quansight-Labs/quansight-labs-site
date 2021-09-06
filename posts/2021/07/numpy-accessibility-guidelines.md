@@ -1,7 +1,7 @@
 <!--
 .. title: Making Numpy Accessible: Guidelines and Tools
 .. slug: numpy-accessibility-guidelines
-.. date: 2021-09-03 12:39:34 UTC-05:00
+.. date: 2021-09-06 12:39:34 UTC-05:00
 .. author: Mars Lee
 .. tags: Accessibility, NumPy
 .. category:
