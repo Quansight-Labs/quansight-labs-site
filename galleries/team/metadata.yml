@@ -177,5 +177,5 @@ projects: ['NumPy']
 name: rohit_goswami.jpg
 title: Rohit Goswami
 github: HaoZeke
-projects: ['NumPy']
+projects: ['NumPy', 'f2py', 'LFortran', 'SymEngine']
 ---
