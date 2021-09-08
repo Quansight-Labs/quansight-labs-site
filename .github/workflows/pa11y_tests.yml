@@ -42,7 +42,7 @@ jobs:
     - name: Check site a11y
       run: |
         nikola auto & sleep 10
-        npm run test-pally | tee pa11y_output.txt
+        npm run test-pa11y | tee pa11y_output.txt
         kill $(cat nikolaserve.pid)
 
     - name: Read pa11y_output file.
@@ -61,7 +61,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '## Pa11y testing results 
+              body: '## :wheelchair: Pa11y testing results 
               
-              ```{{ steps.pa11y_output.outputs.content }}```'
+              ```${{ steps.pa11y_output.outputs.content }}```'
             })
