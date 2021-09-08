@@ -15,10 +15,12 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v2
       
-    - name: Install node and pa11y-ci
+    - name: Install node 
       uses: actions/setup-node@v1
       with:
         node-version: "12.x"
+
+    - name: Install pa11y
       run: npm ci
     
     - name: Cache dependencies
