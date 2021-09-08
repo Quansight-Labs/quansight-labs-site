@@ -23,7 +23,7 @@ jobs:
     - name: Install pa11y
       run: npm ci
     
-    - name: Cache dependencies - node 
+    - name: Cache dependencies - Node 
       uses: actions/cache@v1
       with:
         path: ~/.npm
@@ -39,7 +39,7 @@ jobs:
     - name: Install dependencies
       run: python -m pip install -r requirements.txt
 
-    - name: Cache pip dependencies
+    - name: Cache dependencies - Python
       uses: actions/cache@v2
       with:
         path: ~/.cache/pip
@@ -63,12 +63,11 @@ jobs:
       uses: actions/github-script@v4
       if: github.event_name == 'pull_request'
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
         result-encoding: "string"
         script: |
           github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: ":wheelchair: Pa11y testing results  ```${{ steps.pa11y_output.outputs.content }}```"
+              body: ":wheelchair: Pa11y testing results "
             })
