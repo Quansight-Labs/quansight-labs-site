@@ -1,4 +1,4 @@
-name: Deploy built master on gh-pages
+name: Deploy labs website
 
 on:
   workflow_dispatch:
@@ -13,23 +13,15 @@ on:
 jobs:
   nikola_build:
     runs-on: ubuntu-latest
-    name: 'Build pages'
+    name: 'Trigger Cloudfare build'
     steps:
     - name: Check out
       uses: actions/checkout@v2
-    - name: Setup Python
-      uses: actions/setup-python@v2
-    - name: Install dependencies
-      run: python -m pip install -r requirements.txt
-    - name: Build
-      run: nikola build
-    - name: Deploy
-      if: github.ref == 'refs/heads/master'
-      shell: bash
-      run: |
-          set -eou pipefail
-          git config --global user.name 'GithubAction'
-          git config --global user.email 'githubaction@invalid'
-          git pull --all
-          git remote add deploy https://github.com/$GITHUB_REPOSITORY.git
-          nikola github_deploy -m 'Nikola github auto deploy [ci skip]'
+    - name: Trigger Cloudfare build 
+      uses: wei/curl@v1.1.1
+      env:
+        WEBHOOK: ${{ secrets.CLOUDFARE_WEBHOOK }}
+      with:
+        args: -X POST ${WEBHOOK}
+
+    
