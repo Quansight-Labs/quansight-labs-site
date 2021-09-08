@@ -68,9 +68,9 @@ jobs:
 
           <details><summary> Pa11y - accessibility testing results </summary>
 
-          <code>
+          --- 
+            
           ${{ steps.pa11y_output.outputs.content }}
-          </code>
 
           </details>'
             
