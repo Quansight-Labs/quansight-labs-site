@@ -53,7 +53,7 @@ prompt-toolkit==2.0.9
 ptyprocess==0.6.0
 pygal==2.4.0
 Pygments==2.7.4
-pyinotify==0.9.6
+pyinotify==0.9.6 ; sys_platform != 'darwin'
 Pyphen==0.9.5
 pyrsistent==0.15.4
 PyRSS2Gen==1.1

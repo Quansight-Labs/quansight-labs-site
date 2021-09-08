@@ -39,8 +39,6 @@ To build the site, and have it auto-update when you edit content:
 
     nikola auto
 
-:warning: If you are a Mac user you will need to remove `# pyinotify==0.9.6` from the `requirements.txt` file as this is currently unavailable.
-
 ## :rocket: Deployment
 
 Once you submit a Pull Request a build of the site will be triggered on [CloudFare Pages](https://developers.cloudflare.com/pages/). The CloudFare Pages bot will add a comment to your Pull Request with the link to the preview URL.
