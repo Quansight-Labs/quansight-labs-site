@@ -64,13 +64,13 @@ jobs:
       if: github.event_name == 'pull_request'
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        message: 'Accessibility checks completed!!! Click the summary to see the results 
-        
-          <details><summary> :ballot_box_with_check: Pa11y testing results</summary>
+        message: ' :pencil: Accessibility checks completed!!! Click the summary to see the results 
 
-          ```
+          <details><summary> Pa11y - accessibility testing results </summary>
+
+          <code>
           ${{ steps.pa11y_output.outputs.content }}
-          ```
+          </code>
 
           </details>'
             
