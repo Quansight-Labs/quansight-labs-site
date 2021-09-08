@@ -56,6 +56,8 @@ thoughts as well as our approaches to solving problems. Because many times I
 feel like the best solution I can give is to keep asking questions, keep 
 gathering people who care, and prioritize listening to disabled people.
 
+### How does this affect JupyterLab?
+
 So when we have experienced community members disagreeing about accessibility 
 in a JupyterLab call, it really intimidated someone newer like me. I never 
 thought the disagreement was a bad thing, but it made me extremely unsure 
@@ -73,6 +75,8 @@ improvements immediately felt that not having a core function of JupyterLab
 accessible as soon as possible was the obstacle for anyone needing to work in 
 JupyterLab now: the people who are actively having their education, careers, 
 and life disrupted by yet another inaccessible tool.
+
+### Current steps
 
 This is where user feedback, testing, and community comes in. Personally, I’ve 
 found user testing and similar types of feedback its own challenge in open 
@@ -97,6 +101,8 @@ contrast, pretty reliably. It is important that even as we want disabled
 people to lead, we can’t put all the pressure on them alone. Accessibility is 
 the responsibility of abled people too.
 
+### Future steps
+
 Additionally, there are two approaches we’d like to be using but are currently 
 not.
 
@@ -112,6 +118,8 @@ automated testing is contentious in accessibility spaces, but for reasons I
 mentioned in [this past post](https://labs.quansight.org/blog/2021/05/putting-out-the-fire/) 
 I think it is an important part (not whole) of sustainable accessibility for 
 open source projects specifically.
+
+As was recently announced, myself and others at Quansight Labs have also been awarded funding to dedicate more time and different skill sets to accessibility efforts in the Jupyter ecosystem. This is extremely exciting, as it will help us make progress on these future steps and other aspects of accessibility across projects. You can learn more about this and other funded projects at Quansight Labs in our [CZI EOSS4 grants blog post](https://labs.quansight.org/blog/2021/08/czi-eoss4-grants-at-quansight-labs/).
 
 ### What’s next?
 
