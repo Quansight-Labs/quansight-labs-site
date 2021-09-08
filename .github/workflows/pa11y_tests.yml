@@ -63,11 +63,10 @@ jobs:
       uses: actions/github-script@v4
       if: github.event_name == 'pull_request'
       with:
-        result-encoding: "string"
         script: |
           github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: ":wheelchair: Pa11y testing results "
+              body: echo "${{ steps.pa11y_output.outputs.content"
             })
