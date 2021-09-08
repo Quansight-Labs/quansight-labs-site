@@ -14,7 +14,7 @@
     "pa11y-ci": "^2.4.2"
   },
   "scripts": {
-    "test-pa11y": "./node_modules/.bin/pa11y-ci",
+    "test-pa11y": "./node_modules/.bin/pa11y-ci 2>&1 | tee pa11y.txt",
     "serve-detached": "nikola build && nikola serve -d"
   }
 }

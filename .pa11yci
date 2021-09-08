@@ -2,7 +2,8 @@
     "defaults": {
         "timeout": 10000,
         "concurrency": 2,
-        "standard": "WCAG2AA"
+        "standard": "WCAG2AA",
+        "reporter": "json"
     },
     "level": "error",
     "urls": [
