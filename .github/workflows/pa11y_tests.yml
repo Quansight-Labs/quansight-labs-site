@@ -40,10 +40,10 @@ jobs:
       run: python -m pip install -r requirements.txt
 
     - name: Check site a11y
+      continue-on-error: true
       run: |
         nikola auto & sleep 10
         npm run test-pa11y | tee pa11y_output.txt
-        kill $(cat nikolaserve.pid)
 
     - name: Read pa11y_output file.
       id: pa11y_output
