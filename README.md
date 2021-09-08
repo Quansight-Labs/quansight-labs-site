@@ -1,5 +1,7 @@
 # Quansight Labs Site
 
+[![Deploy labs website](https://github.com/Quansight-Labs/quansight-labs-site/actions/workflows/deploy.yml/badge.svg)](https://github.com/Quansight-Labs/quansight-labs-site/actions/workflows/deploy.yml)
+
 ## Creating new posts
 
 Use either reStructuredText, Markdown or Jupyter Notebooks. To create an empty post:
