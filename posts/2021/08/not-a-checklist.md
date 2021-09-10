@@ -1,15 +1,13 @@
 <!--
 .. title: Not a checklist: different accessibility needs in JupyterLab
 .. slug: not-a-checklist
-.. date: 2021-08-30 18:00:00 UTC-00:00
+.. date: 2021-09-14 18:00:00 UTC-00:00
 .. author: Isabela Presedo-Floyd
 .. tags: Accessibility, JLabA11y, JupyterLab
 .. category:
 .. link:
 .. description:
 .. type: text
-.. image:: /images/2021/08/
-   :alt: 
 -->
 
 ## JupyterLab Accessibility Journey Part 3
@@ -119,7 +117,12 @@ mentioned in [this past post](https://labs.quansight.org/blog/2021/05/putting-ou
 I think it is an important part (not whole) of sustainable accessibility for 
 open source projects specifically.
 
-As was recently announced, myself and others at Quansight Labs have also been awarded funding to dedicate more time and different skill sets to accessibility efforts in the Jupyter ecosystem. This is extremely exciting, as it will help us make progress on these future steps and other aspects of accessibility across projects. You can learn more about this and other funded projects at Quansight Labs in our [CZI EOSS4 grants blog post](https://labs.quansight.org/blog/2021/08/czi-eoss4-grants-at-quansight-labs/).
+As was recently announced, myself and others at Quansight Labs have also been 
+awarded funding to dedicate more time and different skill sets to 
+accessibility efforts in the Jupyter ecosystem. This is extremely exciting, as 
+it will help us make progress on these future steps and other aspects of 
+accessibility across projects. You can learn more about this and other funded 
+projects at Quansight Labs in our [CZI EOSS4 grants blog post](https://labs.quansight.org/blog/2021/08/czi-eoss4-grants-at-quansight-labs/).
 
 ### What’s next?
 
