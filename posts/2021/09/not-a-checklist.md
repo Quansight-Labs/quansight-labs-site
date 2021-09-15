@@ -38,7 +38,7 @@ and never have to worry about it again.” Once again, this notion sounds just a
 silly to me when stated explicitly, and yet I find myself falling into that 
 trap after reading every listicle. 
 
-Most of all,  is it any surprise that this might be what happens when disabled 
+Most of all, is it any surprise that this might be what happens when disabled 
 people are frequently ignored or left out of community conversations? That is, 
 if their needs are even considered at all. Disability isn’t monolithic, but it 
 can look like that from the outside when these voices are prevented from 
