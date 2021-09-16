@@ -24,6 +24,8 @@ for users. Here it is, the moment of truth!
 
 And they each say totally different things. 
 
+<!-- TEASER_END -->
+
 What? Is that not a very funny joke? You’re right, it’s not funny at all; this 
 is a real problem we faced.
 
