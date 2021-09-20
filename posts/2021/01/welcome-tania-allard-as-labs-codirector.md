@@ -10,7 +10,7 @@
 .. type: text
 -->
 
-![Photo Tania Allard](/galleries/team/tania_allard.jpg)
+![Photo Tania Allard ](/galleries/team/tania_allard.jpg)
 
 Today I'm incredibly excited to welcome Tania Allard to Quansight as
 Co-Director of Quansight Labs. Tania ([GitHub](https://github.com/trallard),
@@ -50,7 +50,7 @@ strong focus on roles other than software development and on DEI. Our team
 includes people from 12 countries in 4 continents, and we contribute to many
 of the projects at the core of the PyData ecosystem.
 
-![Logos of NumPy, Spyder, JupyterLab and Spyder](/images/numpy_scipy_jlab_spyder_logos.png)
+![Logos of NumPy, Spyder, JupyterLab and Spyder ](/images/numpy_scipy_jlab_spyder_logos.png)
 
 I'm thinking about Labs projects as falling into two fairly distinct
 categories: contributions to established and widely used projects, and
@@ -62,7 +62,7 @@ funding that's continuing in 2021 - from `numpy.f2py` and documentation
 improvements to real-time collaboration in JupyterLab and completing Spyder 5
 with a new plugin architecture.
 
-![Logos of Data APIs, Ibis and PyData Sparse](/images/dataapis_ibis_sparse.png)
+![Logos of Data APIs, Ibis and PyData Sparse ](/images/dataapis_ibis_sparse.png)
 
 Our largest innovation initiative is the
 [Consortium for Python Data API Standards](https://data-apis.org/), which we

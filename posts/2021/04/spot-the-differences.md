@@ -10,7 +10,7 @@
 .. type: text
 -->
 
-![Spyder 5 versus Spyder 4](/images/spyder5-header.png)
+![Spyder 5 versus Spyder 4 ](/images/spyder5-header.png)
 
 In case you missed it, Spyder 5 was released at the beginning of April! This 
 blog post is a conversation attempting to document the long and complex 
@@ -140,7 +140,7 @@ compared options side by side and tried them out in the interface to evaluate
 what designs were strong enough to bring them to the rest of the team. Then we 
 discussed the options together.
 
-![Spyder 5 icon mockups](/images/spyder5-wipicons.png)
+![Spyder 5 icon mockups ](/images/spyder5-wipicons.png)
 
 ### 6. Mock ups Vs Reality
 
@@ -183,11 +183,11 @@ gives a more clear UI pattern for them to follow in their own work.
 
 ### Before and after (Dark theme)
 
-![Spyder 5 vs Spyder 4 dark theme](/images/spyder5-comparedark.png)
+![Spyder 5 vs Spyder 4 dark theme ](/images/spyder5-comparedark.png)
 
 ### Before and after (Light theme)
 
-![Spyder 5 vs Spyder 4 light theme](/images/spyder5-comparelight.png)
+![Spyder 5 vs Spyder 4 light theme ](/images/spyder5-comparelight.png)
 
 ## What did we learn :)?
 

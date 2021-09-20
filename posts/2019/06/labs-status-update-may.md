@@ -26,11 +26,11 @@ features like "used by", a triaging role and new dependency graph features and
 illustrated how those worked for NumPy. These features will be very welcome
 news to maintainers of almost any project.
 
-![GitHub Satellite'19 keynote, showcasing NumPy and Matplotlib](/images/githubsatellite_keynote_numpy_matplotlib.png)
+![GitHub Satellite'19 keynote, showcasing NumPy and Matplotlib ](/images/githubsatellite_keynote_numpy_matplotlib.png)
 
 The single most visible feature introduced was **GitHub Sponsors**:
 
-![GitHub Sponsors enabled on the NumPy repo](/images/github_sponsors_screenshot.png)
+![GitHub Sponsors enabled on the NumPy repo ](/images/github_sponsors_screenshot.png)
 
 I really enjoyed meeting [Devon Zuegel](https://devonzuegel.com), Product
 Manager of the Open Source Economy Team at GitHub, in person after previously
@@ -99,7 +99,7 @@ great to see the momentum of the Spyder project increasing.
 On 21 May the second beta of Spyder 4.0 was released - it was 8 months in the
 making. The most visible features are the new dark theme and the plots pane:
 
-![Spyder main window, showing a figure displayed in the plots pane](/images/spyder-plots.png)
+![Spyder main window, showing a figure displayed in the plots pane ](/images/spyder-plots.png)
 
 There's a lot more though - from Language Server Protocol integration to better
 `pandas.DataFrame` support and dedicated Cython, SymPy and Pylab consoles.

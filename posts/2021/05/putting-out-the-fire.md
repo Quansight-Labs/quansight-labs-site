@@ -10,7 +10,7 @@
 .. type: text
 -->
 
-![Multiple fires in an alternating pattern](/images/jlabaccess2.png)
+![Multiple fires in an alternating pattern ](/images/jlabaccess2.png)
 
 ## JupyterLab Accessibility Journey Part 2
 

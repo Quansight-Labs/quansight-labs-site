@@ -11,7 +11,7 @@
 .. previewimage: /images/pytorch-ignite/code-generator/code-generator-preview.png
 -->
 
-[![Code Generator v0.2.0 demo](https://raw.githubusercontent.com/pytorch-ignite/code-generator/main/src/assets/code-generator-demo.gif)](https://code-generator.pytorch-ignite.ai/)
+[![ Code Generator v0.2.0 demo](https://raw.githubusercontent.com/pytorch-ignite/code-generator/main/src/assets/code-generator-demo.gif)](https://code-generator.pytorch-ignite.ai/)
 
 Authors: [Jeff Yang](https://github.com/ydcjeff), [Taras Savchyn](https://github.com/trsvchn), [Priyansi](https://github.com/Priyansi), [Victor Fomin](https://github.com/vfdev-5)
 

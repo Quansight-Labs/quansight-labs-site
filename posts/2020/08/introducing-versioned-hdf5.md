@@ -24,7 +24,7 @@ storage model.
 
 <!-- TEASER_END -->
 
-![Hierarchical Data Format (HDF5) Dataset (From https://www.neonscience.org/about-hdf5)](/images/hdf5_structure4_resized.png)
+![Hierarchical Data Format (HDF5) Dataset (From https://www.neonscience.org/about-hdf5) ](/images/hdf5_structure4_resized.png)
 *Image: Hierarchical Data Format (HDF5) Dataset (From https://www.neonscience.org/about-hdf5)*
 
 Since reading and writing operations in these large data files must be fast,
@@ -146,5 +146,5 @@ The Versioned HDF5 library was created by the [D. E. Shaw
 group](https://www.deshaw.com/) in conjunction with
 [Quansight](https://www.quansight.com/).
 
-![https://www.deshaw.com](/images/sponsors/black_logo_417x125.png)
+![https://www.deshaw.com ](/images/sponsors/black_logo_417x125.png)
 

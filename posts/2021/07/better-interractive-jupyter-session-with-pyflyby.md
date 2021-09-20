@@ -35,7 +35,7 @@ Pyflyby is a set of tools designed to improve interactive and non-interactive
 workflows in Python. Pyflyby provides a number of utilities and extensions aimed
 at making day-to-day work in Python faster and simpler.
 
-![gif of pyflyby in action, IPython is opened, typing cos(arange(10))
+![ gif of pyflyby in action, IPython is opened, typing cos(arange(10))
 automatically import arange and cos from numpy before executing the
 code.](/images/2021/07/pfb-autoimport.gif)
 
@@ -64,7 +64,7 @@ With the [jupyterlab-pyflyby](https://github.com/deshaw/jupyterlab-pyflyby) exte
 the first cell of one's notebook:
 
 
-![pyflyby-jupyterlab animation, executing the second cell with missing imports
+![ pyflyby-jupyterlab animation, executing the second cell with missing imports
 still import those and insert them in the first cell](/images/2021/07/jlpfb.gif)
 
 ## tidy-import
@@ -134,7 +134,7 @@ $ py 'plot(scipy.stats.norm.pdf(linspace(-5, 5), 0, 1))'
 [<matplotlib.lines.Line2D object at 0x132981940>]
 ```
 
-![using pyflyby from bash to plot with matplotlib with above snippet, at matplotlib widow is open and show the plot.](/images/2021/07/py-exec-matplotlib.png)
+![ using pyflyby from bash to plot with matplotlib with above snippet, at matplotlib widow is open and show the plot.](/images/2021/07/py-exec-matplotlib.png)
 
 `find-import` , another utility available in pyflyby, can be deployed to find a
 particular function across many libraries by returning the relevant import.  For

@@ -132,7 +132,7 @@ conversation, generate some initial interest, provide an overview of the
 breadth of our interests and capabilities at Quansight Labs, etc.). Here's what
 that currently looks like:
 
-![Roadmap brochure items for NumPy and SciPy](/images/roadmap_screenshot_numpy_scipy.png)
+![Roadmap brochure items for NumPy and SciPy ](/images/roadmap_screenshot_numpy_scipy.png)
 
 We aim for wide coverage, even if we don't employ a project maintainer (yet).
 For example, Matplotlib is an important part of the PyData ecosystem, so we

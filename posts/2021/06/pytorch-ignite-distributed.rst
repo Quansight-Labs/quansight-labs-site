@@ -9,7 +9,7 @@
 .. previewimage: /images/pytorch-ignite/ignite_logo_mixed.png
 
 .. image:: /images/pytorch-ignite/ignite_logo_mixed.png
-   :alt: PyTorch-Ignite logo
+   :alt: PyTorch-Ignite logo 
 
 Authors: `François Cokelaer <https://github.com/fco-dv>`__,
 `Priyansi <https://github.com/Priyansi>`__, `Sylvain
