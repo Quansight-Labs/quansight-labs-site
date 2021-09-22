@@ -52,25 +52,3 @@ jobs:
       run: |
         nikola auto & sleep 10
         npm run test-pa11y | tee pa11y_output.txt
-
-    - name: Read pa11y_output file.
-      id: pa11y_output
-      uses: juliangruber/read-file-action@v1
-      with:
-        path: ./pa11y_output.txt
-        
-    - name: Comment on pull request.
-      uses: thollander/actions-comment-pull-request@main
-      if: github.event_name == 'pull_request'
-      with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        message: ' :pencil: Accessibility checks completed!!! Click the summary to see the results 
-
-          <details><summary> Pa11y - accessibility testing results </summary>
-
-          --- 
-            
-          ${{ steps.pa11y_output.outputs.content }}
-
-          </details>'
-            
