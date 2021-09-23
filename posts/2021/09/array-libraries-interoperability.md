@@ -89,17 +89,18 @@ computations, but now will need to learn a new API.
 </p>
 
 <i align="center"><b>ELI5 Caption:</b> This is a page from the array libraries interoperability special edition chapter of comic array wonderland. SciPy only wants to play with NumPy and refuses to play with other libraries like PyTorch, CuPy, Tensorflow and JAX. All of them are sad, and then they decide to make their own new friends.
+</i>
 
-<b>Serious Caption:</b> Other than NumPy, array/tensor libraries like PyTorch, CuPy, Tensorflow and JAX aren't compatible with Consumer Libraries like SciPy. This led to developers creating an ecosystem of libraries around each array/tensor framework which are conceptually the same but differ in the unique array/tensor frameworks they are built for. 
+<i align="center"><b>Serious Caption:</b> Other than NumPy, array/tensor libraries like PyTorch, CuPy, Tensorflow and JAX aren't compatible with Consumer Libraries like SciPy. This led to developers creating an ecosystem of libraries around each array/tensor framework which are conceptually the same but differ in the unique array/tensor frameworks they are built for.
 </i>
 
 ---
 
 Life is hard, ain't it! But as Rocky Balboa said:
 > "NumPy, CuPy, PyTorch or SciPy is not gonna hit as hard as all of them
-	when used together. But it ain't about finding a way to use them
-	individually; it's about making them work together.
-	That's how interoperable science is done." ~ ([actual quote :P](https://youtu.be/8xFEqdkO5UI?t=13))
+>  when used together. But it ain't about finding a way to use them
+>  individually; it's about making them work together.
+>  That's how interoperable science is done." ~ ([actual quote :P](https://youtu.be/8xFEqdkO5UI?t=13))
 
 OK sorry, that's just me using Rocky's motivational lines to make a point.
 To define the issue more concretely, the question is, can we do something like
@@ -168,9 +169,12 @@ some_func(x_cupy) # Runs on GPU, orders of magnitude fast
 ```
 
 Since NEP 18, there have been a few other protocols like
-[NEP 35](https://numpy.org/neps/nep-0035-array-creation-dispatch-with-array-function.html),
+[NEP 30](https://numpy.org/neps/nep-0030-duck-array-protocol.html#nep30),
+[NEP 35](https://numpy.org/neps/nep-0035-array-creation-dispatch-with-array-function.html)
+and
 [NEP 37](https://numpy.org/neps/nep-0037-array-module.html) endeavouring to
-address some of the issues and shortcomings with NEP 18.
+address some of the issues and shortcomings with NEP 18. Note that these NEPs
+were actually never accepted or implemented.
 
 **For the sake of brevity in this blog,
 we'll limit our focus to [NEP 31 or `uarray`](https://uarray.org/en/latest/)
@@ -290,9 +294,27 @@ def csd(x, y, fs=1.0, window='hann', nperseg=None, noverlap=None, nfft=None,
 ```
 
 This should be possible with the Array API, for the end-user in a
-future release of SciPy and PyTorch. I'd encourage you to read
-more details on the [demo](https://anirudhdagar.ml/array-api-demo/intro.html)
-page itself.
+future release of SciPy and PyTorch.
+
+We made SciPy plus PyTorch work for this very much nontrivial use case,
+which demonstrates feasibility and power of the approach. There are of
+course some issues we ran into, namely
+
+- Lack of Array API standards on complex numbers in the upcoming 2021 version
+  `1.0` of the specification compelled us to special case such instances within the
+  SciPy codebase for PyTorch and NumPy separately.
+- In the current state, the lack of complete Array API compliance in PyTorch
+  is another small issue. One example of PyTorch diverging from NumPy and
+  Array API is `.numel()` vs `.size()`.
+
+All of this is of course addressable with plans to add support for the
+complex numbers module in the second release of Array API Specification.
+We can expect updates and added submodules with the next version of the spec, to be released next year. Also as mentioned earlier, there is an ongoing effort to improve
+PyTorch's Array API compliance.
+
+I'd encourage you to read more details about the
+[demo](https://anirudhdagar.ml/array-api-demo/intro.html) on the tutorial
+webpage itself.
 
 
 ### Contributing to PyTorch
@@ -311,7 +333,18 @@ and [pytorch/pytorch#63227](https://github.com/pytorch/pytorch/pull/63227).
 You can track the progress on PyTorch's github repo with the label
 ["module: python array api"](https://github.com/pytorch/pytorch/labels/module%3A%20python%20array%20api) to check out other interesting developments.
 
- 
+### What's Missing?
+
+This approach of tackling interoperability in `scipy.signal` for
+pure Python + NumPy code can leverage the Array API standard. But, for other
+modules like `scipy.fft`, `scipy.ndimage`, `scipy.special` etc. where one
+encounters compiled code, there is a need for an array library and a hardware
+specific implementation, and hence from SciPy we need to be able to
+access and use those. This is where uarray walks in. A more detailed
+explanation can be found in the [section](#protocol_differences)
+highlighting the differences between Array API and uarray.
+
+
 ## uarray
 
 uarray is a backend system for Python that allows you to separately define
@@ -362,8 +395,7 @@ are directly or indirectly connected to uarray.
 
 ---
 
-
-## All ☀️ & 🌈?
+<h2 id="protocol_differences"> All ☀️ & 🌈?</h2>
 
 As they say, nothing is perfect on the human stage, both uarray and
 Array API also have their limitations.
@@ -463,9 +495,11 @@ Let's highlight some Pros & Cons for these two protocols.
 These protocols may not be perfect, but, are a big step towards interoperable
 science and bringing the array tensor libraries ecosystem closer together.
 We'll see iterations and development of new NEPs in the future which will probably
-make array libraries even more interoperable. In essence, open-source communities
-taking these small steps in the right direction is ultimately progress towards
-the ideal world of interoperable science.
+make array libraries even more interoperable. In essence, open-source communities like
+NumPy putting interoperability as one of the key goals in their
+[roadmap](https://numpy.org/neps/roadmap.html#interoperability) and
+the larger scientific community taking small steps in the right direction is
+ultimately progress towards the ideal world of interoperable science.
 
 
 ---
