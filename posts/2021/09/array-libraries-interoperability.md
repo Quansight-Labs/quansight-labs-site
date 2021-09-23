@@ -309,12 +309,17 @@ course some issues we ran into, namely
 
 All of this is of course addressable with plans to add support for the
 complex numbers module in the second release of Array API Specification.
-We can expect updates and added submodules with the next version of the spec, to be released next year. Also as mentioned earlier, there is an ongoing effort to improve
-PyTorch's Array API compliance.
+We can expect updates and added submodules in a future version of the spec,
+to be released next year.
 
 I'd encourage you to read more details about the
 [demo](https://anirudhdagar.ml/array-api-demo/intro.html) on the tutorial
 webpage itself.
+
+PyTorch developers have been working hard to improve PyTorch's Array API compliance
+fixing divergent behaviour. During the development of this prototype demo,
+I was able to identify some gaps in the [current state of Array API in PyTorch](https://github.com/pytorch/pytorch/labels/module%3A%20python%20array%20api)
+and started my journey as a PyTorch contributor.
 
 
 ### Contributing to PyTorch
@@ -330,7 +335,8 @@ Later, I worked on improving compatibility for Array API to the `torch.linalg`
 module. See [pytorch/pytorch#63285](https://github.com/pytorch/pytorch/pull/63285)
 and [pytorch/pytorch#63227](https://github.com/pytorch/pytorch/pull/63227).
 
-You can track the progress on PyTorch's github repo with the label
+As mentioned earlier, you can track the progress on PyTorch's github repo with
+the label
 ["module: python array api"](https://github.com/pytorch/pytorch/labels/module%3A%20python%20array%20api) to check out other interesting developments.
 
 ### What's Missing?
