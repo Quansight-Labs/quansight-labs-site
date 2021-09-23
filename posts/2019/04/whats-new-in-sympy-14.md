@@ -58,7 +58,7 @@ do the release itself.
 Prior to SymPy 1.4, SymPy expressions in the notebook rendered by default with their
  string representation. To get `LaTeX` output, you had to call `init_printing()`:
 
-![SymPy 1.3 rendering in the Jupyter lab notebook ](/images/sympy-1.3-notebook.png)
+![Code snippet in an interactive Jupyter session showing the usage of init_printing in SymPy 1.3 for LaTeX](/images/sympy-1.3-notebook.png)
 
 In SymPy 1.4, SymPy expressions now automatically render as LaTeX in the notebook:
 

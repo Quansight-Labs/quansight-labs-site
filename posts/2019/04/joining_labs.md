@@ -24,7 +24,7 @@ The SciPy and PyData ecosystems have experienced massive growth over the past ye
 
 When I started working on NumPy and SciPy the world was simple: projects with Subversion repositories, mailing lists, and volunteers, and a couple of yearly conferences. Today the landscape looks a lot more complex. This rough sketch attempts to capture a part (all doesn't fit on a 2-D canvas) of how I think it looks from a community or project perspective:
 
-![Ecosystem landscape from project view ](/images/community_landscape.png)
+![Image of a word cloud emphasizing the interrelationship of Projects with Assets, Funding and Community](/images/community_landscape.png)
 
 Acting effectively within that landscape as a project has become important maintenance work in itself, and working on governance structures or legal agreements is less fun (and thus harder to find volunteers for) than writing code. Quansight Labs will add to this complexity. It also provides an opportunity to help manage that same complexity though, as a home for core developers of many of the projects in the ecosystem. 
 
