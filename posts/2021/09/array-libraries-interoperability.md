@@ -64,19 +64,20 @@ at sea and are unable to use SciPy.
 
 After some thought, one may end up choosing either of the following options.
 
-1. Convert the inputs to NumPy before feeding them in the SciPy function,
+1. Convert the inputs to to NumPy arrays before feeding them in the SciPy function,
 	which is where you lose the "extra sweetness".
 
-2. Find some other consumer library (if exists) mimicking SciPy's API but
+2. Find some other consumer library (if it exists) mimicking SciPy's API but
 	built on top of the "array provider" library that was used in the initial
 	project (`PyTorch`, in this case). This way the user enjoys the extra
 	features, but this comes at the cost of learning and getting used to
-	the new library API which mimics SciPy functionality.
+	the new library API which mimics SciPy functionality
+	(it may not even behave exactly the same).
 
 
 Even the APIs (function signatures) for these "array providers" are 
 different sometimes which is a problem in itself. Imagine a
-scientiest who has experience using NumPy for about 10 years. When they
+scientist who has experience using NumPy for about 10 years. When they
 move into the PyTorch ecosystem, they are still doing a lot of similar
 computations, but now will need to learn a new API.
 
@@ -127,7 +128,7 @@ Not kidding, it is possible with recent efforts made towards this direction.
 
 ## Protocols for Interoperable Behaviour
 
-Now that the problem and motivation is pellucid, let's dive into the
+Now that the problem and motivation is clear, let's dive into the
 technicalities involved in array libraries interoperability and 
 understand the protocols making this a reality.
 
@@ -141,7 +142,7 @@ that differ greatly from `numpy.ndarray`.
 I suggest reading the [NEP](https://numpy.org/neps/nep-0018-array-function-protocol.html)
 itself for detailed understanding, but I'll try to expound the motivation
 with a simple example taken from [this](https://www.youtube.com/watch?v=HVLPJnvInzM)
-insightful talk by [Dr. Ralf Gommers](https://github.com/rgommers)
+insightful talk by [Ralf Gommers](https://github.com/rgommers)
 at PyData Amsterdam.
 
 
@@ -185,9 +186,9 @@ I urge you to read:
 1. [Announcing the consortium](https://data-apis.org/blog/announcing_the_consortium/)
 2. [First release of the Array API Standard](https://data-apis.org/blog/array_api_standard_release/) 
 
-These two official blogs from the [Consortium for Python Data API Standards](https://data-apis.org/) describe the protocol, giving a high level overview of its existence.
+These two official blogs from the [Consortium for Python Data API Standards](https://data-apis.org/) describe the API, giving a high level overview of its existence.
 
-Let's see how the use of Array API might look in practice.
+Let's see how the use of this Array API might look in practice.
 
 ```python
 import torch as xp
@@ -203,7 +204,7 @@ c = a + b
 Technically, the only changes involved for a NumPy end user to port their
 code in PyTorch would be to update the import statement and refactor
 `np.` -> `xp.`. Here `xp` represents any array provider library
-compliant with the Array API. Doing something like this is duck soup
+compliant with the Array API. Doing something like this is extremely easy as
 compared to some other array interoperability protocols taking a much more
 convoluted approach.
 
@@ -218,7 +219,7 @@ than one "array provider" and become truly interoperable.
 
 Since we started by talking about consumer libraries like SciPy, let's
 continue with the same example. We've built a [demo](https://anirudhdagar.ml/array-api-demo/intro.html) around Array API showcasing the use of PyTorch Tensors with
-Scipy.
+SciPy.
 
 
 <p align="center">
@@ -277,8 +278,8 @@ def get_namespace(*xs):
 
 
 def csd(x, y, fs=1.0, window='hann', nperseg=None, noverlap=None, nfft=None,
-	detrend='constant', return_onesided=True, scaling='density', axis=-1,
-	average='mean'):
+		detrend='constant', return_onesided=True, scaling='density', axis=-1,
+		average='mean'):
     # Array-API
     xp = get_namespace(x, y)
 
@@ -349,9 +350,9 @@ with scipy.ndimage.set_backend('cupy'):
 
 The [work](https://github.com/scipy/scipy/pull/14356) on adding `uarray`
 backend in `ndimage` is slightly complicated and
-involved a few other maintainace fixes in SciPy. In case you are interested,
-I'll leave a list of some notable SciPy contributions below which are directly
-or indirectly connected to uarray.
+involved a few other maintenance fixes in SciPy. In case you are interested,
+I'll leave a list of some of my notable SciPy contributions below which
+are directly or indirectly connected to uarray.
 
 * [scipy/scipy#14275](https://github.com/scipy/scipy/pull/14275)
 * [scipy/scipy#14359](https://github.com/scipy/scipy/pull/14359)
@@ -493,7 +494,7 @@ for more modules. This also extends work into libraries like `CuPy`, `Dask` etc.
 where the uarray backend needs to be enabled.
 
 Apart from uarray, I'd also like to explore and contribute to a few more
-intersting tracks revolving around making SciPy more performant.
+interesting tracks revolving around making SciPy more performant.
 
 * One of the GSoC students (Xingyu Liu) recently made a lot of progress in
 accelerating some of the modules with the experimental Pythran support. It
@@ -512,7 +513,7 @@ I talk about my experience as an Intern at Quansight, ["Why Quansight is so Awes
 
 ## Acknowledgements
 
-Special thanks to my mentor, [Dr. Ralf Gommers](https://github.com/rgommers),
+Special thanks to my mentor, [Ralf Gommers](https://github.com/rgommers),
 who has been extremely helpful and positive everytime I felt lost. Thank you for
 taking all my questions and doubts repeatedly, and still being so responsive and 
 thorough with your answers. I'm grateful to your support and guidance.
