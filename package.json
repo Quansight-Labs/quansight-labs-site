@@ -1,0 +1,20 @@
+{
+  "name": "quansight-labs-site",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Quansight-Labs/quansight-labs-site.git"
+  },
+  "author": "Quansight Labs team",
+  "bugs": {
+    "url": "https://github.com/Quansight-Labs/quansight-labs-site/issues"
+  },
+  "homepage": "https://github.com/Quansight-Labs/quansight-labs-site#readme",
+  "devDependencies": {
+    "pa11y-ci": "^2.4.2"
+  },
+  "scripts": {
+    "test-pa11y": "./node_modules/.bin/pa11y-ci 2>&1 | tee pa11y.txt",
+    "serve-detached": "nikola build && nikola serve -d"
+  }
+}

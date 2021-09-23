@@ -1,0 +1,15 @@
+{
+    "defaults": {
+        "timeout": 10000,
+        "concurrency": 2,
+        "standard": "WCAG2AA"
+    },
+    "level": "error",
+    "urls": [
+        "http://localhost:8000",
+        "http://localhost:8000/blog",
+        "http://localhost:8000/team",
+        "http://localhost:8000/projects",
+        "http://localhost:8000/about"
+    ]
+}
