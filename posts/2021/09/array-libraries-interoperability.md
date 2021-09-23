@@ -82,7 +82,7 @@ computations, but now will need to learn a new API.
 
 
 <p align="center">
-	<img src="/images/2021/09/array_wonderland.JPG" 
+	<img alt="Array Wonderland Comic" src="/images/2021/09/array_wonderland.JPG" 
 	 style="object-fit:cover;
             width: 90%;"/>
 </p>
