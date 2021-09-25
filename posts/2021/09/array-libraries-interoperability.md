@@ -35,14 +35,17 @@ years now, I can't think of any of my projects without using an array/tensor
 library. Over time, NumPy (more than 15 years old today) has become a blind
 import before starting any Python project involving manipulation of arrays.
 
-Quite recently with the Deep Learning buzz, more and more libraries have been
-developed with some extra sweetness on top of the NumPy like `nd-array`
-computation functionality. Namely this extra sweetness is the multi-device
-(`CPU`, `GPU`, `XLA` etc.) support and autograd engine for the array/tensor
-object. One such framework is PyTorch, and it has been my go-to for research
-in machine learning during the last couple of years. The reason simply is due
-to this extra saccharinity along with some other machine learning specific
-modules (`torch.nn`, `torch.optim` etc.) it has to offer. A few eminent
+With the recent advancements in and around the field of Machine Learning,
+Deep Learning techniques have gained a lot of popularity in the AI community.
+More and more libraries have been developed to extend
+NumPy's concept of N-dimensional arrays to the new domains of
+numerical computing. Namely these features come in the form of
+multi-device (`CPU`, `GPU`, `XLA` etc.) support and
+autograd engines for the array/tensor. One such framework is PyTorch,
+and it has been my go-to for research in machine learning during the last
+couple of years. The reason simply is due to this extra saccharinity
+along with some other machine learning specific modules
+(`torch.nn`, `torch.optim` etc.) it has to offer. A few eminent
 array/tensor libraries include `CuPy`, `Tensorflow`, `MXNet`, `JAX` etc.
 
 Henceforth, let's just call all of them **"array provider"** libraries.
@@ -183,10 +186,10 @@ and
 address some of the issues and shortcomings with NEP 18. Note that these NEPs
 were actually never accepted or implemented.
 
-**For the sake of brevity in this blog,
+For the sake of brevity in this blog,
 we'll limit our focus to [NEP 31 or `uarray`](https://uarray.org/en/latest/)
 and [NEP 47 or Array API (`__array_namespace__`)](https://numpy.org/neps/nep-0047-array-api-standard.html). These are some of the most recent protocols
-with a goal to ameliorate interoperability shortfalls.**
+with a goal to ameliorate interoperability shortfalls.
 
 
 ## Array API or NEP 47
@@ -243,8 +246,8 @@ SciPy.
 The [Array API Demo](https://anirudhdagar.ml/array-api-demo/intro.html) walks
 you through the details and processes involved to make an array consumer library
 like SciPy more interoperable with array provider libraries. The demo is built
-keeping two different perspectives in mind, one that of an end user and the other
-of an open-source developer/maintainer looking to incorporate and use Array API
+keeping two different perspectives in mind: an end user, and
+an open-source developer/maintainer looking to incorporate use of the Array API
 within their array consumer library.
 
 The demo showcases the 2017 Nobel prize winning work for Physics about
