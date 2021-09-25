@@ -73,7 +73,7 @@ After some thought, one may end up choosing either of the following options:
 
 2. Find some other consumer library (if it exists) mimicking SciPy's API, but
 	built on top of the "array provider" library that was used in the initial
-	project (`PyTorch`, in this case). This way the user enjoys the extra
+	project (say `PyTorch`). This way the user enjoys the extra
 	features, but this comes at the cost of learning and getting used to
 	a new library API which might mimic SciPy's functionality
 	but not behave exactly the same.
