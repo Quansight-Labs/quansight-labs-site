@@ -19,8 +19,11 @@ Going ahead, I'll assume basic understanding of array and tensor libraries
 with their usage in the Python Scientific and Data Science software stack.
 
 <p align="center">
-	<img alt="Ninja Turtles Array Libraries" src="/images/2021/09/ninja_arrays.png">
-    <i>Old Ninja Turtle NumPy and young Tensor Turtles</i>
+    <img
+     alt="Meme of Master Splinter leading the baby turtles from TMNT. Splinter
+     represents NumPy, and the turtles represent TensorFlow, CuPy, PyTorch and JAX."
+     src="/images/2021/09/ninja_arrays.png">
+    <i>Master NumPy leading the young Tensor Turtles</i>
 </p>
 
 <!-- TEASER_END -->
@@ -57,33 +60,37 @@ libraries.
 
 The pain now is that an extremely stable and popular consumer library
 like SciPy is cut off from the sweet features which the new array/tensor
-frameworks have to offer. Albeit a user might prefer SciPy's domain specific
-features and stable API for their scientific stack, but because the underlying
-project is not using NumPy, and is built on top of say PyTorch, they are left
-at sea and are unable to use SciPy.
+frameworks have to offer. A user might prefer SciPy's domain specific
+features and stable API for their scientific stack, but because their underlying
+project is built on top of say PyTorch, they are left alone
+at sea.
 
-After some thought, one may end up choosing either of the following options.
+Say we wanted to use a provider library other than NumPy, but with SciPy (or similar) library.
+After some thought, one may end up choosing either of the following options:
 
-1. Convert the inputs to to NumPy arrays before feeding them in the SciPy function,
+1. Somehow convert their array/tensors into NumPy arrays, before feeding them in the SciPy function,
 	which is where you lose the "extra sweetness".
 
-2. Find some other consumer library (if it exists) mimicking SciPy's API but
+2. Find some other consumer library (if it exists) mimicking SciPy's API, but
 	built on top of the "array provider" library that was used in the initial
 	project (`PyTorch`, in this case). This way the user enjoys the extra
 	features, but this comes at the cost of learning and getting used to
-	the new library API which mimics SciPy functionality
-	(it may not even behave exactly the same).
+	a new library API which might mimic SciPy's functionality
+	but not behave exactly the same.
 
 
-Even the APIs (function signatures) for these "array providers" are 
-different sometimes which is a problem in itself. Imagine a
+Also, the APIs (function signatures) for these "array providers" can 
+be different, which is a problem in itself. Imagine a
 scientist who has experience using NumPy for about 10 years. When they
 move into the PyTorch ecosystem, they are still doing a lot of similar
 computations, but now will need to learn a new API.
 
 
 <p align="center">
-	<img alt="Array Wonderland Comic" src="/images/2021/09/array_wonderland.JPG" 
+	<img 
+     alt="Comic depicting the happy relationship between NumPy and SciPy, and
+     how envious other array/tensor libraries are of it."
+     src="/images/2021/09/array_wonderland.JPG" 
 	 style="object-fit:cover;
             width: 90%;"/>
 </p>
@@ -103,7 +110,7 @@ Life is hard, ain't it! But as Rocky Balboa said:
 >  That's how interoperable science is done." ~ ([actual quote :P](https://youtu.be/8xFEqdkO5UI?t=13))
 
 OK sorry, that's just me using Rocky's motivational lines to make a point.
-To define the issue more concretely, the question is, can we do something like
+To define the issue more concretely, the question is: can we do something like
 the following?!
 
 ```python
@@ -134,7 +141,7 @@ technicalities involved in array libraries interoperability and
 understand the protocols making this a reality.
 
 Enter [NEP 18 (`__array_function__` protocol)](https://numpy.org/neps/nep-0018-array-function-protocol.html), which was one of the first
-efforts to address the issue of interoperability in NumPy. In a nut shell
+efforts to address the issue of interoperability in NumPy. In a nutshell,
 NEP 18 allows arguments of NumPy functions to define how that function
 operates on them. This enables using NumPy as a high level API for
 efficient multi-dimensional array operations, even with array implementations
@@ -142,8 +149,8 @@ that differ greatly from `numpy.ndarray`.
 
 I suggest reading the [NEP](https://numpy.org/neps/nep-0018-array-function-protocol.html)
 itself for detailed understanding, but I'll try to expound the motivation
-with a simple example taken from [this](https://www.youtube.com/watch?v=HVLPJnvInzM)
-insightful talk by [Ralf Gommers](https://github.com/rgommers)
+with a simple example taken from an insightful [talk](https://www.youtube.com/watch?v=HVLPJnvInzM)
+by [Ralf Gommers](https://github.com/rgommers)
 at PyData Amsterdam.
 
 
@@ -205,14 +212,14 @@ b = xp.ones(3)
 c = a + b
 ``` 
 
-Technically, the only changes involved for a NumPy end user to port their
-code in PyTorch would be to update the import statement and refactor
-`np.` -> `xp.`. Here `xp` represents any array provider library
+Probably the only changes involved for a NumPy end user to
+support PyTorch would be to update the import statements and refactor
+`np.*` to `xp.*`. Here `xp` represents *any* array provider library
 compliant with the Array API. Doing something like this is extremely easy as
 compared to some other array interoperability protocols taking a much more
 convoluted approach.
 
-A couple of the concrete use cases mentioned in the [Array API Spec](https://data-apis.org/array-api/latest/use_cases.html#concrete-use-cases) are:
+The Array API spec mentions a couple of [concrete use cases](https://data-apis.org/array-api/latest/use_cases.html#concrete-use-cases) are:
 
 * Use case 1: add hardware accelerator and distributed support to SciPy
 * Use case 2: simplify einops by removing the backend system
@@ -228,7 +235,7 @@ SciPy.
 
 <p align="center">
 	<a href="https://anirudhdagar.ml/array-api-demo/intro.html">
-	<img alt="Array API Prototype" src="/images/2021/09/array_api_demo_screenshot.png">
+	<img alt="Screenshot of the demo's website" src="/images/2021/09/array_api_demo_screenshot.png">
     <i>Array API Demo</i>
     </a>
 </p>
@@ -297,10 +304,10 @@ This should be possible with the Array API, for the end-user in a
 future release of SciPy and PyTorch.
 
 We made SciPy plus PyTorch work for this very much nontrivial use case,
-which demonstrates feasibility and power of the approach. There are of
-course some issues we ran into, namely
+which demonstrates the feasibility and power of using the Array API. There are of
+course some issues we ran into, namely:
 
-- Lack of Array API standards on complex numbers in the upcoming 2021 version
+- A lack of Array API standards on complex numbers in the upcoming 2021 version
   `1.0` of the specification compelled us to special case such instances within the
   SciPy codebase for PyTorch and NumPy separately.
 - In the current state, the lack of complete Array API compliance in PyTorch
