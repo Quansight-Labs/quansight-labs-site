@@ -453,7 +453,7 @@ Let's highlight some Pros & Cons for these two protocols.
 	  </li>
 	  <li>
 	  	Supports ability to coerce/convert inputs and wrapping other arrays
-	  	using __ua_convert__ protocol.
+	  	using `__ua_convert__` protocol.
 	  </li>
 	</ul>
   	<p align="left">
@@ -522,7 +522,7 @@ ultimately progress towards the ideal world of interoperable science.
 
 ## What's Next?
 
-I've absolutely enjoyed the Scientefic Python Open-Source community and plan
+I've absolutely enjoyed the Scientific Python Open-Source community and plan
 to continue working on projects including SciPy and PyTorch voluntarily
 going forward.
 
@@ -546,7 +546,8 @@ where the uarray backend needs to be enabled.
 Apart from uarray, I'd also like to explore and contribute to a few more
 interesting tracks revolving around making SciPy more performant.
 
-* One of the GSoC students (Xingyu Liu) recently made a lot of progress in
+* One of the GSoC students (Xingyu Liu) recently made a lot of
+[progress](https://github.com/scipy/scipy/issues?q=author%3Acharlotte12l) in
 accelerating some of the modules with the experimental Pythran support. It
 would be interesting to explore further possibilities with `Pythran`.
 
