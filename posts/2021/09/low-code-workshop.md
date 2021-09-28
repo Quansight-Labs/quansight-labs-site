@@ -131,7 +131,7 @@ technical barrier to entry and support changes from multiple authors.
 
 Our fledgling experience in the Jupyter event made us *sort of* confident this
 could work for other projects.  So we contacted our NumPy accessibility allies
-@melissawm and @marsbarlee to test this hypothesis at the NumPy newcomer's
+[@melissawm](https://github.com/melissawm) and [@marsbarlee](https://github.com/marsbarlee) to test this hypothesis at the NumPy newcomer's
 meetings, which [happen every other
 Thursday](http://numpy-discussion.10968.n7.nabble.com/Newcomer-s-Hour-td49226.html).
 
