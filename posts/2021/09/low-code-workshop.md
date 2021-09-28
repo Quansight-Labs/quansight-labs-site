@@ -133,7 +133,7 @@ Our fledgling experience in the Jupyter event made us *sort of* confident this
 could work for other projects.  So we contacted our NumPy accessibility allies
 [@melissawm](https://github.com/melissawm) and [@marsbarlee](https://github.com/marsbarlee) to test this hypothesis at the NumPy newcomer's
 meetings, which [happen every other
-Thursday](http://numpy-discussion.10968.n7.nabble.com/Newcomer-s-Hour-td49226.html).
+Thursday](https://mail.python.org/archives/list/numpy-discussion@python.org/thread/4EBH3QAH6IR56WJCM7VEL55ACGGK6JKP/).
 
 During the first meeting, @marsbarlee provided a valuable [slideshow on how to
 write alt text for scientific
