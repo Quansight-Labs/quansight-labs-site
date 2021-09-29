@@ -195,7 +195,7 @@ My mentor, [Kshiteej Kalabarkar](https://github.com/kshitij12345), was always av
 On-boarding process was very friendly with a perfect rhythm. Most of the information about the process passed thorough the email, Labs Internship Handbook was circulated containing all possible info you might need. We received a warm welcome via Slack and from day one on we had a weekly Intern Share where all the interns got together. At first to introduce each other, later to present, hear about and support the work in progress. Presentations were interesting from knowledge as well as social perspective.
 
 **Connecting with the developers**<br>
-Thanks to [Ralf Gommers](https://github.com/rgommers) for getting us connected with Vaex developers. They are extremely friendly, understanding and motivated. Always ready to help. After submitting a draft PR [Maarten Breddel](https://vaex.io/profile/maarten) and [Jovan Veljanoski](https://medium.com/@jovan.veljanoski) helped a lot and my work got pushed further. 
+Thanks to [Ralf Gommers](https://github.com/rgommers) for getting us connected with Vaex developers. They are extremely friendly, understanding and motivated. Always ready to help. After submitting a draft PR [Maarten Breddels](https://vaex.io/profile/maarten) and [Jovan Veljanoski](https://medium.com/@jovan.veljanoski) helped a lot and my work got pushed further. 
 
 What I found very helpful in the process was making a personal repository where I saved my ongoing work and made issues to track the working process. In this way I was able to organize better and the stress of not knowing what exactly should be done next or how fast I should be working was reduced. Also the sharing of work with colleagues and mentor was easier.
 
