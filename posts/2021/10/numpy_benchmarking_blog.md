@@ -16,7 +16,7 @@ In this blog post, I'll be talking about my journey in Quansight. I want to shar
 First of all, I'd like to express my gratitude to the whole team for allowing me to be a part of such a great team. My work was majorly focused on providing performance benchmarks to NumPy in realistic situations. The target was to show the world that NumPy is efficient in handling quasi real-life situations too.
 
 <p align="center">
-      <img src = "/images/2021/10/journey.jpeg" alt = "A word cloud, showing different words related to Quansight. Each is stylized using a different font, most of them calligraphical.">
+      <img src = "/images/2021/10/journey.jpeg" alt = "A word cloud with themes, open-source projects and people mentioned throughout the blog post. Each is stylized using a different font, most of them calligraphical.">
 </p>
 
 ## My Experience
@@ -38,7 +38,7 @@ My work was broadly divided majorly into the following categories:
 
 The following is the output of my work:
 
-<img src = "/images/2021/10/performance_benchmarking.png" alt = "Visualization" title = "Performance Benchmark; Number of Iterations: 50">
+<img src = "/images/2021/10/performance_benchmarking.png" alt = "A visual representation to compare the performance of NumPy with various languages like Python, C++, and accelerators like Numba, and Pythran." title = "Performance Benchmark; Number of Iterations: 50">
 
 ### Relevant Links
 
