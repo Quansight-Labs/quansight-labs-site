@@ -66,7 +66,7 @@ The `__dataframe__` method returns an instance of the `_DataFrame` class. At thi
 <p align="center">
     <img
      alt="UML diagram of the classes `_Buffer`, `_Column` and `_DataFrame`."
-     src="images/2021/09/dataframe-api-vaex/dataframe-api-vaex_UML.jpg">
+     src="/images/2021/09/dataframe-api-vaex/dataframe-api-vaex_UML.jpg">
     <i>UML diagram</i>
 </p>
 
@@ -111,7 +111,7 @@ This is used in the `from_dataframe` method when columns are iterated through. T
 <p align="center">
     <img
      alt="Column conversion through the buffers."
-     src="images/2021/09/dataframe-api-vaex/dataframe-api-vaex_buffer.jpg">
+     src="/images/2021/09/dataframe-api-vaex/dataframe-api-vaex_buffer.jpg">
     <i>Buffers</i>
 </p>
 
@@ -161,7 +161,7 @@ Vaex can read data in chunks. It is not the only library that does so and it is 
 <p align="center">
     <img
      alt="Iterating through the chunks in `from_dataframe`."
-     src="images/2021/09/dataframe-api-vaex/dataframe-api-vaex_chunks.png">
+     src="/images/2021/09/dataframe-api-vaex/dataframe-api-vaex_chunks.png">
     <i>Chunks</i>
 </p>
 
@@ -182,7 +182,7 @@ In the `get_buffers` method the data needs to be encoded to pass it through the 
 <p align="center">
     <img
      alt="My journey through the internship in colors."
-     src="images/2021/09/dataframe-api-vaex/dataframe-api-vaex_journey.png">
+     src="/images/2021/09/dataframe-api-vaex/dataframe-api-vaex_journey.png">
     <i>My three-month journey</i>
 </p>
 
@@ -216,7 +216,6 @@ Thank you for reading through.
 <p align="center">
     <img
      alt="The end - fin."
-     src="images/2021/09/dataframe-api-vaex/dataframe-api-vaex_fin.png">
+     src="/images/2021/09/dataframe-api-vaex/dataframe-api-vaex_fin.png">
     <i>Thank you!</i>
 </p>
-
