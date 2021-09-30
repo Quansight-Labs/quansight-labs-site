@@ -15,10 +15,9 @@
 
 The work I briefly describe in this blog post is the **implementation of the dataframe interchange protocol into the Vaex library** which I was working on through the three month period as a Quansight Labs Intern.
 
-
 <p align="center">
     <img
-     alt="Visual of the dataframe protocol implementation into Vaex library."
+     alt="Dataframe protocol will enable data interchange between different dataframe libraries for example cuDF, Vaex, Koalas, Pandas, etc. From all of these Vaex is the library for which the implementation of the dataframe protocol was attempted. Vaex is a high performance Python library for lazy Out-of-Core DataFrames."
      src="/images/2021/09/dataframe-api-vaex/dataframe-api-vaex_protocol.jpg">
     <i>Connection between dataframe libraries with dataframe protocol</i>
 </p>
@@ -31,7 +30,7 @@ Today there are quite a number of different dataframe libraries available in Pyt
 
 ### Dataframe protocol
 
->The purpose of the **Dataframe interchange protocol (`__dataframe__`)** is to enable data interchange. I.e., a way to convert one type of dataframe into another type (for example, convert a Koalas dataframe into a Pandas dataframe, or a cuDF dataframe into a Vaex dataframe).
+>The purpose of the **Dataframe interchange protocol (`__dataframe__`)** is to enable data interchange. I.e., a way to convert one type of dataframe into another type (for example, convert a [Koalas](https://koalas.readthedocs.io/en/latest/#) dataframe into a Pandas dataframe, or a [cuDF](https://github.com/rapidsai/cudf) dataframe into a Vaex dataframe).
 
 With the protocol implemented in dataframe libraries we will be able to write code that accepts any kind of dataframe 🎉 <br>
 For more information about the protocol visit the [RFC blog post](https://data-apis.org/blog/dataframe_protocol_rfc/) or the [official site](https://data-apis.org/dataframe-protocol/latest/index.html).
@@ -74,7 +73,7 @@ For the memory representation of the dataframe three separate classes are define
 
 The constructor function `from_dataframe` iterates through the chunks and through the dictionary of columns of the input dataframe, calls the correct methods and converts the column to the desired type.
 
-With the general overview of the protocol and it's model in mind I will next present the path I took to implement it into the Vaex library.
+With the general overview of the protocol and its model in mind I will next present the path I took to implement it into the Vaex library.
 
 ## Implementation steps | Interesting topics covered, interesting lessons learned
 
@@ -84,17 +83,19 @@ First thing I did was reading and re-reading the specifications. After that I ta
 
 I had to make it clear which dtypes the protocol needs to support and how can I handle them in Vaex. With that I could start with simple dtypes and work my way to the ones hardest to implement.
 
-To find out more about data types in the dataframe protocol visit https://github.com/data-apis/dataframe-api/issues/26.
+To find out more about data types in the dataframe protocol visit [this DataFrame API issue on GitHub](https://github.com/data-apis/dataframe-api/issues/26).
 
-A [prototype implementation](https://github.com/data-apis/dataframe-api/blob/27b8e1cb676bf10704d1dfc3dca0d0d806e2e802/protocol/pandas_implementation.py) for Pandas dataframe has already been written so I started here with the most simple part - `int` and `float` dtype. Very soon in the process of researching I had to get acquainted with the term buffers and array interface.
+A [prototype implementation](https://github.com/data-apis/dataframe-api/blob/27b8e1cb676bf10704d1dfc3dca0d0d806e2e802/protocol/pandas_implementation.py) for Pandas dataframe has already been written so I started here with the most simple part - `int` and `float` dtypes. Very soon in the process of researching I had to get acquainted with the term buffers and array interface.
 
 ### Array interface and buffers
 
 When the `from_dataframe` method iterates through the columns it basically transfers the problem to columnar level where the interchange of data is really happening. That means array API is used.
 
-**Array API?** Just like we want to convert one type of dataframe into another, there are different protocols that do similar with columns/arrays/tensors. This is what is meant when array API term is used. For more information see https://data-apis.org/array-api/latest/design_topics/data_interchange.html.
+**Array API?** Similar to the idea of converting one type of dataframe into another, array API interchange mechanism supports converting one type of array into another. An array is a (usually fixed-size) multidimensional container of items of the same type and size ([source](https://data-apis.org/array-api/latest/purpose_and_scope.html#terms-and-definitions)). You can also call it a column, tensor, ... For more information see [the Data interchange mechanisms section in the Data APIs documentation](https://data-apis.org/array-api/latest/design_topics/data_interchange.html).
 
-The best candidate for the array protocol is chosen to be [DLPack](https://github.com/dmlc/dlpack). Pandas and Vaex don't have this protocol implemented so instead we interpret a raw pointer through the use of [`array_interface`](https://numpy.org/devdocs/reference/arrays.interface.html). Therefore in Pandas and Vaex implementations the columns are read as NumPy arrays (ndarrays) via `array_interface`.
+There are three relevant existing protocols that support array interchange and they are [buffer protocol](https://docs.python.org/3/c-api/buffer.html), [`__array_interface__`](https://numpy.org/devdocs/reference/arrays.interface.html) and [DLPack](https://github.com/dmlc/dlpack).
+
+The best candidate for the array API is chosen to be DLPack. Pandas and Vaex don't have this protocol implemented so instead we receive the information about the location where the data is stored in memory with the use of [`array_interface`](https://numpy.org/devdocs/reference/arrays.interface.html). Therefore in Pandas and Vaex implementations the columns are read as NumPy arrays (ndarrays) via `array_interface`.
 
 The specifications of the buffer, for example, buffer size, a pointer to the start of the buffer, DLPack attributes and a string representation of the buffer, are a part of the `_VaexBuffer` class.
 
@@ -102,9 +103,9 @@ In the `_VaexColumn` class the data type description is added in `.dtype` as a t
 
 The function from the `_VaexColumn` class that saves the data into a `_VaexBuffer` class to be converted in the process is `get_buffers`. It returns a dictionary of three separate two-element tuples:
 
-- `_get_data_buffer`: buffer containing the data and it's associated dtype,
-- `_get_validity_buffer`: buffer containing mask values indicating missing data and it's associated dtype,
-- `_get_offsets_buffer`: offset values for variable-size binary data (e.g., variable-length strings) and it's associated dtype.
+- `_get_data_buffer`: buffer containing the data and its associated dtype,
+- `_get_validity_buffer`: buffer containing mask values indicating missing data and its associated dtype,
+- `_get_offsets_buffer`: offset values for variable-size binary data (e.g., variable-length strings) and its associated dtype.
 
 This is used in the `from_dataframe` method when columns are iterated through. The method calls the `get_buffer` function and converts the data via `array_interface`. If, for example, the user wants to convert Pandas dataframe to a Vaex instance, the Vaex `from_dataframe` method (that we called `from_dataframe_to_vaex` just to make it clearer) calls Pandas `get_buffer` method and then makes the conversion. 
 
@@ -123,7 +124,7 @@ In this case the codes of the categories are the ones being converted through th
 
 Based on my research you can have Vaex categorical columns made with methods `categorize` or `ordinal_encode` (which is deprecated). There is another possibility where the underlying expression is an Arrow dictionary. Both options have different functions to be used.
 
-Additionally there is a special case in Veax when `categorize` function is used and codes need to be calculated separately (year column in the example: https://vaex.io/docs/_modules/vaex/dataframe.html#DataFrameLocal.categorize)
+Additionally there is a special case in Veax when `categorize` function is used and codes need to be calculated separately ([year column in the example](https://vaex.io/docs/_modules/vaex/dataframe.html#DataFrameLocal.categorize)).
 
 Categoricals are complicated. =)
 I was happy when the tests finally passed.
@@ -132,7 +133,7 @@ I was happy when the tests finally passed.
 
 Clarifying what a missing value should and should not be is quite difficult and there isn't one way of looking at it. True missing and NaN are different things altogether but when analysing you deal with unavailable data in both cases. The other question is how to store missing values? Nullable, sentinel, with bit or byte mask,...?
 
-More about this topic can be found here: https://github.com/data-apis/dataframe-api/issues/9.
+More about this topic can be found [in this issue](https://github.com/data-apis/dataframe-api/issues/9).
 
 Methods in the `_VaexColumn` class used for the missing data are the number of missing values `null_count` and `describe_null` which returns the missing value (or "null") representation the column dtype uses, as a tuple ``(kind, value)``. "Kind" can be non-nullable, NaN/NaT, sentinel value, bit mask or byte mask. The "value" can be the actual (sentinel) value, (0 or 1) indicating a missing value in case of a mask representation or None otherwise.
 
@@ -190,7 +191,7 @@ In the `get_buffers` method the data needs to be encoded to pass it through the 
 
 For me the work at Quansight in the least three months meant lots of space to figure things out. I don't have trouble getting things done. If, with this freedom to work, you can also receive the right amount of interaction, motivation, community vibe, ... that is just awesome. And that was how I experienced the internship.
 
-My mentor, [Kshiteej Kalabarkar](https://github.com/kshitij12345), was always available for a technical question or just a chat. He helped me with on-boarding and with finalizing the work.
+My mentor, [Kshiteej Kalabarkar](https://github.com/kshitij12345), was always available for a technical question or just a chat. He helped me with on-boarding and with finalizing the work. My co-intern [Ismaël](https://github.com/iskode) was always ready to talk things over. He helped me with lots of silly things that were blocking me.
 
 On-boarding process was very friendly with a perfect rhythm. Most of the information about the process passed thorough the email, Labs Internship Handbook was circulated containing all possible info you might need. We received a warm welcome via Slack and from day one on we had a weekly Intern Share where all the interns got together. At first to introduce each other, later to present, hear about and support the work in progress. Presentations were interesting from knowledge as well as social perspective.
 
