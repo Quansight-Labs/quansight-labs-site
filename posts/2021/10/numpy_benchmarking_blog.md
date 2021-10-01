@@ -24,6 +24,8 @@ The target was to show the world that NumPy is efficient in handling quasi real-
       <img src = "/images/2021/10/journey.jpeg" alt = "A word cloud with themes, open-source projects and people mentioned throughout the blog post. Each is stylized using a different font, most of them calligraphical.">
 </p>
 
+<!-- TEASER_END -->
+
 ## My Experience
 My work was broadly divided majorly into the following categories:
 
@@ -83,9 +85,9 @@ The following is the output of my work:
 
 - **The issue I worked on**: [#370](https://github.com/numpy/numpy.org/issues/370) Add content on performance (e.g., benchmarks, mention accelerators).
 
-- **My PR**: [#461](https://github.com/numpy/numpy.org/pull/461).
+- **PR's**: [#461](https://github.com/numpy/numpy.org/pull/461), [#1](https://github.com/numpy/numpyorg-benchmarks/pull/1), [#2](https://github.com/numpy/numpyorg-benchmarks/pull/2)
 
-- **My Personal Repository**: [numpy-benchmarks](https://github.com/khushi-411/numpy-benchmarks).
+- **The Repository**: [numpyorg-benchmarks](https://github.com/numpy/numpyorg-benchmarks), [numpy-benchmarks](https://github.com/khushi-411/numpy-benchmarks)
 
 - **Issue**: The most interesting issue I faced was using the vectorized approach in Pythran's implementation. I mentioned that [here](https://github.com/khushi-411/numpy-benchmarks/issues/4).
 
@@ -98,20 +100,20 @@ and visited more than ten blogs to understand the idea.
 It was a fun learning part.
 
 - **Git**: Getting familiar with various git commands was one of the most incredible things 
-I became comfortable with while working at Quansight.
+I became comfortable with it while working at Quansight.
 
 ## Advice to the Beginners
 
 - **Getting Familiar with the importance of the project**: I believe: 
-'To find joy in the work the most important task is to know, where it started from.' 
+'To find joy in the work, the most important task is to know where it started from.' 
 Read the previous discussions made and know the reason for the importance of your project. 
 I started my work with its origin. I read the issue related to benchmarking, 
 articles, and other related work. 
-I visited benchmarking pages of other libraries too to get the idea. 
+I visited benchmarking pages of other libraries, too, to get the idea. 
 Among which the [micro-benchmarks of NumPy](https://pv.github.io/numpy-bench/) using ASV are the best. 
 It's too lovely!
 
-- **Search Everything about your project in the first 3-4 days**: At this part, 
+- **Search everything about your project in the first 3-4 days**: At this part, 
 you need to get familiar with all the possible dots of your project. 
 Look into as many related works of your project and examine 
 the positive and negative points of the proposed work. 
@@ -125,9 +127,9 @@ there were a few more.
 I agree that it took more than three days for me to complete, 
 but I learned specific life hacks, which I'm pretty sure 
 that I will implement in every project. 
-Make sure not to dig too deep into the topic, 
-first know the width, then dive into the depth and 
-ensure that you are stumbling upon the subject-related issues.
+Make sure not to dig too deep into the topic. 
+First, know the width, then dive into the depth and 
+ensure that you are focusing on the subject.
 
 - **Start working**: Here is where the journey starts. 
 The best way to express yourself is to present everything that you have completed. 
