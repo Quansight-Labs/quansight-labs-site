@@ -64,7 +64,7 @@ The `__dataframe__` method returns an instance of the `_DataFrame` class. At thi
 
 <p align="center">
     <img
-     alt="UML diagram of the classes `_Buffer`, `_Column` and `_DataFrame`."
+     alt="UML diagram of the classes `_Buffer`, `_Column` and `_DataFrame`. For the API info see the [concepts in the design page](https://data-apis.org/dataframe-protocol/latest/API.html)."
      src="/images/2021/09/dataframe-api-vaex/dataframe-api-vaex_UML.jpg">
     <i>UML diagram</i>
 </p>
