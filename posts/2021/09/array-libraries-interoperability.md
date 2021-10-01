@@ -3,7 +3,7 @@
 .. slug: array-libraries-interoperability
 .. date: 2021-09-20 17:04:54 UTC-05:00
 .. author: Anirudh Dagar
-.. tags: SciPy, PyTorch, NumPy, CuPy, uarray, Array API
+.. tags: SciPy, PyTorch, NumPy, CuPy, uarray, Array API, internship-2021
 .. category: 
 .. link: 
 .. description: 
@@ -46,7 +46,10 @@ and it has been my go-to for research in machine learning during the last
 couple of years. The reason simply is due to this extra saccharinity
 along with some other machine learning specific modules
 (`torch.nn`, `torch.optim` etc.) it has to offer. A few eminent
-array/tensor libraries include `CuPy`, `Tensorflow`, `MXNet`, `JAX` etc.
+array/tensor libraries include [`CuPy`](https://github.com/cupy/cupy),
+[`Tensorflow`](https://github.com/tensorflow/tensorflow),
+[`MXNet`](https://github.com/apache/incubator-mxnet/),
+[`JAX`](https://github.com/google/jax) etc.
 
 Henceforth, let's just call all of them **"array provider"** libraries.
 
@@ -64,19 +67,21 @@ libraries.
 The pain now is that an extremely stable and popular consumer library
 like SciPy is cut off from the sweet features which the new array/tensor
 frameworks have to offer. A user might prefer SciPy's domain specific
-features and stable API for their scientific stack, but because their underlying
-project is built on top of say PyTorch, they are left alone
+features and stable API for their scientific stack, but because their
+underlying project is built on top of say PyTorch, they are left alone
 at sea.
 
-Say we wanted to use a provider library other than NumPy, but with SciPy (or similar) library.
-After some thought, one may end up choosing either of the following options:
+Say we wanted to use a provider library other than NumPy, but with SciPy
+(or similar) library. After some thought, one may end up choosing
+either of the following options:
 
-1. Somehow convert their array/tensors into NumPy arrays, before feeding them in the SciPy function,
-	which is where you lose the "extra sweetness".
+1. Somehow convert their array/tensors into NumPy arrays,
+	before feeding them in the SciPy function, which is where you lose
+	the *"extra sweetness"*.
 
 2. Find some other consumer library (if it exists) mimicking SciPy's API, but
 	built on top of the "array provider" library that was used in the initial
-	project (say `PyTorch`). This way the user enjoys the extra
+	project (say PyTorch). This way the user enjoys the extra
 	features, but this comes at the cost of learning and getting used to
 	a new library API which might mimic SciPy's functionality
 	but not behave exactly the same.
@@ -95,7 +100,7 @@ computations, but now will need to learn a new API.
      how envious other array/tensor libraries are of it."
      src="/images/2021/09/array_wonderland.JPG" 
 	 style="object-fit:cover;
-            width: 90%;"/>
+            width: 80%;"/>
 </p>
 
 <i align="center"><b>ELI5 Caption:</b> This is a page from the array libraries interoperability special edition chapter of comic array wonderland. SciPy only wants to play with NumPy and refuses to play with other libraries like PyTorch, CuPy, Tensorflow and JAX. All of them are sad, and then they decide to make their own new friends.
