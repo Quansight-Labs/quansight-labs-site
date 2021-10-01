@@ -20,6 +20,8 @@ for allowing me to be a part of such a great team.
 My work was majorly focused on providing performance benchmarks to NumPy in realistic situations. 
 The target was to show the world that NumPy is efficient in handling quasi real-life situations too.
 
+Minor Note: To read the conceptual part of this project visit, [here](https://deploy-preview-461--numpy-preview.netlify.app/benchmark/).
+
 <p align="center">
       <img src = "/images/2021/10/journey.jpeg" alt = "A word cloud with themes, open-source projects and people mentioned throughout the blog post. Each is stylized using a different font, most of them calligraphical.">
 </p>
@@ -53,7 +55,9 @@ I tried various plots to verify which one suits best,
 like scatter plots, box plots, line charts, the combination of the scatter plots and line charts, etc. 
 But these were not good to go. 
 Those plots either lacked clarity or were not capable of providing significant results. 
-We finalized decided on horizontally stacked bar charts.
+We finalized decided on two bar charts, with different vertical scales to accomodate 
+the vastly different performance of Python vs the compiled methods. 
+We also normalized the data to show trends as the number of particles increased.
 
 - **Model Optimization**: Model Optimization was one of the most exciting parts for me to work. 
 I like playing with codes. The main task was to ensure 
@@ -67,11 +71,12 @@ Steps I followed to attain it:
 	
 	- I then turned my focus to reduce the number of loops. 
 And I'll say hats off to the *Vectorized Approach* of the NumPy. 
-NumPy achieved more than 10% than Python and 
-equivalent speed to compiled methods like C++ and Numba.
-	
+NumPy achieved a speed of more than 10% faster than Python. 
+The compelling thing is the changing behavior of NumPy from 
+python-like performance to compiled-like performance.
+
 	- The only task left was to verify whether we got the same results in all the cases. 
-Initially, I wanted to make my code as small as possible. 
+Initially, I wanted to make my code as compact as possible. 
 Hence I focused on using more NumPy functions, but this, in turn, 
 led to a decrement in the readability of code and made my code more complex. 
 I learned that the structure of the code should be made easier to understand for the end-user. 
@@ -80,6 +85,8 @@ The ultimate goal was to prove that NumPy performs well even without using its u
 The following is the output of my work:
 
 <img src = "/images/2021/10/performance_benchmarking.png" alt = "A visual representation to compare the performance of NumPy with various languages like Python, C++, and accelerators like Numba, and Pythran." title = "Performance Benchmark; Number of Iterations: 50">
+
+<!-- TEASER END -->
 
 ## Relevant Links
 
