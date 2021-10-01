@@ -1,14 +1,14 @@
 <!--
 .. title: Array Libraries Interoperability
 .. slug: array-libraries-interoperability
-.. date: 2021-09-20 17:04:54 UTC-05:00
+.. date: 2021-10-04 00:04:54 UTC-00:00
 .. author: Anirudh Dagar
 .. tags: SciPy, PyTorch, NumPy, CuPy, uarray, Array API, internship-2021
 .. category: 
 .. link: 
 .. description: 
 .. type: text
-.. previewimage: /images/2021/09/ninja_arrays.png
+.. previewimage: /images/2021/10/ninja_arrays.png
 -->
 
 In this blog post I talk about the work that I was able to accomplish during
@@ -22,7 +22,7 @@ with their usage in the Python Scientific and Data Science software stack.
     <img
      alt="Meme of Master Splinter leading the baby turtles from TMNT. Splinter
      represents NumPy, and the turtles represent TensorFlow, CuPy, PyTorch and JAX."
-     src="/images/2021/09/ninja_arrays.png">
+     src="/images/2021/10/ninja_arrays.png">
     <i>Master NumPy leading the young Tensor Turtles</i>
 </p>
 
@@ -98,7 +98,7 @@ computations, but now will need to learn a new API.
 	<img 
      alt="Comic depicting the happy relationship between NumPy and SciPy, and
      how envious other array/tensor libraries are of it."
-     src="/images/2021/09/array_wonderland.JPG" 
+     src="/images/2021/10/array_wonderland.JPG"
 	 style="object-fit:cover;
             width: 80%;"/>
 </p>
@@ -243,7 +243,7 @@ SciPy.
 
 <p align="center">
 	<a href="https://anirudhdagar.ml/array-api-demo/intro.html">
-	<img alt="Screenshot of the demo's website" src="/images/2021/09/array_api_demo_screenshot.png">
+	<img alt="Screenshot of the demo's website" src="/images/2021/10/array_api_demo_screenshot.png">
     <i>Array API Demo</i>
     </a>
 </p>
@@ -375,7 +375,7 @@ I've been working on adding uarray backend support to more SciPy modules.
 
 <p align="center">
 	<a href="https://github.com/scipy/scipy/issues/14353">
-	<img alt="SciPy: uarray compatibility tracker" src="/images/2021/09/uarray_compatibility_tracker.png">
+	<img alt="SciPy: uarray compatibility tracker" src="/images/2021/10/uarray_compatibility_tracker.png">
     <i>SciPy: uarray compatibility tracker</i>
     </a>
 </p>
