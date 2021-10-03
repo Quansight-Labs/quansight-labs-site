@@ -19,7 +19,7 @@
   a performance ratio of 1.0, since both runs returned the exact same performance. In practice this
   does not happen and we can observe ratios between 0.6 and 1.5. This plot shows that while there
   is an observable y-spread, it is small enough to be considered sensitive to performance
-  regressions of more than 50%. ](/images/2021/08/github-actions-benchmark.png)
+  regressions of more than 50%.](/images/2021/08/github-actions-benchmark.png)
 
 Benchmarking software is a tricky business. For robust results, you need dedicated
 hardware that only runs the benchmarking suite under controlled conditions. No other
@@ -158,7 +158,7 @@ After collecting data points for 16 days, these are the results:
   a performance ratio of 1.0, since both runs returned the exact same performance. In practice this
   does not happen and we can observe ratios between 0.5 and 1.5. This plot shows that while there is
   an observable y-spread, it is small enough to be considered sensitive to performance regressions
-  of more than 50%. ](/images/2021/08/github-actions-benchmark.png)
+  of more than 50%.](/images/2021/08/github-actions-benchmark.png)
 
 * Average time taken: 1h55min
 * Minimum and maximum ratios observed: 0.51, 1.36
@@ -217,7 +217,7 @@ how bad? Here are the results:
   This 2D plot shows a 16-day timeseries in the X axis. Each data point in the X axis corresponds
   to a cloud of 75 measurements (one per benchmark test). The y-axis spread of each cloud corresponds
   to the performance ratio. Ideal measurements would have a performance ratio of 1.0, since both
-  runs returned the exact same performance. In practice this does not happen. ](/images/2021/08/github-actions-benchmark-no-interleaving.png)
+  runs returned the exact same performance. In practice this does not happen.](/images/2021/08/github-actions-benchmark-no-interleaving.png)
 
 * Average time taken: 1h39min
 * Minimum and maximum ratios observed: 0.43, 1.5
@@ -236,7 +236,7 @@ per commit, instead of two. However, the accuracy loss might be too dramatic... 
   Each data point in the X axis corresponds to a cloud of 75 measurements (one per benchmark test).
   The y-axis spread of each cloud corresponds to the performance ratio. Ideal measurements would have
   a performance ratio of 1.0, since both runs returned the exact same performance. In practice this
-  does not happen. ](/images/2021/08/github-actions-benchmark-single-process.png)
+  does not happen.](/images/2021/08/github-actions-benchmark-single-process.png)
 
 * Average time taken: 1h7min
 * Minimum and maximum ratios observed: 0.51, 2.76

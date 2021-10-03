@@ -61,29 +61,29 @@ We can see from the figure that in `test_large_fraction_constant_sparse` case, w
 
 If we look at the time spent creating the files for each example, comparing chunk sizes but not considering compression, we have something like this:
 
-![test1 ](/images/versioned-hdf5-performance/create_test1.png) | ![test2 ](/images/versioned-hdf5-performance/create_test2.png)
+![test1](/images/versioned-hdf5-performance/create_test1.png) | ![test2](/images/versioned-hdf5-performance/create_test2.png)
 :-------------------------:|:-------------------------:
-![test3 ](/images/versioned-hdf5-performance/create_test3.png) | ![test4 ](/images/versioned-hdf5-performance/create_test4.png)
+![test3](/images/versioned-hdf5-performance/create_test3.png) | ![test4](/images/versioned-hdf5-performance/create_test4.png)
 
-![legend ](/images/versioned-hdf5-performance/legend.png)
+![legend](/images/versioned-hdf5-performance/legend.png)
 
 Now, we can look at the time required to stage a new version in the file, that is, to add a new transaction. The graphs below show, for each fixed number of transactions, the time required to add new versions as the file is created. Note that the scales vary for each test.
 
-![test1 ](/images/versioned-hdf5-performance/write_times_test1.png) | ![test2 ](/images/versioned-hdf5-performance/write_times_test2.png)
+![test1](/images/versioned-hdf5-performance/write_times_test1.png) | ![test2](/images/versioned-hdf5-performance/write_times_test2.png)
 :-------------------------:|:-------------------------:
-![test3 ](/images/versioned-hdf5-performance/write_times_test3.png) | ![test4 ](/images/versioned-hdf5-performance/write_times_test4.png)
+![test3](/images/versioned-hdf5-performance/write_times_test3.png) | ![test4](/images/versioned-hdf5-performance/write_times_test4.png)
 
 It is clear that as the number of versions stored in the file increases, the times required to create versioned HDF5 files increases significantly when compared to regular HDF5 files. However, note that the increase is linear, consistent with what is expected from adding new versions to the file. For example, looking at `test_large_fraction_constant_sparse`, where the size of the arrays do not increase as new versions are added, choosing (again) a chunk size of 4096 means that writing each new version to file takes about 6-8x as much as in the unversioned case, with more than 50% savings on disk storage. Note that a larger chunk size may mean faster read and write times but can also mean larger file sizes if no compression is used, because of how Versioned HDF5 is designed. This is expected, since all chunks where data has been changed from one version to the next have to be stored. Also, in `test_mostly_appends_sparse`, where the size of the arrays stored in the file grow significantly with each new version, we can see a marked increase in the times required to stage new versions.
 
 Finally, we'll look at a two-dimensional dataset. In this case, we have chosen different chunk sizes to test, considering that larger chunk sizes increase file sizes considerably.
 
-![filesizes_test5 ](/images/versioned-hdf5-performance/filesizes_test5.png)
+![filesizes_test5](/images/versioned-hdf5-performance/filesizes_test5.png)
 
-![creation_times ](/images/versioned-hdf5-performance/create_test5.png)
+![creation_times](/images/versioned-hdf5-performance/create_test5.png)
 
 We can also look at the times required to create each new version and write it to file in the versioned and unversioned cases. This is shown in the image below (note the different axis scale from previous figures.)
 
-![write_versions ](/images/versioned-hdf5-performance/write_times_test5.png)
+![write_versions](/images/versioned-hdf5-performance/write_times_test5.png)
 
 This test case is unique for a few reasons. First, having a two-dimensional dataset introduces new considerations, such as the number of rows being added in each axis. For this test case, we have only added (few) new rows to the first axis with each new version, and this might explain why we don’t see an increase in the time required to write new versions to file as the number of versions grow. While these are preliminary tests, and multidimensional datasets are still experimental at this point in Versioned HDF5, we can see that there are no unexpected drops in performance and the results can generally be explained by the size of the data stored in each file.
 
@@ -93,13 +93,13 @@ First, we'll look at the time required to read data from all versions in a file,
 
 Plotting with respect to the number of versions, we get the following:
 
-![ ](/images/versioned-hdf5-performance/seqread.png)
+![](/images/versioned-hdf5-performance/seqread.png)
 
 As expected, read times increase for files with a larger number of versions, but the growth is close to linear in all cases except for `test_mostly_appends_sparse`, where the large array sizes explain the larger read times.
 
 Next, we’ll compare the times necessary to read the latest version on each file. Because of how Versioned HDF5 is designed, this is the same as reading the last array stored in the HDF5 file. For each test, we made 20 different reads of the latest version in order to eliminate fluctuations generated by background processes or the OS (solid lines). We also compare these read times with the time required to read an unversioned file (which only stored the latest version - dashed black line).
 
-![ ](/images/versioned-hdf5-performance/latestread.png)
+![](/images/versioned-hdf5-performance/latestread.png)
 
 In this case, we can see that on average, reading the latest version on a `VersionedHDF5File` is ~5x-10x slower than reading an unversioned file. Also, the time required to read the latest version from a versioned HDF5 file increases modestly with the number of versions stored in the file, except when the size of the array increases significantly with each new version.
 

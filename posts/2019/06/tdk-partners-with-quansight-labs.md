@@ -59,7 +59,7 @@ Since the revamp of Spyder Projects with the 3.x series, the new dialog hinted
 at the possibility of creating different types of projects. Currently Spyder
 provides an "empty project" project type.
 
-![Project creation ](/images/spyder-project-creation.png)
+![Project creation](/images/spyder-project-creation.png)
  
 This feature will:
 
@@ -96,7 +96,7 @@ commands.
 Initial work has already started to display Git relevant information
 on the status bar
 
-![Status bar git ](/images/spyder-git-status.png)
+![Status bar git](/images/spyder-git-status.png)
 
 <small>Git status is now displayed in the status bar (on the left)</small>
 
@@ -113,7 +113,7 @@ this way is because the Editor Plugin on Spyder can only contain Code Editor
 widgets, which prevents us and other developers to use the Editor to hold
 these alternate views of a given file.
 
-![Spyder Reports ](/images/spyder-reports.png)
+![Spyder Reports](/images/spyder-reports.png)
 
 The new alternative views feature will remove this limitation and enable the
 inclusion of generic widgets (views) of different types of files and provide

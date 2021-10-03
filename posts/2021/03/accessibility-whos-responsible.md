@@ -10,7 +10,7 @@
 .. type: text
 -->
 
-![Fingers and question marks pointing in every direction ](/images/jlabaccess1.png)
+![Fingers and question marks pointing in every direction](/images/jlabaccess1.png)
 
 ## JupyterLab Accessibility Journey Part 1
 

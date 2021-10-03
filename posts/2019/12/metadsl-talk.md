@@ -108,7 +108,7 @@ Currently, `metadsl` creates expressions just by executing Python functions. Thi
  
 Tiark Rompf and some folks at Google have been exploring a similar space, in their ["The 800 Pound Python in the Machine Learning Room" paper][rompf-paper] and [`snek-LMS`][snek-lms] repo:
  
-![ ][snek-image]
+![][snek-image]
  
  
  
@@ -156,7 +156,7 @@ By describing our APIs with `metadsl` we transform our code into structured data
  
 Then, if we save this data, we are able to later analyze it semantically. For example, we can determine what data files were used to produce a certain visualization in a notebook if we output the computation graph alongside the result. This dovetails with [work we have been doing in JupyterLab to support viewing linked data][metadata-explorer] with [Paco Nathan][paco], [the NYU Coleridge Initiative][nyu], and CalPoly.
  
-![screenshot of JupyterLab metadata creation ][jupyterlab-metadata].
+![screenshot of JupyterLab metadata creation][jupyterlab-metadata].
  
 I sadly missed [the talk by Evan Patterson on "Semantic modeling of data science code"][semantic-talk] also at PyData that seemed to be going down this same route, but instead by creating separate schemas for the API code. The difference here is that if libraries adopt `metadsl` then we get a defined ontology for free.
  
@@ -166,7 +166,7 @@ By creating an extensible rewrite and compilation system we make it possible to 
  
 I went to a talk last week by [David Blei][blei], a pioneer in the probabilistic models and causal inference space. Causal inference lets us try to understand the effect of actions based on previous data from the world:
  
-![Picture of talk ][blei-pic]
+![Picture of talk][blei-pic]
  
 I would love to experiment with these tools to help users compile fast code across different architectures, but first we need to create space in the eocsystem to prototype them and get them into users' hands.
  
