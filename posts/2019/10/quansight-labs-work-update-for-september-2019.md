@@ -262,7 +262,7 @@ conda install -c conda-forge removestar
 In SymPy, we make heavy use of LaTeX math in our documentation. For example,
 in our [special functions
 documentation](https://docs.sympy.org/dev/modules/functions/special.html#sympy.functions.special.hyper.hyper),
-most special functions are defined using a LaTeX formula, like ![The docs for besselj ](/images/besselj_docs.png)
+most special functions are defined using a LaTeX formula, like ![The docs for besselj.](/images/besselj_docs.png)
 
 (from <https://docs.sympy.org/dev/modules/functions/special.html#sympy.functions.special.bessel.besselj>)
 
