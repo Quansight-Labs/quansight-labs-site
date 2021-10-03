@@ -45,7 +45,7 @@ and is enabled by default in Spyder 4. You can still select the
 light theme under  ``Preferences > Appearance`` by either choosing a light-background
 syntax-highlighting scheme, or changing ``Interface theme`` to ``Light``.
 
-![Screenshot of the Spyder main window with default panes, with the dark theme applied across the entire interface](/images/spyder-qdarkstyle.png)
+![Screenshot of the Spyder main window with default panes, with the dark theme applied across the entire interface.](/images/spyder-qdarkstyle.png)
 
 Pretty, right :-) ?
 
@@ -91,14 +91,14 @@ package. This has allowed us to provide fine-grained configurability for
 betas we’ll also add the ability to use and configure code formatters like
 YAPF and autopep8.
 
-![Docstring style preferences ](/images/spyder-doc-prefs.png)
+![Docstring style preferences in Spyder.](/images/spyder-doc-prefs.png)
 
 We support configuring LSP servers for additional, non-Python programming languages.
 In the future, we hope to include out-of-the-box LSP integration for
 some of the most popular languages in the scientific computing space,
 including Fortran, Julia and C/C++.
 
-![Spyder Completion and Linting preferences pane, showing example PyLS servers configured for Go and Julia](spyder-preferences-lsp.png)
+![Spyder Completion and Linting preferences pane, showing example PyLS servers configured for Go and Julia.](spyder-preferences-lsp.png)
 
 ## Plots pane
 
@@ -107,7 +107,7 @@ Spyder now includes a Plots pane, allowing you to browse all figures created dur
 session. Beyond just viewing plots, you can also zoom, save/export, copy and remove
 them.
 
-![Spyder main window, showing a figure displayed in the plots pane ](/images/spyder-plots.png)
+![Spyder main window with a figure in the plots pane.](/images/spyder-plots.png)
 
 ## But wait, there's more!
 

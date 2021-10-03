@@ -58,18 +58,18 @@ do the release itself.
 Prior to SymPy 1.4, SymPy expressions in the notebook rendered by default with their
  string representation. To get `LaTeX` output, you had to call `init_printing()`:
 
-![Code snippet in an interactive Jupyter session showing the usage of init_printing in SymPy 1.3 for LaTeX](/images/sympy-1.3-notebook.png)
+![Code snippet in an interactive Jupyter session showing the usage of init_printing in SymPy 1.3 for LaTeX.](/images/sympy-1.3-notebook.png)
 
 In SymPy 1.4, SymPy expressions now automatically render as LaTeX in the notebook:
 
-![Code snippet in an interactive Jupyter session showing default LaTeX printing mode for SymPy expressions in version 1.4](/images/sympy-1.4-notebook.png)
+![Code snippet in an interactive Jupyter session showing default LaTeX printing mode for SymPy expressions in version 1.4.](/images/sympy-1.4-notebook.png)
 
 However, this only applies automatically if the type of an object is a SymPy
 expression. For built-in types such as lists or ints, `init_printing()` is
 still required to get LaTeX printing. For example, `solve()` returns a list,
 so does not render as LaTeX unless `init_printing()` is called:
 
-![Code snippet in an interactive Jupyter session showing the usage of init_printing for list objects in version 1.4](/images/sympy-1.4-notebook-2.png)
+![Code snippet in an interactive Jupyter session showing the usage of init_printing for list objects in version 1.4.](/images/sympy-1.4-notebook-2.png)
 
 `init_printing()` is also still needed if you want to change any of the
 printing settings, for instance, passing flags to the `latex()` printer or
