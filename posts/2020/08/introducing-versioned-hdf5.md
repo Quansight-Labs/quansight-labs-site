@@ -24,8 +24,7 @@ storage model.
 
 <!-- TEASER_END -->
 
-![Hierarchical Data Format (HDF5) Dataset (From https://www.neonscience.org/about-hdf5)](/images/hdf5_structure4_resized.png)
-:alt: Diagram illustrating the hierarchical nature of an HDF5 file. An HDF container is shown that contains two groups. Each of these groups then contains datasets and/or subgroups. There is associated metadata for both the top-level container as well as each group and dataset.
+![Diagram illustrating the hierarchical nature of an HDF5 file. An HDF container is shown that contains two groups. Each of these groups then contains datasets and/or subgroups. There is associated metadata for both the top-level container as well as each group and dataset.](/images/hdf5_structure4_resized.png)
 *Image: Hierarchical Data Format (HDF5) Dataset (From https://www.neonscience.org/about-hdf5)*
 
 Since reading and writing operations in these large data files must be fast,
@@ -147,6 +146,5 @@ The Versioned HDF5 library was created by the [D. E. Shaw
 group](https://www.deshaw.com/) in conjunction with
 [Quansight](https://www.quansight.com/).
 
-![https://www.deshaw.com](/images/sponsors/black_logo_417x125.png)
-:alt:D.E. Shaw logo
+![D.E. Shaw logo](/images/sponsors/black_logo_417x125.png)
 
