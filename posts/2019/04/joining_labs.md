@@ -46,7 +46,7 @@ Besides working with talented, humble people and being able to spend more time o
 
 This was the view from my window on my first day: a ship with the letters "APL" on it:
 
-![Ship with APL logo ](/images/out_of_the_window_APL_ship.jpg)
+![Image of a ship in the ocean, with APL written on it ](/images/out_of_the_window_APL_ship.jpg)
 
 Given NumPy's heritage and the work on Mathematics of Arrays at Quansight Labs (both connected to [APL]), it felt symbolic.
 

@@ -45,7 +45,7 @@ and is enabled by default in Spyder 4. You can still select the
 light theme under  ``Preferences > Appearance`` by either choosing a light-background
 syntax-highlighting scheme, or changing ``Interface theme`` to ``Light``.
 
-![Screenshot of the Spyder main window with default panes, with the dark theme applied across the entire interface ](/images/spyder-qdarkstyle.png)
+![Screenshot of the Spyder main window with default panes, with the dark theme applied across the entire interface](/images/spyder-qdarkstyle.png)
 
 Pretty, right :-) ?
 
@@ -98,7 +98,7 @@ In the future, we hope to include out-of-the-box LSP integration for
 some of the most popular languages in the scientific computing space,
 including Fortran, Julia and C/C++.
 
-![Spyder Completion and Linting preferences pane, showing example PyLS servers configured for Go and Julia ](spyder-preferences-lsp.png)
+![Spyder Completion and Linting preferences pane, showing example PyLS servers configured for Go and Julia](spyder-preferences-lsp.png)
 
 ## Plots pane
 

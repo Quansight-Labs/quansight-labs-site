@@ -11,7 +11,7 @@
 .. previewimage: /images/pytorch-ignite/code-generator/code-generator-preview.png
 -->
 
-[![ Code Generator v0.2.0 demo](https://raw.githubusercontent.com/pytorch-ignite/code-generator/main/src/assets/code-generator-demo.gif)](https://code-generator.pytorch-ignite.ai/)
+[![Demo for PyTorch-Ignite code generator v0.2.0. With a few clicks it can generate the training scripts for a number of tasks such as vision classification.](https://raw.githubusercontent.com/pytorch-ignite/code-generator/main/src/assets/code-generator-demo.gif)](https://code-generator.pytorch-ignite.ai/)
 
 Authors: [Jeff Yang](https://github.com/ydcjeff), [Taras Savchyn](https://github.com/trsvchn), [Priyansi](https://github.com/Priyansi), [Victor Fomin](https://github.com/vfdev-5)
 
