@@ -96,7 +96,7 @@ deuteranopia, red-green color blindness.](/images/2021/07/numpy-accessibility/di
 transcription_](https://gist.githubusercontent.com/MarsBarLee/8beffb99b2f0976a42a97d68bb89f8d2/raw/fb20ffc54bd19e1b0e6cb12873a89734cfda23ae/disability_not_recognized.png)
 
 ![A graph illustrating how the world can be inaccessible for people with
-deuteranopia, red-green color blindness.](/images/2021/07/numpy-accessibility/color_deficiency.png)
+deuteranopia, red-green color blindness.] (/images/2021/07/numpy-accessibility/color_deficiency.png)
 [_External link to the above illustration's full
 transcription_](https://gist.githubusercontent.com/MarsBarLee/eae9824bf76b3ea89d719e61e2f1e078/raw/faed346caedebd666a87dbbe734ec092ecde368e/color_deficiency.png)
 

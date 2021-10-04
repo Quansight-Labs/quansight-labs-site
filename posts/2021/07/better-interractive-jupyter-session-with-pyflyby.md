@@ -35,9 +35,9 @@ Pyflyby is a set of tools designed to improve interactive and non-interactive
 workflows in Python. Pyflyby provides a number of utilities and extensions aimed
 at making day-to-day work in Python faster and simpler.
 
-![gif of pyflyby in action, IPython is opened, typing cos(arange(10))
-automatically import arange and cos from numpy before executing the
-code.](/images/2021/07/pfb-autoimport.gif)
+![Code which does not import NumPy, but does use NumPy methods, is evaluated in
+a fresh IPython session. pyflyby automatically imports these methods from NumPy
+before successfully executing the code.](/images/2021/07/pfb-autoimport.gif)
 
 ## Autoimport
 
@@ -64,8 +64,10 @@ With the [jupyterlab-pyflyby](https://github.com/deshaw/jupyterlab-pyflyby) exte
 the first cell of one's notebook:
 
 
-![pyflyby-jupyterlab animation, executing the second cell with missing imports
-still import those and insert them in the first cell](/images/2021/07/jlpfb.gif)
+![Fresh Jupyter session with two cells: the first imports Matplotlib, and the
+second plots using both Matplotlib and NumPy. Upon execution, jupyterlab-pyflyby
+automatically adds the missing NumPy import in the first cell, and then
+successfully renders the plot.](/images/2021/07/jlpfb.gif)
 
 ## tidy-import
 
@@ -134,7 +136,10 @@ $ py 'plot(scipy.stats.norm.pdf(linspace(-5, 5), 0, 1))'
 [<matplotlib.lines.Line2D object at 0x132981940>]
 ```
 
-![using pyflyby from bash to plot with matplotlib with above snippet, at matplotlib widow is open and show the plot.](/images/2021/07/py-exec-matplotlib.png)
+![Bash shell where the py command is passed a string argument, which is code
+that renders a Matplotlib plot using methods that were not imported. The plot 
+successfully renders. The Python code used is printed, which contains the
+automatically inferred imports and ends with the passed code.](/images/2021/07/py-exec-matplotlib.png)
 
 `find-import` , another utility available in pyflyby, can be deployed to find a
 particular function across many libraries by returning the relevant import.  For
