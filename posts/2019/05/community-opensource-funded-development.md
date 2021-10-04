@@ -4,9 +4,9 @@
 .. date: 2019-05-29
 .. author: Ralf Gommers
 .. tags: Labs, funding, community
-.. category: 
-.. link: 
-.. description: 
+.. category:
+.. link:
+.. description:
 .. type: text
 -->
 
@@ -127,12 +127,12 @@ ticket items from them (in most cases) that we can use instead.
 
 Here's the idea: we look at a project roadmap, take a couple of ideas that we
 think are most likely to be of interest to a company, put those on a
-brochure, and let our sales team take it from there to use (to support a 
+brochure, and let our sales team take it from there to use (to support a
 conversation, generate some initial interest, provide an overview of the
 breadth of our interests and capabilities at Quansight Labs, etc.). Here's what
 that currently looks like:
 
-![Two column view of a roadmap for Numpy and Scipy with logos.](/images/roadmap_screenshot_numpy_scipy.png)
+![Two column view of a roadmap for NumPy and SciPy with logos.](/images/roadmap_screenshot_numpy_scipy.png)
 
 We aim for wide coverage, even if we don't employ a project maintainer (yet).
 For example, Matplotlib is an important part of the PyData ecosystem, so we
