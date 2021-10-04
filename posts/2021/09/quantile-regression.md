@@ -1,4 +1,16 @@
-# Quantile Regression
+<!--
+.. title: Quantile Regression
+.. date: 2021-10-04 10:00 UTC
+.. slug: quantile-regression
+.. tags: TODO
+.. category:
+.. link:
+.. description:
+.. type: markdown
+.. author: Cristian Garcia
+-->
+
+
 _A simple method to estimate uncertainty in Machine Learning_
 
 Cristian Garcia
@@ -72,9 +84,9 @@ plt.close()
 fig
 ```
 
-    
+
 ![png](https://raw.githubusercontent.com/cgarciae/quantile-regression/master/README_files/README_6_0.png)
-    
+
 
 Here we have a simple 2D dataset; however, notice that `y` has some very peculiar statistical properties:
 
@@ -166,7 +178,7 @@ plt.close()
 fig
 ```
 
-    
+
 ![png](https://raw.githubusercontent.com/cgarciae/quantile-regression/master/README_files/README_13_0.png)
 
 
@@ -276,7 +288,7 @@ model.summary(x)
 <span style="font-weight: bold">                                                                                          </span>
 <span style="font-weight: bold">                            Total Parameters: </span><span style="color: #008000; text-decoration-color: #008000; font-weight: bold">8,967</span><span style="font-weight: bold">   </span><span style="color: #7f7f7f; text-decoration-color: #7f7f7f; font-weight: bold">35.9 KB</span><span style="font-weight: bold">                             </span>
 </pre>
-    
+
 
 
 Now that we have a model let us generate some test data that spans the entire domain and compute the predicted quantiles.
@@ -306,9 +318,9 @@ plt.close()
 fig
 ```
 
-    
+
 ![png](https://raw.githubusercontent.com/cgarciae/quantile-regression/master/README_files/README_28_0.png)
-    
+
 
 Amazing! Notice how the first few quantiles are tightly packed together while the last ones spread out, capturing the behavior of the exponential distribution. We can also visualize the region between the highest and lowest quantiles, and this gives us some bounds on our predictions.
 
