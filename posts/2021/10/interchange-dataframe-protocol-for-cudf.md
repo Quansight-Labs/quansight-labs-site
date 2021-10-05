@@ -172,7 +172,7 @@ Checked elements in the table below represent implemented features so far.
  <br/>
 
 We're still working on the `string` support. Note that we support CPU dataframe like pandas but since the protocol has not been integrated in pandas repo, we can only test it locally. 
-We've submitted this work as a [PR](https://github.com/rapidsai/cudf/pull/9071) still under review, to rapidsai/cudf github repo.
+We've submitted this work as a [Pull Request](https://github.com/rapidsai/cudf/pull/9071) still under review, to rapidsai/cudf github repo.
 
 Now, let's walkthrough some codes to see the protocol in action.
 We start by creating a cudf dataframe object with columns named after supported dtypes:
@@ -275,7 +275,7 @@ print(f'validity: {validity}')
     data: [ 0.   2.5  0.  10. ]
     validity: [0 1 0 1]
 
-Comparing the float column and the data, we see that values are similar except `<NAs>` in the column correspond to `0` in the data array. In fact, at the buffer level, we encode missing values by a 'sentinel value' which is 0 here. This is where the validity array comes into play. Together with the data array, we are able to rebuild the column with missing values in their exact places. How ? 0s in the validity array indicates places or indexes of missing values in the data and 1s indicates valid/non-missing values.
+Comparing the float column and the data, we see that values are similar except `<NA>` in the column correspond to `0` in the data array. In fact, at the buffer level, we encode missing values by a 'sentinel value' which is 0 here. This is where the validity array comes into play. Together with the data array, we are able to rebuild the column with missing values in their exact places. How ? 0s in the validity array indicates places or indexes of missing values in the data and 1s indicates valid/non-missing values.
 All this work is done by a helper function `_from_dataframe` which builds up an entire cudf dataframe from an interchange dataframe object:
 
 ```python
@@ -327,7 +327,7 @@ It is well known that configuring and installing drivers to work with GPU is not
 - When asking for help, do share what you've tried and other ideas to try. 
 
 Speaking out can reveal some gaps as previously mentioned.
-When something is missing, make an attempt to fix it. If it went well, that'll be a contribution. That happened to me when trying to unpack bits with `bitorder='little'` as in `numpy`, using `cupy` or `cudf`. I've ended up submitting a (merged) [PR](https://github.com/cupy/cupy/pull/5765) to cupy.
+When something is missing, make an attempt to fix it. If it went well, that'll be a contribution. That happened to me when trying to unpack bits with `bitorder='little'` as in `numpy`, using `cupy` or `cudf`. I've ended up submitting a (merged) [Pull Request to cupy](https://github.com/cupy/cupy/pull/5765).
 
 ## Final words
 I am:
