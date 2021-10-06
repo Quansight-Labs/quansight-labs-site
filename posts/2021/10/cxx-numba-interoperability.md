@@ -62,13 +62,13 @@ efficient calling sequence.  This method will require creating a small
 C/C++ wrapper library that contains ``export "C"``-attributed
 functions which return the addresses of C++ libray functions and that
 can be easily called from Python using various techniques, here we use
-[ctypes](https://docs.python.org/3/library/ctypes.html.
+[ctypes](https://docs.python.org/3/library/ctypes.html).
 
 A Python script
 [cxx2py.py](https://github.com/pearu/pearu.github.io/tree/main/cxx2py/cxx2py.py)
 is provided that auto-generates, from user-supplied C++ header and
 source files, the C/C++ wrapper library as well as a Python
-[ctypes](https://docs.python.org/3/library/ctypes.html wrapper
+[ctypes](https://docs.python.org/3/library/ctypes.html) wrapper
 module. The Python module contains ``ctypes`` definitions of C++
 library functions that Numba jitted functions are able to call
 directly without requiring the expensive object transformations
@@ -76,7 +76,7 @@ mentioned above. An alternative to using ``ctypes`` in the Python
 wrapper module would Numba [Wrapper Address Protocol -
 WAP](https://numba.pydata.org/numba-doc/latest/reference/types.html#wrapper-address-protocol-wap)
 that usage should be considered if
-[ctypes](https://docs.python.org/3/library/ctypes.html "C++
+[ctypes](https://docs.python.org/3/library/ctypes.html) "C++
 expressiveness" turns out to be insufficient.
 
 Currently, the supported features in the ``cxx2py.py`` tool include:
