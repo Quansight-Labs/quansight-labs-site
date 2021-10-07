@@ -44,7 +44,7 @@ originates from the
 compilers apply to function names in order to support function/method
 overloadings as well as other relevant C++ language features. In
 principle, one would be able to call such a C++ library function
-directly from Numba jitted function (using
+directly from any Numba compiled function (using the 
 [numba.cfunc](https://numba.pydata.org/numba-doc/latest/user/cfunc.html)
 feature) if one would knows how the C++ compiler transforms the
 function name internally . However, the name-mangling algorithm is C++
