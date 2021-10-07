@@ -16,7 +16,7 @@
 ## Introduction
 
 The aim of this document is to explore a method of calling C++ library
-functions from [Numba](http://numba.pydata.org/) [jitted
+functions from [Numba](http://numba.pydata.org/) [compiled
 functions](https://numba.pydata.org/numba-doc/latest/user/jit.html#compiling-python-code-with-jit)
 --- Python functions that are decorated with
 ``numpa.jit(nopython=True)``.
