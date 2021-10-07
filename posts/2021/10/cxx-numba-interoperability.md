@@ -34,7 +34,7 @@ Python object (again) to an equivalent C/C++ type object which can be
 finally passed to the underlying C++ library function. The return
 value of the C++ function would be transformed several times as well,
 just in the opposite direction of the function's calling sequence. In
-sum, all these object transformations may build up a considerable
+totality, all these object transformations may build up a considerable
 overhead of calling otherwise highly efficient C++ library functions
 from Python.
 
