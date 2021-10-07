@@ -60,7 +60,7 @@ determining the addresses of C++ library functions at runtime which
 together with functions signatures are then used to set up a highly
 efficient calling sequence.  This method will require creating a small
 C/C++ wrapper library that contains ``export "C"``-attributed
-functions which return the addresses of C++ libray functions and that
+functions which return the addresses of C++ library functions and 
 can be easily called from Python using various techniques, here we use
 [ctypes](https://docs.python.org/3/library/ctypes.html).
 
