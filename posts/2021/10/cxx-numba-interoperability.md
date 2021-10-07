@@ -188,7 +188,7 @@ As a quick test, try running:
 
   LD_LIBRARY_PATH=. python -c "import untitled as m; print(m.__all__)"
 ```
-that will create three files into the current directory:
+that will create three files in the current directory:
 ```bash
 $ ls *libfoo*
 cxx2py_libfoo.cpp  libcxx2py_libfoo.so  libfoo.py
