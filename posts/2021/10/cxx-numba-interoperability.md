@@ -56,7 +56,7 @@ predict the mangled name in a portable manner.
 In this post, we'll introduce a straightforward and efficient method
 of calling C++ library functions from Numba compiled functions that
 circumvents the name-mangling problem. The method is based on
-determining the addresses of C++ library functions at runtime that
+determining the addresses of C++ library functions at runtime which
 together with functions signatures can be used to set up an highly
 efficient calling sequence.  This method will require creating a small
 C/C++ wrapper library that contains ``export "C"``-attributed
