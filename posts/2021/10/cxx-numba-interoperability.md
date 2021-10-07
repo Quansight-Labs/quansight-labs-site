@@ -84,7 +84,7 @@ Currently, the supported features in the ``cxx2py.py`` tool include:
 - wrapping of C++ library functions with scalar inputs and return
   values,
 - supporting C++ functions which may be defined inside C++ namespaces,
-- supported C++ functions may be static class member functions.
+- supporting C++ functions which may be static class member functions.
 
 The ``cxx2py.py`` tool can be extended to support other C++ features
 such as
