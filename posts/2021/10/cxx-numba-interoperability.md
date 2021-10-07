@@ -96,7 +96,7 @@ such as:
 - etc.
 
 The ``cxx2py.py`` tool uses ``clang++`` to parse C++ header files and
-to build the C/C++ wrapper shared library. It also uses [RBC - Remote
+to build the C/C++ wrapper shared library. It also uses the [RBC - Remote
 Backend Compiler](https://github.com/xnd-project/rbc/) to parse the
 signatures of C++ functions for convenience.
 
