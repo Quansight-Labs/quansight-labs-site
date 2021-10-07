@@ -46,7 +46,7 @@ overloadings as well as other relevant C++ language features. In
 principle, one would be able to call such a C++ library function
 directly from Numba jitted function (using
 [numba.cfunc](https://numba.pydata.org/numba-doc/latest/user/cfunc.html)
-feature) if one would know how the C++ compiler transforms the
+feature) if one would knows how the C++ compiler transforms the
 function name internally . However, the name-mangling algorithm is C++
 compiler vendor dependent, and in practice, it would be hard to
 predict the mangled name in a portable manner.
