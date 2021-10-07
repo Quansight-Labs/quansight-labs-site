@@ -87,7 +87,7 @@ Currently, the supported features in the ``cxx2py.py`` tool include:
 - supporting C++ functions which may be static class member functions.
 
 The ``cxx2py.py`` tool can be extended to support other C++ features
-such as
+such as:
 
 - creating C++ class/struct instances from Python,
 - passing C++ class/struct instances around,
