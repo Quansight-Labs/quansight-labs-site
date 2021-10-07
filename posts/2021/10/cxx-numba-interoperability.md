@@ -29,7 +29,7 @@ objects. For instance, with keeping in mind the aim of this post, a
 call to a Numba jitted function would involve converting a Python
 object to a low-level object, say, to some C/C++ equivalent intrinsic
 type or structure, then converting it back to Python object to be
-passed to the Python/C++ wrapper function, that would convert the
+passed to the Python/C++ wrapper function. Then this wrapper function would convert the
 Python object (again) to an equivalent C/C++ type object which can be
 finally passed to the underlying C++ library function. The return
 value of the C++ function would be transformed several times as well,
