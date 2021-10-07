@@ -39,7 +39,7 @@ overhead of calling otherwise highly efficient C++ library functions
 from Python.
 
 Another difficulty with calling C++ library functions from Numba
-originates from
+originates from the
 [name-mangling](https://en.wikipedia.org/wiki/Name_mangling) that C++
 compilers apply to function names in order to support function/method
 overloadings as well as other relevant C++ language features. In
