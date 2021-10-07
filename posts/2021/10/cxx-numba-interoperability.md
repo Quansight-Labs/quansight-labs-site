@@ -90,7 +90,7 @@ The ``cxx2py.py`` tool can be extended to support other C++ features
 such as:
 
 - creating C++ class/struct instances from Python,
-- passing C++ class/struct instances around,
+- passing C++ class/struct instances to-and-fro between languages,
 - calling the methods of C++ class/struct instances,
 - supporting pointer types as function inputs and return values,
 - etc.
