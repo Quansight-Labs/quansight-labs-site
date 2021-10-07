@@ -22,7 +22,7 @@ functions](https://numba.pydata.org/numba-doc/latest/user/jit.html#compiling-pyt
 ``numpa.jit(nopython=True)``.
 
 While there exist ways to wrap C++ codes to Python, calling these
-wrappers from Numba jittied functions may not be as straightforward
+wrappers from Numba JITied functions is often not as straightforward
 and efficient as one would hope. The underlying problem to inefficency
 is that the Python/C++ wrappers are designed to be called on Python
 objects. For instance, with keeping in mind the aim of this post, a
