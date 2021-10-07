@@ -263,7 +263,7 @@ in foo(7)
 # Summary
 
 In this post, we outlined a method of calling C++ library functions
-from Python with emphasis of using these from Numba jitted functions
+from Python with an emphasis on their usage from Numba compiled functions
 with minimal overhead. While the provided tool
 [cxx2py.py](https://github.com/pearu/pearu.github.io/tree/main/cxx2py/cxx2py.py)
 currently supports only wrapping C++ functions with scalar inputs and
