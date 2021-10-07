@@ -54,7 +54,7 @@ predict the mangled name in a portable manner.
 ## cxx2py.py tool
 
 In this post, we'll introduce a straightforward and efficient method
-of calling C++ library functions from Numba jitted functions that
+of calling C++ library functions from Numba compiled functions that
 circumvents the name-mangling problem. The method is based on
 determining the addresses of C++ library functions at runtime that
 together with functions signatures can be used to set up an highly
