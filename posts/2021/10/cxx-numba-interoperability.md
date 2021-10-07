@@ -274,3 +274,14 @@ as well.
 
 I thank Breno Campos and Guilherme Leobas for discussions and for sharing
 their expertise on the [LLVM Project](https://www.llvm.org/).
+
+# Appendix: A list of Python/C/C++ connectivity tools
+
+- [Boost.Python: C++ library with a IDL-like interface for binding C++ classes and functions to Python](https://www.boost.org/doc/libs/1_75_0/libs/python/doc/html/index.html)
+- [cffi: C Foreign Function Interface for Python](https://cffi.readthedocs.io/en/latest/)
+- [cppyy: Automatic Python-C++ bindings](https://cppyy.readthedocs.io/en/latest/)
+- [Cython: C-Extensions for Python](https://cython.org/)
+- [pybind11: Seamless operability between C++11 and Python](https://pybind11.readthedocs.io/en/latest/)
+- [Python C/API: Extending and Embedding the Python Interpreter](https://docs.python.org/3/extending/index.html)
+- [SIP: Python bindings generator to C or C++ libraries](https://www.riverbankcomputing.com/static/Docs/sip/introduction.html)
+- [SWIG: Simplified Wrapper and Interface Generator](http://www.swig.org/)
