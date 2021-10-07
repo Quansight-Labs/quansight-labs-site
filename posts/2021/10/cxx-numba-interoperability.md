@@ -70,7 +70,7 @@ is provided that auto-generates, from a user-supplied C++ header and
 source files, the C/C++ wrapper library as well as a Python
 [ctypes](https://docs.python.org/3/library/ctypes.html) wrapper
 module. The Python module contains ``ctypes`` definitions of C++
-library functions that Numba jitted functions are able to call
+library functions that Numba compiled functions are able to call
 directly without requiring the expensive object transformations
 mentioned above. An alternative to using ``ctypes`` in the Python
 wrapper module would Numba [Wrapper Address Protocol -
