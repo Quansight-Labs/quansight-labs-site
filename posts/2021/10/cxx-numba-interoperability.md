@@ -272,5 +272,5 @@ as well.
 
 # Acknowledgements
 
-Thanks Breno Campos and Guilherme Leobas for discussions and sharing
+I thank Breno Campos and Guilherme Leobas for discussions and for sharing
 their expertise on the [LLVM Project](https://www.llvm.org/).
