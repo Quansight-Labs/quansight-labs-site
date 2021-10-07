@@ -247,7 +247,7 @@ in ns::ns2::bar(1.200000)
 that is, the C++ library functions can be called directly from Python
 thanks to [ctypes](https://docs.python.org/3/library/ctypes.html)!.
 
-Moreover, the C++ library functions can be called from Numba jitted
+Moreover, the C++ library functions can be called from Numba compiled
 functions. For example:
 ```python
 >>> import numba
