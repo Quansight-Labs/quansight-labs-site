@@ -66,7 +66,7 @@ can be easily called from Python using various techniques, here we use
 
 A Python script
 [cxx2py.py](https://github.com/pearu/pearu.github.io/tree/main/cxx2py/cxx2py.py)
-is provided that auto-generates, from user-supplied C++ header and
+is provided that auto-generates, from a user-supplied C++ header and
 source files, the C/C++ wrapper library as well as a Python
 [ctypes](https://docs.python.org/3/library/ctypes.html) wrapper
 module. The Python module contains ``ctypes`` definitions of C++
