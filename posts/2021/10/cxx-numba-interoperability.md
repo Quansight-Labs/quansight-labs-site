@@ -75,7 +75,7 @@ directly without requiring the expensive and redundant object transformations
 mentioned above. An alternative to using ``ctypes`` in the Python
 wrapper module would be to use the Numba [Wrapper Address Protocol -
 WAP](https://numba.pydata.org/numba-doc/latest/reference/types.html#wrapper-address-protocol-wap)
-that usage should be considered if
+. Its usage should be considered if the 
 [ctypes](https://docs.python.org/3/library/ctypes.html) "C++
 expressiveness" turns out to be insufficient.
 
