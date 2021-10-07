@@ -19,7 +19,7 @@ The aim of this document is to explore a method of calling C++ library
 functions from [Numba](http://numba.pydata.org/) [compiled
 functions](https://numba.pydata.org/numba-doc/latest/user/jit.html#compiling-python-code-with-jit)
 --- Python functions that are decorated with
-``numpa.jit(nopython=True)``.
+``numba.jit(nopython=True)``.
 
 While there exist ways to wrap C++ codes to Python, calling these
 wrappers from Numba compiled functions is often not as straightforward
