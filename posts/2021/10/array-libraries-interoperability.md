@@ -237,18 +237,18 @@ array/tensor libraries, consumer libraries will be able to support more
 than one "array provider" and become truly interoperable.
 
 Since we started by talking about consumer libraries like SciPy, let's
-continue with the same example. We've built a [demo](https://anirudhdagar.ml/array-api-demo/intro.html) around Array API showcasing the use of PyTorch Tensors with
+continue with the same example. We've built a [demo](https://quansight-labs.github.io/array-api-demo/intro.html) around Array API showcasing the use of PyTorch Tensors with
 SciPy.
 
 
 <p align="center">
-	<a href="https://anirudhdagar.ml/array-api-demo/intro.html">
+	<a href="https://quansight-labs.github.io/array-api-demo/intro.html">
 	<img alt="Screenshot of the demo's website" src="/images/2021/10/array_api_demo_screenshot.png">
     <i>Array API Demo</i>
     </a>
 </p>
 
-The [Array API Demo](https://anirudhdagar.ml/array-api-demo/intro.html) walks
+The [Array API Demo](https://quansight-labs.github.io/array-api-demo/intro.html) walks
 you through the details and processes involved to make an array consumer library
 like SciPy more interoperable with array provider libraries. The demo is built
 keeping two different perspectives in mind: an end user, and
@@ -266,7 +266,7 @@ Let's dive into the exact formulation and python code that allows this behaviour
 
 ### get_namespace
 
-The demo shows the implementation of a dummy [`get_namespace`](https://anirudhdagar.ml/array-api-demo/GW_Demo_Array_API.html#get-namespace) method which is the
+The demo shows the implementation of a dummy [`get_namespace`](https://quansight-labs.github.io/array-api-demo/GW_Demo_Array_API.html#get-namespace) method which is the
 first function to be called inside any SciPy method. One can see how it works
 below, simply returning the namespace, which can be used later for calling any
 Array API specified methods.
@@ -328,7 +328,7 @@ We can expect updates and added submodules in a future version of the spec,
 to be released next year.
 
 I'd encourage you to read more details about the
-[demo](https://anirudhdagar.ml/array-api-demo/intro.html) on the tutorial
+[demo](https://quansight-labs.github.io/array-api-demo/intro.html) on the tutorial
 webpage itself.
 
 PyTorch developers have been working hard to improve PyTorch's Array API compliance
@@ -527,11 +527,15 @@ ultimately progress towards the ideal world of interoperable science.
 
 ## What's Next?
 
-I've absolutely enjoyed the Scientific Python Open-Source community and plan
-to continue working on projects including SciPy and PyTorch voluntarily
-going forward.
+At Quansight and the wider PyData community, we've gained a lot of momentum
+and interest towards improving interoperability and extensibility in
+SciPy and scikits. Stay tuned for some interesting updates on this very soon.
 
-More specifically, I plan to work on improving interoperability with other
+On a more personal note, I've absolutely enjoyed the Scientific
+Python Open-Source community and plan to continue working on projects
+including SciPy and PyTorch voluntarily going forward.
+
+Specifically, I plan to work on improving interoperability with other
 libraries in PyTorch with Python Array API compliance, which is aimed for a
 release in `1.11` and also improving NumPy support. There are a lot of
 interesting gaps that are to be filled in the `OpInfo` testing module and in
