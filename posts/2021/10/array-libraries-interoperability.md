@@ -1,7 +1,7 @@
 <!--
 .. title: Array Libraries Interoperability
 .. slug: array-libraries-interoperability
-.. date: 2021-10-04 00:04:54 UTC-00:00
+.. date: 2021-10-09 00:04:54 UTC-00:00
 .. author: Anirudh Dagar
 .. tags: SciPy, PyTorch, NumPy, CuPy, uarray, Array API, internship-2021
 .. category: 
@@ -136,11 +136,11 @@ f, Pxx = welch(x, fs=10e3, nperseg=1024)
 
 Our world would be a better place if we could pass any kind of "array provider"
 object in these consumer libraries and let them do their magic, finally
-spitting out the same "array provider" type as the one in input. Note: All the
+spitting out the same "array provider" type as the one in input. Note that all the
 arguments should be of the same kind.
 
 What if there is a way? What if there are existing ways to achieve this?
-Not kidding, it is possible with recent efforts made towards this direction.
+Not kidding, it is possible with the recent efforts made towards this direction.
 
 ## Protocols for Interoperable Behaviour
 
@@ -150,16 +150,17 @@ understand the protocols making this a reality.
 
 Enter [NEP 18 (`__array_function__` protocol)](https://numpy.org/neps/nep-0018-array-function-protocol.html), which was one of the first
 efforts to address the issue of interoperability in NumPy. In a nutshell,
-NEP 18 allows arguments of NumPy functions to define how that function
+[NEP 18](https://numpy.org/neps/nep-0018-array-function-protocol.html)
+allows arguments of NumPy functions to define how that function
 operates on them. This enables using NumPy as a high level API for
 efficient multi-dimensional array operations, even with array implementations
 that differ greatly from `numpy.ndarray`.
 
-I suggest reading the [NEP](https://numpy.org/neps/nep-0018-array-function-protocol.html)
-itself for detailed understanding, but I'll try to expound the motivation
+I suggest reading the [NEP 18](https://numpy.org/neps/nep-0018-array-function-protocol.html)
+itself for a detailed understanding, but I'll try to expound the motivation
 with a simple example taken from an insightful [talk](https://www.youtube.com/watch?v=HVLPJnvInzM)
 by [Ralf Gommers](https://github.com/rgommers)
-at PyData Amsterdam.
+at PyData Amsterdam 2019.
 
 
 ```python
@@ -183,12 +184,13 @@ x_cupy = cupy.array(x)
 some_func(x_cupy) # Runs on GPU, orders of magnitude fast
 ```
 
-Since NEP 18, there have been a few other protocols like
+Since [NEP 18](https://numpy.org/neps/nep-0018-array-function-protocol.html),
+there have been a few other protocols like
 [NEP 30](https://numpy.org/neps/nep-0030-duck-array-protocol.html#nep30),
 [NEP 35](https://numpy.org/neps/nep-0035-array-creation-dispatch-with-array-function.html)
 and
 [NEP 37](https://numpy.org/neps/nep-0037-array-module.html) endeavouring to
-address some of the issues and shortcomings with NEP 18. Note that these NEPs
+address some of the issues and shortcomings with [NEP 18](https://numpy.org/neps/nep-0018-array-function-protocol.html). Note that these NEPs
 were actually never accepted or implemented.
 
 For the sake of brevity in this blog,
@@ -227,7 +229,7 @@ compliant with the Array API. Doing something like this is extremely easy as
 compared to some other array interoperability protocols taking a much more
 convoluted approach.
 
-The Array API spec mentions a couple of [concrete use cases](https://data-apis.org/array-api/latest/use_cases.html#concrete-use-cases) are:
+The Array API spec mentions a couple of [concrete use cases](https://data-apis.org/array-api/latest/use_cases.html#concrete-use-cases):
 
 * Use case 1: add hardware accelerator and distributed support to SciPy
 * Use case 2: simplify einops by removing the backend system
@@ -252,7 +254,7 @@ The [Array API Demo](https://quansight-labs.github.io/array-api-demo/intro.html)
 you through the details and processes involved to make an array consumer library
 like SciPy more interoperable with array provider libraries. The demo is built
 keeping two different perspectives in mind: an end user, and
-an open-source developer/maintainer looking to incorporate use of the Array API
+an open-source developer/maintainer looking to incorporate the Array API
 within their array consumer library.
 
 The demo showcases the 2017 Nobel prize winning work for Physics about
@@ -312,11 +314,16 @@ This should be possible with the Array API, for the end-user in a
 future release of SciPy and PyTorch.
 
 We made SciPy plus PyTorch work for this very much nontrivial use case,
-which demonstrates the feasibility and power of using the Array API. There are of
-course some issues we ran into, namely:
+which demonstrates the feasibility and power of using the Array API.
+I'd encourage you to read more details about the
+demo on the [tutorial webpage](https://quansight-labs.github.io/array-api-demo/intro.html)
+itself.
 
-- A lack of Array API standards on complex numbers in the upcoming 2021 version
-  `1.0` of the specification compelled us to special case such instances within the
+Given that the Array API standard is still under development, there are some issues
+we ran into, namely:
+
+- A lack of Array API standards on complex numbers in the upcoming 2021 version,
+  `v1.0` of the specification, compelled us to special case such instances within the
   SciPy codebase for PyTorch and NumPy separately.
 - In the current state, the lack of complete Array API compliance in PyTorch
   is another small issue. One example of PyTorch diverging from NumPy and
@@ -327,11 +334,7 @@ complex numbers module in the second release of Array API Specification.
 We can expect updates and added submodules in a future version of the spec,
 to be released next year.
 
-I'd encourage you to read more details about the
-[demo](https://quansight-labs.github.io/array-api-demo/intro.html) on the tutorial
-webpage itself.
-
-PyTorch developers have been working hard to improve PyTorch's Array API compliance
+PyTorch developers have been working hard to improve PyTorch's Array API compliance,
 fixing divergent behaviour. During the development of this prototype demo,
 I was able to identify some gaps in the [current state of Array API in PyTorch](https://github.com/pytorch/pytorch/labels/module%3A%20python%20array%20api)
 and started my journey as a PyTorch contributor.
@@ -339,12 +342,13 @@ and started my journey as a PyTorch contributor.
 
 ### Contributing to PyTorch
 
-Interestingly in the process and effort to make PyTorch
-more [Array API](https://data-apis.org/array-api/latest/) compatible,
+In an effort to make PyTorch
+more [Array API](https://data-apis.org/array-api/latest/) compatible
+and in the process to get the above demo working,
 I started contributing to PyTorch by raising PRs and relevant Issues.
 My first PyTorch PR [#62560](https://github.com/pytorch/pytorch/pull/62560)
-started with adding an alias `torch.concat` for `torch.cat` which is
-how concatenation is defined in the [array api spec](https://data-apis.org/array-api/latest/API_specification/manipulation_functions.html?highlight=concat#concat-arrays-axis-0)
+started with adding an alias `torch.concat` for `torch.cat`, which is
+how concatenation is defined in the [array api spec](https://data-apis.org/array-api/latest/API_specification/manipulation_functions.html?highlight=concat#concat-arrays-axis-0),
 and ended with a bunch of other fixes related to concatenation in PyTorch.
 Later, I worked on improving compatibility for Array API to the `torch.linalg`
 module. See [pytorch/pytorch#63285](https://github.com/pytorch/pytorch/pull/63285)
@@ -514,22 +518,20 @@ Let's highlight some Pros & Cons for these two protocols.
 
 
 These protocols may not be perfect, but, are a big step towards interoperable
-science and bringing the array tensor libraries ecosystem closer together.
+science and bringing the array/tensor libraries ecosystem closer together.
 We'll see iterations and development of new NEPs in the future which will probably
 make array libraries even more interoperable. In essence, open-source communities like
 NumPy putting interoperability as one of the key goals in their
 [roadmap](https://numpy.org/neps/roadmap.html#interoperability) and
 the larger scientific community taking small steps in the right direction is
 ultimately progress towards the ideal world of interoperable science.
-
+At Quansight and the wider PyData community, we've gained a lot of momentum
+and interest towards improving interoperability and extensibility in
+SciPy and Scikits. Stay tuned for some interesting updates on this very soon.
 
 ---
 
 ## What's Next?
-
-At Quansight and the wider PyData community, we've gained a lot of momentum
-and interest towards improving interoperability and extensibility in
-SciPy and scikits. Stay tuned for some interesting updates on this very soon.
 
 On a more personal note, I've absolutely enjoyed the Scientific
 Python Open-Source community and plan to continue working on projects
