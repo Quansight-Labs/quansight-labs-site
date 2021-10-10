@@ -25,7 +25,9 @@ While there exist ways to wrap C++ codes to Python, calling these
 wrappers from Numba compiled functions is often not as straightforward
 and efficient as one would hope. The underlying problem for this inefficiency
 is that the Python/C++ wrappers are designed to be called on Python
-objects. For instance, with keeping in mind the aim of this post, a
+objects.
+<!-- TEASER_END -->
+For instance, with keeping in mind the aim of this post, a
 call to a Numba compiled function would involve converting a Python
 object to a low-level object, say, to some C/C++ equivalent intrinsic
 type or structure, then converting it back to Python object to be
