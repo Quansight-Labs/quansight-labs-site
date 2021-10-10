@@ -278,6 +278,7 @@ their expertise on the [LLVM Project](https://www.llvm.org/).
 - [Boost.Python: C++ library with a IDL-like interface for binding C++ classes and functions to Python](https://www.boost.org/doc/libs/1_75_0/libs/python/doc/html/index.html)
 - [cffi: C Foreign Function Interface for Python](https://cffi.readthedocs.io/en/latest/)
 - [cppyy: Automatic Python-C++ bindings](https://cppyy.readthedocs.io/en/latest/)
+- [ctypes: A foreign function library for Python](https://docs.python.org/3/library/ctypes.html)
 - [Cython: C-Extensions for Python](https://cython.org/)
 - [pybind11: Seamless operability between C++11 and Python](https://pybind11.readthedocs.io/en/latest/)
 - [Python C/API: Extending and Embedding the Python Interpreter](https://docs.python.org/3/extending/index.html)
