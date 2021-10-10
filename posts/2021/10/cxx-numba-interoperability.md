@@ -21,9 +21,10 @@ functions](https://numba.pydata.org/numba-doc/latest/user/jit.html#compiling-pyt
 --- Python functions that are decorated with
 ``numba.jit(nopython=True)``.
 
-While there exist ways to wrap C++ codes to Python, calling these
-wrappers from Numba compiled functions is often not as straightforward
-and efficient as one would hope.
+While there exist [ways to wrap C++ codes to
+Python](#appendix-a-list-of-pythoncc-connectivity-tools), calling
+these wrappers from Numba compiled functions is often not as
+straightforward and efficient as one would hope.
 <!-- TEASER_END -->
 The underlying problem for this inefficiency
 is that the Python/C++ wrappers are designed to be called on Python
