@@ -23,9 +23,7 @@ functions](https://numba.pydata.org/numba-doc/latest/user/jit.html#compiling-pyt
 
 While there exist ways to wrap C++ codes to Python, calling these
 wrappers from Numba compiled functions is often not as straightforward
-and efficient as one would hope.
-<!-- TEASER_END -->
-The underlying problem for this inefficiency
+and efficient as one would hope. The underlying problem for this inefficiency
 is that the Python/C++ wrappers are designed to be called on Python
 objects. For instance, with keeping in mind the aim of this post, a
 call to a Numba compiled function would involve converting a Python
@@ -66,18 +64,18 @@ functions which return the addresses of C++ library functions and
 can be easily called from Python using various techniques, here we use
 [ctypes](https://docs.python.org/3/library/ctypes.html).
 
-A Python script
-[cxx2py.py](https://github.com/pearu/pearu.github.io/tree/main/cxx2py/cxx2py.py)
-is provided that auto-generates, from a user-supplied C++ header and
-source files, the C/C++ wrapper library as well as a Python
+A Python script [cxx2py.py](cxx2py.py) is provided that
+auto-generates, from a user-supplied C++ header and source files, the
+C/C++ wrapper library as well as a Python
 [ctypes](https://docs.python.org/3/library/ctypes.html) wrapper
 module. The Python module contains ``ctypes`` definitions of C++
 library functions that Numba compiled functions are able to call
-directly without requiring the expensive and redundant object transformations
-mentioned above. An alternative to using ``ctypes`` in the Python
-wrapper module would be to use the Numba [Wrapper Address Protocol -
+directly without requiring the expensive and redundant object
+transformations mentioned above. An alternative to using ``ctypes`` in
+the Python wrapper module would be to use the Numba [Wrapper Address
+Protocol -
 WAP](https://numba.pydata.org/numba-doc/latest/reference/types.html#wrapper-address-protocol-wap)
-. Its usage should be considered if the 
+. Its usage should be considered if the
 [ctypes](https://docs.python.org/3/library/ctypes.html) "C++
 expressiveness" turns out to be insufficient.
 
@@ -111,9 +109,8 @@ $ conda create -n cxx2py-demo -c conda-forge numba rbc cxx-compiler clangdev
 $ conda activate cxx2py-demo
 ```
 
-We assume that the
-[cxx2py.py](https://github.com/pearu/pearu.github.io/tree/main/cxx2py/cxx2py.py)
-script is copied to the current working directory and is functional:
+We assume that the [cxx2py.py](cxx2py.py) script is copied to the
+current working directory and is functional:
 ```bash
 $ python cxx2py.py --help
 usage: cxx2py.py [-h] [-m MODULENAME] [--clang-exe CLANG_EXE]
@@ -196,10 +193,9 @@ $ ls *libfoo*
 cxx2py_libfoo.cpp  libcxx2py_libfoo.so  libfoo.py
 ```
 
-Notice that the generated
-[cxx2py_libfoo.cpp](https://github.com/pearu/pearu.github.io/tree/main/cxx2py/cxx2py_libfoo.cpp)
-file contains light-weight C functions for returning the addresses of
-C++ functions:
+Notice that the generated [cxx2py_libfoo.cpp](cxx2py_libfoo.cpp) file
+contains light-weight C functions for returning the addresses of C++
+functions:
 ```c++
 #include <memory>
 #include <cstdint>
@@ -226,9 +222,7 @@ extern "C" intptr_t get_ns__BarCls__fun_address() {
 The ``cxx2py_libfoo.cpp`` file is built into the shared library
 ``libcxx2py_libfoo.so`` when ``--build`` flag is used.
 
-Let's test the wrapper module
-[libfoo](https://github.com/pearu/pearu.github.io/tree/main/cxx2py/libfoo.py)
-in Python:
+Let's test the wrapper module [libfoo](libfoo.py) in Python:
 ```bash
 $ export LD_LIBRARY_PATH=.  # this makes sure that ctypes is able to find the shared library
 ```
@@ -265,12 +259,11 @@ in foo(7)
 # Summary
 
 In this post, we outlined a method of calling C++ library functions
-from Python with an emphasis on their usage from Numba compiled functions
-with minimal overhead. While the provided tool
-[cxx2py.py](https://github.com/pearu/pearu.github.io/tree/main/cxx2py/cxx2py.py)
-currently supports only wrapping C++ functions with scalar inputs and
-return values, it can be easily extended to support other C++ features
-as well.
+from Python with an emphasis on their usage from Numba compiled
+functions with minimal overhead. While the provided tool
+[cxx2py.py](cxx2py.py) currently supports only wrapping C++ functions
+with scalar inputs and return values, it can be easily extended to
+support other C++ features as well.
 
 # Acknowledgements
 
