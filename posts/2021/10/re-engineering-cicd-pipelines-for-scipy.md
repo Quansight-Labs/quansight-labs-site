@@ -1,12 +1,12 @@
 <!--
 .. title: Re-Engineering CI/CD pipelines for SciPy
 .. slug: re-engineering-cicd-pipelines-for-scipy
-.. date: 2021-09-29 05:51:58 UTC-05:00
+.. date: 2021-10-11 02:51:58 UTC-05:00
 .. author: Harsh Mishra
 .. tags: SciPy, cicd, github-actions, internship-2021
-.. category: 
-.. link: 
-.. description: 
+.. category:
+.. link:
+.. description:
 .. type: text
 .. previewimage: /images/2021/10/re-engineering-cicd-pipelines-for-scipyre-engineering-ci-cd-scipy.png
 -->
