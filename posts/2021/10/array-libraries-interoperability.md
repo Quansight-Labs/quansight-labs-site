@@ -1,12 +1,12 @@
 <!--
 .. title: Array Libraries Interoperability
 .. slug: array-libraries-interoperability
-.. date: 2021-10-09 00:04:54 UTC-00:00
+.. date: 2021-10-11 10:04:54 UTC-00:00
 .. author: Anirudh Dagar
 .. tags: SciPy, PyTorch, NumPy, CuPy, uarray, Array API, internship-2021
-.. category: 
-.. link: 
-.. description: 
+.. category:
+.. link:
+.. description:
 .. type: text
 .. previewimage: /images/2021/10/ninja_arrays.png
 -->
@@ -47,7 +47,7 @@ couple of years. The reason simply is due to this extra saccharinity
 along with some other machine learning specific modules
 (`torch.nn`, `torch.optim` etc.) it has to offer. A few eminent
 array/tensor libraries include [`CuPy`](https://github.com/cupy/cupy),
-[`Tensorflow`](https://github.com/tensorflow/tensorflow),
+[`TensorFlow`](https://github.com/tensorflow/tensorflow),
 [`MXNet`](https://github.com/apache/incubator-mxnet/),
 [`JAX`](https://github.com/google/jax) etc.
 
@@ -57,12 +57,12 @@ Libraries like [`SciPy`](https://github.com/scipy/scipy),
 [`scikit-learn`](https://github.com/scikit-learn/scikit-learn),
 [`einops`](https://github.com/arogozhnikov/einops) etc. are built on top of
 these "array providers" and they integrate specific features through their
-own methods which conventionally ingest these array provider libraries as their
-arguments. We'll refer to these set of libraries as **"array consumer"**
-libraries.
+own methods which conventionally ingest arrays from these array provider
+libraries as their arguments. We'll refer to these set of libraries as **"array
+consumer"** libraries.
 
 
-## What's the catch? 
+## What's the catch?
 
 The pain now is that an extremely stable and popular consumer library
 like SciPy is cut off from the sweet features which the new array/tensor
@@ -72,7 +72,7 @@ underlying project is built on top of say PyTorch, they are left alone
 at sea.
 
 Say we wanted to use a provider library other than NumPy, but with SciPy
-(or similar) library. After some thought, one may end up choosing
+(or a similar library). After some thought, one may end up choosing
 either of the following options:
 
 1. Somehow convert their array/tensors into NumPy arrays,
@@ -87,7 +87,7 @@ either of the following options:
 	but not behave exactly the same.
 
 
-Also, the APIs (function signatures) for these "array providers" can 
+Also, the APIs (function signatures) for these "array providers" can
 be different, which is a problem in itself. Imagine a
 scientist who has experience using NumPy for about 10 years. When they
 move into the PyTorch ecosystem, they are still doing a lot of similar
@@ -95,7 +95,7 @@ computations, but now will need to learn a new API.
 
 
 <p align="center">
-	<img 
+	<img
      alt="Comic depicting the happy relationship between NumPy and SciPy, and
      how envious other array/tensor libraries are of it."
      src="/images/2021/10/array_wonderland.JPG"
@@ -145,10 +145,10 @@ Not kidding, it is possible with the recent efforts made towards this direction.
 ## Protocols for Interoperable Behaviour
 
 Now that the problem and motivation is clear, let's dive into the
-technicalities involved in array libraries interoperability and 
+technicalities involved in array libraries interoperability and
 understand the protocols making this a reality.
 
-Enter [NEP 18 (`__array_function__` protocol)](https://numpy.org/neps/nep-0018-array-function-protocol.html), which was one of the first
+Enter the [NEP 18 (`__array_function__` protocol)](https://numpy.org/neps/nep-0018-array-function-protocol.html), which was one of the first
 efforts to address the issue of interoperability in NumPy. In a nutshell,
 [NEP 18](https://numpy.org/neps/nep-0018-array-function-protocol.html)
 allows arguments of NumPy functions to define how that function
@@ -205,7 +205,7 @@ Before I start describing Python Array API in the context of this blog,
 I urge you to read:
 
 1. [Announcing the consortium](https://data-apis.org/blog/announcing_the_consortium/)
-2. [First release of the Array API Standard](https://data-apis.org/blog/array_api_standard_release/) 
+2. [First release of the Array API Standard](https://data-apis.org/blog/array_api_standard_release/)
 
 These two official blogs from the [Consortium for Python Data API Standards](https://data-apis.org/) describe the API, giving a high level overview of its existence.
 
@@ -220,7 +220,7 @@ a = xp.arange(3)
 b = xp.ones(3)
 
 c = a + b
-``` 
+```
 
 Probably the only changes involved for a NumPy end user to
 support PyTorch would be to update the import statements and refactor
@@ -259,12 +259,12 @@ within their array consumer library.
 
 The demo showcases the 2017 Nobel prize winning work for Physics about
 [LIGO-Virgo detector noise and extraction of transient gravitational-wave signals](https://inspirehep.net/literature/1751757).
-The original tutorial ([collab link](https://colab.research.google.com/github/losc-tutorial/Data_Guide/blob/master/Guide_Notebook.ipynb)) was built using NumPy, SciPy,
-and Matplotlib. 
+The original tutorial ([Colab link](https://colab.research.google.com/github/losc-tutorial/Data_Guide/blob/master/Guide_Notebook.ipynb)) was built using NumPy, SciPy,
+and Matplotlib.
 But, instead of using NumPy arrays we switch to a PyTorch based
 implementation with minimal changes in the codebase.
 
-Let's dive into the exact formulation and python code that allows this behaviour.
+Let's dive into the exact formulation and Python code that allows this behaviour.
 
 ### get_namespace
 
@@ -348,13 +348,13 @@ and in the process to get the above demo working,
 I started contributing to PyTorch by raising PRs and relevant Issues.
 My first PyTorch PR [#62560](https://github.com/pytorch/pytorch/pull/62560)
 started with adding an alias `torch.concat` for `torch.cat`, which is
-how concatenation is defined in the [array api spec](https://data-apis.org/array-api/latest/API_specification/manipulation_functions.html?highlight=concat#concat-arrays-axis-0),
+how concatenation is defined in the [Array API spec](https://data-apis.org/array-api/latest/API_specification/manipulation_functions.html?highlight=concat#concat-arrays-axis-0),
 and ended with a bunch of other fixes related to concatenation in PyTorch.
-Later, I worked on improving compatibility for Array API to the `torch.linalg`
+Later, I worked on improving compatibility for the Array API in the `torch.linalg`
 module. See [pytorch/pytorch#63285](https://github.com/pytorch/pytorch/pull/63285)
 and [pytorch/pytorch#63227](https://github.com/pytorch/pytorch/pull/63227).
 
-As mentioned earlier, you can track the progress on PyTorch's github repo with
+As mentioned earlier, you can track the progress on PyTorch's GitHub repo with
 the label
 ["module: python array api"](https://github.com/pytorch/pytorch/labels/module%3A%20python%20array%20api) to check out other interesting developments.
 
@@ -365,9 +365,9 @@ pure Python + NumPy code can leverage the Array API standard. But, for other
 modules like `scipy.fft`, `scipy.ndimage`, `scipy.special` etc. where one
 encounters compiled code, there is a need for an array library and a hardware
 specific implementation, and hence from SciPy we need to be able to
-access and use those. This is where uarray walks in. A more detailed
-explanation can be found in the [section](#protocol_differences)
-highlighting the differences between Array API and uarray.
+access and use those. This is where uarray comes in. A more detailed
+explanation can be found in [the section below](#protocol_differences)
+highlighting the differences between the Array API and uarray.
 
 
 ## uarray
@@ -375,7 +375,7 @@ highlighting the differences between Array API and uarray.
 uarray is a backend system for Python that allows you to separately define
 an API, along with backends that contain separate implementations of that API.
 
-I've been working on adding uarray backend support to more SciPy modules. 
+I've been working on adding uarray backend support to more SciPy modules.
 
 <p align="center">
 	<a href="https://github.com/scipy/scipy/issues/14353">
@@ -387,20 +387,20 @@ I've been working on adding uarray backend support to more SciPy modules.
 The uarray backend compatibility tracker issue linked above sums up
 the plan and current state of uarray in SciPy.
 
-Precisely I've been working on adding uarray support in the
+I've been working on adding uarray support in the
 [`scipy.ndimage`](https://github.com/scipy/scipy/tree/master/scipy/ndimage) module
 for the last couple of months.
 See [scipy/scipy#14356](https://github.com/scipy/scipy/pull/14356) for more
 details on the discussions.
 
-With the `ndimage` supporting `uarray` backend soon, one would be able to
+With `ndimage` supporting `uarray` backends soon, one will be able to
 achieve the following in the future:
 
 ```python
 # SciPy ndimage with CuPy array
 from scipy import ndimage
 import cupy as cp
- 
+
 with scipy.ndimage.set_backend('cupy'):
     y_cupy = ndimage.correlate1d(cp.arange(10),
                                  cp.array([1, 2.5]))
@@ -423,7 +423,7 @@ are directly or indirectly connected to uarray.
 <h2 id="protocol_differences"> All ☀️ & 🌈?</h2>
 
 As they say, nothing is perfect on the human stage, both uarray and
-Array API also have their limitations.
+the Array API also have their limitations.
 
 \*\*\*_Wears interoperability hat again_\*\*\*
 
@@ -462,7 +462,7 @@ Let's highlight some Pros & Cons for these two protocols.
 	  </li>
 	  <li>
 	  	Supports ability to coerce/convert inputs and wrapping other arrays
-	  	using `__ua_convert__` protocol.
+	  	using the `__ua_convert__` protocol.
 	  </li>
 	</ul>
   	<p align="left">
@@ -476,9 +476,9 @@ Let's highlight some Pros & Cons for these two protocols.
 	  <li>
 	  	The dispatching mechanism is not implicit. The user is required to register
 	    the backend before they can use the array library of their choice. See
-	    the 
+	    the
 	    <a href="https://github.com/scipy/scipy/issues/14266">scipy/scipy#14266</a>
-	    issue for auto registering the backend.
+	    issue for auto-registering backends.
 	  </li>
 	</ul>
   </div>
@@ -504,11 +504,11 @@ Let's highlight some Pros & Cons for these two protocols.
 	</p>
 	<ul>
 	  <li>
-	  	Can't handle compiled code, works only for pure python and array provider 
+	  	Can't handle compiled code, works only for pure Python and array provider
 	  	based code in consumer library methods.
 	  </li>
 	  <li>
-	  	Not all functions are covered in the Array API Spec, which may be a blocker
+	  	Not all functions are covered in the Array API spec, which may be a blocker
 	  	if the consumer library method utilizes a function outside of Array API's
 	  	scope.
 	  </li>
@@ -517,7 +517,7 @@ Let's highlight some Pros & Cons for these two protocols.
 </div>
 
 
-These protocols may not be perfect, but, are a big step towards interoperable
+These protocols may not be perfect, but are a big step towards interoperable
 science and bringing the array/tensor libraries ecosystem closer together.
 We'll see iterations and development of new NEPs in the future which will probably
 make array libraries even more interoperable. In essence, open-source communities like
@@ -525,7 +525,7 @@ NumPy putting interoperability as one of the key goals in their
 [roadmap](https://numpy.org/neps/roadmap.html#interoperability) and
 the larger scientific community taking small steps in the right direction is
 ultimately progress towards the ideal world of interoperable science.
-At Quansight and the wider PyData community, we've gained a lot of momentum
+At Quansight and in the wider PyData community, we've gained a lot of momentum
 and interest towards improving interoperability and extensibility in
 SciPy and Scikits. Stay tuned for some interesting updates on this very soon.
 
@@ -539,7 +539,7 @@ including SciPy and PyTorch voluntarily going forward.
 
 Specifically, I plan to work on improving interoperability with other
 libraries in PyTorch with Python Array API compliance, which is aimed for a
-release in `1.11` and also improving NumPy support. There are a lot of
+release in `1.11`, and also on improving NumPy support. There are a lot of
 interesting gaps that are to be filled in the `OpInfo` testing module and in
 general trying to catch a few bugs through the improved testing framework.
 With the recent migration to `Structured Kernels`, I also plan to help out
@@ -563,13 +563,13 @@ accelerating some of the modules with the experimental Pythran support. It
 would be interesting to explore further possibilities with `Pythran`.
 
 * A more personal goal is to learn and contribute more towards SciPy's `Cython`,
-`C Python API` and in general Python bindings code. I plan to pick
-up relevant issues and also contribute to that half of the codebase in SciPy.
+`CPython API-using`, and in general Python bindings code. I plan to pick
+up relevant issues and also contribute to that part of the codebase in SciPy.
 
 
 ---
 
-I end my blog here and hope you learnt a few new things about array libraries
+I end my blog here and hope you learnt a few new things about array library
 interoperability. Feel free to check out my non-technical blog post, where
 I talk about my experience as an Intern at Quansight, ["Why Quansight is so Awesome?"](https://anirudhdagar.ml/Quansight_Experience/).
 
@@ -577,7 +577,7 @@ I talk about my experience as an Intern at Quansight, ["Why Quansight is so Awes
 
 Special thanks to my mentor, [Ralf Gommers](https://github.com/rgommers),
 who has been extremely helpful and positive everytime I felt lost. Thank you for
-taking all my questions and doubts repeatedly, and still being so responsive and 
+taking all my questions and doubts repeatedly, and still being so responsive and
 thorough with your answers. I'm grateful to your support and guidance.
 
 I feel fortunate contributing back to impactful libraries like PyTorch and
