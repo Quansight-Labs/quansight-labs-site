@@ -1,7 +1,7 @@
 <!--
 .. title: Array Libraries Interoperability
 .. slug: array-libraries-interoperability
-.. date: 2021-10-11 10:04:54 UTC-00:00
+.. date: 2021-10-13 10:04:54 UTC-00:00
 .. author: Anirudh Dagar
 .. tags: SciPy, PyTorch, NumPy, CuPy, uarray, Array API, internship-2021
 .. category:
@@ -115,7 +115,7 @@ Life is hard, ain't it! But as Rocky Balboa said:
 > "NumPy, CuPy, PyTorch or SciPy is not gonna hit as hard as all of them
 >  when used together. But it ain't about finding a way to use them
 >  individually; it's about making them work together.
->  That's how interoperable science is done." ~ ([actual quote :P](https://youtu.be/8xFEqdkO5UI?t=13))
+>  That's how Data Science is done." ~ ([actual quote :P](https://youtu.be/8xFEqdkO5UI?t=13))
 
 OK sorry, that's just me using Rocky's motivational lines to make a point.
 To define the issue more concretely, the question is: can we do something like
@@ -271,7 +271,8 @@ Let's dive into the exact formulation and Python code that allows this behaviour
 The demo shows the implementation of a dummy [`get_namespace`](https://quansight-labs.github.io/array-api-demo/GW_Demo_Array_API.html#get-namespace) method which is the
 first function to be called inside any SciPy method. One can see how it works
 below, simply returning the namespace, which can be used later for calling any
-Array API specified methods.
+Array API specified methods. See the `csd` toy example function below to understand
+`get_namespace` usage.
 
 ```python
 def get_namespace(*xs):
@@ -298,6 +299,7 @@ def get_namespace(*xs):
     return xp
 
 
+# representative example of how to use get_namespace
 def csd(x, y, fs=1.0, window='hann', nperseg=None, noverlap=None, nfft=None,
 		detrend='constant', return_onesided=True, scaling='density', axis=-1,
 		average='mean'):
@@ -517,14 +519,14 @@ Let's highlight some Pros & Cons for these two protocols.
 </div>
 
 
-These protocols may not be perfect, but are a big step towards interoperable
-science and bringing the array/tensor libraries ecosystem closer together.
+These protocols may not be perfect, but are a big step towards interoperability
+and bringing the array/tensor libraries ecosystem closer together.
 We'll see iterations and development of new NEPs in the future which will probably
 make array libraries even more interoperable. In essence, open-source communities like
 NumPy putting interoperability as one of the key goals in their
 [roadmap](https://numpy.org/neps/roadmap.html#interoperability) and
 the larger scientific community taking small steps in the right direction is
-ultimately progress towards the ideal world of interoperable science.
+ultimately progress towards the ideal world of array library interoperability.
 At Quansight and in the wider PyData community, we've gained a lot of momentum
 and interest towards improving interoperability and extensibility in
 SciPy and Scikits. Stay tuned for some interesting updates on this very soon.
@@ -540,9 +542,10 @@ including SciPy and PyTorch voluntarily going forward.
 Specifically, I plan to work on improving interoperability with other
 libraries in PyTorch with Python Array API compliance, which is aimed for a
 release in `1.11`, and also on improving NumPy support. There are a lot of
-interesting gaps that are to be filled in the `OpInfo` testing module and in
-general trying to catch a few bugs through the improved testing framework.
-With the recent migration to `Structured Kernels`, I also plan to help out
+interesting gaps that are to be filled in the
+[`OpInfo`](https://github.com/pytorch/pytorch/issues/54261) testing module and
+in general trying to catch a few bugs through the improved testing framework.
+With the recent migration to [`Structured Kernels`](https://github.com/pytorch/rfcs/blob/rfc-0005/RFC-0005-structured-kernel-definitions.md), I also plan to help out
 with porting of some Ops to `structured`.
 
 PyTorch is a project that I really love and have been a user for a long time,
@@ -570,8 +573,9 @@ up relevant issues and also contribute to that part of the codebase in SciPy.
 ---
 
 I end my blog here and hope you learnt a few new things about array library
-interoperability. Feel free to check out my non-technical blog post, where
-I talk about my experience as an Intern at Quansight, ["Why Quansight is so Awesome?"](https://anirudhdagar.ml/Quansight_Experience/).
+interoperability. Feel free to check out my non-technical blog post titled
+["Why Quansight is Awesome!"](https://anirudhdagar.ml/Quansight_Experience/),
+where I talk about my experience as an Intern at Quansight.
 
 ## Acknowledgements
 
