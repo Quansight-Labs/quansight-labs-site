@@ -28,12 +28,12 @@ This is a dataframe library very much like `pandas` which operates on the GPU in
 
 ### Motivations for the Interchange dataframe protocol
 Let's start by a concrete use case. To set the stage, recall that there are many dataframe libraries out there: [pandas](https://pandas.pydata.org/), [vaex](https://vaex.io/), [modin](https://modin.readthedocs.io/en/latest/), [dask](https://dask.org/)/[cudf-dask](https://docs.rapids.ai/api/cudf/stable/dask-cudf.html), etc... Each one has its strengths and weaknesses. For example, vaex allows you to work with bigger than memory (RAM) datasets on a laptop, dask allows you to distribute computation across processes and cluster nodes and cudf-dask is its GPU counterpart.
-Suppose you have a **300 Go** datasets on your laptop and want to get some insights about it. A typical workflow can be:
+Suppose you have a **300 GB** datasets on your laptop and want to get some insights about it. A typical workflow can be:
 ```python
 import vaex
 # run some exploratory data analysis (EDA)
 import dask, cudf
-# take a sample of 3 Go
+# take a sample of 3 GB
 # run some operations with dask, then cudf and compare performance. 
 ```
 
@@ -86,7 +86,7 @@ So each library supporting the protocol should implement these 3 interfaces that
 
 - **Buffer** has methods to describe the contiguous block of memory of the column data i.e device (GPU, CPU, ...), memory address, size, etc...
 
-For more details, please have a look at [python code of the protocol interfaces](https://github.com/data-apis/dataframe-api/blob/main/protocol/dataframe_protocol.py) and [design concepts](https://github.com/data-apis/dataframe-api/blob/main/protocol/design_requirements.md).
+For more details, please have a look at [Python code of the protocol interfaces](https://github.com/data-apis/dataframe-api/blob/main/protocol/dataframe_protocol.py) and [design concepts](https://github.com/data-apis/dataframe-api/blob/main/protocol/design_requirements.md).
 
 ### What is expected from cudf implementation
 
@@ -171,10 +171,10 @@ Checked elements in the table below represent implemented features so far.
 
  <br/>
 
-We're still working on the `string` support. Note that we support CPU dataframe like pandas but since the protocol has not been integrated in pandas repo, we can only test it locally. 
+We're still working on the `string` support. Note that we support CPU dataframes like pandas but since the protocol has not been integrated in the pandas repo, we can only test it locally. 
 We've submitted this work as a [Pull Request](https://github.com/rapidsai/cudf/pull/9071) still under review, to rapidsai/cudf github repo.
 
-Now, let's walkthrough some codes to see the protocol in action.
+Now, let's walk through some codes to see the protocol in action.
 We start by creating a cudf dataframe object with columns named after supported dtypes:
 
 ```python
@@ -236,7 +236,7 @@ for n, c in zip(dfo.column_names(), dfo.get_columns()):
     categorical		      3		 (<_DtypeKind.CATEGORICAL: 23>, 8, '|u1', '=')
     
 
-How about buffers ? We will examine those of the 'float' column:
+How about buffers? We will examine those of the 'float' column:
 ```python
 fcol = dfo.get_column_by_name('float')
 buffers = fcol.get_buffers()
@@ -253,7 +253,7 @@ for k in buffers:
     
 We can notice the column dtype `<_DtypeKind.FLOAT: 2>` from the data buffer and the dtype of the validity mask which is always`<_DtypeKind.UINT: 1>` here. Finally there is no `offset` buffer as it is reserved to variable-length data like string.
 
-Let's retrieve data and validity arrays from their buffers using the [dlpack protocol](https://github.com/dmlc/dlpack) and compare with the column itself:
+Let's retrieve data and validity arrays from their buffers using the [DLPack protocol](https://github.com/dmlc/dlpack) and compare with the column itself:
 ```python
 data_buffer = fcol.get_buffers()['data'][0]
 validity_buffer = fcol.get_buffers()['validity'][0]
@@ -275,7 +275,7 @@ print(f'validity: {validity}')
     data: [ 0.   2.5  0.  10. ]
     validity: [0 1 0 1]
 
-Comparing the float column and the data, we see that values are similar except `<NA>` in the column correspond to `0` in the data array. In fact, at the buffer level, we encode missing values by a 'sentinel value' which is 0 here. This is where the validity array comes into play. Together with the data array, we are able to rebuild the column with missing values in their exact places. How ? 0s in the validity array indicates places or indexes of missing values in the data and 1s indicates valid/non-missing values.
+Comparing the float column and the data, we see that values are similar except `<NA>` in the column correspond to `0` in the data array. In fact, at the buffer level, we encode missing values by a 'sentinel value' which is 0 here. This is where the validity array comes into play. Together with the data array, we are able to rebuild the column with missing values in their exact places. How? 0s in the validity array indicates places or indexes of missing values in the data and 1s indicates valid/non-missing values.
 All this work is done by a helper function `_from_dataframe` which builds up an entire cudf dataframe from an interchange dataframe object:
 
 ```python
@@ -312,17 +312,18 @@ We just went over a roundtrip demo from a cudf dataframe to the interchange data
 ### Diversity advantage
 Many studies show the benefits and better performance of diverse teams. My experience in this project was the [`CONTRIBUTING.md`](https://github.com/rapidsai/cudf/blob/branch-21.08/CONTRIBUTING.md)(old version) document on the repository which was very unclear for me as a newcomer. Following my mentors' advice (@Ralf and @Kshiteej), I've opened an issue where I've shared my thoughts and kept asking clarifications which ended up in a (merged) [PR](https://github.com/rapidsai/cudf/pull/9026) to restructure the [`CONTRIBUTING.md`](https://github.com/rapidsai/cudf/blob/branch-21.12/CONTRIBUTING.md) (current version) document to make it clearer.
 
-Thus, a diversity of levels(experts, new comers, etc...) ensures an inclusive environment where everyone can find his way easily.
+Thus, a diversity of levels (experts, newcomers, etc...) ensures an inclusive environment where everyone can find their way easily.
 
 ### Test Driven Development (TDD)
 This process has been very helpful during this project. I've noticed my slowness on days where I've started developing features before writing any test. I kept going back and forth in the code base to ensure the coherence of different pieces of code written for that feature. However, when writing tests I felt the possibility to express all my expectations across different test cases then writing code for each one at a time. In this process, I felt like the tests pointed out next place on the code base where they might be something wrong. 
 
 ### Collaboration, speaking out is very helpful
-Sometimes when stumble upon a problem, just speaking out or sharing the problem to someone else opens your eyes to a possible solution. This happens to me countless when discussing with my mentor @Kshiteej and my colleague @Alenka whose project is very close to mine. Otherwise, external inputs combined with ours will definitely be better than ours alone. 
+Sometimes, when stumbling upon a problem, just speaking out or sharing the problem to someone else opens your eyes to a possible solution. This happened to me countless times when discussing with my mentor @Kshiteej and my colleague @Alenka whose project is very close to mine. Otherwise, external inputs combined with ours will definitely be better than ours alone. 
 
 ### Patience and Perseverence
 
 It is well known that configuring and installing drivers to work with GPU is not an easy task. During this internship I've been rebuilding the cudf library many times and encountered multiple issues. I came up with a recipe which is: 
+
 - seek help after around 40 minutes of debugging even if you have more ideas to try. 
 - When asking for help, do share what you've tried and other ideas to try. 
 
