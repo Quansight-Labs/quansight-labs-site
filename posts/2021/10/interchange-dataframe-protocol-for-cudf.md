@@ -310,7 +310,7 @@ We just went over a roundtrip demo from a cudf dataframe to the interchange data
 ## Lessons learned on the go
 
 ### Diversity advantage
-Many studies show the benefits and better performance of diverse teams. My experience in this project was the [`CONTRIBUTING.md`](https://github.com/rapidsai/cudf/blob/branch-21.08/CONTRIBUTING.md)(old version) document on the repository which was very unclear for me as a newcomer. Following my mentors' advice (@Ralf and @Kshiteej), I've opened an issue where I've shared my thoughts and kept asking clarifications which ended up in a (merged) [PR](https://github.com/rapidsai/cudf/pull/9026) to restructure the [`CONTRIBUTING.md`](https://github.com/rapidsai/cudf/blob/branch-21.12/CONTRIBUTING.md) (current version) document to make it clearer.
+Many studies show the benefits and better performance of diverse teams. My experience in this project was the [`CONTRIBUTING.md`](https://github.com/rapidsai/cudf/blob/branch-21.08/CONTRIBUTING.md)(old version) document on the repository which was very unclear for me as a newcomer. Following my mentors' advice ([Kshiteej Kalambarkar](https://github.com/kshitij12345) and [Ralf Gommers](https://github.com/rgommers)), I've opened an issue where I've shared my thoughts and kept asking clarifications which ended up in a (merged) [PR](https://github.com/rapidsai/cudf/pull/9026) to restructure the [`CONTRIBUTING.md`](https://github.com/rapidsai/cudf/blob/branch-21.12/CONTRIBUTING.md) (current version) document to make it clearer.
 
 Thus, a diversity of levels (experts, newcomers, etc...) ensures an inclusive environment where everyone can find their way easily.
 
