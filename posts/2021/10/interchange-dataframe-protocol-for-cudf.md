@@ -114,13 +114,16 @@ Let's recap the protocol main features to be implemented in `cuDF`:
     <td>uint8</td>
     <td>string</td>
     <td>CPU</td>
-    <td></td>
+    <td>-</td>
     <td>multiple</td>
 
   </tr>
   <tr>
     <td>float</td>
     <td>datetime</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
   </tr>
   <br/>
 </table> 
@@ -153,18 +156,25 @@ Checked elements in the table below represent implemented features so far.
   </tr>
   <tr>
     <td><input type="checkbox" disabled="disabled" checked="checked"> uint8</td>
-    <td><input type="checkbox" disabled="disabled"> string</td>
+    <td><input type="checkbox" disabled="disabled" checked="checked"> string</td>
     <td><input type="checkbox" disabled="disabled" checked="checked"> CPU</td>
-    <td></td>
+    <td>-</td>
     <td><input type="checkbox" disabled="disabled" > multiple</td>
 
   </tr>
   <tr>
     <td> <input type="checkbox" disabled="disabled" checked="checked"> float</td>
     <td><input type="checkbox" disabled="disabled"> datetime</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
   </tr>
   <tr>
     <td> <input type="checkbox" disabled="disabled" checked="checked"> bool</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
   </tr>
   <br/>
 </table> 
