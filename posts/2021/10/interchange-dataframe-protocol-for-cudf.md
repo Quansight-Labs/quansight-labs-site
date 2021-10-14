@@ -47,7 +47,7 @@ Along the way, we should load the dataset many times. Or more commonly, we use t
 
 That's where the protocol comes into play. The dataframe protocol is the interface that specifies a common representation of dataframes and thus restores the broken dependency inversion design pattern. 
 
-So now, we will have a kind of `to_dataframe`/`from_dataframe` that allows us to go from a  dataframe object of a given library(supporting the protocol) to the protocol dataframe object which is a safe path to preserve library specific features. Also the protocol enforces zero-copy as much as possible which gets us rid of the possible memory overhead mentioned.
+So now, we will have a kind of `to_dataframe`/`from_dataframe` that allows us to go from a  dataframe object of a given library (supporting the protocol) to the protocol dataframe object which is a safe path to preserve library specific features. Also the protocol enforces zero-copy as much as possible which gets us rid of the possible memory overhead mentioned.
 
 
 <br/>
