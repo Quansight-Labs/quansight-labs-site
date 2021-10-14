@@ -13,7 +13,7 @@
 Hey there, 
 
 this Ismaël Koné from Côte d'Ivoire (Ivory Coast). I am a fan of open source software. 
-In the next lines, I'll try to capture my experience at Quansight Labs as an intern working on the `cuDF` implementation of an interchange dataframe protocol.
+In the next lines, I'll try to capture my experience at Quansight Labs as an intern working on the `cuDF` implementation of the interchange dataframe protocol.
 
 ## Presentation of the work to be done
 
@@ -34,7 +34,7 @@ import vaex
 # run some exploratory data analysis (EDA)
 import dask, cudf
 # take a sample of 3 GB
-# run some operations with dask, then cudf and compare performance. 
+# run some operations with Dask, then cuDF and compare performance. 
 ```
 
 Along the way, we should load the dataset many times. Or more commonly, we use the pair `to_pandas`/`from_pandas` to move from one dataframe library to another. Outcomes of these practices are:
@@ -74,7 +74,7 @@ The interchange dataframe protocol interface is in fact a composition of interfa
     <img
      alt="A composition of the 3 interfaces forming the dataframe interchange protocol: `_CuDFDataFrame` has 1 or more `_CuDFColumn` which in turn has 1 or more `_CuDFBuffer` "
      src="/images/2021/10/dataframe-api-cudf/protocol_interfaces.jpg">
-    <i>Composition of the interchange dataframe protocol interfaces</i>
+    <i>Composition of the interchange dataframe protocol interfaces. Cardinality on links means "has 1 or more" the pointed Interface</i>
 </p>
 <br/>
                
@@ -88,7 +88,7 @@ So each library supporting the protocol should implement these 3 interfaces that
 
 For more details, please have a look at [Python code of the protocol interfaces](https://github.com/data-apis/dataframe-api/blob/main/protocol/dataframe_protocol.py) and [design concepts](https://github.com/data-apis/dataframe-api/blob/main/protocol/design_requirements.md).
 
-### What is expected from cudf implementation
+### What is expected from cuDF implementation
 
 Let's recap the protocol main features to be implemented in `cuDF`:
 
@@ -130,7 +130,7 @@ Let's recap the protocol main features to be implemented in `cuDF`:
 
  <br/>
 
-The above table shows that we should support the interchange dataframe protocol for cudf dataframes with column of various dtypes (simple and complex) and handle their missing values. Although, we aim at supporting data on GPU which is the case for cuDF, we ...
+The above table shows different features of the interchange dataframe protocol that that should be supported. In particular, we must support cuDF dataframes with column of various dtypes (simple and complex) and handle their missing values. Similarly, we must support dataframes from different devices like CPU as well.
 
 ## What has been done or milestones
 
@@ -185,7 +185,7 @@ We're still working on the `string` support. Note that we support CPU dataframes
 We've submitted this work as a [Pull Request](https://github.com/rapidsai/cudf/pull/9071) still under review, to rapidsai/cudf github repo.
 
 Now, let's walk through some codes to see the protocol in action.
-We start by creating a cudf dataframe object with columns named after supported dtypes:
+We start by creating a cuDF dataframe object with columns named after supported dtypes:
 
 ```python
 import cudf
@@ -238,7 +238,7 @@ for n, c in zip(dfo.column_names(), dfo.get_columns()):
 
     <cudf.core.df_protocol._CuDFDataFrame object at 0x7ff90ac10ca0>: 4 rows
     Column name	 Non-Null Count				    Dtype
-    -----------	 --------------				    -----
+    	 				    
     int			          3		 (<_DtypeKind.INT: 0>, 64, '<i8', '=')
     uint8			      4		 (<_DtypeKind.UINT: 1>, 8, '|u1', '|')
     float			      2		 (<_DtypeKind.FLOAT: 2>, 64, '<f8', '=')
@@ -286,7 +286,7 @@ print(f'validity: {validity}')
     validity: [0 1 0 1]
 
 Comparing the float column and the data, we see that values are similar except `<NA>` in the column correspond to `0` in the data array. In fact, at the buffer level, we encode missing values by a 'sentinel value' which is 0 here. This is where the validity array comes into play. Together with the data array, we are able to rebuild the column with missing values in their exact places. How? 0s in the validity array indicates places or indexes of missing values in the data and 1s indicates valid/non-missing values.
-All this work is done by a helper function `_from_dataframe` which builds up an entire cudf dataframe from an interchange dataframe object:
+All this work is done by a helper function `_from_dataframe` which builds up an entire cuDF dataframe from an interchange dataframe object:
 
 ```python
 from cudf.core.df_protocol import _from_dataframe
@@ -313,7 +313,7 @@ print(f'df\n--\n{df}')
     3  <NA>     25  10.0   True        <NA>
 
 
-We just went over a roundtrip demo from a cudf dataframe to the interchange dataframe object. Then we saw how to build a cudf dataframe object from the interchange dataframe object. Along the way, we've checked the integrity of the data.
+We just went over a roundtrip demo from a cuDF dataframe to the interchange dataframe object. Then we saw how to build a cuDF dataframe object from the interchange dataframe object. Along the way, we've checked the integrity of the data.
 
 
 
@@ -328,17 +328,17 @@ Thus, a diversity of levels (experts, newcomers, etc...) ensures an inclusive en
 This process has been very helpful during this project. I've noticed my slowness on days where I've started developing features before writing any test. I kept going back and forth in the code base to ensure the coherence of different pieces of code written for that feature. However, when writing tests I felt the possibility to express all my expectations across different test cases then writing code for each one at a time. In this process, I felt like the tests pointed out next place on the code base where they might be something wrong. 
 
 ### Collaboration, speaking out is very helpful
-Sometimes, when stumbling upon a problem, just speaking out or sharing the problem to someone else opens your eyes to a possible solution. This happened to me countless times when discussing with my mentor @Kshiteej and my colleague @Alenka whose project is very close to mine. Otherwise, external inputs combined with ours will definitely be better than ours alone. 
+Sometimes, when stumbling upon a problem, just speaking out or sharing the problem to someone else opens your eyes to a possible solution. This happened to me countless times when discussing with my mentor [Kshiteej Kalambarkar](https://github.com/kshitij12345) and my colleague [Alenka Frim] (https://github.com/AlenkaF/) whose project is very close to mine. Otherwise, external inputs combined with ours will definitely be better than ours alone. 
 
 ### Patience and Perseverence
 
-It is well known that configuring and installing drivers to work with GPU is not an easy task. During this internship I've been rebuilding the cudf library many times and encountered multiple issues. I came up with a recipe which is: 
+It is well known that configuring and installing drivers to work with GPU is not an easy task. During this internship I've been rebuilding the cuDF library many times and encountered multiple issues. I came up with a recipe which is: 
 
 - seek help after around 40 minutes of debugging even if you have more ideas to try. 
 - When asking for help, do share what you've tried and other ideas to try. 
 
 Speaking out can reveal some gaps as previously mentioned.
-When something is missing, make an attempt to fix it. If it went well, that'll be a contribution. That happened to me when trying to unpack bits with `bitorder='little'` as in `numpy`, using `cupy` or `cudf`. I've ended up submitting a (merged) [Pull Request to cupy](https://github.com/cupy/cupy/pull/5765).
+When something is missing, make an attempt to fix it. If it went well, that'll be a contribution. That happened to me when trying to unpack bits with `bitorder='little'` as in `numpy`, using `cuPy` instead. I've ended up submitting a (merged) [Pull Request to cuPy](https://github.com/cupy/cupy/pull/5765).
 
 ## Final words
 I am:
