@@ -27,7 +27,7 @@ Let's start by motivating this project through details about: **cuDF** and the *
 This is a dataframe library very much like `pandas` which operates on the GPU in order to benefit from its computing power. For more details about cuDF, please take a look at: [https://rapids.ai/](https://rapids.ai/) and [https://github.com/rapidsai/cudf](https://github.com/rapidsai/cudf).
 
 ### Motivations for the Interchange dataframe protocol
-Let's start by a concrete use case. To set the stage, recall that there are many dataframe libraries out there: [pandas](https://pandas.pydata.org/), [vaex](https://vaex.io/), [modin](https://modin.readthedocs.io/en/latest/), [dask](https://dask.org/)/[cudf-dask](https://docs.rapids.ai/api/cudf/stable/dask-cudf.html), etc... Each one has its strength and weakness. For example vaex allows you to work with bigger than memory (RAM) datasets on a laptop, dask allows you to distribute computation across processes and cluster nodes and cudf-dask is its GPU counterpart.
+Let's start by a concrete use case. To set the stage, recall that there are many dataframe libraries out there: [pandas](https://pandas.pydata.org/), [vaex](https://vaex.io/), [modin](https://modin.readthedocs.io/en/latest/), [dask](https://dask.org/)/[cudf-dask](https://docs.rapids.ai/api/cudf/stable/dask-cudf.html), etc... Each one has its strengths and weaknesses. For example, vaex allows you to work with bigger than memory (RAM) datasets on a laptop, dask allows you to distribute computation across processes and cluster nodes and cudf-dask is its GPU counterpart.
 Suppose you have a **300 Go** datasets on your laptop and want to get some insights about it. A typical workflow can be:
 ```python
 import vaex
