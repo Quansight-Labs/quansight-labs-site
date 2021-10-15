@@ -229,15 +229,14 @@ Now, we create the interchange protocol dataframe object and check that basic in
 ```python
 dfo =  df.__dataframe__()
 print(f'{dfo}: {dfo.num_rows()} rows')
-print('Column name\t Non-Null Count\t\t\t\t    Dtype')
-print('-----------\t --------------\t\t\t\t    -----')
+print('Column name\t Non-Null Count\t\t\t\t    Dtype\n')
 for n, c in zip(dfo.column_names(), dfo.get_columns()): 
     print(f'{n}\t\t\t      {int(c.size - c.null_count)}\t\t\t{c.dtype}')
 ```
 **output**:
 
     <cudf.core.df_protocol._CuDFDataFrame object at 0x7ff90ac10ca0>: 4 rows
-    Column name	 Non-Null Count				    Dtype
+    Column      Non-Null Count				   Dtype
     	 				    
     int			          3		 (<_DtypeKind.INT: 0>, 64, '<i8', '=')
     uint8			      4		 (<_DtypeKind.UINT: 1>, 8, '|u1', '|')
@@ -328,7 +327,7 @@ Thus, a diversity of levels (experts, newcomers, etc...) ensures an inclusive en
 This process has been very helpful during this project. I've noticed my slowness on days where I've started developing features before writing any test. I kept going back and forth in the code base to ensure the coherence of different pieces of code written for that feature. However, when writing tests I felt the possibility to express all my expectations across different test cases then writing code for each one at a time. In this process, I felt like the tests pointed out next place on the code base where they might be something wrong. 
 
 ### Collaboration, speaking out is very helpful
-Sometimes, when stumbling upon a problem, just speaking out or sharing the problem to someone else opens your eyes to a possible solution. This happened to me countless times when discussing with my mentor [Kshiteej Kalambarkar](https://github.com/kshitij12345) and my colleague [Alenka Frim] (https://github.com/AlenkaF/) whose project is very close to mine. Otherwise, external inputs combined with ours will definitely be better than ours alone. 
+Sometimes, when stumbling upon a problem, just speaking out or sharing the problem to someone else opens your eyes to a possible solution. This happened to me countless times when discussing with my mentor [Kshiteej Kalambarkar](https://github.com/kshitij12345) and my colleague [Alenka Frim](https://github.com/AlenkaF/) whose project is very close to mine. Otherwise, external inputs combined with ours will definitely be better than ours alone. 
 
 ### Patience and Perseverence
 
