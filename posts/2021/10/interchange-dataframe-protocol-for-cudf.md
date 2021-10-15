@@ -61,7 +61,7 @@ So now, we will have a kind of `to_dataframe`/`from_dataframe` that allows us to
 
 
 One of the main benefits is that each dataframe library can evolve independently as long as the interface contract specification is followed and we are free from any dataframe library dependency as is the case with pandas.
-For more details about the purpose and scope of the protocol, please take a look [here](https://github.com/data-apis/dataframe-api/blob/main/protocol/purpose_and_scope.md)
+For more details about the purpose and scope of the protocol, please take a look [at the DataFrame API documentation](https://github.com/data-apis/dataframe-api/blob/main/protocol/purpose_and_scope.md).
 
 
 ### A brief description of the protocol dataframe interface
