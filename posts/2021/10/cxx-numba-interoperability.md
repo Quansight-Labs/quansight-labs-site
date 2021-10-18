@@ -1,7 +1,7 @@
 <!--
 .. title: An efficient method of calling C++ functions from numba using clang++/ctypes/rbc
 .. slug: cxx-numba-interoperability
-.. date: 2021-10-07 10:30:58
+.. date: 2021-10-19 09:00:00
 .. author: Pearu Peterson
 .. tags: Numba, C++, Python, ctypes, RBC
 .. category:
