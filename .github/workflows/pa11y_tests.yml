@@ -47,6 +47,17 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-
 
+    - name: Build site
+      continue-on-error: true
+      run: nikola build
+
+    - name: Upload site
+      continue-on-error: true
+      uses: actions/upload-artifact@v2
+      with:
+        name: labs-site
+        path: output/
+
     - name: Check site a11y
       continue-on-error: true
       run: |
