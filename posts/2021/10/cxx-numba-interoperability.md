@@ -11,10 +11,6 @@
 -->
 
 
-# An efficient method of calling C++ functions from numba/Python using clang++/ctypes/rbc
-
-## Introduction
-
 The aim of this document is to explore a method of calling C++ library
 functions from [Numba](http://numba.pydata.org/) [compiled
 functions](https://numba.pydata.org/numba-doc/latest/user/jit.html#compiling-python-code-with-jit)
