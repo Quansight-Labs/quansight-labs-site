@@ -1,7 +1,7 @@
 <!--
 .. title: Interchange dataframe protocol: cuDF implementation
 .. slug: data-apis-cudf
-.. date: 2021-10-05 16:10:00 UTC+00:00
+.. date: 2021-10-21 09:00:00 UTC+00:00
 .. author: Ismaël Koné
 .. tags: dataframe protocol, cuDF
 .. category:
