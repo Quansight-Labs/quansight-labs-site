@@ -39,7 +39,7 @@ Along the way, we load the dataset many times. We use the pair `to_pandas`/`from
 
 - possible memory overhead
 
-- no guarantee that all features are preserved during the conversion from/to pandas
+- no guarantee that all features are preserved during the conversion **from/to pandas**
 
 - high coupling with `pandas` that breaks an important software design pattern: [Dependency Inversion Principle (DIP)](https://en.wikipedia.org/wiki/Dependency_inversion_principle) which promotes dependencies at the abstract layers (interface) over the implementation layer.
 
@@ -194,7 +194,8 @@ import cupy as cp
 data = {'int': [1000, 2, 300, None], 
         'uint8': cp.array([0, 128, 255, 25], dtype=cp.uint8),
         'float': [None, 2.5, None, 10],
-        'bool': [True, None, False, True]}
+        'bool': [True, None, False, True],
+        'string': ['hello', '', None, 'always TDD.']}
         
 df = cudf.DataFrame(data)
 df['categorical'] = df['int'].astype('category')
@@ -205,45 +206,49 @@ print(f'{df} \n\n'); df.info()
 ```
 **output**:
 
-        int  uint8 float   bool categorical
-    0  1000      0  <NA>   True        1000
-    1     2    128   2.5   <NA>           2
-    2   300    255  <NA>  False         300
-    3  <NA>     25  10.0   True        <NA> 
+        int  uint8 float   bool       string categorical
+    0  1000      0  <NA>   True        hello        1000
+    1     2    128   2.5   <NA>                        2
+    2   300    255  <NA>  False         <NA>         300
+    3  <NA>     25  10.0   True  always TDD.        <NA>
 
 
     <class 'cudf.core.dataframe.DataFrame'>
     RangeIndex: 4 entries, 0 to 3
-    Data columns (total 5 columns):
-     #   Column       Non-Null Count  Dtype
+    Data columns (total 6 columns):
+    #   Column       Non-Null Count  Dtype
     ---  ------       --------------  -----
-     0   int          3 non-null      int64
-     1   uint8        4 non-null      uint8
-     2   float        2 non-null      float64
-     3   bool         3 non-null      bool
-     4   categorical  3 non-null      category
-    dtypes: bool(1), category(1), float64(1), int64(1), uint8(1)
-    memory usage: 356.0 bytes
+    0   int          3 non-null      int64
+    1   uint8        4 non-null      uint8
+    2   float        2 non-null      float64
+    3   bool         3 non-null      bool
+    4   string       3 non-null      object
+    5   categorical  3 non-null      category
+    dtypes: bool(1), category(1), float64(1), int64(1), object(1), uint8(1)
+    memory usage: 393.0+ bytes
+
 
 
 Now, we create the dataframe interchange protocol object to check that basic information like number of rows, column names and dtypes are accurate:
 ```python
 dfo =  df.__dataframe__()
-print(f'{dfo}: {dfo.num_rows()} rows')
-print('Column name\t Non-Null Count\t\t\t\t    Dtype\n')
+print(f'{dfo}: {dfo.num_rows()} rows\n')
+print('Column\t Non-Null Count\t\t\t\t\t    Dtype\n')
 for n, c in zip(dfo.column_names(), dfo.get_columns()): 
-    print(f'{n}\t\t\t      {int(c.size - c.null_count)}\t\t\t{c.dtype}')
+    print(f'{n}\t\t      {int(c.size - c.null_count)}\t\t{c.dtype}')
 ```
 **output**:
 
-    <cudf.core.df_protocol._CuDFDataFrame object at 0x7ff90ac10ca0>: 4 rows
-    Column      Non-Null Count				   Dtype
-    	 				    
-    int			          3		 (<_DtypeKind.INT: 0>, 64, '<i8', '=')
-    uint8			      4		 (<_DtypeKind.UINT: 1>, 8, '|u1', '|')
-    float			      2		 (<_DtypeKind.FLOAT: 2>, 64, '<f8', '=')
-    bool			      3		 (<_DtypeKind.BOOL: 20>, 8, '|b1', '|')
-    categorical		      3		 (<_DtypeKind.CATEGORICAL: 23>, 8, '|u1', '=')
+    <cudf.core.df_protocol._CuDFDataFrame object at 0x7f3edee0d8e0>: 4 rows
+
+    Column	 Non-Null Count					                Dtype
+
+    int	                  3		(<_DtypeKind.INT: 0>, 64, '<i8', '=')
+    uint8	              4		(<_DtypeKind.UINT: 1>, 8, '|u1', '|')
+    float	              2		(<_DtypeKind.FLOAT: 2>, 64, '<f8', '=')
+    bool	              3		(<_DtypeKind.BOOL: 20>, 8, '|b1', '|')
+    string	              3		(<_DtypeKind.STRING: 21>, 8, 'u', '=')
+    categorical	          3		(<_DtypeKind.CATEGORICAL: 23>, 8, '|u1', '=')
     
 
 How about buffers? We will examine those of the 'float' column:
@@ -298,19 +303,19 @@ print(f'df\n--\n{df}')
 
     rebuilt df
     ----------
-        int  uint8 float   bool categorical
-    0  1000      0  <NA>   True        1000
-    1     2    128   2.5   <NA>           2
-    2   300    255  <NA>  False         300
-    3  <NA>     25  10.0   True        <NA>
+        int  uint8 float   bool       string categorical
+    0  1000      0  <NA>   True        hello        1000
+    1     2    128   2.5   <NA>                        2
+    2   300    255  <NA>  False         <NA>         300
+    3  <NA>     25  10.0   True  always TDD.        <NA>
 
     df
     --
-        int  uint8 float   bool categorical
-    0  1000      0  <NA>   True        1000
-    1     2    128   2.5   <NA>           2
-    2   300    255  <NA>  False         300
-    3  <NA>     25  10.0   True        <NA>
+        int  uint8 float   bool       string categorical
+    0  1000      0  <NA>   True        hello        1000
+    1     2    128   2.5   <NA>                        2
+    2   300    255  <NA>  False         <NA>         300
+    3  <NA>     25  10.0   True  always TDD.        <NA>
 
 
 We just went over a roundtrip demo from a cuDF dataframe to the dataframe interchange object. Then we saw how to build a cuDF dataframe object from the dataframe interchange object. Along the way, we've checked the integrity of the data.
