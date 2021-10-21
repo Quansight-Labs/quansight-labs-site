@@ -1,5 +1,5 @@
 <!--
-.. title: Interchange dataframe protocol: cuDF implementation
+.. title: Dataframe interchange protocol: cuDF implementation
 .. slug: data-apis-cudf
 .. date: 2021-10-21 09:00:00 UTC+00:00
 .. author: Ismaël Koné
@@ -10,25 +10,23 @@
 .. type: text
 -->
 
-Hey there, 
+This Ismaël Koné from Côte d'Ivoire (Ivory Coast). I am a fan of open source software. 
+In the next lines, I'll try to capture my experience at Quansight Labs as an intern working on the `cuDF` implementation of the Dataframe interchange protocol.
 
-this Ismaël Koné from Côte d'Ivoire (Ivory Coast). I am a fan of open source software. 
-In the next lines, I'll try to capture my experience at Quansight Labs as an intern working on the `cuDF` implementation of the interchange dataframe protocol.
-
-## Presentation of the work to be done
-
-Let's start by motivating this project through details about: **cuDF** and the **interchange dataframe protocol**.
+We'll continue by motivating this project through details about: **cuDF** and the **Dataframe interchange protocol**.
 
 <!-- TEASER_END -->
 
 
-### cuDF
+## cuDF - RAPIDS GPU Dataframes
 
-This is a dataframe library very much like `pandas` which operates on the GPU in order to benefit from its computing power. For more details about cuDF, please take a look at: [https://rapids.ai/](https://rapids.ai/) and [https://github.com/rapidsai/cudf](https://github.com/rapidsai/cudf).
+`cuDF` is a dataframe library very much like `pandas` which operates on the GPU in order to benefit from its computing power. For more details about `cuDF`, please take a look at: [https://rapids.ai/](https://rapids.ai/) and [https://github.com/rapidsai/cudf](https://github.com/rapidsai/cudf).
 
-### Motivations for the Interchange dataframe protocol
-Let's start by a concrete use case. To set the stage, recall that there are many dataframe libraries out there: [pandas](https://pandas.pydata.org/), [vaex](https://vaex.io/), [modin](https://modin.readthedocs.io/en/latest/), [dask](https://dask.org/)/[cudf-dask](https://docs.rapids.ai/api/cudf/stable/dask-cudf.html), etc... Each one has its strengths and weaknesses. For example, vaex allows you to work with bigger than memory (RAM) datasets on a laptop, dask allows you to distribute computation across processes and cluster nodes and cudf-dask is its GPU counterpart.
+
+To set the stage, recall that there are many dataframe libraries out there like: [`pandas`](https://pandas.pydata.org/), [`vaex`](https://vaex.io/), [`modin`](https://modin.readthedocs.io/en/latest/), [`dask`](https://dask.org/)/[cudf-dask](https://docs.rapids.ai/api/cudf/stable/dask-cudf.html). Each one has its strengths and weaknesses. For example, `vaex` allows you to work with bigger than memory (RAM) datasets on a laptop, `dask` allows you to distribute computation across processes and cluster nodes and `cudf-dask` is its GPU counterpart.
+
 Suppose you have a **300 GB** datasets on your laptop and want to get some insights about it. A typical workflow can be:
+
 ```python
 import vaex
 # run some exploratory data analysis (EDA)
@@ -37,7 +35,7 @@ import dask, cudf
 # run some operations with Dask, then cuDF and compare performance. 
 ```
 
-Along the way, we should load the dataset many times. Or more commonly, we use the pair `to_pandas`/`from_pandas` to move from one dataframe library to another. Outcomes of these practices are:
+Along the way, we load the dataset many times. We use the pair `to_pandas`/`from_pandas` to move from one dataframe library to another. Challenges arise with this practice:
 
 - possible memory overhead
 
@@ -45,28 +43,28 @@ Along the way, we should load the dataset many times. Or more commonly, we use t
 
 - high coupling with `pandas` that breaks an important software design pattern: [Dependency Inversion Principle (DIP)](https://en.wikipedia.org/wiki/Dependency_inversion_principle) which promotes dependencies at the abstract layers (interface) over the implementation layer.
 
-That's where the protocol comes into play. The dataframe protocol is the interface that specifies a common representation of dataframes and thus restores the broken dependency inversion design pattern. 
+The dataframe protocol comes into play as the interface specifying a common representation of dataframes and thus restores the broken dependency inversion design pattern. 
 
-So now, we will have a kind of `to_dataframe`/`from_dataframe` that allows us to go from a  dataframe object of a given library (supporting the protocol) to the protocol dataframe object which is a safe path to preserve library specific features. Also the protocol enforces zero-copy as much as possible which gets us rid of the possible memory overhead mentioned.
+The dataframe interchange will have `to_dataframe`/`from_dataframe` methods that allows us to go from a  dataframe object of a given library (supporting the protocol) to the protocol dataframe object which is a safe path to preserve library specific features. Also, the protocol enforces zero-copy as much as possible which gets us rid of the possible memory overhead mentioned.
 
 
 <br/>
 <p align="center">
     <img
-     alt="On the left, we have the interoperability between dataframe libraries through `pandas` which is a implementation dependency. On the right, we have the interoperability through the interchange dataframe API which an abstract dependency"
+     alt="On the left, we have the interoperability between dataframe libraries through `pandas` which is a implementation dependency. On the right, we have the interoperability through the Dataframe interchange API which an abstract dependency"
      src="/images/2021/10/dataframe-api-cudf/design_comparison.jpg">
-    <i>Design comparison without and with the interchange dataframe protocol API </i>
+    <i>Design comparison without and with the Dataframe interchange protocol API </i>
 </p>
 <br/>
 
 
-One of the main benefits is that each dataframe library can evolve independently as long as the interface contract specification is followed and we are free from any dataframe library dependency as is the case with pandas.
+One of the main benefits of libraries complying with the dataframe interchange is that each library can evolve independently as long as the interface contract specification is followed and we are free from any dataframe library dependency as is the case with pandas.
 For more details about the purpose and scope of the protocol, please take a look [at the DataFrame API documentation](https://github.com/data-apis/dataframe-api/blob/main/protocol/purpose_and_scope.md).
 
 
-### A brief description of the protocol dataframe interface
+## A brief description of the dataframe interchange protocol
 
-The interchange dataframe protocol interface is in fact a composition of interfaces:
+The dataframe interchange protocol is in fact a composition of interfaces:
 
 <br/>
 
@@ -74,7 +72,7 @@ The interchange dataframe protocol interface is in fact a composition of interfa
     <img
      alt="A composition of the 3 interfaces forming the dataframe interchange protocol: `_CuDFDataFrame` has 1 or more `_CuDFColumn` which in turn has 1 or more `_CuDFBuffer` "
      src="/images/2021/10/dataframe-api-cudf/protocol_interfaces.jpg">
-    <i>Composition of the interchange dataframe protocol interfaces. Cardinality on links means "has 1 or more" the pointed Interface</i>
+    <i>Composition of the dataframe interchange protocol interfaces. Cardinality on links means "has 1 or more" the pointed Interface</i>
 </p>
 <br/>
                
@@ -88,7 +86,7 @@ So each library supporting the protocol should implement these 3 interfaces that
 
 For more details, please have a look at [Python code of the protocol interfaces](https://github.com/data-apis/dataframe-api/blob/main/protocol/dataframe_protocol.py) and [design concepts](https://github.com/data-apis/dataframe-api/blob/main/protocol/design_requirements.md).
 
-### What is expected from cuDF implementation
+### What is expected from `cuDF`   interface implementation
 
 Let's recap the protocol main features to be implemented in `cuDF`:
 
@@ -130,9 +128,9 @@ Let's recap the protocol main features to be implemented in `cuDF`:
 
  <br/>
 
-The above table shows different features of the interchange dataframe protocol that that should be supported. In particular, we must support cuDF dataframes with column of various dtypes (simple and complex) and handle their missing values. Similarly, we must support dataframes from different devices like CPU as well.
+The above table shows different features of the dataframe interchange protocol that that should be supported. In particular, we must support cuDF dataframes with column of various dtypes (simple and complex) and handle their missing values. Similarly, we must support dataframes from different devices like CPU as well.
 
-## What has been done or milestones
+### Progress on the `cuDF` dataframe interchange protocol
 
 Checked elements in the table below represent implemented features so far.
 
@@ -184,8 +182,11 @@ Checked elements in the table below represent implemented features so far.
 We're still working on the `string` support. Note that we support CPU dataframes like pandas but since the protocol has not been integrated in the pandas repo, we can only test it locally. 
 We've submitted this work as a [Pull Request](https://github.com/rapidsai/cudf/pull/9071) still under review, to rapidsai/cudf github repo.
 
-Now, let's walk through some codes to see the protocol in action.
+#### Working `cuDF` code examples
+
+We'll walk through a code example to the protocol in action as we round trip between `pandas` and `cuDF`.
 We start by creating a cuDF dataframe object with columns named after supported dtypes:
+
 
 ```python
 import cudf
@@ -225,7 +226,7 @@ print(f'{df} \n\n'); df.info()
     memory usage: 356.0 bytes
 
 
-Now, we create the interchange protocol dataframe object and check that basic information like number of rows, column names and dtypes are accurate:
+Now, we create the dataframe interchange protocol object to check that basic information like number of rows, column names and dtypes are accurate:
 ```python
 dfo =  df.__dataframe__()
 print(f'{dfo}: {dfo.num_rows()} rows')
@@ -285,7 +286,7 @@ print(f'validity: {validity}')
     validity: [0 1 0 1]
 
 Comparing the float column and the data, we see that values are similar except `<NA>` in the column correspond to `0` in the data array. In fact, at the buffer level, we encode missing values by a 'sentinel value' which is 0 here. This is where the validity array comes into play. Together with the data array, we are able to rebuild the column with missing values in their exact places. How? 0s in the validity array indicates places or indexes of missing values in the data and 1s indicates valid/non-missing values.
-All this work is done by a helper function `_from_dataframe` which builds up an entire cuDF dataframe from an interchange dataframe object:
+All this work is done by a helper function `_from_dataframe` which builds up an entire cuDF dataframe from an dataframe interchange object:
 
 ```python
 from cudf.core.df_protocol import _from_dataframe
@@ -312,11 +313,11 @@ print(f'df\n--\n{df}')
     3  <NA>     25  10.0   True        <NA>
 
 
-We just went over a roundtrip demo from a cuDF dataframe to the interchange dataframe object. Then we saw how to build a cuDF dataframe object from the interchange dataframe object. Along the way, we've checked the integrity of the data.
+We just went over a roundtrip demo from a cuDF dataframe to the Dataframe interchange object. Then we saw how to build a cuDF dataframe object from the Dataframe interchange object. Along the way, we've checked the integrity of the data.
 
 
 
-## Lessons learned on the go
+## Lessons learned 
 
 ### Diversity advantage
 Many studies show the benefits and better performance of diverse teams. My experience in this project was the [`CONTRIBUTING.md`](https://github.com/rapidsai/cudf/blob/branch-21.08/CONTRIBUTING.md)(old version) document on the repository which was very unclear for me as a newcomer. Following my mentors' advice ([Kshiteej Kalambarkar](https://github.com/kshitij12345) and [Ralf Gommers](https://github.com/rgommers)), I've opened an issue where I've shared my thoughts and kept asking clarifications which ended up in a (merged) [PR](https://github.com/rapidsai/cudf/pull/9026) to restructure the [`CONTRIBUTING.md`](https://github.com/rapidsai/cudf/blob/branch-21.12/CONTRIBUTING.md) (current version) document to make it clearer.
@@ -339,13 +340,12 @@ It is well known that configuring and installing drivers to work with GPU is not
 Speaking out can reveal some gaps as previously mentioned.
 When something is missing, make an attempt to fix it. If it went well, that'll be a contribution. That happened to me when trying to unpack bits with `bitorder='little'` as in `numpy`, using `cuPy` instead. I've ended up submitting a (merged) [Pull Request to cuPy](https://github.com/cupy/cupy/pull/5765).
 
-## Final words
-I am:
+## Final Thanks and Gratitude
 
-- very grateful to the team that works hard to bring up these internships in particular to my mentors [Kshiteej Kalambarkar](https://github.com/kshitij12345) and [Ralf Gommers](https://github.com/rgommers) as well as [Ashwin Srinath](https://github.com/shwina) from [rapidsai/cudf](https://github.com/rapidsai/cudf);
+- I'm very grateful to the team that works hard to bring up these internships in particular to my mentors [Kshiteej Kalambarkar](https://github.com/kshitij12345) and [Ralf Gommers](https://github.com/rgommers) as well as [Ashwin Srinath](https://github.com/shwina) from [rapidsai/cudf](https://github.com/rapidsai/cudf);
 
-- very glad to take part of this 1st cohort of interns at Quansight Labs;
+- I'm very glad to take part of this 1st cohort of interns at Quansight Labs;
 
-- very happy be part of this warm and welcoming environment;
+- I'm very happy be part of this warm and welcoming environment;
 
-- proud of what this environment helps me achieve. 
+- I'm proud of what this environment helps me achieve. 
