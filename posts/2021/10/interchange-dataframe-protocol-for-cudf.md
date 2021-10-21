@@ -11,9 +11,9 @@
 -->
 
 This Ismaël Koné from Côte d'Ivoire (Ivory Coast). I am a fan of open source software. 
-In the next lines, I'll try to capture my experience at Quansight Labs as an intern working on the `cuDF` implementation of the Dataframe interchange protocol.
+In the next lines, I'll try to capture my experience at Quansight Labs as an intern working on the `cuDF` implementation of the dataframe interchange protocol.
 
-We'll continue by motivating this project through details about: **cuDF** and the **Dataframe interchange protocol**.
+We'll continue by motivating this project through details about: **cuDF** and the **dataframe interchange protocol**.
 
 <!-- TEASER_END -->
 
@@ -51,9 +51,9 @@ The dataframe interchange will have `to_dataframe`/`from_dataframe` methods that
 <br/>
 <p align="center">
     <img
-     alt="On the left, we have the interoperability between dataframe libraries through `pandas` which is a implementation dependency. On the right, we have the interoperability through the Dataframe interchange API which an abstract dependency"
+     alt="On the left, we have the interoperability between dataframe libraries through `pandas` which is a implementation dependency. On the right, we have the interoperability through the dataframe interchange API which an abstract dependency"
      src="/images/2021/10/dataframe-api-cudf/design_comparison.jpg">
-    <i>Design comparison without and with the Dataframe interchange protocol API </i>
+    <i>Design comparison without and with the dataframe interchange protocol API </i>
 </p>
 <br/>
 
@@ -313,7 +313,7 @@ print(f'df\n--\n{df}')
     3  <NA>     25  10.0   True        <NA>
 
 
-We just went over a roundtrip demo from a cuDF dataframe to the Dataframe interchange object. Then we saw how to build a cuDF dataframe object from the Dataframe interchange object. Along the way, we've checked the integrity of the data.
+We just went over a roundtrip demo from a cuDF dataframe to the dataframe interchange object. Then we saw how to build a cuDF dataframe object from the dataframe interchange object. Along the way, we've checked the integrity of the data.
 
 
 
