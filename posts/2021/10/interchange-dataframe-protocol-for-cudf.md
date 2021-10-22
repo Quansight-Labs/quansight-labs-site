@@ -10,7 +10,7 @@
 .. type: text
 -->
 
-This Ismaël Koné from Côte d'Ivoire (Ivory Coast). I am a fan of open source software. 
+This is Ismaël Koné from Côte d'Ivoire (Ivory Coast). I am a fan of open source software. 
 In the next lines, I'll try to capture my experience at Quansight Labs as an intern working on the `cuDF` implementation of the dataframe interchange protocol.
 
 We'll continue by motivating this project through details about **cuDF** and the **dataframe interchange protocol**.
