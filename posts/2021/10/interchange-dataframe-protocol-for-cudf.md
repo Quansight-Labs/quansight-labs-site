@@ -72,7 +72,7 @@ The dataframe interchange protocol is in fact a composition of interfaces:
     <img
      alt="A composition of the 3 interfaces forming the dataframe interchange protocol: `_CuDFDataFrame` has 1 or more `_CuDFColumn` which in turn has 1 or more `_CuDFBuffer` "
      src="/images/2021/10/dataframe-api-cudf/protocol_interfaces.jpg">
-    <i>Composition of the dataframe interchange protocol interfaces. Cardinality on links means "has 1 or more" the pointed Interface</i>
+    <i>Composition of the dataframe interchange protocol interfaces. Cardinality on links means "has 1 or more" of the Interfaces mentioned.</i>
 </p>
 <br/>
                
