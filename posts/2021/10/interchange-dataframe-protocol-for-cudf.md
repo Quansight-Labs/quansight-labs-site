@@ -182,7 +182,7 @@ Checked elements in the table below represent implemented features so far.
 We're still working on the `string` support. Note that we support CPU dataframes like pandas but since the protocol has not been integrated in the pandas repo, we can only test it locally. 
 We've submitted this work as a [Pull Request](https://github.com/rapidsai/cudf/pull/9071) still under review, to rapidsai/cudf github repo.
 
-#### Working `cuDF` code examples
+<h4>Working <code>cuDF</code> code examples</h4>
 
 We'll walk through a code example to the protocol in action as we round trip between `pandas` and `cuDF`.
 We start by creating a cuDF dataframe object with columns named after supported dtypes:
