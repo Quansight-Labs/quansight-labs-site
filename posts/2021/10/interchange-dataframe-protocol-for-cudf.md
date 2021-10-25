@@ -39,13 +39,11 @@ Along the way, we load the dataset many times. We use the pair `to_pandas`/`from
 
 - possible memory overhead
 
-- no guarantee that all features are preserved during the conversion **from/to pandas**
-
 - high coupling with `pandas` that breaks an important software design pattern: [Dependency Inversion Principle (DIP)](https://en.wikipedia.org/wiki/Dependency_inversion_principle) which promotes dependencies at the abstract layers (interface) over the implementation layer.
 
 The dataframe protocol comes into play as the interface specifying a common representation of dataframes and thus restores the broken dependency inversion design pattern. 
 
-The dataframe interchange will have `to_dataframe`/`from_dataframe` methods that allows us to go from a  dataframe object of a given library (supporting the protocol) to the protocol dataframe object which is a safe path to preserve library specific features. Also, the protocol enforces zero-copy as much as possible which gets us rid of the possible memory overhead mentioned.
+Now, we can move from one dataframe library to another one using directly the `from_dataframe` method. No needs anymore to go through `pandas`. Note that this possible only among dataframe libraries supporting the protocol. Also, the protocol enforces zero-copy as much as possible which gets us rid of the possible memory overhead mentioned.
 
 
 <br/>
@@ -179,7 +177,7 @@ Checked elements in the table below represent implemented features so far.
 
  <br/>
 
-We're still working on the `string` support. Note that we support CPU dataframes like pandas but since the protocol has not been integrated in the pandas repo, we can only test it locally. 
+Note that we support CPU dataframes like pandas but since the protocol has not been integrated in the pandas repo, we can only test it locally. 
 We've submitted this work as a [Pull Request](https://github.com/rapidsai/cudf/pull/9071) still under review, to rapidsai/cudf github repo.
 
 #### Working `cuDF` code examples
@@ -291,7 +289,7 @@ print(f'validity: {validity}')
     validity: [0 1 0 1]
 
 Comparing the float column and the data, we see that values are similar except `<NA>` in the column correspond to `0` in the data array. In fact, at the buffer level, we encode missing values by a 'sentinel value' which is 0 here. This is where the validity array comes into play. Together with the data array, we are able to rebuild the column with missing values in their exact places. How? 0s in the validity array indicates places or indexes of missing values in the data and 1s indicates valid/non-missing values.
-All this work is done by a helper function `_from_dataframe` which builds up an entire cuDF dataframe from an dataframe interchange object:
+All this work is done by a helper function `_from_dataframe` which builds up an entire cuDF dataframe from a dataframe interchange object:
 
 ```python
 from cudf.core.df_protocol import _from_dataframe
@@ -343,7 +341,7 @@ It is well known that configuring and installing drivers to work with GPU is not
 - When asking for help, do share what you've tried and other ideas to try. 
 
 Speaking out can reveal some gaps as previously mentioned.
-When something is missing, make an attempt to fix it. If it went well, that'll be a contribution. That happened to me when trying to unpack bits with `bitorder='little'` as in `numpy`, using `cuPy` instead. I've ended up submitting a (merged) [Pull Request to cuPy](https://github.com/cupy/cupy/pull/5765).
+When something is missing, make an attempt to fix it. If it goes well, that'll be a contribution. That happened to me when trying to unpack bits with `bitorder='little'` as in `numpy`, using `cupy` instead. I've ended up submitting a (merged) [Pull Request to CuPy](https://github.com/cupy/cupy/pull/5765).
 
 ## Final Thanks and Gratitude
 
