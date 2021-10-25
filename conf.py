@@ -25,7 +25,8 @@ SITE_URL = "https://labs.quansight.org/"
 # If not set, defaults to SITE_URL
 # BASE_URL = "https://labs.quansight.org/"
 BLOG_EMAIL = "info@quansight.com"
-BLOG_DESCRIPTION = "Quansight Labs site: blog, development and project overview"  # (translatable)
+# (translatable)
+BLOG_DESCRIPTION = "Quansight Labs site: blog, development and project overview"
 
 # What is the default language?
 DEFAULT_LANG = "en"
@@ -806,13 +807,13 @@ IMAGE_THUMBNAIL_SIZE = 400
 # paraiso-light, pastie, perldoc, rrt, tango, trac, vim, vs, xcode
 # This list MAY be incomplete since pygments adds styles every now and then.
 # Check with list(pygments.styles.get_all_styles()) in an interpreter.
-CODE_COLOR_SCHEME = 'friendly' # 'native' #'colorful'  #monokai'
+CODE_COLOR_SCHEME = 'friendly'  # 'native' #'colorful'  #monokai'
 
 # FAVICONS contains (name, file, size) tuples.
 # Used to create favicon link like this:
 # <link rel="name" href="file" sizes="size"/>
 FAVICONS = (
-     ("icon", "/favicon.ico", "16x16"),  # not working yet
+    ("icon", "/favicon.ico", "16x16"),  # not working yet
 )
 
 # Show teasers (instead of full posts) in indexes? Defaults to False.
@@ -1209,7 +1210,7 @@ EXTRA_HEAD_DATA = """
 TWITTER_CARD = {
     'use_twitter_cards': True,  # enable Twitter Cards
     'card': 'summary',          # Card type, you can also use 'summary_large_image',
-                                  # see https://dev.twitter.com/cards/types
+    # see https://dev.twitter.com/cards/types
     'site': '@quansightai',         # twitter nick for the website
     # 'creator': '@username',     # Username for the content creator / author.
 }
@@ -1308,3 +1309,4 @@ EXTRA_HEAD_DATA += """
 <link rel="stylesheet" type="text/css" href="/assets/css/tipuesearch.css">
 """
 
+CREATE_HTTP_ERROR_PAGES = [404]
