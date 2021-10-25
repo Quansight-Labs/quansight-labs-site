@@ -10,10 +10,10 @@
 .. type: text
 -->
 
-This Ismaël Koné from Côte d'Ivoire (Ivory Coast). I am a fan of open source software. 
+This is Ismaël Koné from Côte d'Ivoire (Ivory Coast). I am a fan of open source software. 
 In the next lines, I'll try to capture my experience at Quansight Labs as an intern working on the `cuDF` implementation of the dataframe interchange protocol.
 
-We'll continue by motivating this project through details about: **cuDF** and the **dataframe interchange protocol**.
+We'll continue by motivating this project through details about **cuDF** and the **dataframe interchange protocol**.
 
 <!-- TEASER_END -->
 
@@ -25,7 +25,7 @@ We'll continue by motivating this project through details about: **cuDF** and th
 
 To set the stage, recall that there are many dataframe libraries out there like: [`pandas`](https://pandas.pydata.org/), [`vaex`](https://vaex.io/), [`modin`](https://modin.readthedocs.io/en/latest/), [`dask`](https://dask.org/)/[cudf-dask](https://docs.rapids.ai/api/cudf/stable/dask-cudf.html). Each one has its strengths and weaknesses. For example, `vaex` allows you to work with bigger than memory (RAM) datasets on a laptop, `dask` allows you to distribute computation across processes and cluster nodes and `cudf-dask` is its GPU counterpart.
 
-Suppose you have a **300 GB** datasets on your laptop and want to get some insights about it. A typical workflow can be:
+Suppose you have a **300 GB** dataset on your laptop and want to get some insights about it. A typical workflow can be:
 
 ```python
 import vaex
@@ -70,7 +70,7 @@ The dataframe interchange protocol is in fact a composition of interfaces:
     <img
      alt="A composition of the 3 interfaces forming the dataframe interchange protocol: `_CuDFDataFrame` has 1 or more `_CuDFColumn` which in turn has 1 or more `_CuDFBuffer` "
      src="/images/2021/10/dataframe-api-cudf/protocol_interfaces.jpg">
-    <i>Composition of the dataframe interchange protocol interfaces. Cardinality on links means "has 1 or more" the pointed Interface</i>
+    <i>Composition of the dataframe interchange protocol interfaces. Cardinality on links means "has 1 or more" of the Interfaces mentioned.</i>
 </p>
 <br/>
                
@@ -180,7 +180,7 @@ Checked elements in the table below represent implemented features so far.
 Note that we support CPU dataframes like pandas but since the protocol has not been integrated in the pandas repo, we can only test it locally. 
 We've submitted this work as a [Pull Request](https://github.com/rapidsai/cudf/pull/9071) still under review, to rapidsai/cudf github repo.
 
-#### Working `cuDF` code examples
+<h4>Working <code>cuDF</code> code examples</h4>
 
 We'll walk through a code example to the protocol in action as we round trip between `pandas` and `cuDF`.
 We start by creating a cuDF dataframe object with columns named after supported dtypes:
