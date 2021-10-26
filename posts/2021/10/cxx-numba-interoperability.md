@@ -11,20 +11,20 @@
 -->
 
 
-The aim of this document is to explore a method of calling C++ library
+The aim of this post is to explore a method of calling C++ library
 functions from [Numba](http://numba.pydata.org/) [compiled
 functions](https://numba.pydata.org/numba-doc/latest/user/jit.html#compiling-python-code-with-jit)
 --- Python functions that are decorated with
 ``numba.jit(nopython=True)``.
 
-While there exist [ways to wrap C++ codes to
-Python](#appendix-a-list-of-pythoncc-connectivity-tools), calling
+While there exist [ways to wrap C++ codes to Python (see Appendix
+below)](#appendix-a-list-of-pythoncc-connectivity-tools), calling
 these wrappers from Numba compiled functions is often not as
 straightforward and efficient as one would hope.
 <!-- TEASER_END -->
 The underlying problem for this inefficiency
-is that the Python/C++ wrappers are designed to be called on Python
-objects. For instance, with keeping in mind the aim of this post, a
+is that the Python/C++ wrappers are designed to be called with Python
+objects as inputs. For instance, with keeping in mind the aim of this post, a
 call to a Numba compiled function would involve converting a Python
 object to a low-level object, say, to some C/C++ equivalent intrinsic
 type or structure, then converting it back to Python object to be
@@ -43,7 +43,7 @@ originates from the
 compilers apply to function names in order to support function/method
 overloadings as well as other relevant C++ language features. In
 principle, one would be able to call such a C++ library function
-directly from any Numba compiled function (using the 
+directly from any Numba compiled function (using the
 [numba.cfunc](https://numba.pydata.org/numba-doc/latest/user/cfunc.html)
 feature) if one would knows how the C++ compiler transforms the
 function name internally . However, the name-mangling algorithm is C++
@@ -58,12 +58,12 @@ circumvents the name-mangling problem. The method is based on
 determining the addresses of C++ library functions at runtime which
 together with functions signatures are then used to set up a highly
 efficient calling sequence.  This method will require creating a small
-C/C++ wrapper library that contains ``export "C"``-attributed
-functions which return the addresses of C++ library functions and 
+C/C++ wrapper library that contains ``extern "C"``-attributed
+functions which return the addresses of C++ library functions and
 can be easily called from Python using various techniques, here we use
 [ctypes](https://docs.python.org/3/library/ctypes.html).
 
-A Python script [cxx2py.py](https://raw.githubusercontent.com/Quansight-Labs/quansight-labs-site/main/posts/2021/10/cxx2py.py) is provided that
+We provide here a Python script [cxx2py.py](https://raw.githubusercontent.com/Quansight-Labs/quansight-labs-site/main/posts/2021/10/cxx2py.py) that
 auto-generates, from a user-supplied C++ header and source files, the
 C/C++ wrapper library as well as a Python
 [ctypes](https://docs.python.org/3/library/ctypes.html) wrapper
@@ -94,10 +94,11 @@ such as:
 - supporting pointer types as function inputs and return values,
 - etc.
 
-The ``cxx2py.py`` tool uses ``clang++`` to parse C++ header files and
-to build the C/C++ wrapper shared library. It also uses the [RBC - Remote
-Backend Compiler](https://github.com/xnd-project/rbc/) to parse the
-signatures of C++ functions for convenience.
+The ``cxx2py.py`` tool uses [CLang](https://clang.llvm.org/) to parse
+C++ header files and to build the C/C++ wrapper shared library. It
+also uses the [RBC - Remote Backend
+Compiler](https://github.com/xnd-project/rbc/) to parse the signatures
+of C++ functions for convenience.
 
 ## Example
 
@@ -249,7 +250,7 @@ functions. For example:
 >>> @numba.njit
 ... def fun(x):
 ...     return libfoo.foo(x + 2)
-... 
+...
 >>> fun(5)
 in foo(7)
 130
