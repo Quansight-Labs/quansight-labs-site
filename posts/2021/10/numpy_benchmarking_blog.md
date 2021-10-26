@@ -20,7 +20,7 @@ for allowing me to be a part of such a great team.
 My work was majorly focused on providing performance benchmarks to NumPy in realistic situations. 
 The target was to show the world that NumPy is efficient in handling quasi real-life situations too.
 
-Minor Note: To read the conceptual part of this project visit, [here](https://deploy-preview-461--numpy-preview.netlify.app/benchmark/).
+The primary technical outcome of my work is available in the [numpy documentation](https://deploy-preview-461--numpy-preview.netlify.app/benchmark/).
 
 <p align="center">
       <img src = "/images/2021/10/journey.jpeg" alt = "A word cloud with themes, open-source projects and people mentioned throughout the blog post. Each is stylized using a different font, most of them calligraphical.">
@@ -35,7 +35,7 @@ My work was broadly divided majorly into the following categories:
 and universally accepted problems for benchmarking. 
 I was given this as a problem statement to work on the project. 
 I started my work with a theoretical understanding of the problem. 
-I took reference from [Pierre Augier] remarkable work on 
+I took reference from [Pierre Augier](https://github.com/paugier/nbabel) remarkable work on 
 [n-body](https://github.com/paugier/nbabel) problem. I'd love to thank him.
 It was a fun learning part for me to connect the scientific part with the programming world. 
 I implemented the N-Body problem in Python, C, and C++.
@@ -169,4 +169,4 @@ I'd also like to thank [Melissa Weber Mendonça](https://github.com/melissawm) f
 Special thanks to [Kushashwa Ravi Shrimali](https://github.com/krshrimali) and [Kshitij Kalambarkar](https://github.com/kshitij12345) 
 for sharing their cool learning tricks and life hacks.
 
-Thanks to you'll! It was great interacting with you'll.
+Thanks to y'll! It was great interacting with y'll.
