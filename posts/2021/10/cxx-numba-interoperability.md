@@ -43,7 +43,7 @@ originates from the
 compilers apply to function names in order to support function/method
 overloadings as well as other relevant C++ language features. In
 principle, one would be able to call such a C++ library function
-directly from any Numba compiled function (using the 
+directly from any Numba compiled function (using the
 [numba.cfunc](https://numba.pydata.org/numba-doc/latest/user/cfunc.html)
 feature) if one would knows how the C++ compiler transforms the
 function name internally . However, the name-mangling algorithm is C++
@@ -59,11 +59,11 @@ determining the addresses of C++ library functions at runtime which
 together with functions signatures are then used to set up a highly
 efficient calling sequence.  This method will require creating a small
 C/C++ wrapper library that contains ``extern "C"``-attributed
-functions which return the addresses of C++ library functions and 
+functions which return the addresses of C++ library functions and
 can be easily called from Python using various techniques, here we use
 [ctypes](https://docs.python.org/3/library/ctypes.html).
 
-We provida here a Python script [cxx2py.py](https://raw.githubusercontent.com/Quansight-Labs/quansight-labs-site/main/posts/2021/10/cxx2py.py) that
+We provide here a Python script [cxx2py.py](https://raw.githubusercontent.com/Quansight-Labs/quansight-labs-site/main/posts/2021/10/cxx2py.py) that
 auto-generates, from a user-supplied C++ header and source files, the
 C/C++ wrapper library as well as a Python
 [ctypes](https://docs.python.org/3/library/ctypes.html) wrapper
@@ -250,7 +250,7 @@ functions. For example:
 >>> @numba.njit
 ... def fun(x):
 ...     return libfoo.foo(x + 2)
-... 
+...
 >>> fun(5)
 in foo(7)
 130
