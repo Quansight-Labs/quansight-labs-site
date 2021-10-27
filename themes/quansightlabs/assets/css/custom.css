@@ -6965,3 +6965,55 @@ div.input * {
     background-color: none;
 }
 
+
+/* custom */
+/* relative font sizes based on material design typography */
+h1,
+.h1 {
+  font-size: 4rem;
+}
+h2,
+.h2 {
+  font-size: 3rem;
+}
+h3,
+.h3 {
+  font-size: 2.5rem;
+}
+h4,
+.h4 {
+  font-size: 2.125rem;
+}
+h5,
+.h5 {
+  font-size: 1.5rem;
+}
+h6,
+.h6 {
+  font-size: 1.25rem;
+}
+/* make links visible, but remove this opinion in stylized conditions */
+a {
+  text-decoration: underline;
+}
+/* remove the underline from select link types */
+.nav-item a, .metadata a, a.tag, h2.entry-title a, h1.entry-title a {
+  text-decoration: none;
+}
+blockquote p {
+  font-size: 1rem;
+}
+
+html, body {
+  font-size: 16px;
+}
+
+.body-content {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 90%;
+}
+
+.postindex {
+  max-width: 80%;
+}
