@@ -35,7 +35,7 @@
 % for post in posts:
     <article class="h-entry post-${post.meta('type')}" itemscope="itemscope" itemtype="http://schema.org/Article">
     <header>
-        <h1 class="p-name entry-title"><a href="${post.permalink()}" class="u-url">${post.title()|h}</a></h1>
+        <h2 class="p-name entry-title"><a href="${post.permalink()}" class="u-url">${post.title()|h}</a></h2>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
             % if author_pages_generated and multiple_authors_per_post:
