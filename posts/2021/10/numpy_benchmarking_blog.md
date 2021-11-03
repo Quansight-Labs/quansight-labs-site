@@ -1,7 +1,7 @@
 <!--
 .. title: NumPy Benchmarking
 .. slug: numpy-benchmarking
-.. date: 2021-09-27 12:23:40 UTC-05:00
+.. date: 2021-11-03 12:23:40 UTC-05:00
 .. author: Khushi Agrawal
 .. tags: NumPy, Pythran, Numba, Transonic
 .. category: 
