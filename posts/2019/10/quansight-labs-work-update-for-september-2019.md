@@ -277,19 +277,19 @@ class besselj(BesselBase):
     The Bessel `J` function of order `\nu` is defined to be the function
     satisfying Bessel's differential equation
 
-    .. math ::
+    .. math::
         z^2 \frac{\mathrm{d}^2 w}{\mathrm{d}z^2}
         + z \frac{\mathrm{d}w}{\mathrm{d}z} + (z^2 - \nu^2) w = 0,
 
     with Laurent expansion
 
-    .. math ::
+    .. math::
         J_\nu(z) = z^\nu \left(\frac{1}{\Gamma(\nu + 1) 2^\nu} + O(z^2) \right),
 
     if :math:`\nu` is not a negative integer. If :math:`\nu=-n \in \mathbb{Z}_{<0}`
     *is* a negative integer, then the definition is
 
-    .. math ::
+    .. math::
         J_{-n}(z) = (-1)^n J_n(z).
 ```
 
@@ -317,19 +317,19 @@ class besselj(BesselBase):
     The Bessel $J$ function of order $\nu$ is defined to be the function
     satisfying Bessel's differential equation
 
-    .. math ::
+    .. math::
         z^2 \frac{\mathrm{d}^2 w}{\mathrm{d}z^2}
         + z \frac{\mathrm{d}w}{\mathrm{d}z} + (z^2 - \nu^2) w = 0,
 
     with Laurent expansion
 
-    .. math ::
+    .. math::
         J_\nu(z) = z^\nu \left(\frac{1}{\Gamma(\nu + 1) 2^\nu} + O(z^2) \right),
 
     if $\nu$ is not a negative integer. If $\nu=-n \in \mathbb{Z}_{<0}$
     *is* a negative integer, then the definition is
 
-    .. math ::
+    .. math::
         J_{-n}(z) = (-1)^n J_n(z).
 ```
 
