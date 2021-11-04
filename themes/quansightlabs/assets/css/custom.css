@@ -7010,10 +7010,18 @@ html, body {
 
 .body-content {
   margin-right: auto;
-  margin-left: auto;
+  margin-left: auto;  
   max-width: 90%;
 }
 
 .postindex {
   max-width: 80%;
+}
+
+.rendered_html :visited {
+  text-decoration: underline !important;
+}
+
+.rendered_html :link {
+  text-decoration: underline !important;
 }
