@@ -125,7 +125,7 @@ def somefunc(x, y):
 
 Notice that to make the above code valid, we don't need to import the package that implements mean and std functions explicitly; the required module is stored in x and y variables.
 
-For several concrete use cases of the Array API check out [the dedicated page](https://data-apis.org/array-api/latest/use_cases.html) of the standard. Anirudh Dagar also [wrote a great demo](https://anirudhdagar.ml/array-api-demo/GW_Demo_Array_API.html) recreating gravitational waves tutorial and showcasing what it would take to support PyTorch tensors for a subset of SciPy API using `__array_namespace__` .
+For several concrete use cases of the Array API check out [the dedicated page](https://data-apis.org/array-api/latest/use_cases.html) of the standard. Anirudh Dagar also [wrote a great demo](https://quansight-labs.github.io/array-api-demo/GW_Demo_Array_API.html) recreating gravitational waves tutorial and showcasing what it would take to support PyTorch tensors for a subset of SciPy API using `__array_namespace__`.
 
 ## PyData dispatching system
 
