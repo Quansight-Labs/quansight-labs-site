@@ -67,15 +67,15 @@ Goal: separate the interface from the implementation and let the dispatching sys
 
 The new dispatching system implemented for SciPy and scikits should:
 
-* make the API extendable and add the possibility to support alternative array libraries, not just NumPy,
-* provide a way to select backend for the same array type (example: `scipy.fft` + alternative CPU FFT libraries, scikit-learn + [Intel optimized implementation](https://github.com/intel/scikit-learn-intelex)),
-* be able to extend function signature in a backward-compatible way on the base library side (all alternative implementations should not break after the change),
+* make the API extendable and add the possibility to support alternative array libraries, not just NumPy
+* provide a way to select backend for the same array type (example: `scipy.fft` + alternative CPU FFT libraries, scikit-learn + [Intel optimized implementation](https://github.com/intel/scikit-learn-intelex))
+* be able to extend function signature in a backward-compatible way on the base library side (all alternative implementations should not break after the change)
 * have as low overhead as possible.
 
 When designing API override systems, there are many possible design choices. Three major axes of design decisions in the context of NumPy API overrides are outlined in [the appendix of NumPy Enhancement Proposal (NEP) 37](https://numpy.org/neps/nep-0037-array-module.html#appendix-design-choices-for-api-overrides); they are also applicable outside of NumPy:
 
-* Opt-in vs. opt-out for users,
-* Explicit vs. implicit choice of implementation,
+* Opt-in vs. opt-out for users
+* Explicit vs. implicit choice of implementation
 * Local vs. non-local vs. global control.
 
 ## A concrete design proposal
@@ -84,19 +84,18 @@ In the figure below, we highlight the parts of the design for implementing the C
 
 The dispatch using ``__array_namespace__`` method is:
 
-* opt-in for users,  
+* opt-in for users  
 The new dispatching works only when users choose to use the new Array API compatible modules.
-* explicit,  
+* explicit  
 The dispatched functions are determined via the method of the array object user creates.
-* with local control.  
+* with local control  
 Which implementation to use is determined by calling methods on the direct arguments of a function.
 
 And the `uarray` dispatcher is:
 
-* opt-out for users,
-* can be implemented to be explicit or implicit,
-* can be implemented to have local, non-local or global control.
-
+* opt-out for users
+* can be implemented to be explicit or implicit
+* can be implemented to have local, non-local or global control
 
 
 <p align="center">
@@ -173,8 +172,8 @@ print(type(laplace(cupy_img)))
 
 Since Python doesn't provide standard tools for using multiple dispatch there are several dedicated libraries:
 
-* _multimethod_ - pure Python implementation of multiple dispatch with caching of argument types,
-* _plum-dispatch_ - implementation of multiple dispatch that follows the ideas from Julia,
+* _multimethod_ - pure Python implementation of multiple dispatch with caching of argument types
+* _plum-dispatch_ - implementation of multiple dispatch that follows the ideas from Julia
 * _uarray_ is a generic backend/multiple dispatch library developed to provide NumPy-independent but similar to NumPy's dispatch functionality.
 
 First two options are very similar in functionality and usability. But the last option, in addition to multiple dispatch, offers granular control using context managers and provides a way to switch backends for the same array type. It's also possible to make the `uarray` dispatcher work without a context manager making the mechanism implicit and similar to other dispatch libraries. Whether we should encourage the implicit registration of backends or not is an open design issue and there's previous discussion on the topic in [SciPy #14266](https://github.com/scipy/scipy/issues/14266). Hameer Abbasi, one of the `uarray` authors, wrote [a blog post](https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/) about the motivation for the `uarray` and how it compares to NumPy's `__array_function__` dispatch mechanism.
