@@ -3,7 +3,7 @@
 .. slug: pydata-extensibility-vision
 .. date: 2021-11-15 10:00:00 UTC-07:00
 .. author: Ivan Yashchuk, Ralf Gommers
-.. tags: SciPy, NumPy, uarray, Array API
+.. tags: SciPy, NumPy, CuPy, scikit-learn, scikit-image, uarray, Array API
 .. category:
 .. link:
 .. description:
