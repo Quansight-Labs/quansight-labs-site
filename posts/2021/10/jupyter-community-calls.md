@@ -32,7 +32,7 @@ These events move everyone outside of Jupyter's enormous code ecosystem to enjoy
 
 Jupyter is a rapidly moving piece of technology, and staying up to date with the latest 🔥 takes significant labor. 
 The community calls ensure us a monthly check-in of the latest and greatest. 
-Sometimes these events digress into Jupyter's rich folk history all the while peering into future interactive computing technologies like real time collaboration[^rtc] or browser-based computing environments [^jupyter-lite].
+Sometimes these events digress into Jupyter's rich folk history, or peer into future interactive computing technologies like real time collaboration[^rtc] or browser-based computing environments [^jupyter-lite].
 
 Having these events consistently encouraged folks to get their work in to share with others. 
 These calls also gave some structure through an otherwise chaotic pandemic.
