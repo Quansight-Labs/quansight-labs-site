@@ -2,6 +2,8 @@
 
 [![Deploy labs website](https://github.com/Quansight-Labs/quansight-labs-site/actions/workflows/deploy.yml/badge.svg)](https://github.com/Quansight-Labs/quansight-labs-site/actions/workflows/deploy.yml)
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/4bf56026-402e-4ef5-9a2b-6be6bd0be2a4/deploy-status)](https://app.netlify.com/sites/admiring-northcutt-a5be8c/deploys)
+
 ## Creating new posts
 
 Use either reStructuredText, Markdown or Jupyter Notebooks. To create an empty post:
