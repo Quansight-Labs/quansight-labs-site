@@ -66,12 +66,14 @@ For SciPy and similar libraries, we need to follow NumPy's example and add our o
 Goal: separate the interface from the implementation and let the dispatching system help users and library authors write generic code that works with different kinds of arrays.
 
 The new dispatching system implemented for SciPy and scikits should:
+
 * make the API extendable and add the possibility to support alternative array libraries, not just NumPy,
 * provide a way to select backend for the same array type (example: `scipy.fft` + alternative CPU FFT libraries, scikit-learn + [Intel optimized implementation](https://github.com/intel/scikit-learn-intelex)),
 * be able to extend function signature in a backward-compatible way on the base library side (all alternative implementations should not break after the change),
 * have as low overhead as possible.
 
 When designing API override systems, there are many possible design choices. Three major axes of design decisions in the context of NumPy API overrides are outlined in [the appendix of NumPy Enhancement Proposal (NEP) 37](https://numpy.org/neps/nep-0037-array-module.html#appendix-design-choices-for-api-overrides); they are also applicable outside of NumPy:
+
 * Opt-in vs. opt-out for users,
 * Explicit vs. implicit choice of implementation,
 * Local vs. non-local vs. global control.
@@ -81,6 +83,7 @@ When designing API override systems, there are many possible design choices. Thr
 In the figure below, we highlight the parts of the design for implementing the CuPy backend in SciPy, scikit-learn, scikit-image and other core projects which now rely only on NumPy. We are going to use two dispatching mechanisms: one for the modules with compiled code portions, and one for the pure Python functions. The first dispatching mechanism is based on the [`uarray` project](https://uarray.org/), which is a backend dispatcher that allows us to choose the relevant function implementation at runtime. The second dispatching mechanism is based on the ``__array_namespace__`` method from Array API standard, which is a method that allows us to get the Array API implementation module specific to CuPy (or any other array library) at runtime. The ``__array_namespace__`` will be available in NumPy 1.22 and CuPy v10.0.
 
 The dispatch using ``__array_namespace__`` method is:
+
 * opt-in for users,  
 The new dispatching works only when users choose to use the new Array API compatible modules.
 * explicit,  
@@ -89,6 +92,7 @@ The dispatched functions are determined via the method of the array object user 
 Which implementation to use is determined by calling methods on the direct arguments of a function.
 
 And the `uarray` dispatcher is:
+
 * opt-out for users,
 * can be implemented to be explicit or implicit,
 * can be implemented to have local, non-local or global control.
@@ -168,6 +172,7 @@ print(type(laplace(cupy_img)))
 ```
 
 Since Python doesn't provide standard tools for using multiple dispatch there are several dedicated libraries:
+
 * _multimethod_ - pure Python implementation of multiple dispatch with caching of argument types,
 * _plum-dispatch_ - implementation of multiple dispatch that follows the ideas from Julia,
 * _uarray_ is a generic backend/multiple dispatch library developed to provide NumPy-independent but similar to NumPy's dispatch functionality.
