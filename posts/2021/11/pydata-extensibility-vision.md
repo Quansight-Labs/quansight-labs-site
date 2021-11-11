@@ -23,7 +23,7 @@ With the proposed dispatch layers, the downstream libraries would be enabled to 
     <img
      alt="A diagram showing possible interconnections that would be enabled by Array API."
      src="/images/2021/11/nep-0047-library-dependencies.png">
-    <i>Possible interconnections that Array API enables.</i>
+    <i><br>Possible interconnections that Array API enables.</i>
 </p>
 
 <!-- TEASER_END -->
@@ -45,7 +45,7 @@ Let's imagine some SciPy module that equally depends on compiled code and NumPy 
     <img
      alt="A schema using NumPy dispatcher."
      src="/images/2021/11/scipy-numpy-dispatch.png">
-    <i>A SciPy module with NumPy "Dispatcher".</i>
+    <i><br>A SciPy module with NumPy "Dispatcher".</i>
 </p>
 
 <!-- ![numpy dispatch schema](https://drive.google.com/uc?export=view&id=1-PySRskT3-76r_KiiKGfkC485dT6uKoV) -->
@@ -55,8 +55,8 @@ For SciPy and similar libraries, we need to follow NumPy's example and add our o
 <p align="center">
     <img
      alt="A schema using SciPy dispatcher."
-     src="/images/2021/11/scipy-numpy-dispatch.png">
-    <i>A SciPy module with its own "Dispatcher".</i>
+     src="/images/2021/11/scipy-ndimage-dispatcher.png">
+    <i><br>A SciPy module with its own "Dispatcher".</i>
 </p>
 
 <!-- ![scipy.ndimage dispatch schema](https://drive.google.com/uc?export=view&id=1-ZoVxenDufJuUwcONV_mFY0NFNY3wOCq) -->
@@ -100,8 +100,8 @@ And the `uarray` dispatcher is:
      alt="A diagram outlining CuPy support for SciPy and scikits."
      src="/images/2021/11/CuPy_support_scipy_scikits_with_details.png">
     <i>
-    Proposed dispatch mechanism layers for enabling CuPy and Dask support.
-    This will also support any other array library with the same Array API standard support and `uarray` backends.
+    <br>Proposed dispatch mechanism layers for enabling CuPy and Dask support.
+    <br>This will also support any other array library with the same Array API standard support and `uarray` backends.
     </i>
 </p>
 
