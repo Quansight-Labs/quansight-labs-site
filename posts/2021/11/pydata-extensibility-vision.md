@@ -182,9 +182,9 @@ First two options are very similar in functionality and usability. But the last 
 
 SciPy has GPU and distributed arrays support [on the roadmap](http://scipy.github.io/devdocs/dev/roadmap.html), but adding this support directly to the library would inflate the scope and increase the maintenance burden significantly. scikit-learn has [explicitly stated](https://scikit-learn.org/stable/faq.html#will-you-add-gpu-support) that they cannot afford GPU-specific code in their codebase. A dispatching system is a low-maintenance solution for extending the functionality of the API.
 
-In 2019 Peter Bell added support for backend switching to `scipy.fft` module ([PR #10383](https://github.com/scipy/scipy/pull/10383)) using `uarray`. Now it's possible to tell SciPy to use, for example, CuPy backend, for computing FFT when CuPy's array is passed to functions from `scipy.fft`.
+In 2019, Peter Bell added support for backend switching to `scipy.fft` module ([PR #10383](https://github.com/scipy/scipy/pull/10383)) using `uarray`. Now it's possible to tell SciPy to use, for example, CuPy backend, for computing FFT when CuPy's array is passed to functions from `scipy.fft`.
 
-In this recent blog post, Anirudh Dagar explores array interoperability protocols: `__array_function__` (NEP 18), `__array_namespace__` (NEP 47) and `uarray`. The blog post includes a [section comparing the Array API and `uarray`](https://labs.quansight.org/blog/2021/10/array-libraries-interoperability/#protocol_differences) approaches for interoperability.
+In a recent blog post titled [Array Libraries Interoperability](https://labs.quansight.org/blog/2021/10/array-libraries-interoperability/), Anirudh Dagar explores array interoperability protocols: `__array_function__` (NEP 18), `__array_namespace__` (NEP 47) and `uarray`. The blog post includes a [section comparing the Array API and `uarray`](https://labs.quansight.org/blog/2021/10/array-libraries-interoperability/#protocol_differences) approaches for interoperability.
 
 ## Acknowledgment
 
