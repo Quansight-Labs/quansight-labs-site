@@ -36,10 +36,10 @@ Despite NumPy being a CPU-only library, it still can be used with alternative ar
 The NumPy API is a powerful tool for writing generic code and it is followed by several array libraries.
 Some libraries, like JAX and CuPy, have NumPy compatibility from the start, while other libraries, like PyTorch, are gradually moving towards it.
 
-One of the problems of using the NumPy API as a reference standard is that it wasn't designed with different types of hardware in mind resulting in enough inconsistencies and making it difficult to write code that would work with multiple libraries. [Array API project](https://data-apis.org/array-api/latest/index.html) solves this problem by standardizing functionality across most array libraries. NumPy and CuPy have already adopted the Array API standard together with the new `__array_namespace__` dispatch protocol.
+One of the problems of using the NumPy API as a reference standard is that it wasn't designed with different types of hardware in mind resulting in enough inconsistencies and making it difficult to write code that would work with multiple libraries. [Array API project](https://data-apis.org/array-api/latest/index.html) solves this problem by standardizing functionality across most array libraries. NumPy and CuPy have already adopted the Array API standard together with the new `__array_namespace__` dispatch mechanism.
 The common architecture of SciPy, scikit-learn, and scikit-image is that they use NumPy for array operations, and critical-to-performance parts are written using compiled code extensions. Unfortunately, compiled extensions rely on NumPy's internal memory representation and are restricted to CPU computations. For these reasons, Python code with compiled extensions is not compatible with NumPy's dispatching capabilities; it would not know how to deal with a GPU array. It's also very challenging to rewrite the libraries to use pure NumPy without sacrificing the performance. To solve the problem we should introduce a similar to NumPy dispatching mechanism that would be used for the modules that rely on compiled extensions.
 
-Let's imagine some SciPy module that equally depends on compiled code and NumPy functions. Removing all forced conversions to NumPy arrays inside the module would open the "Dispatcher" path, but only half of the SciPy module's functionality would work for generic arrays. In the diagram, the NumPy Dispatcher is an abstract mechanism, concretely it could be an `__array_function/ufunc__`-based protocol for older versions of NumPy or `__array_namespace__` - for NumPy 1.22+.
+Let's imagine some SciPy module that equally depends on compiled code and NumPy functions. Removing all forced conversions to NumPy arrays inside the module would open the "Dispatcher" path, but only half of the SciPy module's functionality would work for generic arrays. In the diagram, the NumPy Dispatcher is an abstract mechanism, concretely it could be an `__array_function/ufunc__`-based one for older versions of NumPy or `__array_namespace__` - for NumPy 1.22+.
 
 <p align="center">
     <img
@@ -78,9 +78,9 @@ When designing API override systems, there are many possible design choices. Thr
 
 ## A concrete design proposal
 
-In the figure below, we highlight the parts of the design for implementing the CuPy backend in SciPy, scikit-learn, scikit-image and other core projects which now rely only on NumPy. We are going to use two dispatching mechanisms: one for the modules with compiled code portions, and one for the pure Python functions. The first dispatching mechanism is based on the [`uarray` project](https://uarray.org/), which is a backend dispatcher that allows us to choose the relevant function implementation at runtime. The second dispatching mechanism is based on the ``__array_namespace__`` protocol from Array API standard, which is a method that allows us to get the Array API implementation module specific to CuPy (or any other array library) at runtime. The ``__array_namespace__`` protocol will be available in NumPy 1.22 and CuPy v10.0.
+In the figure below, we highlight the parts of the design for implementing the CuPy backend in SciPy, scikit-learn, scikit-image and other core projects which now rely only on NumPy. We are going to use two dispatching mechanisms: one for the modules with compiled code portions, and one for the pure Python functions. The first dispatching mechanism is based on the [`uarray` project](https://uarray.org/), which is a backend dispatcher that allows us to choose the relevant function implementation at runtime. The second dispatching mechanism is based on the ``__array_namespace__`` method from Array API standard, which is a method that allows us to get the Array API implementation module specific to CuPy (or any other array library) at runtime. The ``__array_namespace__`` will be available in NumPy 1.22 and CuPy v10.0.
 
-The ``__array_namespace__`` protocol is:
+The dispatch using ``__array_namespace__`` method is:
 * opt-in for users,  
 The new dispatching works only when users choose to use the new Array API compatible modules.
 * explicit,  
@@ -88,7 +88,7 @@ The dispatched functions are determined via the method of the array object user 
 * with local control.  
 Which implementation to use is determined by calling methods on the direct arguments of a function.
 
-And the `uarray` dispatcher is more flexible than the ``__array_namespace__`` protocol:
+And the `uarray` dispatcher is:
 * opt-out for users,
 * can be implemented to be explicit or implicit,
 * can be implemented to have local, non-local or global control.
@@ -169,7 +169,7 @@ Since Python doesn't provide standard tools for using multiple dispatch there ar
 * _plum-dispatch_ - implementation of multiple dispatch that follows the ideas from Julia,
 * _uarray_ is a generic backend/multiple dispatch library developed to provide NumPy-independent but similar to NumPy's dispatch functionality.
 
-First two options are very similar in functionality and usability. But the last option, in addition to multiple dispatch, offers granular control using context managers and provides a way to switch backends for the same array type. It's also possible to make the `uarray` dispatcher work without a context manager making the mechanism implicit and similar to other dispatch libraries. Whether we should encourage the implicit registration of backends or not is an open design issue and there's previous discussion on the topic in [SciPy #14266](https://github.com/scipy/scipy/issues/14266). Hameer Abbasi, one of the `uarray` authors, wrote [a blog post](https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/) about the motivation for the `uarray` and how it compares to NumPy's `__array_function__` dispatch protocol.
+First two options are very similar in functionality and usability. But the last option, in addition to multiple dispatch, offers granular control using context managers and provides a way to switch backends for the same array type. It's also possible to make the `uarray` dispatcher work without a context manager making the mechanism implicit and similar to other dispatch libraries. Whether we should encourage the implicit registration of backends or not is an open design issue and there's previous discussion on the topic in [SciPy #14266](https://github.com/scipy/scipy/issues/14266). Hameer Abbasi, one of the `uarray` authors, wrote [a blog post](https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/) about the motivation for the `uarray` and how it compares to NumPy's `__array_function__` dispatch mechanism.
 
 ## It's already happening
 
