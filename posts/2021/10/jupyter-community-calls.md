@@ -23,7 +23,7 @@ and how they help all [jovyans](https://jupyter.readthedocs.io/en/latest/communi
 ## Why community calls?
 
 [Project Jupyter has a rich community calendar](https://jupyter.org/events) spanning different projects in the ecosystem. 
-Albeit, these events are open to all, the content of the meeting can become daunting and exclusive. 
+Although these events are open to all, the meetings can appear daunting and exclusive. 
 
 This year, Quansight Labs took on the responsibility of reviving an existing series of events: 
 the Jupyter community calls. 
