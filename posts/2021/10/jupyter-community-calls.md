@@ -76,7 +76,7 @@ We'd love to see more events like this cater properly to Jupyter's global audien
 If that's something you care about too, please [contact us by opening an issue on our planning repository](https://github.com/Quansight-Labs/jupyter-communitycalls/issues). 
 We've treated these events as an open source project and have a lot of resources to get you started in the [technical resources section](#technical-resources).
 
-We're all nostlagic for the conference hallway track as we stay safe in a pandemic. 
+We're all nostalgic for the conference hallway track as we stay safe in a pandemic. 
 With the community calls, for one hour a month, we've been doing our best to simulate the hallway track and the communitas it can bring. 
 We hope to see you and your notebooks at an up and coming event.
 
