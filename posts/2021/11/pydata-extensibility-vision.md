@@ -99,7 +99,10 @@ And the `uarray` dispatcher is:
     <img
      alt="A diagram outlining CuPy support for SciPy and scikits."
      src="/images/2021/11/CuPy_support_scipy_scikits_with_details.png">
-    <i>Proposed dispatch mechanism layers for enabling CuPy and Dask support.</i>
+    <i>
+    Proposed dispatch mechanism layers for enabling CuPy and Dask support.
+    This will also support any other array library with the same Array API standard support and `uarray` backends.
+    </i>
 </p>
 
 ## Array API dispatching system
