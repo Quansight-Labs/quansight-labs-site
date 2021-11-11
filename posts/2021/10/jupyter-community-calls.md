@@ -1,5 +1,5 @@
 <!--
-.. title: Jupyter community calls
+.. title: A year of Jupyter community calls
 .. slug: jupyter-community-calls
 .. date: 2021-11-10
 .. author: Isabela Presedo-Floyd, Tony Fast
