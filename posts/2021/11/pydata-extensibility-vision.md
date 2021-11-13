@@ -303,8 +303,8 @@ are several dedicated libraries:
   of argument types
 * _plum-dispatch_ - implementation of multiple dispatch that follows the ideas
   from Julia
-* _uarray_ is a generic backend/multiple dispatch library developed to provide
-  NumPy-independent but similar to NumPy's dispatch functionality.
+* _uarray_ is a generic backend/multiple dispatch library similar to NumPy's dispatch functionality
+  except that the implementation doesn't need to be baked into the array type.
 
 First two options are very similar in functionality and usability. But the last
 option, in addition to multiple dispatch, offers granular control using context
