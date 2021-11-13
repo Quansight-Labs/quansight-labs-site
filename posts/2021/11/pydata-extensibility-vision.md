@@ -35,7 +35,7 @@ situation, it's best to have a discussion spanning multiple projects.
 
 <!-- TEASER_END -->
 
-Over the years array computing in Python has evolved to support distributed
+Over the years, array computing in Python has evolved to support distributed
 arrays, GPU arrays, and other various kinds of arrays that work with specialized
 hardware, or carry additional metadata, or use different internal memory
 representations. The foundational library for array computing in the PyData
@@ -58,8 +58,9 @@ survey](https://numpy.org/user-survey-2020/). The scikit-learn technical
 committee listed "evaluate interoperability with other types of arrays that are
 compatible with the NumPy API" as one of its 2020-2021 priorities. And
 scikit-image included exploring multi-threading and GPU acceleration in its
-(successful) [CZI grant
+(awarded) [CZI EOSS grant
 proposal](https://chanzuckerberg.com/eoss/proposals/gpu-acceleration-rapid-releases-and-biomedical-examples-for-scikit-image/).
+Clearly there is a lot of interest in this topic.
 
 Despite NumPy being a CPU-only library, it still can be used with alternative
 arrays due to its dispatch mechanism allowing users and library authors to write
@@ -72,11 +73,15 @@ NumPy compatibility from the start, while other libraries, like PyTorch, are
 gradually moving towards it.
 
 One of the problems of using the NumPy API as a reference standard is that it
-wasn't designed with different types of hardware in mind and has a number of inconsistencies that make it difficult for other libraries to re-implement its API. [Array API
-project](https://data-apis.org/array-api/latest/index.html) solves this problem
-by standardizing functionality across most array libraries. NumPy and CuPy have
-already adopted the Array API standard together with the new
-`__array_namespace__` dispatch mechanism. The common architecture of SciPy,
+wasn't designed with different types of hardware in mind and has a number of
+inconsistencies that make it difficult for other libraries to re-implement its
+API. [The Array API standard](https://data-apis.org/array-api/latest/index.html)
+solves this problem by standardizing functionality across most array libraries.
+NumPy and CuPy have already adopted the Array API standard; it can be accessed
+via the `__array_namespace__` mechanism in NumPy >=1.22.0 and CuPy >=10.0.0
+(both to be released in the coming month).
+
+The common architecture of SciPy,
 scikit-learn, and scikit-image is that they use NumPy for array operations, and
 critical-to-performance parts are written using compiled code extensions.
 Unfortunately, compiled extensions rely on NumPy's internal memory
@@ -84,7 +89,8 @@ representation and are restricted to CPU computations. For these reasons, Python
 code with compiled extensions is not compatible with NumPy's dispatching
 capabilities; it would not know how to deal with a GPU array. It's also very
 challenging to rewrite the libraries to use pure NumPy without sacrificing
-performance. To solve the problem we should introduce a dispatching mechanism (similar to NumPy's) that would be used for the modules that rely on compiled
+performance. To solve the problem we should introduce a dispatching mechanism
+(similar to NumPy's) that would be used for the modules that rely on compiled
 extensions.
 
 Let's imagine some SciPy module that equally depends on compiled code and NumPy
