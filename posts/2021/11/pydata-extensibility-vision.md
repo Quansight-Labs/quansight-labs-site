@@ -163,13 +163,13 @@ module specific to CuPy (or any other array library) at runtime. The
 
 The dispatch using ``__array_namespace__`` method is:
 
-* opt-in for users  
+* opt-in for users
   The new dispatching works only when users choose to use the new Array API
   compatible modules.
-* explicit  
+* explicit
   The dispatched functions are determined via the method of the array object
   user creates.
-* with local control  
+* with local control
   Which implementation to use is determined by calling methods on the direct
   arguments of a function.
 
@@ -309,10 +309,10 @@ managers and provides a way to switch backends for the same array type. It's
 also possible to make the `uarray` dispatcher work without a context manager
 making the mechanism implicit and similar to other dispatch libraries. Whether
 we should encourage the implicit registration of backends or not is an open
-design issue and there's previous discussion on the topic in [SciPy
-#14266](https://github.com/scipy/scipy/issues/14266). Hameer Abbasi, one of the
-`uarray` authors, wrote [a blog
-post](https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/)
+design issue and there's previous discussion on the topic in
+[SciPy #14266](https://github.com/scipy/scipy/issues/14266). Hameer Abbasi, one of the
+`uarray` authors, wrote
+[a blog post](https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/)
 about the motivation for `uarray` and how it compares to NumPy's
 `__array_function__` dispatch mechanism.
 
@@ -355,6 +355,7 @@ all Python developers," says Terry Deem, AMD Product Manager for ROCm.
 <p align="left">
     <img
      alt="AMD logo."
-     src="/images/sponsors/AMD_E_Blk_RGB.png">
+     src="/images/sponsors/AMD_E_Blk_RGB.png"
+     width="250">
     <i></i>
 </p>
