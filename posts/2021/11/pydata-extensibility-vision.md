@@ -134,13 +134,14 @@ The new dispatching system implemented for SciPy and scikits should:
 
 * make the API extendable and add the possibility to support alternative array
   libraries, not just NumPy
-* provide a way to select backend for the same array type (example: `scipy.fft`
-  + alternative CPU FFT libraries, scikit-learn + [Intel optimized
+* provide a way to select a different backend for the same array type (examples:
+  `scipy.fft` + alternative CPU FFT libraries like [pyFFTW](https://github.com/pyFFTW/pyFFTW),
+  or scikit-learn + [an Intel optimized
   implementation](https://github.com/intel/scikit-learn-intelex))
-* be able to extend function signature in a backward-compatible way on the base
-  library side (all alternative implementations should not break after the
+* be able to extend function signatures in a backward-compatible way on the
+  base library side (all alternative implementations should not break after the
   change)
-* have as low overhead as possible.
+* have a performance overhead that is as low as possible.
 
 When designing API override systems, there are many possible design choices.
 Three major axes of design decisions in the context of NumPy API overrides are
@@ -154,17 +155,32 @@ they are also applicable outside of NumPy:
 
 ## A concrete design proposal
 
-In the figure below, we highlight the parts of the design for implementing the
-CuPy backend in SciPy, scikit-learn, scikit-image and other core projects which
-now rely only on NumPy. We are going to use two dispatching mechanisms: one for
-the modules with compiled code portions, and one for the pure Python functions.
+In the figure below, we sketch a design for implementing this backend &
+dispatch system in SciPy, scikit-learn, scikit-image and other core projects which
+now rely only on NumPy. It uses CuPy and Dask as examples, with modules that
+exist today. The design is generic though, and will also work for other
+libraries with compatible APIs like PyTorch and JAX once they support this
+system.
+
+We need two dispatching mechanisms: one for the modules with compiled code
+portions, and one for pure Python code.
 The first dispatching mechanism is based on the [`uarray`
 project](https://uarray.org/), which is a backend dispatcher that allows us to
 choose the relevant function implementation at runtime. The second dispatching
 mechanism is based on the ``__array_namespace__`` method from the Array API
 standard, which is a method that allows us to get the Array API implementation
-module specific to CuPy (or any other array library) at runtime. The
+module specific to CuPy (or any other array library) at runtime.
 ``__array_namespace__`` will be available in NumPy 1.22 and CuPy v10.0.
+
+<p align="center">
+    <img
+     alt="A diagram outlining CuPy support for SciPy and scikits."
+     src="/images/2021/11/CuPy_support_scipy_scikits_with_details.png">
+    <i>
+    <br>Proposed dispatch mechanism layers for enabling CuPy and Dask support.
+    <br>This will also support any other array library with the same Array API standard support and uarray backends.
+    </i>
+</p>
 
 The dispatch using ``__array_namespace__`` method is:
 
@@ -185,19 +201,9 @@ And the `uarray` dispatcher is:
 * can be implemented to have local, non-local or global control
 
 
-<p align="center">
-    <img
-     alt="A diagram outlining CuPy support for SciPy and scikits."
-     src="/images/2021/11/CuPy_support_scipy_scikits_with_details.png">
-    <i>
-    <br>Proposed dispatch mechanism layers for enabling CuPy and Dask support.
-    <br>This will also support any other array library with the same Array API standard support and `uarray` backends.
-    </i>
-</p>
+## Using the Array API standard
 
-## Array API dispatching system
-
-Array API is a standard specification of functionality that array libraries need
+The Array API standard is a specification of functionality that array libraries need
 to implement. There is a [dedicated test
 suite](https://github.com/data-apis/array-api-tests) to verify the compliance of
 specific implementations with the standard, so it's easy to check all libraries
@@ -208,11 +214,11 @@ namespace](https://numpy.org/neps/nep-0047-array-api-standard.html#adoption-in-d
 `__array_namespace__` is a central piece of the Array API dispatch method. It is
 a method of an array object that returns an object that has all the array API
 functions on it. In the case of NumPy calling `__array_namespace__() ` would
-return `numpy.array_api` module. The `__array_namespace__` method attached to
+return the `numpy.array_api` module. The `__array_namespace__` method attached to
 the array object enables downstream libraries to consume multiple kinds of
 arrays, without having to have a hard dependency on any of those array
-libraries. The pattern to support multiple array libraries is intended to be
-similar to the following code snippet:
+libraries. The pattern to support multiple array libraries inside, say, a SciPy
+function is intended to be similar to the following code snippet:
 
 ```python
 def somefunc(x, y):
@@ -224,14 +230,14 @@ def somefunc(x, y):
 ```
 
 Notice that to make the above code valid, we don't need to import the package
-that implements mean and std functions explicitly; the required module is stored
-in x and y variables.
+that implements the `mean` and `std` functions explicitly; the required module
+is stored in the `x` and `y` variables.
 
-For several concrete use cases of the Array API check out [the dedicated
-page](https://data-apis.org/array-api/latest/use_cases.html) of the standard.
+For several concrete use cases of the Array API standard, check out [the dedicated
+page](https://data-apis.org/array-api/latest/use_cases.html).
 Anirudh Dagar also [wrote a great
 demo](https://quansight-labs.github.io/array-api-demo/GW_Demo_Array_API.html)
-recreating gravitational waves tutorial and showcasing what it would take to
+adapting a LIGO gravitational waves tutorial and showcasing what it would take to
 support PyTorch tensors for a subset of the SciPy API using `__array_namespace__`.
 
 ## PyData dispatching system
