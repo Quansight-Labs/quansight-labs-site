@@ -313,7 +313,7 @@ design issue and there's previous discussion on the topic in [SciPy
 #14266](https://github.com/scipy/scipy/issues/14266). Hameer Abbasi, one of the
 `uarray` authors, wrote [a blog
 post](https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/)
-about the motivation for the `uarray` and how it compares to NumPy's
+about the motivation for `uarray` and how it compares to NumPy's
 `__array_function__` dispatch mechanism.
 
 ## It's already happening
