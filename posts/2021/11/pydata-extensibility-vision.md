@@ -242,7 +242,9 @@ different types. How can we implement something similar to function overloading
 but in Python? Well, we could implement one central function checking the types
 of the arguments using `isinstance()`, or `issubclass()` and calling appropriate
 implementations based on these checks. This approach doesn't scale well with the
-number of inputs of different types and is not extendable by third-party
+number of inputs of different types (see
+[here](https://github.com/arogozhnikov/einops/blob/1225f50eebd297f82a3fb97fca87319b522cd99c/einops/_backends.py#L22-L29)
+for a concrete example) and is not extendable by third-party
 implementers without modifying the source code. Another approach is to use
 _multiple dispatch_, where each function has multiple variants that are chosen
 based on dynamically determined types. Unfortunately, the multiple dispatch
