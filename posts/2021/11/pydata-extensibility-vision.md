@@ -349,12 +349,13 @@ support directly to the library would inflate the scope and increase the
 maintenance burden significantly. scikit-learn has [explicitly
 stated](https://scikit-learn.org/stable/faq.html#will-you-add-gpu-support) that
 they cannot afford GPU-specific code in their codebase. A dispatching system is
-a low-maintenance solution for extending the functionality of the API.
+a low-maintenance solution for extending the functionality of the API of a
+library.
 
 In 2019, Peter Bell added support for backend switching to the `scipy.fft` module
 ([PR #10383](https://github.com/scipy/scipy/pull/10383)) using `uarray`. Now
-it's possible to tell SciPy to use, for example, CuPy backend, for computing FFT
-when CuPy's array is passed to functions from `scipy.fft`.
+it's possible to tell SciPy to use, for example, the CuPy backend, for
+computing FFT when CuPy's array is passed to functions from `scipy.fft`.
 
 In a recent blog post titled [Array Libraries
 Interoperability](https://labs.quansight.org/blog/2021/10/array-libraries-interoperability/),
@@ -366,9 +367,10 @@ approaches for interoperability.
 
 ## Acknowledgment
 
-Adding dispatch support will take significant effort to get implemented across
-different projects. Fortunately, AMD recognizes the problem and is willing to
-help to fix it by funding Quansight developers to do the initial work.
+Adding dispatching support will take significant effort to implement across
+different projects. Fortunately, AMD recognized this as a problem worth solving
+and is willing to help to fix it by funding a team at Quansight Labs to do the
+initial heavy lifting.
 
 AMD's vision for the developer community is open, portable tools that enable the
 same source code to run on different hardware platforms. ROCm is an example of
