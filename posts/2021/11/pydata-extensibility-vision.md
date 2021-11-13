@@ -355,6 +355,6 @@ all Python developers," says Terry Deem, AMD Product Manager for ROCm.
 <p align="left">
     <img
      alt="AMD logo."
-     src="/images/sponsor/AMD_E_Blk_RGB.png">
+     src="/images/sponsors/AMD_E_Blk_RGB.png">
     <i></i>
 </p>
