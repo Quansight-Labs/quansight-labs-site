@@ -72,9 +72,7 @@ NumPy compatibility from the start, while other libraries, like PyTorch, are
 gradually moving towards it.
 
 One of the problems of using the NumPy API as a reference standard is that it
-wasn't designed with different types of hardware in mind resulting in enough
-inconsistencies and making it difficult to write code that would work with
-multiple libraries. [Array API
+wasn't designed with different types of hardware in mind and has a number of inconsistencies that make it difficult for other libraries to re-implement its API. [Array API
 project](https://data-apis.org/array-api/latest/index.html) solves this problem
 by standardizing functionality across most array libraries. NumPy and CuPy have
 already adopted the Array API standard together with the new
