@@ -83,9 +83,8 @@ Unfortunately, compiled extensions rely on NumPy's internal memory
 representation and are restricted to CPU computations. For these reasons, Python
 code with compiled extensions is not compatible with NumPy's dispatching
 capabilities; it would not know how to deal with a GPU array. It's also very
-challenging to rewrite the libraries to use pure NumPy without sacrificing the
-performance. To solve the problem we should introduce a similar to NumPy
-dispatching mechanism that would be used for the modules that rely on compiled
+challenging to rewrite the libraries to use pure NumPy without sacrificing
+performance. To solve the problem we should introduce a dispatching mechanism (similar to NumPy's) that would be used for the modules that rely on compiled
 extensions.
 
 Let's imagine some SciPy module that equally depends on compiled code and NumPy
