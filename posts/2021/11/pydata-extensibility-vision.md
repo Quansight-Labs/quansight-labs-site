@@ -63,7 +63,7 @@ proposal](https://chanzuckerberg.com/eoss/proposals/gpu-acceleration-rapid-relea
 
 Despite NumPy being a CPU-only library, it still can be used with alternative
 arrays due to its dispatch mechanism allowing users and library authors to write
-backend and hardware agnostic code using NumPy API. When passing as input an
+backend and hardware agnostic code using the NumPy API. When passing as input an
 alternative array (say from CuPy or Dask) to such generic code, the
 hardware-specific implementation is invoked instead of the internal to NumPy
 implementation. The NumPy API is a powerful tool for writing generic code and it
