@@ -196,7 +196,7 @@ Array API is a standard specification of functionality that array libraries need
 to implement. There is a [dedicated test
 suite](https://github.com/data-apis/array-api-tests) to verify the compliance of
 specific implementations with the standard, so it's easy to check all libraries
-adopting the standard to have a unified behavior. NEP 47 has a couple of
+adopting the standard have a unified behavior. NEP 47 has a couple of
 examples on [usage of the Array API
 namespace](https://numpy.org/neps/nep-0047-array-api-standard.html#adoption-in-downstream-libraries).
 
