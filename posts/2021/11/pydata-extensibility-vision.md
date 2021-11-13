@@ -156,7 +156,7 @@ the modules with compiled code portions, and one for the pure Python functions.
 The first dispatching mechanism is based on the [`uarray`
 project](https://uarray.org/), which is a backend dispatcher that allows us to
 choose the relevant function implementation at runtime. The second dispatching
-mechanism is based on the ``__array_namespace__`` method from Array API
+mechanism is based on the ``__array_namespace__`` method from the Array API
 standard, which is a method that allows us to get the Array API implementation
 module specific to CuPy (or any other array library) at runtime. The
 ``__array_namespace__`` will be available in NumPy 1.22 and CuPy v10.0.
