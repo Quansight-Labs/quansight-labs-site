@@ -89,13 +89,12 @@ representation and are restricted to CPU computations. For these reasons, Python
 code with compiled extensions is not compatible with NumPy's dispatching
 capabilities; it would not know how to deal with a GPU array. It's also very
 challenging to rewrite the libraries to use pure NumPy without sacrificing
-performance. To solve the problem we should introduce a dispatching mechanism
-(similar to NumPy's) that would be used for the modules that rely on compiled
-extensions.
+performance. Therefore we need a dispatching mechanism (similar to NumPy's)
+for the API of modules in SciPy and other projects that rely on compiled extensions.
 
 Let's imagine some SciPy module that equally depends on compiled code and NumPy
 functions. Removing all forced conversions to NumPy arrays inside the module
-would open the "Dispatcher" path, but only half of the SciPy module's
+would open the "Dispatcher" path, but only a small part of SciPy
 functionality would work for generic arrays. In the diagram, the NumPy
 Dispatcher is an abstract mechanism, concretely it could be an
 `__array_function/ufunc__`-based one for older versions of NumPy or
