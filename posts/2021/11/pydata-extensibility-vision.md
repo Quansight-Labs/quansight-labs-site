@@ -256,7 +256,12 @@ implementations based on these checks. This approach doesn't scale well with the
 number of inputs of different types (see
 [here](https://github.com/arogozhnikov/einops/blob/1225f50eebd297f82a3fb97fca87319b522cd99c/einops/_backends.py#L22-L29)
 for a concrete example) and is not extendable by third-party
-implementers without modifying the source code. Another approach is to use
+implementers without modifying the source code. A second approach is monkey
+patching the original library (this is [what scikit-learn-intelex does now](https://intel.github.io/scikit-learn-intelex/index.html#usage)
+for example); that is a fragile method that can break at any time when the
+library being patched makes changes to its internals or API.
+
+Another approach is to use
 _multiple dispatch_, where each function has multiple variants that are chosen
 based on dynamically determined types. Unfortunately, the multiple dispatch
 feature is not built-in for Python, but there's a simpler version - _single
@@ -306,17 +311,24 @@ print(type(laplace(cupy_img)))
 # <class 'cupy._core.core.ndarray'>
 ```
 
-Since Python doesn't provide standard tools for using multiple dispatch there
+The above single-dispatch example illustrates the dispatching principle, but is
+too simple for our purposes - so let's look at multiple dispatch methods.
+The Python stdlib doesn't provide tools for multiple dispatch, however there
 are several dedicated libraries:
 
-* _multimethod_ - pure Python implementation of multiple dispatch with caching
-  of argument types
-* _plum-dispatch_ - implementation of multiple dispatch that follows the ideas
-  from Julia
-* _uarray_ is a generic backend/multiple dispatch library similar to NumPy's dispatch functionality
-  except that the implementation doesn't need to be baked into the array type.
+* [multimethod](https://github.com/coady/multimethod) - pure Python
+  implementation of multiple dispatch with caching of argument types
+* [Plum](https://github.com/wesselb/plum) - implementation of multiple
+  dispatch that follows the ideas from Julia
+* [multipledispatch](https://github.com/mrocklin/multipledispatch) - similar
+  to Plum, only with slightly fewer features and no longer developed; vendored
+  in SymPy
+* [uarray](https://github.com/Quansight-Labs/uarray) is a generic
+  backend/multiple dispatch library similar to NumPy's dispatch functionality
+  except that the implementation doesn't need to be baked into the array type;
+  used in SciPy's `fft` module.
 
-The first two options are very similar in functionality and usability. But the last
+The first three options are very similar in functionality and usability. But the last
 option, in addition to multiple dispatch, offers granular control using context
 managers and provides a way to switch backends for the same array type. It's
 also possible to make the `uarray` dispatcher work without a context manager
