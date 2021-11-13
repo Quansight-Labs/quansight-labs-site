@@ -326,7 +326,7 @@ stated](https://scikit-learn.org/stable/faq.html#will-you-add-gpu-support) that
 they cannot afford GPU-specific code in their codebase. A dispatching system is
 a low-maintenance solution for extending the functionality of the API.
 
-In 2019, Peter Bell added support for backend switching to `scipy.fft` module
+In 2019, Peter Bell added support for backend switching to the `scipy.fft` module
 ([PR #10383](https://github.com/scipy/scipy/pull/10383)) using `uarray`. Now
 it's possible to tell SciPy to use, for example, CuPy backend, for computing FFT
 when CuPy's array is passed to functions from `scipy.fft`.
