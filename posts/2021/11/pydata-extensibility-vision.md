@@ -238,7 +238,7 @@ implementation, for example, `cupyx.scipy` for GPU-accelerated SciPy functions,
 scikit-learn-intelex for Intel optimized version of scikit-learn, or cuCIM for
 GPU-accelerated scikit-image. Usually in statically typed languages function
 overloading is used to implement a function with the same name but arguments of
-different types. How can we implement something similar to functions overloading
+different types. How can we implement something similar to function overloading
 but in Python? Well, we could implement one central function checking the types
 of the arguments using `isinstance()`, or `issubclass()` and calling appropriate
 implementations based on these checks. This approach doesn't scale well with the
