@@ -67,7 +67,7 @@ backend and hardware agnostic code using the NumPy API. When passing as input an
 alternative array (say from CuPy or Dask) to such generic code, the
 hardware-specific implementation is invoked instead of the internal to NumPy
 implementation. The NumPy API is a powerful tool for writing generic code and it
-is followed by several array libraries. Some libraries, like JAX and CuPy, have
+is followed by several array libraries. Some libraries, like JAX and CuPy, had
 NumPy compatibility from the start, while other libraries, like PyTorch, are
 gradually moving towards it.
 
