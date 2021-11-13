@@ -303,7 +303,7 @@ are several dedicated libraries:
 * _uarray_ is a generic backend/multiple dispatch library similar to NumPy's dispatch functionality
   except that the implementation doesn't need to be baked into the array type.
 
-First two options are very similar in functionality and usability. But the last
+The first two options are very similar in functionality and usability. But the last
 option, in addition to multiple dispatch, offers granular control using context
 managers and provides a way to switch backends for the same array type. It's
 also possible to make the `uarray` dispatcher work without a context manager
