@@ -138,6 +138,9 @@ The new dispatching system implemented for SciPy and scikits should:
   `scipy.fft` + alternative CPU FFT libraries like [pyFFTW](https://github.com/pyFFTW/pyFFTW),
   or scikit-learn + [an Intel optimized
   implementation](https://github.com/intel/scikit-learn-intelex))
+* support "array duck types", i.e. custom array objects that are compatible
+  with a particular array library via (for example) `__array_function__` or
+  `__torch_function__`.
 * be able to extend function signatures in a backward-compatible way on the
   base library side (all alternative implementations should not break after the
   change)
