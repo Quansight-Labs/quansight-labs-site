@@ -368,8 +368,7 @@ This post is the invitation to discuss the idea on the
 a recent website for better coordinating the Scientific Python ecosystem (_we
 will update this link once the initial post is written there, within the next
 day or so_). The forum is a place for discussing the general idea of array
-interopeability, and it's a good place to give feedback on the proposed design
-of the dispatch mechanisms.
+interoperability, and it's a good place to give feedback on this proposed design.
 
 One important aspect of the discussion is to discuss the design choices for the
 dispatch API. We particularly need to come to a conclusion on the topic of
