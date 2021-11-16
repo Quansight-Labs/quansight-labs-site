@@ -11,30 +11,6 @@
 .. previewimage: /images/2021/11/nep-0047-library-dependencies.png
 -->
 
-
-Quansight Labs is partnering with AMD to develop a new extensibility system for
-the PyData stack. This work will enable the PyData libraries to be executed on a
-GPU, as well as running in distributed mode across multiple GPUs. In this blog
-post, we talk about the motivation behind the proposal and describe our vision
-for making array libraries more interoperable.
-
-With the proposed dispatch layers, the downstream libraries would be enabled to
-use multiple kinds of arrays, without having to have a hard dependency on all of
-those array libraries. We want to have a unified design using the same tools
-applicable across SciPy, scikit-learn, scikit-image and other libraries. In this
-situation, it's best to have a discussion spanning multiple projects.
-<!-- This post is the invitation to discuss the idea on this forum https://discuss.scientific-python.org/ -->
-
-
-<p align="center">
-    <img
-     alt="A diagram showing possible interconnections that would be enabled by Array API."
-     src="/images/2021/11/nep-0047-library-dependencies.png">
-    <i><br>Possible interconnections that Array API enables.</i>
-</p>
-
-<!-- TEASER_END -->
-
 Over the years, array computing in Python has evolved to support distributed
 arrays, GPU arrays, and other various kinds of arrays that work with specialized
 hardware, or carry additional metadata, or use different internal memory
@@ -44,20 +20,43 @@ single-threaded one at that - and in a world where it's possible to get a GPU or
 a CPU with a large core count in the cloud cheaply or even for free in a matter
 of seconds, that may not seem enough. For the past couple of years, a lot of
 thought and effort has been spent on devising mechanisms to tackle this problem,
-and evolve the ecosystem in a gradual way. We feel like a shared vision has
-emerged, in bits and pieces. In this post, we aim to articulate that vision and
-suggest a path to making it concrete, focusing on three libraries at the core of
-the PyData ecosystem: SciPy, scikit-learn and scikit-image.
+and evolve the ecosystem in a gradual way towards a state where PyData
+libraries can run on a GPU, as well as in distributed mode across multiple
+GPUs.
+
+We feel like a shared vision has emerged, in bits and pieces. In this post, we
+aim to articulate that vision and suggest a path to making it concrete,
+focusing on three libraries at the core of the PyData ecosystem: SciPy,
+scikit-learn and scikit-image. We are also happy to share that AMD has
+recognized the value of this vision, and is partnering with Quansight Labs to
+help make it a reality.
+
+With the set of dispatch layers sketched in this post, array-consuming
+libraries will be able to use multiple kinds of arrays, without having to have
+a hard dependency on all of those array libraries. We'd like to have a unified
+design, using the same tools applicable across SciPy, scikit-learn,
+scikit-image and other libraries. In this situation, it's best to have a design
+discussion spanning multiple projects.
+
+
+<p align="center">
+    <img
+     alt="A diagram showing possible interconnections that would be enabled by Array API."
+     src="/images/2021/11/nep-0047-library-dependencies.png">
+    <i><br>Possible interconnections enabled in this design, via the Array API standard and Uarray.</i>
+</p>
+
+<!-- TEASER_END -->
 
 Today, SciPy, scikit-learn and scikit-image only work with NumPy arrays. SciPy
 has had "support for distributed and GPU arrays" [on its
 roadmap](http://scipy.github.io/devdocs/dev/roadmap.html) for a couple of years.
 Parallel execution and GPU support were two of the top three priorities named by
-the 1000+ users in [the 2020 NumPy user
-survey](https://numpy.org/user-survey-2020/). The scikit-learn technical
-committee listed "evaluate interoperability with other types of arrays that are
-compatible with the NumPy API" as one of its 2020-2021 priorities. And
-scikit-image included exploring multi-threading and GPU acceleration in its
+the 1000+ users in [the 2020 NumPy user survey](https://numpy.org/user-survey-2020/).
+The scikit-learn technical committee listed "evaluate interoperability with
+other types of arrays that are compatible with the NumPy API" as one of
+[its 2020-2021 priorities](https://scikit-learn.fondation-inria.fr/technical-committee-november-5-2020/).
+And scikit-image included exploring multi-threading and GPU acceleration in its
 (awarded) [CZI EOSS grant
 proposal](https://chanzuckerberg.com/eoss/proposals/gpu-acceleration-rapid-releases-and-biomedical-examples-for-scikit-image/).
 Clearly there is a lot of interest in this topic.
