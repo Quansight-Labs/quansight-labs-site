@@ -358,10 +358,11 @@ library. -->
 
 This post is the invitation to discuss the idea on the
 [Scientific Python's forum](https://discuss.scientific-python.org/),
-a recent website for better
-coordinating the Scientific Python ecosystem. The forum is a place for
-discussing the general idea of array interopeability, and it's a good place to
-give feedback on the proposed design of the dispatch mechanisms.
+a recent website for better coordinating the Scientific Python ecosystem (_we
+will update this link once the initial post is written there, within the next
+day or so_). The forum is a place for discussing the general idea of array
+interopeability, and it's a good place to give feedback on the proposed design
+of the dispatch mechanisms.
 
 One important aspect of the discussion is to discuss the design choices for the
 dispatch API. We particularly need to come to a conclusion on the topic of
@@ -376,9 +377,9 @@ it to `scipy.linalg.decomp` ([PR #14407](https://github.com/scipy/scipy/pull/144
 After these PRs are merged, we will explore using the array API standard in
 SciPy and scikit-learn with CuPy v10.0.
 
-There's a lot of prior community effort to make the array interoperability in
+There's a lot of prior community effort to make array interoperability in
 the PyData ecosystem better. This is an exciting project, and we're looking
-forward to the progress on that front.
+forward to making progress on this front!
 
 ## Acknowledgment
 
