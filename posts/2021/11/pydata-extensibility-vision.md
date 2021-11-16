@@ -242,8 +242,8 @@ Notice that to make the above code valid, we don't need to import the package
 that implements the `mean` and `std` functions explicitly; the required module
 is stored in the `x` and `y` variables.
 
-For several concrete use cases of the Array API standard, check out [the dedicated
-page](https://data-apis.org/array-api/latest/use_cases.html).
+For several concrete use cases of the Array API standard, check out [use case
+descriptions in the standard itself](https://data-apis.org/array-api/latest/use_cases.html).
 Anirudh Dagar also [wrote a great
 demo](https://quansight-labs.github.io/array-api-demo/GW_Demo_Array_API.html)
 adapting a LIGO gravitational waves tutorial and showcasing what it would take to
@@ -276,8 +276,8 @@ library being patched makes changes to its internals or API.
 
 Another approach is to use
 _multiple dispatch_, where each function has multiple variants that are chosen
-based on dynamically determined types. Unfortunately, the multiple dispatch
-feature is not built-in for Python, but there's a simpler version - _single
+based on dynamically determined types. Unfortunately, multiple dispatch
+is not built-in for Python, but there's a simpler version - _single
 dispatch_. For a demo, let's begin with a tool from the Python standard library:
 `functools.singledispatch`.
 
@@ -342,12 +342,15 @@ are several dedicated libraries:
   used in SciPy's `fft` module.
 
 The first three options are very similar in functionality and usability. But the last
-option, in addition to multiple dispatch, offers granular control using context
-managers and provides a way to switch backends for the same array type. It's
-also possible to make the `uarray` dispatcher work without a context manager
-making the mechanism implicit and similar to other dispatch libraries. Whether
-we should encourage the implicit registration of backends or not is an open
-design issue and there's previous discussion on the topic in
+option (uarray), in addition to multiple dispatch, offers granular control
+using context managers and provides a way to switch backends for the same array
+type. It is also the only library that doesn't solely rely on a class
+hierarchy/relationship, so can support "array duck types".
+
+It's also possible to make the `uarray` dispatcher work without a context
+manager making the mechanism implicit and similar to other dispatch libraries.
+Whether we should encourage the implicit registration of backends or not is an
+open design issue and there's previous discussion on the topic in
 [SciPy #14266](https://github.com/scipy/scipy/issues/14266). Hameer Abbasi, one of the
 `uarray` authors, wrote
 [a blog post](https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/)
