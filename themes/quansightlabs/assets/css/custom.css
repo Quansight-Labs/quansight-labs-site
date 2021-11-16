@@ -6970,11 +6970,11 @@ div.input * {
 /* relative font sizes based on material design typography */
 h1,
 .h1 {
-  font-size: 4rem;
+  font-size: 3rem;
 }
 h2,
 .h2 {
-  font-size: 3rem;
+  font-size: 2.75rem;
 }
 h3,
 .h3 {
