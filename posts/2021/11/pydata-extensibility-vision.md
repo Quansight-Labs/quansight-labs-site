@@ -31,6 +31,8 @@ scikit-learn and scikit-image. We are also happy to share that AMD has
 recognized the value of this vision, and is partnering with Quansight Labs to
 help make it a reality.
 
+<!-- TEASER_END -->
+
 With the set of dispatch layers sketched in this post, array-consuming
 libraries will be able to use multiple kinds of arrays, without having to have
 a hard dependency on all of those array libraries. We'd like to have a unified
@@ -45,8 +47,6 @@ discussion spanning multiple projects.
      src="/images/2021/11/nep-0047-library-dependencies.png">
     <i><br>Possible interconnections enabled in this design, via the Array API standard and Uarray.</i>
 </p>
-
-<!-- TEASER_END -->
 
 Today, SciPy, scikit-learn and scikit-image only work with NumPy arrays. SciPy
 has had "support for distributed and GPU arrays" [on its
