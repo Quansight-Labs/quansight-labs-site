@@ -16,11 +16,13 @@ A framing for open source is that the software and code are kernels of community
 The code, and its abstractions, unite developers and their patrons; 
 a struggle for growing/evolving open communities is to make sure these groups remain connected. 
 A lot of us showed up for the code, but hung around for the community. 
-We'll continue this work talking about the monthly Jupyter community calls, 
-and how they help all [jovyans](https://jupyter.readthedocs.io/en/latest/community/content-community.html#what-is-a-jovyan) stay connected.
+We'll continue this post talking about the monthly Jupyter community calls, 
+and how they help all [jovyans](https://jupyter.readthedocs.io/en/latest/community/content-community.html#what-is-a-jovyan), Project Jupyter's pet name for their developers and users, stay connected.
 
 
 ## Why community calls?
+
+  > A lot of us showed up for the code, but hung around for the community. 
 
 [Project Jupyter has a rich community calendar](https://jupyter.org/events) spanning different projects in the ecosystem. 
 Although these events are open to all, the meetings can appear daunting and exclusive. 
@@ -28,7 +30,7 @@ Although these events are open to all, the meetings can appear daunting and excl
 This year, Quansight Labs took on the responsibility of reviving an existing series of events: 
 the Jupyter community calls. 
 The original monthly series, starting in [March 2019][first], gave the stage to those using Jupyter daily. 
-These events move everyone outside of Jupyter's enormous code ecosystem to enjoy the affordances that Jupyter brings to its patrons as a computational tool.
+These events started to created space for Jupyter's patrons to demonstrate how they use Jupyter as a computational tool.
 
 Jupyter is a rapidly moving piece of technology, and staying up to date with the latest 🔥 takes significant labor. 
 The community calls ensure us a monthly check-in of the latest and greatest. 
@@ -42,9 +44,9 @@ These calls also gave some structure through an otherwise chaotic pandemic.
 
 We made sure to record these events for posterity, and you can check them out in the [community call YouTube playlist][playlist], as [written notes](https://jupyter.readthedocs.io/en/latest/community/community-call-notes/index.html), or by following any of the links below:
 
-| 2020 |     |
-| ---- | --- | 
-|[November](https://www.youtube.com/watch?v=bko-v1ZZoig&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=7) | [December](https://www.youtube.com/watch?v=IlYP6q2H1M8&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=8) |
+| 2020                                                                                                    |                                                                                                         |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| [November](https://www.youtube.com/watch?v=bko-v1ZZoig&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=7) | [December](https://www.youtube.com/watch?v=IlYP6q2H1M8&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=8) |
 
 | 2021                                                                                                      |                                                                                                          |                                                                                                       |                                                                                                        |
 | --------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
