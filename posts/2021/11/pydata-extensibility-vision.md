@@ -185,24 +185,17 @@ module specific to CuPy (or any other array library) at runtime.
     </i>
 </p>
 
-The dispatch using ``__array_namespace__`` method is:
+One of the key questions to address in this design is whether the behavior
+should be opt-int or opt-out for users. And if it's enabled by default by a
+library (and hence opt-out for users, or not even giving users a choice), is it
+the library which implements the n-D array object that controls this enabling or
+is it individual array-consuming libraries?
 
-* opt-in for users
-  The new dispatching works only when users choose to use the new Array API
-  compatible modules.
-* explicit
-  The dispatched functions are determined via the method of the array object
-  user creates.
-* with local control
-  Which implementation to use is determined by calling methods on the direct
-  arguments of a function.
-
-And the `uarray` dispatcher is:
-
-* opt-out for users
-* can be implemented to be explicit or implicit
-* can be implemented to have local, non-local or global control
-
+We think that the individual array-consuming libraries should control the
+dispatch. And the dispatching itself should be turned off by default for
+backwards-compatibility. The same switch should control enabling `uarray`
+dispatching and use of `__array_namespace__` simultaneously to have consistent
+behavior.
 
 ## Using the Array API standard
 
