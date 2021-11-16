@@ -242,6 +242,10 @@ Anirudh Dagar also [wrote a great
 demo](https://quansight-labs.github.io/array-api-demo/GW_Demo_Array_API.html)
 adapting a LIGO gravitational waves tutorial and showcasing what it would take to
 support PyTorch tensors for a subset of the SciPy API using `__array_namespace__`.
+In the accompanying blog post, titled [Array Libraries
+Interoperability](https://labs.quansight.org/blog/2021/10/array-libraries-interoperability/),
+Anirudh explores array interoperability methods: `__array_function__`
+(NEP 18), `__array_namespace__` (NEP 47) and `uarray`.
 
 ## PyData dispatching system
 
@@ -343,30 +347,23 @@ design issue and there's previous discussion on the topic in
 [a blog post](https://labs.quansight.org/blog/2019/07/uarray-update-api-changes-overhead-and-comparison-to-__array_function__/)
 about the motivation for `uarray` and how it compares to NumPy's
 `__array_function__` dispatch mechanism.
+In 2019, Peter Bell added support for backend switching to the `scipy.fft` module
+([PR #10383](https://github.com/scipy/scipy/pull/10383)) using `uarray`. Now
+it's possible to tell SciPy to use, for example, the CuPy backend, for
+computing FFT when CuPy's array is passed to functions from `scipy.fft`.
 
-## It's already happening
+## Next steps
 
-SciPy has GPU and distributed arrays support [on the
+<!-- SciPy has GPU and distributed arrays support [on the
 roadmap](http://scipy.github.io/devdocs/dev/roadmap.html), but adding this
 support directly to the library would inflate the scope and increase the
 maintenance burden significantly. scikit-learn has [explicitly
 stated](https://scikit-learn.org/stable/faq.html#will-you-add-gpu-support) that
 they cannot afford GPU-specific code in their codebase. A dispatching system is
 a low-maintenance solution for extending the functionality of the API of a
-library.
+library. -->
 
-In 2019, Peter Bell added support for backend switching to the `scipy.fft` module
-([PR #10383](https://github.com/scipy/scipy/pull/10383)) using `uarray`. Now
-it's possible to tell SciPy to use, for example, the CuPy backend, for
-computing FFT when CuPy's array is passed to functions from `scipy.fft`.
 
-In a recent blog post titled [Array Libraries
-Interoperability](https://labs.quansight.org/blog/2021/10/array-libraries-interoperability/),
-Anirudh Dagar explores array interoperability protocols: `__array_function__`
-(NEP 18), `__array_namespace__` (NEP 47) and `uarray`. The blog post includes a
-[section comparing the Array API and
-`uarray`](https://labs.quansight.org/blog/2021/10/array-libraries-interoperability/#protocol_differences)
-approaches for interoperability.
 
 ## Acknowledgment
 
