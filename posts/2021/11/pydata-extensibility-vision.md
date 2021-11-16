@@ -363,7 +363,29 @@ they cannot afford GPU-specific code in their codebase. A dispatching system is
 a low-maintenance solution for extending the functionality of the API of a
 library. -->
 
+This post is the invitation to discuss the idea on the
+[Scientific Python's forum](https://discuss.scientific-python.org/),
+a recent website for better
+coordinating the Scientific Python ecosystem. The forum is a place for
+discussing the general idea of array interopeability, and it's a good place to
+give feedback on the proposed design of the dispatch mechanisms.
 
+One important aspect of the discussion is to discuss the design choices for the
+dispatch API. We particularly need to come to a conclusion on the topic of
+"opt-in vs opt-out". Once there's a consensus on the design with maintainers of
+SciPy, scikit-learn, scikit-image and the wider community, we can move forward
+with the implementation.
+
+There are a couple of PRs that are already in the queue. The first one is adding
+`uarray`-based backend switching to `scipy.ndimage`
+([PR #14356](https://github.com/scipy/scipy/pull/14356)) and the second one is adding
+it to `scipy.linalg.decomp` ([PR #14407](https://github.com/scipy/scipy/pull/14407)).
+After these PRs are merged, we will explore using the array API standard in
+SciPy and scikit-learn with CuPy v10.0.
+
+There's a lot of prior community effort to make the array interoperability in
+the PyData ecosystem better. This is an exciting project, and we're looking
+forward to the progress on that front.
 
 ## Acknowledgment
 
