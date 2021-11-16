@@ -73,8 +73,9 @@ gradually moving towards it.
 
 One of the problems of using the NumPy API as a reference standard is that it
 wasn't designed with different types of hardware in mind and has a number of
-inconsistencies that make it difficult for other libraries to re-implement its
-API. [The Array API standard](https://data-apis.org/array-api/latest/index.html)
+inconsistencies that make it difficult for other libraries to reimplement its
+API (in addition to that API being very large and a little ill-defined).
+[The Array API standard](https://data-apis.org/array-api/latest/index.html)
 solves this problem by standardizing functionality across most array libraries.
 NumPy and CuPy have already adopted the Array API standard; it can be accessed
 via the `__array_namespace__` mechanism in NumPy >=1.22.0 and CuPy >=10.0.0
@@ -123,16 +124,23 @@ paths.
 
 <!-- ![scipy.ndimage dispatch schema](https://drive.google.com/uc?export=view&id=1-ZoVxenDufJuUwcONV_mFY0NFNY3wOCq) -->
 
+A careful reader may note that there's a gray area left: what if some SciPy
+function or submodule is mostly pure Python + NumPy, but relies on a small
+amount of compiled code (which may be private API) for performance? It may then not be
+completely clear what should be done. In some cases it may make sense to make
+that private API public and dispatch on it, in other cases dispatching should
+happen at the top-level - and perhaps there are better solutions to allow reuse
+of the pure Python code.
+
 ## Goals, wishes, and constraints
 
-Goal: separate the interface from the implementation and let the dispatching
-system help users and library authors write generic code that works with
-different kinds of arrays.
+The main goal is to separate the interface from the implementation and let the
+dispatching system help users and library authors write generic code that works
+with different kinds of arrays.
 
 The new dispatching system implemented for SciPy and scikits should:
 
-* make the API extendable and add the possibility to support alternative array
-  libraries, not just NumPy
+* add the possibility to support alternative array libraries, not just NumPy
 * provide a way to select a different backend for the same array type (examples:
   `scipy.fft` + alternative CPU FFT libraries like [pyFFTW](https://github.com/pyFFTW/pyFFTW),
   or scikit-learn + [an Intel optimized
@@ -143,11 +151,17 @@ The new dispatching system implemented for SciPy and scikits should:
 * be able to extend function signatures in a backward-compatible way on the
   base library side (all alternative implementations should not break after the
   change)
-* have a performance overhead that is as low as possible.
+* have a performance overhead that is as low as possible
+* have a reasonably low maintenance overhead (e.g., scikit-learn has [explicitly
+  stated](https://scikit-learn.org/stable/faq.html#will-you-add-gpu-support) that
+  they cannot afford GPU-specific code in their codebase).
+* ideally be adoptable also for libraries that now default to another array
+  library than NumPy (e.g., PyTorch, JAX, TensorFlow, CuPy, and Dask - they all
+  have growing and thriving ecosystem of their own).
 
 When designing API override systems, there are many possible design choices.
-Three major axes of design decisions in the context of NumPy API overrides are
-outlined in [the appendix of NumPy Enhancement Proposal (NEP)
+Three major axes of design decisions in the context of the NumPy API overrides
+are outlined in [the appendix of NumPy Enhancement Proposal (NEP)
 37](https://numpy.org/neps/nep-0037-array-module.html#appendix-design-choices-for-api-overrides);
 they are also applicable outside of NumPy:
 
@@ -345,15 +359,6 @@ it's possible to tell SciPy to use, for example, the CuPy backend, for
 computing FFT when CuPy's array is passed to functions from `scipy.fft`.
 
 ## Next steps
-
-<!-- SciPy has GPU and distributed arrays support [on the
-roadmap](http://scipy.github.io/devdocs/dev/roadmap.html), but adding this
-support directly to the library would inflate the scope and increase the
-maintenance burden significantly. scikit-learn has [explicitly
-stated](https://scikit-learn.org/stable/faq.html#will-you-add-gpu-support) that
-they cannot afford GPU-specific code in their codebase. A dispatching system is
-a low-maintenance solution for extending the functionality of the API of a
-library. -->
 
 This post is the invitation to discuss the idea on the
 [Scientific Python's forum](https://discuss.scientific-python.org/),
