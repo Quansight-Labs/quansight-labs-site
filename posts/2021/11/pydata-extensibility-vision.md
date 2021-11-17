@@ -1,7 +1,7 @@
 <!--
 .. title: A vision for extensibility to GPU & distributed support for SciPy, scikit-learn, scikit-image and beyond
 .. slug: pydata-extensibility-vision
-.. date: 2021-11-17 10:00:00 UTC-07:00
+.. date: 2021-11-17 10:00:00 UTC+00:00
 .. author: Ivan Yashchuk, Ralf Gommers
 .. tags: SciPy, NumPy, CuPy, scikit-learn, scikit-image, uarray, Array API
 .. category:
