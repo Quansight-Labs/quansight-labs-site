@@ -364,10 +364,9 @@ computing FFT when CuPy's array is passed to functions from `scipy.fft`.
 ## Next steps
 
 This post is the invitation to discuss the idea on the
-[Scientific Python's forum](https://discuss.scientific-python.org/),
-a recent website for better coordinating the Scientific Python ecosystem (_we
-will update this link once the initial post is written there, within the next
-day or so_). The forum is a place for discussing the general idea of array
+[Scientific Python's forum](https://discuss.scientific-python.org/t/a-proposed-design-for-supporting-multiple-array-types-across-scipy-scikit-learn-scikit-image-and-beyond/131),
+a recent website for better coordinating the Scientific Python ecosystem.
+The forum is a place for discussing the general idea of array
 interoperability, and it's a good place to give feedback on this proposed design.
 
 One important aspect of the discussion is to discuss the design choices for the
