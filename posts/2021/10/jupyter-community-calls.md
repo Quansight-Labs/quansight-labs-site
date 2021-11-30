@@ -3,7 +3,7 @@
 .. slug: jupyter-community-calls
 .. date: 2021-11-10
 .. author: Isabela Presedo-Floyd, Tony Fast
-.. tags: Jupyter, Community
+.. tags: Jupyter, community
 .. category:
 .. link:
 .. description:
@@ -32,7 +32,7 @@ the Jupyter community calls.
 The original monthly series, starting in [March 2019][first], gave the stage to those using Jupyter daily. 
 These events started to created space for Jupyter's patrons to demonstrate how they use Jupyter as a computational tool.
 
-Jupyter is a rapidly moving piece of technology, and staying up to date with the latest 🔥 takes significant labor. 
+Jupyter is a rapidly moving piece of technology, and staying up to date with the latest advances takes significant labor. 
 The community calls ensure us a monthly check-in of the latest and greatest. 
 Sometimes these events digress into Jupyter's rich folk history, or peer into future interactive computing technologies like real time collaboration[^rtc] or browser-based computing environments [^jupyter-lite].
 
