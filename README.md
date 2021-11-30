@@ -2,6 +2,8 @@
 
 [![Deploy labs website](https://github.com/Quansight-Labs/quansight-labs-site/actions/workflows/deploy.yml/badge.svg)](https://github.com/Quansight-Labs/quansight-labs-site/actions/workflows/deploy.yml)
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/4bf56026-402e-4ef5-9a2b-6be6bd0be2a4/deploy-status)](https://app.netlify.com/sites/admiring-northcutt-a5be8c/deploys)
+
 ## Creating new posts
 
 Use either reStructuredText, Markdown or Jupyter Notebooks. To create an empty post:
@@ -29,6 +31,8 @@ The PR preview system does show Future blog post, so no need to put a fake date 
 
 ## :construction_worker: Build information
 
+:snake: Note that Netlify uses Python `3.8` to build and deploy the site.
+
 To set up a development environment: in a new conda env or virtualenv:
 
 ```sh
@@ -43,10 +47,13 @@ To build the site, and have it auto-update when you edit content:
 
 ## :rocket: Deployment
 
-Once you submit a Pull Request a build of the site will be triggered on [CloudFare Pages](https://developers.cloudflare.com/pages/). The CloudFare Pages bot will add a comment to your Pull Request with the link to the preview URL.
-If the build fails or you need to see more details about it click on the **Show all checks** link in the checks section and then in **Details**.
+Once you submit a Pull Request a build of the site will be triggered on Netlify. The Netlify bot will add a comment to your Pull Request with the link to the preview URL.
 
-![Build previews](images/readme-build-previews.png)
+![Screenshot of a Github Pull Request displaying the Netlify bot for website builds](./images/readme_preview_deploy.png)
+
+If the build fails or you need to see more details about it click on the **Show all checks** link in the checks section and then click on **Details** to expand the list of checks and their full logs.
+
+![Screenshot of a GitHub Pull Request checks with the Details window expanded](./images/readme_PR_checks.png)
 
 :alarm_clock: In addition to automatic builds on merge requests, we use GitHub actions to trigger an automatic build of the site everyday at 10:37 UTC. So if you want to "schedule" posts the best way is to make sure the date in the post preamble is a couple of hours before the scheduled time:
 

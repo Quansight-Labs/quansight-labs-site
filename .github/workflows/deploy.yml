@@ -13,14 +13,15 @@ on:
 jobs:
   nikola_build:
     runs-on: ubuntu-latest
-    name: 'Trigger Cloudfare build'
+    name: 'Trigger Netlify build'
     steps:
-    - name: Check out
+    - name: Check out 🛎️ 
       uses: actions/checkout@v2
-    - name: Trigger Cloudfare build 
+
+    - name: Trigger Netlify build  🚀
       uses: wei/curl@v1.1.1
       env:
-        WEBHOOK: ${{ secrets.CLOUDFARE_WEBHOOK }}
+        WEBHOOK: ${{ secrets.NETLIFY_WEBHOOK }}
       with:
         args: -X POST ${WEBHOOK}
 
