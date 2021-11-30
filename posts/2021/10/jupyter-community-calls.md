@@ -61,7 +61,7 @@ Each event had its own charm as the attendees varied. Below we highlight some in
 * Jupyter underwent a major version change - 2.x to 3.x - during the past year. 
   The monthly syncs were critical in keeping the community aware of what is coming and weather the storm together. 
   More recently, we're seeing the fruits of the [Jupyter 4.0 roadmap][40] at our meetings each month.
-* We recieved updates from the [JupyterHub](https://jupyter.org/hub) and [BinderHub](https://github.com/jupyterhub/binderhub) communities, 
+* We received updates from the [JupyterHub](https://jupyter.org/hub) and [BinderHub](https://github.com/jupyterhub/binderhub) communities, 
   which support scaling Jupyter's abilities.
 * We saw the _first_ browser based implementation of Jupyterlab called [jupyterlite](https://jupyterlite.readthedocs.io/en/latest/) [^jyve]. 
 * We explored several cool extensions such as [ipydrawio](https://github.com/deathbeds/ipydrawio), 
