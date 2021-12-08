@@ -22,7 +22,7 @@ Before we learn about Grayskull, as promised, I’ll talk about software package
 ## Software Packages
 A software package is an installable piece of code that somebody wrote and published for others to use. In other words, you can install packages so you can benefit from the code others have written without reinventing the wheel.
 
-```
+```python
 import numpy
 ```
 That’s you ‘importing’ the package numpy into your code.
