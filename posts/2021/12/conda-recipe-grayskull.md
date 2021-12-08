@@ -110,6 +110,7 @@ Of course I found that some information in the recipe was missing when it was ge
 ## Grayskull’s future
 Grayskull is a very useful tool for conda packaging with a wide scope of enhancement.
 Now Grayskull can generate recipes for GitHub repositories along with PyPI projects. In the future, we could also discuss how to make Grayskull work with:
+
 - GitLab packages
 - PyProject packages
 - Other non Python packages such as R and C++ packages
