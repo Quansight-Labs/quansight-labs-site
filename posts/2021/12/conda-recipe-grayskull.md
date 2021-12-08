@@ -28,7 +28,7 @@ import numpy
 That’s you ‘importing’ the package numpy into your code.
 
 ## Channels
-Once you write a package you might want to publish it so that others can download it and use it. Packages are published on ‘channels’.
+Once you have written a package you might want to publish it so that others can download it and use it. Depending on the packaging technology you are using, the online location where these packages are made available will receive a different name. In the Conda world, they are called _channels_.
 Channels are like warehouses of packages.
 
 ## Conda
