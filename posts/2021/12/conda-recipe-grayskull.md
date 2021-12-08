@@ -57,19 +57,7 @@ Anaconda provides a default channel called ‘defaults’ where packages are pub
 From here onwards in this blog we’ll assume that we want to publish our package on the conda-forge channel.
 
 ## Publishing a package on conda-forge
-Publishing packages on the conda-forge channel requires the knowledge of ‘recipes’. A recipe is a collection of files that defines how to build a package. Minimally a recipe contains a meta.yaml file that describes:
-- The package name and version
-- its dependencies
-- how to build it
-- some other metadata
-You can learn more about recipes [here](https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#meta-yaml).
-
-<p align="center">
-    <img
-     alt="Cute representation of a package recipe"
-     src="/images/2021/12/recipe_animation.png">
-    <i><br>Cute representation of a package recipe</i>
-</p>
+Since conda-forge relies on Conda-build, publishing packages on the conda-forge channel requires creating recipes.
 
 To publish your package write its recipe and create a pull request on the [staged-recipes](https://github.com/conda-forge/staged-recipes) repository of conda-forge. This pull request will be community reviewed and if approved, your package will become available on the conda-forge channel.
 Under the hood, the recipe that you submit is fed to Conda-build which ultimately generates the package.
