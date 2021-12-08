@@ -90,7 +90,7 @@ Yes. Unfortunately that’s where Grayskull falls a little short. It only genera
 
 ## My life’s purpose — making Grayskull more versatile
 During my internship at Quansight Labs, I added the ability to generate recipes from GitHub repositories.
-This way, a package that has not been published on PyPI but lives as a Github repository may have its recipe automatically generated with Grayskull.
+This way, a package that has not been published on PyPI but lives as a GitHub repository may have its recipe automatically generated with Grayskull.
 
 First, Grayskull will extract metadata of the package from two sources: PyPI and the source distribution (often abbreviated as ‘sdist’). It then merges the PyPI metadata and the sdist metadata and uses the resulting information to generate the final recipe.
 For Grayskull to accept packages coming from Github, I had to bypass some parts of that logic and patch others.
