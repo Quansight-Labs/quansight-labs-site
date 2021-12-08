@@ -54,7 +54,7 @@ You can learn more about recipes [here](https://docs.conda.io/projects/conda-bui
 </p>
 
 
-Anaconda provides a default channel called ‘defaults’ where packages are published. There are several community driven channels as well, conda-forge being the most popular one.
+Anaconda, the company behind the development of Conda and Conda-build, also provides the de-facto online platform where most Conda channels are hosted. This includes the official Anaconda channel, called ‘defaults’. There are several community driven channels as well, [conda-forge](https://conda-forge.org) being the most popular one.
 From here onwards in this blog we’ll assume that we want to publish our package on the conda-forge channel.
 
 ## Publishing a package on conda-forge
