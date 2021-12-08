@@ -1,0 +1,118 @@
+<!--
+.. title: On Software Packages, Conda and Recipes
+.. slug: conda-recipe-grayskull
+.. date: 2021-11-17 10:00:00 UTC+00:00
+.. author: Mahe Iram Khan
+.. tags: Conda, conda-forge, recipes, Grayskull, packaging, Python
+.. category:
+.. link:
+.. description:
+.. type: text
+.. previewimage: /images/2021/12/grayskull.jpg
+-->
+
+Python might be the most popular snake out there, but most of us have also heard of that other serpent: Conda. And some of us have wondered what it really is. In this post we’ll learn about Conda, software packages and package recipes. Most importantly we’ll learn about Grayskull — a conda recipe generator.
+
+<!-- TEASER_END -->
+
+Hey! I’m [Mahe](https://twitter.com/IramMahe), a Computer Engineering student from India.
+During the summer of 2021 I was an intern at Quansight Labs and I worked on a project called ‘Grayskull’.
+Before we learn about Grayskull, as promised, I’ll talk about software packages and Conda.
+
+## Software Packages
+A software package is, simply put, a working piece of code that somebody wrote and published for others to use. A functional packet of code that does something — a package. You install packages for your use. Sometimes you import them into your code while writing a package of your own.
+
+```
+import numpy
+```
+That’s you ‘importing’ the package numpy into your code.
+
+## Channels
+Once you write a package you might want to publish it so that others can download it and use it. Packages are published on ‘channels’.
+Channels are like warehouses of packages.
+
+## Conda
+Conda is an OS-agnostic package manager with great popularity in the Python world and data science adjacent libraries.
+
+Conda-build is a set of commands and tools that lets you build your own packages for Conda. These tools let you manage the environments and dependencies of your packages and generate the needed context for your project.
+
+Anaconda provides a default channel called ‘defaults’ where packages are published. There are several community driven channels as well, conda-forge being the most popular one.
+From here onwards in this blog we’ll assume that we want to publish our package on the conda-forge channel.
+
+## Publishing a package on conda-forge
+Publishing packages on the conda-forge channel requires the knowledge of ‘recipes’. A recipe is a collection of files that defines how to build a package. Minimally a recipe contains a meta.yaml file that describes:
+- The package name and version
+- its dependencies
+- how to build it
+- some other metadata
+You can learn more about recipes [here](https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#meta-yaml).
+
+<p align="center">
+    <img
+     alt="Cute representation of a package recipe"
+     src="/images/2021/12/recipe_animation.png">
+    <i><br>Cute representation of a package recipe</i>
+</p>
+
+To publish your package write its recipe and create a pull request on the [staged-recipes](https://github.com/conda-forge/staged-recipes) repository of conda-forge. This pull request will be community reviewed and if approved, your package will become available on the conda-forge channel.
+Under the hood, the recipe that you submit is fed to Conda-build which ultimately generates the package.
+
+<p align="center">
+    <img
+     alt="Conda-build transforms recipes into packages"
+     src="/images/2021/12/conda-build.png">
+    <i><br>Conda-build transforms recipes into packages</i>
+</p>
+
+## Grayskull — the automatic Conda recipe generator
+The process to publish a package on conda-forge is simple and straight forward: write the recipe, create a pull request, wait for the community review. But writing recipes is not simple. It can be error prone and tiresome.
+To alleviate this conda-forge provides a template recipe that can be used as a starting point and edited according to one’s needs. But even that could be too intimidating for someone new to packaging and recipes.
+
+Grayskull solves this problem. Grayskull is an automatic conda recipe generator, with a focus on conda-forge. It generates concise and accurate recipes very quickly, provided the package is available on PyPI.
+All you have to do is pass in the name of the Python package to Grayskull and it will generate its recipe for you.
+
+<p align="center">
+    <img
+     alt="Grayskull automates recipe generation"
+     src="/images/2021/12/package_name.png">
+    <i><br>Grayskull automates recipe generation</i>
+</p>
+
+Now that you have the package recipe, you create a pull request on the staged-recipes repository and wait for someone from the conda-forge community to review it. You know the drill!
+
+## But what if a package is not published on PyPI?
+Yes. Unfortunately that’s where Grayskull falls a little short. It only generates recipes for Python packages available on [PyPI](https://pypi.org/). This prerequisite leaves out a number of Python packages otherwise available online.
+
+## My life’s purpose — making Grayskull more versatile
+During my internship at Quansight Labs, I added the ability to generate recipes from GitHub repositories.
+This way, a package that has not been published on PyPI but lives as a Github repository may have its recipe automatically generated with Grayskull.
+
+First, Grayskull will extract metadata of the package from two sources: PyPI and the source distribution (often abbreviated as ‘sdist’). It then merges the PyPI metadata and the sdist metadata and uses the resulting information to generate the final recipe.
+For Grayskull to accept packages coming from Github, I had to bypass some parts of that logic and patch others.
+
+For a package not published on PyPI, the PyPI metadata doesn’t exist. So for a GitHub package, I made Grayskull skip the part where it extracts metadata from PyPI. This way, only the sdist metadata was used to generate the recipe.
+
+Of course I found that some information in the recipe was missing when it was generated using only the sdist metadata. To overcome this limitation, I introduced additional ‘layers’ (requests to the GitHub API, SHA256 hash generation and more) in the mechanism to retrieve the missing information from GitHub and the package itself, thus generating a perfect and concise Conda recipe.
+
+## Generating a recipe for a package from GitHub
+<p align="center">
+    <img
+     alt="Grayskull generates the recipe for a package called ‘ensureconda’ which exists only as a GitHub repository and is not available on PyPI"
+     src="/images/2021/12/ensureconda.gif">
+    <i><br>Grayskull generates the recipe for a package called ‘ensureconda’ which exists only as a GitHub repository and is not available on PyPI</i>
+</p>
+
+## Grayskull’s Future
+Grayskull is a very useful tool for conda packaging with a wide scope of enhancement.
+Now Grayskull can generate recipes for GitHub repositories along with PyPI projects. In the future, we could also discuss how to make Grayskull work with:
+- GitLab packages
+- PyProject packages
+- Other non Python packages such as R and C++ packages
+
+I hope to continue working on this very interesting project that makes everybody’s life so much easier. :)
+
+Do check out the [Grayskull GitHub repository](https://github.com/conda-incubator/grayskull).
+
+PS: I want to thank my mentor [Jaime](https://mobile.twitter.com/jaime_rgp) for making this internship a memorable, fun learning experience for me. Head [here](https://maheiram.medium.com/my-godsent-god-lookalike-mentor-ee05b78c475b) to read a small note reflecting on my time working with and learning from my lovely mentor.
+
+PSS: I presented a lightening talk on Grayskull during [PackagingCon'21](https://packaging-con.org/). Check out the recording [here](https://drive.google.com/file/d/1yqS3BlCvOe7DbjwLhfcgQgNuH1P7q_6n/view).
