@@ -107,7 +107,7 @@ Of course I found that some information in the recipe was missing when it was ge
     <i><br>Grayskull generates the recipe for a package called ‘ensureconda’ which exists only as a GitHub repository and is not available on PyPI</i>
 </p>
 
-## Grayskull’s Future
+## Grayskull’s future
 Grayskull is a very useful tool for conda packaging with a wide scope of enhancement.
 Now Grayskull can generate recipes for GitHub repositories along with PyPI projects. In the future, we could also discuss how to make Grayskull work with:
 - GitLab packages
