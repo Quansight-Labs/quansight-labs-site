@@ -32,7 +32,7 @@ Once you have written a package you might want to publish it so that others can 
 Channels are like warehouses of packages.
 
 ## Conda
-Conda is an OS-agnostic package manager with great popularity in the Python world and data science adjacent libraries.
+Conda is an OS-agnostic package and environment manager with great popularity in the Python world and data science adjacent libraries. As such, it will allow you to manage the environments and dependencies of your packages and generate the needed context for your project to run successfully on a variety of machines.
 
 Conda-build is a set of commands and tools that lets you build your own packages for Conda. These tools let you manage the environments and dependencies of your packages and generate the needed context for your project.
 
