@@ -20,7 +20,7 @@ During the summer of 2021 I was an intern at Quansight Labs and I worked on a pr
 Before we learn about Grayskull, as promised, I’ll talk about software packages and Conda.
 
 ## Software Packages
-A software package is, simply put, a working piece of code that somebody wrote and published for others to use. A functional packet of code that does something — a package. You install packages for your use. Sometimes you import them into your code while writing a package of your own.
+A software package is an installable piece of code that somebody wrote and published for others to use. In other words, you can install packages so you can benefit from the code others have written without reinventing the wheel.
 
 ```
 import numpy
