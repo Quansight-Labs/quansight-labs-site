@@ -28,12 +28,12 @@ import numpy
 
 That’s you ‘importing’ the package numpy into your code.
 
-## Channels
-Once you have written a package you might want to publish it so that others can download it and use it. Depending on the packaging technology you are using, the online location where these packages are made available will receive a different name. In the Conda world, they are called _channels_.
+## Hosting packages
+Once you have written a package you might want to publish it so that others can download it and use it. Depending on the packaging technology you are using, the online location where these packages are made available will receive a different name. Typically, users will know about hosting packages on [PyPI](https://pypi.org/). In the Conda world, packages are hosted on _channels_.
 Channels are like warehouses of packages.
 
 ## Conda
-Conda is an OS-agnostic package and environment manager with great popularity in the Python world and data science adjacent libraries. As such, it will allow you to manage the environments and dependencies of your packages and generate the needed context for your project to run successfully on a variety of machines.
+[Conda](https://conda.io/en/latest/index.html) is an OS-agnostic package and environment manager with great popularity in the Python world and data science adjacent libraries. As such, it will allow you to manage the environments and dependencies of your packages and generate the needed context for your project to run successfully on a variety of machines.
 
 Its companion project, Conda-build, is a set of commands and tools that lets you build your own packages for Conda. To create a package with Conda-build, you need to provide a _recipe_: the packaging metadata and build instructions for that specific package. Minimally, a recipe contains a `meta.yaml` file that describes:
 
@@ -54,7 +54,7 @@ You can learn more about recipes [here](https://docs.conda.io/projects/conda-bui
 </p>
 
 
-Anaconda, the company behind the development of Conda and Conda-build, also provides the de-facto online platform where most Conda channels are hosted. This includes the official Anaconda channel, called ‘defaults’. There are several community driven channels as well, [conda-forge](https://conda-forge.org) being the most popular one.
+[Anaconda](https://anaconda.org/), the company behind the development of Conda and Conda-build, also provides the de-facto online platform where most Conda channels are hosted. This includes the official Anaconda channel, called ‘defaults’. There are several community driven channels as well, [conda-forge](https://conda-forge.org) being the most popular one.
 From here onwards in this blog we’ll assume that we want to publish our package on the conda-forge channel.
 
 ## Publishing a package on conda-forge
@@ -92,7 +92,7 @@ Yes. Unfortunately, that’s where Grayskull falls a little short. It only gener
 During my internship at Quansight Labs, I added the ability to generate recipes from GitHub repositories.
 This way, a package that has not been published on PyPI but lives as a GitHub repository may have its recipe automatically generated with Grayskull.
 
-First, Grayskull will extract metadata of the package from two sources: PyPI and the source distribution (often abbreviated as ‘sdist’). It then merges the PyPI metadata and the sdist metadata and uses the resulting information to generate the final recipe.
+Before my work, Grayskull would extract metadata of the package from two sources: PyPI and the source distribution (often abbreviated as ‘sdist’). It then merged the PyPI metadata and the sdist metadata and used the resulting information to generate the final recipe.
 For Grayskull to accept packages coming from Github, I had to bypass some parts of that logic and patch others.
 
 For a package not published on PyPI, the PyPI metadata doesn’t exist. So for a GitHub package, I made Grayskull skip the part where it extracts metadata from PyPI. This way, only the sdist metadata was used to generate the recipe.
