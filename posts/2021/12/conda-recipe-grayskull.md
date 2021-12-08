@@ -34,7 +34,24 @@ Channels are like warehouses of packages.
 ## Conda
 Conda is an OS-agnostic package and environment manager with great popularity in the Python world and data science adjacent libraries. As such, it will allow you to manage the environments and dependencies of your packages and generate the needed context for your project to run successfully on a variety of machines.
 
-Conda-build is a set of commands and tools that lets you build your own packages for Conda. These tools let you manage the environments and dependencies of your packages and generate the needed context for your project.
+Its companion project, Conda-build, is a set of commands and tools that lets you build your own packages for Conda. To create a package with Conda-build, you need to provide a _recipe_: the packaging metadata and build instructions for that specific package. Minimally, a recipe contains a `meta.yaml` file that describes:
+
+- The package name and version
+- Where to get its source code from
+- Its dependencies
+- How to build it
+- Some other metadata
+
+You can learn more about recipes [here](https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#meta-yaml).
+
+<p align="center">
+    <img
+     alt="Cute representation of a package recipe"
+     src="/images/2021/12/recipe_animation.png" />
+    <br />
+    <i>Cute representation of a package recipe</i>
+</p>
+
 
 Anaconda provides a default channel called ‘defaults’ where packages are published. There are several community driven channels as well, conda-forge being the most popular one.
 From here onwards in this blog we’ll assume that we want to publish our package on the conda-forge channel.
