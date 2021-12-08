@@ -59,7 +59,7 @@ From here onwards in this blog we’ll assume that we want to publish our packag
 ## Publishing a package on conda-forge
 Since conda-forge relies on Conda-build, publishing packages on the conda-forge channel requires creating recipes.
 
-To publish your package write its recipe and create a pull request on the [staged-recipes](https://github.com/conda-forge/staged-recipes) repository of conda-forge. This pull request will be community reviewed and if approved, your package will become available on the conda-forge channel.
+To publish your package, you need to write its recipe and then submit it through a pull request on the [staged-recipes](https://github.com/conda-forge/staged-recipes) repository of conda-forge. This pull request will be community reviewed and if approved, your package will become available on the conda-forge channel.
 Under the hood, the recipe that you submit is fed to Conda-build which ultimately generates the package.
 
 <p align="center">
