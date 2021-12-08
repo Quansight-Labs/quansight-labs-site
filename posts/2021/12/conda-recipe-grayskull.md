@@ -25,6 +25,7 @@ A software package is an installable piece of code that somebody wrote and publi
 ```python
 import numpy
 ```
+
 That’s you ‘importing’ the package numpy into your code.
 
 ## Channels
