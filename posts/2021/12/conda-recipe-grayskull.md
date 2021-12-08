@@ -86,7 +86,7 @@ All you have to do is pass in the name of the Python package to Grayskull and it
 Now that you have the package recipe, you create a pull request on the staged-recipes repository and wait for someone from the conda-forge community to review it. You know the drill!
 
 ## But what if a package is not published on PyPI?
-Yes. Unfortunately that’s where Grayskull falls a little short. It only generates recipes for Python packages available on [PyPI](https://pypi.org/). This prerequisite leaves out a number of Python packages otherwise available online.
+Yes. Unfortunately, that’s where Grayskull falls a little short. It only generates recipes for Python packages available on [PyPI](https://pypi.org/). This prerequisite leaves out a number of Python packages otherwise available online.
 
 ## My life’s purpose — making Grayskull more versatile
 During my internship at Quansight Labs, I added the ability to generate recipes from GitHub repositories.
