@@ -44,15 +44,50 @@ These calls also gave some structure through an otherwise chaotic pandemic.
 
 We made sure to record these events for posterity, and you can check them out in the [community call YouTube playlist][playlist], as [written notes](https://jupyter.readthedocs.io/en/latest/community/community-call-notes/index.html), or by following any of the links below:
 
-| 2020                                                                                                    |                                                                                                         |
-| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| [November](https://www.youtube.com/watch?v=bko-v1ZZoig&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=7) | [December](https://www.youtube.com/watch?v=IlYP6q2H1M8&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=8) |
-
-| 2021                                                                                                      |                                                                                                          |                                                                                                       |                                                                                                        |
-| --------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| [January](https://www.youtube.com/watch?v=DS_J3mzulCw&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=9)    | [February](https://www.youtube.com/watch?v=TG0w6WLunTk&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=10) | [March](https://www.youtube.com/watch?v=8JQoALd9KTo&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=11) | [April](https://www.youtube.com/watch?v=k-oaQG459A0&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=12)  |
-| [May](https://www.youtube.com/watch?v=g9WrS4FlkeM&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=13)       | [June](https://www.youtube.com/watch?v=-aQFh8rjcdA&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=14)     | [July](https://www.youtube.com/watch?v=ebUXrmRfkM8&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=15)  | [August](https://www.youtube.com/watch?v=WQ43ywKDfg8&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=16) |
-| [September](https://www.youtube.com/watch?v=BZLM_clyHwo&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=17) | [October](https://www.youtube.com/watch?v=ik2hG10GlE4&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=18)  | [November](https://www.youtube.com/watch?v=_YdiFgWUHNI) |
+<table>
+<thead>
+<tr>
+<th>2020</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.youtube.com/watch?v=bko-v1ZZoig&amp;list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&amp;index=7">November</a></td>
+<td><a href="https://www.youtube.com/watch?v=IlYP6q2H1M8&amp;list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&amp;index=8">December</a></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>2021</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.youtube.com/watch?v=DS_J3mzulCw&amp;list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&amp;index=9">January</a></td>
+<td><a href="https://www.youtube.com/watch?v=TG0w6WLunTk&amp;list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&amp;index=10">February</a></td>
+<td><a href="https://www.youtube.com/watch?v=8JQoALd9KTo&amp;list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&amp;index=11">March</a></td>
+<td><a href="https://www.youtube.com/watch?v=k-oaQG459A0&amp;list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&amp;index=12">April</a></td>
+</tr>
+<tr>
+<td><a href="https://www.youtube.com/watch?v=g9WrS4FlkeM&amp;list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&amp;index=13">May</a></td>
+<td><a href="https://www.youtube.com/watch?v=-aQFh8rjcdA&amp;list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&amp;index=14">June</a></td>
+<td><a href="https://www.youtube.com/watch?v=ebUXrmRfkM8&amp;list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&amp;index=15">July</a></td>
+<td><a href="https://www.youtube.com/watch?v=WQ43ywKDfg8&amp;list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&amp;index=16">August</a></td>
+</tr>
+<tr>
+<td><a href="https://www.youtube.com/watch?v=BZLM_clyHwo&amp;list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&amp;index=17">September</a></td>
+<td><a href="https://www.youtube.com/watch?v=ik2hG10GlE4&amp;list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&amp;index=18">October</a></td>
+<td><a href="https://www.youtube.com/watch?v=_YdiFgWUHNI">November</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 
 ## Some highlights from the past year
 
