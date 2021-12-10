@@ -17,6 +17,7 @@ A lot of us showed up for the code, but hung around for the community.
 We'll continue this post talking about the monthly Jupyter community calls, 
 and how they help all [jovyans](https://jupyter.readthedocs.io/en/latest/community/content-community.html#what-is-a-jovyan), Project Jupyter's pet name for their developers and users, stay connected.
 
+<!-- TEASER_END -->
 
 ## Why community calls?
 
