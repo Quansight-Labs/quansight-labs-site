@@ -100,10 +100,12 @@ article table {
 }
 article table tr th {
   width: 25%;
+  text-align: center;
 }
 article table tr td {
   max-width: 25%;
   border: 1px solid black;
+  text-align: center;
 }
 </style>
 
