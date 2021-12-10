@@ -10,8 +10,6 @@
 .. type: text
 -->
 
-# Jupyter community calls
-
 A framing for open source is that the software and code are kernels of community.
 The code, and its abstractions, unite developers and their patrons; 
 a struggle for growing/evolving open communities is to make sure these groups remain connected. 
