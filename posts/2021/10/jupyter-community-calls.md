@@ -43,15 +43,17 @@ These calls also gave some structure through an otherwise chaotic pandemic.
 
 We made sure to record these events for posterity, and you can check them out in the [community call YouTube playlist][playlist], as [written notes](https://jupyter.readthedocs.io/en/latest/community/community-call-notes/index.html), or by following any of the links below:
 
-| 2020                                                                                                    |                                                                                                         |
-| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| [November](https://www.youtube.com/watch?v=bko-v1ZZoig&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=7) | [December](https://www.youtube.com/watch?v=IlYP6q2H1M8&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=8) |
+| 2020                                                                                                    |                                                                                                         |     |     |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | --- | --- |
+| [November](https://www.youtube.com/watch?v=bko-v1ZZoig&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=7) | [December](https://www.youtube.com/watch?v=IlYP6q2H1M8&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=8) |     |     |
+
+<br/>
 
 | 2021                                                                                                      |                                                                                                          |                                                                                                       |                                                                                                        |
 | --------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | [January](https://www.youtube.com/watch?v=DS_J3mzulCw&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=9)    | [February](https://www.youtube.com/watch?v=TG0w6WLunTk&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=10) | [March](https://www.youtube.com/watch?v=8JQoALd9KTo&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=11) | [April](https://www.youtube.com/watch?v=k-oaQG459A0&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=12)  |
 | [May](https://www.youtube.com/watch?v=g9WrS4FlkeM&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=13)       | [June](https://www.youtube.com/watch?v=-aQFh8rjcdA&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=14)     | [July](https://www.youtube.com/watch?v=ebUXrmRfkM8&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=15)  | [August](https://www.youtube.com/watch?v=WQ43ywKDfg8&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=16) |
-| [September](https://www.youtube.com/watch?v=BZLM_clyHwo&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=17) | [October](https://www.youtube.com/watch?v=ik2hG10GlE4&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=18)  |
+| [September](https://www.youtube.com/watch?v=BZLM_clyHwo&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=17) | [October](https://www.youtube.com/watch?v=ik2hG10GlE4&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=18)  | [November](https://www.youtube.com/watch?v=_YdiFgWUHNI)                                               |
 
 ## Some highlights from the past year
 
@@ -93,14 +95,14 @@ up-to-date info for the next call can be found on the [Jupyter community calenda
 
 <style>
 article table {
-  max-width: 100%;
+  width: 100%;
   table-layout: fixed;
 }
 article table tr th {
   width: 25%;
 }
 article table tr td {
-  width: 25%;
+  max-width: 25%;
   border: 1px solid black;
 }
 </style>
