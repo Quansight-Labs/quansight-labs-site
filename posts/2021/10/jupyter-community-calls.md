@@ -81,7 +81,9 @@ We've treated these events as an open source project and have a lot of resources
 We're all nostalgic for the conference hallway track as we stay safe in a pandemic. 
 With the community calls, for one hour a month, we've been doing our best to simulate the hallway track and the communitas it can bring. 
 We hope to see you and your notebooks at an up and coming event.
+What’s up next? For Jupyter, we are looking forward to another year of community calls with a focus on reaching out to communities we heard less from in 2021. This could be other Jupyter projects, people using Jupyter in educational settings, or someone we haven’t met yet.
 
+At a larger scale, we hope to find even more community calls happening across the scientific Python ecosystem! This community call format is designed to be reproducible, and we have resources ready for you to get started yourself available in the [how-to documentation on our repository](https://github.com/Quansight-Labs/jupyter-communitycalls/blob/main/how-to-use-this-repo.md). 
 ## Technical resources
 
 Information about the community calls for participants and hosts can be found in the [__Jupyter community call repository__][repo].
