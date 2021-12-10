@@ -90,6 +90,20 @@ Jupyter community calls are still happening!
 If you want to participate in one of these calls, whether as a presenter or audience member, 
 up-to-date info for the next call can be found on the [Jupyter community calendar](https://jupyter.org/events). 
 
+<style>
+article table {
+  max-width: 100%;
+  table-layout: fixed;
+}
+article table tr th {
+  width: 25%;
+}
+article table tr td {
+  width: 25%;
+  border: 1px solid black;
+}
+</style>
+
 [i18n]: https://jupyterlab.readthedocs.io/en/stable/extension/internationalization.html
 [first]: https://www.youtube.com/watch?v=klxba-v27Q4&list=PLUrHeD2K9Cmkoamm4NjLmvXC4Y6E1o8SP&index=1
 [repo]: https://github.com/isabela-pf/jupyter-communitycalls
@@ -97,3 +111,5 @@ up-to-date info for the next call can be found on the [Jupyter community calenda
 [40]: https://github.com/jupyterlab/jupyterlab/projects/12
 [jupyter-lite]: https://github.com/jupyterlite/jupyterlite
 [rtc]: https://blog.jupyter.org/how-we-made-jupyter-notebooks-collaborative-with-yjs-b8dff6a9d8af
+
+
