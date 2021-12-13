@@ -9,11 +9,6 @@ title: Ralf Gommers
 github: rgommers
 projects: ['NumPy', 'SciPy', 'data-apis.org']
 ---
-name: juanita_gomez.png
-title: Juanita Gomez
-github: juanis2112
-projects: ['Spyder']
----
 name: carlos_cordoba.png
 title: Carlos Cordoba
 github: ccordoba12
@@ -78,11 +73,6 @@ name: aaron_meurer.png
 title: Aaron Meurer
 github: asmeurer
 projects: ['Numba', 'SymPy', 'ndindex']
----
-name: ivan_ogasawara.png
-title: Ivan Ogasawara
-github: xmnlab
-projects: ['Ibis']
 ---
 name: gonzalo_peña.jpg
 title: Gonzalo Peña-Castellanos
@@ -158,11 +148,6 @@ name: gagandeep_singh.jpeg
 title: Gagandeep Singh
 github: czgdp1807
 projects: ['SymPy', 'LFortran', 'NumPy']
----
-name: saul_shanabrook.jpeg
-title: Saul Shanabrook
-github: saulshanabrook
-projects: ['Vega', 'Jupyter', 'metadsl']
 ---
 name: filipe_lains.png
 title: Filipe Laíns
