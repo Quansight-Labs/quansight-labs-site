@@ -77,12 +77,12 @@ projects: ['Numba', 'SymPy', 'ndindex']
 name: gonzalo_peña.jpg
 title: Gonzalo Peña-Castellanos
 github: goanpeca
-projects: ['JupyterLab', 'Spyder']
+projects: ['JupyterLab', 'Napari']
 ---
 name: matthias_bussonnier.JPG
 title: Matthias Bussonnier
 github: Carreau
-projects: ['Jupyter', 'JupyterHub', 'IPython']
+projects: ['Jupyter', 'JupyterHub', 'IPython', 'Napari']
 ---
 name: peter_bell.png
 title: Peter Bell
@@ -97,7 +97,7 @@ projects: ['Holoviz']
 name: athan_reines.png
 title: Athan Reines
 github: kgryte
-projects: ['JupyterLab', 'stdlib.js']
+projects: ['stdlib.js']
 ---
 name: eric_charles.png
 title: Eric Charles
@@ -112,7 +112,7 @@ projects: ['Spyder']
 name: pam_wadhwa.jpeg
 title: Pam Wadhwa
 github: ppwadhwa
-projects: ['Holoviz']
+projects: ['Holoviz', 'Napari']
 ---
 name: sameer_deshmukh.png
 title: Sameer Deshmukh
@@ -137,7 +137,7 @@ projects: ['scikit-image', 'SciPy', 'PyWavelets', 'CuPy', 'PyFFTW']
 name: jaime_rodriguez.jpeg
 title: Jaime Rodriguez Guerra
 github: jaimergp
-projects: ['conda-forge']
+projects: ['conda-forge', 'conda']
 ---
 name: thomas_fan.jpg
 title: Thomas J. Fan
