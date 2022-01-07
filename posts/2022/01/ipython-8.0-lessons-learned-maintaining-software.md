@@ -134,7 +134,7 @@ Setting the stacklevel ensure that python reports the right place where the depr
 ```
 # file example.py
 import warnings
-def fucntion(argument=None):
+def function(argument=None):
    if argument:
       warnings.warn('`argument is deprecated`')
 ```
