@@ -1,4 +1,16 @@
+# Settings in the [build] context are global and are applied to all contexts
+# unless otherwise overridden by more specific contexts.
 [build]
 base = ""
-publish = "output"
+publish = "output/"
+
+# Production context: all deploys from the main branch
+[context.production]
+publish = "output/"
+# Default build command
 command = "nikola build"
+
+# Deploy Preview context: all deploys generated from a pull/merge request will
+# inherit these settings.
+[context.deploy-preview]
+command = "make build_direct"
