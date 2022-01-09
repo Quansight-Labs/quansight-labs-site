@@ -66,7 +66,7 @@ To publish your package, you need to write its recipe and then submit it through
     <img
      alt="A flow diagram of a curled up piece of paper (representing a recipe) passing through a thunder bolt (representing conda-build machinery) and being converted into a brown box (representing a package)."
      src="/images/2021/12/conda-build.png">
-    <i><br>Conda-build transforms recipes into packages</i>
+    <i><br>Internally, conda-forge uses Conda-build to transform recipes into packages</i>
 </p>
 
 ## Grayskull — the automatic Conda recipe generator
