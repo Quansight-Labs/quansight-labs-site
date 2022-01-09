@@ -1,5 +1,5 @@
 <!--
-.. title: On Software Packages, Conda and Grayskull
+.. title: Conda and Grayskull, the Masters of Software Packaging
 .. slug: conda-recipe-grayskull
 .. date: 2021-12-08 10:00:00 UTC+00:00
 .. author: Mahe Iram Khan
