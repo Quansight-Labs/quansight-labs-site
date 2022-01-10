@@ -11,7 +11,7 @@
 .. previewimage:
 -->
 
-This is a companion post from the [Official release of IPython 8.0], that describe what we leaned with this large new
+This is a companion post from the [Official release of IPython 8.0], that describe what we learned with this large new
 major IPython release. We hope it will help you apply best practices, and have an easier time maintaining your projects,
 or helping other. We'll focus on many patterns that made it easier for us to make IPython 8.0 what it is with minimal time involved.
 
@@ -46,7 +46,7 @@ p = Path('test')
 
 try:
    p.mkdir()
-Except FileExistsError:
+except FileExistsError:
    continue
 
 ```
@@ -321,9 +321,8 @@ informations will make it easier for you in the long term.
 Especially in the open-source and volunteer work where time is scarce, you want
 to carefully manage where it is spent.
 
-A waring is likely going to be updated only a couple of time, but may be seen
+A warning is likely going to be updated only a couple of time, but may be seen
 hundreds of time, and fixed in dozen of places.
-
 
 We hope all the new warnings in IPython will be much better, and help you
 migrate easily to new API. They can likely be improved, and we look forward to
