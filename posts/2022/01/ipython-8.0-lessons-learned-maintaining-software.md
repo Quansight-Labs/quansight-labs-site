@@ -11,31 +11,40 @@
 .. previewimage:
 -->
 
-This is a companion post from the [Official release of IPython 8.0](https://blog.jupyter.org/FIXMEONECE IHAVE THE FINAL LINK), that describe what we learned with this large new
-major IPython release. We hope it will help you apply best practices, and have an easier time maintaining your projects,
-or helping other. We'll focus on many patterns that made it easier for us to make IPython 8.0 what it is with minimal time involved.
+This is a companion post from the [Official release of IPython
+8.0](https://blog.jupyter.org/FIXMEONECE IHAVE THE FINAL LINK), that describe
+what we learned with this large new major IPython release. We hope it will help
+you apply best practices, and have an easier time maintaining your projects, or
+helping other. We'll focus on many patterns that made it easier for us to make
+IPython 8.0 what it is with minimal time involved.
 
 
 <!-- TEASER_END -->
 
-IPython 8.0 in addition to adding a number of improvements and make full use of newer Python features, it also removes
-support for a number of legacy API. It reduces the size of the code base, and in general simplify the multiple layer of
-abstractions and conditionals branches present in functions. This makes IPython easier to contribute for new comers.
-Make the codebase faster to navigate and simpler to understand.
+IPython 8.0 in addition to adding a number of improvements and make full use of
+newer Python features, it also removes support for a number of legacy API. It
+reduces the size of the code base, and in general simplify the multiple layer of
+abstractions and conditionals branches present in functions. This makes IPython
+easier to contribute for new comers. Make the codebase faster to navigate and
+simpler to understand.
 
-As Brian Kernighan put it: “Debugging is twice as hard as writing the code in the first place. Therefore, if you write
-the code as cleverly as possible, you are, by definition, not smart enough to debug it.”
+As Brian Kernighan put it: “Debugging is twice as hard as writing the code in
+the first place. Therefore, if you write the code as cleverly as possible, you
+are, by definition, not smart enough to debug it.”
 
-So I'd like to keep my code as simple as possible with less states or condition to keep in mind.
+So I'd like to keep my code as simple as possible with less states or condition
+to keep in mind.
 
-Seen it in another way, your software progressing both because it's leading edge is moving forward, as it does because
-the trailing end is also catching up. And for this release of IPython we focused on both.
+Seen it in another way, your software progressing both because it's leading edge
+is moving forward, as it does because the trailing end is also catching up. And
+for this release of IPython we focused on both.
 
 
 ## LBYL vs EAFP
 
-Look Before You Leap and Easier to Ask Forgiveness than Permissions are two practices each with their advantages and
-inconvenient. Python tend the prefer the second one as try/except is "easy" in Python.
+Look Before You Leap and Easier to Ask Forgiveness than Permissions are two
+practices each with their advantages and inconvenient. Python tend the prefer
+the second one as try/except is "easy" in Python.
 
 This first implementation will often feel more idiomatic Python:
 
@@ -58,12 +67,15 @@ if not p.exists():
     p.mkdir()
 ```
 
-In particular note that the second one suffer a race condition, as the directory could be created between the check and
-call to mkdir and that anyway you should use the `exist_ok=True` argument.
+In particular note that the second one suffer a race condition, as the directory
+could be created between the check and call to mkdir and that anyway you should
+use the `exist_ok=True` argument.
 
-Regardless I have found that conditional code using try and except / EAFP to deal with various versions of a dependency
-is bad practice. It make figuring out the reason for these exception hard to discover, and also make it hard to find all
-occurrences of such conditional imports. I guess that should have bee obvious from the Zen of Python:
+Regardless I have found that conditional code using try and except / EAFP to
+deal with various versions of a dependency is bad practice. It make figuring out
+the reason for these exception hard to discover, and also make it hard to find
+all occurrences of such conditional imports. I guess that should have bee
+obvious from the Zen of Python:
 
 ```
 In [1]: import this
@@ -74,7 +86,8 @@ Explicit is better than implicit.
 ...
 ```
 
-So my first tip: Always avoid catching  `ImportError`s when you can compare version numbers.
+So my first tip: Always avoid catching  `ImportError`s when you can compare
+version numbers.
 
  - having two import lines will not make import slower.
  - it's explicit.
@@ -96,12 +109,15 @@ except ImportError:
 ```
 
 
-Which adds a fallback for [numpy version older than numpy 1.3 from 2008](https://github.com/numpy/numpy/commit/ba9a02dcb2c3ca635076a75cc9eb0f406e00ceed).
-It took me ~30 minutes to find this informations, which could have been seconds would the author (which could have been
-me) had checked version.  A proper version check would also had this code removed years ago.
+Which adds a fallback for [numpy version older than numpy 1.3 from
+2008](https://github.com/numpy/numpy/commit/ba9a02dcb2c3ca635076a75cc9eb0f406e00ceed).
+It took me ~30 minutes to find this informations, which could have been seconds
+would the author (which could have been me) had checked version.  A proper
+version check would also had this code removed years ago.
 
-Currently we do no check for numpy versions anymore as we are removing support for [NumPy older than 1.19](https://github.com/ipython/ipython/pull/13434).
-One way to find numpy version would be
+Currently we do no check for numpy versions anymore as we are removing support
+for [NumPy older than 1.19](https://github.com/ipython/ipython/pull/13434). One
+way to find numpy version would be
 
 ```python
 # using importlib to check versions before importing !
@@ -110,10 +126,12 @@ importlib.metadata.version("numpy")
 numpy.__version__
 ```
 
-As a side note, I wish numpy had a `numpy.version_info`, that was a comparable tuple of int to make it less error prone to
-compare versions, here I would need to parse the version:
+As a side note, I wish numpy had a `numpy.version_info`, that was a comparable
+tuple of int to make it less error prone to compare versions, here I would need
+to parse the version.
 
-Using `packaging` dependencies can be use to parse version (distutils way is deprecated and emit a deprecation warning):
+Using `packaging` as dependencies, I can do the following (distutils way is
+deprecated and emit a deprecation warning):
 
 ```python
 from packaging.version import parse
@@ -122,7 +140,8 @@ if parse(numpy.__version__) < parse('1.13'):
 
 ```
 
-Splitting on `.` and mapping int fails on version numbers like release candidate `1.22.0rc1`
+Splitting on `.` and mapping int fails on version numbers like Release
+Candidates `1.22.0rc1`.
 
 ```python
 # may fails on alpha, beta, rc
@@ -131,18 +150,22 @@ if tuple(int(x) for x in numpy.version.version.split(".")[:3]) < (1, 13):
 ```
 
 
-While IPython has few dependencies beyond Python, we do so with Python version itself, and always compare with
-`sys.version_info` made it straightforward to find all dead code once we bumped or minimal version to 3.8+.
+While IPython has few dependencies beyond Python, we do so with Python version
+itself, and always compare with `sys.version_info` made it straightforward to
+find all dead code once we bumped or minimal version to 3.8+.
 
-This has domino effects in IPython 8.0 as we were going to great length to support top level async which is since 3.8
-native to Python. Many simplification leading do even more down the line up to complete method and class suppressions.
+This has domino effects in IPython 8.0 as we were going to great length to
+support top level async which is since 3.8 native to Python. Many simplification
+leading do even more down the line up to complete method and class suppressions.
 
 
 # Don't be cheap on `DeprecationWarning`s
 
-Warnings in general are much more powerful and complex than at first look. Once you understand them well they are an
-extremely powerful features. When use correctly they give you an expressive way to communicate with your
-users and dependees as well as you in the future. Misused they can be just noise that trains everybody to ignore them.
+Warnings in general are much more powerful and complex than at first look. Once
+you understand them well they are an extremely powerful features. When use
+correctly they give you an expressive way to communicate with your users and
+dependees as well as you in the future. Misused they can be just noise that
+trains everybody to ignore them.
 
 Here is a quick tip/summary of what this section will expand upon.
 
@@ -156,7 +179,8 @@ Here is a quick tip/summary of what this section will expand upon.
 ## Always use `stacklevel=...`
 
 
-Setting the `stacklevel` ensure that python reports the right place where the deprecated feature is used.
+Setting the `stacklevel` ensure that python reports the right place where the
+deprecated feature is used.
 
 ### Make it easier to fix
 
@@ -175,26 +199,30 @@ Will lead to the following error:
   warnings.warn('`argument is deprecated`')
 ```
 
-While setting `stacklevel=2` will point to the right file, line, and show the problematic code:
+While setting `stacklevel=2` will point to the right file, line, and show the
+problematic code:
 
 ```text
 ~/foo.py:3: UserWarning: `argument is deprecated`
   example.function(1)
 ```
 
-Most terminal and editor now recognize the `file/path.py:LineNumber` syntax, so on my setup it is also a single click to
-open the right file on the right location and fix it.
+Most terminal and editor now recognize the `file/path.py:LineNumber` syntax, so
+on my setup it is also a single click to open the right file on the right
+location and fix it.
 
 ### makes it easier to find
 
-Most test runners have options to turns `DeprecationWarning`s into error, this allow you to detect early usage of
-deprecated feature and react early to update your code.
+Most test runners have options to turns `DeprecationWarning`s into error, this
+allow you to detect early usage of deprecated feature and react early to update
+your code.
 
 Individual Errors can be turned off.
 
 
-Moreover it is easy to make warnings into errors **only in the code you maintain**, assuming the libraries you call
-properly set their `stacklevel`, this allow you to make sure you do not use deprecated features directly.
+Moreover it is easy to make warnings into errors **only in the code you
+maintain**, assuming the libraries you call properly set their `stacklevel`,
+this allow you to make sure you do not use deprecated features directly.
 
 [napari](https://github.com/napari/napari/blob/79834ad8ed2191b44df5be4233f4b98a6bd33de9/pyproject.toml#L88-L108) for example uses the  following
 
@@ -204,20 +232,24 @@ properly set their `stacklevel`, this allow you to make sure you do not use depr
 [tool.pytest.ini_options]
 
 filterwarnings = [
-  "error:::napari", # turn warnings from napari into errors by default this requires stacklevel=... to be correct
+  # turn warnings from napari into errors by default
+  # this requires stacklevel=... to be correct
+  "error:::napari",
 
   # we can easily ignore some warnings if we wish to.
-  "ignore:.*Version classes are deprecated.*:DeprecationWarning:napari._vendor",  # vendor darkdetect still use distutils
+  "ignore:.*Version classes are deprecated.*:DeprecationWarning:napari._vendor",
 ]
 ```
 
-The syntax is `which action:pattern of message to match:class of warning:which module`. The `which module` requires the
-author to have set `stacklevel=` properly.
+The syntax is `which action:pattern of message to match:class of warning:which
+module`. The `which module` requires the author to have set `stacklevel=`
+properly.
 
-Setting `stacklevel=` will make you much more confident that the users have seen the warning and has fixed the right
-location. I am personally quite unlikely to fix a warning if it take me 30 minutes to figure out where my code use
-deprecated features, though if I see where the error is I can at least open an issue with the right location to fix and
-go back to my previous task.
+Setting `stacklevel=` will make you much more confident that the users have seen
+the warning and has fixed the right location. I am personally quite unlikely to
+fix a warning if it take me 30 minutes to figure out where my code use
+deprecated features, though if I see where the error is I can at least open an
+issue with the right location to fix and go back to my previous task.
 
 
 ### Be clear what deprecated means, and what the replacements are
@@ -230,8 +262,10 @@ you want to describe.
 ```python
 def publish_display_data(data, metadata=None, source=None, *, ...):
     """
-    ...
 
+    Parameters
+    ----------
+    ...
     source : Deprecated.
 
     """
@@ -254,8 +288,8 @@ deprecation message. A better one if
 ```python
     ...
     warnings.warn("The 'source' parameter has been deprecated,"
-                  " it has no effects and can safely omitted,"
-                  " there are no replacements.",
+                  " it has no effects and can safely"
+                  " omitted, there are no replacements.",
                   DeprecationWarning,
                   stacklevel=2)
 ```
