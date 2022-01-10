@@ -1,5 +1,5 @@
 <!--
-.. title: IPython 8.0, Lessons learned maitaining software
+.. title: IPython 8.0, Lessons learned maintaining software
 .. slug: ipython-8.0-lessons-learned-maintaining-software
 .. date: 2022-01-10 02:51:58 UTC-05:00
 .. author: Matthias Bussonnier
@@ -11,7 +11,7 @@
 .. previewimage:
 -->
 
-This is a companion post from the [Official release of IPython 8.0], that describe what we learned with this large new
+This is a companion post from the [Official release of IPython 8.0](https://blog.jupyter.org/FIXMEONECE IHAVE THE FINAL LINK), that describe what we learned with this large new
 major IPython release. We hope it will help you apply best practices, and have an easier time maintaining your projects,
 or helping other. We'll focus on many patterns that made it easier for us to make IPython 8.0 what it is with minimal time involved.
 
@@ -53,7 +53,7 @@ except FileExistsError:
 
 While this second one can feel less Pythonistic
 
-```
+```python
 if not p.exists():
     p.mkdir()
 ```
@@ -84,7 +84,7 @@ So my first tip: Always avoid catching  `ImportError`s when you can compare vers
 
  For example IPython used to contain
 
-```
+```python
 try:
     from numpy.testing import KnownFailure, knownfailureif
 except ImportError:
@@ -97,7 +97,7 @@ except ImportError:
 
 
 Which adds a fallback for [numpy version older than numpy 1.3 from 2008](https://github.com/numpy/numpy/commit/ba9a02dcb2c3ca635076a75cc9eb0f406e00ceed).
-It tooks me ~30 minutes to find this informations, which could have been seconds would the author (which could have been
+It took me ~30 minutes to find this informations, which could have been seconds would the author (which could have been
 me) had checked version.  A proper version check would also had this code removed years ago.
 
 Currently we do no check for numpy versions anymore as we are removing support for [NumPy older than 1.19](https://github.com/ipython/ipython/pull/13434).
@@ -115,15 +115,16 @@ compare versions, here I would need to parse the version:
 
 Using `packaging` dependencies can be use to parse version (distutils way is deprecated and emit a deprecation warning):
 
-```
-if packaging.version.parse(numpy.__version__) < packaging.version.parse('1.13'):
+```python
+from packaging.version import parse
+if parse(numpy.__version__) < parse('1.13'):
    ...
 
 ```
 
 Splitting on `.` and mapping int fails on version numbers like release candidate `1.22.0rc1`
 
-```
+```python
 # may fails on alpha, beta, rc
 if tuple(int(x) for x in numpy.version.version.split(".")[:3]) < (1, 13):
    ValueError('Parsing version is more complicated that it looks like')
@@ -155,11 +156,11 @@ Here is a quick tip/summary of what this section will expand upon.
 ## Always use `stacklevel=...`
 
 
-Setting the stacklevel ensure that python reports the right place where the deprecated feature is used.
+Setting the `stacklevel` ensure that python reports the right place where the deprecated feature is used.
 
 ### Make it easier to fix
 
-```
+```python
 # file example.py
 import warnings
 def function(argument=None):
@@ -169,14 +170,14 @@ def function(argument=None):
 
 Will lead to the following error:
 
-```
+```text
 ~/example.py:5: UserWarning: `argument is deprecated`
   warnings.warn('`argument is deprecated`')
 ```
 
 While setting `stacklevel=2` will point to the right file, line, and show the problematic code:
 
-```
+```text
 ~/foo.py:3: UserWarning: `argument is deprecated`
   example.function(1)
 ```
@@ -198,7 +199,7 @@ properly set their `stacklevel`, this allow you to make sure you do not use depr
 [napari](https://github.com/napari/napari/blob/79834ad8ed2191b44df5be4233f4b98a6bd33de9/pyproject.toml#L88-L108) for example uses the  following
 
 
-```
+```toml
 # pyproject.toml
 [tool.pytest.ini_options]
 
@@ -227,7 +228,7 @@ you want to describe.
 
 
 ```python
-def publish_display_data(data, metadata=None, source=None, *, transient=None, **kwargs):
+def publish_display_data(data, metadata=None, source=None, *, ...):
     """
     ...
 
@@ -252,7 +253,11 @@ deprecation message. A better one if
 
 ```python
     ...
-    warnings.warn("The "source" parameter has been deprecated, it has no effects and can safely omitted, there are no replacements.", DeprecationWarning, stacklevel=2)
+    warnings.warn("The 'source' parameter has been deprecated,"
+                  " it has no effects and can safely omitted,"
+                  " there are no replacements.",
+                  DeprecationWarning,
+                  stacklevel=2)
 ```
 
 If there are replacement, or an option was deprecated as it was obviously wrong,
@@ -265,13 +270,13 @@ available before the deprecation as that can avoid conditional code.
 This one if a bit of a pet peeve of mine, I regularly come across a deprecation
 and need to go hunt into `git blame` to figure out which versions are affected.
 Sometime it is written in the function docstring, but still this can interrupt
-my workflow as the DeprecationWarning could be in CI and I don't have the
+my workflow as the `DeprecationWarning` could be in CI and I don't have the
 library installed locally.
 
 The version since a deprecation is critical as:
   - it gives me the right info for a conditional
   - it tells me whether I can maybe drop support for older version.
-  - It give me an idea of the timeframe for me to fix the deprecation.
+  - It give me an idea of the time frame for me to fix the deprecation.
   - Sometime the warning is added in the different version than the deprecation.
 
 
@@ -279,8 +284,9 @@ The warning from the previous section should become:
 
 ```python
     ...
-    warnings.warn("The "source" parameter has been deprecated since IPython 5.0, "
-                  "it has no effects and can safely omitted, there are no replacements.",
+    warnings.warn("The 'source' parameter has been deprecated since"
+                  " IPython 5.0, it has no effects and can safely omitted,"
+                  " there are no replacements.",
                   DeprecationWarning,
                   stacklevel=2)
 ```
@@ -309,7 +315,8 @@ are to update their code immediately, and the more confident you can be about
 removing deprecated code.
 
 Give them all the informations they need, and you will realise that it in the
-long term it is also less work for you, and you will have an easier time cleaning API.
+long term it is also less work for you, and you will have an easier time
+cleaning API.
 
 
 ## Communication and Explicitness are keys
