@@ -13,9 +13,7 @@
 
 This is a companion post from the [Official release of IPython 8.0], that describe what we leaned with this large new
 major IPython release. We hope it will help you apply best practices, and have an easier time maintaining your projects,
-or helping other. Trust me your future self will thank you.
-
-We'll focus on many patterns that made it easier for us to make IPython 8.0 what it is with minimal time involved.
+or helping other. We'll focus on many patterns that made it easier for us to make IPython 8.0 what it is with minimal time involved.
 
 
 <!-- TEASER_END -->
@@ -102,6 +100,36 @@ Which adds a fallback for [numpy version older than numpy 1.3 from 2008](https:/
 It tooks me ~30 minutes to find this informations, which could have been seconds would the author (which could have been
 me) had checked version.  A proper version check would also had this code removed years ago.
 
+Currently we do no check for numpy versions anymore as we are removing support for [NumPy older than 1.19](https://github.com/ipython/ipython/pull/13434).
+One way to find numpy version would be
+
+```python
+# using importlib to check versions before importing !
+importlib.metadata.version("numpy")
+# or if already imported:
+numpy.__version__
+```
+
+As a side note, I wish numpy had a `numpy.version_info`, that was a comparable tuple of int to make it less error prone to
+compare versions, here I would need to parse the version:
+
+Using `packaging` dependencies can be use to parse version (distutils way is deprecated and emit a deprecation warning):
+
+```
+if packaging.version.parse(numpy.__version__) < packaging.version.parse('1.13'):
+   ...
+
+```
+
+Splitting on `.` and mapping int fails on version numbers like release candidate `1.22.0rc1`
+
+```
+# may fails on alpha, beta, rc
+if tuple(int(x) for x in numpy.version.version.split(".")[:3]) < (1, 13):
+   ValueError('Parsing version is more complicated that it looks like')
+```
+
+
 While IPython has few dependencies beyond Python, we do so with Python version itself, and always compare with
 `sys.version_info` made it straightforward to find all dead code once we bumped or minimal version to 3.8+.
 
@@ -120,7 +148,7 @@ Here is a quick tip/summary of what this section will expand upon.
  - Always set `warnings.warn(stacklevel=...)` to the right value (at least 2).
  - Be descriptive of what "deprecated" means.
  - Be descriptive of what the replacement is.
- - Always indicate since when it is deprected / the replacement is available.
+ - Always indicate since when it is deprecated / the replacement is available.
  - Don't be afraid to use multiple line strings.
 
 
@@ -158,9 +186,16 @@ open the right file on the right location and fix it.
 
 ### makes it easier to find
 
-Most test runners have options to turns DeprecationWarnings into error **only in the code you maintain**.
+Most test runners have options to turns `DeprecationWarning`s into error, this allow you to detect early usage of
+deprecated feature and react early to update your code.
 
-[napari] for example uses the  following
+Individual Errors can be turned off.
+
+
+Moreover it is easy to make warnings into errors **only in the code you maintain**, assuming the libraries you call
+properly set their `stacklevel`, this allow you to make sure you do not use deprecated features directly.
+
+[napari](https://github.com/napari/napari/blob/79834ad8ed2191b44df5be4233f4b98a6bd33de9/pyproject.toml#L88-L108) for example uses the  following
 
 
 ```
@@ -268,12 +303,13 @@ Python has multiline strings with triple backticks, they are not limited to
 docstrings. Of course you can (and should) mention deprecation in docstrings,
 but you can and should also use multiline strings in warnings messages.
 
-The more you break the back of the work for your users, the more likely they are
-to update their code immediately, and the more confident you can be about
+The more informations and the easier to you make it for your users to fix
+warnings without having to search and lookup informations, the more likely they
+are to update their code immediately, and the more confident you can be about
 removing deprecated code.
 
 Give them all the informations they need, and you will realise that it in the
-long term less work for you, and you will have an easier time cleaning API.
+long term it is also less work for you, and you will have an easier time cleaning API.
 
 
 ## Communication and Explicitness are keys
