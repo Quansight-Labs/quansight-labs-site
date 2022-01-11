@@ -1,7 +1,7 @@
 <!--
 .. title: Conda and Grayskull, the Masters of Software Packaging
 .. slug: conda-recipe-grayskull
-.. date: 2021-12-08 10:00:00 UTC+00:00
+.. date: 2022-01-11 10:00:00 UTC+00:00
 .. author: Mahe Iram Khan
 .. tags: Conda, conda-forge, recipes, Grayskull, packaging, Python
 .. category:
@@ -119,6 +119,6 @@ I hope to continue working on this very interesting project that makes everybody
 
 Do check out the [Grayskull GitHub repository](https://github.com/conda-incubator/grayskull).
 
-PS: I want to thank my mentor [Jaime](https://twitter.com/jaime_rgp) for making this internship a memorable, fun learning experience for me. Head [here](https://maheiram.medium.com/my-godsent-god-lookalike-mentor-ee05b78c475b) to read a small note reflecting on my time working with and learning from my lovely mentor.
+PS: I want to thank my mentor [Jaime](https://twitter.com/jaime_rgp) for making this internship a memorable, fun learning experience for me. Head [here](https://maheiram.medium.com/my-godsent-god-lookalike-mentor-ee05b78c475b) to read a small note I wrote reflecting on my time working with and learning from Jaime.
 
 PPS: I presented a lightning talk on Grayskull during [PackagingCon'21](https://packaging-con.org/). Check out the recording [here](https://youtu.be/BpRef4U-4sI?t=942).
