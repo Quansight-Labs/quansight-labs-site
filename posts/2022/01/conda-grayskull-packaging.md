@@ -8,7 +8,7 @@
 .. link:
 .. description:
 .. type: text
-.. previewimage: /images/2021/12/grayskull.jpg
+.. previewimage: /images/2022/01/grayskull.jpg
 -->
 
 Python might be the most popular snake out there, but most of us have also heard of that other serpent: Conda. And some of us have wondered what it really is. In this post we’ll learn about Conda, software packages and package recipes. Most importantly we’ll learn about Grayskull — a conda recipe generator.
@@ -48,7 +48,7 @@ You can learn more about recipes [here](https://docs.conda.io/projects/conda-bui
 <p align="center">
     <img
      alt="An illustration of a curled up piece of paper with recipe contents on it. The items listed on it are the ones mentioned previously."
-     src="/images/2021/12/recipe_animation.png" />
+     src="/images/2022/01/recipe_animation.png" />
     <br />
     <i>Cute representation of a package recipe</i>
 </p>
@@ -65,7 +65,7 @@ To publish your package, you need to write its recipe and then submit it through
 <p align="center">
     <img
      alt="A flow diagram of a curled up piece of paper (representing a recipe) passing through a thunder bolt (representing conda-build machinery) and being converted into a brown box (representing a package)."
-     src="/images/2021/12/conda-build.png">
+     src="/images/2022/01/conda-build.png">
     <i><br>Internally, conda-forge uses Conda-build to transform recipes into packages</i>
 </p>
 
@@ -79,7 +79,7 @@ All you have to do is pass in the name of the Python package to Grayskull and it
 <p align="center">
     <img
      alt="A flow diagram of a 'package name' being fed into a gray colored skull which represents the tool Grayskull and being converted into a curled up piece of paper which represents a recipe."
-     src="/images/2021/12/package_name.png">
+     src="/images/2022/01/package_name.png">
     <i><br>Grayskull automates recipe generation</i>
 </p>
 
@@ -103,7 +103,7 @@ Of course I found that some information in the recipe was missing when it was ge
 <p align="center">
     <img
      alt="A screencast of the Grayskull CLI when it is being used to generate the recipe for a GitHub package called ensureconda."
-     src="/images/2021/12/ensureconda.gif">
+     src="/images/2022/01/ensureconda.gif">
     <i><br>Grayskull generates the recipe for a package called ‘ensureconda’ which exists only as a GitHub repository and is not available on PyPI</i>
 </p>
 
