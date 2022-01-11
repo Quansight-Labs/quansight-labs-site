@@ -1,6 +1,6 @@
 <!--
 .. title: Conda and Grayskull, the Masters of Software Packaging
-.. slug: conda-recipe-grayskull
+.. slug: conda-grayskull-packaging
 .. date: 2022-01-11 10:00:00 UTC+00:00
 .. author: Mahe Iram Khan
 .. tags: Conda, conda-forge, recipes, Grayskull, packaging, Python
