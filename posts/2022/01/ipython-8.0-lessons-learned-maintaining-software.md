@@ -1,7 +1,7 @@
 <!--
 .. title: IPython 8.0, Lessons learned maintaining software
 .. slug: ipython-8.0-lessons-learned-maintaining-software
-.. date: 2022-01-10 02:51:58 UTC-05:00
+.. date: 2022-01-12 14:00:00 UTC+01:00
 .. author: Matthias Bussonnier
 .. tags: IPython, Software, Open-Source, best-practice
 .. category:
