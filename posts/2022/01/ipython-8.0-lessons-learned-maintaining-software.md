@@ -339,7 +339,7 @@ I thus prefer to stay factual, and I don't claim to predict the future.
 
 ### Use multiline strings
 
-Python has multiline strings with triple backticks, they are not limited to
+Python has multiline strings with triple quote marks, they are not limited to
 docstrings. Of course you can (and should) mention deprecation in docstrings,
 but you can and should also use multiline strings in warnings messages.
 
