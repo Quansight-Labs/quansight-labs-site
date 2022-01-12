@@ -12,7 +12,7 @@
 -->
 
 This is a companion post from the [Official release of IPython
-8.0](https://blog.jupyter.org/FIXMEONECE IHAVE THE FINAL LINK), that describe
+8.0](https://blog.jupyter.org/release-of-ipython-8-0-6e034ff122ef), that describe
 what we learned with this large new major IPython release. We hope it will help
 you apply best practices, and have an easier time maintaining your projects, or
 helping other. We'll focus on many patterns that made it easier for us to make
