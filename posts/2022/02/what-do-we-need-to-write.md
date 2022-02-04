@@ -18,30 +18,30 @@ projects.
 Day in and out our remote work and open source lives are driven by written 
 communication. But blog posts are one kind of writing that eludes our regular 
 practice. In our weekly show and tell we got real about "why can writing blog 
-posts be so hard?" and collaborated to write a blog post about what we learned 
+posts be so hard?" and collaboratively wrote up this blog post about what we learned 
 from the discussion.
 
 <!-- TEASER_END -->
 
 A quick note about language: At Quansight, we have many people who are 
 multilingual and/or are not working in their first language. This is the norm 
-here. Because of this, we know that there language barriers to writing that 
-were only mentioned implicitly in the discussion, but are a daily reality 
-amongst the team.
+here. Because of this, we know that there are language barriers to writing that 
+were only mentioned implicitly in the discussion, but have to be overcome on a daily
+basis by the team.
 
 ## What obstacles prevent us from publishing writing?
 
-> Writing is not a single task. There's getting the idea, organizing it, 
+> Writing is not a singular task. There's getting the idea, organizing it, 
 editing what you have, getting feedback, publishing, and so on…
 
 We found ourselves split into two camps (1) those that struggle to start 
 writing and (2) those that struggle to complete and publish their writing. 
 Below are their stories:
 
-### Tyranny of the blank page
+### The tyranny of the blank page
 
-Oh, the beginning. Some find it a very good place to start, the following 
-people commented with contrary statements:
+Oh, the beginning. Some find it to be a very good place to start, but the following 
+people countered with these contrary statements:
 
 - Writing alone is hard. How am I supposed to know what to do?
 - I don't have the time to collaborate (and I must collaborate in order to 
@@ -54,24 +54,24 @@ that feeling when writing.
 
 ### Avoiding diminishing returns
 
-Now let's pretend we've navigated the above obstacles and have something 
+Now let's pretend we've navigated around the above obstacles and have something 
 (however messy) on the page. In most cases, that is only the first step. 
 
 When you are maintaining projects, juggling your community commitments, and 
 maybe even already writing documentation, how do you make good use of your 
 time while writing? How do you get it from *started* to *finished*? This was 
-another theme our team expressed:
+another theme our team discussed, which can be distilled into the following:
 
-- The hardest part of writing is finishing it (especially when writing it over 
+- The hardest part of writing is finishing it (especially when writing something over 
 a long period of time).
-- I can't afford to spend 6 hours on one sentence (and can easily do so).
+- I can't afford to spend 6 hours on one sentence (but can easily  end up doing so).
 - Being responsible for what you say on a company blog can be stressful.
 - If I haven't looked at my drafts in a while, I don't usually find anything 
 there that I feel is worth continuing on.
 
 ### Maybe it's not so bad
 
-Some of the authors' favorite part of these lists is that many of the 
+Some of the authors' favorite parts of these lists is that many of the 
 obstacles complement each other! Just like there isn't one single kind of 
 author, there isn't one single set of needs people have in order to write. Do 
 we need people or do we need alone time? Do we need the force of deadlines or 
@@ -83,16 +83,16 @@ Bring those thoughts with you while we discuss the next question…
 
 ## How do people like to write?
 
-Sometimes writing does successfully get published! 🎉 We asked our team about 
-what happens the times when writing does get completed as planned. People 
+Sometimes writings do successfully get published! 🎉 We asked our team about 
+what goes right when writing does get completed as planned. People 
 commented that writing works best for them when the following happens:
 
-- Knowing who you are writing is important. As practice, folks suggested 
+- Knowing who you are writing for is important. For practice, folks suggested 
 writing for yourself or close allies.
 - Writing about topics you like (or at least tying another topic into that).
 - I like to write as part of a organized meet up where you critique and share 
 each other's work with the intent of publishing at the end. ([Writer's workshop style](https://github.com/Quansight/writers-workshop))
-- Having a good editor / critique relationship with someone is so helpful.
+- Having a good editor / someone to provide constructive critiques is so helpful.
 - Co-authoring is the best!
 - As a way to bring people into new projects.
 - It's so helpful to be hyped and have that support system.
@@ -112,11 +112,11 @@ writing)
 
 Write! Write for yourself. Write for each other. 
 
-To do this sustainably, we need to experiment with techniques that mend the 
+To do this sustainably, we need to experiment with techniques that shorten the 
 gap between the obstacles and all the good feelings listed above.
 
 One pattern we discovered in this discussion is that people agree writing (and 
-publishing) takes a team. Whether people struggled at the beginning or end of 
+publishing) takes a team. Whether people struggled at the beginning or at the end of 
 the process, everyone mentioned needing support at one time or another. And of 
 course, working with others is better when you find a way to have fun. Creating 
 a system to engage in fun, consistent collaboration may be the first step to helping all our writers make it across the finish line.
