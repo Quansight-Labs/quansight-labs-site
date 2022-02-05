@@ -130,4 +130,4 @@ a system to engage in fun, consistent collaboration may be the first step to hel
 
 In need of encouragement? Remember the wise words of another team member:
 
-> I can't wait to read what you want to write.
+> I can't wait to read what you write.
