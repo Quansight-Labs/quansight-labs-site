@@ -108,6 +108,13 @@ writing)
 - A legal pad and a computer go together. No computer writing alone.
 - Relax while writing. You'll think better. (When there's no deadline!)
 
+Most people agreed that to overcome the tyranny of the blank page, it's helpful to just write.  Write anything.  It can be nonsense, gibberish, garbage, or downright silly, but just write. 
+
+If that's not effective, here are some other ideas:
+- Try to sneak up on the empty page by doing something you enjoy that is related to what you want to write.  For example, if you love to draw, try drawing something related to your topic and let it pull you into that world.
+- Try open-ended questions, like "What message do I want the reader to learn?" or "What's the coolest thing about this topic?"
+- Pretend you're having a conversation with someone.  How would you start describing the topic to them?
+
 ## What are we to do?
 
 Write! Write for yourself. Write for each other. 
