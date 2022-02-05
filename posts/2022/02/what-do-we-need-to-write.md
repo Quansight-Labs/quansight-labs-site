@@ -34,9 +34,9 @@ basis by the team.
 > Writing is not a singular task. There's getting the idea, organizing it, 
 editing what you have, getting feedback, publishing, and so on…
 
-We found ourselves split into two camps (1) those that struggle to start 
+We found ourselves split into two camps: (1) those that struggle to start 
 writing and (2) those that struggle to complete and publish their writing. 
-Below are their stories:
+Below are their stories.
 
 ### The tyranny of the blank page
 
@@ -90,13 +90,13 @@ commented that writing works best for them when the following happens:
 - Knowing who you are writing for is important. For practice, folks suggested 
 writing for yourself or close allies.
 - Writing about topics you like (or at least tying another topic into that).
-- I like to write as part of a organized meet up where you critique and share 
+- Writing as part of a organized meet up where you critique and share 
 each other's work with the intent of publishing at the end. ([Writer's workshop style](https://github.com/Quansight/writers-workshop))
 - Having a good editor / someone to provide constructive critiques is so helpful.
 - Co-authoring is the best!
 - As a way to bring people into new projects.
 - It's so helpful to be hyped and have that support system.
-- To by hyped by others in the form of "I double-doggy-dare you" or "I bet a 
+- To by hyped by others in the form of "I double-dog-dare you" or "I bet a 
 dollar you can."
 
 The "I published a blog post in the last few months" team also provided some 
