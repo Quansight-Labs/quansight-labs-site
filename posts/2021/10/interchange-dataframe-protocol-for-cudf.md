@@ -3,14 +3,14 @@
 .. slug: data-apis-cudf
 .. date: 2021-10-21 09:00:00 UTC+00:00
 .. author: Ismaël Koné
-.. tags: dataframe protocol, cuDF
+.. tags: dataframe protocol, cuDF, Internship 2021
 .. category:
 .. link:
 .. description:
 .. type: text
 -->
 
-This is Ismaël Koné from Côte d'Ivoire (Ivory Coast). I am a fan of open source software. 
+This is Ismaël Koné from Côte d'Ivoire (Ivory Coast). I am a fan of open source software.
 In the next lines, I'll try to capture my experience at Quansight Labs as an intern working on the `cuDF` implementation of the dataframe interchange protocol.
 
 We'll continue by motivating this project through details about **cuDF** and the **dataframe interchange protocol**.
@@ -32,7 +32,7 @@ import vaex
 # run some exploratory data analysis (EDA)
 import dask, cudf
 # take a sample of 3 GB
-# run some operations with Dask, then cuDF and compare performance. 
+# run some operations with Dask, then cuDF and compare performance.
 ```
 
 Along the way, we load the dataset many times. We use the pair `to_pandas`/`from_pandas` to move from one dataframe library to another. Challenges arise with this practice:
@@ -41,7 +41,7 @@ Along the way, we load the dataset many times. We use the pair `to_pandas`/`from
 
 - high coupling with `pandas` that breaks an important software design pattern: [Dependency Inversion Principle (DIP)](https://en.wikipedia.org/wiki/Dependency_inversion_principle) which promotes dependencies at the abstract layers (interface) over the implementation layer.
 
-The dataframe protocol comes into play as the interface specifying a common representation of dataframes and thus restores the broken dependency inversion design pattern. 
+The dataframe protocol comes into play as the interface specifying a common representation of dataframes and thus restores the broken dependency inversion design pattern.
 
 Now, we can move from one dataframe library to another one using directly the `from_dataframe` method. No needs anymore to go through `pandas`. Note that this possible only among dataframe libraries supporting the protocol. Also, the protocol enforces zero-copy as much as possible which gets us rid of the possible memory overhead mentioned.
 
@@ -73,7 +73,7 @@ The dataframe interchange protocol is in fact a composition of interfaces:
     <i>Composition of the dataframe interchange protocol interfaces. Cardinality on links means "has 1 or more" of the Interfaces mentioned.</i>
 </p>
 <br/>
-               
+
 So each library supporting the protocol should implement these 3 interfaces that can be described as follows:
 
 - **DataFrame** mainly exposes different methods to access/select columns (by name, index) and knowing the number of rows.
@@ -122,7 +122,7 @@ Let's recap the protocol main features to be implemented in `cuDF`:
     <td>-</td>
   </tr>
   <br/>
-</table> 
+</table>
 
  <br/>
 
@@ -173,11 +173,11 @@ Checked elements in the table below represent implemented features so far.
     <td>-</td>
   </tr>
   <br/>
-</table> 
+</table>
 
  <br/>
 
-Note that we support CPU dataframes like pandas but since the protocol has not been integrated in the pandas repo, we can only test it locally. 
+Note that we support CPU dataframes like pandas but since the protocol has not been integrated in the pandas repo, we can only test it locally.
 We've submitted this work as a [Pull Request](https://github.com/rapidsai/cudf/pull/9071) still under review, to rapidsai/cudf github repo.
 
 <h4>Working <code>cuDF</code> code examples</h4>
@@ -189,12 +189,12 @@ We start by creating a cuDF dataframe object with columns named after supported 
 ```python
 import cudf
 import cupy as cp
-data = {'int': [1000, 2, 300, None], 
+data = {'int': [1000, 2, 300, None],
         'uint8': cp.array([0, 128, 255, 25], dtype=cp.uint8),
         'float': [None, 2.5, None, 10],
         'bool': [True, None, False, True],
         'string': ['hello', '', None, 'always TDD.']}
-        
+
 df = cudf.DataFrame(data)
 df['categorical'] = df['int'].astype('category')
 ```
@@ -232,7 +232,7 @@ Now, we create the dataframe interchange protocol object to check that basic inf
 dfo =  df.__dataframe__()
 print(f'{dfo}: {dfo.num_rows()} rows\n')
 print('Column\t Non-Null Count\t\t\t\t\t    Dtype\n')
-for n, c in zip(dfo.column_names(), dfo.get_columns()): 
+for n, c in zip(dfo.column_names(), dfo.get_columns()):
     print(f'{n}\t\t      {int(c.size - c.null_count)}\t\t{c.dtype}')
 ```
 **output**:
@@ -247,7 +247,7 @@ for n, c in zip(dfo.column_names(), dfo.get_columns()):
     bool	              3		(<_DtypeKind.BOOL: 20>, 8, '|b1', '|')
     string	              3		(<_DtypeKind.STRING: 21>, 8, 'u', '=')
     categorical	          3		(<_DtypeKind.CATEGORICAL: 23>, 8, '|u1', '=')
-    
+
 
 How about buffers? We will examine those of the 'float' column:
 ```python
@@ -263,7 +263,7 @@ for k in buffers:
     validity: (CuDFBuffer({'bufsize': 512, 'ptr': 140704936365568, 'dlpack': <capsule object "dltensor" at 0x7ff893505e40>, 'device': 'CUDA'}), (<_DtypeKind.UINT: 1>, 8, 'C', '='))
 
     offsets: None
-    
+
 We can notice the column dtype `<_DtypeKind.FLOAT: 2>` from the data buffer and the dtype of the validity mask which is always`<_DtypeKind.UINT: 1>` here. Finally there is no `offset` buffer as it is reserved to variable-length data like string.
 
 Let's retrieve data and validity arrays from their buffers using the [DLPack protocol](https://github.com/dmlc/dlpack) and compare with the column itself:
@@ -320,7 +320,7 @@ We just went over a roundtrip demo from a cuDF dataframe to the dataframe interc
 
 
 
-## Lessons learned 
+## Lessons learned
 
 ### Diversity advantage
 Many studies show the benefits and better performance of diverse teams. My experience in this project was the [`CONTRIBUTING.md`](https://github.com/rapidsai/cudf/blob/branch-21.08/CONTRIBUTING.md)(old version) document on the repository which was very unclear for me as a newcomer. Following my mentors' advice ([Kshiteej Kalambarkar](https://github.com/kshitij12345) and [Ralf Gommers](https://github.com/rgommers)), I've opened an issue where I've shared my thoughts and kept asking clarifications which ended up in a (merged) [PR](https://github.com/rapidsai/cudf/pull/9026) to restructure the [`CONTRIBUTING.md`](https://github.com/rapidsai/cudf/blob/branch-21.12/CONTRIBUTING.md) (current version) document to make it clearer.
@@ -328,17 +328,17 @@ Many studies show the benefits and better performance of diverse teams. My exper
 Thus, a diversity of levels (experts, newcomers, etc...) ensures an inclusive environment where everyone can find their way easily.
 
 ### Test Driven Development (TDD)
-This process has been very helpful during this project. I've noticed my slowness on days where I've started developing features before writing any test. I kept going back and forth in the code base to ensure the coherence of different pieces of code written for that feature. However, when writing tests I felt the possibility to express all my expectations across different test cases then writing code for each one at a time. In this process, I felt like the tests pointed out next place on the code base where they might be something wrong. 
+This process has been very helpful during this project. I've noticed my slowness on days where I've started developing features before writing any test. I kept going back and forth in the code base to ensure the coherence of different pieces of code written for that feature. However, when writing tests I felt the possibility to express all my expectations across different test cases then writing code for each one at a time. In this process, I felt like the tests pointed out next place on the code base where they might be something wrong.
 
 ### Collaboration, speaking out is very helpful
-Sometimes, when stumbling upon a problem, just speaking out or sharing the problem to someone else opens your eyes to a possible solution. This happened to me countless times when discussing with my mentor [Kshiteej Kalambarkar](https://github.com/kshitij12345) and my colleague [Alenka Frim](https://github.com/AlenkaF/) whose project is very close to mine. Otherwise, external inputs combined with ours will definitely be better than ours alone. 
+Sometimes, when stumbling upon a problem, just speaking out or sharing the problem to someone else opens your eyes to a possible solution. This happened to me countless times when discussing with my mentor [Kshiteej Kalambarkar](https://github.com/kshitij12345) and my colleague [Alenka Frim](https://github.com/AlenkaF/) whose project is very close to mine. Otherwise, external inputs combined with ours will definitely be better than ours alone.
 
 ### Patience and Perseverence
 
-It is well known that configuring and installing drivers to work with GPU is not an easy task. During this internship I've been rebuilding the cuDF library many times and encountered multiple issues. I came up with a recipe which is: 
+It is well known that configuring and installing drivers to work with GPU is not an easy task. During this internship I've been rebuilding the cuDF library many times and encountered multiple issues. I came up with a recipe which is:
 
-- seek help after around 40 minutes of debugging even if you have more ideas to try. 
-- When asking for help, do share what you've tried and other ideas to try. 
+- seek help after around 40 minutes of debugging even if you have more ideas to try.
+- When asking for help, do share what you've tried and other ideas to try.
 
 Speaking out can reveal some gaps as previously mentioned.
 When something is missing, make an attempt to fix it. If it goes well, that'll be a contribution. That happened to me when trying to unpack bits with `bitorder='little'` as in `numpy`, using `cupy` instead. I've ended up submitting a (merged) [Pull Request to CuPy](https://github.com/cupy/cupy/pull/5765).
@@ -351,4 +351,4 @@ When something is missing, make an attempt to fix it. If it goes well, that'll b
 
 - I'm very happy be part of this warm and welcoming environment;
 
-- I'm proud of what this environment helps me achieve. 
+- I'm proud of what this environment helps me achieve.

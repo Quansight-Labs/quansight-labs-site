@@ -3,7 +3,7 @@
 .. slug: dataframe-interchange-protocol-and-vaex
 .. date: 2021-10-04 10:30:58 UTC-05:00
 .. author: Alenka Frim
-.. tags: internship2021, dataframe api, vaex
+.. tags: Internship 2021, dataframe api, vaex
 .. category:
 .. link:
 .. description:

@@ -3,7 +3,7 @@
 .. slug: re-engineering-cicd-pipelines-for-scipy
 .. date: 2021-10-11 02:51:58 UTC-05:00
 .. author: Harsh Mishra
-.. tags: SciPy, cicd, github-actions, internship-2021
+.. tags: SciPy, cicd, github-actions, Internship 2021
 .. category:
 .. link:
 .. description:

@@ -3,7 +3,7 @@
 .. slug: array-libraries-interoperability
 .. date: 2021-10-13 10:04:54 UTC-00:00
 .. author: Anirudh Dagar
-.. tags: SciPy, PyTorch, NumPy, CuPy, uarray, Array API, internship-2021
+.. tags: SciPy, PyTorch, NumPy, CuPy, uarray, Array API, Internship 2021
 .. category:
 .. link:
 .. description:
