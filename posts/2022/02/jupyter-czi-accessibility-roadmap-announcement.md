@@ -1,7 +1,7 @@
 <!--
 .. title: Jupyter accessibility efforts have a roadmap!
 .. slug: jupyter-accessibility-efforts-have-a-roadmap
-.. date: 2022-02-29 10:00:00 UTC+00:00
+.. date: 2022-02-28 10:00:00 UTC+00:00
 .. author: Isabela Presedo-Floyd
 .. tags: Accessibility, JLabA11y, Jupyter, JupyterLab
 .. category:
