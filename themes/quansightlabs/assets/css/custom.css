@@ -7008,16 +7008,6 @@ html, body {
   font-size: 16px;
 }
 
-.body-content {
-  margin-right: auto;
-  margin-left: auto;  
-  max-width: 90%;
-}
-
-.postindex {
-  max-width: 80%;
-}
-
 .rendered_html :visited {
   text-decoration: underline !important;
 }
