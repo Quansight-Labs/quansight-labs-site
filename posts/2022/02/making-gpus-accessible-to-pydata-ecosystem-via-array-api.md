@@ -392,7 +392,7 @@ Out[4]: array([0, 1])
 # Doesn't Works with Array API
 In [5]: z = npx.arange(10)
 In [6]: z[npx.arange(2)]
----------------------------------------------------------------------------
+-----------------------------------------------------------------
 ...
 IndexError: Non-zero dimensional integer array indices are not allowed in the array API namespace
 ```
@@ -419,6 +419,21 @@ This is most likely due to a bug in cupy.
 This was ran on NVIDIA TITAN RTX. The plot for NVIDIA GPU is what you would
 expect, the computation is faster with cupy (i.e. on GPU) compared to numpy
 (i.e. on CPU) for non-trivial image size.
+
+### Running the analysis
+
+The code and instructions to run the analysis above can be found in this repository:
+[Quansight-Labs/array-api-gpu-demo](https://github.com/Quansight-Labs/array-api-gpu-demo).
+
+The above analysis required changes in the following libraries:
+
+- `cupy`
+- `scipy`
+- `scikit-learn`
+- `scikit-image`
+
+The changes are present in the `array-api-gpu-demo` branch of [https://github.com/aktech](@aktech)'s fork
+of the above projects.
 
 ## Next Steps
 
