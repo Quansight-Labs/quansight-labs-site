@@ -403,56 +403,22 @@ Here we will talk about about the performance of spectral clustering on GPU vs C
 
 We ran this on AMD as well as NVIDIA GPUs and here is a plot of the performance.
 
-On AMD:
+#### On AMD GPU:
 
 ![NumPy cs CuPy AMD](/images/2022/02/numpy_vs_cupy_amd.png)
 
-AMD GPU details:
+The plot for AMD GPU is not what you would expect, the computation is faster
+with numpy (i.e. on CPU) compared to cupy (i.e. on GPU) for all
+image sizes, this is due to the slow device synchronization issue on AMD GPUs.
+This is most likely due to a bug in cupy.
 
-```
-$ rocm-smi
-
-======================= ROCm System Management Interface =======================
-================================= Concise Info =================================
-GPU  Temp   AvgPwr  SCLK    MCLK    Fan     Perf  PwrCap  VRAM%  GPU%
-0    29.0c  17.0W   930Mhz  350Mhz  14.51%  auto  225.0W    0%   0%
-1    30.0c  18.0W   930Mhz  350Mhz  14.51%  auto  225.0W    0%   0%
-2    31.0c  15.0W   930Mhz  350Mhz  14.51%  auto  225.0W    0%   0%
-3    30.0c  19.0W   930Mhz  350Mhz  14.51%  auto  225.0W    0%   0%
-4    30.0c  16.0W   930Mhz  350Mhz  14.51%  auto  225.0W    0%   0%
-5    31.0c  16.0W   930Mhz  350Mhz  14.51%  auto  225.0W    0%   0%
-6    31.0c  18.0W   930Mhz  350Mhz  14.51%  auto  225.0W    0%   0%
-7    31.0c  15.0W   930Mhz  350Mhz  14.51%  auto  225.0W    0%   0%
-================================================================================
-============================= End of ROCm SMI Log ==============================
-
-```
+#### On NVIDIA GPU:
 
 ![NumPy cs CuPy NVIDIA](/images/2022/02/numpy_vs_cupy_nvidia.png)
 
-
-NVIDIA GPU details:
-
-```
-$ nvidia-smi
-Fri Mar 11 11:06:36 2022
-+-----------------------------------------------------------------------------+
-| NVIDIA-SMI 460.27.04    Driver Version: 460.27.04    CUDA Version: 11.2     |
-|-------------------------------+----------------------+----------------------+
-| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
-| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
-|                               |                      |               MIG M. |
-|===============================+======================+======================|
-|   0  TITAN RTX           Off  | 00000000:08:00.0 Off |                  N/A |
-| 41%   31C    P8     9W / 280W |   1868MiB / 24220MiB |      0%      Default |
-|                               |                      |                  N/A |
-+-------------------------------+----------------------+----------------------+
-|   1  TITAN RTX           Off  | 00000000:43:00.0 Off |                  N/A |
-| 40%   36C    P8    28W / 280W |      3MiB / 24217MiB |      0%      Default |
-|                               |                      |                  N/A |
-+-------------------------------+----------------------+----------------------+
-
-```
+This was ran on NVIDIA TITAN RTX. The plot for NVIDIA GPU is what you would
+expect, the computation is faster with cupy (i.e. on GPU) compared to numpy
+(i.e. on CPU) for non-trivial image size.
 
 ## Next Steps
 
