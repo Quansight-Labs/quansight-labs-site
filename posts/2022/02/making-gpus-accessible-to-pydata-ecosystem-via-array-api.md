@@ -397,10 +397,15 @@ In [6]: z[npx.arange(2)]
 IndexError: Non-zero dimensional integer array indices are not allowed in the array API namespace
 ```
 
-## Results [WIP]
+## Results
 
 Here we will talk about about the performance of spectral clustering on GPU vs CPU
-<Insert some benchmark here>
+
+We ran this on AMD as well as NVIDIA GPUs and here is a plot of the performance.
+
+![NumPy cs CuPy AMD](/images/2022/02/numpy_vs_cupy_amd.png)
+
+![NumPy cs CuPy NVIDIA](/images/2022/02/numpy_vs_cupy_nvidia.png)
 
 ## Next Steps
 
