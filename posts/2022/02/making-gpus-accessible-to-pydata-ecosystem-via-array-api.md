@@ -402,6 +402,10 @@ IndexError: Non-zero dimensional integer array indices are not allowed in the ar
 Here we will talk about about the performance of spectral clustering on GPU vs CPU
 
 We ran this on AMD as well as NVIDIA GPUs and here is a plot of the performance.
+The x-axis of the plot is the image dimension, i.e the dimension of the original
+image after rescaling it to a certain proportion, for this demo rescaled the image
+to 0.1, 0.2, 0.4, 0.6, 0.8 and 1x.
+
 
 #### On AMD GPU:
 
@@ -410,7 +414,7 @@ We ran this on AMD as well as NVIDIA GPUs and here is a plot of the performance.
 The plot for AMD GPU is not what you would expect, the computation is faster
 with numpy (i.e. on CPU) compared to cupy (i.e. on GPU) for all
 image sizes, this is due to the slow device synchronization issue on AMD GPUs.
-This is most likely due to a bug in cupy.
+
 
 #### On NVIDIA GPU:
 
@@ -418,7 +422,14 @@ This is most likely due to a bug in cupy.
 
 This was ran on NVIDIA TITAN RTX. The plot for NVIDIA GPU is what you would
 expect, the computation is faster with cupy (i.e. on GPU) compared to numpy
-(i.e. on CPU) for non-trivial image size.
+(i.e. on CPU) for non-trivial image size. This result is what you would expect.
+The computation on GPU is slow for the image size less than **61 x 77**, this
+is due to the overhead of moving things to the device (gpu) is significant
+compared to the time taken for actual computation.
+
+We expect the AMD result to be on similar lines to NVIDIA one, as soon as
+the device synchronization issue is fixed.
+
 
 ### Running the analysis
 
@@ -432,8 +443,22 @@ The above analysis required changes in the following libraries:
 - `scikit-learn`
 - `scikit-image`
 
-The changes are present in the `array-api-gpu-demo` branch of [https://github.com/aktech](@aktech)'s fork
+The changes are present in the `array-api-gpu-demo` branch of [@aktech](https://github.com/aktech)'s fork
 of the above projects.
+
+In the above mentioned repo, there is a docker image created for both platforms
+NVIDIA & AMD. Running the demo is as simple as running
+
+```bash
+python segmentation_performance.py
+```
+
+Inside the docker container, which can be ran by:
+
+```bash
+docker run -it --device=/dev/kfd --device=/dev/dri --security-opt seccomp=unconfined --group-add video ghcr.io/quansight-labs/array-api-gpu-demo-rocm:latest bash
+```
+
 
 ## Next Steps
 
