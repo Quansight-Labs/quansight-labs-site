@@ -21,7 +21,7 @@ typical user in the PyData ecosystem is quite familiar with the APIs of librarie
 like scipy, scikit-learn, scikit-image and at the moment all these
 libraries only support single core operations on CPU. In this blog post will
 talk about how we can use Array API with the fundamental libraries in the PyData
-ecosystem along with cupy for making GPUs accessible to the users of these libraries.
+ecosystem along with CuPy for making GPUs accessible to the users of these libraries.
 With the introduction of the [Python Array API Standard](https://data-apis.org/array-api/latest/)
 by the [Consortium for Python Data API Standards](https://data-apis.org/) and it’s
 adoption mechanism in the [NEP 47](https://numpy.org/neps/nep-0047-array-api-standard.html)
@@ -322,10 +322,10 @@ graph = sparse.coo_matrix(<input_arrays>)
 ```
 
 Here the `sparse.coo_matrix` is a compiled code extension in the `scipy.sparse` module. We need the 
-dispatch to `cupyx.scipy.sparse.coo_matrix` for cupy arrays and `scipy.sparse.coo_matrix` for numpy
+dispatch to `cupyx.scipy.sparse.coo_matrix` for CuPy arrays and `scipy.sparse.coo_matrix` for NumPy
 arrays. This is not possible with the Array API's dispatching via `get_namespace`. For this demo we have
 added a workaround, until we have implemented the support for `uarray` based backed in SciPy. The
-workaround looks something like this for cupy:
+workaround looks something like this for CuPy:
 
 ```python
 xp, _ = get_namespace(<input_arrays>)
@@ -423,14 +423,16 @@ image sizes, this is due to the slow device synchronization issue on AMD GPUs.
 ![NumPy cs CuPy NVIDIA](/images/2022/02/numpy_vs_cupy_nvidia.png)
 
 This was ran on NVIDIA TITAN RTX. The plot for NVIDIA GPU is what you would
-expect, the computation is faster with cupy (i.e. on GPU) compared to numpy
+expect, the computation is faster with CuPy (i.e. on GPU) compared to NumPy
 (i.e. on CPU) for non-trivial image size. This result is what you would expect.
 The computation on GPU is slow for the image size less than **61 x 77**, this
 is due to the overhead of moving things to the device (gpu) is significant
 compared to the time taken for actual computation.
 
 We expect the AMD result to be on similar lines to NVIDIA one, as soon as
-the device synchronization issue is fixed.
+the device synchronization issue is fixed, which we are investigating and
+will submit a bug report to the CuPy project to discuss the strategies for
+fixing the problem.
 
 
 ### Running the analysis
