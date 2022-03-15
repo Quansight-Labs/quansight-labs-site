@@ -171,7 +171,7 @@ def getdata(obj, dtype=None, copy=False):
 This function is taken from `scipy/sparse/_sputils.py`. We can see that this
 function explicitly calls `np.array` on the given array object: `obj`, without
 realising the type of `obj`. This implementation is obviously not generic to
-support any array library other than numpy. We'll now apply the Array API's
+support any array library other than NumPy. We'll now apply the Array API's
 `get_namespace` magic to make it generic, by adding a couple of lines to the code above:
 
 ```python
@@ -227,16 +227,16 @@ if parse_version(skimage.__version__) >= parse_version("0.14"):
 else:
     rescale_params = {}
 
-# load the coins as a numpy array
+# 1. load the coins as a numpy array
 orig_coins = coins()
 
-# Resize it to 20% of the original size to speed up the processing
+# 2. Resize it to 20% of the original size to speed up the processing
 # Applying a Gaussian filter for smoothing prior to down-scaling
 # reduces aliasing artifacts.
 smoothened_coins = gaussian_filter(orig_coins, sigma=2)
 rescaled_coins = rescale(smoothened_coins, 0.2, mode="reflect", **rescale_params)
 
-# Convert the image into a graph with the value of the gradient on the
+# 3. Convert the image into a graph with the value of the gradient on the
 # edges.
 graph = image.img_to_graph(rescaled_coins)
 
@@ -251,15 +251,17 @@ graph.data = np.exp(-beta * graph.data / graph.data.std()) + eps
 # installed)
 N_REGIONS = 25
 
-# Plotting
+
 for assign_labels in ("kmeans", "discretize"):
     t0 = time.time()
+    # 4. Apply spectral clustering on the graph (via `discretize` labelling).
     labels = spectral_clustering(
         graph, n_clusters=N_REGIONS, assign_labels=assign_labels, random_state=42
     )
     t1 = time.time()
     labels = labels.reshape(rescaled_coins.shape)
 
+    # 5. Plot the resulting clustering
     plt.figure(figsize=(5, 5))
     plt.imshow(rescaled_coins, cmap=plt.cm.gray)
     for l in range(N_REGIONS):
@@ -274,11 +276,11 @@ plt.show()
 
 Let's walk through the code above to get a sense of what we're trying to achieve here.
 
-- We have a dataset of greek coins from pompeii (imported from `skimage.data.coins`)
-- We resize the image to 20% to speed up processing
-- Convert the image to graph data structure
-- Apply spectral clustering on the graph (via `kmeans` and `discretize` labelling).
-- Plot the resulting clustering
+1. We have a dataset of greek coins from pompeii (imported from `skimage.data.coins`)
+2. We resize the image to 20% to speed up processing
+3. Convert the image to graph data structure
+4. Apply spectral clustering on the graph (via `discretize` labelling).
+5. Plot the resulting clustering
 
 Now to make it run on GPU we need to do bunch of minor changes in the code. Firstly
 we need to use a different array input for GPU array. Since NumPy is a CPU only library
@@ -412,7 +414,7 @@ to 0.1, 0.2, 0.4, 0.6, 0.8 and 1x.
 ![NumPy cs CuPy AMD](/images/2022/02/numpy_vs_cupy_amd.png)
 
 The plot for AMD GPU is not what you would expect, the computation is faster
-with numpy (i.e. on CPU) compared to cupy (i.e. on GPU) for all
+with NumPy (i.e. on CPU) compared to CuPy (i.e. on GPU) for all
 image sizes, this is due to the slow device synchronization issue on AMD GPUs.
 
 
