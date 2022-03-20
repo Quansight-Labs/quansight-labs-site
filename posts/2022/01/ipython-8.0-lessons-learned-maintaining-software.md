@@ -43,7 +43,7 @@ for this release of IPython we focused on both.
 ## LBYL vs EAFP
 
 Look Before You Leap and Easier to Ask Forgiveness than Permissions are two
-practices each with their advantages and inconvenient. Python tend the prefer
+practices each with their advantages and inconveniences. Python tend the prefer
 the second one as try/except is "easy" in Python.
 
 This first implementation will often feel more idiomatic Python:
