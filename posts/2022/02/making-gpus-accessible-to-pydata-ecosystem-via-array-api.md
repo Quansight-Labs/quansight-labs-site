@@ -413,10 +413,6 @@ to 0.1, 0.2, 0.4, 0.6, 0.8 and 1x.
 
 ![NumPy cs CuPy AMD](/images/2022/02/numpy_vs_cupy_amd.png)
 
-The plot for AMD GPU is not what you would expect, the computation is faster
-with NumPy (i.e. on CPU) compared to CuPy (i.e. on GPU) for all
-image sizes, this is due to the slow device synchronization issue on AMD GPUs.
-
 
 #### On NVIDIA GPU:
 
@@ -428,11 +424,6 @@ expect, the computation is faster with CuPy (i.e. on GPU) compared to NumPy
 The computation on GPU is slow for the image size less than **61 x 77**, this
 is due to the overhead of moving things to the device (gpu) is significant
 compared to the time taken for actual computation.
-
-We expect the AMD result to be on similar lines to NVIDIA one, as soon as
-the device synchronization issue is fixed, which we are investigating and
-will submit a bug report to the CuPy project to discuss the strategies for
-fixing the problem.
 
 
 ### Running the analysis
