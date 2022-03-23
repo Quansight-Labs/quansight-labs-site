@@ -418,7 +418,7 @@ to 0.1, 0.2, 0.4, 0.6, 0.8 and 1x.
 
 ![NumPy cs CuPy NVIDIA](/images/2022/02/numpy_vs_cupy_nvidia.png)
 
-This was ran on NVIDIA TITAN RTX. The plot for NVIDIA GPU is what you would
+This was ran on NVIDIA TITAN RTX. The GPU vs CPU plot is what you would
 expect, the computation is faster with CuPy (i.e. on GPU) compared to NumPy
 (i.e. on CPU) for non-trivial image size. This result is what you would expect.
 The computation on GPU is slow for the image size less than **61 x 77**, this
