@@ -1,12 +1,12 @@
 <!--
-.. title: Making GPUs accessible to PyData Ecosystem via Array API
+.. title: Making GPUs accessible to the PyData Ecosystem via Array API
 .. slug: making-gpus-accessible-to-pydata-ecosystem-via-array-api
 .. date: 2022-02-01 21:07:02 UTC-06:00
 .. author: Amit Kumar
 .. tags: GPU, SciPy, NumPy, CuPy, scikit-learn, scikit-image, Array API
-.. category: 
-.. link: 
-.. description: 
+.. category:
+.. link:
+.. description:
 .. type: text
 .. previewimage: /images/2022/02/array_api_workflow.svg
 -->
@@ -15,19 +15,19 @@
 
 GPUs have become an essential part of the scientific computing stack and with
 the advancement in the technology around GPUs and the ease of accessing a GPU
-on cloud or on-prem, it is in the best interest of the PyData community to spend
+in the cloud or on-prem, it is in the best interest of the PyData community to spend
 time and effort to make GPUs accessible for the users of PyData libraries. A
 typical user in the PyData ecosystem is quite familiar with the APIs of libraries
-like scipy, scikit-learn, scikit-image and at the moment all these
-libraries only support single core operations on CPU. In this blog post will
-talk about how we can use Array API with the fundamental libraries in the PyData
-ecosystem along with CuPy for making GPUs accessible to the users of these libraries.
-With the introduction of the [Python Array API Standard](https://data-apis.org/array-api/latest/)
-by the [Consortium for Python Data API Standards](https://data-apis.org/) and it’s
-adoption mechanism in the [NEP 47](https://numpy.org/neps/nep-0047-array-api-standard.html)
+like SciPy, scikit-learn, and scikit-image -- and at the moment these
+libraries are largely limited to single-threaded operations on CPU. In this
+blog post I will talk about how we can use the [Python Array API Standard](https://data-apis.org/array-api/latest/)
+with the fundamental libraries in the PyData ecosystem along with CuPy for
+making GPUs accessible to the users of these libraries. With the introduction
+of that standard by the [Consortium for Python Data API Standards](https://data-apis.org/)
+and its adoption mechanism in [NEP 47](https://numpy.org/neps/nep-0047-array-api-standard.html)
 it is now possible to write code that is portable between NumPy and other array/tensor
 libraries that adopt the Array API Standard. We will also discuss the workflow and
-challenges for achieving the same.
+challenges for actually achieving such portability.
 
 <!-- TEASER_END -->
 
@@ -39,14 +39,14 @@ goal is to have GPU support in SciPy, scikit-learn and scikit-image using CuPy. 
 CuPy has support for NVIDIA GPUs as well as AMD’s ROCm GPU platform, this demo will
 work on either of those GPUs.
 
-### A primer on Array API Standard
+### A primer on the Array API Standard
 
 ![Data APIs logo](/images/2022/02/data-apis-logo.png)
 
-As of today, NumPy with over 100 millions monthly downloads (combined from conda
-and PyPi) is the fundamental library of choice for array computing. In the past
+As of today, NumPy with over 100 million monthly downloads (combined from conda
+and PyPI) is the fundamental library of choice for array computing. In the past
 decade a plethora of array libraries have evolved, which more or less derives
-from NumPy’s API and it’s API is not very well defined. This is due to the fact
+from NumPy’s API and its API is not very well defined. This is due to the fact
 that NumPy is a CPU-only library and today these dependent libraries are built
 for a variety of exotic hardware. As a consequence the APIs of these libraries
 have diverged a lot, So much so that it’s quite difficult to write code that
@@ -56,26 +56,28 @@ are constructed and used. At the time of writing this, NumPy (>=1.22.0) and
 CuPy (>=10.0.0) have adopted the Array API Standard.
 
 
-##### Note about using Array API Standard
+##### Note about using the Array API Standard
 
-The definition of Array API Standard and it’s usage may evolve over time and
-this blog post is just an example of how we can use it to make GPUs accessible
-to the users of libraries like scipy and scikits and it doesn’t not necessarily
-define the best practices around adopting the standard. The best practices for
-adopting Array API is still a work very much in progress and will evolve drastically.
+The definition of the Array API Standard and its usage may evolve over time.
+This blog post is only meant to illustrate how we can use it to make GPUs
+accessible to users of libraries like SciPy and scikits and the performance
+benefits of that. It does not necessarily define any best practices around
+adopting the standard. Such adoption best practices are still a work in
+progress and will evolve over the next year.
 
 
 ## Demonstration Example
 
 The example we have chosen to demonstrate adopting the Array API standard to make
 GPUs accessible in SciPy and scikits is the one taken from scikit-learn’s
-documentation: Segmenting the picture of greek coins in regions. This example
-uses Spectral clustering on a graph created from voxel-to-voxel difference on
-an image to break this image into multiple partly-homogeneous regions (or say clusters).
-In essence spectral clustering is about finding the clusters in a graph i.e.
-finding the mostly connected subgraph and thereby identifying the clusters alternatively
-it can be described as finding subgraphs having maximum number of within cluster connections
-and minimum number of between cluster connections.
+documentation: segmenting a picture of Greek coins into regions. This example
+uses spectral clustering on a graph created from voxel-to-voxel difference on
+an image to break this image into multiple partly-homogeneous regions (or clusters).
+In essence spectral clustering is about finding the clusters in a graph, i.e.,
+finding the mostly connected subgraph and thereby identifying clusters.
+Alternatively, it can be described as finding subgraphs having a maximum number
+of within-cluster connections and a minimum number of between-cluster
+connections.
 
 ### Dataset
 
@@ -85,37 +87,37 @@ and minimum number of between cluster connections.
      src="/images/2022/02/greek_coins_original.jpeg">
 </p>
 <p align="center">
-<i>Greek coins from Pompeii ("British Museum, London, England")</i>
+<i>Greek coins from Pompeii ("British Museum, London, England").<br>
+Source: <a href="https://www.brooklynmuseum.org/opencollection/archives/image/51611">www.brooklynmuseum.org/opencollection/archives/image/51611</a></i>
 </p>
 
 The dataset we are using for this demonstration is of greek coins from Pompeii
-(from skimage.data.coins module). This is a data of image of several coins outlined
-against a gray background.
+(from the `skimage.data.coins` module). This is a data of image of several
+coins outlined against a gray background.
 
 We convert the data of the coins into a graph object and then apply spectral
 clustering to it for segmenting coins.
 
-Source: [https://www.brooklynmuseum.org/opencollection/archives/image/51611](https://www.brooklynmuseum.org/opencollection/archives/image/51611)
 
 ## Process
 
 #### `get_namespace` - getting the array API module
 
-The [NEP 47](https://numpy.org/neps/nep-0047-array-api-standard.html) (Adopting
-the array API standard) outlines a basic workflow for adopting array API
-standards for array provider and consumer libraries. Now we will describe
+[NEP 47](https://numpy.org/neps/nep-0047-array-api-standard.html), "Adopting
+the array API standard", outlines a basic workflow for adopting the array API
+standard for array provider and consumer libraries. Now we will describe
 in detail about how we went through the process of implementing this.
 
 The Array API defines a method named `__array_namespace__` which returns
-the array API module with all the array API methods accessible from it.
+the array API module with all the array API functions accessible from it.
 It has a couple of key benefits:
 
 - for the array consumer libraries to be able to check if the incoming array
-  supports Array API standard.
-- to get all the methods for the array object without having the need to import
-  the Array API module explicitly.
+  supports the standard.
+- to access all the functions that work with the array object without having
+  the need to import the Python module explicitly.
 
-The NEP 47 recommends defining a utility function named `get_namespace` to check
+NEP 47 recommends defining a utility function named `get_namespace` to check
 for such an attribute.
 
 An example of potential implementation of `get_namespace` function is defined as follows:
@@ -129,7 +131,7 @@ def get_namespace(*xs):
     # scalars (accepting those is a matter of taste, but
     # doesn't seem unreasonable).
     namespaces = {
-        x.__array_namespace__() 
+        x.__array_namespace__()
         if hasattr(x, '__array_namespace__') else None
         for x in xs if not isinstance(x, (bool, int, float, complex))
     }
@@ -188,18 +190,19 @@ def getdata(obj, dtype=None, copy=False):
     getdtype(data.dtype)
 ```
 
-Now you can see that `get_namespace` finds the `array_api` module for the given
-object and calls `.asarray` on it instead of `np.array` hence making it generic for
-any array provider library that supports Array API standard
+Now you can see that `get_namespace` finds the Array API standard-compatible
+namespace for the given object and calls `.asarray` on it instead of
+`np.array`. Hence making it generic for any array provider library that
+supports the standard.
 
 <p align="center">
     <img
      alt="Array API Workflow"
      src="/images/2022/02/array_api_workflow.svg">
-    <i>Workflow for using Array API for writing code that works with multiple libraries</i>
+    <i>Workflow for using the Array API Standard for writing code that works with multiple libraries</i>
 </p>
 
-#### Applying it on our demo example
+#### Applying it to our demo example
 
 Now let's take a look at the code for our demo example (segmentation of the
 picture of greek coins in regions) to understand what it takes to make it run on GPU(s).
@@ -276,16 +279,16 @@ plt.show()
 
 Let's walk through the code above to get a sense of what we're trying to achieve here.
 
-1. We have a dataset of greek coins from pompeii (imported from `skimage.data.coins`)
+1. We have a dataset of Greek coins from Pompeii (imported from `skimage.data.coins`)
 2. We resize the image to 20% to speed up processing
-3. Convert the image to graph data structure
+3. Convert the image to a graph data structure
 4. Apply spectral clustering on the graph (via `discretize` labelling).
 5. Plot the resulting clustering
 
-Now to make it run on GPU we need to do bunch of minor changes in the code. Firstly
-we need to use a different array input for GPU array. Since NumPy is a CPU only library
-we'll use CuPy, which is a NumPy/SciPy-compatible array library for GPU-accelerated
-computing with Python.
+Now to make it run on GPU we need to make minor changes to this demo code. We
+need to use a different array input for a GPU array. Since NumPy is a CPU only
+library we'll use CuPy, which is a NumPy/SciPy-compatible array library for
+GPU-accelerated computing with Python.
 
 #### Changes to SciPy, scikit-learn, scikit-image, CuPy
 
@@ -321,7 +324,7 @@ from scipy import sparse
 graph = sparse.coo_matrix(<input_arrays>)
 ```
 
-Here the `sparse.coo_matrix` is a compiled code extension in the `scipy.sparse` module. We need the 
+Here the `sparse.coo_matrix` is a compiled code extension in the `scipy.sparse` module. We need the
 dispatch to `cupyx.scipy.sparse.coo_matrix` for CuPy arrays and `scipy.sparse.coo_matrix` for NumPy
 arrays. This is not possible with the Array API's dispatching via `get_namespace`. For this demo we have
 added a workaround, until we have implemented the support for `uarray` based backed in SciPy. The
