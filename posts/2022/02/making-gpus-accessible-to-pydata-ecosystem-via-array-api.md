@@ -309,6 +309,14 @@ challenging cases in the next section.
 The final code for the demo can be seen
 [here](https://github.com/Quansight-Labs/amd-demo/blob/master/plot_coin_segmentation.ipynb).
 
+The changes to SciPy, scikit-learn, scikit-image and CuPy can be seen here:
+
+- [CuPy](https://github.com/cupy/cupy/compare/master...aktech:array-api-gpu-demo?expand=1)
+- [SciPy](https://github.com/scipy/scipy/compare/main...aktech:array-api-gpu-demo?expand=1)
+- [scikit-learn](https://github.com/scikit-learn/scikit-learn/compare/main...aktech:array-api-gpu-demo?expand=1)
+- [scikit-image](https://github.com/scikit-image/scikit-image/compare/main...aktech:array-api-gpu-demo?expand=1)
+
+
 ## Challenges and workarounds
 
 At the moment the Array API standard specifies a lot of the most commonly used
