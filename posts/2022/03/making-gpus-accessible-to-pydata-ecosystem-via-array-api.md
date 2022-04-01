@@ -1,7 +1,7 @@
 <!--
 .. title: Making GPUs accessible to the PyData Ecosystem via the Array API Standard.
 .. slug: making-gpus-accessible-to-pydata-ecosystem-via-array-api
-.. date: 2022-02-01 21:07:02 UTC-06:00
+.. date: 2022-03-31 23:59:02 UTC-00:00
 .. author: Amit Kumar
 .. tags: GPU, SciPy, NumPy, CuPy, scikit-learn, scikit-image, Array API
 .. category:
