@@ -296,6 +296,9 @@ need to use a different array input for a GPU array. Since NumPy is a CPU only
 library we'll use CuPy, which is a NumPy/SciPy-compatible array library for
 GPU-accelerated computing with Python.
 
+The resizing proportion of the image is varied from 0.1 (10%) to 1 (100%) to plot
+the performance benchmarks on various points for CPU and GPU.
+
 #### Changes to SciPy, scikit-learn, scikit-image, and CuPy
 
 Since SciPy, scikit-learn, scikit-image are designed mainly for NumPy, we need
