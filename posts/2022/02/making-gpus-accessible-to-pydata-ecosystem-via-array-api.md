@@ -316,6 +316,7 @@ The changes to SciPy, scikit-learn, scikit-image and CuPy can be seen here:
 - [scikit-learn](https://github.com/scikit-learn/scikit-learn/compare/main...aktech:array-api-gpu-demo?expand=1)
 - [scikit-image](https://github.com/scikit-image/scikit-image/compare/main...aktech:array-api-gpu-demo?expand=1)
 
+The notebook for the demo can be seen [here](https://github.com/Quansight-Labs/array-api-gpu-demo/blob/master/plot_coin_segmentation.ipynb).
 
 ## Challenges and workarounds
 
