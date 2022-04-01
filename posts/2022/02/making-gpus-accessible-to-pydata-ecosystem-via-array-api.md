@@ -42,7 +42,7 @@ as well as AMD’s ROCm GPU platform, this demo will work on either of those GPU
 
 The ultimate goal is to have SciPy, scikit-learn and scikit-image accept any type
 of array, so they can work with CuPy, PyTorch, JAX, Dask and other libraries.
-This project is part of a larger [vision sponsored by
+This work is part of a larger [vision sponsored by
 AMD for extensibility to GPU & distributed support for SciPy, scikit-learn,
 scikit-image and beyond.](https://labs.quansight.org/blog/2021/11/pydata-extensibility-vision/)
 
