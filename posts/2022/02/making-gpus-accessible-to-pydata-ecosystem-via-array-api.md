@@ -1,5 +1,5 @@
 <!--
-.. title: Making GPUs accessible to the PyData Ecosystem via Array API
+.. title: Making GPUs accessible to the PyData Ecosystem via the Array API Standard.
 .. slug: making-gpus-accessible-to-pydata-ecosystem-via-array-api
 .. date: 2022-02-01 21:07:02 UTC-06:00
 .. author: Amit Kumar
@@ -412,6 +412,13 @@ In [6]: z[npx.arange(2)]
 IndexError: Non-zero dimensional integer array indices are not allowed in the array API namespace
 ```
 
+Each of the inconsistencies can be worked around. Function renames may require some
+detective work by referring to the Array API docs, but are typically easy code changes.
+Differences in behavior can be harder to deal with at times. The Array API standard
+aims to provide a set of functionality that's orthogonal but complete - so if it's
+possible to perform some array operation on accelerator devices, then there's typically
+a way to access it in the standard."
+
 ## Results
 
 After dealing with all the challenges above, our demo works with CuPy arrays as
@@ -490,9 +497,6 @@ multiple array libraries and thereby run on GPUs. This is a significant
 undertaking, and this work would not have been possible without funding
 from AMD for a team at Quansight Labs.
 
-Special thanks to [Ivan Yashchuk](https://github.com/IvanYashchuk) and
-[Ralf Gommers](https://github.com/rgommers) for their guidance throughout the
-project.
 
 <p align="left">
     <img
