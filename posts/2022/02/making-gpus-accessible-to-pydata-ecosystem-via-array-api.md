@@ -34,14 +34,19 @@ challenges for actually achieving such portability.
 ## Motivation and Goal
 
 The motivation for this exercise comes from the fact that having GPU-specific code
-in SciPy and scikits will be too-specialized and very hard to maintain. The ultimate
-goal is to have GPU support in SciPy, scikit-learn and scikit-image using CuPy. Since
-CuPy has support for NVIDIA GPUs as well as AMD’s ROCm GPU platform, this demo will
-work on either of those GPUs.
+in SciPy and scikits will be too-specialized and very hard to maintain. The goal of
+this demo is to (a) to show things working in a real-world example on GPUs, and
+(b) demonstrate that there is a significant performance benefit. We'll be using
+CuPy as the GPU library for this demo. Since CuPy has support for NVIDIA GPUs
+as well as AMD’s ROCm GPU platform, this demo will work on either of those GPUs.
+
+The ultimate goal is to have SciPy, scikit-learn and scikit-image accept any type
+of array, so they can work with CuPy, PyTorch, JAX, Dask and other libraries.
+This project is part of a larger [vision sponsored by
+AMD for extensibility to GPU & distributed support for SciPy, scikit-learn,
+scikit-image and beyond.](https://labs.quansight.org/blog/2021/11/pydata-extensibility-vision/)
 
 ### A primer on the Array API Standard
-
-![Data APIs logo](/images/2022/02/data-apis-logo.png)
 
 As of today, NumPy with over 100 million monthly downloads (combined from conda
 and PyPI) is the fundamental library of choice for array computing. In the past
@@ -106,7 +111,8 @@ clustering to it for segmenting coins.
 [NEP 47](https://numpy.org/neps/nep-0047-array-api-standard.html), "Adopting
 the array API standard", outlines a basic workflow for adopting the array API
 standard for array provider and consumer libraries. Now we will describe
-in detail about how we went through the process of implementing this.
+in detail about how we went through the process of implementing this in forks
+of SciPy, scikit-learn and scikit-image.
 
 The Array API defines a method named `__array_namespace__` which returns
 the array API module with all the array API functions accessible from it.
@@ -177,13 +183,13 @@ support any array library other than NumPy. We'll now apply the Array API's
 `get_namespace` magic to make it generic, by adding a couple of lines to the code above:
 
 ```python
-def getdata(obj, dtype=None, copy=False):
+def getdata(obj, dtype=None, copy=None):
     """
     This is a wrapper of `np.array(obj, dtype=dtype, copy=copy)`
     that will generate a warning if the result is an object array.
     """
     xp, _ = get_namespace(obj)
-    data = xp.asarray(obj, dtype=dtype)
+    data = xp.asarray(obj, dtype=dtype, copy=copy)
     # Defer to getdtype for checking that the dtype is OK.
     # This is called for the validation only; we don't need
     # the return value.
