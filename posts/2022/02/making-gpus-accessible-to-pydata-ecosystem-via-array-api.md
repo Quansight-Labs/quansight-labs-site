@@ -442,6 +442,7 @@ demo the rescaling factors were: 0.1, 0.2, 0.4, 0.6, 0.8 and 1.
 
 #### On AMD GPU:
 
+This was run on AMD Instinct MI50 32GB with 128 CPU cores.
 ![NumPy cs CuPy AMD](/images/2022/02/numpy_vs_cupy_amd.png)
 
 
@@ -449,7 +450,7 @@ demo the rescaling factors were: 0.1, 0.2, 0.4, 0.6, 0.8 and 1.
 
 ![NumPy cs CuPy NVIDIA](/images/2022/02/numpy_vs_cupy_nvidia.png)
 
-This was run on a NVIDIA TITAN RTX. The GPU vs. CPU plot is what you would
+This was run on a NVIDIA TITAN RTX with 48 CPU cores. The GPU vs CPU plot is what you would
 expect: the computation is faster with CuPy (i.e. on GPU) compared to NumPy
 (i.e. on CPU) for larger image sizes.  The computation on GPU is slower than on
 CPU for image sizes less than **61 x 77**. This is due to the overhead of
