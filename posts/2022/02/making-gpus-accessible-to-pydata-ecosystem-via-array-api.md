@@ -19,8 +19,10 @@ in the cloud or on-prem, it is in the best interest of the PyData community to s
 time and effort to make GPUs accessible for the users of PyData libraries. A
 typical user in the PyData ecosystem is quite familiar with the APIs of libraries
 like SciPy, scikit-learn, and scikit-image -- and at the moment these
-libraries are largely limited to single-threaded operations on CPU. In this
-blog post I will talk about how we can use the [Python Array API Standard](https://data-apis.org/array-api/latest/)
+libraries are largely limited to single-threaded operations on CPU (there are
+exceptions to that, like linear algebra functions and scikit-learn
+functionality which uses OpenMP under the hood). In this blog post I will talk
+about how we can use the [Python Array API Standard](https://data-apis.org/array-api/latest/)
 with the fundamental libraries in the PyData ecosystem along with CuPy for
 making GPUs accessible to the users of these libraries. With the introduction
 of that standard by the [Consortium for Python Data API Standards](https://data-apis.org/)
@@ -31,18 +33,19 @@ challenges for actually achieving such portability.
 
 <!-- TEASER_END -->
 
-## Motivation and Goal
+## Motivation and goal
 
 The motivation for this exercise comes from the fact that having GPU-specific code
 in SciPy and scikits will be too-specialized and very hard to maintain. The goal of
-this demo is to (a) to show things working in a real-world example on GPUs, and
-(b) demonstrate that there is a significant performance benefit. We'll be using
-CuPy as the GPU library for this demo. Since CuPy has support for NVIDIA GPUs
-as well as AMD’s ROCm GPU platform, this demo will work on either of those GPUs.
+this demo is to (a) to show things working on GPUs in a real-world code example
+using SciPy, scikit-learn and scikit-image together, and (b) demonstrate that
+there is a significant performance benefit. We'll be using CuPy as the GPU
+library for this demo. Since CuPy has support for NVIDIA GPUs as well as AMD’s
+ROCm GPU platform, this demo will work on either of those GPUs.
 
 The ultimate goal is to have SciPy, scikit-learn and scikit-image accept any type
 of array, so they can work with CuPy, PyTorch, JAX, Dask and other libraries.
-This work is part of a larger [vision sponsored by
+This work is part of a larger [project sponsored by
 AMD for extensibility to GPU & distributed support for SciPy, scikit-learn,
 scikit-image and beyond.](https://labs.quansight.org/blog/2021/11/pydata-extensibility-vision/)
 
@@ -71,7 +74,7 @@ adopting the standard. Such adoption best practices are still a work in
 progress and will evolve over the next year.
 
 
-## Demonstration Example
+## The example: image segmentation through spectral clustering
 
 The example we have chosen to demonstrate adopting the Array API standard to make
 GPUs accessible in SciPy and scikits is the one taken from scikit-learn’s
@@ -83,8 +86,6 @@ finding the mostly connected subgraph and thereby identifying clusters.
 Alternatively, it can be described as finding subgraphs having a maximum number
 of within-cluster connections and a minimum number of between-cluster
 connections.
-
-### Dataset
 
 <p align="center">
     <img
@@ -104,7 +105,7 @@ We convert the data of the coins into a graph object and then apply spectral
 clustering to it for segmenting coins.
 
 
-## Process
+## The process for making the code run on GPU
 
 #### `get_namespace` - getting the array API module
 
@@ -286,18 +287,19 @@ plt.show()
 Let's walk through the code above to get a sense of what we're trying to achieve here.
 
 1. We have a dataset of Greek coins from Pompeii (imported from `skimage.data.coins`)
-2. We resize the image to 20% to speed up processing
+2. We rescale the image to 20% to speed up processing
 3. Convert the image to a graph data structure
 4. Apply spectral clustering on the graph (via `discretize` labelling).
 5. Plot the resulting clustering
 
-Now to make it run on GPU we need to make minor changes to this demo code. We
-need to use a different array input for a GPU array. Since NumPy is a CPU only
-library we'll use CuPy, which is a NumPy/SciPy-compatible array library for
-GPU-accelerated computing with Python.
+Now to make it run on GPU we need to make minor changes to this demo code (as
+well as to each of the libraries involved - see the next section). We need to
+use a different array input for a GPU array. Since NumPy is a CPU only library
+we'll use CuPy, which is a NumPy/SciPy-compatible array library for
+GPU-accelerated computing with Python.  In addition, we made the rescaling
+factor variable to be able to perform performance benchmarking as a function of
+input data size.
 
-The resizing proportion of the image is varied from 0.1 (10%) to 1 (100%) to plot
-the performance benchmarks on various points for CPU and GPU.
 
 #### Changes to SciPy, scikit-learn, scikit-image, and CuPy
 
@@ -380,6 +382,10 @@ API. Some examples of unimplemented functions that we encountered during this ex
 * `np.real`
 * `np.clip`
 
+For some of these the solution was to reimplement an equivalent function, for
+the remaining ones the workaround was using the library-specific NumPy/CuPy
+APIs before converting back to the Array API standard-compliant `Array` object.
+
 
 #### 3. Inconsistencies between the NumPy API and the Array API standard
 
@@ -425,11 +431,15 @@ IndexError: Non-zero dimensional integer array indices are not allowed in the ar
 ```
 
 Each of the inconsistencies can be worked around. Function renames may require some
-detective work by referring to the Array API docs, but are typically easy code changes.
-Differences in behavior can be harder to deal with at times. The Array API standard
-aims to provide a set of functionality that's orthogonal but complete - so if it's
-possible to perform some array operation on accelerator devices, then there's typically
-a way to access it in the standard."
+detective work by referring to the Array API standard documentation, but are
+typically easy code changes.  Differences in behavior can be harder to deal
+with at times. The Array API standard aims to provide a set of functionality
+that's orthogonal but complete - so if it's possible to perform some array
+operation on accelerator devices, then there's typically a way to access it in
+the standard. In a few cases, integer indexing being one, work is still ongoing
+to extend the standard and we may open a feature request or contribute to an
+existing discussion while adding a workaround to our own code.
+
 
 ## Results
 
@@ -443,24 +453,27 @@ The x-axis of the plot is the image dimension, i.e the dimension of the original
 image after rescaling it by a constant factor along both dimensions. For this
 demo the rescaling factors were: 0.1, 0.2, 0.4, 0.6, 0.8 and 1.
 
+**On AMD GPU:**
 
-#### On AMD GPU:
+This was run on a server with a AMD Instinct MI50 GPU with 32 GB of memory, and
+a CPU with 64 physical cores.
 
-This was run on AMD Instinct MI50 32GB with 128 CPU cores.
 ![NumPy cs CuPy AMD](/images/2022/02/numpy_vs_cupy_amd.png)
 
+**On NVIDIA GPU:**
 
-#### On NVIDIA GPU:
+This was run on a NVIDIA TITAN RTX GPU with 24 GB of memory, and a CPU with 24
+phyiscal cores.
 
 ![NumPy cs CuPy NVIDIA](/images/2022/02/numpy_vs_cupy_nvidia.png)
 
-This was run on a NVIDIA TITAN RTX with 24 physical CPU cores. The GPU vs CPU plot is what you would
-expect: the computation is faster with CuPy (i.e. on GPU) compared to NumPy
-(i.e. on CPU) for larger image sizes.  The computation on GPU is slower than on
-CPU for image sizes less than **61 x 77**. This is due to the overhead of
-moving data to the device (GPU), which is significant compared to the time
-taken for actual computation. The larger the image, the longer the computation
-takes, and hence the less important the data transfer becomes.
+The GPU vs CPU plots show what you would expect: the computation is faster with
+CuPy (i.e. on GPU) compared to NumPy (i.e. on CPU) for larger image sizes.  The
+computation on GPU is slower than on CPU for image sizes less than 61 x 77.
+This is due to the overhead of moving data to the device (GPU), which is
+significant compared to the time taken for actual computation.  The larger the
+image, the longer the computation takes, and hence the less important the data
+transfer becomes and the larger the performance improvement from using a GPU.
 
 
 ### Reproducing these results
@@ -500,7 +513,9 @@ At the moment we have only modified the functions we needed to be able to run
 our demo on GPU. There is of course a lot more functionality that can
 eventually be ported to support the Array API standard. The eventual goal of
 that is to make array-consuming libraries like SciPy, scikit-learn, and
-scikit-image fully compatible with multiple array libraries.
+scikit-image fully compatible with multiple array libraries. A lot of work has
+been done in that direction already - but that's for a future post to talk
+about!
 
 
 ## Acknowledgment
