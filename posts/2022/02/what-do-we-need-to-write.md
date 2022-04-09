@@ -1,6 +1,6 @@
 <!--
-.. title: What do we need to write?
-.. slug: what-do-we-need-to-write
+.. title: Why is writing blog posts hard?
+.. slug: why-is-writing-blog-posts-hard
 .. date: 2022-02-22 14:00:00 UTC+01:00
 .. author: Tania Allard, Kate Brack, Tony Fast, Rohit Goswami, Eric Kelly, Mars Lee, Dharhas Pothina, Isabela Presedo-Floyd, Dillon Roach, Melissa Weber Mendonça
 .. tags: Writing
