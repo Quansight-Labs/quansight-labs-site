@@ -3,7 +3,7 @@
 .. slug: jupyterlab-winter-theme
 .. date: 2020-12-22 09:00:00 UTC-00:00
 .. author: Matthias Bussonnier, Isabela Presedo-Floyd, Eric Charles, Eric Kelly, Tony Fast
-.. tags: Labs, Jupyter, Theme, JupyterLab, JupyterTutorials
+.. tags: Labs, Jupyter, Theme, JupyterLab, JupyterTutorials, design
 .. category:
 .. link:
 .. description:
