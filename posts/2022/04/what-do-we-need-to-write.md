@@ -1,7 +1,7 @@
 <!--
 .. title: Why is writing blog posts hard?
 .. slug: why-is-writing-blog-posts-hard
-.. date: 2022-02-22 14:00:00 UTC+01:00
+.. date: 2022-04-10 12:00:00 UTC+01:00
 .. author: Tania Allard, Kate Brack, Tony Fast, Rohit Goswami, Eric Kelly, Mars Lee, Dharhas Pothina, Isabela Presedo-Floyd, Dillon Roach, Melissa Weber Mendonça
 .. tags: Writing
 .. category:
@@ -90,7 +90,7 @@ commented that writing works best for them when the following happens:
 - Knowing who you are writing for is important. For practice, folks suggested 
 writing for yourself or close allies.
 - Writing about topics you like (or at least tying another topic into that).
-- Writing as part of a organized meet up where you critique and share 
+- Writing as part of an organized meet up where you critique and share
 each other's work with the intent of publishing at the end. ([Writer's workshop style](https://github.com/Quansight/writers-workshop))
 - Having a good editor / someone to provide constructive critiques is so helpful.
 - Co-authoring is the best!
@@ -103,7 +103,7 @@ The "I published a blog post in the last few months" team also provided some
 writing lifestyle advice:
 
 - Write in a cabin in the woods (warning: you may risk hiking instead of 
-writing)
+writing).
 - Drink tea while writing.
 - A legal pad and a computer go together. No computer writing alone.
 - Relax while writing. You'll think better. (When there's no deadline!)
@@ -111,8 +111,9 @@ writing)
 Most people agreed that to overcome the tyranny of the blank page, it's helpful to just write.  Write anything.  It can be nonsense, gibberish, garbage, or downright silly, but just write. 
 
 If that's not effective, here are some other ideas:
+
 - Try to sneak up on the empty page by doing something you enjoy that is related to what you want to write.  For example, if you love to draw, try drawing something related to your topic and let it pull you into that world.
-- Try open-ended questions, like "What message do I want the reader to learn?" or "What's the coolest thing about this topic?"
+- Try open-ended questions, like "What message do I want the reader to learn?" or "What's the coolest thing about this topic?".
 - Pretend you're having a conversation with someone.  How would you start describing the topic to them?
 
 ## What are we to do?
