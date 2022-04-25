@@ -3,7 +3,7 @@
 .. slug: spot-the-diffenrences
 .. date: 2021-04-16 08:00:00 UTC-06:00
 .. author: Isabela Presedo-Floyd, Juanita Gomez
-.. tags: Spyder, UX/UI, release
+.. tags: Spyder, UX/UI, release, design
 .. category:
 .. link:
 .. description:
