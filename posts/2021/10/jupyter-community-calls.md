@@ -23,7 +23,7 @@ and how they help all [jovyans](https://jupyter.readthedocs.io/en/latest/communi
 
   > A lot of us showed up for the code, but hung around for the community. 
 
-[Project Jupyter has a rich community calendar](https://jupyter.org/events) spanning different projects in the ecosystem. 
+[Project Jupyter has a rich community calendar](https://docs.jupyter.org/en/latest/community/content-community.html#jupyter-community-meetings) spanning different projects in the ecosystem. 
 Although these events are open to all, the meetings can appear daunting and exclusive. 
 
 This year, Quansight Labs took on the responsibility of reviving an existing series of events: 
