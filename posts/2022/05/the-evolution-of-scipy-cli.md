@@ -1,4 +1,15 @@
-## The evolution of SciPy CLI 
+<!--
+.. title: The evolution of SciPy CLI
+.. slug: the-evolution-of-scipy-cli
+.. date: 2022-05-03 8:00:00 UTC+05:30
+.. author: Sayantika Banik
+.. tags: CLI, SciPy, doit, typer, rich-click
+.. category:
+.. link:
+.. description:
+.. type: text
+.. previewimage:
+-->
 
 #### 🤔 What is a command-line interface (CLI)?
 
