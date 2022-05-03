@@ -83,7 +83,7 @@ rich_click.GROUP_ARGUMENTS_OPTIONS = False
 rich_click.SHOW_METAVARS_COLUMN = True
 rich_click.USE_MARKDOWN = True
 
-#Example: grouping global and task basedoptions 
+#Example: grouping global and task options 
 rich_click.OPTION_GROUPS = {
     "do.py": [
         {
