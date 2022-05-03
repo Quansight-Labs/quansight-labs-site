@@ -75,11 +75,15 @@ To incorporate the look and feel, I designed a layer on top of the existing CLI 
 It offers a variety of style options, markdown setting and flexibility to group tasks and options. Together it adds that perfect richness to the CLI command pallet.
 
 ```python
+
+#Example: style and markdown setting
 rich_click.STYLE_ERRORS_SUGGESTION = "yellow italic"
 rich_click.SHOW_ARGUMENTS = True
 rich_click.GROUP_ARGUMENTS_OPTIONS = False
 rich_click.SHOW_METAVARS_COLUMN = True
 rich_click.USE_MARKDOWN = True
+
+#Example: grouping global and task basedoptions 
 rich_click.OPTION_GROUPS = {
     "do.py": [
         {
@@ -104,7 +108,7 @@ rich_click.OPTION_GROUPS = {
 
 #### 🎥 Devloper CLI in action
 
-[![asciicast](https://asciinema.org/a/U9l9VvklvEjXdEi1xYS4A7u5M.svg)](https://asciinema.org/a/U9l9VvklvEjXdEi1xYS4A7u5M)
+<script id="asciicast-U9l9VvklvEjXdEi1xYS4A7u5M" src="https://asciinema.org/a/U9l9VvklvEjXdEi1xYS4A7u5M.js" async></script>
 
 #### Current list of implemented tasks
 * `Build & testing tasks`
