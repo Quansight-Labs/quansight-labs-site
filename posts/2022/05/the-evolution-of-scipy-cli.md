@@ -31,13 +31,13 @@ Both of these toolings have multiple conditional blocks to achieve the desired o
 Hence the idea of a developer command-line interface (CLI) was born. Easing the development experience with an intuitive and informative CLI. Removing dependency on legacy tooling like `paver` also added great value to the overall experience. Additional details could be found under [issue-#15489](https://github.com/scipy/scipy/issues/15489)
 
 #### ✍️ Planning and objective
-Like any development activity, the goal was to experiment with tools available [doit](https://pydoit.org/) and [Typer](https://typer.tiangolo.com/) were the first ones we picked. The two components of our interests were a *task runner*, and a *command-line interface tool*. doit satisfied the requirements of a task runner along with added functionality like maintaining a task dependency graph as a `DAG`. While `Typer` is quick to get started with building CLI applications 
+Like any development activity, the goal was to experiment with tools available [doit](https://pydoit.org/) and [Typer](https://typer.tiangolo.com/) were the first ones we picked. The two components of our interests were a *task runner*, and a *command-line interface tool*. doit satisfied the requirements of a task runner along with added functionality like maintaining a task dependency graph as a `DAG`. While `Typer` is quick to get started with building CLI applications. 
 
 As a starting point, I began experimenting with existing `dev.py` options, wrapped around multiple composite `doit` and `Typer` tasks. Both the [doit POC](https://github.com/sayantikabanik/scipy/blob/cli_poc/dodo.py) and [Typer POC](https://github.com/sayantikabanik/scipy/blob/cli_poc/cli.py) were built with similar principles. 
 
 As I progressed with the development of POCs using both tools, I experienced certain shortcomings. A better way to integrate an external library for exposing a CLI was the missing piece. **Eduardo Naufel Schettino** the author of doit developed an architecture combining the core elements of `doit` along with `click`. The journey in detail is captured under [issue-#133](https://github.com/rgommers/scipy/issues/133).
 
-#### 💁🏽‍♀️  More about the architecture and core components
+#### 💁🏽‍♀️ More about the architecture and core components
 
 Combining these tools wasn’t a straightforward journey; after multiple iterations, we were able to achieve a stable state. Doit underwent updates to incorporate added functionality, helping the pieces come together live. Below are the core components for the `doit-click` based task definition.
 
@@ -73,7 +73,7 @@ class Test():
 
 To incorporate the look and feel, I designed a layer on top of the existing CLI architecture with the help of [rich-click](https://pypi.org/project/rich-click/).
 It offers a variety of style options, markdown settings and flexibility to group tasks and options. Together it adds that perfect richness to the CLI command pallet.
-Below is a simple example which demonstrates the grouping of options and tasks along with style settings. 
+Below is a simple example which demonstrates the grouping of options and tasks along with style settings.
 ```python
 
 # style and markdown setting
@@ -117,7 +117,7 @@ rich_click.COMMAND_GROUPS = {
 <script id="asciicast-U9l9VvklvEjXdEi1xYS4A7u5M" src="https://asciinema.org/a/U9l9VvklvEjXdEi1xYS4A7u5M.js" async></script>
 
 #### Current list of implemented tasks
-Below are the lists of tasks currently implemented as part of the developer CLI. This list is dynamic and subject to change in the coming months. 
+Below are the lists of tasks currently implemented as part of the developer CLI. This list is dynamic and subject to change in the coming months.
 
 * `Build & testing tasks`
      - build (build & install package on path)
@@ -143,7 +143,7 @@ Below are the lists of tasks currently implemented as part of the developer CLI.
 
 From an idea to developing a successful POC, the journey was a great learning opportunity for me. Planning, coordination, teamwork and clear communication played a very important role. Huge thanks to **Ralf Gommers** and **Eduardo Naufel Schettino** for the amazing collaboration and support. 
 
-As a newcomer to the *SciPy codebase*, it was a steep learning curve. I asked a ton of questions, at times drifted to the ocean searching for answers. Learning something completely new be overwhelming, different emotions brush past. Thanks to Ralf and **Pamphile Roy** for addressing my questions. The learnings and achievements will stay with me for a long-long time.    
+As a newcomer to the *SciPy codebase*, it was a steep learning curve. I asked a ton of questions, at times drifted to the ocean searching for answers. Learning something completely new be overwhelming, different emotions brush past. Thanks to Ralf and **Pamphile Roy** for addressing my questions. The learnings and achievements will stay with me for a long-long time.
 
 #### 😇 The possibilities next steps
 
@@ -162,4 +162,4 @@ Some of the handy commands to quickly try out the CLI -
 With a great start comes possibilities. In the coming weeks, the CLI will become more mature and stable. After we receive wider usage and acceptance from the community, support for `dev.py` and `runtests.py` will be paused and `do.py` will be renamed to `dev.py`. The user documentation for the CLI components and usage will be made available for clear and concise understanding.
 To foster reusability, Eduardo has developed a package named `pydevtool`. The reusable elements will be incorporated into the SciPy developer CLI code. We will also be adding support for `act`, which will enable users to run GitHub CI jobs locally.
 
-We are excited to collaborate with projects looking forward to adopting a similar developer command-line interface 😃
+We are excited to collaborate with projects looking forward to adapting a similar developer command-line interface 😃
