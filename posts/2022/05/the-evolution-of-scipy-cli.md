@@ -21,11 +21,13 @@ Imagine a situation where there is a massive system with various tools and funct
 
 Now that we understand what a `CLI` is, how about we dive into the world of `SciPy`?
 
+<!-- TEASER_END -->
+
 #### 🤓 SciPy CLI journey
 
-An open-source project undergoes multiple iterations, and each iteration adds layers of tools and functionalities to incorporate. Right from the initial build, test, benchmarking, release notes, and beyond. Contribution guidelines start spanning across multiple pages, exponentially increasing efforts to maintain. 
+An open-source project undergoes multiple iterations, and each iteration adds layers of tools and functionalities to incorporate. Right from the initial build, test, benchmarking, release notes, and beyond. Contribution guidelines start spanning across multiple pages, exponentially increasing efforts to maintain.
 
-The two homegrown CLI for SciPy are `runtests.py`(for distutils-based builds) and `dev.py`(for Meson-based builds) built using python tooling `argparse`. 
+The two homegrown CLI for SciPy are `runtests.py`(for distutils-based builds) and `dev.py`(for Meson-based builds) built using python tooling `argparse`.
 Both of these toolings have multiple conditional blocks to achieve the desired outcome. Not only it is difficult to maintain, overall readability decreases drastically. The documentation runs into an infinite loop of updates, requiring additional efforts from maintainers. Another issue that remains is the lack of task grouping. A group of tasks linking to a single objective helps reduce confusion, super helpful for new contributors (like me :D).
 
 Hence the idea of a developer command-line interface (CLI) was born. Easing the development experience with an intuitive and informative CLI. Removing dependency on legacy tooling like `paver` also added great value to the overall experience. Additional details could be found under [issue-#15489](https://github.com/scipy/scipy/issues/15489)
@@ -33,7 +35,7 @@ Hence the idea of a developer command-line interface (CLI) was born. Easing the 
 #### ✍️ Planning and objective
 Like any development activity, the goal was to experiment with tools available [doit](https://pydoit.org/) and [Typer](https://typer.tiangolo.com/) were the first ones we picked. The two components of our interests were a *task runner*, and a *command-line interface tool*. doit satisfied the requirements of a task runner along with added functionality like maintaining a task dependency graph as a `DAG`. While `Typer` is quick to get started with building CLI applications.
 
-As a starting point, I began experimenting with existing `dev.py` options, wrapped around multiple composite `doit` and `Typer` tasks. Both the [doit POC](https://github.com/sayantikabanik/scipy/blob/cli_poc/dodo.py) and [Typer POC](https://github.com/sayantikabanik/scipy/blob/cli_poc/cli.py) were built with similar principles. 
+As a starting point, I began experimenting with existing `dev.py` options, wrapped around multiple composite `doit` and `Typer` tasks. Both the [doit POC](https://github.com/sayantikabanik/scipy/blob/cli_poc/dodo.py) and [Typer POC](https://github.com/sayantikabanik/scipy/blob/cli_poc/cli.py) were built with similar principles.
 
 As I progressed with the development of POCs using both tools, I experienced certain shortcomings. A better way to integrate an external library for exposing a CLI was the missing piece. **Eduardo Naufel Schettino** the author of doit developed an architecture combining the core elements of `doit` along with `click`. The journey in detail is captured under [issue-#133](https://github.com/rgommers/scipy/issues/133).
 
@@ -69,7 +71,7 @@ class Test():
         print('Running tests...')
 ```
 
-#### 🎨 `rich-click` addition 
+#### 🎨 `rich-click` addition
 
 To incorporate the look and feel, I designed a layer on top of the existing CLI architecture with the help of [rich-click](https://pypi.org/project/rich-click/).
 It offers a variety of style options, markdown settings and flexibility to group tasks and options. Together it adds that perfect richness to the CLI command pallet.
@@ -80,7 +82,7 @@ Below is a simple example which demonstrates the grouping of options and tasks a
 rich_click.STYLE_ERRORS_SUGGESTION = "yellow italic"
 rich_click.USE_MARKDOWN = True
 
-# grouping global and task based options 
+# grouping global and task based options
 rich_click.OPTION_GROUPS = {
     "do.py": [
         {
@@ -132,16 +134,16 @@ Below are the lists of tasks currently implemented as part of the developer CLI.
 * `Documentation tasks`
      - doc (Build documentation)
      - refguide-check  (Run refguide check)
- 
+
 * `Release tasks`
-    -  notes   (Release notes and log generation)               
+    -  notes   (Release notes and log generation)
     -  authors  (Task to generate list the authors who contributed within a given revision interval)
 * `Benchmarking tasks`
     - bench & bench compare
 
 #### 👏🏽 Great Collaboration and teamwork
 
-From an idea to developing a successful POC, the journey was a great learning opportunity for me. Planning, coordination, teamwork and clear communication played a very important role. Huge thanks to **Ralf Gommers** and **Eduardo Naufel Schettino** for the amazing collaboration and support. 
+From an idea to developing a successful POC, the journey was a great learning opportunity for me. Planning, coordination, teamwork and clear communication played a very important role. Huge thanks to **Ralf Gommers** and **Eduardo Naufel Schettino** for the amazing collaboration and support.
 
 As a newcomer to the *SciPy codebase*, it was a steep learning curve. I asked a ton of questions, at times drifted to the ocean searching for answers. Learning something completely new be overwhelming, different emotions brush past. Thanks to Ralf and **Pamphile Roy** for addressing my questions. The learnings and achievements will stay with me for a long-long time.
 
@@ -155,7 +157,7 @@ Some of the handy commands to quickly try out the CLI -
 > **Outcomes**
 
 1. 📜 Self-documentation and hierarchical help option
-2. 🧭 Easy to navigate and intuitive interface 
+2. 🧭 Easy to navigate and intuitive interface
 3. ⏩ Clear and concise examples to get started quickly
 4. ⏱ Reduction in the time spent navigating documentation
 
