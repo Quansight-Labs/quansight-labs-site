@@ -31,7 +31,7 @@ Both of these toolings have multiple conditional blocks to achieve the desired o
 Hence the idea of a developer command-line interface (CLI) was born. Easing the development experience with an intuitive and informative CLI. Removing dependency on legacy tooling like `paver` also added great value to the overall experience. Additional details could be found under [issue-#15489](https://github.com/scipy/scipy/issues/15489)
 
 #### ✍️ Planning and objective
-Like any development activity, the goal was to experiment with tools available [doit](https://pydoit.org/) and [Typer](https://typer.tiangolo.com/) were the first ones we picked. The two components of our interests were a *task runner*, and a *command-line interface tool*. doit satisfied the requirements of a task runner along with added functionality like maintaining a task dependency graph as a `DAG`. While `Typer` is quick to get started with building CLI applications. 
+Like any development activity, the goal was to experiment with tools available [doit](https://pydoit.org/) and [Typer](https://typer.tiangolo.com/) were the first ones we picked. The two components of our interests were a *task runner*, and a *command-line interface tool*. doit satisfied the requirements of a task runner along with added functionality like maintaining a task dependency graph as a `DAG`. While `Typer` is quick to get started with building CLI applications.
 
 As a starting point, I began experimenting with existing `dev.py` options, wrapped around multiple composite `doit` and `Typer` tasks. Both the [doit POC](https://github.com/sayantikabanik/scipy/blob/cli_poc/dodo.py) and [Typer POC](https://github.com/sayantikabanik/scipy/blob/cli_poc/cli.py) were built with similar principles. 
 
@@ -152,7 +152,7 @@ Some of the handy commands to quickly try out the CLI -
 - Enabling the GUI: `python do.py`
 - Listing the args/options for a task: `python do.py <task_name> --help`
 
-**Outcomes**
+> **Outcomes**
 
 1. 📜 Self-documentation and hierarchical help option
 2. 🧭 Easy to navigate and intuitive interface 
@@ -162,4 +162,7 @@ Some of the handy commands to quickly try out the CLI -
 With a great start comes possibilities. In the coming weeks, the CLI will become more mature and stable. After we receive wider usage and acceptance from the community, support for `dev.py` and `runtests.py` will be paused and `do.py` will be renamed to `dev.py`. The user documentation for the CLI components and usage will be made available for clear and concise understanding.
 To foster reusability, Eduardo has developed a package named `pydevtool`. The reusable elements will be incorporated into the SciPy developer CLI code. We will also be adding support for `act`, which will enable users to run GitHub CI jobs locally.
 
-We are excited to collaborate with projects looking forward to adapting a similar developer command-line interface 😃
+#### 🙂 Parting thoughts
+
+Many thanks the wonderful community for all the support and guidance.
+We are excited to collaborate with projects looking forward to adapting a similar developer command-line interface.
