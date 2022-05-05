@@ -1,6 +1,6 @@
 <!--
-.. title: The evolution of SciPy CLI
-.. slug: the-evolution-of-scipy-cli
+.. title: The evolution of the SciPy developer CLI
+.. slug: the-evolution-of-the-scipy-developer-cli
 .. date: 2022-05-03 8:00:00 UTC+05:30
 .. author: Sayantika Banik
 .. tags: CLI, SciPy, doit, Typer, Rich, Click
@@ -166,5 +166,5 @@ To foster reusability, Eduardo has developed a package named `pydevtool`. The re
 
 #### 🙂 Parting thoughts
 
-Many thanks the wonderful community for all the support and guidance.
+Many thanks to the wonderful community for all the support and guidance.
 We are excited to collaborate with projects looking forward to adapting a similar developer command-line interface.
