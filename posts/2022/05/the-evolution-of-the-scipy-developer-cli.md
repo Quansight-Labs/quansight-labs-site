@@ -13,7 +13,7 @@
 
 #### 🤔 What is a command-line interface (CLI)?
 
-Imagine a situation where there is a massive system with various tools and functionality. Every functionality requires a special command or an input from the user, CLI is designed to tackle such situations. Like a catalog it lists all the options present, helping the user to navigate.
+Imagine a situation, where there is a massive system with various tools and functionalities, and where every functionality requires a special command or an input from the user. A CLI is designed to tackle such situations. Like a catalog or menu, it lists all the options available, thus helping the user to navigate a complex system.
 
 <p align="center">
   <img alt="CLI example" src="https://user-images.githubusercontent.com/17350312/166633508-a2795c44-30bc-4a5b-8043-65beab71d31f.png" />
