@@ -35,20 +35,20 @@ Thus the idea of a developer command-line interface (CLI) was born, easing the d
 #### ✍️ Planning and objective
 Like any development activity, the plan was to experiment with available tools. [doit](https://pydoit.org/) and [Typer](https://typer.tiangolo.com/) were the first ones we picked. The two components of our interests were a *task runner*, and a *command-line interface tool*. doit satisfied the requirements of a task runner along with added functionality, like maintaining a task dependency graph as a [DAG](https://hazelcast.com/glossary/directed-acyclic-graph/). While `Typer` is quick to get started with building CLI applications.
 
-As a starting point, I began experimenting with existing `dev.py` options, wrapped around multiple composite `doit` and `Typer` tasks. Both the [doit POC](https://github.com/sayantikabanik/scipy/blob/cli_poc/dodo.py) and [Typer POC](https://github.com/sayantikabanik/scipy/blob/cli_poc/cli.py) were built with similar principles.
+As a starting point, I began experimenting with existing `dev.py` options, wrapped around multiple composite `doit` and `Typer` tasks. Both the [doit Proof of concept (POC)](https://github.com/sayantikabanik/scipy/blob/cli_poc/dodo.py) and [Typer POC](https://github.com/sayantikabanik/scipy/blob/cli_poc/cli.py) were built with similar principles.
 
-As I progressed with the development of POCs using both tools, I experienced certain shortcomings. A better way to integrate an external library for exposing a CLI was the missing piece. **Eduardo Naufel Schettino** the author of doit developed an architecture combining the core elements of `doit` along with `click`. The journey in detail is captured under [issue-#133](https://github.com/rgommers/scipy/issues/133).
+As I progressed with the development of POCs using both tools, I experienced certain shortcomings. A better way to integrate an external library for exposing a CLI was the missing piece. **Eduardo Naufel Schettino** the author of doit developed an architecture combining the core elements of `doit` along with `click`. Henceforth we continued with a `doit-click` approach, the journey is captured in detail under [issue-#133](https://github.com/rgommers/scipy/issues/133).
 
 #### 💁🏽‍♀️ More about the architecture and core components
 
-Combining these tools wasn’t a straightforward journey; after multiple iterations, we were able to achieve a stable state. Doit underwent updates to incorporate added functionality, helping the pieces come together live. Below are the core components for the `doit-click` based task definition.
+Combining these tools wasn’t a straightforward journey; after multiple iterations, we were able to achieve a stable state. Doit underwent updates to incorporate added functionalities, helping the pieces come together. Below are the core components for the `doit-click` based task definition along with an illustration.
 
 1. ✍️ Click based approach to input arguments/options/parameters
 2. ☑️ Base class to define doit task and/or click command
 3. 🏃 Method to execute a task `run()`
 4. 🌟 Additional utilities like `task dependency` and metadata definition using class attribute `TASK_META`
 
-##### Class based Click command definition
+##### Below is a class based Click command definition
 ```python
 @cli.cls_cmd('test')
 class Test():
@@ -57,8 +57,8 @@ class Test():
     def run(cls):
         print('Running tests...')
 ```
-- Command may make use of a Click.Group context defining a `ctx` class attribute
-- Command options are also defined as class attributes
+- A Command may make use of a Click.Group context defining a `ctx` class attribute
+- The Command options are also defined as class attributes
 ```python
 @cli.cls_cmd('test')
 class Test():
