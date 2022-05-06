@@ -25,7 +25,7 @@ Now that we understand what a `CLI` is, how about we dive into the world of `Sci
 
 #### 🤓 SciPy CLI journey
 
-An open-source project undergoes multiple iterations, and each iteration adds layers of tools and functionalities to incorporate. Right from the initial build, test, benchmarking, release notes, and beyond. Contribution guidelines start spanning across multiple pages, exponentially increasing efforts to maintain.
+An open-source project undergoes multiple iterations, and each iteration adds layers of tools and functionalities to it. Modules like build, test, benchmarking, release notes, etc are the building blocks of an open source project. With time, the contribution guides start to span over more and more pages, and the over all effort to maintain the project grows exponentially.
 
 The two homegrown CLI for SciPy are `runtests.py`(for distutils-based builds) and `dev.py`(for Meson-based builds) built using python tooling `argparse`.
 Both of these toolings have multiple conditional blocks to achieve the desired outcome. Not only it is difficult to maintain, overall readability decreases drastically. The documentation runs into an infinite loop of updates, requiring additional efforts from maintainers. Another issue that remains is the lack of task grouping. A group of tasks linking to a single objective helps reduce confusion, super helpful for new contributors (like me :D).
@@ -33,7 +33,7 @@ Both of these toolings have multiple conditional blocks to achieve the desired o
 Thus the idea of a developer command-line interface (CLI) was born, easing the development experience with an intuitive and informative CLI. In addition, we would be removing dependency on legacy tooling like `paver`, which would also add great value to the overall experience. Additional details could be found under [issue-#15489](https://github.com/scipy/scipy/issues/15489)
 
 #### ✍️ Planning and objective
-Like any development activity, the plan was to experiment with available tools. [doit](https://pydoit.org/) and [Typer](https://typer.tiangolo.com/) were the first ones we picked. The two components of our interests were a *task runner*, and a *command-line interface tool*. doit satisfied the requirements of a task runner along with added functionality, like maintaining a task dependency graph as a `DAG`. While `Typer` is quick to get started with building CLI applications.
+Like any development activity, the plan was to experiment with available tools. [doit](https://pydoit.org/) and [Typer](https://typer.tiangolo.com/) were the first ones we picked. The two components of our interests were a *task runner*, and a *command-line interface tool*. doit satisfied the requirements of a task runner along with added functionality, like maintaining a task dependency graph as a [DAG](https://hazelcast.com/glossary/directed-acyclic-graph/). While `Typer` is quick to get started with building CLI applications.
 
 As a starting point, I began experimenting with existing `dev.py` options, wrapped around multiple composite `doit` and `Typer` tasks. Both the [doit POC](https://github.com/sayantikabanik/scipy/blob/cli_poc/dodo.py) and [Typer POC](https://github.com/sayantikabanik/scipy/blob/cli_poc/cli.py) were built with similar principles.
 
