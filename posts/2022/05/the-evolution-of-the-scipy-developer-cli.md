@@ -147,7 +147,7 @@ From an idea to developing a successful POC, the journey was a great learning op
 
 As a newcomer to the *SciPy codebase*, it was a steep learning curve. I asked a ton of questions, at times drifted to the ocean searching for answers. Learning something completely new can be overwhelming, different emotions brush past. Thanks to Ralf and **Pamphile Roy** for addressing my questions. The learnings and achievements will stay with me for a long-long time.
 
-#### 😇 The possibilities next steps
+#### 😇 The next steps
 
 The experimental CLI is available under `scipy/do.py` for the wider community to test and provide us with valuable feedback.
 Some of the handy commands to quickly try out the CLI -
