@@ -145,7 +145,7 @@ Below are the lists of tasks currently implemented as part of the developer CLI.
 
 From an idea to developing a successful POC, the journey was a great learning opportunity for me. Planning, coordination, teamwork and clear communication played a very important role. Huge thanks to **Ralf Gommers** and **Eduardo Naufel Schettino** for the amazing collaboration and support.
 
-As a newcomer to the *SciPy codebase*, it was a steep learning curve. I asked a ton of questions, at times drifted to the ocean searching for answers. Learning something completely new be overwhelming, different emotions brush past. Thanks to Ralf and **Pamphile Roy** for addressing my questions. The learnings and achievements will stay with me for a long-long time.
+As a newcomer to the *SciPy codebase*, it was a steep learning curve. I asked a ton of questions, at times drifted to the ocean searching for answers. Learning something completely new can be overwhelming, different emotions brush past. Thanks to Ralf and **Pamphile Roy** for addressing my questions. The learnings and achievements will stay with me for a long-long time.
 
 #### 😇 The possibilities next steps
 
