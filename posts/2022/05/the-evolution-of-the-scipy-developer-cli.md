@@ -159,7 +159,7 @@ The experimental CLI is available under `scipy/do.py` for the wider community to
 > **Handy commands to quickly try out the CLI**
 
 - Enabling the GUI: `python do.py`
-- Listing all the available args/options for a task: `python do.py <task_name> --help`
+- Listing all the available arguments/options for a task: `python do.py <task_name> --help`
 
 > **Outcomes**
 
