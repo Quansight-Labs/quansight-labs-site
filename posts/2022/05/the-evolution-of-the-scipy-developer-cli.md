@@ -13,7 +13,7 @@
 
 #### 🤔 What is a command-line interface (CLI)?
 
-Imagine a situation, where there is a massive system with various tools and functionalities, and where every functionality requires a special command or an input from the user. A CLI is designed to tackle such situations. Like a catalog or menu, it lists all the options available, thus helping the user to navigate a complex system.
+Imagine a situation, where there is a massive system with various tools and functionalities, and every functionality requires a special command or an input from the user. A CLI is designed to tackle such situations. Like a catalog or menu, it lists all the options available, thus helping the user to navigate a complex system.
 
 <p align="center">
   <img alt="CLI example" src="https://user-images.githubusercontent.com/17350312/166633508-a2795c44-30bc-4a5b-8043-65beab71d31f.png" />
@@ -25,10 +25,10 @@ Now that we understand what a `CLI` is, how about we dive into the world of `Sci
 
 #### 🤓 SciPy CLI journey
 
-An open-source project undergoes multiple iterations, and each iteration adds layers of tools and functionalities to it. Modules like build, test, benchmarking, release notes, etc are the building blocks of an open source project. With time, the contribution guides start to span over more and more pages, and the over all effort to maintain the project grows exponentially.
+An open-source project undergoes multiple iterations, and each iteration adds layers of tools and functionalities to it. Modules like build, test, benchmarking, release notes, etc are the building blocks of an open source project. With time, the contribution guides start to span over multiple pages, and the over all effort to maintain the project grows exponentially.
 
-The two homegrown CLI for SciPy are `runtests.py`(for distutils-based builds) and `dev.py`(for Meson-based builds) built using python tooling `argparse`.
-Both of these tools have long chains of conditional statements, **which** are notorious for reducing code readability drastically. It is harder to find the right code block in the chain to modify, hence code maintainability becomes a challenge. The documentation runs into an infinite loop of updates, requiring additional efforts from maintainers. Another issue that remains is the lack of task grouping. A group of tasks linking to a single objective helps reduce confusion, super helpful for new contributors (like me :D).
+The two homegrown CLI for SciPy are `runtests.py`(for distutils-based builds) and `dev.py`(for Meson-based builds) developed using python tooling `argparse`.
+Both of these tools have long chains of conditional statements, which are notorious for reducing code readability drastically. It is harder to find the right code block in the chain to modify, hence code maintainability becomes a challenge. The documentation runs into an infinite loop of updates, requiring additional efforts from maintainers. Another issue that remains is the lack of task grouping. A group of tasks linking to a single objective helps reduce confusion, super helpful for new contributors (like me :D).
 
 Thus the idea of a developer command-line interface (CLI) was born, easing the development experience with an intuitive and informative CLI. In addition, we also removed dependency on legacy tooling like `paver`, which added great value to the overall experience. More details could be found under [issue-#15489](https://github.com/scipy/scipy/issues/15489).
 
@@ -41,7 +41,7 @@ As I progressed with the development of POCs using both tools, I experienced cer
 
 #### 💁🏽‍♀️ More about the architecture and core components
 
-Combining these tools wasn’t a straightforward journey; after multiple iterations, we were able to achieve a stable state. Doit underwent updates to incorporate added functionalities, helping the pieces come together. Below are the core components for the `doit-click` based task definition along with an illustration *(code snippet 01 and 02)*.
+Combining these tools wasn’t a straightforward journey; after multiple iterations, we were able to achieve a stable state. doit underwent updates to incorporate added functionalities, helping the pieces come together. Below are the core components for the `doit-click` based task definition along with an illustration *(code snippet 01 and 02)*.
 
 1. ✍️ Click based approach to input arguments/options/parameters
 2. ☑️ Base class to define doit task and/or click command
@@ -156,9 +156,10 @@ As a newcomer to the *SciPy codebase*, it was a steep learning curve. I asked a 
 #### 😇 The next steps
 
 The experimental CLI is available under `scipy/do.py` for the wider community to test and provide us with valuable feedback.
-Some of the handy commands to quickly try out the CLI -
+> **Handy commands to quickly try out the CLI**
+
 - Enabling the GUI: `python do.py`
-- Listing the args/options for a task: `python do.py <task_name> --help`
+- Listing all the available args/options for a task: `python do.py <task_name> --help`
 
 > **Outcomes**
 
@@ -167,7 +168,7 @@ Some of the handy commands to quickly try out the CLI -
 3. ⏩ Clear and concise examples to get started quickly
 4. ⏱ Reduction in the time spent navigating documentation
 
-With a great start comes possibilities. In the coming weeks, the CLI will become more mature and stable. After we receive wider usage and acceptance from the community, support for `dev.py` and `runtests.py` will be paused and `do.py` will be renamed to `dev.py`. The user documentation for the CLI components and usage will be made available for clear and concise understanding.
+With a great start comes possibilities. In the coming weeks, the CLI will become mature and stable. After we receive wider usage and acceptance from the community, support for `dev.py` and `runtests.py` will be paused and `do.py` will be renamed to `dev.py`. The user documentation for the CLI components and usage will be made available for clear and concise understanding.
 To foster reusability, Eduardo has developed a package named `pydevtool`. The reusable elements will be incorporated into the SciPy developer CLI code. We will also be adding support for `act`, which will enable users to run GitHub CI jobs locally.
 
 #### 🙂 Parting thoughts
