@@ -48,11 +48,7 @@ Combining these tools wasn’t a straightforward journey; after multiple iterati
 3. 🏃 Method to execute a task `run()`
 4. 🌟 Additional utilities like `task dependency` and metadata definition using class attribute `TASK_META`
 
-<table>
-    <tr>
-        <td>Snippet 01 </td>
-    </tr>
-</table>
+> Snippet 01
 - The code snippet below initiates a class based `Click` command definition
 ```python
 @cli.cls_cmd('test')
@@ -62,11 +58,8 @@ class Test():
     def run(cls):
         print('Running tests...')
 ```
-<table>
-    <tr>
-        <td>Snippet 02 </td>
-    </tr>
-</table>
+> Snippet 02
+
 **Additional details**
 - A command may make use of a `Click.Group` context defining a `ctx` class attribute
 - The command options are also defined as class attributes
