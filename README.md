@@ -12,22 +12,22 @@ Use either reStructuredText, Markdown or Jupyter Notebooks. To create an empty p
 $ nikola new_post -f markdown  # default is .rst if not specified
 ```
 
-Note that for Jupyter notebook posts the post metadata (title, author, slug, date) goes in the notebook metadata as documented [here](https://getnikola.com/handbook.html#jupyter-notebook-metadata). Jupyter Lab does not have a metadata editor yet - either use Jupyter notebook, install <https://github.com/yuvipanda/jupyterlab-nbmetadata> (although that did not work in a first test), or edit the metadata by hand.
+Note that for a Jupyter Notebook post, the post's metadata (title, author, slug, date) goes in the notebook metadata, as documented [here](https://getnikola.com/handbook.html#jupyter-notebook-metadata). Jupyter Lab does not yet have a metadata editor - use Jupyter Notebook, install <https://github.com/yuvipanda/jupyterlab-nbmetadata> (although that did not work in a first test), or edit the metadata by hand.
 
 To not show the whole post but only the first bit and then `read more ...`, use `<!-- TEASER_END -->` (either in plain Markdown or in a Markdown cell in a notebook).
 
 ## :calendar: Scheduling a post - internal content calendar
 
-The future post schedule is available as a [Google Spreadsheet accessible only
+The future post schedule is available as a [Google spreadsheet accessible only
 to Quansight
-Employees](https://docs.google.com/spreadsheets/d/1UyKeiM0elXKrhY5BeG3CHB13ydeqUjnv02oyN1NrKqk/edit#gid=0),
-you can use it to lookup next free spot.
+employees](https://docs.google.com/spreadsheets/d/1UyKeiM0elXKrhY5BeG3CHB13ydeqUjnv02oyN1NrKqk/edit#gid=0),
+you can use it to look up the next free spot.
 
 The website rebuilds itself everyday (look into the GitHub action Cron), thus if
-you set the date on the metadata of your post and merge the Pull-Request, the
-post will be published on given day.
+you set the date on the metadata of your post and merge the pull request, the
+post will be published on the day it is merged.
 
-The PR preview system does show Future blog post, so no need to put a fake date when issuing a PR.
+The PR preview system does show future blog post, so no need to put a fake date when issuing a PR.
 
 ## :construction_worker: Build information
 
@@ -47,9 +47,9 @@ To build the site, and have it auto-update when you edit content:
 
 ## :rocket: Deployment
 
-Once you submit a Pull Request a build of the site will be triggered on Netlify. The Netlify bot will add a comment to your Pull Request with the link to the preview URL.
+Once you submit a pull request a build of the site will be triggered on Netlify. The Netlify bot will add a comment to your pull request with the link to the preview URL.
 
-![Screenshot of a Github Pull Request displaying the Netlify bot for website builds](./images/readme_preview_deploy.png)
+![Screenshot of a GitHub Pull Request displaying the Netlify bot for website builds](./images/readme_preview_deploy.png)
 
 If the build fails or you need to see more details about it click on the **Show all checks** link in the checks section and then click on **Details** to expand the list of checks and their full logs.
 
