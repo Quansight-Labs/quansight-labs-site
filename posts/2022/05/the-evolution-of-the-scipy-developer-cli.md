@@ -41,14 +41,17 @@ As I progressed with the development of POCs using both tools, I experienced cer
 
 #### 💁🏽‍♀️ More about the architecture and core components
 
-Combining these tools wasn’t a straightforward journey; after multiple iterations, we were able to achieve a stable state. Doit underwent updates to incorporate added functionalities, helping the pieces come together. Below are the core components for the `doit-click` based task definition along with an illustration.
+Combining these tools wasn’t a straightforward journey; after multiple iterations, we were able to achieve a stable state. Doit underwent updates to incorporate added functionalities, helping the pieces come together. Below are the core components for the `doit-click` based task definition along with an illustration *(code snippet 01 and 02)*.
 
 1. ✍️ Click based approach to input arguments/options/parameters
 2. ☑️ Base class to define doit task and/or click command
 3. 🏃 Method to execute a task `run()`
 4. 🌟 Additional utilities like `task dependency` and metadata definition using class attribute `TASK_META`
 
-##### Below is a class based Click command definition
+
+| Snippet 01 |
+|:----------:|
+- The code snippet below initiates a class based `Click` command definition
 ```python
 @cli.cls_cmd('test')
 class Test():
@@ -57,8 +60,11 @@ class Test():
     def run(cls):
         print('Running tests...')
 ```
-- A Command may make use of a Click.Group context defining a `ctx` class attribute
-- The Command options are also defined as class attributes
+| Snippet 02 |
+|:----------:|
+**Additional details**
+- A command may make use of a `Click.Group` context defining a `ctx` class attribute
+- The command options are also defined as class attributes
 ```python
 @cli.cls_cmd('test')
 class Test():
