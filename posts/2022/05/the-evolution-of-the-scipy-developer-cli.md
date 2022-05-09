@@ -49,6 +49,7 @@ Combining these tools wasn’t a straightforward journey; after multiple iterati
 4. 🌟 Additional utilities like `task dependency` and metadata definition using class attribute `TASK_META`
 
 > Snippet 01
+
 - The code snippet below initiates a class based `Click` command definition
 ```python
 @cli.cls_cmd('test')
