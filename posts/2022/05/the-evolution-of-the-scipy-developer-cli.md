@@ -62,6 +62,7 @@ class Test():
 > Snippet 02
 
 **Additional details**
+
 - A command may make use of a `Click.Group` context defining a `ctx` class attribute
 - The command options are also defined as class attributes
 ```python
