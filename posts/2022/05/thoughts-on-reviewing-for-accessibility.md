@@ -1,6 +1,6 @@
 <!--
-.. title: Thoughts on reviewing for accessibility: Maybe there is a checklist?
-.. slug: thoughts-on-reviewing-for-accessibility
+.. title: Checking for accessibility: thoughts and a checklist!
+.. slug: checking-for-accessibility
 .. date: 2022-05-25 08:00:00 UTC-00:00
 .. author: Isabela Presedo-Floyd
 .. tags: JupyterLab, Accessibility, JLabA11y
@@ -19,13 +19,14 @@ called out accessibility as much more complex than a checklist? True to my
 sense of humor, this blog post is now a checklist. Irony? I don’t know the 
 meaning of the word.
 
-Okay, okay. But seriously, when I’m not making my own work, much of my time is 
-spent reviewing other people’s work. Whether it’s design files, code 
-contributions, blog posts, documentation, or who-knows-what-this-week, I often 
-find myself asking questions and giving feedback about accessibility in the 
-review process. This has prompted multiple people to ask me what it is I’m 
-considering when I review for accessibility. Enough people have now asked that 
-I’ve decided to write something down.
+Okay, okay. But seriously, here's how we got here. When I'm not I’m not making 
+my own work, much of my time is spent reviewing other people’s work. Whether 
+it’s design files, code contributions, blog posts, documentation, or 
+who-knows-what-this-week, I often find myself asking questions and giving 
+feedback about accessibility in the review process. This has prompted multiple 
+people to ask me what it is I’m considering when I review for accessibility. 
+Enough people have now asked that I’ve decided to write something down -- and 
+it's turned into a checklist.
 
 <!-- TEASER_END -->
 
@@ -41,24 +42,24 @@ for accessibility review.
 #### Text
 
 - All-caps are used only when they are needed (like acronyms), not just 
-for emphasis. (Or they use a text-transform property.)
-- [Text has high enough contrast for its size and weight](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum). Make sure to watch out for yellow, orange, and green especially; they tend to be tricky.
-- [Information is not represented only by color](https://www.w3.org/WAI/WCAG21/Understanding/use-of-color). (Adding label text or an icon are my most frequently recommended additions.)
-- [Links have appropriately descriptive names](https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context)—meaning you know where that link text will take you or why it is there.
-- Are there headers or some kind of division? [Headers must follow a clearly ordered hierarchy](https://www.w3.org/WAI/tutorials/page-structure/headings/). (For example, not skipping from Heading 1 to Heading 4 in HTML-based situations.)
-- Acronyms need to be defined (or at least linked to their source).
+for emphasis. Or all-caps are created with a text-transform property.
+- [Text has high enough contrast for its size and weight](https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum). Make sure to be aware of yellow, orange, and green especially; they tend to be tricky.
+- [Information is not represented only by color](https://www.w3.org/WAI/WCAG21/Understanding/use-of-color). Adding label text or an icon are my most frequently recommended additions.
+- [Links have appropriately descriptive names](https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context)—-meaning you know where that link text will take you or why it is there.
+- Are there headers or some kind of division? [Headers must follow a clearly ordered hierarchy](https://www.w3.org/WAI/tutorials/page-structure/headings/). For example, not skipping from Heading 1 to Heading 4 in HTML-based situations.
+- Acronyms need to be defined, or at least linked to their source.
 - Is the text written in a style appropriate for the audience? In most cases, it needs to use [plain language](https://www.plainlanguage.gov/guidelines/). 
-- Is any [language being unnecessarily gendered](https://developers.google.com/style/inclusive-documentation#gendered-language)? If it is, replace it. (More on [inclusive language at 18F](https://content-guide.18f.gov/our-style/inclusive-language).)
-- Is necessary gendered language used correctly? (Usually, this means don’t misgender people.)
-- Is there [language that unnecessarily assumes the reader’s ability](https://developers.google.com/style/inclusive-documentation#ableist-language)? (For example, assuming the reader can see with “As you can see…”) If there is, replace it.
+- Is any [language being unnecessarily gendered](https://developers.google.com/style/inclusive-documentation#gendered-language)? If it is, replace it. More on [inclusive language at 18F](https://content-guide.18f.gov/our-style/inclusive-language).
+- Is necessary gendered language used correctly? Usually, this means don’t misgender people.
+- Is there [language that unnecessarily assumes the reader’s ability](https://developers.google.com/style/inclusive-documentation#ableist-language)? If there is, replace it. An example could be assuming the reader can see with “As you can see…”
 - If there is HTML, [all HTML tags are used as they were intended to be used](https://developer.mozilla.org/en-US/docs/Learn/Accessibility/HTML).
 - If there are ARIA tags, are they necessary? Could this be avoided by using semantic HTML? [If ARIA tags are necessary, are they used correctly](https://html5accessibility.com/stuff/2020/11/07/not-so-short-note-on-aria-label-usage-big-table-edition/)?
 
 
 #### Not-text
 
-- [Non-text elements have high enough contrast](https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast). I prefer to check contrast on all, but at least be sure about interactive and informational areas (For example, buttons or status indicators).
-- [Information is not represented only by color](https://www.w3.org/WAI/WCAG21/Understanding/use-of-color). (Adding label text or an icon are my most frequently recommended additions.) (Yes, this is the same as the above Text section. It’s important so it’s here twice.)
+- [Non-text elements have high enough contrast](https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast). I prefer to check contrast on all, but at least be sure about interactive and informational areas. For example, buttons are interactive interfaces and status indicators are informational interfaces.
+- [Information is not represented only by color](https://www.w3.org/WAI/WCAG21/Understanding/use-of-color). Adding label text or an icon are my most frequently recommended additions. (Yes, this is the same as the above Text section. It’s important so it’s here twice.)
 - [All images need image descriptions of some kind](https://www.w3.org/WAI/tutorials/images/decision-tree/). All image descriptions need to match their surrounding context.
 - [All videos need captions and/or transcriptions](https://www.w3.org/WAI/media/av/).
 - All non-text media needs a text counterpart, or another way to get the information or interaction.
@@ -75,24 +76,24 @@ for emphasis. (Or they use a text-transform property.)
 - Can you complete all interactions with a mouse? Good.
 - Can you complete all interactions with a keyboard? Fantastic.
 - Can you complete all interactions with a touch screen? Wonderful.
-- [Can a single task be completed with multiple input methods](https://www.w3.org/WAI/WCAG21/Understanding/concurrent-input-mechanisms) (For example, switching between using the mouse and keyboard to navigate)? It needs to be flexible.
-- Check all keyboard shortcuts to make sure they don’t conflict with others (in the operating system, browser, and possibly with different language keyboards than the one you are using).
+- [Can a single task be completed with multiple input methods?](https://www.w3.org/WAI/WCAG21/Understanding/concurrent-input-mechanisms) It needs to be flexible.  For example, can a task be completed switching between using the mouse and keyboard to navigate.
+- Check all keyboard shortcuts to make sure they don’t conflict with others. This usually includes checking the operating system, browser, and possibly with different language keyboards.
 - Keyboard shortcuts need to be configurable/remappable.
 - Keyboard shortcuts cannot be the only way to use a feature. There must be at least one other option.
 - Keyboard shortcuts, in general, are better the fewer keys you have to press at once. Aim for no more than three. Consider how you have to move to hit the keys, and reconsider your choices if you feel like a contortionist.
 - The tab order needs to make sense/follow visual reading order.
 - All interactive areas need to be focusable.
-- [Focus needs to be visible](https://www.sarasoueidan.com/blog/focus-indicators/) (and please, make it a good, high contrast, multi-background considerate visible focus).
-- What happens when you run whatever assistive tech you have available over it? Review expectations for that type of assistive tech and compare that the experience matches up (while keeping in mind that if you don’t use assistive tech every day, your experience will not be the same as someone who does).
+- [Focus needs to be visible.](https://www.sarasoueidan.com/blog/focus-indicators/) Please, make it a good, high contrast, multi-background-considerate visible focus.
+- What happens when you run whatever assistive tech you have available over it? Review expectations for that type of assistive tech and compare that the experience matches up. Please keep in mind that if you don’t use assistive tech every day, your experience will not be the same as someone who does.
 - [Interactions must be designed to minimize user error](https://www.w3.org/WAI/WCAG21/Understanding/input-assistance). [If the interaction is a high stakes one, the user is warned or has extra protection surrounding the action](https://www.w3.org/WAI/WCAG21/Understanding/error-prevention-legal-financial-data).
 - Have you never thought about this behavior from an accessibility perspective before? Go give it a search on the internet and bring up the question in your review.
 
 #### All of the above and more
 
-- Check for consistency. This could be anything from keeping the same name for a tool in documentation, or ensuring matching interactions for the same type of use case in a user interface.
+- Check for consistency. This could be anything from keeping the same name for a tool in documentation, consistent capitalization for text, or matching user interactions patterns across a piece of software.
 - [Errors, warnings, or similar feedback info should not only inform users about what happened but also how to address what happened](https://accessibility.huit.harvard.edu/provide-helpful-error-messages). 
 - Does this collect user info in some way? If it does, it must only collect what is absolutely necessary. This information also needs to be secure long term.
-- [Is there red? Is there green? Are these colors used together?](https://baselinehq.com/blog/colourblindness-information-ui-design-red-green-problems-tips-tricks.html) If these colors have meaning, find another color palette and/or additional method to convey that.
+- [Is there red? Is there green? Are these colors used together?](https://baselinehq.com/blog/colourblindness-information-ui-design-red-green-problems-tips-tricks.html) If these colors have meaning, find another color palette and/or additional method to convey that meaning.
 - What configuration/settings options are available? Make sure they are accessible and ask yourself if there’s anything missing. 
 - Are there translations for this? If so, try translating it and check that the interface is responsive.
 - Bonus points for [supporting mirroring for interfaces based on language](https://material.io/design/usability/bidirectionality.html).
@@ -112,8 +113,16 @@ place to start. Your software’s architecture can be designed accessibly.
 
 Reviewing user-facing work is what I spend most of my time on, so 
 [My review checklist](#My-review-checklist) from above is the most accurate. 
-In this situation, it’s helpful to review these things holistically, like by 
-choosing to complete a task related to the work you are reviewing.
+In this situation, it’s most helpful to review these things holistically.
+
+This means I would recommend choosing a task common to users and then 
+completing it slowly while taking note of items on the checklist. In 
+JupyterLab, I could choose the task of opening a new notebook and writing in 
+the first cell. While I'm taking those actions, I'm switching between keyboard 
+and mouse, taking note of low-contrast parts of the Launcher, and finding that 
+the visible focus in inconsistent. While I could search for each of these 
+things one by one à la checklist, I will find blocking problems and the ways 
+they overlap by following the path of a user.
 
 #### Reviewing documentation
 
@@ -167,20 +176,22 @@ I ask myself things like
 - Is it robust, meaning it works with assistive tech and a range of other devices? Does it leave room for changes and improvements in the future?
 
 Finally, please remember to build on work that’s already been done when 
-reviewing. For example, you don’t need to handwrite a definition of visible 
+reviewing. You don’t need to handwrite a definition of visible 
 focus every time you have to explain it to someone; find a resource you like 
+(such as [Understanding WCAG](https://www.w3.org/WAI/WCAG21/Understanding/))
 and link that when people ask you. This saves you time, energy, and helps us 
 all build a community where we’re learning from each other instead of 
 repeating the same work in isolation.
 
 ### What’s next?
 
-Did I miss something? Great! Please tell me (in the comments) so I can update 
-this post (with credit) and we can all be more knowledgeable and diligent in 
-reviewing for accessibility.
-
-I’ve spent the past several months working on 
+Captioning! I’ve spent the past several months working on 
 [accessibility-focused events in the Jupyter orbit](https://blog.jupyter.org/jupyter-accessibility-workshops-wrap-up-8649dfe5f89), 
 and I learned many things in the quest for an accessible online event. I also 
-found myself constantly wishing for resources I couldn’t find, so that will be 
-the next chapter in this series of JupyterLab accessibility learnings.
+found myself constantly wishing for resources I couldn’t find, so the next 
+chapter in this series of JupyterLab accessibility learnings will aim to fill 
+those gaps.
+
+Did I miss something in this checklist? Great! Please tell me (in the 
+comments) so I can update this post (with credit) and we can all be more 
+knowledgeable and diligent in reviewing for accessibility.
