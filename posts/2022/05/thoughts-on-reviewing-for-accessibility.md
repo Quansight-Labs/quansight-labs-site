@@ -19,7 +19,7 @@ called out accessibility as much more complex than a checklist? True to my
 sense of humor, this blog post is now a checklist. Irony? I don’t know the 
 meaning of the word.
 
-Okay, okay. But seriously, here's how we got here. When I'm not I’m not making 
+Okay, okay. But seriously, here's how we got here. When I’m not making 
 my own work, much of my time is spent reviewing other people’s work. Whether 
 it’s design files, code contributions, blog posts, documentation, or 
 who-knows-what-this-week, I often find myself asking questions and giving 
