@@ -51,7 +51,7 @@ for emphasis. (Or they use a text-transform property.)
 - Is any [language being unnecessarily gendered](https://developers.google.com/style/inclusive-documentation#gendered-language)? If it is, replace it. (More on [inclusive language at 18F](https://content-guide.18f.gov/our-style/inclusive-language).)
 - Is necessary gendered language used correctly? (Usually, this means don’t misgender people.)
 - Is there [language that unnecessarily assumes the reader’s ability](https://developers.google.com/style/inclusive-documentation#ableist-language)? (For example, assuming the reader can see with “As you can see…”) If there is, replace it.
-- If there is HTML, [all HTML tags used as they were intended to be used](https://developer.mozilla.org/en-US/docs/Learn/Accessibility/HTML).
+- If there is HTML, [all HTML tags are used as they were intended to be used](https://developer.mozilla.org/en-US/docs/Learn/Accessibility/HTML).
 - If there are ARIA tags, are they necessary? Could this be avoided by using semantic HTML? [If ARIA tags are necessary, are they used correctly](https://html5accessibility.com/stuff/2020/11/07/not-so-short-note-on-aria-label-usage-big-table-edition/)?
 
 
@@ -79,18 +79,18 @@ for emphasis. (Or they use a text-transform property.)
 - Check all keyboard shortcuts to make sure they don’t conflict with others (in the operating system, browser, and possibly with different language keyboards than the one you are using).
 - Keyboard shortcuts need to be configurable/remappable.
 - Keyboard shortcuts cannot be the only way to use a feature. There must be at least one other option.
-- Keyboard shortcuts, in general, are better when they three or less keys at once. Consider how you have to move to hit the keys, and reconsider your choices if you feel like a contortionist.
+- Keyboard shortcuts, in general, are better the fewer keys you have to press at once. Aim for no more than three. Consider how you have to move to hit the keys, and reconsider your choices if you feel like a contortionist.
 - The tab order needs to make sense/follow visual reading order.
 - All interactive areas need to be focusable.
 - [Focus needs to be visible](https://www.sarasoueidan.com/blog/focus-indicators/) (and please, make it a good, high contrast, multi-background considerate visible focus).
-- What happens when you run whatever assistive tech you have available over it? Review expectations for that type assistive tech and compare the experience matches up (while keeping in mind that if you don’t use assistive tech every day, your experience will not be the same as someone who does).
+- What happens when you run whatever assistive tech you have available over it? Review expectations for that type of assistive tech and compare that the experience matches up (while keeping in mind that if you don’t use assistive tech every day, your experience will not be the same as someone who does).
 - [Interactions must be designed to minimize user error](https://www.w3.org/WAI/WCAG21/Understanding/input-assistance). [If the interaction is a high stakes one, the user is warned or has extra protection surrounding the action](https://www.w3.org/WAI/WCAG21/Understanding/error-prevention-legal-financial-data).
 - Have you never thought about this behavior from an accessibility perspective before? Go give it a search on the internet and bring up the question in your review.
 
 #### All of the above and more
 
 - Check for consistency. This could be anything from keeping the same name for a tool in documentation, or ensuring matching interactions for the same type of use case in a user interface.
-- [Errors, warnings, or similar feedback info must be designed in a way that tells users how to address them](https://accessibility.huit.harvard.edu/provide-helpful-error-messages). 
+- [Errors, warnings, or similar feedback info should not only inform users about what happened but also how to address what happened](https://accessibility.huit.harvard.edu/provide-helpful-error-messages). 
 - Does this collect user info in some way? If it does, it must only collect what is absolutely necessary. This information also needs to be secure long term.
 - [Is there red? Is there green? Are these colors used together?](https://baselinehq.com/blog/colourblindness-information-ui-design-red-green-problems-tips-tricks.html) If these colors have meaning, find another color palette and/or additional method to convey that.
 - What configuration/settings options are available? Make sure they are accessible and ask yourself if there’s anything missing. 
@@ -125,7 +125,7 @@ style guide and community-agreed-upon language can be a great start.
 
 #### Reviewing social media content
 
-For social media, there are a lot of considerations depending what you are 
+For social media, there are a lot of considerations depending on what you are 
 working with. In the wild, the main problem I run into is no descriptions for 
 non-text content. Whether it’s an absence (missing alt text, captions, or 
 transcription) or overload (flashing images, autoplay) there’s a lot of 
@@ -160,10 +160,11 @@ recommend is asking questions freely. I often find gaps in my knowledge by
 asking if the main goals of WCAG (content is Perceivable, Operable, 
 Understandable, and Robust) are possible through different means. For example, 
 I ask myself things like
+
 - Is this thing I’m reviewing perceivable if I can’t access it the way the person building it can?
 - Is it operable in more than one way? Is it operable in different conditions, like with different lighting or if I only use one hand?
 - Is it understandable if I asked a ten year old to summarize it or if I were to ask my parent? What about if I asked someone who’s never studied what I’m writing about? 
-- Is it robust, meaning it works with assistive tech and a range of technology? Does it leave room for changes and improvements in the future?
+- Is it robust, meaning it works with assistive tech and a range of other devices? Does it leave room for changes and improvements in the future?
 
 Finally, please remember to build on work that’s already been done when 
 reviewing. For example, you don’t need to handwrite a definition of visible 
