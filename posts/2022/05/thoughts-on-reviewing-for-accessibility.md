@@ -30,8 +30,10 @@ it's turned into a checklist.
 
 <!-- TEASER_END -->
 
-I’d like to remind readers everywhere that other people have written similar 
-lists in the past and probably will do so again in the future. This list gets 
+I’d like to remind readers everywhere that other people have [written](https://tetralogical.com/blog/2022/01/18/quick-accessibility-tests-anyone-can-do/) 
+[similar](https://www.a11yproject.com/checklist/) 
+[lists](https://www.a11yproject.com/checklist/) 
+in the past and probably will do so again in the future. This list gets 
 long quickly, so I’ve tried to keep each item short and link out for more information.
 
 Without further ado, this is my non-exhaustive but totally honest checklist 
@@ -86,7 +88,7 @@ for emphasis. Or all-caps are created with a text-transform property.
 - [Focus needs to be visible.](https://www.sarasoueidan.com/blog/focus-indicators/) Please, make it a good, high contrast, multi-background-considerate visible focus.
 - What happens when you run whatever assistive tech you have available over it? Review expectations for that type of assistive tech and compare that the experience matches up. Please keep in mind that if you don’t use assistive tech every day, your experience will not be the same as someone who does.
 - [Interactions must be designed to minimize user error](https://www.w3.org/WAI/WCAG21/Understanding/input-assistance). [If the interaction is a high stakes one, the user is warned or has extra protection surrounding the action](https://www.w3.org/WAI/WCAG21/Understanding/error-prevention-legal-financial-data).
-- Have you never thought about this behavior from an accessibility perspective before? Go give it a search on the internet and bring up the question in your review.
+- Have you never thought about this behavior from an accessibility perspective before? Go give it a search on the internet and bring up the question in your review. For example, if I've never thought about how code syntax highlighting information is communicated to a blind person, I can go start searching. I go from general to specific like "syntax highlighting and accessibility" to "blind developers and syntax highlighting." In the review, I may say "I wonder how syntax highlighting can be communicated without visuals" before summarizing the patterns I've found and linking to my sources.
 
 #### All of the above and more
 
