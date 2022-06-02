@@ -1,7 +1,7 @@
 <!--
 .. title: Checking for accessibility: thoughts and a checklist!
 .. slug: checking-for-accessibility
-.. date: 2022-05-25 08:00:00 UTC-00:00
+.. date: 2022-06-06 08:00:00 UTC-00:00
 .. author: Isabela Presedo-Floyd
 .. tags: JupyterLab, Accessibility, JLabA11y
 .. category: JLabA11y
