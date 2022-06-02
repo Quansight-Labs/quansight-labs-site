@@ -32,7 +32,7 @@ it's turned into a checklist.
 
 I’d like to remind readers everywhere that other people have [written](https://tetralogical.com/blog/2022/01/18/quick-accessibility-tests-anyone-can-do/) 
 [similar](https://www.a11yproject.com/checklist/) 
-[lists](https://www.a11yproject.com/checklist/) 
+[lists](https://webaim.org/standards/wcag/checklist) 
 in the past and probably will do so again in the future. This list gets 
 long quickly, so I’ve tried to keep each item short and link out for more information.
 
@@ -62,7 +62,7 @@ for emphasis. Or all-caps are created with a text-transform property.
 
 - [Non-text elements have high enough contrast](https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast). I prefer to check contrast on all, but at least be sure about interactive and informational areas. For example, buttons are interactive interfaces and status indicators are informational interfaces.
 - [Information is not represented only by color](https://www.w3.org/WAI/WCAG21/Understanding/use-of-color). Adding label text or an icon are my most frequently recommended additions. (Yes, this is the same as the above Text section. It’s important so it’s here twice.)
-- [All images need image descriptions of some kind](https://www.w3.org/WAI/tutorials/images/decision-tree/). All image descriptions need to match their surrounding context.
+- [All images need image descriptions of some kind](https://www.w3.org/WAI/tutorials/images/decision-tree/). On the internet, this is usually [alt text](https://en.wikipedia.org/wiki/Alt_attribute). All image descriptions need to match their surrounding context.
 - [All videos need captions and/or transcriptions](https://www.w3.org/WAI/media/av/).
 - All non-text media needs a text counterpart, or another way to get the information or interaction.
 - [Don’t use flashing images](https://www.w3.org/WAI/WCAG21/Understanding/seizures-and-physical-reactions).
@@ -70,7 +70,7 @@ for emphasis. Or all-caps are created with a text-transform property.
 - Is there content that moves for longer than five seconds? There must be a way to pause/stop it. 
 - Don’t autoplay any content.
 - How many emojis are there? [Don’t have more than three emojis in a row](https://www.perkinselearning.org/technology/blog/how-do-people-vision-impairments-use-emoji). 
-- Don’t use emojis to replace words, just as additions.
+- Don’t use emojis to replace words, use them as additions.
 - If I read a plain text or some other unstyled version of this non-text content, does it still make sense? Is all the same information available? You need to be able to answer “yes” to both those questions.
 
 #### Interactions 
@@ -79,7 +79,7 @@ for emphasis. Or all-caps are created with a text-transform property.
 - Can you complete all interactions with a keyboard? Fantastic.
 - Can you complete all interactions with a touch screen? Wonderful.
 - [Can a single task be completed with multiple input methods?](https://www.w3.org/WAI/WCAG21/Understanding/concurrent-input-mechanisms) It needs to be flexible.  For example, can a task be completed switching between using the mouse and keyboard to navigate.
-- Check all keyboard shortcuts to make sure they don’t conflict with others. This usually includes checking the operating system, browser, and possibly with different language keyboards.
+- Check all keyboard shortcuts to make sure they don’t conflict with others. This usually includes checking the operating system, browser, and possibly with different language keyboards. Because of the number of options, I want to acknowledge this can be a challenge to check but still worth exploring.
 - Keyboard shortcuts need to be configurable/remappable.
 - Keyboard shortcuts cannot be the only way to use a feature. There must be at least one other option.
 - Keyboard shortcuts, in general, are better the fewer keys you have to press at once. Aim for no more than three. Consider how you have to move to hit the keys, and reconsider your choices if you feel like a contortionist.
@@ -157,7 +157,7 @@ accessible way (like a text version) along the way.
 
 Reviewing is a critical part of ensuring that people work together in creating 
 quality things that solve the problem they set out to solve for people. I 
-believe being kind to both the author and the eventual users (by giving a 
+believe being kind to both the author (by calling out what is well done and critiquing only the work and not the person) and the eventual users (by giving a 
 thorough review) is important. It’s a responsibility, and I find it’s 
 important to take accountability for it even in the lowest stake situations.
 
