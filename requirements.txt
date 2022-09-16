@@ -29,7 +29,7 @@ jupyter-client==5.3.4
 jupyter-core==4.6.1
 Logbook==1.4.3.post1
 lxml==4.7.1
-Mako==1.1.0
+Mako==1.2.2
 Markdown==3.2.2
 MarkupSafe==1.1.1
 micawber==0.5.0
