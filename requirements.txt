@@ -6,7 +6,7 @@ Babel==2.9.1
 backcall==0.1.0
 bleach==3.3.0
 blinker==1.4
-certifi==2019.6.16
+certifi==2022.12.7
 chardet==3.0.4
 cloudpickle==1.2.1
 commonmark==0.9.1
